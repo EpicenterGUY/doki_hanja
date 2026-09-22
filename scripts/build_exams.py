@@ -187,6 +187,13 @@ def main():
             if i%50==0:
                 print(f"{i}/{len(futs)} ok={ok} skip={skip} fail={fail}",flush=True)
 
+    # If every source round was already generated, keep the existing manifest unchanged.
+    # This makes verification reruns fast and prevents a pointless manifest-only commit.
+    existing_manifest=OUT/"manifest.json"
+    if ok==0 and fail==0 and skip==len(all_jobs) and existing_manifest.exists():
+        print("DONE all exam JSON already present:", skip, flush=True)
+        return
+
     # Only advertise files that actually exist, so ✓ always means instantly playable.
     manifest={"version":2,"source":"winteriscoming2u.tistory.com","grades":{}}
     for level,meta in grade_meta.items():
