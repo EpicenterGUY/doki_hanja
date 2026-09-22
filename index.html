@@ -1265,26 +1265,54 @@ function cleanExamText(t){
     .replace(/\s+/g," ").trim();
 }
 function contextForQuestion(problemLines,n){
-  const re=markerRE(n);
-  const idx=problemLines.findIndex(x=>re.test(String(x.line||"")));
+  let markerNumber=n;
+  let idx=problemLines.findIndex(x=>markerRE(n).test(String(x.line||"")));
+
+  // Some PDF text layers contain a duplicated question number (e.g. 186,186,188).
+  // If n is missing, map the second duplicate of n-1 to n when n+1 follows it.
+  if(idx<0&&n>1){
+    const prevHits=[];
+    for(let i=0;i<problemLines.length;i++){
+      if(markerRE(n-1).test(String(problemLines[i].line||"")))prevHits.push(i);
+    }
+    const nextIdx=problemLines.findIndex(x=>markerRE(n+1).test(String(x.line||"")));
+    if(prevHits.length>=2){
+      const cand=prevHits[prevHits.length-1];
+      if(nextIdx<0||cand<nextIdx){
+        idx=cand;
+        markerNumber=n-1;
+      }
+    }
+  }
   if(idx<0)return "";
 
   const chunks=[];
   const firstLine=String(problemLines[idx].line||"");
-  const firstMatch=markerRE(n).exec(firstLine);
+  const firstMatch=markerRE(markerNumber).exec(firstLine);
   let first=firstMatch?firstLine.slice(firstMatch.index):firstLine;
+  if(markerNumber!==n)first=first.replace(markerRE(markerNumber),"["+n+"]");
 
-  // A new section header appearing later on the same PDF text row belongs to the other column.
-  const sectionPos=first.slice(1).search(/\[\s*(?:問|문제)\s*\d{1,3}\s*[-~－–]\s*\d{1,3}/);
+  const sectionRe=/\[\s*(?:問|문제)\s*\d{1,3}\s*[-~－–]\s*\d{1,3}/;
+  const sectionPos=first.slice(1).search(sectionRe);
   if(sectionPos>=0)first=first.slice(0,sectionPos+1);
   chunks.push(first);
 
-  for(let j=idx+1;j<=Math.min(problemLines.length-1,idx+2);j++){
+  for(let j=idx+1;j<=Math.min(problemLines.length-1,idx+3);j++){
     const line=String(problemLines[j].line||"");
     const qm=line.match(/\[\s*(\d{1,3})(?:\s*;[^\]]*)?\s*\]|\(\s*(\d{1,3})\s*\)|【\s*(\d{1,3})\s*】|〔\s*(\d{1,3})\s*〕|(?:^|\s)(\d{1,3})\s*[.．:)）]\s*/);
     const other=qm?+(qm[1]||qm[2]||qm[3]||qm[4]||qm[5]):0;
-    if(other&&other!==n)break;
-    if(/\[\s*(?:問|문제)\s*\d{1,3}\s*[-~－–]\s*\d{1,3}/.test(line))break;
+    if(other&&other!==n){
+      const prefix=line.slice(0,qm.index).trim();
+      if(prefix)chunks.push(prefix);
+      break;
+    }
+
+    const sm=sectionRe.exec(line);
+    if(sm){
+      const prefix=line.slice(0,sm.index).trim();
+      if(prefix)chunks.push(prefix);
+      break;
+    }
     chunks.push(line);
   }
   return cleanExamText(chunks.join(" "));
