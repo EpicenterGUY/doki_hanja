@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/"data"/"exams"
 OUT.mkdir(parents=True,exist_ok=True)
-BUILD_FORMAT_VERSION=4
+BUILD_FORMAT_VERSION=5
 
 ARCHIVES={
     "8급":37,"7급Ⅱ":36,"7급":35,"6급Ⅱ":34,"6급":33,
@@ -169,7 +169,7 @@ def extract_pdf(level,rnd,url):
                 re.search(r"답안지\s*[\(（]\s*[12]\s*[\)）]",page_text) is not None or
                 "答案紙" in page_text
             )
-            cols=3 if is_answer else 2
+            cols=1 if is_answer else 2
             for line in page_lines(page,columns=cols):
                 flat.append({"pn":pn,"line":line})
         doc.close()
@@ -229,7 +229,7 @@ def main():
         return
 
     # Only advertise files that actually exist, so ✓ always means instantly playable.
-    manifest={"version":4,"format_version":BUILD_FORMAT_VERSION,"source":"winteriscoming2u.tistory.com","grades":{}}
+    manifest={"version":5,"format_version":BUILD_FORMAT_VERSION,"source":"winteriscoming2u.tistory.com","grades":{}}
     for level,meta in grade_meta.items():
         folder=OUT/SLUG[level]
         actual=[]
