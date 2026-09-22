@@ -298,7 +298,7 @@ const GRADE_ARCHIVES={
   "특급":{post:38,label:"특급"}
 };
 const ARCHIVE_LEVELS=["8급","7급Ⅱ","7급","6급Ⅱ","6급","5급Ⅱ","5급","4급Ⅱ","4급","3급Ⅱ","3급","2급","1급","특급Ⅱ","특급"];
-const GRADE_ARCHIVE_CACHE_PREFIX="hanjaGradeArchiveV3_";
+const GRADE_ARCHIVE_CACHE_PREFIX="hanjaGradeArchiveV4_";
 const GRADE_QUIZ_CACHE_PREFIX="hanjaGradeQuizV2_";
 let examArchiveLevel="특급";
 let gradeArchiveLinks={};
@@ -902,25 +902,25 @@ async function loadGradeArchive(level,{force=false,requireLinks=false}={}){
   let links={};
 
   try{
-    const r=await fetchWithTimeout(url,{cache:"no-store"},3200);
-    if(r.ok){
-      const html=await r.text();
-      links={...links,...parseArchiveHtml(html,url),...parseArchiveMarkdown(html)};
-    }
+    const jina="https://r.jina.ai/"+url;
+    const r=await fetchWithTimeout(jina,{cache:"no-store",headers:{"Accept":"text/plain"}},12000);
+    if(r.ok)links={...links,...parseArchiveMarkdown(await r.text())};
   }catch{}
 
   if(!Object.values(links).some(Boolean)){
     try{
-      const jina="https://r.jina.ai/http://"+url.replace(/^https?:\/\//,"");
-      const r=await fetchWithTimeout(jina,{cache:"no-store"},4200);
-      if(r.ok)links={...links,...parseArchiveMarkdown(await r.text())};
+      const r=await fetchWithTimeout(url,{cache:"no-store"},3500);
+      if(r.ok){
+        const html=await r.text();
+        links={...links,...parseArchiveHtml(html,url),...parseArchiveMarkdown(html)};
+      }
     }catch{}
   }
 
   if(Math.max(0,...Object.keys(links).map(Number))<114){
     try{
       const proxy="https://api.allorigins.win/raw?url="+encodeURIComponent(url);
-      const r=await fetchWithTimeout(proxy,{cache:"no-store"},4200);
+      const r=await fetchWithTimeout(proxy,{cache:"no-store"},5000);
       if(r.ok){
         const html=await r.text();
         links={...links,...parseArchiveHtml(html,url),...parseArchiveMarkdown(html)};
@@ -938,7 +938,7 @@ async function loadGradeArchive(level,{force=false,requireLinks=false}={}){
     return gradeArchiveLinks[level];
   }
 
-  if(requireLinks)throw Error("이 브라우저에서는 외부 기출 PDF 주소를 자동으로 가져오지 못했습니다.");
+  if(requireLinks)throw Error("기출 원문 링크를 가져오지 못했습니다. 잠시 후 다시 시도해 주세요.");
   gradeArchiveLinks[level]=builtinRoundMap(level);
   return gradeArchiveLinks[level];
 }
@@ -1406,7 +1406,7 @@ async function fetchPdfBytesWithFallback(url,statusEl=null){
       errs.push(`${c.label}: ${e.message||e}`);
     }
   }
-  throw Error("브라우저가 PDF 읽기를 차단했습니다.");
+  throw Error("PDF 원문 서버와 변환 서버 모두 연결하지 못했습니다.");
 }
 async function pdfToFlat(pdf,level,round,statusEl=null){
   const flat=[];
@@ -1485,21 +1485,79 @@ function renderPdfFallback(level,round,errorText){
   };
 }
 
+
+function readerTextToFlat(text){
+  const flat=[];
+  let page=1;
+  for(let raw of String(text||"").split(/\r?\n/)){
+    let line=raw.trim();
+    if(!line)continue;
+    const pm=line.match(/^(?:#{1,6}\s*)?(?:Page|페이지)\s*(\d+)\b/i);
+    if(pm){page=+pm[1]||page;continue}
+    if(/^\|?\s*:?-{3,}/.test(line))continue;
+    line=line.replace(/^#{1,6}\s*/,"")
+      .replace(/\[([^\]]+)\]\([^)]*\)/g,"$1")
+      .replace(/\*\*([^*]+)\*\*/g,"$1");
+    if(line.includes("|")){
+      const cells=line.split("|").map(x=>x.trim()).filter(Boolean);
+      if(cells.length>=2)line=cells.join(" ");
+    }
+    line=line.replace(/^[•*+-]\s+/,"").replace(/\s+/g," ").trim();
+    if(line)flat.push({pn:page,line});
+  }
+  return flat;
+}
+async function fetchPdfTextViaReader(url,statusEl=null){
+  const readerUrl="https://r.jina.ai/"+url;
+  if(statusEl)statusEl.textContent="PDF 텍스트 변환 서버 연결 중…";
+  const r=await fetchWithTimeout(readerUrl,{
+    cache:"no-store",
+    headers:{"Accept":"text/plain"}
+  },28000);
+  if(!r.ok)throw Error("Reader HTTP "+r.status);
+  const text=await r.text();
+  if(!text||text.length<400)throw Error("PDF 변환 서버가 본문을 충분히 반환하지 않았습니다.");
+  const flat=readerTextToFlat(text);
+  if(flat.length<20)throw Error("PDF 본문 인식량이 부족합니다.");
+  return flat;
+}
+
 async function extractRoundPdf(level,round,statusEl=null){
   if(!window.pdfjsLib)throw Error("PDF 분석 모듈을 불러오지 못했습니다.");
 
   let url=sourcePdfUrl(level,round);
   if(!url){
-    if(statusEl)statusEl.textContent=`${gradeDisplay(level)} 제${round}회 원문 주소 확인 중…`;
-    try{await loadGradeArchive(level,{force:true,requireLinks:true})}catch(e){throw e}
+    if(statusEl)statusEl.textContent=gradeDisplay(level)+" 제"+round+"회 원문 주소 확인 중…";
+    await loadGradeArchive(level,{force:true,requireLinks:true});
     url=sourcePdfUrl(level,round);
   }
   if(!url)throw Error("이 회차의 원문 PDF 주소를 찾지 못했습니다.");
 
-  // content:// 로컬 HTML에서는 PDF URL 직접 로드가 CORS에 막힐 수 있으므로
-  // 먼저 ArrayBuffer로 여러 경로를 시도한 뒤 PDF.js에 데이터 자체를 넘긴다.
+  try{
+    const flat=await fetchPdfTextViaReader(url,statusEl);
+    if(flat.some(x=>/답안지|번호\s*정답/.test(x.line))){
+      if(statusEl)statusEl.textContent="PDF 원문 변환 완료 · 문제 분석 중…";
+      return flat;
+    }
+  }catch(firstReaderError){
+    if(statusEl)statusEl.textContent="원문 링크 갱신 후 다시 시도 중…";
+  }
+
+  try{
+    await loadGradeArchive(level,{force:true,requireLinks:true});
+    const fresh=sourcePdfUrl(level,round);
+    if(fresh&&fresh!==url){
+      url=fresh;
+      const flat=await fetchPdfTextViaReader(url,statusEl);
+      if(flat.some(x=>/답안지|번호\s*정답/.test(x.line))){
+        if(statusEl)statusEl.textContent="최신 원문 링크 확인 완료 · 문제 분석 중…";
+        return flat;
+      }
+    }
+  }catch(refreshError){}
+
+  if(statusEl)statusEl.textContent="PDF 직접 연결 최종 시도 중…";
   const buf=await fetchPdfBytesWithFallback(url,statusEl);
-  if(statusEl)statusEl.textContent="PDF 분석 준비 중…";
   const pdf=await pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;
   return await pdfToFlat(pdf,level,round,statusEl);
 }
