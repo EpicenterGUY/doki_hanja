@@ -24,18 +24,26 @@ SLUG={
     "5급Ⅱ":"5-2","5급":"5","4급Ⅱ":"4-2","4급":"4","3급Ⅱ":"3-2",
     "3급":"3","2급":"2","1급":"1","특급Ⅱ":"special-2","특급":"special",
 }
-UA={"User-Agent":"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/126 Safari/537.36"}
-sess=requests.Session(); sess.headers.update(UA)
+UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"
+BASE_HEADERS={
+    "User-Agent":UA,
+    "Accept":"application/pdf,application/octet-stream,text/html;q=0.9,*/*;q=0.8",
+    "Accept-Language":"ko-KR,ko;q=0.9,en;q=0.7",
+    "Referer":"https://winteriscoming2u.tistory.com/",
+}
+sess=requests.Session()
+sess.headers.update(BASE_HEADERS)
 
-def get(url,timeout=35):
+def get(url,timeout=25):
     last=None
-    for i in range(4):
+    for i in range(3):
         try:
-            r=sess.get(url,timeout=timeout,allow_redirects=True)
+            r=sess.get(url,timeout=timeout,allow_redirects=True,headers=BASE_HEADERS)
             r.raise_for_status()
             return r
         except Exception as e:
-            last=e; time.sleep(1.5*(i+1))
+            last=e
+            time.sleep(.7*(i+1))
     raise last
 
 def archive_links(level,post):
@@ -46,12 +54,12 @@ def archive_links(level,post):
     for a in soup.find_all("a",href=True):
         txt=" ".join(a.stripped_strings)
         m=re.search(r"(\d{2,3})\s*회",txt)
-        if not m: continue
+        if not m:
+            continue
         rnd=int(m.group(1))
         href=urljoin(page,a["href"])
-        # Attachments are commonly on daumcdn / kakaocdn; keep PDF-ish attachment URLs.
         if ("daumcdn" in href or "kakaocdn" in href or ".pdf" in href.lower()
-            or "attachment" in href.lower() or "tistory" in href.lower()):
+            or "attachment" in href.lower()):
             found[rnd]=href
     return page,found
 
@@ -61,30 +69,71 @@ def page_lines(page):
     for w in words:
         x0,y0,x1,y1,text,*_=w
         text=str(text).strip()
-        if not text: continue
+        if not text:
+            continue
         row=None
-        for r in rows:
-            if abs(r["y"]-y0)<2.8:
-                row=r;break
+        for rr in rows:
+            if abs(rr["y"]-y0)<2.8:
+                row=rr
+                break
         if row is None:
-            row={"y":y0,"items":[]};rows.append(row)
+            row={"y":y0,"items":[]}
+            rows.append(row)
         row["items"].append((x0,text))
-    rows.sort(key=lambda r:r["y"])
+    rows.sort(key=lambda rr:rr["y"])
     out=[]
-    for r in rows:
-        line=" ".join(t for _,t in sorted(r["items"],key=lambda z:z[0]))
+    for rr in rows:
+        line=" ".join(t for _,t in sorted(rr["items"],key=lambda z:z[0]))
         line=re.sub(r"\s+"," ",line).strip()
-        if line: out.append(line)
+        if line:
+            out.append(line)
     return out
+
+def text_via_reader(url):
+    # Reader can server-side fetch some attachment hosts that block GitHub runner IPs.
+    reader="https://r.jina.ai/"+url
+    rr=requests.get(reader,headers={"User-Agent":UA,"Accept":"text/plain"},timeout=45)
+    rr.raise_for_status()
+    txt=rr.text
+    if len(txt)<400:
+        raise RuntimeError("reader response too small")
+    flat=[]
+    pn=1
+    for raw in txt.splitlines():
+        line=raw.strip()
+        if not line:
+            continue
+        pm=re.match(r"^(?:Page|페이지)\s*(\d+)\b",line,re.I)
+        if pm:
+            pn=int(pm.group(1))
+            continue
+        line=re.sub(r"^#{1,6}\s*","",line)
+        line=re.sub(r"\[([^\]]+)\]\([^)]*\)",r"\1",line)
+        line=re.sub(r"\*\*([^*]+)\*\*",r"\1",line)
+        if "|" in line:
+            cells=[x.strip() for x in line.split("|") if x.strip()]
+            if len(cells)>=2:
+                line=" ".join(cells)
+        line=re.sub(r"\s+"," ",line).strip()
+        if line:
+            flat.append({"pn":pn,"line":line})
+    if len(flat)<20:
+        raise RuntimeError(f"reader text too short: {len(flat)}")
+    return flat
 
 def extract_pdf(level,rnd,url):
     dest=OUT/SLUG[level]/f"{rnd}.json"
     if dest.exists() and dest.stat().st_size>500:
-        return level,rnd,"skip",None
+        return level,rnd,"skip","already generated"
+    errors=[]
     try:
-        data=get(url,timeout=50).content
+        # Old t1.daumcdn attachments require a browser-like Referer/User-Agent.
+        r=get(url,timeout=35)
+        data=r.content
         if len(data)<1000:
             raise RuntimeError(f"download too small: {len(data)}")
+        # PyMuPDF checks the actual stream, so historical links labeled .hwp are OK
+        # when the returned attachment is a PDF.
         doc=fitz.open(stream=data,filetype="pdf")
         flat=[]
         for pn,page in enumerate(doc,start=1):
@@ -93,48 +142,76 @@ def extract_pdf(level,rnd,url):
         doc.close()
         if len(flat)<20:
             raise RuntimeError(f"too little text: {len(flat)} lines")
-        dest.parent.mkdir(parents=True,exist_ok=True)
-        payload={
-            "level":level,"round":rnd,"source":url,
-            "pages":max((x["pn"] for x in flat),default=0),
-            "flat":flat,
-        }
-        dest.write_text(json.dumps(payload,ensure_ascii=False,separators=(",",":")),encoding="utf-8")
-        return level,rnd,"ok",len(flat)
     except Exception as e:
-        return level,rnd,"fail",str(e)
+        errors.append("direct="+repr(e))
+        try:
+            flat=text_via_reader(url)
+        except Exception as e2:
+            errors.append("reader="+repr(e2))
+            return level,rnd,"fail"," | ".join(errors)
+
+    dest.parent.mkdir(parents=True,exist_ok=True)
+    payload={
+        "level":level,"round":rnd,"source":url,
+        "pages":max((x["pn"] for x in flat),default=0),
+        "flat":flat,
+    }
+    dest.write_text(json.dumps(payload,ensure_ascii=False,separators=(",",":")),encoding="utf-8")
+    return level,rnd,"ok",len(flat)
 
 def main():
     all_jobs=[]
-    manifest={"version":1,"source":"winteriscoming2u.tistory.com","grades":{}}
+    grade_meta={}
     for level,post in ARCHIVES.items():
         page,links=archive_links(level,post)
-        rounds=sorted(r for r in links if 1<=r<=200)
-        manifest["grades"][level]={"slug":SLUG[level],"archive":page,"rounds":rounds}
+        rounds=sorted(r for r in links if 1<=r<=200 and r not in (88,89))
+        grade_meta[level]={"slug":SLUG[level],"archive":page,"source_rounds":rounds}
         for rnd in rounds:
             all_jobs.append((level,rnd,links[rnd]))
-        print(level,len(rounds),"rounds",rounds[:2],rounds[-2:] if rounds else [])
+        print(level,len(rounds),"source rounds",rounds[:2],rounds[-2:] if rounds else [],flush=True)
 
     ok=skip=fail=0
     failures=[]
-    with cf.ThreadPoolExecutor(max_workers=6) as ex:
+    with cf.ThreadPoolExecutor(max_workers=16) as ex:
         futs=[ex.submit(extract_pdf,*job) for job in all_jobs]
-        for i,f in enumerate(cf.as_completed(futs),start=1):
-            level,rnd,state,info=f.result()
-            if state=="ok": ok+=1
-            elif state=="skip": skip+=1
+        for i,fut in enumerate(cf.as_completed(futs),start=1):
+            level,rnd,state,info=fut.result()
+            if state=="ok":
+                ok+=1
+            elif state=="skip":
+                skip+=1
             else:
-                fail+=1;failures.append({"level":level,"round":rnd,"error":info})
-            if i%25==0 or state=="fail":
-                print(f"{i}/{len(futs)} ok={ok} skip={skip} fail={fail} :: {level} {rnd} {state}")
+                fail+=1
+                failures.append({"level":level,"round":rnd,"error":info})
+                print(f"FAIL {level} {rnd}: {info}",flush=True)
+            if i%50==0:
+                print(f"{i}/{len(futs)} ok={ok} skip={skip} fail={fail}",flush=True)
+
+    # Only advertise files that actually exist, so ✓ always means instantly playable.
+    manifest={"version":2,"source":"winteriscoming2u.tistory.com","grades":{}}
+    for level,meta in grade_meta.items():
+        folder=OUT/SLUG[level]
+        actual=[]
+        if folder.exists():
+            for fp in folder.glob("*.json"):
+                try:
+                    actual.append(int(fp.stem))
+                except ValueError:
+                    pass
+        manifest["grades"][level]={
+            "slug":SLUG[level],
+            "archive":meta["archive"],
+            "rounds":sorted(actual),
+            "source_rounds":meta["source_rounds"],
+        }
 
     manifest["generated_at"]=time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime())
-    manifest["stats"]={"ok":ok,"skip":skip,"fail":fail,"total":len(all_jobs)}
+    manifest["stats"]={"ok":ok,"skip":skip,"fail":fail,"total":len(all_jobs),"available":ok+skip}
     manifest["failures"]=failures
     (OUT/"manifest.json").write_text(json.dumps(manifest,ensure_ascii=False,separators=(",",":")),encoding="utf-8")
-    print("DONE",manifest["stats"])
-    if fail:
-        print("Failures are recorded in manifest; successful rounds are still usable.")
+    print("DONE",manifest["stats"],flush=True)
+    if failures:
+        print("FIRST_FAILURES",json.dumps(failures[:20],ensure_ascii=False),flush=True)
 
 if __name__=="__main__":
     main()
