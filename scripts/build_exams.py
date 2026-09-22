@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/"data"/"exams"
 OUT.mkdir(parents=True,exist_ok=True)
+BUILD_FORMAT_VERSION=3
 
 ARCHIVES={
     "8급":37,"7급Ⅱ":36,"7급":35,"6급Ⅱ":34,"6급":33,
@@ -63,8 +64,7 @@ def archive_links(level,post):
             found[rnd]=href
     return page,found
 
-def page_lines(page):
-    words=page.get_text("words",sort=True)
+def _rows_from_words(words):
     rows=[]
     for w in words:
         x0,y0,x1,y1,text,*_=w
@@ -88,6 +88,21 @@ def page_lines(page):
         if line:
             out.append(line)
     return out
+
+def page_lines(page,split_columns=False):
+    words=page.get_text("words",sort=False)
+    if not split_columns:
+        return _rows_from_words(words)
+
+    # 문제지는 대부분 좌/우 2단이다. 전 폭을 한 줄로 합치면
+    # 서로 다른 문제 번호와 한자가 섞이므로 열별로 읽는다.
+    mid=float(page.rect.width)*0.5
+    left=[]; right=[]
+    for w in words:
+        x0,y0,x1,y1,*_=w
+        cx=(float(x0)+float(x1))*0.5
+        (left if cx<mid else right).append(w)
+    return _rows_from_words(left)+_rows_from_words(right)
 
 def text_via_reader(url):
     # Reader can server-side fetch some attachment hosts that block GitHub runner IPs.
@@ -124,7 +139,12 @@ def text_via_reader(url):
 def extract_pdf(level,rnd,url):
     dest=OUT/SLUG[level]/f"{rnd}.json"
     if dest.exists() and dest.stat().st_size>500:
-        return level,rnd,"skip","already generated"
+        try:
+            old=json.loads(dest.read_text(encoding="utf-8"))
+            if old.get("format_version")==BUILD_FORMAT_VERSION:
+                return level,rnd,"skip","already generated"
+        except Exception:
+            pass
     errors=[]
     try:
         # Old t1.daumcdn attachments require a browser-like Referer/User-Agent.
@@ -137,7 +157,9 @@ def extract_pdf(level,rnd,url):
         doc=fitz.open(stream=data,filetype="pdf")
         flat=[]
         for pn,page in enumerate(doc,start=1):
-            for line in page_lines(page):
+            page_text=page.get_text("text")
+            is_answer=("답안지" in page_text or "答案紙" in page_text)
+            for line in page_lines(page,split_columns=not is_answer):
                 flat.append({"pn":pn,"line":line})
         doc.close()
         if len(flat)<20:
@@ -152,6 +174,7 @@ def extract_pdf(level,rnd,url):
 
     dest.parent.mkdir(parents=True,exist_ok=True)
     payload={
+        "format_version":BUILD_FORMAT_VERSION,
         "level":level,"round":rnd,"source":url,
         "pages":max((x["pn"] for x in flat),default=0),
         "flat":flat,
@@ -195,7 +218,7 @@ def main():
         return
 
     # Only advertise files that actually exist, so ✓ always means instantly playable.
-    manifest={"version":2,"source":"winteriscoming2u.tistory.com","grades":{}}
+    manifest={"version":3,"format_version":BUILD_FORMAT_VERSION,"source":"winteriscoming2u.tistory.com","grades":{}}
     for level,meta in grade_meta.items():
         folder=OUT/SLUG[level]
         actual=[]
