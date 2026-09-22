@@ -1,0 +1,2653 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f1115">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="한자 트레이너">
+<meta name="format-detection" content="telephone=no">
+<title>어문회 한자 올인원 트레이너</title>
+<style>
+:root{
+  --bg:#0f1115; --panel:#171a21; --panel2:#1f2430; --line:#303746;
+  --text:#f3f5f7; --muted:#9aa4b2; --accent:#f0b94a; --good:#62d49b;
+  --bad:#ff7474; --info:#76b7ff; --chip:#252b36; --shadow:0 12px 34px rgba(0,0,0,.28)
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;background:var(--bg)}
+html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif}
+body{padding-top:env(safe-area-inset-top);padding-right:env(safe-area-inset-right);padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left)}
+button,input:not([type="checkbox"]):not([type="radio"]),select,textarea{-webkit-appearance:none;appearance:none;border-radius:10px}
+button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+canvas{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overscroll-behavior:contain}
+body{min-height:100vh}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.app{max-width:1180px;margin:auto;padding:18px}
+.top{display:flex;gap:14px;align-items:center;justify-content:space-between;margin-bottom:14px}
+.brand h1{font-size:clamp(22px,4vw,34px);margin:0 0 3px}
+.brand p{margin:0;color:var(--muted);font-size:13px}
+.status{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.badge{padding:6px 9px;border:1px solid var(--line);border-radius:999px;background:var(--chip);font-size:12px;color:#dce2e8}
+.badge.good{border-color:#2e6b50;color:#a4efc8}
+.badge.hot{border-color:#795a1e;color:#ffd987}
+.tabs{display:flex;gap:7px;overflow:auto;padding-bottom:8px}
+.tab{border:1px solid var(--line);background:var(--panel);color:var(--muted);padding:9px 13px;border-radius:11px;white-space:nowrap}
+.tab.active{background:#2a2418;border-color:#72541f;color:#ffd781}
+.simple-home{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.simple-card{border:1px solid var(--line);background:#12161d;border-radius:14px;padding:15px;cursor:pointer;text-align:left;color:var(--text)}
+.simple-card:hover{border-color:#80662f}.simple-card b{display:block;font-size:16px;margin-bottom:5px}.simple-card small{color:var(--muted);line-height:1.45}
+.quick-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.quick-pill{border:1px solid var(--line);background:#171c24;color:var(--text);padding:8px 11px;border-radius:999px}
+.compact-settings{border:1px solid var(--line);border-radius:12px;background:#11151b;margin-top:10px}
+.compact-settings summary{cursor:pointer;padding:11px 13px;font-weight:800;color:#d8dee7}
+.compact-settings>div{padding:0 13px 13px}
+.solve-method{display:flex;gap:6px;margin-top:10px}
+.solve-method button{flex:1}
+.soft{color:var(--muted);font-size:12px;line-height:1.5}
+.hub-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.hub-card{padding:16px;border:1px solid var(--line);border-radius:13px;background:#12161d}
+.hub-card b{display:block;font-size:17px;margin-bottom:5px}.hub-card p{margin:0 0 12px;color:var(--muted);font-size:13px}
+@media(max-width:600px){.simple-home,.hub-grid{grid-template-columns:1fr}}
+
+.grid{display:grid;grid-template-columns:310px 1fr;gap:14px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.sidebar{padding:14px}
+.content{padding:18px;min-height:640px}
+.section-title{font-weight:800;margin:3px 0 10px}
+.label{font-size:12px;color:var(--muted);margin:11px 0 5px}
+select,input[type="number"],input[type="text"],textarea{
+  width:100%;background:#101319;border:1px solid var(--line);color:var(--text);
+  border-radius:10px;padding:10px 11px;outline:none
+}
+select:focus,input:focus,textarea:focus{border-color:#88703d}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.check{display:flex;align-items:center;gap:7px;background:var(--chip);border:1px solid var(--line);padding:8px;border-radius:9px;font-size:12px}
+.check input[type="checkbox"]{
+  -webkit-appearance:checkbox;
+  appearance:auto;
+  width:18px;
+  height:18px;
+  flex:0 0 18px;
+  accent-color:#d6a33b;
+  margin:0;
+}
+.check.selected{
+  background:#332916;
+  border-color:#9b7427;
+  color:#ffe3a2;
+  box-shadow:inset 0 0 0 1px rgba(240,185,74,.16);
+}
+.check.selected::after{
+  content:"✓";
+  margin-left:auto;
+  font-weight:900;
+  color:#ffd873;
+}
+
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}
+.btn{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:10px 12px;border-radius:10px;font-weight:700}
+.btn.primary{background:#6f5119;border-color:#997224;color:#fff0c7}
+.btn.good{background:#1b4b37;border-color:#2e7454}
+.btn.bad{background:#552929;border-color:#7f3939}
+.btn.ghost{background:transparent}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.note{font-size:12px;color:var(--muted);line-height:1.5}
+.card{border:1px solid var(--line);background:#12151b;border-radius:15px;padding:18px}
+.hero{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+.big-hanja{font-family:"Noto Serif CJK KR","Batang","NanumMyeongjo",serif;font-size:clamp(74px,15vw,150px);line-height:1;text-align:center;min-width:180px}
+.prompt{font-size:clamp(20px,3.6vw,34px);font-weight:800;line-height:1.45}
+.sub{color:var(--muted);margin-top:8px}
+.answer-row{display:flex;gap:8px;margin-top:14px}
+.answer-row input{font-size:18px;padding:13px}
+.answer-row .btn{min-width:92px}
+.feedback{margin-top:12px;padding:12px;border-radius:10px;display:none}
+.feedback.ok{display:block;background:#153a2b;border:1px solid #2f7657}
+.feedback.no{display:block;background:#3d2020;border:1px solid #7d3f3f}
+.meta{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.meta .badge{background:#1a1f28}
+.progress{height:9px;background:#0d0f13;border-radius:99px;overflow:hidden;margin:12px 0}
+.progress>div{height:100%;background:linear-gradient(90deg,#d7a83d,#f4d17a);width:0%}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
+.kpi{background:#11151b;border:1px solid var(--line);border-radius:12px;padding:12px}
+.kpi b{display:block;font-size:21px}.kpi span{font-size:12px;color:var(--muted)}
+.canvas-wrap{display:none;margin-top:14px}
+canvas{background:#fff;border-radius:12px;width:100%;max-width:430px;aspect-ratio:1;border:1px solid #555;touch-action:none}
+.canvas-tools{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px}
+.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{position:sticky;top:0;background:#1b2028;z-index:1}
+tr:last-child td{border-bottom:none}
+.tag{font-size:11px;padding:3px 6px;border-radius:7px;background:#2a303a;color:#ccd4dd}
+.hot1{background:#523c15;color:#ffdb83}.hot2{background:#61311a;color:#ffb08c}
+.empty{padding:40px 15px;text-align:center;color:var(--muted)}
+.inline{display:flex;gap:8px}.inline>*{flex:1}
+hr{border:0;border-top:1px solid var(--line);margin:15px 0}
+.modecards{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.modecard{padding:12px;background:#12161d;border:1px solid var(--line);border-radius:12px}
+.modecard b{display:block;margin-bottom:4px}.modecard small{color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%);background:#252b34;border:1px solid #47505f;padding:10px 14px;border-radius:10px;z-index:50;display:none}
+.small{font-size:12px}.right{text-align:right}
+.filebtn{display:block;text-align:center}
+input[type=file]{display:none}
+.result-list{display:grid;gap:8px}
+.result-item{display:flex;justify-content:space-between;gap:10px;border:1px solid var(--line);background:#12161c;padding:10px;border-radius:10px}
+.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.choice-btn{border:1px solid var(--line);background:#161b23;color:var(--text);padding:12px;border-radius:10px;text-align:left}
+.choice-btn:hover{border-color:#80662f}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin:12px 0}
+.toolbar>div{min-width:130px;flex:1}
+.drill-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(260px,420px);gap:16px;align-items:start}
+.drill-answer{font-family:"Noto Serif CJK KR","Batang","NanumMyeongjo",serif;font-size:68px;text-align:center;padding:12px}
+.exam-nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
+.exam-dot{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:#171c24;color:var(--muted)}
+.word-write-wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin-top:14px}
+.word-char-box{background:#101319;border:1px solid var(--line);border-radius:12px;padding:9px;text-align:center}
+.word-char-box canvas{width:100%;aspect-ratio:1;max-width:none}
+.word-char-label{font-size:12px;color:var(--muted);margin-top:6px}
+.remote-exam-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:7px;margin-top:12px}
+.round-btn{border:1px solid var(--line);background:#171c24;color:var(--text);padding:10px 6px;border-radius:9px}
+.round-btn:hover{border-color:#987326}.round-btn.built{border-color:#2f7657;color:#a9edcb;background:#13231c}.round-btn.cancelled{opacity:.45;text-decoration:line-through}
+.pdf-frame{width:100%;height:min(67vh,760px);border:1px solid var(--line);border-radius:12px;background:#fff}
+.remote-question{margin-top:12px;border:1px solid var(--line);background:#10141a;border-radius:13px;padding:14px}
+.q-snippet{font-size:14px;line-height:1.65;color:#d7dde5;background:#161b22;border-radius:9px;padding:10px;margin:9px 0}
+.remote-status{padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:#121820;color:var(--muted);font-size:13px}
+.remote-status.ok{border-color:#2e7454;color:#a9edcb}.remote-status.bad{border-color:#794141;color:#ffb0b0}
+.remote-nav{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;max-height:190px;overflow:auto;margin-top:10px}
+.remote-nav button{padding:6px 2px;font-size:11px;border:1px solid var(--line);border-radius:6px;background:#171c24;color:var(--muted)}
+.remote-nav button.current{background:#6f5119;color:white}.remote-nav button.done{border-color:#347453;color:#b9efd0}
+@media(max-width:600px){.pdf-frame{height:58vh}.remote-nav{grid-template-columns:repeat(8,1fr)}}
+
+.source-text{margin-top:12px;padding:12px 14px;border-left:3px solid var(--accent);background:#11161d;border-radius:8px;line-height:1.7}
+.source-text b{color:#ffd781}
+
+.exam-dot.done{border-color:#52755f;color:#a8e6bd}.exam-dot.current{background:#6f5119;color:#fff}
+@media(max-width:820px){.drill-grid{grid-template-columns:1fr}.choice-grid{grid-template-columns:1fr}}
+
+@media(max-width:820px){
+  .app{padding:10px}.top{align-items:flex-start}.grid{grid-template-columns:1fr}.sidebar{order:1}.content{order:2;min-height:520px}
+  .hero{grid-template-columns:1fr}.big-hanja{order:-1;min-width:0}.kpis{grid-template-columns:1fr 1fr}.modecards{grid-template-columns:1fr 1fr}
+}
+@media(max-width:480px){
+  input:not([type="checkbox"]):not([type="radio"]),select,textarea,button{font-size:16px}
+  .check{font-size:14px;min-height:48px}
+  .actions,.checks{grid-template-columns:1fr 1fr}.content{padding:13px}.sidebar{padding:12px}
+  .answer-row{flex-direction:column}.answer-row .btn{width:100%}.modecards{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="top">
+    <div class="brand">
+      <h1>漢字 올인원 트레이너</h1>
+      <p>한국어문회 · 8급 → 특급 · 훈음/독음/쓰기/응용/기출빈도/오답 · iPhone/iPad 지원</p>
+    </div>
+    <div class="status">
+      <span class="badge" id="dataBadge">배정한자 로딩 중</span>
+      <span class="badge hot" id="freqBadge">기출 빈도 0건</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-tab="practice">연습</button>
+    <button class="tab" data-tab="exam">기출</button>
+    <button class="tab" data-tab="drill">급수별</button>
+    <button class="tab" data-tab="more">기록·설정</button>
+  </div>
+
+  <div class="grid">
+    <aside class="panel sidebar">
+      <div class="section-title">빠른 연습</div>
+      <div class="label">목표 급수</div>
+      <select id="level"></select>
+
+      <div class="label">문제 수</div>
+      <select id="count">
+        <option value="10">10문제</option><option value="20" selected>20문제</option>
+        <option value="50">50문제</option><option value="100">100문제</option><option value="0">무한</option>
+      </select>
+
+      <details class="compact-settings">
+        <summary>유형·범위 설정</summary>
+        <div>
+          <div class="label">출제 범위</div>
+          <select id="scope">
+            <option value="all">배정한자 전체</option>
+            <option value="freq">기출 빈출 우선</option>
+            <option value="wrong">오답 위주</option>
+            <option value="unseen">미풀이 위주</option>
+          </select>
+
+          <div class="label">기출 회차 필터</div>
+          <div class="inline">
+            <input id="roundFrom" type="number" value="30" min="1" title="시작 회차">
+            <input id="roundTo" type="number" placeholder="최신" min="1" title="끝 회차">
+          </div>
+
+          <div class="label">문제 유형</div>
+          <div class="checks" id="typeChecks"></div>
+        </div>
+      </details>
+
+      <div class="actions">
+        <button class="btn primary" id="startBtn">연습 시작</button>
+        <button class="btn" id="randomBtn">랜덤 10</button>
+      </div>
+      <hr>
+      <div class="note">
+        <b>빈출 표시 방식</b><br>
+        불러온 기출 데이터의 회차별 출현 횟수로 계산합니다. 기출 기록이 없는 글자는 임의로 빈출 처리하지 않습니다.
+      </div>
+    </aside>
+
+    <main class="panel content">
+      <section id="practice" class="tabpage"></section>
+      <section id="exam" class="tabpage" hidden></section>
+      <section id="drill" class="tabpage" hidden></section>
+      <section id="more" class="tabpage" hidden></section>
+      <section id="write" class="tabpage" hidden></section>
+      <section id="freq" class="tabpage" hidden></section>
+      <section id="wrong" class="tabpage" hidden></section>
+      <section id="data" class="tabpage" hidden></section>
+    </main>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script>
+"use strict";
+const GRADE_ORDER=["8급","7급Ⅱ","7급","6급Ⅱ","6급","5급Ⅱ","5급","4급Ⅱ","4급","3급Ⅱ","3급","2급","1급","특급Ⅱ","특급"];
+const TYPES={
+  sound:"독음", meaning:"훈", meaningSound:"훈음", longSound:"장단음", write:"한자쓰기", wordWrite:"한자어쓰기", definition:"뜻풀이",
+  radical:"부수", strokes:"총획", sameSound:"동음자",
+  antonym:"반대·상대어", synonym:"동의·유의어", idiom:"사자성어",
+  abbreviation:"약자", fill:"한자어 완성", homonym:"동음이의어", multiReading:"동자이음"
+};
+const GENERATED_TYPES=new Set(["sound","meaning","meaningSound","write","radical","strokes","sameSound","multiReading"]);
+const RAW_URL="https://raw.githubusercontent.com/rycont/hanja-grade-dataset/main/hanja.csv";
+
+let chars=[], examItems=[], session=[], current=0, sessionScore={ok:0,no:0}, mode="practice";
+let examState={questions:[],index:0,answers:[],checked:[],score:0,round:null,level:null};
+let drillState={list:[],index:0,mode:"meaningSound",order:"alpha",grade:"8급",checked:false};
+let remoteExamState={round:null,url:null,pdf:null,questions:{},answers:{},types:{},pages:{},index:1,user:{},checked:{},score:0,loaded:false};
+let freshSpecialUrls={};
+const SPECIAL_CACHE_PREFIX="hanjaSpecialQuizV6_";
+let specialBuildBusy=false;
+const SPECIAL_ARCHIVE_URL="https://winteriscoming2u.tistory.com/38";
+
+const GRADE_ARCHIVES={
+  "8급":{post:37,label:"8급"},
+  "7급Ⅱ":{post:36,label:"7급Ⅱ"},
+  "7급":{post:35,label:"7급"},
+  "6급Ⅱ":{post:34,label:"6급Ⅱ"},
+  "6급":{post:33,label:"6급"},
+  "5급Ⅱ":{post:32,label:"5급Ⅱ"},
+  "5급":{post:31,label:"5급"},
+  "4급Ⅱ":{post:30,label:"4급Ⅱ"},
+  "4급":{post:29,label:"4급"},
+  "3급Ⅱ":{post:28,label:"3급Ⅱ"},
+  "3급":{post:27,label:"3급"},
+  "2급":{post:26,label:"2급"},
+  "1급":{post:25,label:"1급"},
+  "특급Ⅱ":{post:39,label:"특급Ⅱ(준특급)"},
+  "특급":{post:38,label:"특급"}
+};
+const ARCHIVE_LEVELS=["8급","7급Ⅱ","7급","6급Ⅱ","6급","5급Ⅱ","5급","4급Ⅱ","4급","3급Ⅱ","3급","2급","1급","특급Ⅱ","특급"];
+const GRADE_ARCHIVE_CACHE_PREFIX="hanjaGradeArchiveV3_";
+const GRADE_QUIZ_CACHE_PREFIX="hanjaGradeQuizV2_";
+let examArchiveLevel="특급";
+let gradeArchiveLinks={};
+function isLocalContentMode(){
+  const p=(location.protocol||"").toLowerCase();
+  return p==="content:"||p==="file:";
+}
+
+
+const BUILTIN_GRADE_ROUNDS={
+  "8급":[35,36,37,...Array.from({length:49},(_,i)=>39+i),...Array.from({length:25},(_,i)=>90+i)].filter(x=>x!==54&&x!==88&&x!==89),
+  "7급Ⅱ":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "7급":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "6급Ⅱ":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "6급":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "5급Ⅱ":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "5급":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "4급Ⅱ":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "4급":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "3급Ⅱ":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "3급":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "2급":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "1급":[...Array.from({length:53},(_,i)=>35+i),...Array.from({length:25},(_,i)=>90+i)],
+  "특급Ⅱ":[...Array.from({length:50},(_,i)=>38+i),...Array.from({length:25},(_,i)=>90+i)],
+  "특급":[...Array.from({length:50},(_,i)=>38+i),...Array.from({length:25},(_,i)=>90+i)]
+};
+function builtinRoundMap(level){
+  const out={};
+  for(const r of (BUILTIN_GRADE_ROUNDS[level]||[]))out[r]=null;
+  return out;
+}
+async function fetchWithTimeout(url,options={},ms=4500){
+  const c=new AbortController(),t=setTimeout(()=>c.abort(),ms);
+  try{return await fetch(url,{...options,signal:c.signal})}
+  finally{clearTimeout(t)}
+}
+
+
+const EMBEDDED_SPECIAL38=[{"round":38,"no":1,"level":"특급","type":"sound","prompt":"「嚬蹙」의 독음을 쓰세요.","answer":"빈축","hanja":"嚬蹙","note":"제38회 특급 기출 연습형"},{"round":38,"no":2,"level":"특급","type":"sound","prompt":"「操觚」의 독음을 쓰세요.","answer":"조고","hanja":"操觚","note":"제38회 특급 기출 연습형"},{"round":38,"no":3,"level":"특급","type":"sound","prompt":"「叱咤」의 독음을 쓰세요.","answer":"질타","hanja":"叱咤","note":"제38회 특급 기출 연습형"},{"round":38,"no":4,"level":"특급","type":"sound","prompt":"「芟除」의 독음을 쓰세요.","answer":"삼제","hanja":"芟除","note":"제38회 특급 기출 연습형"},{"round":38,"no":5,"level":"특급","type":"sound","prompt":"「自貽」의 독음을 쓰세요.","answer":"자이","hanja":"自貽","note":"제38회 특급 기출 연습형"},{"round":38,"no":6,"level":"특급","type":"sound","prompt":"「彤管」의 독음을 쓰세요.","answer":"동관","hanja":"彤管","note":"제38회 특급 기출 연습형"},{"round":38,"no":7,"level":"특급","type":"sound","prompt":"「痰涎」의 독음을 쓰세요.","answer":"담연","hanja":"痰涎","note":"제38회 특급 기출 연습형"},{"round":38,"no":8,"level":"특급","type":"sound","prompt":"「簽訂」의 독음을 쓰세요.","answer":"첨정","hanja":"簽訂","note":"제38회 특급 기출 연습형"},{"round":38,"no":9,"level":"특급","type":"sound","prompt":"「服闋」의 독음을 쓰세요.","answer":"복결","hanja":"服闋","note":"제38회 특급 기출 연습형"},{"round":38,"no":10,"level":"특급","type":"sound","prompt":"「誑耀」의 독음을 쓰세요.","answer":"광요","hanja":"誑耀","note":"제38회 특급 기출 연습형"},{"round":38,"no":11,"level":"특급","type":"sound","prompt":"「鞃鞹」의 독음을 쓰세요.","answer":"굉곽","hanja":"鞃鞹","note":"제38회 특급 기출 연습형"},{"round":38,"no":12,"level":"특급","type":"sound","prompt":"「酣觴」의 독음을 쓰세요.","answer":"감상","hanja":"酣觴","note":"제38회 특급 기출 연습형"},{"round":38,"no":13,"level":"특급","type":"sound","prompt":"「貧窶」의 독음을 쓰세요.","answer":"빈구","hanja":"貧窶","note":"제38회 특급 기출 연습형"},{"round":38,"no":14,"level":"특급","type":"sound","prompt":"「迺公」의 독음을 쓰세요.","answer":"내공","hanja":"迺公","note":"제38회 특급 기출 연습형"},{"round":38,"no":15,"level":"특급","type":"sound","prompt":"「闍臺」의 독음을 쓰세요.","answer":"도대","hanja":"闍臺","note":"제38회 특급 기출 연습형"},{"round":38,"no":16,"level":"특급","type":"sound","prompt":"「罍尊」의 독음을 쓰세요.","answer":"뇌준","hanja":"罍尊","note":"제38회 특급 기출 연습형"},{"round":38,"no":17,"level":"특급","type":"sound","prompt":"「詈罵」의 독음을 쓰세요.","answer":"이매","hanja":"詈罵","note":"제38회 특급 기출 연습형"},{"round":38,"no":18,"level":"특급","type":"sound","prompt":"「霑醉」의 독음을 쓰세요.","answer":"점취","hanja":"霑醉","note":"제38회 특급 기출 연습형"},{"round":38,"no":19,"level":"특급","type":"sound","prompt":"「霆擊」의 독음을 쓰세요.","answer":"정격","hanja":"霆擊","note":"제38회 특급 기출 연습형"},{"round":38,"no":20,"level":"특급","type":"sound","prompt":"「緦麻」의 독음을 쓰세요.","answer":"시마","hanja":"緦麻","note":"제38회 특급 기출 연습형"},{"round":38,"no":21,"level":"특급","type":"sound","prompt":"「纁裳」의 독음을 쓰세요.","answer":"훈상","hanja":"纁裳","note":"제38회 특급 기출 연습형"},{"round":38,"no":22,"level":"특급","type":"sound","prompt":"「豎童」의 독음을 쓰세요.","answer":"수동","hanja":"豎童","note":"제38회 특급 기출 연습형"},{"round":38,"no":23,"level":"특급","type":"sound","prompt":"「瑣談」의 독음을 쓰세요.","answer":"쇄담","hanja":"瑣談","note":"제38회 특급 기출 연습형"},{"round":38,"no":24,"level":"특급","type":"sound","prompt":"「颺幕」의 독음을 쓰세요.","answer":"양막","hanja":"颺幕","note":"제38회 특급 기출 연습형"},{"round":38,"no":25,"level":"특급","type":"sound","prompt":"「藹鬱」의 독음을 쓰세요.","answer":"애울","hanja":"藹鬱","note":"제38회 특급 기출 연습형"},{"round":38,"no":26,"level":"특급","type":"sound","prompt":"「闈墨」의 독음을 쓰세요.","answer":"위묵","hanja":"闈墨","note":"제38회 특급 기출 연습형"},{"round":38,"no":27,"level":"특급","type":"sound","prompt":"「彝儀」의 독음을 쓰세요.","answer":"이의","hanja":"彝儀","note":"제38회 특급 기출 연습형"},{"round":38,"no":28,"level":"특급","type":"sound","prompt":"「翳薈」의 독음을 쓰세요.","answer":"예회","hanja":"翳薈","note":"제38회 특급 기출 연습형"},{"round":38,"no":29,"level":"특급","type":"sound","prompt":"「勃屑」의 독음을 쓰세요.","answer":"발설","hanja":"勃屑","note":"제38회 특급 기출 연습형"},{"round":38,"no":30,"level":"특급","type":"sound","prompt":"「闔闢」의 독음을 쓰세요.","answer":"합벽","hanja":"闔闢","note":"제38회 특급 기출 연습형"},{"round":38,"no":31,"level":"특급","type":"sound","prompt":"「伏覩」의 독음을 쓰세요.","answer":"복도","hanja":"伏覩","note":"제38회 특급 기출 연습형"},{"round":38,"no":32,"level":"특급","type":"sound","prompt":"「墓碣」의 독음을 쓰세요.","answer":"묘갈","hanja":"墓碣","note":"제38회 특급 기출 연습형"},{"round":38,"no":33,"level":"특급","type":"sound","prompt":"「雲仍」의 독음을 쓰세요.","answer":"운잉","hanja":"雲仍","note":"제38회 특급 기출 연습형"},{"round":38,"no":34,"level":"특급","type":"sound","prompt":"「皁莢」의 독음을 쓰세요.","answer":"조협","hanja":"皁莢","note":"제38회 특급 기출 연습형"},{"round":38,"no":35,"level":"특급","type":"sound","prompt":"「顒若」의 독음을 쓰세요.","answer":"옹약","hanja":"顒若","note":"제38회 특급 기출 연습형"},{"round":38,"no":36,"level":"특급","type":"sound","prompt":"「哀嗸」의 독음을 쓰세요.","answer":"애오","hanja":"哀嗸","note":"제38회 특급 기출 연습형"},{"round":38,"no":37,"level":"특급","type":"sound","prompt":"「瀛洲」의 독음을 쓰세요.","answer":"영주","hanja":"瀛洲","note":"제38회 특급 기출 연습형"},{"round":38,"no":38,"level":"특급","type":"sound","prompt":"「負茲」의 독음을 쓰세요.","answer":"부자","hanja":"負茲","note":"제38회 특급 기출 연습형"},{"round":38,"no":39,"level":"특급","type":"sound","prompt":"「齧膝」의 독음을 쓰세요.","answer":"설슬","hanja":"齧膝","note":"제38회 특급 기출 연습형"},{"round":38,"no":40,"level":"특급","type":"sound","prompt":"「苴絰」의 독음을 쓰세요.","answer":"저질","hanja":"苴絰","note":"제38회 특급 기출 연습형"},{"round":38,"no":41,"level":"특급","type":"sound","prompt":"「戢翼」의 독음을 쓰세요.","answer":"집익","hanja":"戢翼","note":"제38회 특급 기출 연습형"},{"round":38,"no":42,"level":"특급","type":"sound","prompt":"「齷齪」의 독음을 쓰세요.","answer":"악착","hanja":"齷齪","note":"제38회 특급 기출 연습형"},{"round":38,"no":43,"level":"특급","type":"sound","prompt":"「睟然」의 독음을 쓰세요.","answer":"수연","hanja":"睟然","note":"제38회 특급 기출 연습형"},{"round":38,"no":44,"level":"특급","type":"sound","prompt":"「弗啻」의 독음을 쓰세요.","answer":"불시","hanja":"弗啻","note":"제38회 특급 기출 연습형"},{"round":38,"no":45,"level":"특급","type":"sound","prompt":"「竦懼」의 독음을 쓰세요.","answer":"송구","hanja":"竦懼","note":"제38회 특급 기출 연습형"},{"round":38,"no":46,"level":"특급","type":"sound","prompt":"「箝制」의 독음을 쓰세요.","answer":"겸제","hanja":"箝制","note":"제38회 특급 기출 연습형"},{"round":38,"no":47,"level":"특급","type":"sound","prompt":"「覊絆」의 독음을 쓰세요.","answer":"기반","hanja":"覊絆","note":"제38회 특급 기출 연습형"},{"round":38,"no":48,"level":"특급","type":"sound","prompt":"「夷狄」의 독음을 쓰세요.","answer":"이적","hanja":"夷狄","note":"제38회 특급 기출 연습형"},{"round":38,"no":49,"level":"특급","type":"sound","prompt":"「貲簿」의 독음을 쓰세요.","answer":"자부","hanja":"貲簿","note":"제38회 특급 기출 연습형"},{"round":38,"no":50,"level":"특급","type":"sound","prompt":"「阼俎」의 독음을 쓰세요.","answer":"조조","hanja":"阼俎","note":"제38회 특급 기출 연습형"},{"round":38,"no":51,"level":"특급","type":"meaningSound","prompt":"「茄」의 훈과 음을 적으세요.","answer":"가지 가","hanja":"茄","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":52,"level":"특급","type":"meaningSound","prompt":"「臂」의 훈과 음을 적으세요.","answer":"팔 비","hanja":"臂","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":53,"level":"특급","type":"meaningSound","prompt":"「宛」의 훈과 음을 적으세요.","answer":"완연할 완","hanja":"宛","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":54,"level":"특급","type":"meaningSound","prompt":"「艱」의 훈과 음을 적으세요.","answer":"어려울 간","hanja":"艱","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":55,"level":"특급","type":"meaningSound","prompt":"「綺」의 훈과 음을 적으세요.","answer":"비단 기","hanja":"綺","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":56,"level":"특급","type":"meaningSound","prompt":"「恃」의 훈과 음을 적으세요.","answer":"믿을 시","hanja":"恃","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":57,"level":"특급","type":"meaningSound","prompt":"「蛋」의 훈과 음을 적으세요.","answer":"새알 단","hanja":"蛋","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":58,"level":"특급","type":"meaningSound","prompt":"「暲」의 훈과 음을 적으세요.","answer":"해돋을 장","hanja":"暲","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":59,"level":"특급","type":"meaningSound","prompt":"「橙」의 훈과 음을 적으세요.","answer":"귤/걸상 등","hanja":"橙","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":60,"level":"특급","type":"meaningSound","prompt":"「汞」의 훈과 음을 적으세요.","answer":"수은 홍","hanja":"汞","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":61,"level":"특급","type":"meaningSound","prompt":"「籃」의 훈과 음을 적으세요.","answer":"대바구니 람","hanja":"籃","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":62,"level":"특급","type":"meaningSound","prompt":"「姐」의 훈과 음을 적으세요.","answer":"맏누이 저","hanja":"姐","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":63,"level":"특급","type":"meaningSound","prompt":"「昉」의 훈과 음을 적으세요.","answer":"밝을 방","hanja":"昉","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":64,"level":"특급","type":"meaningSound","prompt":"「寥」의 훈과 음을 적으세요.","answer":"쓸쓸할 료","hanja":"寥","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":65,"level":"특급","type":"meaningSound","prompt":"「杻」의 훈과 음을 적으세요.","answer":"싸리 뉴, 수갑 추","hanja":"杻","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":66,"level":"특급","type":"meaningSound","prompt":"「眄」의 훈과 음을 적으세요.","answer":"곁눈질할 면","hanja":"眄","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":67,"level":"특급","type":"meaningSound","prompt":"「馴」의 훈과 음을 적으세요.","answer":"길들일 순","hanja":"馴","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":68,"level":"특급","type":"meaningSound","prompt":"「衒」의 훈과 음을 적으세요.","answer":"자랑할 현","hanja":"衒","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":69,"level":"특급","type":"meaningSound","prompt":"「箔」의 훈과 음을 적으세요.","answer":"발 박","hanja":"箔","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":70,"level":"특급","type":"meaningSound","prompt":"「逞」의 훈과 음을 적으세요.","answer":"쾌할 령","hanja":"逞","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":71,"level":"특급","type":"meaningSound","prompt":"「洑」의 훈과 음을 적으세요.","answer":"보 보, 스며흐를 복","hanja":"洑","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":72,"level":"특급","type":"meaningSound","prompt":"「鄙」의 훈과 음을 적으세요.","answer":"더러울 비","hanja":"鄙","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":73,"level":"특급","type":"meaningSound","prompt":"「嗣」의 훈과 음을 적으세요.","answer":"이을 사","hanja":"嗣","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":74,"level":"특급","type":"meaningSound","prompt":"「筌」의 훈과 음을 적으세요.","answer":"통발 전","hanja":"筌","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":75,"level":"특급","type":"meaningSound","prompt":"「袂」의 훈과 음을 적으세요.","answer":"소매 몌","hanja":"袂","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":76,"level":"특급","type":"meaningSound","prompt":"「朶」의 훈과 음을 적으세요.","answer":"꽃송이 타","hanja":"朶","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":77,"level":"특급","type":"meaningSound","prompt":"「飴」의 훈과 음을 적으세요.","answer":"엿 이","hanja":"飴","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":78,"level":"특급","type":"meaningSound","prompt":"「嘶」의 훈과 음을 적으세요.","answer":"말울/목쉴 시","hanja":"嘶","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":79,"level":"특급","type":"meaningSound","prompt":"「窄」의 훈과 음을 적으세요.","answer":"좁을 착","hanja":"窄","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":80,"level":"특급","type":"meaningSound","prompt":"「棅」의 훈과 음을 적으세요.","answer":"자루 병","hanja":"棅","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":81,"level":"특급","type":"meaningSound","prompt":"「騙」의 훈과 음을 적으세요.","answer":"속일 편","hanja":"騙","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":82,"level":"특급","type":"meaningSound","prompt":"「靡」의 훈과 음을 적으세요.","answer":"쓰러질 미","hanja":"靡","note":"복수 훈음 표기는 정답 공개로 확인"},{"round":38,"no":83,"level":"특급","type":"longSound","prompt":"51~82번 한자 가운데 장음으로 발음되는 항목을 원문과 대조해 골라 보세요.","answer":"원문 답안지 대조","hanja":"","note":"83~92번은 묶음형 문제라 원문 확인형으로 제공합니다.","manual":true,"sourceText":"제38회 83~92번 장음 선택 문제"},{"round":38,"no":93,"level":"특급","type":"wordWrite","prompt":"「공고」를 한자로 쓰세요.","answer":"鞏固","korean":"공고","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":94,"level":"특급","type":"wordWrite","prompt":"「유지」를 한자로 쓰세요.","answer":"維持","korean":"유지","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":95,"level":"특급","type":"wordWrite","prompt":"「빙자」를 한자로 쓰세요.","answer":"憑藉","korean":"빙자","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":96,"level":"특급","type":"wordWrite","prompt":"「유린」를 한자로 쓰세요.","answer":"蹂躪","korean":"유린","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":97,"level":"특급","type":"wordWrite","prompt":"「무고」를 한자로 쓰세요.","answer":"無辜","korean":"무고","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":98,"level":"특급","type":"wordWrite","prompt":"「살육」를 한자로 쓰세요.","answer":"殺戮","korean":"살육","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":99,"level":"특급","type":"wordWrite","prompt":"「약탈」를 한자로 쓰세요.","answer":"掠奪","korean":"약탈","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":100,"level":"특급","type":"wordWrite","prompt":"「자행」를 한자로 쓰세요.","answer":"恣行","korean":"자행","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":101,"level":"특급","type":"wordWrite","prompt":"「야만」를 한자로 쓰세요.","answer":"野蠻","korean":"야만","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":102,"level":"특급","type":"wordWrite","prompt":"「착오」를 한자로 쓰세요.","answer":"錯誤","korean":"착오","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":103,"level":"특급","type":"wordWrite","prompt":"「협애」를 한자로 쓰세요.","answer":"狹隘","korean":"협애","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":104,"level":"특급","type":"wordWrite","prompt":"「노예」를 한자로 쓰세요.","answer":"奴隸","korean":"노예","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":105,"level":"특급","type":"wordWrite","prompt":"「속박」를 한자로 쓰세요.","answer":"束縛","korean":"속박","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":106,"level":"특급","type":"wordWrite","prompt":"「좌초」를 한자로 쓰세요.","answer":"坐礁","korean":"좌초","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":107,"level":"특급","type":"wordWrite","prompt":"「학정」를 한자로 쓰세요.","answer":"虐政","korean":"학정","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":108,"level":"특급","type":"wordWrite","prompt":"「탄로」를 한자로 쓰세요.","answer":"綻露","korean":"탄로","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":109,"level":"특급","type":"wordWrite","prompt":"「비호」를 한자로 쓰세요.","answer":"庇護","korean":"비호","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":110,"level":"특급","type":"wordWrite","prompt":"「해괴」를 한자로 쓰세요.","answer":"駭怪","korean":"해괴","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":111,"level":"특급","type":"wordWrite","prompt":"「궤변」를 한자로 쓰세요.","answer":"詭辯","korean":"궤변","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":112,"level":"특급","type":"wordWrite","prompt":"「현혹」를 한자로 쓰세요.","answer":"眩惑","korean":"현혹","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":113,"level":"특급","type":"wordWrite","prompt":"「여론」를 한자로 쓰세요.","answer":"輿論","korean":"여론","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":114,"level":"특급","type":"wordWrite","prompt":"「호도」를 한자로 쓰세요.","answer":"糊塗","korean":"호도","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":115,"level":"특급","type":"wordWrite","prompt":"「병탄」를 한자로 쓰세요.","answer":"倂呑","korean":"병탄","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":116,"level":"특급","type":"wordWrite","prompt":"「착취」를 한자로 쓰세요.","answer":"搾取","korean":"착취","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":117,"level":"특급","type":"wordWrite","prompt":"「핍박」를 한자로 쓰세요.","answer":"逼迫","korean":"핍박","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":118,"level":"특급","type":"wordWrite","prompt":"「전추」를 한자로 쓰세요.","answer":"顚墜","korean":"전추","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":119,"level":"특급","type":"wordWrite","prompt":"「함양」를 한자로 쓰세요.","answer":"涵養","korean":"함양","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":120,"level":"특급","type":"wordWrite","prompt":"「퇴폐」를 한자로 쓰세요.","answer":"頹廢","korean":"퇴폐","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":121,"level":"특급","type":"wordWrite","prompt":"「잔재」를 한자로 쓰세요.","answer":"殘滓","korean":"잔재","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":122,"level":"특급","type":"wordWrite","prompt":"「팽배」를 한자로 쓰세요.","answer":"澎湃","korean":"팽배","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":123,"level":"특급","type":"wordWrite","prompt":"「긍지」를 한자로 쓰세요.","answer":"矜持","korean":"긍지","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":124,"level":"특급","type":"wordWrite","prompt":"「비방」를 한자로 쓰세요.","answer":"誹謗","korean":"비방","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":125,"level":"특급","type":"wordWrite","prompt":"「기만」를 한자로 쓰세요.","answer":"欺瞞","korean":"기만","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":126,"level":"특급","type":"wordWrite","prompt":"「궁항」를 한자로 쓰세요.","answer":"窮巷","korean":"궁항","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":127,"level":"특급","type":"wordWrite","prompt":"「영일」를 한자로 쓰세요.","answer":"盈溢","korean":"영일","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":128,"level":"특급","type":"wordWrite","prompt":"「도탄」를 한자로 쓰세요.","answer":"塗炭","korean":"도탄","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":129,"level":"특급","type":"wordWrite","prompt":"「함몰」를 한자로 쓰세요.","answer":"陷沒","korean":"함몰","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":130,"level":"특급","type":"wordWrite","prompt":"「이재」를 한자로 쓰세요.","answer":"罹災","korean":"이재","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":131,"level":"특급","type":"wordWrite","prompt":"「구휼」를 한자로 쓰세요.","answer":"救恤","korean":"구휼","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":132,"level":"특급","type":"wordWrite","prompt":"「도약」를 한자로 쓰세요.","answer":"跳躍","korean":"도약","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":133,"level":"특급","type":"wordWrite","prompt":"「형안」를 한자로 쓰세요.","answer":"炯眼","korean":"형안","note":"원문 한자어쓰기 문항을 단어 단위로 변환"},{"round":38,"no":134,"level":"특급","type":"synonym","prompt":"「梁上君子」와 뜻이 비슷하도록 綠林( )( )의 빈칸을 채우세요.","answer":"豪傑","hanja":"梁上君子"},{"round":38,"no":135,"level":"특급","type":"synonym","prompt":"「連理枝」와 뜻이 비슷하도록 鴛鴦( )의 빈칸을 채우세요.","answer":"契","hanja":"連理枝"},{"round":38,"no":136,"level":"특급","type":"synonym","prompt":"「金城湯池」와 뜻이 비슷하도록 ( )( )不落의 빈칸을 채우세요.","answer":"難攻","hanja":"金城湯池"},{"round":38,"no":137,"level":"특급","type":"synonym","prompt":"「未曾有」와 뜻이 비슷하도록 破天( )의 빈칸을 채우세요.","answer":"荒","hanja":"未曾有"},{"round":38,"no":138,"level":"특급","type":"synonym","prompt":"「面從腹背」와 뜻이 비슷하도록 陽( )陰( )의 빈칸을 채우세요.","answer":"奉違","hanja":"面從腹背"},{"round":38,"no":139,"level":"특급","type":"synonym","prompt":"「知音人」와 뜻이 비슷하도록 ( )水親의 빈칸을 채우세요.","answer":"魚","hanja":"知音人"},{"round":38,"no":140,"level":"특급","type":"synonym","prompt":"「刻舟求劍」와 뜻이 비슷하도록 守( )待( )의 빈칸을 채우세요.","answer":"株兔","hanja":"刻舟求劍"},{"round":38,"no":141,"level":"특급","type":"synonym","prompt":"「囊中之錐」와 뜻이 비슷하도록 群( )一( )의 빈칸을 채우세요.","answer":"鷄鶴","hanja":"囊中之錐"},{"round":38,"no":142,"level":"특급","type":"synonym","prompt":"「風前燈火」와 뜻이 비슷하도록 百( )( )( )의 빈칸을 채우세요.","answer":"尺竿頭","hanja":"風前燈火"},{"round":38,"no":143,"level":"특급","type":"synonym","prompt":"「轉禍爲福」와 뜻이 비슷하도록 ( )( )之馬의 빈칸을 채우세요.","answer":"塞翁","hanja":"轉禍爲福"},{"round":38,"no":144,"level":"특급","type":"antonym","prompt":"「異端」와 반대되는 뜻의 한자어를 쓰세요.","answer":"正統","hanja":"異端"},{"round":38,"no":145,"level":"특급","type":"antonym","prompt":"「憎惡」와 반대되는 뜻의 한자어를 쓰세요.","answer":"憐憫","hanja":"憎惡"},{"round":38,"no":146,"level":"특급","type":"antonym","prompt":"「强靭」와 반대되는 뜻의 한자어를 쓰세요.","answer":"懦弱","hanja":"强靭"},{"round":38,"no":147,"level":"특급","type":"antonym","prompt":"「歸納」와 반대되는 뜻의 한자어를 쓰세요.","answer":"演繹","hanja":"歸納"},{"round":38,"no":148,"level":"특급","type":"antonym","prompt":"「萎縮」와 반대되는 뜻의 한자어를 쓰세요.","answer":"潑剌","hanja":"萎縮"},{"round":38,"no":149,"level":"특급","type":"antonym","prompt":"「瞬息」와 반대되는 뜻의 한자어를 쓰세요.","answer":"永劫","hanja":"瞬息"},{"round":38,"no":150,"level":"특급","type":"antonym","prompt":"「倨慢」와 반대되는 뜻의 한자어를 쓰세요.","answer":"謙遜","hanja":"倨慢"},{"round":38,"no":151,"level":"특급","type":"antonym","prompt":"「敏速」와 반대되는 뜻의 한자어를 쓰세요.","answer":"遲鈍","hanja":"敏速"},{"round":38,"no":152,"level":"특급","type":"antonym","prompt":"「凌蔑」와 반대되는 뜻의 한자어를 쓰세요.","answer":"推仰","hanja":"凌蔑"},{"round":38,"no":153,"level":"특급","type":"antonym","prompt":"「夭折」와 반대되는 뜻의 한자어를 쓰세요.","answer":"長壽","hanja":"夭折"},{"round":38,"no":154,"level":"특급","type":"abbreviation","prompt":"「擔」의 약자를 쓰세요.","answer":"担","hanja":"擔"},{"round":38,"no":155,"level":"특급","type":"abbreviation","prompt":"「聯」의 약자를 쓰세요.","answer":"联","hanja":"聯"},{"round":38,"no":156,"level":"특급","type":"abbreviation","prompt":"「壓」의 약자를 쓰세요.","answer":"圧","hanja":"壓"},{"round":38,"no":157,"level":"특급","type":"homonym","prompt":"「樹腰」와 같은 소리이면서 ‘무언가를 사려는 욕구’의 뜻인 한자어를 쓰세요.","answer":"需要","hanja":"樹腰"},{"round":38,"no":158,"level":"특급","type":"homonym","prompt":"「箭桐」와 같은 소리이면서 ‘떨려 움직이는 상태’의 뜻인 한자어를 쓰세요.","answer":"顫動","hanja":"箭桐"},{"round":38,"no":159,"level":"특급","type":"homonym","prompt":"「螺鈿」와 같은 소리이면서 ‘라틴을 옮긴 말’의 뜻인 한자어를 쓰세요.","answer":"羅甸","hanja":"螺鈿"},{"round":38,"no":160,"level":"특급","type":"homonym","prompt":"「累積」와 같은 소리이면서 ‘호적 등에서 빠짐’의 뜻인 한자어를 쓰세요.","answer":"漏籍","hanja":"累積"},{"round":38,"no":161,"level":"특급","type":"homonym","prompt":"「飛湍」와 같은 소리이면서 ‘명주실로 짠 피륙’의 뜻인 한자어를 쓰세요.","answer":"緋緞","hanja":"飛湍"},{"round":38,"no":162,"level":"특급","type":"homonym","prompt":"「寶樓」와 같은 소리이면서 ‘적을 막는 구조물’의 뜻인 한자어를 쓰세요.","answer":"堡壘","hanja":"寶樓"},{"round":38,"no":163,"level":"특급","type":"homonym","prompt":"「腐爛」와 같은 소리이면서 ‘알을 깨고 나옴’의 뜻인 한자어를 쓰세요.","answer":"孵卵","hanja":"腐爛"},{"round":38,"no":164,"level":"특급","type":"homonym","prompt":"「瓔珞」와 같은 소리이면서 ‘영화롭고 즐거움’의 뜻인 한자어를 쓰세요.","answer":"榮樂","hanja":"瓔珞"},{"round":38,"no":165,"level":"특급","type":"homonym","prompt":"「間道」와 같은 소리이면서 ‘간절하고 빈틈없이 마음을 씀’의 뜻인 한자어를 쓰세요.","answer":"懇到","hanja":"間道"},{"round":38,"no":166,"level":"특급","type":"homonym","prompt":"「券面」와 같은 소리이면서 ‘타일러 힘쓰게 함’의 뜻인 한자어를 쓰세요.","answer":"勸勉","hanja":"券面"},{"round":38,"no":167,"level":"특급","type":"definition","prompt":"「怛惕」의 뜻을 우리말로 적으세요.","answer":"놀람, 두려워함","hanja":"怛惕"},{"round":38,"no":168,"level":"특급","type":"definition","prompt":"「襁褓」의 뜻을 우리말로 적으세요.","answer":"포대기","hanja":"襁褓"},{"round":38,"no":169,"level":"특급","type":"definition","prompt":"「纆牽」의 뜻을 우리말로 적으세요.","answer":"말의 고삐","hanja":"纆牽"},{"round":38,"no":170,"level":"특급","type":"definition","prompt":"「餒饉」의 뜻을 우리말로 적으세요.","answer":"주림, 굶주림","hanja":"餒饉"},{"round":38,"no":171,"level":"특급","type":"definition","prompt":"「飭愿」의 뜻을 우리말로 적으세요.","answer":"삼감","hanja":"飭愿"},{"round":38,"no":172,"level":"특급","type":"definition","prompt":"「嵌巖」의 뜻을 우리말로 적으세요.","answer":"깊은 산골짜기","hanja":"嵌巖"},{"round":38,"no":173,"level":"특급","type":"definition","prompt":"「繚縈」의 뜻을 우리말로 적으세요.","answer":"둘러쌈","hanja":"繚縈"},{"round":38,"no":174,"level":"특급","type":"definition","prompt":"「苺苔」의 뜻을 우리말로 적으세요.","answer":"이끼","hanja":"苺苔"},{"round":38,"no":175,"level":"특급","type":"definition","prompt":"「雰虹」의 뜻을 우리말로 적으세요.","answer":"무지개","hanja":"雰虹"},{"round":38,"no":176,"level":"특급","type":"definition","prompt":"「騫騰」의 뜻을 우리말로 적으세요.","answer":"뛰어 오름","hanja":"騫騰"},{"round":38,"no":177,"level":"특급","type":"radical","prompt":"「柬」의 부수를 쓰세요.","answer":"木","hanja":"柬"},{"round":38,"no":178,"level":"특급","type":"radical","prompt":"「鑒」의 부수를 쓰세요.","answer":"金","hanja":"鑒"},{"round":38,"no":179,"level":"특급","type":"radical","prompt":"「屆」의 부수를 쓰세요.","answer":"尸","hanja":"屆"},{"round":38,"no":180,"level":"특급","type":"radical","prompt":"「碁」의 부수를 쓰세요.","answer":"石","hanja":"碁"},{"round":38,"no":181,"level":"특급","type":"radical","prompt":"「蝨」의 부수를 쓰세요.","answer":"虫","hanja":"蝨"},{"round":38,"no":182,"level":"특급","type":"radical","prompt":"「藜」의 부수를 쓰세요.","answer":"艸(艹)","hanja":"藜"},{"round":38,"no":183,"level":"특급","type":"radical","prompt":"「懋」의 부수를 쓰세요.","answer":"心","hanja":"懋"},{"round":38,"no":184,"level":"특급","type":"radical","prompt":"「斌」의 부수를 쓰세요.","answer":"文","hanja":"斌"},{"round":38,"no":185,"level":"특급","type":"radical","prompt":"「絮」의 부수를 쓰세요.","answer":"糸","hanja":"絮"},{"round":38,"no":186,"level":"특급","type":"radical","prompt":"「煦」의 부수를 쓰세요.","answer":"火","hanja":"煦"},{"round":38,"no":187,"level":"특급","type":"idiom","prompt":"사자성어 「( )龍( )睛」의 빈칸을 한자로 채우세요.","answer":"畫點"},{"round":38,"no":188,"level":"특급","type":"idiom","prompt":"사자성어 「康( )( )月」의 빈칸을 한자로 채우세요.","answer":"衢煙"},{"round":38,"no":189,"level":"특급","type":"idiom","prompt":"사자성어 「蕭( )曹( )」의 빈칸을 한자로 채우세요.","answer":"規隨"},{"round":38,"no":190,"level":"특급","type":"idiom","prompt":"사자성어 「( )手( )觀」의 빈칸을 한자로 채우세요.","answer":"袖傍"},{"round":38,"no":191,"level":"특급","type":"idiom","prompt":"사자성어 「掩( )捕( )」의 빈칸을 한자로 채우세요.","answer":"目雀"},{"round":38,"no":192,"level":"특급","type":"idiom","prompt":"사자성어 「狐( )虎( )」의 빈칸을 한자로 채우세요.","answer":"假威"},{"round":38,"no":193,"level":"특급","type":"idiom","prompt":"사자성어 「徙( )( )妻」의 빈칸을 한자로 채우세요.","answer":"家忘"},{"round":38,"no":194,"level":"특급","type":"idiom","prompt":"사자성어 「隔( )( )癢」의 빈칸을 한자로 채우세요.","answer":"靴搔"},{"round":38,"no":195,"level":"특급","type":"idiom","prompt":"사자성어 「磨( )作( )」의 빈칸을 한자로 채우세요.","answer":"斧針"},{"round":38,"no":196,"level":"특급","type":"idiom","prompt":"사자성어 「亡( )補( )」의 빈칸을 한자로 채우세요.","answer":"羊牢"},{"round":38,"no":197,"level":"특급","type":"idiom","prompt":"사자성어 「焚( )坑( )」의 빈칸을 한자로 채우세요.","answer":"書儒"},{"round":38,"no":198,"level":"특급","type":"idiom","prompt":"사자성어 「山( )( )石」의 빈칸을 한자로 채우세요.","answer":"溜穿"},{"round":38,"no":199,"level":"특급","type":"idiom","prompt":"사자성어 「( )泥( )爪」의 빈칸을 한자로 채우세요.","answer":"雪鴻"},{"round":38,"no":200,"level":"특급","type":"idiom","prompt":"사자성어 「阿( )叫( )」의 빈칸을 한자로 채우세요.","answer":"鼻喚"}];
+
+const SPECIAL_OLD_URLS={"38":"https://t1.daumcdn.net/cfile/tistory/99DE54495A52153135?original=","39":"https://t1.daumcdn.net/cfile/tistory/99715B4F5A52153121?original=","40":"https://t1.daumcdn.net/cfile/tistory/99D0F14A5A52153231?original=","41":"https://t1.daumcdn.net/cfile/tistory/9964354A5A5215311D?original=","42":"https://t1.daumcdn.net/cfile/tistory/99B4ED3B5A52153222?original=","43":"https://t1.daumcdn.net/cfile/tistory/9929714A5A52153202?original=","44":"https://t1.daumcdn.net/cfile/tistory/99887E3B5A52153207?original=","45":"https://t1.daumcdn.net/cfile/tistory/9916753E5A5215320E?original=","46":"https://t1.daumcdn.net/cfile/tistory/9961C7355A52153225?original=","47":"https://t1.daumcdn.net/cfile/tistory/99650F335A52153204?original=","48":"https://t1.daumcdn.net/cfile/tistory/9997604D5A52153229?original=","49":"https://t1.daumcdn.net/cfile/tistory/99ECFA505A52153316?original=","50":"https://t1.daumcdn.net/cfile/tistory/998CA04E5A52153312?original=","51":"https://t1.daumcdn.net/cfile/tistory/99E75D3F5A5215331C?original=","52":"https://t1.daumcdn.net/cfile/tistory/99B4BF3B5A52153301?original=","53":"https://t1.daumcdn.net/cfile/tistory/99F6894A5A5215332C?original=","54":"https://t1.daumcdn.net/cfile/tistory/99F2C93D5A52153322?original=","55":"https://t1.daumcdn.net/cfile/tistory/993A3C475A52153316?original=","56":"https://t1.daumcdn.net/cfile/tistory/99A3B53A5A52153327?original=","57":"https://t1.daumcdn.net/cfile/tistory/9993D2485A5215332C?original=","58":"https://t1.daumcdn.net/cfile/tistory/99D6CE3D5A52153304?original=","59":"https://t1.daumcdn.net/cfile/tistory/993C6D505A52153309?original=","60":"https://t1.daumcdn.net/cfile/tistory/99128D4E5A52153322?original=","61":"https://t1.daumcdn.net/cfile/tistory/99E7ED4A5A5215342F?original=","62":"https://t1.daumcdn.net/cfile/tistory/9962BD4C5A52153412?original=","63":"https://t1.daumcdn.net/cfile/tistory/99F1184D5A5215341F?original=","64":"https://t1.daumcdn.net/cfile/tistory/9982EB4D5A5215344B?original=","65":"https://t1.daumcdn.net/cfile/tistory/99E7A94C5A5215341F?original=","66":"https://t1.daumcdn.net/cfile/tistory/995EF73D5A52153419?original=","67":"https://t1.daumcdn.net/cfile/tistory/9937F9485A52153419?original=","68":"https://t1.daumcdn.net/cfile/tistory/99DDB1405A52153427?original=","69":"https://t1.daumcdn.net/cfile/tistory/9951E4455A52153406?original=","70":"https://t1.daumcdn.net/cfile/tistory/99707B4F5A52153421?original=","71":"https://t1.daumcdn.net/cfile/tistory/99DC183F5C72B2F309?original=","72":"https://t1.daumcdn.net/cfile/tistory/9918C6425C72B2F428?original=","73":"https://t1.daumcdn.net/cfile/tistory/99FD7F4F5C72B2F413?original=","74":"https://t1.daumcdn.net/cfile/tistory/9960914E5C72B2F508?original=","75":"https://t1.daumcdn.net/cfile/tistory/99995D3E5C72B2F401?original=","76":"https://t1.daumcdn.net/cfile/tistory/99E9DC3B5C72B2F402?original=","77":"https://t1.daumcdn.net/cfile/tistory/9944DA485C72B2F418?original=","78":"https://t1.daumcdn.net/cfile/tistory/9940A3465C72B2F425?original=","79":"https://t1.daumcdn.net/cfile/tistory/999530425C72B2F516?original=","80":"https://t1.daumcdn.net/cfile/tistory/99BF9D455C72B2F514?original=","81":"https://t1.daumcdn.net/cfile/tistory/993E5A375C72B2F515?original=","82":"https://t1.daumcdn.net/cfile/tistory/99C9F23B5C72B2F52C?original=","83":"https://t1.daumcdn.net/cfile/tistory/9976C13D5C72B2F511?original=","84":"https://t1.daumcdn.net/cfile/tistory/9943613A5C72B2F534?original=","85":"https://t1.daumcdn.net/cfile/tistory/99403C455CF2883422?original=","86":"https://t1.daumcdn.net/cfile/tistory/99FC49475D6118F604?original=","87":"https://t1.daumcdn.net/cfile/tistory/99B58F455DD8F06A04?original=","90":"https://t1.daumcdn.net/cfile/tistory/99BDA9395F40F5D619?original=","91":"https://t1.daumcdn.net/cfile/tistory/99A3954F5FB9D2B010?original="};
+const SPECIAL_SIGNED_SIGS={"92":"WUwhq%2B%2FcwpnD5pInTTh9xMdZXMI%3D","93":"lVBPtlHuOkhYo4OaI1mGq1M4Szk%3D","94":"KbsurT1dwl6vqJFb2ik8QldDeBc%3D","95":"lxUf5%2F9oCb5dU9iO22cSNd8JTWI%3D","96":"HRPMTSsGG6DAUB8P7mqji%2FhF7nw%3D","97":"KPFvyPeeNXO5JS71H%2F%2B2wX3jbhc%3D","98":"GTVB5h0LVULnJeWBQ081olLcMrw%3D","99":"NojMA0N3SXknuLhexawicBx8mXI%3D","100":"0lBecI0sj3DTblIjC8w7XCMH6ks%3D","101":"jbzMAW4y7gUME1KRbgkT7MDaRHE%3D","102":"b53uy6G%2FDOYHAi4PNxPkhHGmWeE%3D","103":"dVVLnHyEW4GOEt1wI2tWDmnii9c%3D","104":"OTCxk2mwKOkmp0RWQ0hfPL0coL4%3D","105":"bIvA0pPL1QkMEwf666QNqZS79I0%3D","106":"WAHPDDlKr35UulG%2F22rkQSjnaZI%3D","107":"%2FhOb8lw%2B2%2BOpNDQQ7niA8JNzCwQ%3D","108":"VAZAeV20u6U9mzIOOikYkd9bvbE%3D","109":"w6zJrLKd74%2B4JNvL5kDspF9imU8%3D","110":"CX9xCUa5ljfbBy%2Bm%2Bo1IAXTjv30%3D","111":"aqUWSCtpUfMPaW%2BdAtJxx4zwyVE%3D","112":"Up%2FRIvbXK%2BvCHEZdu6Q98T3kybA%3D","113":"SU61iT794AaUDuDBB0WKwFndg%2FM%3D","114":"HQGb4S6LcZuM4vqBkFIzPEBiKKM%3D"};
+const SPECIAL_SIGNED_EXPIRES=1790780399000;
+const SPECIAL_NEW_META={"92":["u3BnH","btq4Y4RGae5","AAAAAAAAAAAAAAAAAAAAABvVu3adGbKEuSDcKuC60elAwxrHultKd5RM868DUDon","2021.05.15"],"93":["bJFPtT","btq9iA7i7Br","AAAAAAAAAAAAAAAAAAAAAEYCbcercrM9X1b3ZIpm34-OI-3PBI3nNYjSfyWJUmzy","2021.07.10"],"94":["2TrXk","btreJR3WSA1","AAAAAAAAAAAAAAAAAAAAABlEL8xmbRW_ruQ1730LilfsCALiYsYDeXOSbiIOJlnb","2021.09.11"],"95":["7MeQd","btrlFnglFl5","AAAAAAAAAAAAAAAAAAAAAGdV_jhCsux-DU8eABUCdYTX1rV90_md0eX-j_Dkh7JY","2021.11.20"],"96":["bRwIy9","btruxj3rqFp","AAAAAAAAAAAAAAAAAAAAAPW-ptU0MB2n9iVuN29oAF9PoADP5DdHC24bRj7iWAz7","2022.02.26"],"97":["oUSHk","btrDrQEZDKE","AAAAAAAAAAAAAAAAAAAAAOmCNHcr0zG5Cb7_uyfG9tQd7liI65kTkT6ql3fa2TGa","2022.05.28"],"98":["WUFcZ","btrKGQMJ8Ax","AAAAAAAAAAAAAAAAAAAAAAwztp1RjVb6-1wjbtj6rlx2Dz4BZFJH2NtINUrtoEjP","2022.08.27"],"99":["Z1lL3","btrSa7GtiI5","AAAAAAAAAAAAAAAAAAAAAD0-ksspwA6AX4cOD4G4PDz824VEtTFUC7KS4vgLhgJt","2022.11.26"],"100":["orbWG","btr0RPJXV1g","AAAAAAAAAAAAAAAAAAAAAOH5olcdF28sh6xlYYTVA8Or6gIfNwbTipEDckMj8Obl","2023.02.25"],"101":["bjN3U1","btsiuMDq4FG","AAAAAAAAAAAAAAAAAAAAACGBU7yKribKdKSoPgl6L_nBdTXhweglNLo0h8E4q9H3","2023.06.03"],"102":["kSmwa","btsshkDzU5m","AAAAAAAAAAAAAAAAAAAAAG_qOEHVxMx5qUoeusmsSLKT1tbUxGcMmNHWjMZo02tU","2023.08.26"],"103":["dnTLUv","btsAcRNu9SY","AAAAAAAAAAAAAAAAAAAAAP03uJXqZxSj1PvKgz7AEBlsK9yXBlFjPErilxm-OzN_","2023.11.11"],"104":["bxnlK6","btsFjX2LM60","AAAAAAAAAAAAAAAAAAAAADS_x-X76RaWdVTQON3z0Arvmjk1ZT6CsDN-w-kvbEbM","2024.02.24"],"105":["tosAy","btsHDgTxjSS","AAAAAAAAAAAAAAAAAAAAAD_oBjJQsL-LBVaSnPegj2pUKJSUjk-70ijRBO5ecU0F","2024.05.25"],"106":["biWdAC","btsJeq9cUsA","AAAAAAAAAAAAAAAAAAAAAOd6EsyKDjvdvyLmfP7ztIZ8oCBj4oIP_bQwAknzrYVl","2024.08.24"],"107":["bguBJc","btsKDXDARkc","AAAAAAAAAAAAAAAAAAAAAOFP9uoFZ-2qS8WDU5g0rJfuMtBtR7sA_G3vwsiQ02AN","2024.11.09"],"108":["bw0On7","btsMsLij0eZ","AAAAAAAAAAAAAAAAAAAAABBSZfbZ5M6by_EJbz-RC__6hLN3S_L0RfPeSoyEA98X","2025.02.22"],"109":["bqwXfm","btsOcVvi3zK","AAAAAAAAAAAAAAAAAAAAADpQYAuHgDudeCS4UDMAczE8KnXpOPerzk7C-Sk7VaW2","2025.05.24"],"110":["dBtJJT","dJMb9XjU2ZX","AAAAAAAAAAAAAAAAAAAAAHbr27qfSxmG3-ohh3HjpZ9Q77Ah-PO_4Wp0WqHix6aN","2025.08.23"],"111":["cRUq3J","dJMcaaRceVT","AAAAAAAAAAAAAAAAAAAAAMFjLAecpmM77dsIUfsENqoNxuhYif4Bt4sHxbvRpQ0m","2025.11.15"],"112":["eCiY3n","dJMcaiWLgdH","AAAAAAAAAAAAAAAAAAAAALFpiJzimnV2eFGzFPkG1_X7OOSdgLkZqsrOQFajnly9","2026.02.28"],"113":["criszo","dJMcaiwE0u2","AAAAAAAAAAAAAAAAAAAAACQm-0jZS1mB7cvkSk0Ge69x_P9Js4a2pM289FpglqDX","2026.05.23"],"114":["AXEls","dJMcaiqVz4w","AAAAAAAAAAAAAAAAAAAAAJLV4TQkbjI2l78uD1CJjeoF5_uBkv6IhLFWkd2yn4F0","2026.08.22"]};
+
+
+let stats=JSON.parse(localStorage.getItem("hanjaStatsV2")||"{}");
+let wrong=JSON.parse(localStorage.getItem("hanjaWrongV2")||"{}");
+
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",1800)}
+function norm(s){return String(s??"").replace(/\s+/g,"").replace(/[·ㆍ]/g,"").trim().toLowerCase()}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function sample(a,n){return shuffle([...a]).slice(0,n)}
+function gradeIndex(g){return GRADE_ORDER.indexOf(g)}
+function gradeAllowed(g,target){return gradeIndex(g)>=0 && gradeIndex(g)<=gradeIndex(target)}
+function parseMeaning(raw){
+  try{
+    const arr=JSON.parse(raw.split("'").join("\""));
+    // 원본 형식: [[["마당"],["장"]], [["다른 훈"],["다른 음"]]]
+    // 간혹 한 단계 더 감싸진 형태가 있으므로 정규화한다.
+    const out=[];
+    const walk=node=>{
+      if(!Array.isArray(node))return;
+      if(node.length>=2 && Array.isArray(node[0]) && Array.isArray(node[1])
+         && node[0].every(x=>typeof x==="string") && node[1].every(x=>typeof x==="string")){
+        out.push({meanings:node[0],sounds:node[1]});
+        return;
+      }
+      node.forEach(walk);
+    };
+    walk(arr);
+    return out;
+  }catch(e){return []}
+}
+function parseCSV(text){
+  const rows=[];let row=[],cell="",q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i],n=text[i+1];
+    if(q){
+      if(c=='"'&&n=='"'){cell+='"';i++}
+      else if(c=='"')q=false; else cell+=c;
+    }else{
+      if(c=='"')q=true;
+      else if(c==","){row.push(cell);cell=""}
+      else if(c=="\n"){row.push(cell.replace(/\r$/,""));rows.push(row);row=[];cell=""}
+      else cell+=c;
+    }
+  }
+  if(cell||row.length){row.push(cell);rows.push(row)}
+  return rows;
+}
+function loadCharCSV(text){
+  const rows=parseCSV(text), head=rows.shift();
+  const ix=Object.fromEntries(head.map((h,i)=>[h,i]));
+  const out=[];
+  for(const r of rows){
+    if(!r[ix.hanja]) continue;
+    const meanings=parseMeaning(r[ix.meaning]||"[]");
+    out.push({
+      sound:r[ix.main_sound],level:r[ix.level],hanja:r[ix.hanja],
+      meanings,radical:r[ix.radical],strokes:+r[ix.strokes],total:+r[ix.total_strokes]
+    });
+  }
+  chars=out;
+  localStorage.setItem("hanjaCharCacheV3",JSON.stringify({at:Date.now(),chars}));
+  localStorage.removeItem("hanjaCharCache");
+  $("#dataBadge").textContent=`배정한자 ${chars.length.toLocaleString()}자`;
+  $("#dataBadge").classList.add("good");
+  renderData();
+}
+async function autoLoad(){
+  let initialized=false;
+  const cached=localStorage.getItem("hanjaCharCacheV3");
+  if(cached){
+    try{
+      const c=JSON.parse(cached);
+      if(c.chars?.length>5000){
+        chars=c.chars;
+        $("#dataBadge").textContent=`배정한자 ${chars.length.toLocaleString()}자`;
+        $("#dataBadge").classList.add("good");
+      }
+    }catch{}
+  }
+  if(!chars.length){
+    chars=FALLBACK;
+    $("#dataBadge").textContent=`기본 데이터 ${chars.length}자`;
+  }
+  init(); initialized=true;
+
+  const urls=[
+    RAW_URL,
+    "https://cdn.jsdelivr.net/gh/rycont/hanja-grade-dataset@main/hanja.csv"
+  ];
+  for(const url of urls){
+    try{
+      const res=await fetchWithTimeout(url,{cache:"force-cache"},5000);
+      if(!res.ok)continue;
+      loadCharCSV(await res.text());
+      // 데이터 갱신 후 화면의 선택지/카드도 갱신
+      fillGradeOptions();
+      renderPracticeWelcome();
+      renderDrill();
+      renderData();
+      return;
+    }catch{}
+  }
+  if(chars===FALLBACK || chars.length===FALLBACK.length){
+    $("#dataBadge").textContent=`오프라인 기본 ${chars.length}자`;
+  }
+}
+const FALLBACK=[
+ {hanja:"家",sound:"가",level:"7급Ⅱ",meanings:[{meanings:["집"],sounds:["가"]}],radical:"宀",total:10},
+ {hanja:"歌",sound:"가",level:"7급",meanings:[{meanings:["노래"],sounds:["가"]}],radical:"欠",total:14},
+ {hanja:"學",sound:"학",level:"8급",meanings:[{meanings:["배울"],sounds:["학"]}],radical:"子",total:16},
+ {hanja:"校",sound:"교",level:"8급",meanings:[{meanings:["학교"],sounds:["교"]}],radical:"木",total:10},
+ {hanja:"國",sound:"국",level:"8급",meanings:[{meanings:["나라"],sounds:["국"]}],radical:"囗",total:11},
+ {hanja:"人",sound:"인",level:"8급",meanings:[{meanings:["사람"],sounds:["인"]}],radical:"人",total:2},
+ {hanja:"大",sound:"대",level:"8급",meanings:[{meanings:["큰"],sounds:["대"]}],radical:"大",total:3},
+ {hanja:"小",sound:"소",level:"8급",meanings:[{meanings:["작을"],sounds:["소"]}],radical:"小",total:3}
+];
+const APP_ITEMS=[
+ {level:"8급",type:"antonym",prompt:"大의 반대 한자를 쓰세요.",answer:"小",hanja:"大",note:"크다 ↔ 작다"},
+ {level:"8급",type:"antonym",prompt:"上의 반대 한자를 쓰세요.",answer:"下",hanja:"上",note:"위 ↔ 아래"},
+ {level:"7급",type:"fill",prompt:"學□ : '학교'가 되도록 빈칸을 채우세요.",answer:"校",hanja:"校"},
+ {level:"7급",type:"fill",prompt:"父□ : '부모'가 되도록 빈칸을 채우세요.",answer:"母",hanja:"母"},
+ {level:"6급",type:"homonym",prompt:"'사람 인(人)'과 같은 음을 가진 한자를 하나 쓰세요.",answer:["仁","引","因","認","印"],hanja:"人"},
+ {level:"5급",type:"idiom",prompt:"四面楚歌의 독음을 쓰세요.",answer:"사면초가",hanja:"歌",note:"사방이 모두 적에게 둘러싸인 고립 상태"},
+ {level:"5급",type:"idiom",prompt:"有備無患의 독음을 쓰세요.",answer:"유비무환",hanja:"備",note:"미리 준비하면 근심이 없음"},
+ {level:"4급",type:"antonym",prompt:"增加의 반대말에 해당하는 한자어를 쓰세요.",answer:"減少",hanja:"減"},
+ {level:"4급",type:"synonym",prompt:"道路와 뜻이 가까운 한자어를 하나 쓰세요.",answer:["道","路"],hanja:"道"},
+ {level:"3급Ⅱ",type:"idiom",prompt:"臥薪嘗膽의 독음을 쓰세요.",answer:"와신상담",hanja:"薪",note:"목적을 이루기 위해 괴로움을 참고 견딤"},
+ {level:"3급",type:"idiom",prompt:"刻舟求劍의 독음을 쓰세요.",answer:"각주구검",hanja:"劍",note:"융통성 없이 낡은 방식만 고집함"},
+ {level:"3급",type:"abbreviation",prompt:"體의 약자를 쓰세요.",answer:"体",hanja:"體"},
+ {level:"2급",type:"abbreviation",prompt:"學의 약자를 쓰세요.",answer:"学",hanja:"學"},
+ {level:"2급",type:"idiom",prompt:"矛盾의 독음과 뜻을 간단히 쓰세요. (독음만 채점)",answer:"모순",hanja:"盾",note:"앞뒤가 서로 맞지 않음"},
+ {level:"1급",type:"idiom",prompt:"鷄卵有骨의 독음을 쓰세요.",answer:"계란유골",hanja:"鷄",note:"운이 나쁜 사람은 모처럼 좋은 기회에도 일이 꼬임"},
+ {level:"특급Ⅱ",type:"idiom",prompt:"膠柱鼓瑟의 독음을 쓰세요.",answer:"교주고슬",hanja:"膠",note:"고지식하여 융통성이 없음"},
+ {level:"특급",type:"idiom",prompt:"囊中之錐의 독음을 쓰세요.",answer:"낭중지추",hanja:"囊",note:"재능이 있는 사람은 숨어 있어도 드러남"}
+];
+
+function init(){
+  try{
+    const oldKeys=[];
+    for(let i=0;i<localStorage.length;i++){
+      const k=localStorage.key(i)||"";
+      if(k.startsWith("hanjaGradeArchiveV2_"))oldKeys.push(k);
+    }
+    oldKeys.forEach(k=>localStorage.removeItem(k));
+  }catch{}
+  if(!examItems.length) examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38];
+  hydrateSpecialRoundCache();
+  hydrateAllGradeQuizCaches();
+  $("#level").innerHTML=GRADE_ORDER.map(g=>`<option ${g==="1급"?"selected":""}>${g}</option>`).join("");
+  $("#typeChecks").innerHTML=Object.entries(TYPES).map(([k,v])=>`<label class="check"><input type="checkbox" value="${k}" ${["sound","meaning","meaningSound","write","radical","strokes"].includes(k)?"checked":""}> ${v}</label>`).join("");
+  bind();
+  updateFreqBadge();
+  renderPracticeWelcome();renderExam();renderDrill();renderMore();renderWrite();renderFreq();renderWrong();renderData();
+  setTimeout(()=>refreshSpecialArchive(false),300);
+}
+function bind(){
+  $$(".tab").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+  $("#startBtn").onclick=()=>startPractice(false);
+  $("#randomBtn").onclick=()=>{$("#count").value="10";startPractice(true)};
+  $("#level").onchange=()=>{renderFreq();renderData();renderWrong();renderWrite()};
+  $$("#typeChecks input[type='checkbox']").forEach(x=>x.onchange=refreshTypeChecks);
+  refreshTypeChecks();
+}
+function switchTab(id){
+  mode=id;$$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+  $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
+  if(id==="exam")renderExam(); if(id==="drill")renderDrill(); if(id==="more")renderMore(); if(id==="freq")renderFreq(); if(id==="wrong")renderWrong(); if(id==="data")renderData(); if(id==="write")renderWrite();
+}
+function refreshTypeChecks(){
+  $$("#typeChecks .check").forEach(label=>{
+    const input=label.querySelector('input[type="checkbox"]');
+    label.classList.toggle("selected",!!input?.checked);
+  });
+}
+function selectedTypes(){return $$("#typeChecks input:checked").map(x=>x.value)}
+function inRangeRound(item){
+  if(!item.round) return true;
+  const f=+$("#roundFrom").value||1,t=+$("#roundTo").value||Infinity;
+  return item.round>=f&&item.round<=t;
+}
+function charPrimary(c){
+  const m=c.meanings?.[0]||{meanings:[],sounds:[c.sound]};
+  let meaning=Array.isArray(m.meanings)?(m.meanings[0]||""):String(m.meanings||"");
+  let sound=Array.isArray(m.sounds)?(m.sounds[0]||c.sound):String(m.sounds||c.sound);
+  // 잘못 파싱된 캐시/데이터에서 훈과 음이 같아지는 경우는 훈으로 쓰지 않는다.
+  if(meaning===sound && c._rawMeaningHint) meaning=c._rawMeaningHint;
+  return {meaning,sound};
+}
+function allMeaningSoundAnswers(c){
+  const out=[];
+  for(const m of (c.meanings||[])){
+    const ms=Array.isArray(m.meanings)?m.meanings:[m.meanings].filter(Boolean);
+    const ss=Array.isArray(m.sounds)?m.sounds:[m.sounds||c.sound].filter(Boolean);
+    for(const mean of ms)for(const snd of ss){
+      if(mean && snd)out.push(`${mean} ${snd}`);
+    }
+  }
+  return [...new Set(out)];
+}
+function hideTargetHanja(text,hanja){
+  let out=String(text??"");
+  if(hanja) out=out.split(hanja).join("");
+  // 괄호 안에 정답 한자가 단독/병기된 경우도 정리
+  out=out.replace(/[\(（]\s*[一-龥豈-龎]\s*[\)）]/g,"");
+  out=out.replace(/\s{2,}/g," ").trim();
+  return out;
+}
+function safeClue(c){
+  const p=charPrimary(c);
+  return {meaning:hideTargetHanja(p.meaning,c.hanja),sound:p.sound};
+}
+function makeGeneratedQuestion(c,type){
+  const p=charPrimary(c);
+  let prompt="",answer="",display=c.hanja,note="";
+  if(type==="sound"){prompt=`「${c.hanja}」의 음을 쓰세요.`;answer=[c.sound,...(c.meanings||[]).flatMap(x=>x.sounds||[])];}
+  if(type==="meaning"){prompt=`「${c.hanja}」의 대표 훈을 쓰세요.`;answer=(c.meanings||[]).flatMap(x=>Array.isArray(x.meanings)?x.meanings:[x.meanings].filter(Boolean));note=`대표음: ${c.sound}`;}
+  if(type==="meaningSound"){prompt=`「${c.hanja}」의 훈음을 쓰세요. (예: 집 가)`;answer=allMeaningSoundAnswers(c);note=`부수 ${c.radical} · ${c.total}획`;}
+  if(type==="write"){const sp=safeClue(c);prompt=`${sp.meaning} ${sp.sound} — 알맞은 한자를 쓰세요.`;answer=c.hanja;display="✍";note="정답 한자는 힌트에서 숨김 처리됩니다.";}
+  if(type==="radical"){prompt=`「${c.hanja}」의 부수를 쓰세요.`;answer=c.radical;}
+  if(type==="strokes"){prompt=`「${c.hanja}」의 총획수를 숫자로 쓰세요.`;answer=String(c.total);note=`부수: ${c.radical}`;}
+  if(type==="sameSound"){
+    const pool=chars.filter(x=>x.sound===c.sound&&x.hanja!==c.hanja&&gradeAllowed(x.level,$("#level").value));
+    const other=sample(pool,1)[0];
+    if(!other) return null;
+    prompt=`「${c.hanja}」와 같은 음(${c.sound})인 한자를 하나 쓰세요.`;
+    answer=[other.hanja,...pool.slice(0,12).map(x=>x.hanja)];note="복수 정답 허용";
+  }
+  if(type==="multiReading"){
+    const readings=[...new Set((c.meanings||[]).flatMap(x=>x.sounds||[]))];
+    if(readings.length<2)return null;
+    prompt=`「${c.hanja}」의 여러 음을 쉼표로 구분해 모두 쓰세요.`;
+    answer=readings.sort().join(",");note="순서는 달라도 허용";
+  }
+  return {source:"generated",level:c.level,type,prompt,answer,hanja:c.hanja,display,note,radical:c.radical,total:c.total};
+}
+function freqCount(hanja){
+  if(!hanja)return 0;
+  const f=+$("#roundFrom").value||1,t=+$("#roundTo").value||Infinity;
+  return examItems.filter(x=>x.round&&x.hanja===hanja&&x.round>=f&&x.round<=t).length;
+}
+function freqLabel(n,max){
+  if(!n)return ["기출기록 없음",""];
+  if(n===max&&max>=3)return [`🔥 최빈출 ${n}회`,"hot2"];
+  if(n>=3)return [`★ 빈출 ${n}회`,"hot1"];
+  if(n===2)return [`자주 ${n}회`,""];
+  return [`출현 ${n}회`,""];
+}
+function buildPool(){
+  const level=$("#level").value, types=selectedTypes();
+  let pool=[];
+  const allowed=chars.filter(c=>gradeAllowed(c.level,level));
+  for(const type of types){
+    if(GENERATED_TYPES.has(type)){
+      for(const c of allowed){
+        const q=makeGeneratedQuestion(c,type); if(q)pool.push(q);
+      }
+    }else{
+      pool.push(...examItems.filter(x=>!x.frequencyOnly&&x.prompt&&x.answer!==undefined&&x.type===type&&gradeAllowed(x.level,level)&&inRangeRound(x)));
+    }
+  }
+  const scope=$("#scope").value;
+  if(scope==="wrong"){
+    pool=pool.filter(q=>wrong[keyOf(q)]?.count>0);
+  }else if(scope==="unseen"){
+    pool=pool.filter(q=>!stats[keyOf(q)]);
+  }else if(scope==="freq"){
+    const withF=pool.filter(q=>freqCount(q.hanja)>0);
+    if(withF.length) pool=withF.sort((a,b)=>freqCount(b.hanja)-freqCount(a.hanja));
+  }
+  return pool;
+}
+function keyOf(q){return `${q.type}|${q.hanja||""}|${q.prompt}`}
+function startPractice(random10){
+  const types=selectedTypes();
+  if(!types.length){toast("유형을 하나 이상 선택하세요");return}
+  let pool=buildPool();
+  if(!pool.length){toast("조건에 맞는 문제가 없습니다");return}
+  const n=random10?10:(+$("#count").value||pool.length);
+  if($("#scope").value!=="freq")shuffle(pool);
+  session=pool.slice(0,Math.min(n,pool.length));current=0;sessionScore={ok:0,no:0};
+  switchTab("practice");renderQuestion();
+}
+
+function renderMore(){
+  if(!$("#more"))return;
+  $("#more").innerHTML=`
+    <div class="card">
+      <div class="prompt">기록·설정</div>
+      <div class="sub">자주 쓰는 기능만 앞으로 빼고, 분석/데이터 기능은 여기로 모았습니다.</div>
+      <div class="hub-grid" style="margin-top:14px">
+        <div class="hub-card"><b>오답 노트</b><p>틀린 문제와 반복 오답을 확인합니다.</p><button class="btn primary" onclick="openUtility('wrong')">열기</button></div>
+        <div class="hub-card"><b>빈출 분석</b><p>기출 회차 데이터를 기준으로 출현 빈도를 봅니다.</p><button class="btn" onclick="openUtility('freq')">열기</button></div>
+        <div class="hub-card"><b>자유 쓰기</b><p>원하는 급수에서 한 글자씩 타이핑/손글씨 연습합니다.</p><button class="btn" onclick="openUtility('write')">열기</button></div>
+        <div class="hub-card"><b>데이터 관리</b><p>기출 CSV/JSON과 배정한자 데이터를 관리합니다.</p><button class="btn" onclick="openUtility('data')">열기</button></div>
+      </div>
+    </div>`;
+}
+function openUtility(id){
+  mode=id;
+  $$(".tab").forEach(b=>b.classList.remove("active"));
+  $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
+  if(id==="wrong")renderWrong();
+  if(id==="freq")renderFreq();
+  if(id==="write")renderWrite();
+  if(id==="data")renderData();
+  const sec=$("#"+id);
+  if(sec)sec.insertAdjacentHTML("afterbegin",`<button class="btn ghost" onclick="switchTab('more')" style="margin-bottom:10px">← 기록·설정으로</button>`);
+}
+
+function renderPracticeWelcome(){
+  $("#practice").innerHTML=`
+    <div class="card">
+      <div class="prompt">한자 연습</div>
+      <div class="sub">급수를 고르고 바로 시작하세요. 모든 주관식은 프로그램 안에서 직접 타이핑해 채점합니다.</div>
+      <div class="simple-home" style="margin-top:14px">
+        <button class="simple-card" onclick="startPractice(false)"><b>혼합 연습</b><small>선택한 유형을 섞어서 풉니다.</small></button>
+        <button class="simple-card" onclick="switchTab('drill')"><b>급수별 훈음·쓰기</b><small>가나다순 또는 랜덤으로 한 급수 전체를 돕니다.</small></button>
+        <button class="simple-card" onclick="switchTab('exam')"><b>전 급수 기출</b><small>8급~특급 · 급수/회차 선택 → 자동 문제화 → 타이핑 풀이</small></button>
+        <button class="simple-card" onclick="openUtility('wrong')"><b>오답 복습</b><small>틀린 문제만 다시 봅니다.</small></button>
+      </div>
+      <div class="quick-row">
+        <span class="quick-pill">배정한자 ${chars.length.toLocaleString()}자</span>
+        <span class="quick-pill">오답 ${Object.keys(wrong).length}</span>
+        <span class="quick-pill">풀이 기록 ${Object.keys(stats).length}</span>
+      </div>
+    </div>`;
+}
+function renderQuestion(){
+  const q=session[current];
+  if(!q){renderResult();return}
+  const maxF=Math.max(0,...session.map(x=>freqCount(x.hanja)));
+  const fc=freqCount(q.hanja),[fl,cl]=freqLabel(fc,maxF);
+  $("#practice").innerHTML=`
+    <div class="kpis">
+      <div class="kpi"><b>${current+1}/${session.length}</b><span>진행</span></div>
+      <div class="kpi"><b>${sessionScore.ok}</b><span>정답</span></div>
+      <div class="kpi"><b>${sessionScore.no}</b><span>오답</span></div>
+      <div class="kpi"><b>${current?Math.round(sessionScore.ok/current*100):0}%</b><span>정답률</span></div>
+    </div>
+    <div class="progress"><div style="width:${(current/session.length)*100}%"></div></div>
+    <div class="card hero">
+      <div>
+        <div class="meta">
+          <span class="badge">${esc(q.level)}</span><span class="badge">${esc(TYPES[q.type]||q.type)}</span>
+          <span class="badge ${cl}">${esc(fl)}</span>
+        </div>
+        <div class="prompt" style="margin-top:14px">${esc(q.prompt)}</div>
+        ${q.note?`<div class="sub">${esc(q.note)}</div>`:""}
+        <div class="answer-row">
+          <input id="answer" autocomplete="off" autocapitalize="off" placeholder="정답 입력">
+          <button class="btn primary" id="submitAns">채점</button>
+        </div>
+        <div id="feedback" class="feedback"></div>
+      </div>
+      <div class="big-hanja">${esc(q.display||q.hanja||"漢")}</div>
+    </div>`;
+  $("#answer").focus();
+  $("#answer").onkeydown=e=>{if(e.key==="Enter")checkAnswer()};
+  $("#submitAns").onclick=checkAnswer;
+}
+function answerList(q){
+  if(Array.isArray(q.answer))return q.answer.map(String);
+  return [String(q.answer??"")];
+}
+function flexibleAnswerVariants(a){
+  a=String(a??"").trim();
+  const out=new Set([norm(a)]);
+  a.split(/[\/／,，]/).map(x=>x.trim()).filter(Boolean).forEach(x=>out.add(norm(x)));
+  const circled={"①":"1","②":"2","③":"3","④":"4","⑤":"5","⑥":"6","⑦":"7","⑧":"8","⑨":"9","⑩":"10"};
+  const cm=a.match(/^([①②③④⑤⑥⑦⑧⑨⑩])\s*(.*)$/);
+  if(cm){out.add(circled[cm[1]]);out.add(norm(cm[1]));if(cm[2])out.add(norm(cm[2]))}
+  const pm=a.match(/^(.*?)([\u3400-\u9fff\uf900-\ufaff])\(([\u3400-\u9fff\uf900-\ufaff])\)(.*)$/);
+  if(pm){out.add(norm(pm[1]+pm[2]+pm[4]));out.add(norm(pm[1]+pm[3]+pm[4]))}
+  return out;
+}
+function isCorrect(q,user){
+  if(q.type==="multiReading"){
+    const a=norm(q.answer).split(",").filter(Boolean).sort().join(",");
+    const b=norm(user).split(",").filter(Boolean).sort().join(",");
+    return a===b;
+  }
+  const u=norm(user);
+  return answerList(q).some(a=>flexibleAnswerVariants(a).has(u));
+}
+function checkAnswer(){
+  const q=session[current], inp=$("#answer"), val=inp.value;
+  if(!val.trim()){toast("답을 입력하세요");return}
+  const ok=isCorrect(q,val), k=keyOf(q);
+  stats[k]=stats[k]||{ok:0,no:0,last:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt};
+  stats[k][ok?"ok":"no"]++;stats[k].last=Date.now();
+  if(ok){
+    sessionScore.ok++;
+    if(wrong[k]){wrong[k].streak=(wrong[k].streak||0)+1;if(wrong[k].streak>=3)delete wrong[k]}
+  }else{
+    sessionScore.no++;
+    wrong[k]=wrong[k]||{count:0,streak:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt,answer:q.answer};
+    wrong[k].count++;wrong[k].streak=0;wrong[k].last=Date.now();
+  }
+  saveProgress();
+  const fb=$("#feedback");fb.className="feedback "+(ok?"ok":"no");
+  fb.innerHTML=ok?`정답입니다. <b>${esc(answerList(q)[0])}</b>`:`오답 · 정답: <b>${esc(answerList(q).join(" / "))}</b>`;
+  $("#submitAns").textContent="다음";$("#submitAns").onclick=()=>{current++;renderQuestion()};
+  inp.disabled=true;
+}
+function saveProgress(){localStorage.setItem("hanjaStatsV2",JSON.stringify(stats));localStorage.setItem("hanjaWrongV2",JSON.stringify(wrong))}
+function renderResult(){
+  const total=sessionScore.ok+sessionScore.no,acc=total?Math.round(sessionScore.ok/total*100):0;
+  const typeAgg={};
+  for(const q of session){
+    const s=stats[keyOf(q)]||{ok:0,no:0};const a=typeAgg[q.type]||(typeAgg[q.type]={ok:0,no:0});a.ok+=s.ok;a.no+=s.no;
+  }
+  $("#practice").innerHTML=`
+    <div class="card">
+      <div class="prompt">연습 완료 · ${sessionScore.ok}/${total} 정답 (${acc}%)</div>
+      <div class="sub">틀린 문제는 오답 노트에 자동 저장되며, 같은 항목을 3회 연속 맞히면 자동 졸업합니다.</div>
+      <div class="result-list" style="margin-top:16px">
+        ${Object.entries(typeAgg).map(([t,a])=>{const n=a.ok+a.no;return `<div class="result-item"><span>${TYPES[t]||t}</span><b>${n?Math.round(a.ok/n*100):0}%</b></div>`}).join("")}
+      </div>
+      <div class="actions"><button class="btn primary" onclick="startPractice(false)">같은 조건 다시</button><button class="btn" onclick="switchTab('wrong')">오답 보기</button></div>
+    </div>`;
+}
+
+function koSortChars(list){
+  return [...list].sort((a,b)=>{
+    const pa=charPrimary(a),pb=charPrimary(b);
+    return String(pa.sound||"").localeCompare(String(pb.sound||""),"ko-KR") ||
+           String(pa.meaning||"").localeCompare(String(pb.meaning||""),"ko-KR") ||
+           String(a.hanja).localeCompare(String(b.hanja),"ko-KR");
+  });
+}
+function exactGradeChars(grade){return chars.filter(c=>c.level===grade)}
+function availableExamQuestions(){
+  return examItems.filter(x=>x.round&&!x.frequencyOnly&&x.prompt&&x.answer!==undefined&&String(x.answer).trim()!=="");
+}
+function examPairs(){
+  const m=new Map();
+  availableExamQuestions().forEach(x=>{
+    const k=`${x.round}|${x.level}`;
+    if(!m.has(k))m.set(k,{round:+x.round,level:x.level,count:0});
+    m.get(k).count++;
+  });
+  return [...m.values()].sort((a,b)=>a.round-b.round||gradeIndex(a.level)-gradeIndex(b.level));
+}
+function specialRoundQuestionCount(round){
+  return availableExamQuestions().filter(x=>+x.round===+round&&x.level==="특급").length;
+}
+function specialRoundReady(round){
+  return specialRoundQuestionCount(round)>=150;
+}
+
+function archivePageUrl(level){
+  const m=GRADE_ARCHIVES[level];
+  return m?`https://winteriscoming2u.tistory.com/${m.post}`:"";
+}
+function gradeDisplay(level){return GRADE_ARCHIVES[level]?.label||level}
+function archiveCacheKey(level){return GRADE_ARCHIVE_CACHE_PREFIX+encodeURIComponent(level)}
+function quizCacheKey(level,round){return GRADE_QUIZ_CACHE_PREFIX+encodeURIComponent(level)+"_"+round}
+function gradeQuestionCount(level,round){
+  return availableExamQuestions().filter(x=>x.level===level&&+x.round===+round).length;
+}
+function gradeRoundReady(level,round){return gradeQuestionCount(level,round)>=40}
+function hydrateAllGradeQuizCaches(){
+  try{
+    const remove=[];
+    for(let i=0;i<localStorage.length;i++){
+      const k=localStorage.key(i)||"";
+      if(!k.startsWith(GRADE_QUIZ_CACHE_PREFIX))continue;
+      const arr=JSON.parse(localStorage.getItem(k)||"[]");
+      if(!Array.isArray(arr)||!arr.length)continue;
+      if(parsedRoundLooksBroken(arr)){remove.push(k);continue}
+      const level=arr[0]?.level,round=+arr[0]?.round;
+      if(!level||!round)continue;
+      examItems=examItems.filter(x=>!(x.autoParsed&&x.level===level&&+x.round===round));
+      examItems.push(...arr);
+    }
+    remove.forEach(k=>localStorage.removeItem(k));
+  }catch(e){}
+}
+function saveGradeQuizCache(level,round,items){
+  try{localStorage.setItem(quizCacheKey(level,round),JSON.stringify(items.map(compactSpecialItem)))}
+  catch(e){toast("문제화는 완료됐지만 저장공간이 부족해 이번 실행에서만 유지됩니다.")}
+}
+function loadCachedGradeQuiz(level,round){
+  try{
+    const key=quizCacheKey(level,round);
+    const arr=JSON.parse(localStorage.getItem(key)||"[]");
+    if(Array.isArray(arr)&&arr.length){
+      if(parsedRoundLooksBroken(arr)){
+        localStorage.removeItem(key);
+        examItems=examItems.filter(x=>!(x.autoParsed&&x.level===level&&+x.round===+round));
+        return null;
+      }
+      examItems=examItems.filter(x=>!(x.autoParsed&&x.level===level&&+x.round===+round));
+      examItems.push(...arr);
+      return arr;
+    }
+  }catch(e){}
+  return null;
+}
+function normalizeArchiveHref(href,base){
+  try{return new URL(href,base).href}catch{return href}
+}
+function parseArchiveHtml(html,base){
+  const doc=new DOMParser().parseFromString(html,"text/html"),links={};
+  [...doc.querySelectorAll("a[href]")].forEach(a=>{
+    const txt=((a.textContent||"")+" "+(a.getAttribute("href")||"")).replace(/\s+/g," ");
+    const m=txt.match(/(\d{2,3})회/);if(!m)return;
+    const r=+m[1],h=normalizeArchiveHref(a.getAttribute("href"),base);
+    if(r>0&&r<200&&/\.pdf|daumcdn|kakaocdn/i.test(h))links[r]=h;
+  });
+  return links;
+}
+function parseArchiveMarkdown(txt){
+  const links={};
+  const rx=/\[([^\]]*(\d{2,3})회[^\]]*)\]\((https?:\/\/[^)\s]+)\)/g;
+  for(const m of txt.matchAll(rx)){
+    const r=+m[2],h=m[3];
+    if(/\.pdf|daumcdn|kakaocdn/i.test(h))links[r]=h;
+  }
+  return links;
+}
+async function fetchArchiveText(url){
+  try{
+    const r=await fetch(url,{cache:"no-store"});
+    if(r.ok)return {text:await r.text(),kind:"html",base:url};
+  }catch{}
+  try{
+    const u="https://r.jina.ai/http://"+url.replace(/^https?:\/\//,"");
+    const r=await fetch(u,{cache:"no-store"});
+    if(r.ok)return {text:await r.text(),kind:"markdown",base:url};
+  }catch{}
+  try{
+    const u="https://api.allorigins.win/raw?url="+encodeURIComponent(url);
+    const r=await fetch(u,{cache:"no-store"});
+    if(r.ok)return {text:await r.text(),kind:"html",base:url};
+  }catch{}
+  throw Error("기출 목록 페이지를 불러오지 못했습니다.");
+}
+async function loadGradeArchive(level,{force=false,requireLinks=false}={}){
+  const existing=gradeArchiveLinks[level]||{};
+  if(!force&&Object.values(existing).some(Boolean))return existing;
+
+  if(!force){
+    try{
+      const c=JSON.parse(localStorage.getItem(archiveCacheKey(level))||"null");
+      if(c?.links&&Object.values(c.links).some(Boolean)){
+        gradeArchiveLinks[level]={...builtinRoundMap(level),...c.links};
+        return gradeArchiveLinks[level];
+      }
+    }catch{}
+  }
+
+  const url=archivePageUrl(level);
+  if(!url)throw Error("급수별 자료실 주소가 없습니다.");
+  let links={};
+
+  try{
+    const r=await fetchWithTimeout(url,{cache:"no-store"},3200);
+    if(r.ok){
+      const html=await r.text();
+      links={...links,...parseArchiveHtml(html,url),...parseArchiveMarkdown(html)};
+    }
+  }catch{}
+
+  if(!Object.values(links).some(Boolean)){
+    try{
+      const jina="https://r.jina.ai/http://"+url.replace(/^https?:\/\//,"");
+      const r=await fetchWithTimeout(jina,{cache:"no-store"},4200);
+      if(r.ok)links={...links,...parseArchiveMarkdown(await r.text())};
+    }catch{}
+  }
+
+  if(Math.max(0,...Object.keys(links).map(Number))<114){
+    try{
+      const proxy="https://api.allorigins.win/raw?url="+encodeURIComponent(url);
+      const r=await fetchWithTimeout(proxy,{cache:"no-store"},4200);
+      if(r.ok){
+        const html=await r.text();
+        links={...links,...parseArchiveHtml(html,url),...parseArchiveMarkdown(html)};
+      }
+    }catch{}
+  }
+
+  if(Object.values(links).some(Boolean)){
+    gradeArchiveLinks[level]={...builtinRoundMap(level),...links};
+    try{
+      localStorage.setItem(archiveCacheKey(level),JSON.stringify({
+        at:Date.now(),links,maxRound:Math.max(...Object.keys(links).map(Number))
+      }));
+    }catch{}
+    return gradeArchiveLinks[level];
+  }
+
+  if(requireLinks)throw Error("이 브라우저에서는 외부 기출 PDF 주소를 자동으로 가져오지 못했습니다.");
+  gradeArchiveLinks[level]=builtinRoundMap(level);
+  return gradeArchiveLinks[level];
+}
+function sourcePdfUrl(level,round){
+  if(gradeArchiveLinks[level]?.[round])return gradeArchiveLinks[level][round];
+  if(level==="특급")return specialBaseUrl(round);
+  return null;
+}
+function renderGradeRoundButtons(level,links){
+  const rounds=Object.keys(links||{}).map(Number).filter(Boolean).sort((a,b)=>a-b);
+  if(!rounds.length)return `<div class="empty">회차가 없습니다.</div>`;
+  return rounds.map(r=>{
+    const ready=gradeRoundReady(level,r);
+    return `<button class="round-btn ${ready?"built":""}" onclick="prepareGradeRound('${level}',${r})">${r}회${ready?" ✓":""}</button>`;
+  }).join("");
+}
+async function updateGradeArchiveGrid(level,force=false){
+  examArchiveLevel=level;
+  const grid=$("#gradeRoundGrid"),status=$("#gradeArchiveStatus");
+  if(!grid)return;
+
+  const built=builtinRoundMap(level);
+  const known={...built,...(gradeArchiveLinks[level]||{})};
+  grid.innerHTML=renderGradeRoundButtons(level,known);
+
+  const rs=Object.keys(known).map(Number).sort((a,b)=>a-b);
+  const ready=rs.filter(r=>gradeRoundReady(level,r));
+
+  if(isLocalContentMode()){
+    status.className="remote-status ok";
+    status.textContent=`${gradeDisplay(level)} · ${rs[0]}~${rs[rs.length-1]}회 · 바로 풀기 ${ready.length}회 · 나머지는 PDF 선택`;
+    return;
+  }
+
+  status.className="remote-status";
+  status.textContent=`${gradeDisplay(level)} · 회차 목록 사용 가능 · 원문 링크 동기화 중`;
+
+  try{
+    const links=await loadGradeArchive(level,{force});
+    if($("#gradeRoundGrid")&&examArchiveLevel===level){
+      const merged={...built,...links};
+      grid.innerHTML=renderGradeRoundButtons(level,merged);
+      const actual=Object.values(links).filter(Boolean).length;
+      status.className="remote-status ok";
+      status.textContent=`${gradeDisplay(level)} · 원문 링크 ${actual}개 · 바로 풀기 ${Object.keys(merged).map(Number).filter(r=>gradeRoundReady(level,r)).length}회`;
+    }
+  }catch{
+    status.className="remote-status";
+    status.textContent=`${gradeDisplay(level)} · 회차 목록 사용 가능 · 원문 연결은 회차 선택 시 재시도`;
+  }
+}
+
+function renderRemoteRoundGrid(){
+  const out=[];
+  for(let r=38;r<=114;r++){
+    if(r===88||r===89){
+      out.push(`<button class="round-btn cancelled" disabled>${r}회 취소</button>`);
+    }else{
+      const ready=specialRoundReady(r);
+      out.push(`<button class="round-btn ${ready?"built":""}" onclick="prepareSpecialRound(${r})">${r}회${ready?" ✓":""}</button>`);
+    }
+  }
+  return out.join("");
+}
+
+function guessExamMetaFromFilename(name,defaultLevel){
+  const t=String(name||"");
+  const rm=t.match(/(\d{2,3})\s*회/);
+  let level=defaultLevel||examArchiveLevel||"특급";
+  const gradePatterns=[
+    ["특급Ⅱ",/(?:특급\s*(?:Ⅱ|II|2)|준특급)/i],
+    ["특급",/특급/i],
+    ["1급",/(?:^|[^\d])1\s*급/],
+    ["2급",/(?:^|[^\d])2\s*급/],
+    ["3급Ⅱ",/3\s*급\s*(?:Ⅱ|II|2)/i],
+    ["3급",/3\s*급/],
+    ["4급Ⅱ",/4\s*급\s*(?:Ⅱ|II|2)/i],
+    ["4급",/4\s*급/],
+    ["5급Ⅱ",/5\s*급\s*(?:Ⅱ|II|2)/i],
+    ["5급",/5\s*급/],
+    ["6급Ⅱ",/6\s*급\s*(?:Ⅱ|II|2)/i],
+    ["6급",/6\s*급/],
+    ["7급Ⅱ",/7\s*급\s*(?:Ⅱ|II|2)/i],
+    ["7급",/7\s*급/],
+    ["8급",/8\s*급/]
+  ];
+  for(const [g,re] of gradePatterns){
+    if(re.test(t)){level=g;break}
+  }
+  return {level,round:rm?+rm[1]:null};
+}
+async function importOneExamPdfSilent(level,round,file,statusEl){
+  if(!window.pdfjsLib)throw Error("PDF 분석 모듈 로딩 실패");
+  const buf=await file.arrayBuffer();
+  const pdf=await pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;
+  const flat=await pdfToFlat(pdf,level,round,statusEl);
+  const answerStart=flat.findIndex(x=>/제?\s*\d+회.*답안지|답안지\s*(?:\(|（)?1?(?:\)|）)?|번호\s*정답/.test(x.line));
+  if(answerStart<0)throw Error("답안지 위치 인식 실패");
+
+  const answers=parseAnswerRows(flat.slice(answerStart).map(x=>x.line),0);
+  const got=Object.keys(answers).length;
+  if(got<10)throw Error(`정답 ${got}개만 인식`);
+
+  const items=problemizeFlatPdf(level,round,flat,answerStart,answers);
+  if(items.length<10)throw Error("문항 번호 인식 실패");
+
+  const generic=items.filter(isGenericExamPrompt).length;
+  if(generic/items.length>0.20)throw Error(`문제 본문 인식 부족 (${items.length-generic}/${items.length})`);
+
+  examItems=examItems.filter(x=>!(x.autoParsed&&x.level===level&&+x.round===+round));
+  examItems.push(...items);
+  saveGradeQuizCache(level,round,items);
+  return {items:items.length,answers:got};
+}
+async function importMultipleExamPdfs(files,defaultLevel){
+  const list=[...(files||[])];
+  const status=$("#multiPdfStatus");
+  if(!list.length){toast("PDF를 선택하세요.");return}
+
+  let ok=0,fail=0;
+  const failed=[];
+  for(let i=0;i<list.length;i++){
+    const file=list[i];
+    const meta=guessExamMetaFromFilename(file.name,defaultLevel);
+    if(!meta.round){
+      fail++;failed.push(`${file.name}: 회차를 파일명에서 못 찾음`);
+      continue;
+    }
+    try{
+      if(status){
+        status.className="remote-status";
+        status.textContent=`${i+1}/${list.length} · ${gradeDisplay(meta.level)} 제${meta.round}회 처리 중…`;
+      }
+      await importOneExamPdfSilent(meta.level,meta.round,file,status);
+      ok++;
+    }catch(e){
+      fail++;
+      failed.push(`${file.name}: ${e.message||e}`);
+    }
+  }
+
+  if(status){
+    status.className="remote-status "+(fail?"bad":"ok");
+    status.innerHTML=`완료 · 성공 ${ok}개 / 실패 ${fail}개${failed.length?`<br><span class="small">${esc(failed.slice(0,4).join(" · "))}${failed.length>4?" 외":""}</span>`:""}`;
+  }
+  updateGradeArchiveGrid(defaultLevel||examArchiveLevel,false);
+}
+
+function renderExam(){
+  if(!$("#exam"))return;
+  const level=examArchiveLevel||"특급";
+  const local=isLocalContentMode();
+
+  $("#exam").innerHTML=`
+    <div class="card">
+      <div class="meta">
+        <span class="badge hot">한국어문회 기출</span>
+        <span class="badge">8급 → 특급</span>
+        <span class="badge good">타이핑 풀이</span>
+        ${local?`<span class="badge">로컬 파일 모드</span>`:""}
+      </div>
+
+      <div class="prompt" style="margin-top:10px">급수와 회차를 골라 풀기</div>
+      <div class="sub">
+        ${local
+          ?`지금은 Android의 <b>content://downloads</b>에서 실행 중이라 아직 문제화되지 않은 회차는 외부 PDF를 자동으로 읽지 않습니다. <b>✓ 회차는 즉시 풀이</b>, 나머지는 누르면 바로 PDF 선택 화면으로 갑니다.`
+          :`처음 여는 회차는 원문 PDF를 문제화한 뒤 프로그램 안에서 직접 타이핑해서 풉니다.`}
+      </div>
+
+      <div class="toolbar" style="margin-top:14px">
+        <div>
+          <div class="label">급수</div>
+          <select id="examArchiveLevel">
+            ${ARCHIVE_LEVELS.map(g=>`<option value="${g}" ${g===level?"selected":""}>${gradeDisplay(g)}</option>`).join("")}
+          </select>
+        </div>
+        <div>
+          <div class="label">표시</div>
+          <div class="remote-status ok">✓ = 바로 풀 수 있음</div>
+        </div>
+      </div>
+
+      <div id="gradeArchiveStatus" class="remote-status"></div>
+      <div id="gradeRoundGrid" class="remote-exam-list" style="margin-top:10px"></div>
+
+      ${local?`
+      <details class="compact-settings" open style="margin-top:12px">
+        <summary>PDF 여러 개 한꺼번에 문제화</summary>
+        <div>
+          <div class="sub">파일명이 <b>한자능력검정 특급 109회.pdf</b>처럼 급수와 회차를 포함하면 자동으로 구분합니다. 여러 개를 한 번에 선택할 수 있습니다.</div>
+          <input id="multiExamPdf" type="file" accept="application/pdf,.pdf" multiple style="display:none">
+          <div class="actions">
+            <button class="btn primary" id="chooseMultiPdf">여러 PDF 선택</button>
+            <a class="btn filebtn" id="gradeArchiveLink" href="${archivePageUrl(level)}" target="_blank" rel="noopener">원문 자료실</a>
+          </div>
+          <div id="multiPdfStatus" class="remote-status">아직 선택한 PDF가 없습니다.</div>
+        </div>
+      </details>`:
+      `<details class="compact-settings" style="margin-top:12px">
+        <summary>전체 준비 / 원문</summary>
+        <div>
+          <div class="actions">
+            <button class="btn primary" id="buildGradeAllBtn">선택 급수 전체 문제화</button>
+            <a class="btn filebtn" id="gradeArchiveLink" href="${archivePageUrl(level)}" target="_blank" rel="noopener">원문 자료실</a>
+          </div>
+        </div>
+      </details>`}
+
+      <div id="bulkBuildStatus" class="remote-status">
+        ${local?"회차 버튼이 안 뜨는 문제는 없도록 목록 자체는 HTML에 내장되어 있습니다.":"원하는 회차를 누르면 준비합니다."}
+      </div>
+    </div>`;
+
+  $("#examArchiveLevel").onchange=()=>{
+    examArchiveLevel=$("#examArchiveLevel").value;
+    $("#gradeArchiveLink").href=archivePageUrl(examArchiveLevel);
+    updateGradeArchiveGrid(examArchiveLevel,false);
+  };
+
+  if(local){
+    const input=$("#multiExamPdf");
+    $("#chooseMultiPdf").onclick=()=>input.click();
+    input.onchange=()=>importMultipleExamPdfs(input.files,$("#examArchiveLevel").value);
+  }else{
+    $("#buildGradeAllBtn").onclick=()=>buildAllGradeRounds($("#examArchiveLevel").value);
+  }
+
+  updateGradeArchiveGrid(level,false);
+}
+
+function compactSpecialItem(q){
+  const o={
+    round:+q.round,no:+q.no,level:q.level||"특급",type:q.type||"other",
+    prompt:q.prompt||"",answer:q.answer??"",hanja:q.hanja||"",
+    korean:q.korean||"",sourceText:q.sourceText||"",note:q.note||"",autoParsed:true
+  };
+  if(q.manual)o.manual=true;
+  if(q.choices)o.choices=q.choices;
+  if(q.choiceHint)o.choiceHint=q.choiceHint;
+  return o;
+}
+function addSpecialRoundItems(round,items){
+  examItems=examItems.filter(x=>!(+x.round===+round&&x.autoParsed));
+  examItems.push(...items);
+}
+function hydrateSpecialRoundCache(){
+  try{
+    for(let i=0;i<localStorage.length;i++){
+      const k=localStorage.key(i);
+      if(!k||!k.startsWith(SPECIAL_CACHE_PREFIX))continue;
+      const round=+k.slice(SPECIAL_CACHE_PREFIX.length);
+      if(!round||round===38)continue;
+      const arr=JSON.parse(localStorage.getItem(k)||"[]");
+      if(Array.isArray(arr)&&arr.length>=100)addSpecialRoundItems(round,arr);
+    }
+  }catch(e){}
+}
+function saveSpecialRoundCache(round,items){
+  try{
+    const compact=items.map(compactSpecialItem);
+    localStorage.setItem(SPECIAL_CACHE_PREFIX+round,JSON.stringify(compact));
+  }catch(e){
+    toast("문제화는 완료됐지만 브라우저 저장공간이 부족해 이번 실행에서만 유지됩니다.");
+  }
+}
+function markerRE(n){
+  return new RegExp(
+    "(?:"
+    +"\\\\[\\\\s*"+n+"(?:\\\\s*;[^\\\\]]*)?\\\\s*\\\\]"
+    +"|\\\\(\\\\s*"+n+"\\\\s*\\\\)"
+    +"|【\\\\s*"+n+"\\\\s*】"
+    +"|〔\\\\s*"+n+"\\\\s*〕"
+    +"|(?:^|\\\\s)"+n+"\\\\s*[\\.．:)）]\\s*"
+    +"|^\\\\s*"+n+"\\\\s+(?=[\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff가-힣])"
+    +")"
+  );
+}
+function cleanExamText(t){
+  return String(t||"")
+    .replace(/第\\d+回[^\\n]*?(?:問題紙|답안지)[^\\n]*/g," ")
+    .replace(/<계속>/g," ")
+    .replace(/■+/g," ")
+    .replace(/\\s+/g," ").trim();
+}
+function contextForQuestion(problemLines,n){
+  const re=markerRE(n);
+  let idx=problemLines.findIndex(x=>re.test(x.line));
+  if(idx<0)return "";
+
+  const chunks=[];
+  for(let j=Math.max(0,idx-1);j<=Math.min(problemLines.length-1,idx+3);j++){
+    const line=problemLines[j].line;
+    if(j>idx){
+      const nm=line.match(/(?:\[\s*(\d{1,3})(?:\s*;[^\]]*)?\s*\]|\(\s*(\d{1,3})\s*\)|【\s*(\d{1,3})\s*】|〔\s*(\d{1,3})\s*〕|^\s*(\d{1,3})\s*[\.．:)）]?\s+)/);
+      const other=nm?+(nm[1]||nm[2]||nm[3]||nm[4]||nm[5]):0;
+      if(other&&other!==n)break;
+    }
+    chunks.push(line);
+  }
+  return cleanExamText(chunks.join(" "));
+}
+function extractHanjaAfterMarker(ctx,n){
+  const ps=[
+    new RegExp("\\\\[\\\\s*"+n+"(?:\\\\s*;[^\\\\]]*)?\\\\s*\\\\]\\\\s*([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})"),
+    new RegExp("\\\\(\\\\s*"+n+"\\\\s*\\\\)\\\\s*([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})"),
+    new RegExp("【\\\\s*"+n+"\\\\s*】\\\\s*([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})"),
+    new RegExp("〔\\\\s*"+n+"\\\\s*〕\\\\s*([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})"),
+    new RegExp("(?:^|\\\\s)"+n+"\\\\s*[\\\\.．:)）]?\\\\s*([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})"),
+    new RegExp("([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})\\\\s*\\\\(\\\\s*"+n+"\\\\s*\\\\)")
+  ];
+  for(const re of ps){const m=ctx.match(re);if(m)return m[1]}
+  // 번호와 한자가 PDF에서 다른 text item으로 분리되었을 때
+  const groups=[...ctx.matchAll(/[\\u3400-\\u9fff\\uf900-\\ufaff]{1,20}/g)].map(m=>m[0]);
+  return groups.find(x=>x.length>=1&&!/^(?:問|答案|問題紙)$/.test(x))||"";
+}
+function extractKoreanBeforeMarker(ctx,n){
+  const ps=[
+    new RegExp("([가-힣]{1,24})\\s*\\[\\s*"+n+"(?:\\s*;[^\\]]*)?\\s*\\]"),
+    new RegExp("([가-힣]{1,24})\\s*\\(\\s*"+n+"\\s*\\)"),
+    new RegExp("\\(\\s*"+n+"\\s*\\)\\s*([가-힣]{1,24})"),
+    new RegExp("(?:^|\\s)"+n+"\\s*[\\.．:)）]?\\s*([가-힣]{1,24})")
+  ];
+  for(const re of ps){const m=ctx.match(re);if(m)return m[1]}
+  return "";
+}
+function headerRangesFromFlat(flat,answerStart){
+  const ranges=[],seen=new Set();
+  for(let i=0;i<answerStart;i++){
+    const line=flat[i].line;
+    const m=line.match(/(?:\[?\s*(?:問|문제)\s*)?(\d{1,3})\s*[-~－–]\s*(\d{1,3})(?:\s*\])?/);
+    if(!m)continue;
+    const a=+m[1],b=+m[2];if(a<1||b<a||b>250)continue;
+    const k=a+"-"+b;if(seen.has(k))continue;seen.add(k);
+    const desc=cleanExamText([(flat[i-1]?.line||""),line,(flat[i+1]?.line||""),(flat[i+2]?.line||"")].join(" "));
+    ranges.push({a,b,type:classifyExamHeader(desc),desc});
+  }
+  return ranges;
+}
+function parseCircledChoices(ctx){
+  const matches=[...ctx.matchAll(/([①②③④⑤⑥⑦⑧⑨⑩])\s*([^\s①②③④⑤⑥⑦⑧⑨⑩]+)/g)];
+  return matches.map(m=>`${m[1]} ${m[2]}`);
+}
+function fallbackExamType(level,n){
+  if(level==="특급"){
+    if(n<=50)return "sound";
+    if(n<=82)return "meaningSound";
+    if(n<=92)return "longSound";
+    if(n<=133)return "wordWrite";
+    if(n<=143)return "synonym";
+    if(n<=153)return "antonym";
+    if(n<=156)return "abbreviation";
+    if(n<=166)return "homonym";
+    if(n<=176)return "definition";
+    if(n<=186)return "radical";
+    if(n<=200)return "idiom";
+  }
+  if(level==="특급Ⅱ"){
+    // 특급Ⅱ도 상위급수 공통 구성에서 헤더 인식 실패 시 원문을 그대로 보여주되,
+    // 확실한 범위를 임의로 단정하지 않는다.
+    return "other";
+  }
+  return "other";
+}
+function isGenericExamPrompt(q){
+  const p=String(q?.prompt||"");
+  return !p || /^제?\s*회?\s*\d+번\s*문제$/.test(p) || /^제회\s*\d+번\s*문제$/.test(p);
+}
+function parsedRoundLooksBroken(items){
+  if(!items?.length)return true;
+  const bad=items.filter(q=>isGenericExamPrompt(q)).length;
+  const other=items.filter(q=>q.type==="other").length;
+  return bad/items.length>0.20 || other/items.length>0.65;
+}
+
+function buildProblemizedPrompt(n,type,ctx,answer){
+  const han=extractHanjaAfterMarker(ctx,n);
+  const ko=extractKoreanBeforeMarker(ctx,n);
+  if(type==="sound"&&han)return {prompt:`「${han}」의 독음을 쓰세요.`,hanja:han,korean:""};
+  if(type==="meaningSound"&&han)return {prompt:`「${han}」의 훈과 음을 쓰세요.`,hanja:han,korean:""};
+  if(type==="wordWrite"&&ko)return {prompt:`「${ko}」를 한자로 쓰세요.`,hanja:"",korean:ko};
+  if(type==="radical"&&han)return {prompt:`「${han}」의 부수를 쓰세요.`,hanja:han,korean:""};
+  if(type==="abbreviation"&&han)return {prompt:`「${han}」의 약자를 쓰세요.`,hanja:han,korean:""};
+  if(type==="definition"&&han)return {prompt:`「${han}」의 일반적인 뜻을 쓰세요.`,hanja:han,korean:""};
+  if(type==="longSound"&&ctx)return {prompt:`장단음 문제: ${ctx}`,hanja:"",korean:""};
+  if(type==="antonym"&&ctx)return {prompt:`반대·상대어 문제: ${ctx}`,hanja:han,korean:""};
+  if(type==="synonym"&&ctx)return {prompt:`같거나 비슷한 뜻의 한자 문제: ${ctx}`,hanja:han,korean:""};
+  if(type==="idiom"&&ctx)return {prompt:`성어 문제: ${ctx}`,hanja:han,korean:""};
+  if(type==="homonym"&&ctx)return {prompt:`동음이의어 문제: ${ctx}`,hanja:han,korean:""};
+  if(ctx)return {prompt:ctx,hanja:han,korean:ko};
+  return {prompt:`${n}번 문제 원문을 인식하지 못했습니다. 이 회차를 다시 문제화해 주세요.`,hanja:"",korean:""};
+}
+function problemizeFlatPdf(level,round,flat,answerStart,answers){
+  const problemLines=flat.slice(0,answerStart),ranges=headerRangesFromFlat(flat,answerStart);
+  const nums=Object.keys(answers).map(Number).filter(Boolean);
+
+  for(const x of problemLines){
+    const re=/\[\s*(\d{1,3})(?:\s*;[^\]]*)?\s*\]|\(\s*(\d{1,3})\s*\)|【\s*(\d{1,3})\s*】|〔\s*(\d{1,3})\s*〕|^\s*(\d{1,3})\s*[\.．:)）]?\s+/g;
+    for(const m of x.line.matchAll(re)){
+      const n=+(m[1]||m[2]||m[3]||m[4]||m[5]);
+      if(n>=1&&n<=250)nums.push(n);
+    }
+  }
+
+  let maxQ=Math.max(0,...nums);
+  if(level==="특급")maxQ=Math.max(maxQ,200);
+
+  const out=[];
+  for(let n=1;n<=maxQ;n++){
+    const rg=ranges.find(r=>n>=r.a&&n<=r.b);
+    let type=rg?.type||"other";
+    if(type==="other")type=fallbackExamType(level,n);
+
+    const ctx=contextForQuestion(problemLines,n);
+    const ans=String(answers[n]??"").trim();
+    const built=buildProblemizedPrompt(n,type,ctx,ans);
+
+    const q={
+      round,no:n,level,type,
+      prompt:built.prompt,
+      answer:ans||"자가확인",
+      hanja:built.hanja||"",
+      korean:built.korean||"",
+      sourceText:ctx||"",
+      note:`제${round}회 ${gradeDisplay(level)} 기출 자동 문제화`,
+      autoParsed:true
+    };
+    if(!ans)q.manual=true;
+    if(type==="longSound"){
+      const ch=parseCircledChoices(ctx);
+      if(ch.length>=2)q.choiceHint=ch;
+    }
+    out.push(q);
+  }
+  return out;
+}
+
+function pdfFetchCandidates(url){
+  const u=encodeURIComponent(url);
+  return [
+    {label:"원문 서버",url},
+    {label:"AllOrigins",url:"https://api.allorigins.win/raw?url="+u},
+    {label:"CorsProxy",url:"https://corsproxy.io/?url="+u},
+    {label:"CodeTabs",url:"https://api.codetabs.com/v1/proxy?quest="+u}
+  ];
+}
+function looksLikePdf(buf){
+  if(!buf||buf.byteLength<5)return false;
+  const a=new Uint8Array(buf,0,Math.min(buf.byteLength,16));
+  for(let i=0;i<=a.length-5;i++){
+    if(a[i]===0x25&&a[i+1]===0x50&&a[i+2]===0x44&&a[i+3]===0x46&&a[i+4]===0x2d)return true;
+  }
+  return false;
+}
+async function fetchPdfBytesWithFallback(url,statusEl=null){
+  const errs=[];
+  for(const c of pdfFetchCandidates(url)){
+    try{
+      if(statusEl)statusEl.textContent=`PDF 연결 시도 중 · ${c.label}`;
+      const r=await fetchWithTimeout(c.url,{cache:"no-store"},8000);
+      if(!r.ok)throw Error(`HTTP ${r.status}`);
+      const buf=await r.arrayBuffer();
+      if(!looksLikePdf(buf))throw Error("PDF 형식 아님");
+      return buf;
+    }catch(e){
+      errs.push(`${c.label}: ${e.message||e}`);
+    }
+  }
+  throw Error("브라우저가 PDF 읽기를 차단했습니다.");
+}
+async function pdfToFlat(pdf,level,round,statusEl=null){
+  const flat=[];
+  for(let pn=1;pn<=pdf.numPages;pn++){
+    if(statusEl)statusEl.textContent=`${gradeDisplay(level)} 제${round}회 문제화 중 · ${pn}/${pdf.numPages}페이지`;
+    const page=await pdf.getPage(pn);
+    const tc=await page.getTextContent();
+    const lines=pdfLineGroups(tc.items);
+    lines.forEach(line=>flat.push({pn,line}));
+  }
+  return flat;
+}
+async function parseLocalExamPdfFile(level,round,file){
+  if(!file){toast("PDF 파일을 선택하세요.");return}
+  if(!window.pdfjsLib){toast("PDF 분석 모듈을 불러오지 못했습니다.");return}
+  const status=$("#localPdfStatus");
+  try{
+    if(status){status.className="remote-status";status.textContent=`${file.name} 읽는 중…`}
+    const buf=await file.arrayBuffer();
+    const pdf=await pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;
+    const flat=await pdfToFlat(pdf,level,round,status);
+    const answerStart=flat.findIndex(x=>/제?\s*\d+회.*답안지|답안지\s*(?:\(|（)?1?(?:\)|）)?|번호\s*정답/.test(x.line));
+    if(answerStart<0)throw Error("답안지 위치를 찾지 못했습니다.");
+
+    const answers=parseAnswerRows(flat.slice(answerStart).map(x=>x.line),0);
+    const got=Object.keys(answers).length;
+    if(got<10)throw Error(`정답 인식이 부족합니다 (${got}개).`);
+
+    const items=problemizeFlatPdf(level,round,flat,answerStart,answers);
+    if(items.length<10)throw Error("문제 번호를 충분히 인식하지 못했습니다.");
+
+    const generic=items.filter(isGenericExamPrompt).length;
+    if(generic/items.length>0.20){
+      throw Error(`문제 본문을 충분히 읽지 못했습니다 (${items.length-generic}/${items.length}).`);
+    }
+
+    examItems=examItems.filter(x=>!(x.autoParsed&&x.level===level&&+x.round===+round));
+    examItems.push(...items);
+    saveGradeQuizCache(level,round,items);
+
+    if(status){
+      status.className="remote-status ok";
+      status.textContent=`완료 · ${items.length}문항 · 문제 본문 ${items.length-generic}개 · 정답 ${got}개`;
+    }
+    setTimeout(()=>startGradeRoundDirect(level,round),220);
+  }catch(e){
+    if(status){status.className="remote-status bad";status.textContent=`문제화 실패 · ${e.message||e}`}
+  }
+}
+function renderPdfFallback(level,round,errorText){
+  $("#exam").innerHTML=`<div class="card">
+    <div class="meta"><span class="badge hot">${esc(gradeDisplay(level))}</span><span class="badge">제${round}회</span></div>
+    <div class="prompt" style="margin-top:10px">이 회차 PDF 선택</div>
+    <div class="sub">이 회차는 아직 프로그램에 문제화되어 있지 않습니다. 원문 PDF 한 개만 고르면 자동으로 문제·정답을 추출해서 저장하고 바로 타이핑 풀이로 넘어갑니다.</div>
+    ${errorText?`<div class="remote-status" style="margin-top:10px">${esc(errorText)}</div>`:""}
+
+    <input id="localExamPdf" type="file" accept="application/pdf,.pdf" style="display:none">
+
+    <div class="actions">
+      <button class="btn primary" id="chooseLocalPdfBtn">제${round}회 PDF 선택</button>
+      <a class="btn filebtn" href="${archivePageUrl(level)}" target="_blank" rel="noopener">원문 자료실</a>
+      <button class="btn" onclick="renderExam()">회차 목록</button>
+    </div>
+
+    <div id="localPdfStatus" class="remote-status">PDF를 고르면 즉시 문제화를 시작합니다.</div>
+  </div>`;
+
+  const input=$("#localExamPdf");
+  $("#chooseLocalPdfBtn").onclick=()=>input.click();
+  input.onchange=()=>{
+    const file=input.files?.[0];
+    if(!file)return;
+    $("#localPdfStatus").className="remote-status";
+    $("#localPdfStatus").textContent=`${file.name} 선택됨 · 문제화 중…`;
+    parseLocalExamPdfFile(level,round,file);
+  };
+}
+
+async function extractRoundPdf(level,round,statusEl=null){
+  if(!window.pdfjsLib)throw Error("PDF 분석 모듈을 불러오지 못했습니다.");
+
+  let url=sourcePdfUrl(level,round);
+  if(!url){
+    if(statusEl)statusEl.textContent=`${gradeDisplay(level)} 제${round}회 원문 주소 확인 중…`;
+    try{await loadGradeArchive(level,{force:true,requireLinks:true})}catch(e){throw e}
+    url=sourcePdfUrl(level,round);
+  }
+  if(!url)throw Error("이 회차의 원문 PDF 주소를 찾지 못했습니다.");
+
+  // content:// 로컬 HTML에서는 PDF URL 직접 로드가 CORS에 막힐 수 있으므로
+  // 먼저 ArrayBuffer로 여러 경로를 시도한 뒤 PDF.js에 데이터 자체를 넘긴다.
+  const buf=await fetchPdfBytesWithFallback(url,statusEl);
+  if(statusEl)statusEl.textContent="PDF 분석 준비 중…";
+  const pdf=await pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;
+  return await pdfToFlat(pdf,level,round,statusEl);
+}
+async function buildGradeRound(level,round,{startAfter=true,quiet=false}={}){
+  if(round===88||round===89)return [];
+  if(level==="특급"&&round===38){
+    if(startAfter)startGradeRoundDirect(level,round);
+    return EMBEDDED_SPECIAL38;
+  }
+
+  let existing=availableExamQuestions().filter(x=>x.level===level&&+x.round===+round);
+  if(existing.length&&parsedRoundLooksBroken(existing)){
+    examItems=examItems.filter(x=>!(x.autoParsed&&x.level===level&&+x.round===+round));
+    try{localStorage.removeItem(quizCacheKey(level,round))}catch{}
+    existing=[];
+  }
+  if(existing.length>=40){
+    if(startAfter)startGradeRoundDirect(level,round);
+    return existing;
+  }
+
+  const cached=loadCachedGradeQuiz(level,round);
+  if(cached?.length){
+    if(startAfter)startGradeRoundDirect(level,round);
+    return cached;
+  }
+
+  if(startAfter){
+    $("#exam").innerHTML=`<div class="card">
+      <div class="meta"><span class="badge hot">${esc(gradeDisplay(level))}</span><span class="badge">제${round}회</span></div>
+      <div class="prompt" style="margin-top:10px">기출 문제화 중</div>
+      <div id="roundBuildStatus" class="remote-status">원문 PDF를 불러오는 중…</div>
+      <div class="sub" style="margin-top:10px">문제 번호·문제 한자·정답을 다시 연결합니다. 완료되면 타이핑 풀이로 넘어갑니다.</div>
+      <div class="actions">
+        <button class="btn" onclick="renderExam()">회차 목록</button>
+        <a class="btn filebtn" href="${archivePageUrl(level)}" target="_blank" rel="noopener">원문 자료실</a>
+      </div>
+    </div>`;
+  }
+
+  const status=startAfter?$("#roundBuildStatus"):null;
+  try{
+    const flat=await extractRoundPdf(level,round,status);
+    const answerStart=flat.findIndex(x=>/제?\s*\d+회.*답안지|답안지\s*(?:\(|（)?1?(?:\)|）)?|번호\s*정답/.test(x.line));
+    if(answerStart<0)throw Error("답안지 위치를 찾지 못했습니다.");
+
+    const answers=parseAnswerRows(flat.slice(answerStart).map(x=>x.line),0);
+    const got=Object.keys(answers).length;
+    if(got<10)throw Error(`정답 인식이 부족합니다 (${got}개).`);
+
+    const items=problemizeFlatPdf(level,round,flat,answerStart,answers);
+    if(items.length<10)throw Error("문제 번호 인식이 부족합니다.");
+
+    const generic=items.filter(isGenericExamPrompt).length;
+    if(generic/items.length>0.20){
+      throw Error(`문제 본문 인식이 부족합니다 (${items.length-generic}/${items.length}). PDF 파일로 다시 시도해 주세요.`);
+    }
+
+    examItems=examItems.filter(x=>!(x.autoParsed&&x.level===level&&+x.round===+round));
+    examItems.push(...items);
+    saveGradeQuizCache(level,round,items);
+
+    if(status){
+      status.className="remote-status ok";
+      status.textContent=`완료 · ${items.length}문항 · 문제 본문 ${items.length-generic}개 · 정답 ${got}개 인식`;
+    }
+    if(startAfter)setTimeout(()=>startGradeRoundDirect(level,round),160);
+    return items;
+  }catch(e){
+    if(!quiet)toast(`${gradeDisplay(level)} 제${round}회 자동 문제화 실패`);
+    if(startAfter)renderPdfFallback(level,round,e.message||String(e));
+    throw e;
+  }
+}
+function startGradeRoundDirect(level,round){
+  const qs=availableExamQuestions().filter(x=>x.level===level&&+x.round===+round).sort((a,b)=>(+a.no||9999)-(+b.no||9999));
+  if(!qs.length){toast("문제화된 문항이 없습니다.");return}
+  examState={questions:qs,index:0,answers:Array(qs.length).fill(""),checked:Array(qs.length).fill(false),score:0,round:+round,level};renderExamQuestion();
+}
+async function prepareGradeRound(level,round){
+  examArchiveLevel=level;
+
+  if(round===88||round===89)return;
+
+  let qs=availableExamQuestions().filter(x=>x.level===level&&+x.round===+round);
+  if(qs.length&&parsedRoundLooksBroken(qs)){
+    examItems=examItems.filter(x=>!(x.autoParsed&&x.level===level&&+x.round===+round));
+    try{localStorage.removeItem(quizCacheKey(level,round))}catch{}
+    qs=[];
+  }
+
+  if(qs.length>=40){
+    startGradeRoundDirect(level,round);
+    return;
+  }
+
+  const cached=loadCachedGradeQuiz(level,round);
+  if(cached?.length){
+    startGradeRoundDirect(level,round);
+    return;
+  }
+
+  if(level==="특급"&&round===38){
+    startGradeRoundDirect(level,round);
+    return;
+  }
+
+  // Android 다운로드 폴더의 content:// HTML은 외부 PDF fetch가 거의 항상 차단됨.
+  // 사용자를 몇 초씩 기다리게 하지 말고 바로 파일 선택 fallback으로 간다.
+  if(isLocalContentMode()){
+    renderPdfFallback(level,round,"로컬 HTML 모드에서는 외부 PDF 자동 읽기가 제한됩니다.");
+    return;
+  }
+
+  return buildGradeRound(level,round,{startAfter:true,quiet:false});
+}
+async function buildAllGradeRounds(level){
+  const status=$("#bulkBuildStatus");let links;
+  try{links=await loadGradeArchive(level)}catch(e){if(status){status.className="remote-status bad";status.textContent=e.message}return}
+  const rounds=Object.keys(links).map(Number).filter(r=>r!==88&&r!==89&&!gradeRoundReady(level,r)).sort((a,b)=>a-b);
+  if(!rounds.length){if(status){status.className="remote-status ok";status.textContent=`${gradeDisplay(level)} 사용 가능 회차가 모두 준비되어 있습니다.`}return}
+  let ok=0,fail=0;
+  for(let i=0;i<rounds.length;i++){
+    const r=rounds[i];if(status){status.className="remote-status";status.textContent=`${gradeDisplay(level)} 전체 준비 ${i+1}/${rounds.length} · 제${r}회 (성공 ${ok}, 실패 ${fail})`}
+    try{await buildGradeRound(level,r,{startAfter:false,quiet:true});ok++}catch{fail++}
+    await new Promise(res=>setTimeout(res,100));
+  }
+  if(status){status.className="remote-status "+(fail?"bad":"ok");status.textContent=`전체 준비 종료 · 성공 ${ok}회 / 실패 ${fail}회`}
+  updateGradeArchiveGrid(level,false);
+}
+// 기존 특급 함수 호환
+function startRoundDirect(round){return startGradeRoundDirect("특급",round)}
+async function prepareSpecialRound(round){return prepareGradeRound("특급",round)}
+async function buildAllSpecialRounds(){return buildAllGradeRounds("특급")}
+
+function openGradePdf(level,round){
+  const url=sourcePdfUrl(level,round);
+  if(url)window.open(url,"_blank","noopener");else window.open(archivePageUrl(level),"_blank","noopener");
+}
+function specialBaseUrl(round){
+  if(freshSpecialUrls[round])return freshSpecialUrls[round];
+  if(SPECIAL_OLD_URLS[String(round)])return SPECIAL_OLD_URLS[String(round)];
+  const m=SPECIAL_NEW_META[String(round)];
+  if(m){
+    const [a,b,c,date]=m;
+    const fn=encodeURIComponent(`한자능력검정 특급 ${round}회 (${date}.시행).pdf`);
+    const base=`https://blog.kakaocdn.net/dna/${a}/${b}/${c}/${fn}`;
+    const sig=SPECIAL_SIGNED_SIGS[String(round)];
+    if(sig && Date.now()<SPECIAL_SIGNED_EXPIRES){
+      return `${base}?allow_ip=&allow_referer=&attach=1&credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1790780399&knm=tfile.pdf&signature=${sig}`;
+    }
+    return base;
+  }
+  return null;
+}
+async function refreshSpecialArchive(showToast=false){
+  try{
+    const res=await fetch(SPECIAL_ARCHIVE_URL,{cache:"no-store"});
+    if(!res.ok)throw Error(res.status);
+    const html=await res.text(),doc=new DOMParser().parseFromString(html,"text/html");
+    let n=0;
+    [...doc.querySelectorAll("a[href]")].forEach(a=>{
+      const txt=(a.textContent||"")+" "+decodeURIComponent(a.href||"");
+      const m=txt.match(/특급\s*(\d{2,3})회/);
+      if(m){freshSpecialUrls[+m[1]]=a.href;n++}
+    });
+    if(showToast)toast(n?`원문 링크 ${n}개 갱신`:"링크를 찾지 못했습니다");
+  }catch(e){
+    if(showToast)toast("자료실 자동접속이 막혔습니다. 내장 링크를 사용합니다.");
+  }
+}
+function archiveTextFragment(round){
+  return SPECIAL_ARCHIVE_URL+"#:~:text="+encodeURIComponent(`한자능력검정 특급 ${round}회`);
+}
+function openExternalPdf(round){
+  const url=specialBaseUrl(round)||archiveTextFragment(round);
+  window.open(url,"_blank","noopener");
+}
+async function openRemoteExam(round){
+  const url=specialBaseUrl(round);
+  remoteExamState={round,url,pdf:null,questions:{},answers:{},types:{},pages:{},index:1,user:{},checked:{},score:0,loaded:false};
+  $("#exam").innerHTML=`<div class="card">
+    <div class="meta"><span class="badge hot">특급</span><span class="badge">제${round}회</span><span class="badge">원문 기출</span></div>
+    <div class="prompt" style="margin-top:10px">제${round}회 특급 기출</div>
+    <div class="sub">아래는 원문 PDF입니다. 자동 분석을 누르면 PDF 안의 문제 번호·유형·답안지를 읽어서 채점 모드를 만듭니다.</div>
+    <div class="actions">
+      <button class="btn primary" id="analyzeRemote">원문 분석 · 자동채점 준비</button>
+      <button class="btn" onclick="openExternalPdf(${round})">원문 PDF 새 창</button>
+      <button class="btn ghost" onclick="renderExam()">회차 목록</button>
+      <a class="btn filebtn" href="${archiveTextFragment(round)}" target="_blank" rel="noopener">자료실에서 찾기</a>
+    </div>
+    <div id="remoteStatus" class="remote-status">원문 로딩 준비 중…</div>
+    ${url?`<iframe class="pdf-frame" id="remotePdfFrame" src="${esc(url)}#page=1&view=FitH" title="제${round}회 특급 원문"></iframe>`:
+    `<div class="empty">직접 PDF 주소를 찾지 못했습니다. ‘자료실에서 찾기’를 눌러주세요.</div>`}
+  </div>`;
+  $("#analyzeRemote").onclick=()=>analyzeRemotePdf(round);
+  // 현재 페이지에서 최신 링크 갱신을 시도하되 실패해도 내장 URL 사용
+  refreshSpecialArchive(false);
+}
+function pdfLineGroups(items){
+  const rows=[];
+  const sorted=[...items].sort((a,b)=>{
+    const dy=b.transform[5]-a.transform[5];
+    return Math.abs(dy)>2.2?dy:a.transform[4]-b.transform[4];
+  });
+  for(const it of sorted){
+    const y=it.transform[5],x=it.transform[4],str=(it.str||"").trim();
+    if(!str)continue;
+    let row=rows.find(r=>Math.abs(r.y-y)<2.2);
+    if(!row){row={y,items:[]};rows.push(row)}
+    row.items.push({x,str});
+  }
+  rows.sort((a,b)=>b.y-a.y);
+  return rows.map(r=>r.items.sort((a,b)=>a.x-b.x).map(x=>x.str).join(" ").replace(/\s+/g," ").trim());
+}
+function classifyExamHeader(desc){
+  const t=desc.replace(/\s+/g," ");
+  if(/讀音|독음|읽는\s*소리/.test(t))return "sound";
+  if(/訓.*音|훈.*음|뜻.*소리/.test(t))return "meaningSound";
+  if(/長音|장음|첫.*음절.*길/.test(t))return "longSound";
+  if(/部首|부수/.test(t))return "radical";
+  if(/總劃|총획|획수/.test(t))return "strokes";
+  if(/同音異義|동음이의/.test(t))return "homonym";
+  if(/類義|同義|유의|동의|뜻이.*비슷/.test(t))return "synonym";
+  if(/反對|相對|반대|상대|뜻이.*반대/.test(t))return "antonym";
+  if(/四字|故事|成語|성어/.test(t))return "idiom";
+  if(/略字|略字|약자/.test(t))return "abbreviation";
+  if(/뜻.*쓰|뜻.*풀이|고유어/.test(t))return "definition";
+  if(/한자.*쓰|漢字.*쓰|漢字語.*漢字|正字.*쓰/.test(t))return "wordWrite";
+  if(/漢字.*찾아.*번호|한자.*찾아.*번호|알맞은.*漢字.*번호|알맞은.*한자.*번호/.test(t))return "wordWrite";
+  return "other";
+}
+function parseAnswerRows(allLines,startIndex){
+  const ans={}; let lastNums=[];
+  for(let i=startIndex;i<allLines.length;i++){
+    let line=allLines[i];
+    if(/수험번호|주민등록|채점위원|감독위원|답안란|채점란|번호\s*정답|뒷면|사단법인|韓國語文會/.test(line))continue;
+    const matches=[...line.matchAll(/(?:^|\s)(\d{1,3})\s+(.+?)(?=(?:\s+\d{1,3}\s+)|$)/g)];
+    if(matches.length){
+      lastNums=[];
+      for(const m of matches){
+        const n=+m[1]; if(n<1||n>200)continue;
+        let a=m[2].trim().replace(/\s+(?:1검|2검).*$/,"").trim();
+        if(!a||/^(?:검|득점|서명)$/.test(a))continue;
+        ans[n]=a;lastNums.push(n);
+      }
+    }else if(lastNums.length===1 && line.length<70){
+      // 긴 뜻풀이가 다음 줄로 이어지는 경우
+      const n=lastNums[0];
+      if(ans[n] && !/^\d/.test(line))ans[n]+=" "+line;
+    }
+  }
+  return ans;
+}
+async function analyzeRemotePdf(round){
+  const status=$("#remoteStatus");
+  if(!window.pdfjsLib){
+    status.className="remote-status bad";
+    status.innerHTML=`PDF 분석 모듈을 불러오지 못했습니다. 인터넷 연결을 확인하거나 <button class="btn" onclick="openExternalPdf(${round})">원문 새 창</button>을 이용하세요.`;
+    return;
+  }
+  pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+  status.className="remote-status";status.textContent="PDF를 읽는 중…";
+  // 최신 signed 링크를 한 번 확보해 본다.
+  await refreshSpecialArchive(false);
+  const url=specialBaseUrl(round);
+  remoteExamState.url=url;
+  try{
+    const pdf=await pdfjsLib.getDocument({url,withCredentials:false}).promise;
+    remoteExamState.pdf=pdf;
+    const pageLines=[],flat=[],qPages={},qSnippets={};
+    for(let pn=1;pn<=pdf.numPages;pn++){
+      status.textContent=`PDF 분석 중… ${pn}/${pdf.numPages}페이지`;
+      const page=await pdf.getPage(pn),tc=await page.getTextContent();
+      const lines=pdfLineGroups(tc.items);pageLines[pn]=lines;
+      lines.forEach(line=>{
+        flat.push({pn,line});
+        [...line.matchAll(/\[\s*(\d{1,3})\s*\]/g)].forEach(m=>{
+          const n=+m[1];if(n>=1&&n<=200&&!qPages[n]){qPages[n]=pn;qSnippets[n]=line}
+        });
+      });
+    }
+    const answerStart=flat.findIndex(x=>/답안지\s*\(?1?\)?|답안지\(1\)/.test(x.line));
+    if(answerStart<0)throw Error("답안지 영역을 찾지 못했습니다");
+    const answerLines=flat.slice(answerStart).map(x=>x.line);
+    const answers=parseAnswerRows(answerLines,0);
+
+    const types={},headers=[];
+    for(let i=0;i<flat.length&&i<answerStart;i++){
+      const m=flat[i].line.match(/\[?\s*問\s*(\d{1,3})\s*[-~－]\s*(\d{1,3})\s*\]?/);
+      if(m){
+        const a=+m[1],b=+m[2],desc=[flat[i].line,flat[i+1]?.line||"",flat[i+2]?.line||""].join(" ");
+        headers.push({a,b,type:classifyExamHeader(desc),desc});
+      }
+    }
+    headers.forEach(h=>{for(let n=h.a;n<=h.b&&n<=200;n++)types[n]=h.type});
+    for(let n=1;n<=200;n++){if(!types[n])types[n]="other"}
+    remoteExamState.answers=answers;remoteExamState.types=types;remoteExamState.pages=qPages;remoteExamState.questions=qSnippets;
+    remoteExamState.loaded=true;remoteExamState.index=1;remoteExamState.user={};remoteExamState.checked={};remoteExamState.score=0;
+    const got=Object.keys(answers).length;
+    if(got<150){
+      status.className="remote-status bad";
+      status.textContent=`원문은 읽었지만 정답 ${got}/200개만 인식했습니다. 인식된 문항은 자동채점하고 나머지는 정답지로 확인할 수 있습니다.`;
+    }else{
+      status.className="remote-status ok";status.textContent=`분석 완료 · 정답 ${got}/200개 인식 · 문제 유형 자동분류 완료`;
+    }
+    renderRemoteQuestion();
+  }catch(e){
+    status.className="remote-status bad";
+    status.innerHTML=`자동 분석에 실패했습니다 (${esc(e.message||e)}). 원문 PDF는 그대로 볼 수 있습니다. <button class="btn" onclick="openExternalPdf(${round})">원문 새 창</button> <a class="btn" href="${archiveTextFragment(round)}" target="_blank" rel="noopener">자료실에서 열기</a>`;
+  }
+}
+function answerHasHanja(a){return /[\u3400-\u9fff\uf900-\ufaff]/.test(String(a||""))}
+function primaryHanjaAnswer(a){
+  const m=String(a||"").match(/[\u3400-\u9fff\uf900-\ufaff]+/g);
+  return m?m.join(""):"";
+}
+function answerVariants(a){
+  a=String(a||"").trim();
+  const set=new Set([a]);
+  a.split(/[\/,，]/).map(x=>x.trim()).filter(Boolean).forEach(x=>set.add(x));
+  // 예: 激憤(忿) -> 激憤, 激忿
+  const pm=a.match(/^(.*?)([\u3400-\u9fff\uf900-\ufaff])\(([\u3400-\u9fff\uf900-\ufaff])\)(.*)$/);
+  if(pm){set.add(pm[1]+pm[2]+pm[4]);set.add(pm[1]+pm[3]+pm[4])}
+  return [...set];
+}
+function remoteTextCorrect(user,ans){
+  const u=norm(user);
+  return answerVariants(ans).some(v=>norm(v)===u);
+}
+function jumpRemotePdf(n){
+  const f=$("#remotePdfFrame");if(!f)return;
+  const p=remoteExamState.pages[n]||Math.max(1,Math.min(3,Math.ceil(n/70)));
+  const base=remoteExamState.url;
+  if(base)f.src=base+`#page=${p}&view=FitH`;
+}
+function renderRemoteQuestion(){
+  const st=remoteExamState,n=st.index,ans=st.answers[n]||"",type=st.types[n]||"other",snippet=st.questions[n]||"";
+  const hasH=answerHasHanja(ans) && !["sound","meaningSound","definition","longSound"].includes(type);
+  const currentPage=st.pages[n]||"?";
+  $("#exam").innerHTML=`<div class="kpis">
+    <div class="kpi"><b>제${st.round}회</b><span>특급 원문</span></div>
+    <div class="kpi"><b>${n}/200</b><span>문제 번호</span></div>
+    <div class="kpi"><b>${st.score}</b><span>정답</span></div>
+    <div class="kpi"><b>${Object.keys(st.checked).length}</b><span>채점 완료</span></div>
+  </div>
+  <div class="card">
+    <div class="toolbar">
+      <div><button class="btn" onclick="openExternalPdf(${st.round})" style="width:100%">원문 PDF 새 창</button></div>
+      <div><button class="btn" onclick="renderExam()" style="width:100%">다른 회차</button></div>
+      <div><div class="remote-status ok">자동분석 완료 · 현재 원문 ${currentPage}쪽</div></div>
+    </div>
+    <iframe class="pdf-frame" id="remotePdfFrame" src="${esc(st.url)}#page=${currentPage==="?"?1:currentPage}&view=FitH"></iframe>
+    <div class="remote-question">
+      <div class="meta"><span class="badge">${n}번</span><span class="badge">${esc(TYPES[type]||type)}</span>${ans?'<span class="badge good">정답 인식됨</span>':'<span class="badge">자가채점</span>'}</div>
+      ${snippet?`<div class="q-snippet">${esc(snippet)}</div>`:`<div class="q-snippet">위 원문에서 ${n}번 문제를 확인하세요.</div>`}
+      ${renderRemoteTextAnswer(n,ans,type)}
+      ${hasH?`<details class="compact-settings"><summary>✍ 손글씨로 풀기</summary><div>${renderRemoteHandwriting(n,ans)}</div></details>`:""}
+      <div id="remoteFeedback" class="feedback"></div>
+      <div class="actions"><button class="btn" id="remotePrev" ${n===1?"disabled":""}>이전</button><button class="btn primary" id="remoteNext">${n===200?"결과":"다음"}</button></div>
+      <div class="remote-nav">${Array.from({length:200},(_,i)=>i+1).map(i=>`<button data-rq="${i}" class="${i===n?"current":""} ${st.checked[i]?"done":""}">${i}</button>`).join("")}</div>
+    </div>
+  </div>`;
+  {
+    const b=$("#remoteCheckText");if(b)b.onclick=()=>checkRemoteText(n,ans);
+    const inp=$("#remoteTextInput");if(inp){inp.onkeydown=e=>{if(e.key==="Enter")checkRemoteText(n,ans)};inp.focus()}
+    const reveal=$("#remoteReveal");if(reveal)reveal.onclick=()=>showRemoteReveal(ans);
+    if(hasH)setupRemoteHandwriting(n,ans);
+  }
+  $("#remotePrev").onclick=()=>{if(n>1){st.index--;renderRemoteQuestion()}};
+  $("#remoteNext").onclick=()=>{if(n<200){st.index++;renderRemoteQuestion()}else renderRemoteResult()};
+  $$(".remote-nav button").forEach(b=>b.onclick=()=>{st.index=+b.dataset.rq;renderRemoteQuestion()});
+  if(st.checked[n])restoreRemoteFeedback(n,ans);
+}
+function renderRemoteTextAnswer(n,ans,type){
+  const free=!ans||type==="definition"||String(ans).length>28;
+  return `<div class="answer-row"><input id="remoteTextInput" value="${esc(remoteExamState.user[n]?.text||"")}" autocomplete="off" placeholder="정답 입력">
+    <button class="btn primary" id="remoteCheckText">${free?"정답 확인":"채점"}</button></div>
+    ${free?`<div class="canvas-tools"><button class="btn" id="remoteReveal">정답 공개</button></div>`:""}`;
+}
+function renderRemoteHandwriting(n,ans){
+  const primary=primaryHanjaAnswer(ans),chars2=[...primary].slice(0,8);
+  return `<div class="word-write-wrap">${chars2.map((_,i)=>`<div class="word-char-box"><canvas id="remoteCanvas${i}" width="360" height="360"></canvas><div class="word-char-label">${i+1}번째 글자</div></div>`).join("")}</div>
+    <div class="canvas-tools"><button class="btn" id="remoteClear">전체 지우기</button><button class="btn primary" id="remoteCheckHand">✦ 자동검사</button><button class="btn" id="remoteRevealHand">정답 공개</button></div>`;
+}
+function setupRemoteHandwriting(n,ans){
+  const primary=primaryHanjaAnswer(ans),arr=[...primary].slice(0,8);
+  arr.forEach((_,i)=>setupAnyCanvas(`#remoteCanvas${i}`));
+  $("#remoteClear").onclick=()=>arr.forEach((_,i)=>clearAnyCanvas(`#remoteCanvas${i}`));
+  $("#remoteRevealHand").onclick=()=>showRemoteReveal(ans);
+  $("#remoteCheckHand").onclick=()=>{
+    const results=[];
+    for(let i=0;i<arr.length;i++){
+      const c=$(`#remoteCanvas${i}`),r=handwritingSimilarity(c,arr[i]);
+      if(r.blank){toast(`${i+1}번째 칸을 먼저 써 주세요`);return}
+      const meta=findCharMeta(arr[i]),sf=strokeCountFactor(c._strokeCount||0,meta?.total||0);
+      const score=Math.round(r.score*sf);results.push({ch:arr[i],score,ok:score>=58});
+    }
+    const avg=Math.round(results.reduce((a,b)=>a+b.score,0)/results.length),ok=results.every(x=>x.ok)&&avg>=60;
+    recordRemoteResult(n,ok,{scores:results.map(x=>x.score),text:primary});
+    const fb=$("#remoteFeedback");fb.className="feedback "+(ok?"ok":"no");
+    fb.innerHTML=`${ok?"정답 처리":"다시 확인"} · 평균 <b>${avg}%</b><br>${results.map((r,i)=>`${i+1}. ${r.score}%`).join(" / ")}${ok?"":`<br>정답: <b style="font-family:serif;font-size:28px">${esc(primary)}</b>`}`;
+  };
+}
+function checkRemoteText(n,ans){
+  const user=$("#remoteTextInput").value.trim();if(!user){toast("답을 입력하세요");return}
+  remoteExamState.user[n]={text:user};
+  if(!ans){showRemoteReveal("PDF 답안지에서 확인하세요");return}
+  const type=remoteExamState.types[n];
+  if(type==="definition"||String(ans).length>28){
+    showRemoteReveal(ans,true);return;
+  }
+  const ok=remoteTextCorrect(user,ans);recordRemoteResult(n,ok,{text:user});
+  const fb=$("#remoteFeedback");fb.className="feedback "+(ok?"ok":"no");
+  fb.innerHTML=ok?`정답입니다.`:`오답 · 정답: <b>${esc(ans)}</b>`;
+}
+function recordRemoteResult(n,ok,data={}){
+  const st=remoteExamState,prev=st.checked[n];
+  if(prev===true)st.score--;
+  st.checked[n]=ok;if(ok)st.score++;
+  st.user[n]={...(st.user[n]||{}),...data};
+  const key=`remote|특급|${st.round}|${n}`;
+  stats[key]=stats[key]||{ok:0,no:0,last:0,type:st.types[n],hanja:"",level:"특급",prompt:`제${st.round}회 ${n}번`};
+  stats[key][ok?"ok":"no"]++;stats[key].last=Date.now();
+  if(!ok){
+    wrong[key]=wrong[key]||{count:0,streak:0,type:st.types[n],hanja:"",level:"특급",prompt:`제${st.round}회 ${n}번`,answer:st.answers[n]};
+    wrong[key].count++;wrong[key].last=Date.now();
+  }
+  saveProgress();
+}
+function showRemoteReveal(ans,self=false){
+  const fb=$("#remoteFeedback");fb.className="feedback ok";
+  fb.innerHTML=`정답: <b>${esc(ans||"PDF 답안지에서 확인")}</b>${self?`<br><span class="small">뜻풀이형은 표현 차이가 커서 자동 오답 판정하지 않습니다.</span>`:""}`;
+}
+function restoreRemoteFeedback(n,ans){
+  const ok=remoteExamState.checked[n],fb=$("#remoteFeedback");if(!fb)return;
+  fb.className="feedback "+(ok?"ok":"no");
+  fb.innerHTML=`이전에 ${ok?"정답":"오답"} 처리됨${!ok&&ans?` · 정답: <b>${esc(ans)}</b>`:""}`;
+}
+function renderRemoteResult(){
+  const st=remoteExamState,checked=Object.keys(st.checked).length;
+  $("#exam").innerHTML=`<div class="card"><div class="prompt">제${st.round}회 특급 · ${st.score}/${checked||200} 정답</div>
+    <div class="sub">채점한 문항 ${checked}/200 · 미채점 문제는 점수 계산에서 제외됩니다.</div>
+    <div class="actions"><button class="btn primary" onclick="remoteExamState.index=1;renderRemoteQuestion()">다시 보기</button><button class="btn" onclick="renderExam()">회차 목록</button></div></div>`;
+}
+
+function startExam(){
+  const round=+$("#examRound").value,level=$("#examLevel").value;
+  let qs=availableExamQuestions().filter(x=>+x.round===round&&x.level===level);
+  qs=[...qs].sort((a,b)=>(+a.no||+a.number||9999)-(+b.no||+b.number||9999));
+  if(!qs.length){toast("이 회차/급수의 문제가 없습니다");return}
+  examState={questions:qs,index:0,answers:Array(qs.length).fill(""),checked:Array(qs.length).fill(false),score:0,round,level};
+  renderExamQuestion();
+}
+function normalizeChoices(q){
+  if(Array.isArray(q.choices))return q.choices.map(String);
+  if(typeof q.choices==="string"&&q.choices.trim())return q.choices.split("|").map(x=>x.trim()).filter(Boolean);
+  return [];
+}
+function renderExamQuestion(){
+  const st=examState,q=st.questions[st.index];
+  if(!q){renderExamResult();return}
+  const choices=normalizeChoices(q), no=q.no||q.number||st.index+1;
+  $("#exam").innerHTML=`<div class="kpis">
+    <div class="kpi"><b>제${st.round}회</b><span>${esc(st.level)}</span></div>
+    <div class="kpi"><b>${st.index+1}/${st.questions.length}</b><span>현재 문항</span></div>
+    <div class="kpi"><b>${st.checked.filter(Boolean).length}</b><span>채점 완료</span></div>
+    <div class="kpi"><b>${st.score}</b><span>현재 정답</span></div>
+  </div>
+  <div class="progress"><div style="width:${(st.index/st.questions.length)*100}%"></div></div>
+  <div class="card">
+    <div class="meta"><span class="badge">제${st.round}회</span><span class="badge">${esc(st.level)}</span><span class="badge">${esc(TYPES[q.type]||q.type)}</span><span class="badge">${no}번</span></div>
+    <div class="soft" style="margin-top:10px">정답을 아래 입력칸에 직접 타이핑하세요. Enter로도 채점됩니다.</div>
+    <div class="prompt" style="margin-top:14px">${esc(q.prompt)}</div>
+    ${(q.sourceText||q.original)?`<div class="source-text"><b>원문</b><br>${esc(q.sourceText||q.original)}</div>`:""}
+    ${q.hanja&&q.type!=="wordWrite"?`<div class="big-hanja" style="font-size:88px;margin:15px 0">${esc(q.hanja)}</div>`:""}
+    ${q.type==="wordWrite"?renderWordWriteUI(q):
+      choices.length?`<div class="choice-grid">${choices.map((c,i)=>`<button class="choice-btn" data-choice="${esc(c)}">${i+1}. ${esc(c)}</button>`).join("")}</div>`:
+      `<div class="answer-row"><input id="examAnswer" value="${esc(st.answers[st.index]||"")}" autocomplete="off" autocapitalize="off" placeholder="${q.type==="meaningSound"?"예: 마당 장":q.type==="sound"?"독음 입력":"정답 직접 입력"}"><button class="btn primary" id="examCheck">채점</button></div>`}
+    <div id="examFeedback" class="feedback"></div>
+    ${q.round?`<details class="compact-settings"><summary>원문 확인</summary><div><button class="btn" onclick="openGradePdf('${q.level}',${q.round})">${esc(q.level)} 제${q.round}회 원문 열기</button>${q.sourceText?`<div class="source-text" style="margin-top:8px">${esc(q.sourceText)}</div>`:""}</div></details>`:""}
+    <details class="compact-settings"><summary>문제 번호 이동</summary><div><div class="exam-nav">${st.questions.map((_,i)=>`<button class="exam-dot ${st.checked[i]?"done":""} ${i===st.index?"current":""}" data-i="${i}">${i+1}</button>`).join("")}</div></div></details>
+    <div class="actions"><button class="btn" id="prevExam" ${st.index===0?"disabled":""}>이전</button><button class="btn" id="nextExam">${st.index===st.questions.length-1?"결과 보기":"다음"}</button></div>
+  </div>`;
+  $$(".exam-dot").forEach(b=>b.onclick=()=>{examState.index=+b.dataset.i;renderExamQuestion()});
+  $("#prevExam").onclick=()=>{if(st.index>0){st.index--;renderExamQuestion()}};
+  $("#nextExam").onclick=()=>{if(st.index<st.questions.length-1){st.index++;renderExamQuestion()}else renderExamResult()};
+  if(q.manual){
+    const input=$("#examAnswer");
+    if(input) input.placeholder="정답을 직접 입력";
+    $("#examCheck").onclick=()=>{
+      const v=input?.value?.trim()||"";
+      if(!v){toast("답을 입력하세요");return}
+      st.answers[st.index]=v;st.checked[st.index]=true;
+      const fb=$("#examFeedback");fb.className="feedback ok";
+      fb.innerHTML=`입력 저장: <b>${esc(v)}</b><br><span class="small">이 문항은 원문 구조상 자동 정답 연결이 어려워 자가확인형입니다.</span>`;
+    };
+  }else if(q.type==="wordWrite"){
+    setupWordWriteCanvases(q);
+  }else if(choices.length){
+    $$(".choice-btn").forEach(b=>b.onclick=()=>gradeExamAnswer(b.dataset.choice));
+  }else{
+    $("#examCheck").onclick=()=>gradeExamAnswer($("#examAnswer").value);
+    $("#examAnswer").onkeydown=e=>{if(e.key==="Enter")gradeExamAnswer($("#examAnswer").value)};
+    $("#examAnswer").focus();
+  }
+  if(st.checked[st.index]){
+    if(q.type==="wordWrite"){
+      const a=st.answers[st.index];
+      const fb=$("#examFeedback");fb.className="feedback "+(a?.__wordWriteOk?"ok":"no");
+      fb.innerHTML=a?.mode==="typing"
+        ? `${a?.__wordWriteOk?"정답":"오답"} · 입력: <b style="font-family:serif">${esc(a?.text||"")}</b>${a?.__wordWriteOk?"":` · 정답: <b style="font-family:serif">${esc(getWordWriteAnswer(q))}</b>`}`
+        : `${a?.__wordWriteOk?"정답 처리":"다시 확인"} · 저장된 글자별 점수: ${(a?.scores||[]).join(" / ")}%`;
+    }else showExamFeedback(q,st.answers[st.index],isCorrect(q,st.answers[st.index]));
+  }
+}
+
+function getWordWriteAnswer(q){
+  const a=Array.isArray(q.answer)?String(q.answer[0]||""):String(q.answer||"");
+  return a.replace(/\s+/g,"");
+}
+function renderWordWriteUI(q){
+  const ans=getWordWriteAnswer(q);
+  const clue=q.korean||q.word||q.reading||"";
+  return `
+    ${clue?`<div class="drill-answer" style="font-family:inherit;font-size:34px">${esc(clue)}</div>`:""}
+    <div class="answer-row">
+      <input id="wordTypeInput" autocomplete="off" autocapitalize="off" placeholder="정답 한자를 직접 입력">
+      <button class="btn primary" id="checkWordType">채점</button>
+    </div>
+    <details class="compact-settings">
+      <summary>✍ 손글씨로 풀기</summary>
+      <div>
+        <div class="word-write-wrap">
+          ${[...ans].map((ch,i)=>`<div class="word-char-box"><canvas id="wordCanvas${i}" width="360" height="360"></canvas><div class="word-char-label">${i+1}번째 글자</div></div>`).join("")}
+        </div>
+        <div class="canvas-tools">
+          <button class="btn" id="clearWordWrite">전체 지우기</button>
+          <button class="btn" id="checkWordWrite">손글씨 검사</button>
+          <button class="btn" id="revealWordWrite">정답 공개</button>
+        </div>
+      </div>
+    </details>`;
+}
+function setupWordWriteCanvases(q){
+  const ans=[...getWordWriteAnswer(q)];
+  ans.forEach((ch,i)=>setupAnyCanvas(`#wordCanvas${i}`));
+  const ti=$("#wordTypeInput");
+  if(ti){
+    $("#checkWordType").onclick=()=>gradeTypedWordWrite(q);
+    ti.onkeydown=e=>{if(e.key==="Enter")gradeTypedWordWrite(q)};
+    ti.focus();
+  }
+  $("#clearWordWrite").onclick=()=>{
+    ans.forEach((_,i)=>clearAnyCanvas(`#wordCanvas${i}`));
+    const fb=$("#examFeedback");fb.className="feedback";fb.innerHTML="";
+  };
+  $("#revealWordWrite").onclick=()=>{
+    const fb=$("#examFeedback");fb.className="feedback ok";
+    fb.innerHTML=`정답: <span style="font-family:serif;font-size:34px">${esc(ans.join(""))}</span>`;
+  };
+  $("#checkWordWrite").onclick=()=>gradeWordWrite(q);
+}
+function gradeTypedWordWrite(q){
+  const inp=$("#wordTypeInput"),v=(inp?.value||"").trim();
+  if(!v){toast("정답 한자를 입력하세요.");return}
+  const ok=flexibleAnswerVariants(q.answer).has(norm(v));
+  const st=examState,idx=st.index;
+  if(st.checked[idx]&&st.answers[idx]?.__wordWriteOk)st.score--;
+  st.answers[idx]={__wordWriteOk:ok,text:v,mode:"typing"};
+  st.checked[idx]=true;if(ok)st.score++;
+  const k=keyOf(q);
+  stats[k]=stats[k]||{ok:0,no:0,last:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt};
+  stats[k][ok?"ok":"no"]++;stats[k].last=Date.now();
+  if(!ok){
+    wrong[k]=wrong[k]||{count:0,streak:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt,answer:q.answer};
+    wrong[k].count++;wrong[k].streak=0;wrong[k].last=Date.now();
+  }
+  saveProgress();
+  const fb=$("#examFeedback");fb.className="feedback "+(ok?"ok":"no");
+  fb.innerHTML=ok?`정답입니다.`:`오답 · 정답: <b style="font-family:serif;font-size:28px">${esc(getWordWriteAnswer(q))}</b>`;
+}
+function findCharMeta(ch){
+  return chars.find(c=>c.hanja===ch)||null;
+}
+function gradeWordWrite(q){
+  const ans=[...getWordWriteAnswer(q)];
+  if(!ans.length){toast("정답 데이터가 없습니다");return}
+  const results=[];
+  for(let i=0;i<ans.length;i++){
+    const c=$(`#wordCanvas${i}`);
+    const r=handwritingSimilarity(c,ans[i]);
+    if(r.blank){toast(`${i+1}번째 칸을 먼저 써 주세요`);return}
+    const meta=findCharMeta(ans[i]);
+    const observed=c._strokeCount||0;
+    const sf=strokeCountFactor(observed,meta?.total||0);
+    const score=Math.round(r.score*sf);
+    results.push({ch:ans[i],score,ok:score>=60,observed,expected:meta?.total||0});
+  }
+  const avg=Math.round(results.reduce((a,b)=>a+b.score,0)/results.length);
+  const passCount=results.filter(x=>x.ok).length;
+  const ok=passCount===results.length && avg>=62;
+
+  const st=examState,idx=st.index,was=st.checked[idx];
+  if(was){
+    const prev=st.answers[idx];
+    if(prev&&prev.__wordWriteOk)st.score--;
+  }
+  st.answers[idx]={__wordWriteOk:ok,text:ans.join(""),scores:results.map(x=>x.score)};
+  st.checked[idx]=true;
+  if(ok)st.score++;
+
+  const k=keyOf(q);
+  stats[k]=stats[k]||{ok:0,no:0,last:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt};
+  stats[k][ok?"ok":"no"]++;stats[k].last=Date.now();
+  if(!ok){
+    wrong[k]=wrong[k]||{count:0,streak:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt,answer:q.answer};
+    wrong[k].count++;wrong[k].streak=0;wrong[k].last=Date.now();
+  }
+  saveProgress();
+
+  const fb=$("#examFeedback");fb.className="feedback "+(ok?"ok":"no");
+  fb.innerHTML=`${ok?"정답 처리":"다시 확인"} · 전체 평균 <b>${avg}%</b><br>`+
+    results.map((r,i)=>`${i+1}. <span style="font-family:serif;font-size:24px">${esc(r.ch)}</span> ${r.score}%${r.expected?` · ${r.observed}/${r.expected}획`:""}`).join("<br>")+
+    `<br><span class="small">정답: ${esc(ans.join(""))}</span>`;
+}
+
+function gradeExamAnswer(val){
+  const st=examState,q=st.questions[st.index],was=st.checked[st.index];
+  if(!String(val).trim()){toast("답을 입력하세요");return}
+  const ok=isCorrect(q,val);
+  if(was){
+    const prevOk=isCorrect(q,st.answers[st.index]); if(prevOk)st.score--;
+  }
+  st.answers[st.index]=val;st.checked[st.index]=true;if(ok)st.score++;
+  const k=keyOf(q);
+  stats[k]=stats[k]||{ok:0,no:0,last:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt};
+  stats[k][ok?"ok":"no"]++;stats[k].last=Date.now();
+  if(!ok){wrong[k]=wrong[k]||{count:0,streak:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt,answer:q.answer};wrong[k].count++;wrong[k].streak=0;wrong[k].last=Date.now()}
+  saveProgress();showExamFeedback(q,val,ok);
+}
+function showExamFeedback(q,val,ok){
+  const fb=$("#examFeedback");if(!fb)return;fb.className="feedback "+(ok?"ok":"no");
+  fb.innerHTML=ok?`정답입니다. <b>${esc(answerList(q)[0])}</b>`:`오답 · 입력: <b>${esc(val)}</b> · 정답: <b>${esc(answerList(q).join(" / "))}</b>${q.note?`<br><span class="small">${esc(q.note)}</span>`:""}`;
+}
+function renderExamResult(){
+  const st=examState,total=st.questions.length,answered=st.checked.filter(Boolean).length;
+  const wrongRows=st.questions.map((q,i)=>({q,i,ok:st.checked[i]&&(q.type==="wordWrite"?!!st.answers[i]?.__wordWriteOk:isCorrect(q,st.answers[i]))})).filter(x=>!x.ok);
+  const byType={};
+  st.questions.forEach((q,i)=>{const a=byType[q.type]||(byType[q.type]={n:0,ok:0});a.n++;if(st.checked[i]&&(q.type==="wordWrite"?!!st.answers[i]?.__wordWriteOk:isCorrect(q,st.answers[i])))a.ok++});
+  $("#exam").innerHTML=`<div class="card">
+    <div class="prompt">제${st.round}회 ${esc(st.level)} 결과 · ${st.score}/${total} (${Math.round(st.score/total*100)}%)</div>
+    <div class="sub">채점한 문항 ${answered}/${total}. 틀린 문제는 오답 노트에도 저장됩니다.</div>
+    <div class="modecards" style="margin-top:14px">${Object.entries(byType).map(([t,a])=>`<div class="modecard"><b>${esc(TYPES[t]||t)}</b><small>${a.ok}/${a.n} · ${Math.round(a.ok/a.n*100)}%</small></div>`).join("")}</div>
+    <div class="section-title" style="margin-top:18px">틀림 / 미채점</div>
+    <div class="result-list">${wrongRows.length?wrongRows.map(x=>`<div class="result-item"><span>${x.i+1}. ${esc(x.q.prompt)}</span><b>${esc(answerList(x.q)[0])}</b></div>`).join(""):`<div class="empty">전부 맞았습니다.</div>`}</div>
+    <div class="actions"><button class="btn primary" onclick="startExam()">다시 풀기</button><button class="btn" onclick="renderExam()">회차 선택</button></div>
+  </div>`;
+}
+
+function renderDrill(){
+  if(!$("#drill"))return;
+  const grade=drillState.grade||"8급", mode2=drillState.mode||"meaningSound", order=drillState.order||"alpha";
+  $("#drill").innerHTML=`<div class="card">
+    <div class="prompt">급수별 적기 연습</div>
+    <div class="sub">한 급수의 배정한자만 따로 연습합니다. 가나다순은 대표 음의 가나다순으로 정렬하며, 랜덤은 매번 섞습니다.</div>
+    <div class="toolbar">
+      <div><div class="label">급수</div><select id="drillGrade">${GRADE_ORDER.map(g=>`<option ${g===grade?"selected":""}>${g}</option>`).join("")}</select></div>
+      <div><div class="label">연습 종류</div><select id="drillMode"><option value="meaningSound" ${mode2==="meaningSound"?"selected":""}>한자 → 훈음 입력</option><option value="write" ${mode2==="write"?"selected":""}>훈음 → 한자 입력</option></select></div>
+      <div><div class="label">순서</div><select id="drillOrder"><option value="alpha" ${order==="alpha"?"selected":""}>가나다순</option><option value="random" ${order==="random"?"selected":""}>랜덤</option></select></div>
+      <div><button class="btn primary" id="startDrill" style="width:100%">연습 시작</button></div>
+    </div>
+    <div class="note">현재 ${esc(grade)} 배정한자: ${exactGradeChars(grade).length.toLocaleString()}자</div>
+  </div>`;
+  $("#drillGrade").onchange=()=>{drillState.grade=$("#drillGrade").value;renderDrill()};
+  $("#drillMode").onchange=()=>drillState.mode=$("#drillMode").value;
+  $("#drillOrder").onchange=()=>drillState.order=$("#drillOrder").value;
+  $("#startDrill").onclick=startDrill;
+}
+function startDrill(){
+  drillState.grade=$("#drillGrade").value;drillState.mode=$("#drillMode").value;drillState.order=$("#drillOrder").value;
+  let list=exactGradeChars(drillState.grade);
+  list=drillState.order==="alpha"?koSortChars(list):shuffle([...list]);
+  if(!list.length){toast("해당 급수 데이터가 없습니다");return}
+  drillState.list=list;drillState.index=0;drillState.checked=false;renderDrillCard();
+}
+function drillQuestion(c){
+  const p=charPrimary(c);
+  if(drillState.mode==="meaningSound"){
+    const answers=allMeaningSoundAnswers(c);
+    return {prompt:`「${c.hanja}」의 훈음을 적으세요.`,display:c.hanja,answer:answers,note:`${c.radical}부 · ${c.total}획`};
+  }
+  const sp=safeClue(c);
+  return {prompt:`「${sp.meaning} ${sp.sound}」에 해당하는 한자를 쓰세요.`,display:`${sp.meaning} ${sp.sound}`,answer:c.hanja,note:`${c.level} · ${c.total}획`};
+}
+function renderDrillCard(){
+  const st=drillState,c=st.list[st.index],q=drillQuestion(c);
+  $("#drill").innerHTML=`<div class="kpis">
+    <div class="kpi"><b>${esc(st.grade)}</b><span>급수</span></div>
+    <div class="kpi"><b>${st.index+1}/${st.list.length}</b><span>${st.order==="alpha"?"가나다순":"랜덤"}</span></div>
+    <div class="kpi"><b>${st.mode==="meaningSound"?"훈음":"한자"}</b><span>적기 종류</span></div>
+    <div class="kpi"><b>${Math.round((st.index+1)/st.list.length*100)}%</b><span>진행 위치</span></div>
+  </div>
+  <div class="card drill-grid">
+    <div>
+      <div class="meta"><span class="badge">${esc(st.grade)}</span><span class="badge">${st.order==="alpha"?"가나다순":"랜덤"}</span></div>
+      <div class="prompt" style="margin-top:14px">${esc(q.prompt)}</div>
+      ${st.mode==="meaningSound"?`<div class="big-hanja">${esc(c.hanja)}</div>`:`<div class="drill-answer">${esc(q.display)}</div>`}
+      <div class="answer-row">
+        <input id="drillAnswer" autocomplete="off" autocapitalize="off" placeholder="${st.mode==="meaningSound"?"예: 마당 장":"정답 한자를 입력"}">
+        <button class="btn primary" id="checkDrill">채점</button>
+      </div>
+      ${st.mode==="write"?`<details class="compact-settings"><summary>✍ 손글씨로 풀기</summary><div><div class="soft">타이핑 대신 직접 쓰고 싶을 때만 사용하세요.</div></div></details>`:""}
+      <div id="drillFeedback" class="feedback"></div>
+      <div class="actions"><button class="btn" id="prevDrill" ${st.index===0?"disabled":""}>이전</button><button class="btn" id="nextDrill">${st.index===st.list.length-1?"처음으로":"다음"}</button></div>
+    </div>
+    <div>
+      ${st.mode==="write"?`<div class="card" style="box-shadow:none"><div class="section-title">손글씨 보조</div><div class="soft">키보드 채점이 기본입니다. 손글씨가 필요하면 아래에 직접 쓰세요.</div><canvas id="drillCanvas" width="600" height="600" style="margin-top:10px"></canvas><div class="canvas-tools"><button class="btn" id="clearDrillCanvas">지우기</button><button class="btn" id="autoCheckDrill">손글씨 검사</button></div></div>`:
+      `<div class="card" style="box-shadow:none"><div class="section-title">가나다순 기준</div><div class="note">대표 음 → 대표 훈 → 한자 순으로 정렬합니다.<br>현재 대표음: <b>${esc(charPrimary(c).sound)}</b></div></div>`}
+    </div>
+  </div>`;
+  if(st.mode==="write"){
+    setupAnyCanvas("#drillCanvas");
+    $("#clearDrillCanvas").onclick=()=>clearAnyCanvas("#drillCanvas");
+    $("#autoCheckDrill").onclick=()=>autoGradeHandwriting("#drillCanvas",c.hanja,c.total,(ok,score,label)=>{
+      showHandwritingResult("#drillFeedback",c.hanja,ok,score,label);
+      recordDrillHandwriting(c,q,ok);
+    });
+    $("#revealDrill").onclick=()=>showDrillResult(c,q,false,true);
+  }
+  $("#checkDrill").onclick=()=>checkDrill(c,q);
+  $("#drillAnswer").onkeydown=e=>{if(e.key==="Enter")checkDrill(c,q)};
+  $("#drillAnswer").focus();
+  $("#prevDrill").onclick=()=>{if(st.index>0){st.index--;renderDrillCard()}};
+  $("#nextDrill").onclick=()=>{st.index=st.index===st.list.length-1?0:st.index+1;renderDrillCard()};
+}
+function drillCorrect(q,val){return (Array.isArray(q.answer)?q.answer:[q.answer]).some(a=>norm(a)===norm(val))}
+function checkDrill(c,q){
+  const val=$("#drillAnswer").value;if(!val.trim()){toast("답을 입력하세요");return}
+  showDrillResult(c,q,drillCorrect(q,val),false,val);
+}
+function showDrillResult(c,q,ok,revealOnly,val=""){
+  const fb=$("#drillFeedback");if(!fb)return;
+  fb.className="feedback "+(ok?"ok":"no");
+  fb.innerHTML=revealOnly?`정답: <b>${esc((Array.isArray(q.answer)?q.answer:[q.answer]).join(" / "))}</b>`:
+    ok?`정답입니다. <b>${esc((Array.isArray(q.answer)?q.answer:[q.answer])[0])}</b>`:
+    `오답 · 입력: <b>${esc(val)}</b> · 정답: <b>${esc((Array.isArray(q.answer)?q.answer:[q.answer]).join(" / "))}</b>`;
+  if(!revealOnly){
+    const k=`drill|${drillState.mode}|${c.level}|${c.hanja}`;
+    stats[k]=stats[k]||{ok:0,no:0,last:0,type:drillState.mode==="write"?"write":"meaningSound",hanja:c.hanja,level:c.level,prompt:q.prompt};
+    stats[k][ok?"ok":"no"]++;stats[k].last=Date.now();
+    if(!ok){wrong[k]=wrong[k]||{count:0,streak:0,type:drillState.mode==="write"?"write":"meaningSound",hanja:c.hanja,level:c.level,prompt:q.prompt,answer:q.answer};wrong[k].count++;wrong[k].last=Date.now()}
+    saveProgress();
+  }
+}
+
+function getInkBounds(canvas,threshold=150){
+  const ctx=canvas.getContext("2d"),img=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+  let minX=canvas.width,minY=canvas.height,maxX=-1,maxY=-1,count=0;
+  for(let y=0;y<canvas.height;y++){
+    for(let x=0;x<canvas.width;x++){
+      const i=(y*canvas.width+x)*4;
+      const lum=(img[i]+img[i+1]+img[i+2])/3;
+      if(img[i+3]>30 && lum<threshold){
+        if(x<minX)minX=x;if(x>maxX)maxX=x;if(y<minY)minY=y;if(y>maxY)maxY=y;count++;
+      }
+    }
+  }
+  return count?{minX,minY,maxX,maxY,count}:null;
+}
+function normalizedInk(canvas,size=96){
+  const b=getInkBounds(canvas);
+  if(!b)return null;
+  const w=b.maxX-b.minX+1,h=b.maxY-b.minY+1;
+  if(w<10||h<10||b.count<80)return null;
+  const pad=Math.max(w,h)*0.08;
+  const sx=Math.max(0,b.minX-pad),sy=Math.max(0,b.minY-pad);
+  const sw=Math.min(canvas.width-sx,w+pad*2),sh=Math.min(canvas.height-sy,h+pad*2);
+  const tmp=document.createElement("canvas");tmp.width=size;tmp.height=size;
+  const x=tmp.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,size,size);
+  const scale=Math.min((size-8)/sw,(size-8)/sh);
+  const dw=sw*scale,dh=sh*scale,dx=(size-dw)/2,dy=(size-dh)/2;
+  x.drawImage(canvas,sx,sy,sw,sh,dx,dy,dw,dh);
+  const d=x.getImageData(0,0,size,size).data,bin=new Uint8Array(size*size);
+  let n=0;
+  for(let i=0;i<size*size;i++){
+    const j=i*4,lum=(d[j]+d[j+1]+d[j+2])/3;
+    if(d[j+3]>30&&lum<175){bin[i]=1;n++}
+  }
+  return {bin,n,size};
+}
+function renderTargetInk(ch,font,size=96){
+  const c=document.createElement("canvas");c.width=600;c.height=600;
+  const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,600,600);
+  x.fillStyle="#111";x.textAlign="center";x.textBaseline="middle";
+  x.font=`500 440px ${font}`;
+  x.fillText(ch,300,310);
+  return normalizedInk(c,size);
+}
+function nearMatch(a,b,r=5){
+  const size=a.size,aa=a.bin,bb=b.bin;
+  let hit=0,total=0;
+  for(let y=0;y<size;y++)for(let x=0;x<size;x++){
+    const idx=y*size+x;if(!aa[idx])continue;total++;
+    let found=false;
+    for(let yy=Math.max(0,y-r);yy<=Math.min(size-1,y+r)&&!found;yy++){
+      for(let xx=Math.max(0,x-r);xx<=Math.min(size-1,x+r);xx++){
+        if((xx-x)*(xx-x)+(yy-y)*(yy-y)>r*r)continue;
+        if(bb[yy*size+xx]){found=true;break}
+      }
+    }
+    if(found)hit++;
+  }
+  return total?hit/total:0;
+}
+function occupancyGrid(x,cells=8){
+  const out=new Uint8Array(cells*cells),size=x.size;
+  const cw=size/cells,ch=size/cells;
+  for(let y=0;y<size;y++)for(let xx=0;xx<size;xx++){
+    if(!x.bin[y*size+xx])continue;
+    const gx=Math.min(cells-1,Math.floor(xx/cw)),gy=Math.min(cells-1,Math.floor(y/ch));
+    out[gy*cells+gx]=1;
+  }
+  return out;
+}
+function gridSimilarity(a,b){
+  const ga=occupancyGrid(a),gb=occupancyGrid(b);
+  let inter=0,uni=0,na=0,nb=0;
+  for(let i=0;i<ga.length;i++){
+    if(ga[i])na++; if(gb[i])nb++;
+    if(ga[i]&&gb[i])inter++;
+    if(ga[i]||gb[i])uni++;
+  }
+  const iou=uni?inter/uni:0;
+  const coverage=Math.min(na,nb)/Math.max(1,Math.max(na,nb));
+  return {iou,coverage,userCells:na,targetCells:nb};
+}
+function projectionSimilarity(a,b){
+  const size=a.size;
+  const ar=new Float32Array(size),ac=new Float32Array(size),br=new Float32Array(size),bc=new Float32Array(size);
+  for(let y=0;y<size;y++)for(let x=0;x<size;x++){
+    const i=y*size+x;
+    if(a.bin[i]){ar[y]++;ac[x]++}
+    if(b.bin[i]){br[y]++;bc[x]++}
+  }
+  const corr=(u,v)=>{
+    let dot=0,uu=0,vv=0;
+    for(let i=0;i<u.length;i++){dot+=u[i]*v[i];uu+=u[i]*u[i];vv+=v[i]*v[i]}
+    return (uu&&vv)?dot/Math.sqrt(uu*vv):0;
+  };
+  return (corr(ar,br)+corr(ac,bc))/2;
+}
+function handwritingSimilarity(canvas,ch){
+  const user=normalizedInk(canvas,96);
+  if(!user)return {score:0,blank:true,details:{}};
+  const fonts=['"Batang","Noto Serif CJK KR",serif','"Malgun Gothic","Noto Sans CJK KR",sans-serif','serif'];
+  let best={score:0};
+  for(const font of fonts){
+    const target=renderTargetInk(ch,font,96);if(!target)continue;
+    const forward=nearMatch(user,target,5);
+    const backward=nearMatch(target,user,5);
+    const density=Math.min(user.n,target.n)/Math.max(user.n,target.n);
+    const grid=gridSimilarity(user,target);
+    const projection=projectionSimilarity(user,target);
+
+    // 양방향 커버리지를 강하게 요구해 "획 하나만 걸치기"를 방지
+    const bidir=Math.sqrt(forward*backward);
+    let score = bidir*.46 + grid.iou*.24 + grid.coverage*.12 + projection*.13 + density*.05;
+
+    // 정답이 차지하는 영역보다 지나치게 적은 영역만 그린 경우 강한 감점
+    if(grid.userCells < Math.max(2, grid.targetCells*.28)) score *= .48;
+    else if(grid.userCells < grid.targetCells*.45) score *= .76;
+
+    // 잉크량이 너무 적은 낙서는 막되, 손글씨 편차는 넓게 허용
+    if(density < .16) score *= .55;
+    else if(density < .30) score *= .82;
+
+    score=Math.max(0,Math.min(1,score));
+    if(score>best.score) best={score,forward,backward,density,grid,projection};
+  }
+  return {score:Math.round(best.score*100),blank:false,details:best};
+}
+function strokeCountFactor(observed,expected){
+  if(!expected||expected<1||!observed)return 1;
+  const ratio=Math.min(observed,expected)/Math.max(observed,expected);
+  // 정확한 획수일 필요는 없지만 차이가 심하면 점수 상한을 낮춘다.
+  if(ratio<.18)return .42;
+  if(ratio<.30)return .58;
+  if(ratio<.45)return .74;
+  if(ratio<.60)return .90;
+  return 1;
+}
+function autoGradeHandwriting(sel,ch,expectedStrokes,callback){
+  const canvas=$(sel);if(!canvas)return;
+  const r=handwritingSimilarity(canvas,ch);
+  if(r.blank){toast("먼저 한자를 써 주세요");return}
+
+  const observed=canvas._strokeCount||0;
+  const sf=strokeCountFactor(observed,+expectedStrokes||0);
+  const finalScore=Math.round(r.score*sf);
+
+  let ok=false,label="";
+  if(finalScore>=62){ok=true;label="전체 형태가 정답과 잘 맞습니다"}
+  else if(finalScore>=46){ok=false;label="대체로 비슷하지만 한 번 더 확인해 보세요"}
+  else{ok=false;label="정답 형태와 차이가 큽니다"}
+
+  const strokeText=(expectedStrokes&&observed)
+    ? ` · 그린 획 ${observed}회 / 기준 ${expectedStrokes}획`
+    : "";
+  callback(ok,finalScore,label+strokeText);
+}
+function showHandwritingResult(sel,ch,ok,score,label){
+  const e=$(sel);if(!e)return;e.className="feedback "+(ok?"ok":"no");
+  e.innerHTML=`${ok?"자동검사 통과":"자동검사 재확인"} · 유사도 <b>${score}%</b><br>${esc(label)} · 정답 <span style="font-family:serif;font-size:34px">${esc(ch)}</span><br><span class="small">※ 손글씨 모양 비교 방식이라 획순·정확한 서체 판정은 하지 않습니다.</span>`;
+}
+function recordDrillHandwriting(c,q,ok){
+  const k=`drill|write|${c.level}|${c.hanja}`;
+  stats[k]=stats[k]||{ok:0,no:0,last:0,type:"write",hanja:c.hanja,level:c.level,prompt:q.prompt};
+  stats[k][ok?"ok":"no"]++;stats[k].last=Date.now();
+  if(ok){
+    if(wrong[k]){wrong[k].streak=(wrong[k].streak||0)+1;if(wrong[k].streak>=3)delete wrong[k]}
+  }else{
+    wrong[k]=wrong[k]||{count:0,streak:0,type:"write",hanja:c.hanja,level:c.level,prompt:q.prompt,answer:c.hanja};
+    wrong[k].count++;wrong[k].streak=0;wrong[k].last=Date.now();
+  }
+  saveProgress();
+}
+
+
+function bindCanvasDrawing(c,ctx,onStrokeStart){
+  let drawing=false,last=null;
+  const pos=e=>{
+    const r=c.getBoundingClientRect();
+    const src=e.touches?.[0]||e.changedTouches?.[0]||e;
+    return [(src.clientX-r.left)*c.width/r.width,(src.clientY-r.top)*c.height/r.height];
+  };
+  const down=e=>{
+    if(e.cancelable)e.preventDefault();
+    drawing=true;
+    if(onStrokeStart)onStrokeStart();
+    last=pos(e);
+    try{ if(e.pointerId!==undefined&&c.setPointerCapture)c.setPointerCapture(e.pointerId) }catch{}
+  };
+  const move=e=>{
+    if(!drawing)return;
+    if(e.cancelable)e.preventDefault();
+    const p=pos(e);
+    ctx.strokeStyle="#111";ctx.lineWidth=14;ctx.lineCap="round";ctx.lineJoin="round";
+    ctx.beginPath();ctx.moveTo(...last);ctx.lineTo(...p);ctx.stroke();last=p;
+  };
+  const up=e=>{
+    if(e&&e.cancelable)e.preventDefault();
+    drawing=false;last=null;
+  };
+
+  if(window.PointerEvent){
+    c.addEventListener("pointerdown",down,{passive:false});
+    c.addEventListener("pointermove",move,{passive:false});
+    c.addEventListener("pointerup",up,{passive:false});
+    c.addEventListener("pointercancel",up,{passive:false});
+  }else{
+    c.addEventListener("touchstart",down,{passive:false});
+    c.addEventListener("touchmove",move,{passive:false});
+    c.addEventListener("touchend",up,{passive:false});
+    c.addEventListener("touchcancel",up,{passive:false});
+    c.addEventListener("mousedown",down);
+    window.addEventListener("mousemove",move);
+    window.addEventListener("mouseup",up);
+  }
+}
+
+function setupAnyCanvas(sel){
+  const c=$(sel),ctx=c.getContext("2d");
+  clearAnyCanvas(sel);c._strokeCount=0;
+  bindCanvasDrawing(c,ctx,()=>{c._strokeCount=(c._strokeCount||0)+1});
+}
+function clearAnyCanvas(sel){
+  const c=$(sel);if(!c)return;c._strokeCount=0;const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);
+  x.strokeStyle="#ddd";x.lineWidth=2;x.setLineDash([10,10]);x.beginPath();x.moveTo(c.width/2,0);x.lineTo(c.width/2,c.height);x.moveTo(0,c.height/2);x.lineTo(c.width,c.height/2);x.stroke();x.setLineDash([]);
+}
+function downloadExamTemplate(){
+  const csv="round,no,level,type,prompt,answer,hanja,note,choices,korean,sourceText\n30,1,3급,sound,「漢字」의 독음을 쓰시오.,한자,漢,예시 문항,,,\n30,2,3급,fill,다음 빈칸에 알맞은 한자를 고르시오.,學,學,예시 객관식,學|校|國|人,,\n30,3,3급,wordWrite,다음 한자어를 한자로 쓰시오.,學校,,한자어쓰기 예시,,학교,학생들이 학교에 갔다.\n";
+  const blob=new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download="한자_기출_입력템플릿.csv";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
+}
+
+function renderWrite(){
+  const level=$("#level")?.value||"1급";
+  const pool=chars.filter(c=>gradeAllowed(c.level,level));
+  const c=pool[Math.floor(Math.random()*pool.length)]||FALLBACK[0],p=safeClue(c);
+  $("#write").innerHTML=`
+    <div class="card">
+      <div class="meta"><span class="badge">${esc(c.level)}</span><span class="badge">쓰기 연습</span></div>
+      <div class="prompt" style="margin-top:12px">${esc((p.meaning? p.meaning+" ":"")+p.sound)} — 알맞은 한자를 입력하세요.</div>
+      <div class="answer-row"><input id="freeWriteInput" autocomplete="off" autocapitalize="off" placeholder="한자 입력"><button class="btn primary" id="freeWriteCheck">채점</button></div>
+      <div id="writeAnswer" class="feedback"></div>
+      <details class="compact-settings" style="margin-top:12px">
+        <summary>✍ 손글씨로 풀기</summary>
+        <div>
+          <canvas id="writeCanvas" width="600" height="600"></canvas>
+          <div class="canvas-tools">
+            <button class="btn" id="clearCanvas">지우기</button>
+            <button class="btn" id="autoCheckWrite">손글씨 검사</button>
+            <button class="btn" id="revealWrite">정답 보기</button>
+          </div>
+        </div>
+      </details>
+      <div class="actions"><button class="btn primary" id="nextWrite">다음 글자</button><button class="btn" id="selfNo">오답으로 기록</button></div>
+    </div>`;
+  setupCanvas();
+  $("#freeWriteCheck").onclick=()=>{
+    const v=$("#freeWriteInput").value.trim();
+    if(!v){toast("한자를 입력하세요");return}
+    const ok=norm(v)===norm(c.hanja);
+    const e=$("#writeAnswer");e.className="feedback "+(ok?"ok":"no");
+    e.innerHTML=ok?`정답입니다.`:`오답 · 정답: <span style="font-family:serif;font-size:40px">${esc(c.hanja)}</span>`;
+    recordWrite(c,ok);
+  };
+  $("#freeWriteInput").onkeydown=e=>{if(e.key==="Enter")$("#freeWriteCheck").click()};
+  $("#freeWriteInput").focus();
+  $("#clearCanvas").onclick=()=>clearCanvas();
+  $("#autoCheckWrite").onclick=()=>autoGradeHandwriting("#writeCanvas",c.hanja,c.total,(ok,score,label)=>{
+    showHandwritingResult("#writeAnswer",c.hanja,ok,score,label);
+    recordWrite(c,ok);
+  });
+  $("#revealWrite").onclick=()=>{const e=$("#writeAnswer");e.className="feedback ok";e.innerHTML=`정답: <span style="font-family:serif;font-size:44px">${esc(c.hanja)}</span> · ${esc(p.meaning)} ${esc(p.sound)} · 부수 ${esc(c.radical)} · ${c.total}획`};
+  $("#selfNo").onclick=()=>recordWrite(c,false);$("#nextWrite").onclick=renderWrite;
+}
+function recordWrite(c,ok){
+  const p=charPrimary(c),q={type:"write",hanja:c.hanja,level:c.level,prompt:`${p.meaning} ${p.sound}`,answer:c.hanja},k=keyOf(q);
+  stats[k]=stats[k]||{ok:0,no:0,last:0,type:"write",hanja:c.hanja,level:c.level,prompt:q.prompt};stats[k][ok?"ok":"no"]++;stats[k].last=Date.now();
+  if(!ok){wrong[k]=wrong[k]||{count:0,streak:0,type:"write",hanja:c.hanja,level:c.level,prompt:q.prompt,answer:c.hanja};wrong[k].count++;wrong[k].streak=0}
+  saveProgress();toast(ok?"맞음으로 기록":"오답 노트에 추가");
+}
+function setupCanvas(){
+  const c=$("#writeCanvas"),ctx=c.getContext("2d");
+  clearCanvas();c._strokeCount=0;
+  bindCanvasDrawing(c,ctx,()=>{c._strokeCount=(c._strokeCount||0)+1});
+}
+function clearCanvas(){
+  const c=$("#writeCanvas");if(!c)return;c._strokeCount=0;const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);
+  x.strokeStyle="#ddd";x.lineWidth=2;x.setLineDash([10,10]);x.beginPath();x.moveTo(c.width/2,0);x.lineTo(c.width/2,c.height);x.moveTo(0,c.height/2);x.lineTo(c.width,c.height/2);x.stroke();x.setLineDash([]);
+}
+function renderFreq(){
+  if(!$("#freq"))return;
+  const level=$("#level")?.value||"1급",f=+$("#roundFrom")?.value||30,t=+$("#roundTo")?.value||Infinity;
+  const map=new Map();
+  examItems.filter(x=>x.round&&gradeAllowed(x.level,level)&&x.round>=f&&x.round<=t).forEach(x=>{
+    const k=x.hanja||x.answer;if(!k)return;const a=map.get(k)||{hanja:k,count:0,types:new Set(),rounds:new Set()};a.count++;a.types.add(x.type);a.rounds.add(x.round);map.set(k,a)
+  });
+  const rows=[...map.values()].sort((a,b)=>b.count-a.count).slice(0,300);
+  $("#freq").innerHTML=`
+    <div class="card">
+      <div class="prompt">기출 빈출 분석 · ${f}회~${isFinite(t)?t:"최신"}</div>
+      <div class="sub">실제 회차 정보가 포함된 가져오기 데이터만 집계합니다. 같은 글자가 여러 유형에 나오면 모두 합산합니다.</div>
+      <div class="table-wrap" style="margin-top:14px">
+      ${rows.length?`<table><thead><tr><th>순위</th><th>한자</th><th>출현</th><th>유형</th><th>회차</th></tr></thead><tbody>
+        ${rows.map((r,i)=>`<tr><td>${i+1}</td><td style="font-family:serif;font-size:24px">${esc(r.hanja)}</td><td><span class="tag ${r.count>=3?"hot1":""}">${r.count}회</span></td><td>${[...r.types].map(x=>TYPES[x]||x).join(", ")}</td><td>${[...r.rounds].sort((a,b)=>a-b).join(", ")}</td></tr>`).join("")}
+      </tbody></table>`:`<div class="empty">아직 회차가 기록된 기출 데이터가 없습니다.<br>데이터 관리에서 JSON/CSV를 불러오면 여기서 30회 이후 빈출도를 자동 계산합니다.</div>`}
+      </div>
+    </div>`;
+}
+function renderWrong(){
+  if(!$("#wrong"))return;
+  const level=$("#level")?.value||"1급";
+  const rows=Object.values(wrong).filter(x=>gradeAllowed(x.level,level)).sort((a,b)=>(b.count||0)-(a.count||0));
+  $("#wrong").innerHTML=`
+    <div class="card"><div class="prompt">오답 노트 · ${rows.length}항목</div>
+    <div class="sub">오답 횟수가 많은 순입니다. 연습에서 '오답 위주'를 선택하면 이 목록에서 다시 출제합니다.</div>
+    <div class="table-wrap" style="margin-top:14px">${rows.length?`<table><thead><tr><th>한자</th><th>급수</th><th>유형</th><th>오답</th><th>문제</th><th>정답</th></tr></thead><tbody>
+    ${rows.map(x=>`<tr><td style="font-family:serif;font-size:22px">${esc(x.hanja||"")}</td><td>${esc(x.level)}</td><td>${esc(TYPES[x.type]||x.type)}</td><td>${x.count||0}</td><td>${esc(x.prompt)}</td><td>${esc(Array.isArray(x.answer)?x.answer.join("/"):x.answer)}</td></tr>`).join("")}
+    </tbody></table>`:`<div class="empty">오답이 없습니다.</div>`}</div>
+    <div class="actions"><button class="btn bad" id="clearWrong">오답 노트 초기화</button><button class="btn" id="exportProgress">학습기록 내보내기</button></div></div>`;
+  $("#clearWrong").onclick=()=>{if(confirm("오답 노트를 모두 지울까요?")){wrong={};saveProgress();renderWrong()}};
+  $("#exportProgress").onclick=()=>downloadJSON({stats,wrong},"한자_학습기록.json");
+}
+function renderData(){
+  if(!$("#data"))return;
+  const counts={};for(const c of chars)counts[c.level]=(counts[c.level]||0)+1;
+  $("#data").innerHTML=`
+    <div class="card">
+      <div class="prompt">데이터 관리</div>
+      <div class="sub">배정한자 데이터와 기출문제 데이터를 분리했습니다. 배정한자는 온라인 공개 CSV를 자동 로드하고 브라우저에 캐시합니다.</div>
+      <div class="note" style="margin-top:9px"><b>iPhone/iPad:</b> 파일 앱의 미리보기보다 Safari에서 여는 것을 권장합니다. 손글씨 입력은 손가락과 Apple Pencil 모두 지원하며, 홈 화면에 추가해 앱처럼 사용할 수 있습니다.</div>
+      <div class="modecards" style="margin-top:14px">
+        ${GRADE_ORDER.map(g=>`<div class="modecard"><b>${g}</b><small>${(counts[g]||0).toLocaleString()}자</small></div>`).join("")}
+      </div>
+      <hr>
+      <div class="section-title">기출문제 가져오기</div>
+      <div class="note" style="margin-bottom:9px">공식 문제지는 <a href="https://www.hanja.re.kr/khes/khPds/lstQst.asp" target="_blank" rel="noopener" style="color:var(--info)">한국어문회 기출자료실</a>에서 확인할 수 있습니다. 이 프로그램의 시험 모드는 구조화한 JSON/CSV를 불러와 대화형으로 채점합니다.</div>
+      <div class="note">문제까지 넣는 JSON 예: <code>[{"round":30,"no":1,"level":"3급","type":"sound","prompt":"...","answer":"...","hanja":"漢","choices":[]}]</code><br>
+      CSV 열: <code>round,no,level,type,prompt,answer,hanja,note,choices,korean,sourceText</code> · 객관식 choices는 <code>A|B|C|D</code>처럼 구분합니다.<br>
+      한자어쓰기(type=<code>wordWrite</code>)는 <code>korean=학교, answer=學校</code>처럼 넣고, 실제 기출 원문은 <code>sourceText</code>에 넣습니다.<br>
+      빈도만 넣을 때는 <code>round,level,type,hanja</code>만 있어도 됩니다. type 값: ${Object.keys(TYPES).join(", ")}</div>
+      <div class="actions">
+        <label class="btn filebtn">기출 JSON/CSV 불러오기<input id="examFile" type="file" accept=".json,.csv,text/csv,application/json"></label>
+        <button class="btn" id="exportExam">기출 데이터 내보내기</button>
+        <button class="btn" id="examTemplate">기출 CSV 템플릿</button>
+        <label class="btn filebtn">배정한자 CSV 직접 불러오기<input id="charFile" type="file" accept=".csv,text/csv"></label>
+        <button class="btn bad" id="clearExam">기출 기록 초기화</button>
+      </div>
+      <hr>
+      <div class="section-title">현재 상태</div>
+      <div class="note">훈음 표시는 원본의 <b>훈 + 음</b>으로 분리해 읽습니다. 예: <b>場 = 마당 장</b>, <b>章 = 글 장</b>, <b>丈 = 어른 장</b>.</div>
+      <div class="note">배정한자 ${chars.length.toLocaleString()}자 · 기출/응용 ${examItems.length.toLocaleString()}문항 · 회차 정보 포함 ${examItems.filter(x=>x.round).length.toLocaleString()}문항</div>
+    </div>`;
+  $("#examFile").onchange=importExamFile;$("#charFile").onchange=importCharFile;
+  $("#exportExam").onclick=()=>downloadJSON(examItems,"한자_기출데이터.json");
+  $("#examTemplate").onclick=downloadExamTemplate;
+  $("#clearExam").onclick=()=>{if(confirm("가져온 기출 데이터를 초기화할까요? 기본 응용문항만 남습니다.")){examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38];localStorage.removeItem("hanjaExamItems");updateFreqBadge();renderData();renderFreq();renderExam()}};
+}
+async function importCharFile(e){const f=e.target.files[0];if(!f)return;loadCharCSV(await f.text());toast("배정한자 CSV 로드 완료")}
+async function importExamFile(e){
+  const f=e.target.files[0];if(!f)return;const text=await f.text();let arr=[];
+  try{
+    if(f.name.toLowerCase().endsWith(".json"))arr=JSON.parse(text);
+    else{
+      const rows=parseCSV(text),h=rows.shift().map(x=>x.trim()),ix=Object.fromEntries(h.map((x,i)=>[x,i]));
+      arr=rows.filter(r=>r.length>1).map(r=>({
+        round:ix.round!==undefined?(+r[ix.round]||null):null,
+        no:ix.no!==undefined?(+r[ix.no]||null):null,
+        level:ix.level!==undefined?r[ix.level]:"",
+        type:ix.type!==undefined?r[ix.type]:"",
+        prompt:ix.prompt!==undefined?r[ix.prompt]:"",
+        answer:ix.answer!==undefined?r[ix.answer]:"",
+        hanja:ix.hanja!==undefined?r[ix.hanja]:"",
+        note:ix.note!==undefined?(r[ix.note]||""):"",
+        choices:ix.choices!==undefined?(r[ix.choices]||""):"",
+        korean:ix.korean!==undefined?(r[ix.korean]||""):"",
+        sourceText:ix.sourceText!==undefined?(r[ix.sourceText]||""):""
+      }));
+    }
+    arr=arr.filter(x=>x&&x.level&&x.type&&x.hanja).map(x=>({
+      ...x,round:x.round?+x.round:null,
+      frequencyOnly:!(String(x.prompt||"").trim() && x.answer!==undefined && String(x.answer).trim()!=="")
+    }));
+    examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38,...arr];localStorage.setItem("hanjaExamItems",JSON.stringify(arr));updateFreqBadge();renderData();renderFreq();renderExam();toast(`${arr.length}문항 불러옴`);
+  }catch(err){toast("파일 형식을 확인하세요")}
+}
+function updateFreqBadge(){
+  const saved=localStorage.getItem("hanjaExamItems");if(saved){try{const a=JSON.parse(saved);examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38,...a]}catch{}}
+  const n=examItems.filter(x=>x.round).length;$("#freqBadge").textContent=`기출 빈도 ${n.toLocaleString()}건`;
+}
+function downloadJSON(obj,name){
+  const blob=new Blob([JSON.stringify(obj,null,2)],{type:"application/json;charset=utf-8"}),a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);
+}
+autoLoad();
+</script>
+</body>
+</html>
