@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - "scripts/build_exams.py"
+      - "scripts/validate_exams.js"
+      - "index.html"
       - ".github/workflows/build-exams.yml"
 
 permissions:
