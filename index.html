@@ -1246,23 +1246,24 @@ function saveSpecialRoundCache(round,items){
   }
 }
 function markerRE(n){
+  const k=String(Number(n));
   return new RegExp(
     "(?:"
-    +"\\\\[\\\\s*"+n+"(?:\\\\s*;[^\\\\]]*)?\\\\s*\\\\]"
-    +"|\\\\(\\\\s*"+n+"\\\\s*\\\\)"
-    +"|【\\\\s*"+n+"\\\\s*】"
-    +"|〔\\\\s*"+n+"\\\\s*〕"
-    +"|(?:^|\\\\s)"+n+"\\\\s*[\\.．:)）]\\s*"
-    +"|^\\\\s*"+n+"\\\\s+(?=[\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff가-힣])"
+    +"\\[\\s*"+k+"(?:\\s*;[^\\]]*)?\\s*\\]"
+    +"|\\(\\s*"+k+"\\s*\\)"
+    +"|【\\s*"+k+"\\s*】"
+    +"|〔\\s*"+k+"\\s*〕"
+    +"|(?:^|\\s)"+k+"\\s*[.．:)）]\\s*"
+    +"|^\\s*"+k+"\\s+(?=[\\u3400-\\u9fff\\uf900-\\ufaff가-힣])"
     +")"
   );
 }
 function cleanExamText(t){
   return String(t||"")
-    .replace(/第\\d+回[^\\n]*?(?:問題紙|답안지)[^\\n]*/g," ")
+    .replace(/第\d+回[^\n]*?(?:問題紙|답안지)[^\n]*/g," ")
     .replace(/<계속>/g," ")
     .replace(/■+/g," ")
-    .replace(/\\s+/g," ").trim();
+    .replace(/\s+/g," ").trim();
 }
 function contextForQuestion(problemLines,n){
   const re=markerRE(n);
@@ -1282,17 +1283,20 @@ function contextForQuestion(problemLines,n){
   return cleanExamText(chunks.join(" "));
 }
 function extractHanjaAfterMarker(ctx,n){
+  const k=String(Number(n));
   const ps=[
-    new RegExp("\\\\[\\\\s*"+n+"(?:\\\\s*;[^\\\\]]*)?\\\\s*\\\\]\\\\s*([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})"),
-    new RegExp("\\\\(\\\\s*"+n+"\\\\s*\\\\)\\\\s*([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})"),
-    new RegExp("【\\\\s*"+n+"\\\\s*】\\\\s*([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})"),
-    new RegExp("〔\\\\s*"+n+"\\\\s*〕\\\\s*([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})"),
-    new RegExp("(?:^|\\\\s)"+n+"\\\\s*[\\\\.．:)）]?\\\\s*([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})"),
-    new RegExp("([\\\\u3400-\\\\u9fff\\\\uf900-\\\\ufaff]{1,20})\\\\s*\\\\(\\\\s*"+n+"\\\\s*\\\\)")
+    new RegExp("\\[\\s*"+k+"(?:\\s*;[^\\]]*)?\\s*\\]\\s*([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})"),
+    new RegExp("\\(\\s*"+k+"\\s*\\)\\s*([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})"),
+    new RegExp("【\\s*"+k+"\\s*】\\s*([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})"),
+    new RegExp("〔\\s*"+k+"\\s*〕\\s*([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})"),
+    new RegExp("(?:^|\\s)"+k+"\\s*[.．:)）]?\\s*([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})"),
+    new RegExp("([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})\\s*\\(\\s*"+k+"\\s*\\)")
   ];
-  for(const re of ps){const m=ctx.match(re);if(m)return m[1]}
-  // 번호와 한자가 PDF에서 다른 text item으로 분리되었을 때
-  const groups=[...ctx.matchAll(/[\\u3400-\\u9fff\\uf900-\\ufaff]{1,20}/g)].map(m=>m[0]);
+  for(const re of ps){
+    const m=String(ctx||"").match(re);
+    if(m)return m[1];
+  }
+  const groups=[...String(ctx||"").matchAll(/[\u3400-\u9fff\uf900-\ufaff]{1,20}/g)].map(m=>m[0]);
   return groups.find(x=>x.length>=1&&!/^(?:問|答案|問題紙)$/.test(x))||"";
 }
 function extractKoreanBeforeMarker(ctx,n){
