@@ -1842,6 +1842,22 @@ function classifyExamHeader(desc){
   if(/漢字.*찾아.*번호|한자.*찾아.*번호|알맞은.*漢字.*번호|알맞은.*한자.*번호/.test(t))return "wordWrite";
   return "other";
 }
+function findAnswerStart(flat){
+  if(!Array.isArray(flat)||!flat.length)return -1;
+
+  let idx=flat.findIndex(x=>/(?:답안지|答案紙)\s*[\(（]\s*1\s*[\)）]/.test(String(x.line||"")));
+  if(idx>=0)return idx;
+
+  idx=flat.findIndex(x=>/번호\s*정답(?:\s+번호\s*정답)+/.test(String(x.line||"")));
+  if(idx>=0)return Math.max(0,idx-3);
+
+  idx=flat.findIndex(x=>{
+    const line=String(x.line||"");
+    return /(?:제|第)\s*\d+\s*회.*(?:답안지|答案紙)/.test(line) &&
+      !/(?:함께|같이)\s*제출/.test(line);
+  });
+  return idx;
+}
 function parseAnswerRows(allLines,startIndex){
   const ans={};
   let loose=[];
