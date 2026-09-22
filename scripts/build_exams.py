@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/"data"/"exams"
 OUT.mkdir(parents=True,exist_ok=True)
-BUILD_FORMAT_VERSION=3
+BUILD_FORMAT_VERSION=4
 
 ARCHIVES={
     "8급":37,"7급Ⅱ":36,"7급":35,"6급Ⅱ":34,"6급":33,
@@ -89,20 +89,23 @@ def _rows_from_words(words):
             out.append(line)
     return out
 
-def page_lines(page,split_columns=False):
+def page_lines(page,columns=1):
     words=page.get_text("words",sort=False)
-    if not split_columns:
+    if columns <= 1:
         return _rows_from_words(words)
 
-    # 문제지는 대부분 좌/우 2단이다. 전 폭을 한 줄로 합치면
-    # 서로 다른 문제 번호와 한자가 섞이므로 열별로 읽는다.
-    mid=float(page.rect.width)*0.5
-    left=[]; right=[]
+    width=float(page.rect.width)
+    buckets=[[] for _ in range(columns)]
     for w in words:
         x0,y0,x1,y1,*_=w
         cx=(float(x0)+float(x1))*0.5
-        (left if cx<mid else right).append(w)
-    return _rows_from_words(left)+_rows_from_words(right)
+        idx=min(columns-1,max(0,int(cx/max(width,1e-6)*columns)))
+        buckets[idx].append(w)
+
+    out=[]
+    for bucket in buckets:
+        out.extend(_rows_from_words(bucket))
+    return out
 
 def text_via_reader(url):
     # Reader can server-side fetch some attachment hosts that block GitHub runner IPs.
@@ -158,8 +161,16 @@ def extract_pdf(level,rnd,url):
         flat=[]
         for pn,page in enumerate(doc,start=1):
             page_text=page.get_text("text")
-            is_answer=("답안지" in page_text or "答案紙" in page_text)
-            for line in page_lines(page,split_columns=not is_answer):
+            # Problem pages mention "답안지" in the instruction line too, so do not
+            # classify by that word alone. Real answer sheets contain answer/scoring
+            # table labels or an explicit 답안지(1)/(2) heading.
+            is_answer=(
+                "답안란" in page_text or "채점란" in page_text or
+                re.search(r"답안지\s*[\(（]\s*[12]\s*[\)）]",page_text) is not None or
+                "答案紙" in page_text
+            )
+            cols=3 if is_answer else 2
+            for line in page_lines(page,columns=cols):
                 flat.append({"pn":pn,"line":line})
         doc.close()
         if len(flat)<20:
@@ -218,7 +229,7 @@ def main():
         return
 
     # Only advertise files that actually exist, so ✓ always means instantly playable.
-    manifest={"version":3,"format_version":BUILD_FORMAT_VERSION,"source":"winteriscoming2u.tistory.com","grades":{}}
+    manifest={"version":4,"format_version":BUILD_FORMAT_VERSION,"source":"winteriscoming2u.tistory.com","grades":{}}
     for level,meta in grade_meta.items():
         folder=OUT/SLUG[level]
         actual=[]
