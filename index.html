@@ -1355,6 +1355,24 @@ function fallbackExamType(level,n){
   }
   return "other";
 }
+function buildProblemizedPrompt(n,type,ctx,answer){
+  const han=extractHanjaAfterMarker(ctx,n);
+  const ko=extractKoreanBeforeMarker(ctx,n);
+
+  if(type==="sound"&&han)return {prompt:"「"+han+"」의 독음을 쓰세요.",hanja:han,korean:""};
+  if(type==="meaningSound"&&han)return {prompt:"「"+han+"」의 훈과 음을 쓰세요.",hanja:han,korean:""};
+  if(type==="wordWrite"&&ko)return {prompt:"「"+ko+"」를 한자로 쓰세요.",hanja:"",korean:ko};
+  if(type==="radical"&&han)return {prompt:"「"+han+"」의 부수를 쓰세요.",hanja:han,korean:""};
+  if(type==="abbreviation"&&han)return {prompt:"「"+han+"」의 약자를 쓰세요.",hanja:han,korean:""};
+  if(type==="definition"&&han)return {prompt:"「"+han+"」의 뜻을 쓰세요.",hanja:han,korean:""};
+  if(type==="longSound"&&ctx)return {prompt:"장단음 문제: "+ctx,hanja:"",korean:""};
+  if(type==="antonym"&&ctx)return {prompt:"반대·상대어 문제: "+ctx,hanja:han,korean:""};
+  if(type==="synonym"&&ctx)return {prompt:"동의·유의어 문제: "+ctx,hanja:han,korean:""};
+  if(type==="idiom"&&ctx)return {prompt:"성어 문제: "+ctx,hanja:han,korean:""};
+  if(type==="homonym"&&ctx)return {prompt:"동음이의어 문제: "+ctx,hanja:han,korean:""};
+  if(ctx)return {prompt:ctx,hanja:han,korean:ko};
+  return {prompt:n+"번 문제 원문을 인식하지 못했습니다. 이 회차를 다시 문제화해 주세요.",hanja:"",korean:""};
+}
 function isGenericExamPrompt(q){
   const p=String(q?.prompt||"").trim();
   return !p ||
