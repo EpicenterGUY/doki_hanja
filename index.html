@@ -1827,9 +1827,15 @@ function pdfLineGroups(items){
 }
 function classifyExamHeader(desc){
   const t=String(desc||"").replace(/\s+/g," ");
-  if(/同音異義|동음이의/.test(t))return "homonym";
-  if(/讀音|독음|읽는\s*소리/.test(t))return "sound";
-  if(/訓\s*[·ㆍ.\-]?\s*音|훈\s*[·ㆍ.\-]?\s*음|뜻.*소리/.test(t))return "meaningSound";
+
+  // Reading-comprehension sections should not inherit keywords from the other PDF column.
+  if(/漢文.*읽고.*물음|한문.*읽고.*물음/.test(t))return "other";
+
+  // PDF text extraction can interleave the opposite column between 讀-音 / 訓-音 / 同-音異義.
+  if(/同.{0,80}音異義|동음.{0,40}이의/.test(t))return "homonym";
+  if(/讀.{0,120}音|독음|읽는\s*소리/.test(t))return "sound";
+  if(/訓.{0,80}音|훈.{0,40}음|뜻.*소리/.test(t))return "meaningSound";
+
   if(/長音|장음|첫.*소리.*길|첫.*음절.*길/.test(t))return "longSound";
   if(/部首|부수/.test(t))return "radical";
   if(/總劃|총획|획수/.test(t))return "strokes";
@@ -1862,6 +1868,7 @@ function parseAnswerRows(allLines,startIndex){
   const ans={};
   let loose=[];
   let pending=null;
+  let pendingContinuationUsed=false;
 
   const clean=s=>String(s||"")
     .replace(/\s+(?:1검|2검).*$/,"")
@@ -1899,6 +1906,7 @@ function parseAnswerRows(allLines,startIndex){
       loose=[];
 
       pending=null;
+      pendingContinuationUsed=false;
       for(const cell of cells){
         if(cell.a && !/^(?:검|득점|서명)$/.test(cell.a))ans[cell.n]=cell.a;
       }
@@ -1907,12 +1915,20 @@ function parseAnswerRows(allLines,startIndex){
       if(last&&originallyEmpty.includes(last.n)){
         ans[last.n]=ans[last.n]||last.a||"";
         pending=last.n;
+        pendingContinuationUsed=false;
       }
       continue;
     }
 
     if(pending!==null){
-      ans[pending]=clean((ans[pending]||"")+" "+line);
+      if(!pendingContinuationUsed){
+        ans[pending]=clean((ans[pending]||"")+" "+line);
+        pendingContinuationUsed=true;
+      }else{
+        pending=null;
+        pendingContinuationUsed=false;
+        if(line.length<120)loose=[line];
+      }
     }else if(line.length<120){
       loose.push(line);
       if(loose.length>2)loose.shift();
