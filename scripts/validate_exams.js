@@ -37,7 +37,7 @@ const names=[
   "headerRangesFromFlat","parseCircledChoices","fallbackExamType",
   "buildProblemizedPrompt","isGenericExamPrompt","problemizeFlatPdf"
 ];
-const src=names.map(extractFn).join("\\n");
+const src=names.map(extractFn).join("\n");
 const api=new Function(
   'const remoteExamState={round:null}; const gradeDisplay=x=>x; '+src+
   '; return {findAnswerStart,parseAnswerRows,problemizeFlatPdf,isGenericExamPrompt};'
