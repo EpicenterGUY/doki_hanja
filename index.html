@@ -1076,7 +1076,7 @@ async function importOneExamPdfSilent(level,round,file,statusEl){
   const buf=await file.arrayBuffer();
   const pdf=await pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;
   const flat=await pdfToFlat(pdf,level,round,statusEl);
-  const answerStart=flat.findIndex(x=>/제?\s*\d+회.*답안지|답안지\s*(?:\(|（)?1?(?:\)|）)?|번호\s*정답/.test(x.line));
+  const answerStart=findAnswerStart(flat);
   if(answerStart<0)throw Error("답안지 위치 인식 실패");
 
   const answers=parseAnswerRows(flat.slice(answerStart).map(x=>x.line),0);
@@ -1283,21 +1283,29 @@ function contextForQuestion(problemLines,n){
   return cleanExamText(chunks.join(" "));
 }
 function extractHanjaAfterMarker(ctx,n){
-  const k=String(Number(n));
-  const ps=[
-    new RegExp("\\[\\s*"+k+"(?:\\s*;[^\\]]*)?\\s*\\]\\s*([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})"),
-    new RegExp("\\(\\s*"+k+"\\s*\\)\\s*([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})"),
-    new RegExp("【\\s*"+k+"\\s*】\\s*([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})"),
-    new RegExp("〔\\s*"+k+"\\s*〕\\s*([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})"),
-    new RegExp("(?:^|\\s)"+k+"\\s*[.．:)）]?\\s*([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})"),
-    new RegExp("([\\u3400-\\u9fff\\uf900-\\ufaff]{1,20})\\s*\\(\\s*"+k+"\\s*\\)")
-  ];
-  for(const re of ps){
-    const m=String(ctx||"").match(re);
-    if(m)return m[1];
+  const text=String(ctx||"");
+  const hanRE=/[\u3400-\u9fff\uf900-\ufaff]{1,20}/g;
+  const bad=/^(?:漢字語|漢字|讀音|音|問|問題紙|答案|答案紙|訓音|部首|總劃)$/;
+  const mr=markerRE(n);
+  const m=mr.exec(text);
+
+  const pick=(s)=>{
+    const groups=[...String(s||"").matchAll(hanRE)].map(x=>x[0]);
+    return groups.find(x=>!bad.test(x))||"";
+  };
+
+  if(m){
+    let after=text.slice(m.index+m[0].length);
+    const cut=after.search(/(?:\[\s*\d{1,3}(?:\s*;[^\]]*)?\s*\]|\(\s*\d{1,3}\s*\)|【\s*\d{1,3}\s*】|〔\s*\d{1,3}\s*〕|(?:^|\s)\d{1,3}\s*[.．:)）]\s*)/);
+    if(cut>=0)after=after.slice(0,cut);
+    const hit=pick(after);
+    if(hit)return hit;
+
+    const before=text.slice(Math.max(0,m.index-50),m.index);
+    const prev=[...before.matchAll(hanRE)].map(x=>x[0]).filter(x=>!bad.test(x));
+    if(prev.length)return prev[prev.length-1];
   }
-  const groups=[...String(ctx||"").matchAll(/[\u3400-\u9fff\uf900-\ufaff]{1,20}/g)].map(m=>m[0]);
-  return groups.find(x=>x.length>=1&&!/^(?:問|答案|問題紙)$/.test(x))||"";
+  return pick(text);
 }
 function extractKoreanBeforeMarker(ctx,n){
   const ps=[
@@ -1348,32 +1356,11 @@ function fallbackExamType(level,n){
   return "other";
 }
 function isGenericExamPrompt(q){
-  const p=String(q?.prompt||"");
-  return !p || /^제?\s*회?\s*\d+번\s*문제$/.test(p) || /^제회\s*\d+번\s*문제$/.test(p);
-}
-function parsedRoundLooksBroken(items){
-  if(!items?.length)return true;
-  const bad=items.filter(q=>isGenericExamPrompt(q)).length;
-  const other=items.filter(q=>q.type==="other").length;
-  return bad/items.length>0.20 || other/items.length>0.65;
-}
-
-function buildProblemizedPrompt(n,type,ctx,answer){
-  const han=extractHanjaAfterMarker(ctx,n);
-  const ko=extractKoreanBeforeMarker(ctx,n);
-  if(type==="sound"&&han)return {prompt:`「${han}」의 독음을 쓰세요.`,hanja:han,korean:""};
-  if(type==="meaningSound"&&han)return {prompt:`「${han}」의 훈과 음을 쓰세요.`,hanja:han,korean:""};
-  if(type==="wordWrite"&&ko)return {prompt:`「${ko}」를 한자로 쓰세요.`,hanja:"",korean:ko};
-  if(type==="radical"&&han)return {prompt:`「${han}」의 부수를 쓰세요.`,hanja:han,korean:""};
-  if(type==="abbreviation"&&han)return {prompt:`「${han}」의 약자를 쓰세요.`,hanja:han,korean:""};
-  if(type==="definition"&&han)return {prompt:`「${han}」의 일반적인 뜻을 쓰세요.`,hanja:han,korean:""};
-  if(type==="longSound"&&ctx)return {prompt:`장단음 문제: ${ctx}`,hanja:"",korean:""};
-  if(type==="antonym"&&ctx)return {prompt:`반대·상대어 문제: ${ctx}`,hanja:han,korean:""};
-  if(type==="synonym"&&ctx)return {prompt:`같거나 비슷한 뜻의 한자 문제: ${ctx}`,hanja:han,korean:""};
-  if(type==="idiom"&&ctx)return {prompt:`성어 문제: ${ctx}`,hanja:han,korean:""};
-  if(type==="homonym"&&ctx)return {prompt:`동음이의어 문제: ${ctx}`,hanja:han,korean:""};
-  if(ctx)return {prompt:ctx,hanja:han,korean:ko};
-  return {prompt:`${n}번 문제 원문을 인식하지 못했습니다. 이 회차를 다시 문제화해 주세요.`,hanja:"",korean:""};
+  const p=String(q?.prompt||"").trim();
+  return !p ||
+    /원문을\s*인식하지\s*못했습니다/.test(p) ||
+    /^제?\s*회?\s*\d+번\s*문제$/.test(p) ||
+    /^제회\s*\d+번\s*문제$/.test(p);
 }
 function problemizeFlatPdf(level,round,flat,answerStart,answers){
   const problemLines=flat.slice(0,answerStart),ranges=headerRangesFromFlat(flat,answerStart);
@@ -1473,7 +1460,7 @@ async function parseLocalExamPdfFile(level,round,file){
     const buf=await file.arrayBuffer();
     const pdf=await pdfjsLib.getDocument({data:new Uint8Array(buf)}).promise;
     const flat=await pdfToFlat(pdf,level,round,status);
-    const answerStart=flat.findIndex(x=>/제?\s*\d+회.*답안지|답안지\s*(?:\(|（)?1?(?:\)|）)?|번호\s*정답/.test(x.line));
+    const answerStart=findAnswerStart(flat);
     if(answerStart<0)throw Error("답안지 위치를 찾지 못했습니다.");
 
     const answers=parseAnswerRows(flat.slice(answerStart).map(x=>x.line),0);
@@ -1647,7 +1634,7 @@ async function buildGradeRound(level,round,{startAfter=true,quiet=false}={}){
   try{
     let flat=await loadBundledRound(level,round,status);
     if(!flat)flat=await extractRoundPdf(level,round,status);
-    const answerStart=flat.findIndex(x=>/제?\s*\d+회.*답안지|답안지\s*(?:\(|（)?1?(?:\)|）)?|번호\s*정답/.test(x.line));
+    const answerStart=findAnswerStart(flat);
     if(answerStart<0)throw Error("답안지 위치를 찾지 못했습니다.");
 
     const answers=parseAnswerRows(flat.slice(answerStart).map(x=>x.line),0);
@@ -1836,25 +1823,86 @@ function classifyExamHeader(desc){
   if(/漢字.*찾아.*번호|한자.*찾아.*번호|알맞은.*漢字.*번호|알맞은.*한자.*번호/.test(t))return "wordWrite";
   return "other";
 }
+function findAnswerStart(flat){
+  if(!Array.isArray(flat)||!flat.length)return -1;
+
+  let idx=flat.findIndex(x=>/(?:답안지|答案紙)\s*[\(（]\s*1\s*[\)）]/.test(String(x.line||"")));
+  if(idx>=0)return idx;
+
+  idx=flat.findIndex(x=>/번호\s*정답(?:\s+번호\s*정답)+/.test(String(x.line||"")));
+  if(idx>=0)return Math.max(0,idx-3);
+
+  idx=flat.findIndex(x=>{
+    const line=String(x.line||"");
+    return /(?:제|第)\s*\d+\s*회.*(?:답안지|答案紙)/.test(line) &&
+      !/(?:함께|같이)\s*제출/.test(line);
+  });
+  return idx;
+}
 function parseAnswerRows(allLines,startIndex){
-  const ans={}; let lastNums=[];
+  const ans={};
+  let loose=[];
+  let pending=null;
+
+  const clean=s=>String(s||"")
+    .replace(/\s+(?:1검|2검).*$/,"")
+    .replace(/\s+/g," ").trim();
+
+  const noise=line=>
+    /수험번호|주민등록|채점위원|감독위원|답안란|채점란|번호\s*정답|득점|서명|뒷면|사단법인|韓國語文會|한국어문회|본\s*답안지|컴퓨터로\s*처리|오답처리/.test(line) ||
+    /^\s*[■□]+\s*$/.test(line) ||
+    /^\s*[-–—]?\s*\d+\s*[-–—]?\s*$/.test(line);
+
   for(let i=startIndex;i<allLines.length;i++){
-    let line=allLines[i];
-    if(/수험번호|주민등록|채점위원|감독위원|답안란|채점란|번호\s*정답|뒷면|사단법인|韓國語文會/.test(line))continue;
-    const matches=[...line.matchAll(/(?:^|\s)(\d{1,3})\s+(.+?)(?=(?:\s+\d{1,3}\s+)|$)/g)];
-    if(matches.length){
-      lastNums=[];
-      for(const m of matches){
-        const n=+m[1]; if(n<1||n>200)continue;
-        let a=m[2].trim().replace(/\s+(?:1검|2검).*$/,"").trim();
-        if(!a||/^(?:검|득점|서명)$/.test(a))continue;
-        ans[n]=a;lastNums.push(n);
-      }
-    }else if(lastNums.length===1 && line.length<70){
-      // 긴 뜻풀이가 다음 줄로 이어지는 경우
-      const n=lastNums[0];
-      if(ans[n] && !/^\d/.test(line))ans[n]+=" "+line;
+    const line=clean(allLines[i]);
+    if(!line)continue;
+    if(noise(line)){
+      if(pending===null)loose=[];
+      continue;
     }
+
+    const nums=[...line.matchAll(/(?:^|\s)(\d{1,3})(?=\s|$)/g)]
+      .map(m=>({n:+m[1],idx:m.index+(m[0].length-m[1].length),end:m.index+m[0].length}))
+      .filter(x=>x.n>=1&&x.n<=200);
+
+    if(nums.length){
+      const cells=[];
+      for(let j=0;j<nums.length;j++){
+        const cur=nums[j], next=nums[j+1];
+        const a=clean(line.slice(cur.end,next?next.idx:line.length));
+        cells.push({n:cur.n,a});
+      }
+
+      const empty=cells.filter(x=>!x.a);
+      if(loose.length&&empty.length){
+        empty[empty.length-1].a=clean(loose.join(" "));
+      }
+      loose=[];
+
+      pending=null;
+      for(const cell of cells){
+        if(cell.a && !/^(?:검|득점|서명)$/.test(cell.a))ans[cell.n]=cell.a;
+      }
+
+      const last=cells[cells.length-1];
+      if(last&&!last.a){
+        ans[last.n]=ans[last.n]||"";
+        pending=last.n;
+      }
+      continue;
+    }
+
+    if(pending!==null){
+      ans[pending]=clean((ans[pending]||"")+" "+line);
+    }else if(line.length<120){
+      loose.push(line);
+      if(loose.length>2)loose.shift();
+    }
+  }
+
+  for(const k of Object.keys(ans)){
+    ans[k]=clean(ans[k]);
+    if(!ans[k])delete ans[k];
   }
   return ans;
 }
@@ -1886,7 +1934,7 @@ async function analyzeRemotePdf(round){
         });
       });
     }
-    const answerStart=flat.findIndex(x=>/답안지\s*\(?1?\)?|답안지\(1\)/.test(x.line));
+    const answerStart=findAnswerStart(flat);
     if(answerStart<0)throw Error("답안지 영역을 찾지 못했습니다");
     const answerLines=flat.slice(answerStart).map(x=>x.line);
     const answers=parseAnswerRows(answerLines,0);
