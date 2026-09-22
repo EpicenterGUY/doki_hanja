@@ -299,7 +299,7 @@ const GRADE_ARCHIVES={
 };
 const ARCHIVE_LEVELS=["8급","7급Ⅱ","7급","6급Ⅱ","6급","5급Ⅱ","5급","4급Ⅱ","4급","3급Ⅱ","3급","2급","1급","특급Ⅱ","특급"];
 const GRADE_ARCHIVE_CACHE_PREFIX="hanjaGradeArchiveV4_";
-const GRADE_QUIZ_CACHE_PREFIX="hanjaGradeQuizV2_";
+const GRADE_QUIZ_CACHE_PREFIX="hanjaGradeQuizV3_";
 let examArchiveLevel="특급";
 let gradeArchiveLinks={};
 function examGradeSlug(level){
@@ -1268,8 +1268,6 @@ function contextForQuestion(problemLines,n){
   let markerNumber=n;
   let idx=problemLines.findIndex(x=>markerRE(n).test(String(x.line||"")));
 
-  // Some PDF text layers contain a duplicated question number (e.g. 186,186,188).
-  // If n is missing, map the second duplicate of n-1 to n when n+1 follows it.
   if(idx<0&&n>1){
     const prevHits=[];
     for(let i=0;i<problemLines.length;i++){
@@ -1278,42 +1276,38 @@ function contextForQuestion(problemLines,n){
     const nextIdx=problemLines.findIndex(x=>markerRE(n+1).test(String(x.line||"")));
     if(prevHits.length>=2){
       const cand=prevHits[prevHits.length-1];
-      if(nextIdx<0||cand<nextIdx){
-        idx=cand;
-        markerNumber=n-1;
-      }
+      if(nextIdx<0||cand<nextIdx){idx=cand;markerNumber=n-1}
     }
   }
   if(idx<0)return "";
 
-  const chunks=[];
   const firstLine=String(problemLines[idx].line||"");
-  const firstMatch=markerRE(markerNumber).exec(firstLine);
-  let first=firstMatch?firstLine.slice(firstMatch.index):firstLine;
+  const fm=markerRE(markerNumber).exec(firstLine);
+  if(!fm)return "";
+
+  let first=firstLine.slice(fm.index);
   if(markerNumber!==n)first=first.replace(markerRE(markerNumber),"["+n+"]");
 
-  const sectionRe=/\[\s*(?:問|문제)\s*\d{1,3}\s*[-~－–]\s*\d{1,3}/;
-  const sectionPos=first.slice(1).search(sectionRe);
-  if(sectionPos>=0)first=first.slice(0,sectionPos+1);
-  chunks.push(first);
+  const afterOffset=markerRE(n).exec(first)?.[0]?.length||fm[0].length;
+  const tail=first.slice(afterOffset);
+  const nextMarker=tail.search(/\[\s*\d{1,3}(?:\s*;[^\]]*)?\s*\]|\(\s*\d{1,3}\s*\)|【\s*\d{1,3}\s*】|〔\s*\d{1,3}\s*〕/);
+  if(nextMarker>=0)first=first.slice(0,afterOffset+nextMarker);
 
+  const sectionRe=/\[?\s*(?:問|문제)\s*\d{1,3}\s*[-~－–]\s*\d{1,3}\s*\]?/;
+  const sec=first.slice(1).search(sectionRe);
+  if(sec>=0)first=first.slice(0,sec+1);
+
+  const chunks=[first.trim()];
   for(let j=idx+1;j<=Math.min(problemLines.length-1,idx+3);j++){
     const line=String(problemLines[j].line||"");
     const qm=line.match(/\[\s*(\d{1,3})(?:\s*;[^\]]*)?\s*\]|\(\s*(\d{1,3})\s*\)|【\s*(\d{1,3})\s*】|〔\s*(\d{1,3})\s*〕|(?:^|\s)(\d{1,3})\s*[.．:)）]\s*/);
-    const other=qm?+(qm[1]||qm[2]||qm[3]||qm[4]||qm[5]):0;
-    if(other&&other!==n){
-      const prefix=line.slice(0,qm.index).trim();
-      if(prefix)chunks.push(prefix);
-      break;
-    }
-
     const sm=sectionRe.exec(line);
-    if(sm){
-      const prefix=line.slice(0,sm.index).trim();
-      if(prefix)chunks.push(prefix);
-      break;
-    }
-    chunks.push(line);
+    let cut=line.length;
+    if(qm)cut=Math.min(cut,qm.index);
+    if(sm)cut=Math.min(cut,sm.index);
+    const prefix=line.slice(0,cut).trim();
+    if(prefix)chunks.push(prefix);
+    if(qm||sm)break;
   }
   return cleanExamText(chunks.join(" "));
 }
@@ -1354,25 +1348,36 @@ function extractKoreanBeforeMarker(ctx,n){
 }
 function headerRangesFromFlat(flat,answerStart){
   const ranges=[],seen=new Set();
+  const hre=/\[?\s*(?:問|문제)\s*(\d{1,3})\s*[-~－–]\s*(\d{1,3})\s*\]?/g;
+
   for(let i=0;i<answerStart;i++){
     const line=String(flat[i].line||"");
-    const m=line.match(/(?:\[?\s*(?:問|문제)\s*)?(\d{1,3})\s*[-~－–]\s*(\d{1,3})(?:\s*\])?/);
-    if(!m)continue;
-    const a=+m[1],b=+m[2];
-    if(a<1||b<a||b>250)continue;
-    const k=a+"-"+b;
-    if(seen.has(k))continue;
-    seen.add(k);
+    const ms=[...line.matchAll(hre)];
+    if(!ms.length)continue;
 
-    let desc=line;
-    let type=classifyExamHeader(desc);
-    for(let j=i+1;type==="other"&&j<=Math.min(i+4,answerStart-1);j++){
-      const next=String(flat[j].line||"");
-      if(/\[\s*(?:問|문제)\s*\d{1,3}\s*[-~－–]\s*\d{1,3}/.test(next))break;
-      desc+=" "+next;
-      type=classifyExamHeader(desc);
+    for(let z=0;z<ms.length;z++){
+      const m=ms[z],a=+m[1],b=+m[2];
+      if(a<1||b<a||b>250)continue;
+      const key=a+"-"+b;
+      if(seen.has(key))continue;
+      seen.add(key);
+
+      const next=ms[z+1];
+      let desc=line.slice(m.index,next?next.index:line.length).trim();
+      let type=classifyExamHeader(desc);
+
+      if(type==="other"){
+        for(let j=i+1;j<=Math.min(i+3,answerStart-1);j++){
+          const nxt=String(flat[j].line||"");
+          const hm=[...nxt.matchAll(/\[?\s*(?:問|문제)\s*\d{1,3}\s*[-~－–]\s*\d{1,3}\s*\]?/g)][0];
+          const piece=(hm?nxt.slice(0,hm.index):nxt).trim();
+          if(piece)desc+=" "+piece;
+          type=classifyExamHeader(desc);
+          if(type!=="other")break;
+        }
+      }
+      ranges.push({a,b,type,desc:cleanExamText(desc)});
     }
-    ranges.push({a,b,type,desc:cleanExamText(desc)});
   }
   return ranges;
 }
@@ -1856,14 +1861,10 @@ function pdfLineGroups(items){
 function classifyExamHeader(desc){
   const t=String(desc||"").replace(/\s+/g," ");
 
-  // Reading-comprehension sections should not inherit keywords from the other PDF column.
   if(/漢文.*읽고.*물음|한문.*읽고.*물음/.test(t))return "other";
-
-  // PDF text extraction can interleave the opposite column between 讀-音 / 訓-音 / 同-音異義.
-  if(/同.{0,80}音異義|동음.{0,40}이의/.test(t))return "homonym";
-  if(/讀.{0,120}音|독음|읽는\s*소리/.test(t))return "sound";
-  if(/訓.{0,80}音|훈.{0,40}음|뜻.*소리/.test(t))return "meaningSound";
-
+  if(/同.{0,100}音異義|동음.{0,60}이의/.test(t))return "homonym";
+  if(/訓.{0,100}音|훈.{0,60}음|뜻.*소리/.test(t))return "meaningSound";
+  if(/讀|독음|읽는\s*소리/.test(t))return "sound";
   if(/長音|장음|첫.*소리.*길|첫.*음절.*길/.test(t))return "longSound";
   if(/部首|부수/.test(t))return "radical";
   if(/總劃|총획|획수/.test(t))return "strokes";
@@ -1873,6 +1874,7 @@ function classifyExamHeader(desc){
   if(/略字|略字|약자/.test(t))return "abbreviation";
   if(/뜻.*쓰|뜻.*풀이|풀이하시오|해설하시오|번역하시오/.test(t))return "definition";
   if(/뜻을\s*가진.*(?:漢字語|한자어)|漢字.*쓰|한자.*쓰|漢字語.*漢字|正字.*쓰|漢字\(正字\)|한자\(정자\)/.test(t))return "wordWrite";
+  if(/다음\s*(?:밑줄\s*친\s*)?漢字語를/.test(t))return "wordWrite";
   if(/漢字.*찾아.*번호|한자.*찾아.*번호|알맞은.*漢字.*번호|알맞은.*한자.*번호/.test(t))return "wordWrite";
   return "other";
 }
