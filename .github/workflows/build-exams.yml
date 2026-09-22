@@ -38,9 +38,6 @@ jobs:
       - name: Build static exam data
         run: python scripts/build_exams.py
 
-      - name: Validate all generated exam data
-        run: node scripts/validate_exams.js
-
       - name: Commit generated exam data
         run: |
           git config user.name "github-actions[bot]"
@@ -54,3 +51,7 @@ jobs:
           # main may have advanced while the long extraction was running.
           git pull --rebase origin main
           git push origin HEAD:main
+
+      - name: Validate all generated exam data
+        run: node scripts/validate_exams.js
+
