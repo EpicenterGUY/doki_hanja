@@ -302,6 +302,43 @@ const GRADE_ARCHIVE_CACHE_PREFIX="hanjaGradeArchiveV4_";
 const GRADE_QUIZ_CACHE_PREFIX="hanjaGradeQuizV2_";
 let examArchiveLevel="특급";
 let gradeArchiveLinks={};
+function examGradeSlug(level){
+  return ({
+    "8급":"8","7급Ⅱ":"7-2","7급":"7","6급Ⅱ":"6-2","6급":"6",
+    "5급Ⅱ":"5-2","5급":"5","4급Ⅱ":"4-2","4급":"4","3급Ⅱ":"3-2",
+    "3급":"3","2급":"2","1급":"1","특급Ⅱ":"special-2","특급":"special"
+  })[level]||encodeURIComponent(level);
+}
+let bundledExamManifest=null;
+async function loadBundledExamManifest(){
+  if(bundledExamManifest)return bundledExamManifest;
+  try{
+    const r=await fetch("./data/exams/manifest.json",{cache:"no-store"});
+    if(!r.ok)return null;
+    bundledExamManifest=await r.json();
+    return bundledExamManifest;
+  }catch{return null}
+}
+function bundledRoundAvailable(level,round){
+  const rs=bundledExamManifest?.grades?.[level]?.rounds||[];
+  return rs.includes(+round);
+}
+async function loadBundledRound(level,round,statusEl=null){
+  const slug=examGradeSlug(level);
+  try{
+    if(statusEl)statusEl.textContent=gradeDisplay(level)+" 제"+round+"회 내장 기출 데이터 확인 중…";
+    const r=await fetch("./data/exams/"+slug+"/"+round+".json",{cache:"no-store"});
+    if(r.status===404)return null;
+    if(!r.ok)throw Error("내장 데이터 HTTP "+r.status);
+    const j=await r.json();
+    if(!Array.isArray(j.flat)||j.flat.length<20)throw Error("내장 기출 데이터가 비어 있습니다.");
+    return j.flat;
+  }catch(e){
+    if(statusEl)statusEl.textContent="내장 데이터 확인 실패 · 원문 연결로 재시도 중…";
+    return null;
+  }
+}
+
 function isLocalContentMode(){
   const p=(location.protocol||"").toLowerCase();
   return p==="content:"||p==="file:";
@@ -493,6 +530,9 @@ function init(){
   if(!examItems.length) examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38];
   hydrateSpecialRoundCache();
   hydrateAllGradeQuizCaches();
+  loadBundledExamManifest().then(()=>{
+    if(document.getElementById("gradeRoundGrid"))updateGradeArchiveGrid(examArchiveLevel,false);
+  });
   $("#level").innerHTML=GRADE_ORDER.map(g=>`<option ${g==="1급"?"selected":""}>${g}</option>`).join("");
   $("#typeChecks").innerHTML=Object.entries(TYPES).map(([k,v])=>`<label class="check"><input type="checkbox" value="${k}" ${["sound","meaning","meaningSound","write","radical","strokes"].includes(k)?"checked":""}> ${v}</label>`).join("");
   bind();
@@ -805,7 +845,8 @@ function quizCacheKey(level,round){return GRADE_QUIZ_CACHE_PREFIX+encodeURICompo
 function gradeQuestionCount(level,round){
   return availableExamQuestions().filter(x=>x.level===level&&+x.round===+round).length;
 }
-function gradeRoundReady(level,round){return gradeQuestionCount(level,round)>=40}
+function gradeRoundReady(level,round){
+  if(bundledRoundAvailable(level,round))return true;return gradeQuestionCount(level,round)>=40}
 function hydrateAllGradeQuizCaches(){
   try{
     const remove=[];
@@ -1600,7 +1641,8 @@ async function buildGradeRound(level,round,{startAfter=true,quiet=false}={}){
 
   const status=startAfter?$("#roundBuildStatus"):null;
   try{
-    const flat=await extractRoundPdf(level,round,status);
+    let flat=await loadBundledRound(level,round,status);
+    if(!flat)flat=await extractRoundPdf(level,round,status);
     const answerStart=flat.findIndex(x=>/제?\s*\d+회.*답안지|답안지\s*(?:\(|（)?1?(?:\)|）)?|번호\s*정답/.test(x.line));
     if(answerStart<0)throw Error("답안지 위치를 찾지 못했습니다.");
 
