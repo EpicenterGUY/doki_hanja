@@ -2615,17 +2615,21 @@ function renderDrillCard(){
       showHandwritingResult("#drillFeedback",c.hanja,ok,score,label);
       recordDrillHandwriting(c,q,ok);
     });
-    $("#revealDrill").onclick=()=>showDrillResult(c,q,false,true);
+    const revealDrill=$("#revealDrill");
+    if(revealDrill)revealDrill.onclick=()=>showDrillResult(c,q,false,true);
   }
   $("#checkDrill").onclick=()=>checkDrill(c,q);
   $("#drillAnswer").onkeydown=e=>{if(e.key==="Enter")checkDrill(c,q)};
   $("#drillAnswer").focus();
-  $("#prevDrill").onclick=()=>{if(st.index>0){st.index--;renderDrillCard()}};
-  $("#nextDrill").onclick=()=>{st.index=st.index===st.list.length-1?0:st.index+1;renderDrillCard()};
+  $("#prevDrill").onclick=()=>{if(st.index>0){st.index--;st.checked=false;renderDrillCard()}};
+  $("#nextDrill").onclick=()=>{st.index=st.index===st.list.length-1?0:st.index+1;st.checked=false;renderDrillCard()};
 }
 function drillCorrect(q,val){return (Array.isArray(q.answer)?q.answer:[q.answer]).some(a=>norm(a)===norm(val))}
 function checkDrill(c,q){
-  const val=$("#drillAnswer").value;if(!val.trim()){toast("답을 입력하세요");return}
+  const input=$("#drillAnswer");
+  const val=input?.value||"";
+  if(!val.trim()){toast("답을 입력하세요");return}
+  drillState.checked=true;
   showDrillResult(c,q,drillCorrect(q,val),false,val);
 }
 function showDrillResult(c,q,ok,revealOnly,val=""){
