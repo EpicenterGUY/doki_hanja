@@ -5230,7 +5230,7 @@ function renderAtlasResults(){
     items.forEach(function(r){r.rounds.forEach(function(x){roundSet.add(x)})});
     sum.innerHTML='<div><b>'+summaries.length+'</b><span>문제 유형</span></div><div><b>'+items.length.toLocaleString()+'</b><span>빈출 항목</span></div><div><b>'+roundSet.size+'</b><span>집계 회차</span></div><div><b>'+(type==="all"?"전체":esc(TYPES[type]||type))+'</b><span>현재 유형</span></div>';
     out.innerHTML=type==="all"?atlasTypeOverviewHtml():atlasItemFrequencyHtml(type);
-    $("[data-pick-type]").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.pickType;renderAtlas()}});
+    document.querySelectorAll("[data-pick-type]").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.pickType;renderAtlas()}});
     return;
   }
   const rows=atlasRows(),longN=rows.filter(function(x){return x.tone===":"}).length,mixedN=rows.filter(function(x){return x.tone==="(:)"}).length;
@@ -5274,7 +5274,7 @@ function renderAtlas(){
   $("#atlasMask").onchange=function(e){atlasState.mask=e.target.value;atlasRevealSet.clear();renderAtlas()};
   $("#atlasView").onchange=function(e){atlasState.view=e.target.value;renderAtlas()};
   $("#atlasSearch").oninput=function(e){atlasState.query=e.target.value;renderAtlasResults()};
-  $(".atlas-type-chip").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.atlasType||"all";renderAtlas()}});
+  document.querySelectorAll(".atlas-type-chip").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.atlasType||"all";renderAtlas()}});
   $("#atlasToneSync").onclick=syncAtlasToneScope;
   $("#atlasFreqBuild").onclick=function(){prepareAtlasFrequency(atlasState.grade)};
   $("#atlasSort").onclick=function(){atlasState.sort=atlasState.sort==="freq"?"alpha":"freq";renderAtlas()};
