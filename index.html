@@ -2576,7 +2576,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.9.6-20260924";
+const APP_BUILD="2.9.7-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -4949,7 +4949,9 @@ function setupRemoteHandwriting(n,ans){
       const c=$(`#remoteCanvas${i}`),r=handwritingSimilarity(c,arr[i]);
       if(r.blank){toast(`${i+1}번째 칸을 먼저 써 주세요`);return}
       const meta=findCharMeta(arr[i]),sf=strokeCountFactor(c._strokeCount||0,meta?.total||0);
-      const score=Math.round(r.score*sf);results.push({ch:arr[i],score,ok:score>=58});
+      const score=Math.round(r.score*sf),d=r.details||{},g=d.grid||{};
+      const gate=(d.forward||0)>=.48&&(d.backward||0)>=.48&&(g.iou||0)>=.22;
+      results.push({ch:arr[i],score,ok:score>=72&&gate});
     }
     const avg=Math.round(results.reduce((a,b)=>a+b.score,0)/results.length),ok=results.every(x=>x.ok)&&avg>=60;
     recordRemoteResult(n,ok,{scores:results.map(x=>x.score),text:primary});
@@ -5159,12 +5161,13 @@ function gradeWordWrite(q){
     const meta=findCharMeta(ans[i]);
     const observed=c._strokeCount||0;
     const sf=strokeCountFactor(observed,meta?.total||0);
-    const score=Math.round(r.score*sf);
-    results.push({ch:ans[i],score,ok:score>=60,observed,expected:meta?.total||0});
+    const score=Math.round(r.score*sf),d=r.details||{},g=d.grid||{};
+    const gate=(d.forward||0)>=.48&&(d.backward||0)>=.48&&(g.iou||0)>=.22;
+    results.push({ch:ans[i],score,ok:score>=72&&gate,observed,expected:meta?.total||0});
   }
   const avg=Math.round(results.reduce((a,b)=>a+b.score,0)/results.length);
   const passCount=results.filter(x=>x.ok).length;
-  const ok=passCount===results.length && avg>=62;
+  const ok=passCount===results.length && avg>=75;
 
   const st=examState,idx=st.index,was=st.checked[idx];
   if(was){
@@ -5552,10 +5555,12 @@ function autoGradeHandwriting(sel,ch,expectedStrokes,callback){
   const observed=canvas._strokeCount||0;
   const sf=strokeCountFactor(observed,+expectedStrokes||0);
   const finalScore=Math.round(r.score*sf);
+  const d=r.details||{},grid=d.grid||{};
+  const shapeGate=(d.forward||0)>=.50&&(d.backward||0)>=.50&&(grid.iou||0)>=.24&&(grid.coverage||0)>=.48;
 
   let ok=false,label="";
-  if(finalScore>=62){ok=true;label="전체 형태가 정답과 잘 맞습니다"}
-  else if(finalScore>=46){ok=false;label="대체로 비슷하지만 한 번 더 확인해 보세요"}
+  if(finalScore>=75&&shapeGate){ok=true;label="전체 형태가 정답과 잘 맞습니다"}
+  else if(finalScore>=55){ok=false;label="형태는 비슷하지만 자동 통과 기준에는 못 미칩니다"}
   else{ok=false;label="정답 형태와 차이가 큽니다"}
 
   const strokeText=(expectedStrokes&&observed)
@@ -5565,7 +5570,7 @@ function autoGradeHandwriting(sel,ch,expectedStrokes,callback){
 }
 function showHandwritingResult(sel,ch,ok,score,label){
   const e=$(sel);if(!e)return;e.className="feedback "+(ok?"ok":"no");
-  e.innerHTML=`${ok?"자동검사 통과":"자동검사 재확인"} · 유사도 <b>${score}%</b><br>${esc(label)} · 정답 <span style="font-family:serif;font-size:34px">${esc(ch)}</span><br><span class="small">※ 손글씨 모양 비교 방식이라 획순·정확한 서체 판정은 하지 않습니다.</span>`;
+  e.innerHTML=`${ok?"자동검사 통과":"자동검사 재확인"} · 형태 일치도 <b>${score}%</b><br>${esc(label)} · 정답 <span style="font-family:serif;font-size:34px">${esc(ch)}</span><br><span class="small">※ 형태 일치도는 참고값입니다. 75% 이상이어도 핵심 형태 조건을 함께 만족해야 자동 통과합니다. 획순·정확한 서체 판정은 하지 않습니다.</span>`;
 }
 function recordDrillHandwriting(c,q,ok){
   const k=`drill|write|${c.level}|${c.hanja}`;
