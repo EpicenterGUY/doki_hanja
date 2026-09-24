@@ -2892,6 +2892,227 @@ function startPractice(random10){
 }
 
 
+
+function latestDiagnosis(){return diagnosisHistory&&diagnosisHistory.length?diagnosisHistory[0]:null}
+function diagnosisModeQuestionCount(){return diagnosisState.mode==="precise"?7:5}
+function diagnosisRetestCount(){return diagnosisState.mode==="precise"?4:3}
+function diagnosisChoicePool(grade,c,kind){
+  let pool=exactGradeChars(grade).filter(function(x){return x.hanja!==c.hanja});
+  if(pool.length<8)pool=chars.filter(function(x){return gradeAllowed(x.level,grade)&&x.hanja!==c.hanja});
+  shuffle(pool);
+  const out=[];
+  for(const x of pool){
+    let v="";
+    if(kind==="sound")v=x.sound||charPrimary(x).sound;
+    else if(kind==="meaningSound")v=officialMeaningSoundForms(x).canonical;
+    else v=x.hanja;
+    if(!v||out.some(function(y){return norm(y)===norm(v)}))continue;
+    out.push(v);
+    if(out.length>=3)break;
+  }
+  return out;
+}
+function makeDiagnosisQuestion(grade,seq){
+  const used=new Set(diagnosisState.answers.map(function(x){return x.hanja}));
+  let pool=exactGradeChars(grade).filter(function(c){return !used.has(c.hanja)});
+  if(pool.length<4)pool=exactGradeChars(grade);
+  const c=sample(pool,1)[0]||sample(chars.filter(function(x){return x.level===grade}),1)[0];
+  if(!c)return null;
+  const kind=["meaningSound","sound","write"][(diagnosisState.totalAnswered+seq)%3];
+  let prompt="",display="",answer="",type=kind;
+  if(kind==="sound"){
+    prompt="이 한자의 대표 음은?";
+    display=c.hanja;answer=c.sound||charPrimary(c).sound;
+  }else if(kind==="write"){
+    prompt="이 훈음에 해당하는 한자는?";
+    display=officialMeaningSoundForms(c).canonical;answer=c.hanja;
+  }else{
+    prompt="이 한자의 한국어문회 훈음은?";
+    display=c.hanja;answer=officialMeaningSoundForms(c).canonical;
+  }
+  const choices=[answer].concat(diagnosisChoicePool(grade,c,kind));
+  while(choices.length<4){
+    const x=sample(chars.filter(function(z){return z.hanja!==c.hanja}),1)[0];
+    if(!x)break;
+    const v=kind==="write"?x.hanja:(kind==="sound"?(x.sound||charPrimary(x).sound):officialMeaningSoundForms(x).canonical);
+    if(v&&!choices.some(function(y){return norm(y)===norm(v)}))choices.push(v);
+  }
+  shuffle(choices);
+  return {grade:grade,type:type,hanja:c.hanja,prompt:prompt,display:display,answer:answer,choices:choices.slice(0,4)};
+}
+function buildDiagnosisQuestions(grade,n){
+  const out=[];
+  for(let i=0;i<n;i++){
+    const q=makeDiagnosisQuestion(grade,i);
+    if(q)out.push(q);
+  }
+  return out;
+}
+function diagnosisConfidence(rows){
+  if(!rows||!rows.length)return "낮음";
+  const margins=rows.map(function(r){return Math.abs((r.pct||0)-65)});
+  const avg=margins.reduce(function(a,b){return a+b},0)/margins.length;
+  if(rows.length>=4&&avg>=22)return "높음";
+  if(rows.length>=3&&avg>=12)return "보통";
+  return "참고";
+}
+function diagnosisWeakTypes(answers){
+  const m=new Map();
+  for(const a of answers||[]){
+    const t=a.type||"meaningSound",x=m.get(t)||{type:t,ok:0,n:0};
+    x.n++;if(a.correct)x.ok++;m.set(t,x);
+  }
+  return [...m.values()].map(function(x){return {type:x.type,pct:x.n?Math.round(x.ok/x.n*100):0,n:x.n}})
+    .sort(function(a,b){return a.pct-b.pct||b.n-a.n});
+}
+function diagnosisTypeLabel(t){
+  if(t==="write")return "한자 찾기·쓰기";
+  return TYPES[t]||t;
+}
+function startDiagnosis(mode){
+  diagnosisState={
+    mode:mode==="precise"?"precise":"quick",phase:"test",
+    low:0,high:GRADE_ORDER.length-1,best:-1,stageGrade:null,
+    stageQuestions:[],stageIndex:0,stageCorrect:0,stageAttempted:0,
+    answers:[],tested:[],retest:false,totalAnswered:0,result:null
+  };
+  nextDiagnosisStage();
+}
+function nextDiagnosisStage(){
+  if(diagnosisState.low>diagnosisState.high||diagnosisState.tested.length>=5){
+    finishDiagnosis();return;
+  }
+  const mid=Math.floor((diagnosisState.low+diagnosisState.high)/2);
+  const grade=GRADE_ORDER[mid];
+  diagnosisState.stageGrade=grade;
+  diagnosisState.stageQuestions=buildDiagnosisQuestions(grade,diagnosisModeQuestionCount());
+  diagnosisState.stageIndex=0;diagnosisState.stageCorrect=0;diagnosisState.stageAttempted=0;diagnosisState.retest=false;
+  if(!diagnosisState.stageQuestions.length){diagnosisState.high=mid-1;nextDiagnosisStage();return}
+  renderDiagnosis();
+}
+function answerDiagnosis(choiceIndex){
+  if(diagnosisState.phase!=="test")return;
+  const q=diagnosisState.stageQuestions[diagnosisState.stageIndex];if(!q||q.locked)return;
+  q.locked=true;
+  const chosen=q.choices[choiceIndex],ok=norm(chosen)===norm(q.answer);
+  q.chosen=choiceIndex;q.correct=ok;
+  diagnosisState.stageAttempted++;diagnosisState.totalAnswered++;
+  if(ok)diagnosisState.stageCorrect++;
+  diagnosisState.answers.push({grade:q.grade,type:q.type,hanja:q.hanja,correct:ok,answer:q.answer,chosen:chosen});
+  renderDiagnosis();
+  setTimeout(function(){
+    diagnosisState.stageIndex++;
+    if(diagnosisState.stageIndex>=diagnosisState.stageQuestions.length)finishDiagnosisStage();
+    else renderDiagnosis();
+  },520);
+}
+function finishDiagnosisStage(){
+  const ratio=diagnosisState.stageAttempted?diagnosisState.stageCorrect/diagnosisState.stageAttempted:0;
+  if(!diagnosisState.retest&&ratio>=0.5&&ratio<0.72){
+    diagnosisState.retest=true;
+    diagnosisState.stageQuestions=buildDiagnosisQuestions(diagnosisState.stageGrade,diagnosisRetestCount());
+    diagnosisState.stageIndex=0;
+    renderDiagnosis();return;
+  }
+  const threshold=diagnosisState.retest?0.625:0.72;
+  const pass=ratio>=threshold;
+  const grade=diagnosisState.stageGrade,idx=gradeIndex(grade);
+  diagnosisState.tested.push({
+    grade:grade,correct:diagnosisState.stageCorrect,total:diagnosisState.stageAttempted,
+    pct:Math.round(ratio*100),pass:pass
+  });
+  if(pass){diagnosisState.best=Math.max(diagnosisState.best,idx);diagnosisState.low=idx+1}
+  else diagnosisState.high=idx-1;
+  nextDiagnosisStage();
+}
+function finishDiagnosis(){
+  const best=diagnosisState.best;
+  const recommended=GRADE_ORDER[Math.max(0,best)];
+  const weak=diagnosisWeakTypes(diagnosisState.answers);
+  const ok=diagnosisState.answers.filter(function(x){return x.correct}).length;
+  const total=diagnosisState.answers.length;
+  const result={
+    id:Date.now(),date:new Date().toISOString(),mode:diagnosisState.mode,grade:recommended,
+    confidence:diagnosisConfidence(diagnosisState.tested),
+    accuracy:total?Math.round(ok/total*100):0,total:total,
+    tested:diagnosisState.tested.slice(),weakTypes:weak.slice(0,3)
+  };
+  diagnosisState.phase="result";diagnosisState.result=result;
+  diagnosisHistory=[result].concat(diagnosisHistory||[]).slice(0,12);
+  localStorage.setItem("hanjaDiagnosisHistoryV1",JSON.stringify(diagnosisHistory));
+  renderDiagnosis();renderPracticeWelcome();
+}
+function applyDiagnosisGrade(grade){
+  const sel=$("#level");if(sel)sel.value=grade;
+  renderFreq();renderData();renderWrong();renderWrite();
+  switchTab("practice");renderPracticeWelcome();
+  toast(grade+"을 학습 급수로 설정했습니다.");
+}
+function startDiagnosisWeakPractice(){
+  const r=diagnosisState.result||latestDiagnosis();if(!r)return;
+  const level=$("#level");if(level)level.value=r.grade;
+  const types=(r.weakTypes||[]).map(function(x){return x.type}).filter(function(t){return ["sound","meaningSound","write"].includes(t)}).slice(0,2);
+  $("#typeChecks input[type='checkbox']").forEach(function(x){x.checked=types.length?types.includes(x.value):["sound","meaningSound"].includes(x.value)});
+  refreshTypeChecks();
+  if($("#count"))$("#count").value="10";
+  if($("#scope"))$("#scope").value="all";
+  startPractice(false);
+}
+function diagnosisResultMarkup(r){
+  const weak=(r.weakTypes||[]).slice(0,2);
+  const tested=(r.tested||[]).slice().sort(function(a,b){return gradeIndex(a.grade)-gradeIndex(b.grade)});
+  return '<div class="diag-result">'+
+    '<div class="diag-kicker">DIAGNOSIS RESULT</div>'+
+    '<div class="diag-result-grade">'+esc(r.grade)+'</div>'+
+    '<div class="diag-result-label">권장 학습 급수 · 앱 내 적응형 진단 결과</div>'+
+    '<span class="diag-confidence">신뢰도 '+esc(r.confidence)+'</span>'+
+    '<div class="diag-breakdown">'+tested.map(function(x){return '<div class="diag-grade-row"><b>'+esc(x.grade)+'</b><div class="diag-grade-track"><i style="width:'+x.pct+'%"></i></div><span>'+x.pct+'%</span></div>'}).join("")+'</div>'+
+    '<div class="official-answer" style="margin-top:12px">전체 정답률 <b>'+r.accuracy+'%</b> · '+r.total+'문항 · '+(weak.length?'약점 '+weak.map(function(x){return diagnosisTypeLabel(x.type)+" "+x.pct+"%"}).join(" · "):"약점 데이터 없음")+'</div>'+
+    '<div class="diag-actions"><button class="btn primary" onclick="applyDiagnosisGrade(\\''+esc(r.grade)+'\\')">이 급수로 공부</button><button class="btn" onclick="startDiagnosisWeakPractice()">약점 10문제</button><button class="btn" onclick="diagnosisState.phase=\\'intro\\';renderDiagnosis()">다시 진단</button></div>'+
+    '<div class="atlas-detail-note">이 결과는 한국어문회 배정한자 데이터를 이용한 앱 내 학습 진단이며 실제 검정시험의 합격 판정이나 공식 급수 인증은 아닙니다.</div>'+
+  '</div>';
+}
+function renderDiagnosis(){
+  const el=$("#diagnosis");if(!el)return;
+  if(diagnosisState.phase==="result"&&diagnosisState.result){
+    el.innerHTML='<div class="diag-shell"><button class="btn ghost" onclick="switchTab(\\'more\\')">← 기록·설정</button>'+diagnosisResultMarkup(diagnosisState.result)+'</div>';
+    return;
+  }
+  if(diagnosisState.phase==="test"){
+    const q=diagnosisState.stageQuestions[diagnosisState.stageIndex];
+    if(!q){finishDiagnosisStage();return}
+    const totalStage=diagnosisState.stageQuestions.length;
+    const completed=diagnosisState.stageIndex;
+    const overall=Math.min(96,Math.round((diagnosisState.tested.length*24)+(completed/Math.max(1,totalStage))*22));
+    el.innerHTML='<div class="diag-shell">'+
+      '<div class="diag-stage"><div class="diag-stage-head"><b>'+esc(q.grade)+' 진단 중</b><span>'+(diagnosisState.mode==="precise"?"정밀":"빠른")+' · '+(diagnosisState.totalAnswered+1)+'번째 문제</span></div><div class="diag-progress"><i style="width:'+overall+'%"></i></div></div>'+
+      '<div class="diag-question"><div class="diag-qtype">'+esc(diagnosisTypeLabel(q.type))+'</div>'+
+      '<div class="diag-glyph">'+esc(q.display)+'</div><div class="diag-prompt">'+esc(q.prompt)+'</div>'+
+      '<div class="diag-choices">'+q.choices.map(function(c,i){const cls=q.locked?(norm(c)===norm(q.answer)?"correct":(i===q.chosen?"wrong":"")):"";return '<button class="diag-choice '+cls+'" '+(q.locked?"disabled":"")+' onclick="answerDiagnosis('+i+')">'+esc(c)+'</button>'}).join("")+'</div>'+
+      '<div class="diag-feedback">'+(q.locked?(q.correct?'정답 · '+esc(q.answer):'정답은 '+esc(q.answer)):'정답 하나를 선택하세요.')+'</div></div>'+
+      '<div class="diag-stage"><div class="soft">지금까지 판정: '+(diagnosisState.tested.length?diagnosisState.tested.map(function(x){return x.grade+" "+x.pct+"%"}).join(" · "):"첫 단계")+'</div></div>'+
+    '</div>';
+    return;
+  }
+  const last=latestDiagnosis();
+  el.innerHTML='<div class="diag-shell"><button class="btn ghost" onclick="switchTab(\\'more\\')">← 기록·설정</button>'+
+    '<section class="diag-hero"><div class="diag-kicker">ADAPTIVE GRADE CHECK</div><div class="diag-title">내 한자 급수는 어디쯤?</div>'+
+    '<div class="diag-desc">쉬운 급수부터 전부 푸는 대신 정답에 따라 난도가 오르내리는 적응형 진단입니다. 한국어문회 배정한자의 훈음·독음·한자 찾기를 섞어 현재 학습 시작점을 추정합니다.</div>'+
+    '<div class="diag-mode-grid"><button class="diag-mode '+(diagnosisState.mode==="quick"?"active":"")+'" onclick="diagnosisState.mode=\\'quick\\';renderDiagnosis()"><b>빠른 진단</b><small>약 15~25문항 · 2~4분</small></button>'+
+    '<button class="diag-mode '+(diagnosisState.mode==="precise"?"active":"")+'" onclick="diagnosisState.mode=\\'precise\\';renderDiagnosis()"><b>정밀 진단</b><small>약 20~35문항 · 경계 급수 재검사 강화</small></button></div>'+
+    '<div class="diag-actions"><button class="btn primary" onclick="startDiagnosis(\\''+diagnosisState.mode+'\\')">진단 시작</button>'+(last?'<button class="btn" onclick="diagnosisState.phase=\\'result\\';diagnosisState.result=latestDiagnosis();renderDiagnosis()">최근 결과 · '+esc(last.grade)+'</button>':'')+'</div>'+
+    '</section>'+
+    '<section class="app-section"><div class="app-section-head"><div><div class="app-section-title">진단 방식</div><div class="app-section-sub">현재 수준 주변 급수만 집중적으로 확인합니다.</div></div></div>'+
+    '<div class="app-metrics"><div class="app-metric"><b>15단계</b><span>8급~특급</span></div><div class="app-metric"><b>3종</b><span>훈음·독음·한자</span></div><div class="app-metric"><b>적응형</b><span>정답 따라 난도 변경</span></div><div class="app-metric"><b>분리</b><span>학습 통계 미반영</span></div></div></section>'+
+  '</div>';
+}
+function smartRecommendationMarkup(){
+  const r=latestDiagnosis();
+  if(!r)return '<div class="smart-card"><div class="smart-card-head"><b>급수 진단으로 시작점 찾기</b><span>NEW</span></div><p>현재 실력을 잘 모르겠다면 2~4분 적응형 진단으로 권장 학습 급수를 먼저 잡을 수 있어요.</p><div class="actions"><button class="btn primary" onclick="openUtility(\\'diagnosis\\')">급수 진단</button></div></div>';
+  const weak=(r.weakTypes||[])[0],label=weak?diagnosisTypeLabel(weak.type):"혼합";
+  return '<div class="smart-card"><div class="smart-card-head"><b>맞춤 추천 · '+esc(r.grade)+'</b><span>'+esc(r.confidence)+' 신뢰도</span></div><p>최근 진단 '+r.accuracy+'% · '+(weak?'가장 약한 유형은 '+esc(label)+' '+weak.pct+'%.':'유형별 약점은 아직 뚜렷하지 않아요.')+'</p><div class="actions"><button class="btn primary" onclick="startDiagnosisWeakPractice()">약점 연습</button><button class="btn" onclick="openUtility(\\'diagnosis\\')">진단 결과</button></div></div>';
+}
+
 function resetSessionProgress(){
   const ok=confirm("현재 진행 중인 연습·기출·급수별 학습 위치와 도감에서 펼쳐 본 항목을 초기화할까요?\n\n누적 정답률, 오답 노트, 한자력 등 '나의 진척도'는 유지됩니다.");
   if(!ok)return;
