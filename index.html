@@ -3,11 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0f1115">
+<meta name="theme-color" content="#6677ff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="한자 트레이너">
 <meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icon.svg">
 <title>어문회 한자 올인원 트레이너</title>
 <style>
 :root{
@@ -380,10 +383,310 @@ body.drill-active .app{
   .drill-write-controls{height:46px}
 }
 
+
+/* APP SHELL 2.0 */
+:root{
+  --appbar-h:64px;
+  --dock-h:72px;
+  --app-surface:rgba(18,28,50,.88);
+  --app-surface-2:rgba(30,45,76,.88);
+  --app-stroke:rgba(143,169,220,.26);
+}
+body:not(.drill-active){
+  background:
+    radial-gradient(circle at 10% -8%,rgba(108,111,255,.28),transparent 34%),
+    radial-gradient(circle at 88% 4%,rgba(63,216,187,.16),transparent 26%),
+    linear-gradient(180deg,#09101f 0%,#0b1224 55%,#08101d 100%);
+}
+body:not(.drill-active) .top,
+body:not(.drill-active) .tabs{display:none!important}
+body:not(.drill-active) .app{
+  width:100%;
+  max-width:1180px;
+  margin:0 auto;
+  padding:
+    calc(var(--appbar-h) + 18px + env(safe-area-inset-top))
+    16px
+    calc(var(--dock-h) + 28px + env(safe-area-inset-bottom));
+}
+body:not(.drill-active) .grid,
+body:not(.drill-active) .grid.no-sidebar{
+  display:block!important;
+}
+body:not(.drill-active) .content{
+  min-height:calc(100dvh - var(--appbar-h) - var(--dock-h) - 54px);
+  padding:0;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+body:not(.drill-active) .tabpage{
+  width:min(100%,980px);
+  margin:0 auto;
+}
+body:not(.drill-active) .card,
+body:not(.drill-active) .panel:not(.sidebar){
+  border:1px solid var(--app-stroke);
+  background:
+    linear-gradient(145deg,rgba(28,42,72,.86),rgba(15,24,44,.94));
+  box-shadow:0 18px 48px rgba(1,7,22,.28);
+  backdrop-filter:blur(18px);
+}
+body:not(.drill-active) .card{border-radius:24px}
+body:not(.drill-active) .simple-card,
+body:not(.drill-active) .hub-card{
+  border-radius:20px;
+  border:1px solid var(--app-stroke);
+  background:linear-gradient(145deg,rgba(34,49,82,.9),rgba(20,30,54,.92));
+  box-shadow:0 10px 30px rgba(0,7,24,.2);
+  transition:transform .16s ease,border-color .16s ease,background .16s ease;
+}
+body:not(.drill-active) .simple-card:active,
+body:not(.drill-active) .hub-card:active{transform:scale(.985)}
+body:not(.drill-active) .btn{
+  min-height:46px;
+  border-radius:15px;
+  font-weight:800;
+  box-shadow:none;
+}
+body:not(.drill-active) select,
+body:not(.drill-active) input[type="number"],
+body:not(.drill-active) input[type="text"],
+body:not(.drill-active) textarea{
+  min-height:50px;
+  border-radius:16px;
+  background:rgba(8,16,32,.8);
+  border-color:rgba(133,161,214,.34);
+}
+body:not(.drill-active) .compact-settings{
+  border-radius:18px;
+  background:rgba(7,14,29,.46);
+  border-color:rgba(133,161,214,.24);
+}
+body:not(.drill-active) .compact-settings summary{padding:14px 15px}
+body:not(.drill-active) .kpis{gap:9px}
+body:not(.drill-active) .kpi{
+  border-radius:20px;
+  background:linear-gradient(145deg,rgba(38,54,90,.92),rgba(22,32,58,.92));
+  border-color:rgba(133,161,214,.26);
+}
+
+/* top app bar */
+.app2-bar{
+  position:fixed;
+  z-index:90;
+  top:env(safe-area-inset-top);
+  left:50%;
+  transform:translateX(-50%);
+  width:min(100%,1180px);
+  height:var(--appbar-h);
+  padding:8px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  background:linear-gradient(180deg,rgba(10,17,32,.94),rgba(10,17,32,.72));
+  border-bottom:1px solid rgba(132,160,214,.18);
+  backdrop-filter:blur(22px) saturate(140%);
+}
+.app2-brand{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.app2-logo{
+  width:42px;height:42px;border-radius:14px;
+  box-shadow:0 8px 24px rgba(88,99,255,.28);
+}
+.app2-titlewrap{min-width:0}
+.app2-kicker{
+  display:block;
+  font-size:10px;
+  line-height:1.1;
+  letter-spacing:.14em;
+  color:#91a7d1;
+  font-weight:900;
+}
+.app2-title{
+  display:block;
+  margin-top:3px;
+  font-size:19px;
+  line-height:1.05;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.app2-actions{display:flex;align-items:center;gap:7px}
+.app2-action{
+  min-width:42px;
+  height:42px;
+  padding:0 12px;
+  border:1px solid rgba(139,166,219,.28);
+  border-radius:14px;
+  background:rgba(31,46,78,.72);
+  color:#eff5ff;
+  font-weight:850;
+}
+.app2-action.icon-only{width:42px;padding:0;font-size:18px}
+.app2-action.install{
+  background:linear-gradient(135deg,#43d8b2,#67e7c2);
+  color:#06281f;
+  border-color:#78f1ce;
+}
+
+/* floating native-style bottom dock */
+.app2-dock{
+  position:fixed;
+  z-index:92;
+  left:50%;
+  bottom:max(9px,env(safe-area-inset-bottom));
+  transform:translateX(-50%);
+  width:min(520px,calc(100% - 18px));
+  min-height:var(--dock-h);
+  padding:7px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+  border:1px solid rgba(143,169,220,.28);
+  border-radius:25px;
+  background:rgba(16,26,47,.9);
+  box-shadow:0 18px 50px rgba(0,5,20,.45);
+  backdrop-filter:blur(24px) saturate(150%);
+}
+.app2-nav{
+  position:relative;
+  border:0;
+  border-radius:18px;
+  background:transparent;
+  color:#92a5c9;
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:3px;
+  font-size:10px;
+  font-weight:850;
+}
+.app2-nav svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.app2-nav.active{
+  color:#fff;
+  background:linear-gradient(145deg,rgba(101,118,255,.92),rgba(130,83,255,.88));
+  box-shadow:0 8px 20px rgba(101,95,255,.26);
+}
+
+/* practice settings = bottom sheet */
+#practiceSettingsPanel{
+  position:fixed!important;
+  z-index:112!important;
+  left:50%!important;
+  right:auto!important;
+  bottom:calc(var(--dock-h) + 17px + env(safe-area-inset-bottom))!important;
+  width:min(620px,calc(100% - 18px))!important;
+  max-height:min(72dvh,720px)!important;
+  overflow:auto!important;
+  overscroll-behavior:contain;
+  padding:10px 15px 17px!important;
+  border-radius:28px!important;
+  border:1px solid rgba(151,178,230,.34)!important;
+  background:linear-gradient(160deg,rgba(28,42,72,.98),rgba(12,21,39,.99))!important;
+  box-shadow:0 30px 90px rgba(0,4,18,.58)!important;
+  backdrop-filter:blur(26px) saturate(150%);
+  transform:translate(-50%,115%) scale(.98);
+  opacity:0;
+  pointer-events:none;
+  transition:transform .26s cubic-bezier(.2,.8,.2,1),opacity .2s ease;
+}
+#practiceSettingsPanel.sheet-open{
+  transform:translate(-50%,0) scale(1);
+  opacity:1;
+  pointer-events:auto;
+}
+.sheet-handle{
+  width:46px;height:5px;border-radius:99px;
+  background:#6d7d9d;
+  margin:2px auto 10px;
+}
+.sheet-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin-bottom:4px;
+}
+.sheet-head strong{font-size:20px}
+.sheet-close{
+  width:38px;height:38px;border-radius:13px;border:1px solid rgba(145,170,219,.28);
+  background:#223352;color:white;font-size:20px;
+}
+.app2-backdrop{
+  position:fixed;inset:0;z-index:108;
+  background:rgba(2,7,19,.56);
+  backdrop-filter:blur(4px);
+  opacity:0;pointer-events:none;
+  transition:opacity .2s ease;
+}
+.app2-backdrop.open{opacity:1;pointer-events:auto}
+
+/* update pill */
+.app2-update{
+  position:fixed;
+  z-index:120;
+  left:50%;
+  bottom:calc(var(--dock-h) + 26px + env(safe-area-inset-bottom));
+  transform:translateX(-50%);
+  width:min(460px,calc(100% - 26px));
+  padding:10px 12px;
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border:1px solid rgba(119,238,203,.44);
+  border-radius:18px;
+  background:rgba(18,48,55,.96);
+  box-shadow:0 16px 44px rgba(0,0,0,.35);
+  color:#dffef4;
+}
+.app2-update[hidden]{display:none!important}
+.app2-update button{
+  min-height:38px;padding:0 12px;border-radius:12px;
+  border:1px solid #75efd0;background:#55ddb9;color:#062820;font-weight:900;
+}
+
+body.drill-active .app2-bar,
+body.drill-active .app2-dock,
+body.drill-active .app2-backdrop,
+body.drill-active .app2-update{display:none!important}
+
+@media(max-width:600px){
+  :root{--appbar-h:60px;--dock-h:68px}
+  body:not(.drill-active) .app{
+    padding-left:10px;padding-right:10px;
+    padding-top:calc(var(--appbar-h) + 11px + env(safe-area-inset-top));
+  }
+  .app2-bar{padding:7px 11px}
+  .app2-logo{width:39px;height:39px;border-radius:13px}
+  .app2-title{font-size:17px}
+  .app2-action{height:39px;min-width:39px;border-radius:13px;padding:0 10px}
+  .app2-action.icon-only{width:39px}
+  .app2-dock{border-radius:22px;padding:6px}
+  .app2-nav{border-radius:16px}
+  #practiceSettingsPanel{bottom:calc(var(--dock-h) + 13px + env(safe-area-inset-bottom))!important}
+  body:not(.drill-active) .card{border-radius:20px}
+}
+
 </style>
 </head>
 <body>
 <div class="app">
+  <header class="app2-bar" id="app2Bar">
+    <div class="app2-brand">
+      <img class="app2-logo" src="./icon.svg" alt="">
+      <div class="app2-titlewrap">
+        <span class="app2-kicker">DOKI 漢字 · APP 2.0</span>
+        <strong class="app2-title" id="app2Title">연습</strong>
+      </div>
+    </div>
+    <div class="app2-actions">
+      <button class="app2-action install" id="installAppBtn" hidden>설치</button>
+      <button class="app2-action icon-only" id="openPracticeSettings" aria-label="연습 설정">⚙</button>
+    </div>
+  </header>
   <div class="top">
     <div class="brand">
       <h1>漢字 올인원 트레이너</h1>
@@ -404,8 +707,11 @@ body.drill-active .app{
 
   <div class="grid">
     <aside class="panel sidebar" id="practiceSettingsPanel">
-      <div class="section-title">연습 설정</div>
-      <div class="note" style="margin-bottom:10px">연습 탭에서만 보이는 빠른 시작 설정입니다.</div>
+      <div class="sheet-handle"></div>
+      <div class="sheet-head">
+        <div><strong>연습 설정</strong><div class="soft">급수 · 문제 수 · 유형을 빠르게 바꿉니다.</div></div>
+        <button class="sheet-close" id="closePracticeSettings" aria-label="닫기">×</button>
+      </div>
       <div class="label">목표 급수</div>
       <select id="level"></select>
 
@@ -459,6 +765,25 @@ body.drill-active .app{
       <section id="data" class="tabpage" hidden></section>
     </main>
   </div>
+</div>
+<div class="app2-backdrop" id="app2Backdrop"></div>
+<nav class="app2-dock" id="app2Dock" aria-label="주요 메뉴">
+  <button class="app2-nav active" data-app-tab="practice" aria-label="연습">
+    <svg viewBox="0 0 24 24"><path d="M4 19.5V5a2 2 0 0 1 2-2h9l5 5v11.5a1.5 1.5 0 0 1-1.5 1.5H5.5A1.5 1.5 0 0 1 4 19.5Z"/><path d="M14 3v6h6"/><path d="m8 15 2 2 5-5"/></svg><span>연습</span>
+  </button>
+  <button class="app2-nav" data-app-tab="exam" aria-label="기출">
+    <svg viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg><span>기출</span>
+  </button>
+  <button class="app2-nav" data-app-tab="drill" aria-label="급수별">
+    <svg viewBox="0 0 24 24"><path d="M4 5h7v6H4zM13 5h7v6h-7zM4 13h7v6H4zM13 13h7v6h-7z"/></svg><span>급수별</span>
+  </button>
+  <button class="app2-nav" data-app-tab="more" aria-label="기록·설정">
+    <svg viewBox="0 0 24 24"><path d="M5 19V9M12 19V5M19 19v-7"/><path d="M3 19h18"/></svg><span>기록</span>
+  </button>
+</nav>
+<div class="app2-update" id="app2Update" hidden>
+  <span><b>새 버전 준비됨</b><br><small>학습 기록은 그대로 유지됩니다.</small></span>
+  <button id="applyAppUpdate">업데이트</button>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -722,6 +1047,114 @@ const APP_ITEMS=[
  {level:"특급",type:"idiom",prompt:"囊中之錐의 독음을 쓰세요.",answer:"낭중지추",hanja:"囊",note:"재능이 있는 사람은 숨어 있어도 드러남"}
 ];
 
+
+const APP_BUILD="2.0.0-20260924";
+const APP_TAB_META={
+  practice:{title:"연습",kicker:"오늘의 한자 학습"},
+  exam:{title:"기출",kicker:"한국어문회 실전"},
+  drill:{title:"급수별",kicker:"급수 전체 훈련"},
+  more:{title:"기록 · 설정",kicker:"학습 데이터"},
+  write:{title:"자유 쓰기",kicker:"손글씨 연습"},
+  freq:{title:"빈출 분석",kicker:"기출 통계"},
+  wrong:{title:"오답 노트",kicker:"복습"},
+  data:{title:"데이터 관리",kicker:"백업 · 가져오기"}
+};
+let deferredInstallPrompt=null;
+let appUpdateReady=false;
+let appReloading=false;
+
+function closePracticeSheet(){
+  $("#practiceSettingsPanel")?.classList.remove("sheet-open");
+  $("#app2Backdrop")?.classList.remove("open");
+}
+function openPracticeSheet(){
+  if(mode!=="practice")return;
+  const sheet=$("#practiceSettingsPanel");
+  if(!sheet)return;
+  sheet.hidden=false;
+  sheet.classList.add("sheet-open");
+  $("#app2Backdrop")?.classList.add("open");
+}
+function syncAppChrome(id=mode){
+  const meta=APP_TAB_META[id]||APP_TAB_META.practice;
+  const title=$("#app2Title");
+  if(title)title.textContent=meta.title;
+  const kicker=document.querySelector(".app2-kicker");
+  if(kicker)kicker.textContent="DOKI 漢字 · "+meta.kicker;
+  $$("#app2Dock .app2-nav").forEach(b=>b.classList.toggle("active",b.dataset.appTab===id));
+  const settings=$("#openPracticeSettings");
+  if(settings)settings.hidden=id!=="practice";
+  if(id!=="practice")closePracticeSheet();
+}
+
+function bindAppShell(){
+  $$("#app2Dock .app2-nav").forEach(b=>b.onclick=()=>switchTab(b.dataset.appTab));
+  $("#openPracticeSettings")?.addEventListener("click",openPracticeSheet);
+  $("#closePracticeSettings")?.addEventListener("click",closePracticeSheet);
+  $("#app2Backdrop")?.addEventListener("click",closePracticeSheet);
+
+  $("#installAppBtn")?.addEventListener("click",async()=>{
+    if(!deferredInstallPrompt)return;
+    deferredInstallPrompt.prompt();
+    try{await deferredInstallPrompt.userChoice}catch{}
+    deferredInstallPrompt=null;
+    $("#installAppBtn").hidden=true;
+  });
+
+  $("#applyAppUpdate")?.addEventListener("click",()=>{
+    appReloading=true;
+    location.reload();
+  });
+  syncAppChrome(mode);
+}
+
+function showAppUpdate(){
+  appUpdateReady=true;
+  const bar=$("#app2Update");
+  if(bar)bar.hidden=false;
+}
+function hideAppUpdate(){
+  const bar=$("#app2Update");
+  if(bar)bar.hidden=true;
+}
+
+function initPWA(){
+  window.addEventListener("beforeinstallprompt",e=>{
+    e.preventDefault();
+    deferredInstallPrompt=e;
+    const btn=$("#installAppBtn");
+    if(btn)btn.hidden=false;
+  });
+  window.addEventListener("appinstalled",()=>{
+    deferredInstallPrompt=null;
+    const btn=$("#installAppBtn");
+    if(btn)btn.hidden=true;
+    toast("DOKI 漢字가 설치되었습니다.");
+  });
+
+  if(!("serviceWorker" in navigator))return;
+  navigator.serviceWorker.register("./sw.js",{updateViaCache:"none"}).then(reg=>{
+    reg.update().catch(()=>{});
+    setInterval(()=>reg.update().catch(()=>{}),10*60*1000);
+  }).catch(()=>{});
+
+  navigator.serviceWorker.addEventListener("controllerchange",()=>{
+    if(appReloading)return;
+    const busy=document.body.classList.contains("drill-active") || mode==="exam";
+    if(busy){
+      showAppUpdate();
+      return;
+    }
+    appReloading=true;
+    const bar=$("#app2Update");
+    if(bar){
+      bar.hidden=false;
+      bar.querySelector("b").textContent="업데이트 적용 중";
+    }
+    setTimeout(()=>location.reload(),650);
+  });
+}
+
 function init(){
   try{
     const oldKeys=[];
@@ -740,6 +1173,8 @@ function init(){
   $("#level").innerHTML=GRADE_ORDER.map(g=>`<option ${g==="1급"?"selected":""}>${g}</option>`).join("");
   $("#typeChecks").innerHTML=Object.entries(TYPES).map(([k,v])=>`<label class="check"><input type="checkbox" value="${k}" ${["sound","meaning","meaningSound","write","radical","strokes"].includes(k)?"checked":""}> ${v}</label>`).join("");
   bind();
+  bindAppShell();
+  initPWA();
   updateFreqBadge();
   renderPracticeWelcome();renderExam();renderDrill();renderMore();renderWrite();renderFreq();renderWrong();renderData();
   setTimeout(()=>refreshSpecialArchive(false),300);
@@ -754,6 +1189,7 @@ function bind(){
 }
 function switchTab(id){
   mode=id;
+  syncAppChrome(id);
   if(id!=="drill")document.body.classList.remove("drill-active");
   $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
   $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
@@ -761,8 +1197,8 @@ function switchTab(id){
   const grid=document.querySelector(".grid");
   const settings=document.getElementById("practiceSettingsPanel");
   const showSettings=id==="practice";
-  if(grid)grid.classList.toggle("no-sidebar",!showSettings);
-  if(settings)settings.hidden=!showSettings;
+  if(grid)grid.classList.toggle("no-sidebar",true);
+  if(settings){settings.hidden=!showSettings;if(!showSettings)settings.classList.remove("sheet-open")}
 
   if(id==="exam")renderExam();
   if(id==="drill")renderDrill();
