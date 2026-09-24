@@ -2010,6 +2010,7 @@ function renderQuestion(){
   const maxF=Math.max(0,...session.map(x=>freqCount(x.hanja)));
   const fc=freqCount(q.hanja),[fl,cl]=freqLabel(fc,maxF);
   $("#practice").innerHTML=`
+    <div class="practice-session">
     <div class="kpis">
       <div class="kpi"><b>${current+1}/${session.length}</b><span>진행</span></div>
       <div class="kpi"><b>${sessionScore.ok}</b><span>정답</span></div>
@@ -2032,6 +2033,7 @@ function renderQuestion(){
         <div id="feedback" class="feedback"></div>
       </div>
       <div class="big-hanja">${esc(q.display||q.hanja||"漢")}</div>
+    </div>
     </div>`;
   $("#answer").focus();
   $("#answer").onkeydown=e=>{if(e.key==="Enter")checkAnswer()};
