@@ -1,3 +1,4 @@
+// Release packaging baseline: 0.3.0
 plugins {
     id "com.android.application"
 }
