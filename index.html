@@ -1675,6 +1675,174 @@ html[data-hanja-font="serif"]{
   .reset-row b{font-size:11px}.reset-row small{font-size:8px}
 }
 
+
+/* ATLAS STUDY DETAIL 2.7 */
+:root{
+  --hanja-font:"Noto Sans CJK KR","Noto Sans KR","Source Han Sans K","SamsungOneKorean","Malgun Gothic","Apple SD Gothic Neo","Yu Gothic","Meiryo",sans-serif;
+}
+html[data-hanja-font="atlas"]{
+  --hanja-font:"Noto Sans CJK KR","Noto Sans KR","Source Han Sans K","SamsungOneKorean","Malgun Gothic","Yu Gothic","Meiryo",sans-serif;
+}
+html[data-hanja-font="soft"]{
+  --hanja-font:"Noto Sans CJK KR","Noto Sans KR","SamsungOneKorean","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+html[data-hanja-font="serif"]{
+  --hanja-font:"Noto Serif CJK KR","Noto Serif KR","Source Han Serif K","Batang","Yu Mincho",serif;
+}
+.atlas-hanja,.atlas-table .hanja-cell,.atlas-detail-glyph{
+  font-family:var(--hanja-font)!important;
+  font-weight:540!important;
+  letter-spacing:-.02em!important;
+}
+.atlas-hanja,.atlas-table .hanja-cell{color:#2ca3dc}
+.atlas-period-row{
+  display:flex;gap:6px;overflow:auto;padding:3px 0 1px;scrollbar-width:none;
+}
+.atlas-period-row::-webkit-scrollbar{display:none}
+.atlas-period-chip{
+  flex:0 0 auto;
+  min-height:31px;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(137,164,216,.2);
+  background:rgba(8,17,34,.58);
+  color:#91a6c7;
+  font-size:9px;
+  font-weight:850;
+}
+.atlas-period-chip.active{
+  color:#071522;
+  border-color:rgba(102,225,191,.55);
+  background:linear-gradient(135deg,#75e5c8,#b8f2df);
+}
+.atlas-card[data-atlas-item-key]{cursor:pointer}
+.atlas-card .atlas-use{
+  margin-top:5px;
+  min-height:24px;
+  color:#8da5ca;
+  font-size:8px;
+  line-height:1.35;
+  overflow:hidden;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+}
+.atlas-trend{
+  display:inline-flex;
+  align-items:center;
+  gap:3px;
+  padding:3px 5px;
+  border-radius:999px;
+  font-size:7px;
+  font-weight:900;
+}
+.atlas-trend.up{background:rgba(255,184,74,.12);color:#ffd58a}
+.atlas-trend.steady{background:rgba(82,220,181,.11);color:#a5eed8}
+.atlas-trend.old{background:rgba(123,143,183,.11);color:#aab9d2}
+
+.atlas-detail-backdrop{
+  position:fixed;inset:0;z-index:1200;
+  background:rgba(2,8,20,.66);
+  backdrop-filter:blur(5px);
+  opacity:0;pointer-events:none;
+  transition:opacity .18s ease;
+}
+.atlas-detail-backdrop.open{opacity:1;pointer-events:auto}
+.atlas-detail-sheet{
+  position:fixed;z-index:1210;
+  left:50%;bottom:0;
+  width:min(720px,100%);
+  max-height:min(84vh,820px);
+  transform:translate(-50%,105%);
+  overflow:auto;
+  padding:10px 14px calc(18px + env(safe-area-inset-bottom));
+  border:1px solid rgba(145,171,223,.24);
+  border-bottom:0;
+  border-radius:26px 26px 0 0;
+  background:linear-gradient(180deg,#15233d 0%,#0e192d 100%);
+  box-shadow:0 -26px 70px rgba(0,5,20,.58);
+  transition:transform .22s cubic-bezier(.2,.8,.2,1);
+}
+.atlas-detail-sheet.open{transform:translate(-50%,0)}
+.atlas-detail-handle{width:42px;height:4px;border-radius:99px;background:#5f7293;margin:2px auto 12px}
+.atlas-detail-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.atlas-detail-title{min-width:0}
+.atlas-detail-glyph{
+  display:block;
+  color:#45b4e8;
+  font-size:clamp(48px,12vw,76px);
+  line-height:1;
+}
+.atlas-detail-reading{
+  margin-top:5px;
+  font-size:17px;
+  font-weight:900;
+  color:#f3f7ff;
+  line-height:1.35;
+}
+.atlas-detail-sub{margin-top:5px;color:#8ea4c7;font-size:10px;line-height:1.45}
+.atlas-detail-close{
+  flex:0 0 auto;
+  width:36px;height:36px;
+  border-radius:12px;border:1px solid rgba(147,173,221,.2);
+  background:rgba(7,15,30,.48);color:#d9e5f9;font-size:20px;
+}
+.atlas-detail-kpis{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:6px;margin-top:14px;
+}
+.atlas-detail-kpi{
+  padding:9px 7px;text-align:center;
+  border-radius:14px;
+  border:1px solid rgba(137,165,217,.15);
+  background:rgba(8,17,34,.4);
+}
+.atlas-detail-kpi b{display:block;font-size:15px}
+.atlas-detail-kpi span{display:block;margin-top:3px;color:#8097ba;font-size:8px}
+.atlas-detail-section{margin-top:14px}
+.atlas-detail-section>h4{
+  margin:0 0 7px;
+  color:#c8d7ee;
+  font-size:11px;
+  letter-spacing:.02em;
+}
+.atlas-usage-list{display:grid;gap:6px}
+.atlas-usage{
+  padding:9px 10px;
+  border:1px solid rgba(138,165,216,.15);
+  border-radius:13px;
+  background:rgba(7,15,30,.38);
+}
+.atlas-usage-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.atlas-usage-top b{font-size:11px;color:#eaf1ff}
+.atlas-usage-top span{font-size:8px;color:#7f96ba;white-space:nowrap}
+.atlas-usage p{margin:5px 0 0;color:#a8b9d3;font-size:9px;line-height:1.5}
+.atlas-related{
+  display:flex;gap:6px;flex-wrap:wrap;
+}
+.atlas-related span{
+  padding:6px 8px;border-radius:10px;
+  border:1px solid rgba(136,164,215,.16);
+  background:rgba(8,17,34,.38);
+  color:#d7e2f4;font-size:9px;
+}
+.atlas-detail-note{
+  margin-top:10px;padding:9px 10px;
+  border-radius:13px;
+  background:rgba(53,84,133,.12);
+  border:1px solid rgba(118,157,216,.18);
+  color:#94a9c9;font-size:9px;line-height:1.5;
+}
+@media(max-width:600px){
+  .atlas-detail-sheet{padding:9px 11px calc(14px + env(safe-area-inset-bottom));border-radius:22px 22px 0 0}
+  .atlas-detail-reading{font-size:15px}
+  .atlas-detail-kpis{gap:4px}
+  .atlas-detail-kpi{padding:7px 4px}
+  .atlas-detail-kpi b{font-size:13px}.atlas-detail-kpi span{font-size:7px}
+  .atlas-period-chip{min-height:29px;padding:5px 9px;font-size:8px}
+}
+
 </style>
 </head>
 <body>
@@ -1929,12 +2097,12 @@ const SPECIAL_NEW_META={"92":["u3BnH","btq4Y4RGae5","AAAAAAAAAAAAAAAAAAAAABvVu3a
 let stats=JSON.parse(localStorage.getItem("hanjaStatsV2")||"{}");
 let wrong=JSON.parse(localStorage.getItem("hanjaWrongV2")||"{}");
 let seenHanjaPowerLevel=+(localStorage.getItem("hanjaPowerSeenLevel")||0);
-let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"grid",query:"",freqType:"all"};
+let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"grid",query:"",freqType:"all",period:"all"};
 const atlasRevealSet=new Set();
 const atlasToneBusy=new Set();
 let atlasFreqBusy=false;
-let hanjaFontMode=localStorage.getItem("hanjaFontModeV1")||"soft";
-function applyHanjaFontMode(mode){hanjaFontMode=mode==="serif"?"serif":"soft";document.documentElement.dataset.hanjaFont=hanjaFontMode;localStorage.setItem("hanjaFontModeV1",hanjaFontMode)}
+let hanjaFontMode=localStorage.getItem("hanjaFontModeV1")||"atlas";
+function applyHanjaFontMode(mode){hanjaFontMode=["atlas","soft","serif"].includes(mode)?mode:"atlas";document.documentElement.dataset.hanjaFont=hanjaFontMode;localStorage.setItem("hanjaFontModeV1",hanjaFontMode)}
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",1800)}
@@ -2133,7 +2301,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.6.0-20260924";
+const APP_BUILD="2.7.0-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -4924,14 +5092,14 @@ function clearCanvas(){
 const ATLAS_TONE_SEED_1={"呵":":","苛":":","駕":"(:)","澗":":","癎":"(:)","諫":":","揀":":","慷":":","愾":":","漑":":","凱":":","箇":"(:)","羹":":"};
 const ATLAS_GRADE_SLUG={"8급":"8급","7급Ⅱ":"준7급","7급":"7급","6급Ⅱ":"준6급","6급":"6급","5급Ⅱ":"준5급","5급":"5급","4급Ⅱ":"준4급","4급":"4급","3급Ⅱ":"준3급","3급":"3급","2급":"2급","1급":"1급","특급Ⅱ":"준특급","특급":"특급"};
 function atlasToneKey(g){return "hanjaAtlasToneV1_"+g}
-function atlasFreqKey(g){return "hanjaAtlasFreqV2_"+g}
+function atlasFreqKey(g){return "hanjaAtlasFreqV3_"+g}
 function readAtlasToneCache(g){
   const base=g==="1급"?Object.assign({},ATLAS_TONE_SEED_1):{};
   try{const x=JSON.parse(localStorage.getItem(atlasToneKey(g))||"null");if(x&&x.map)Object.assign(base,x.map)}catch{}
   return base;
 }
 function toneMarkerFor(c){return c?(readAtlasToneCache(c.level)[c.hanja]||""):""}
-function atlasRegexEscape(s){return String(s).replace(/[.*+?^$(){}|[\]\\]/g,"\\function renderFreq(){")}
+function atlasRegexEscape(s){return String(s).replace(/[.*+?^$(){}|[\]\\]/g,"\\function atlasRegexEscape(s){return String(s).replace(/[.*+?^$(){}|[\]\\]/g,"\\function renderFreq(){")}")}
 async function syncAtlasToneGrade(grade,opts){
   opts=opts||{};
   if(atlasToneBusy.has(grade))return;
