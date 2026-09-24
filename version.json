@@ -1,0 +1,37 @@
+{
+  "webBuild": "2.1.1-20260924",
+  "androidVersion": "0.2.0",
+  "androidVersionCode": 2,
+  "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
+  "changelog": [
+    {
+      "version": "2.1.1",
+      "title": "안정화 + 업데이트 센터",
+      "items": [
+        "앱 화면이 비어 보이던 선택자 오류 수정",
+        "앱 안에서 웹 최신판 적용 버튼 추가",
+        "Android APK 업데이트 버튼과 업데이트 로그 추가",
+        "기록 화면에서 업데이트 센터 바로 접근"
+      ]
+    },
+    {
+      "version": "2.1.0",
+      "title": "App 2.x UI",
+      "items": [
+        "상단 앱바와 하단 고정 내비게이션",
+        "연습·기출·급수별·기록 화면 앱형 UI 개편",
+        "Fold 손글씨 화면 접힘/펼침 대응",
+        "PWA 설치와 웹 콘텐츠 자동 갱신"
+      ]
+    },
+    {
+      "version": "2.0.0",
+      "title": "기출·손글씨 대개편",
+      "items": [
+        "준특급·특급 객관식 및 한문 응용 문항 처리",
+        "손글씨 전용 연습과 정답 보기/숨기기",
+        "GitHub 기출 데이터 연결"
+      ]
+    }
+  ]
+}
