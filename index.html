@@ -1326,6 +1326,96 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   .exam-session .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
+
+/* OFFICIAL HUN-EUM + UI 2.4 */
+.official-source{
+  display:flex;
+  gap:11px;
+  align-items:flex-start;
+  padding:12px 13px;
+  border:1px solid rgba(82,216,177,.26);
+  border-radius:17px;
+  background:linear-gradient(145deg,rgba(21,54,57,.58),rgba(15,34,51,.72));
+}
+.official-source-icon{
+  flex:0 0 34px;width:34px;height:34px;
+  display:grid;place-items:center;
+  border-radius:11px;
+  background:rgba(76,222,178,.15);
+  border:1px solid rgba(76,222,178,.28);
+  color:#8ff0d1;
+  font:800 18px/1 serif;
+}
+.official-source b{display:block;font-size:13px;color:#e9fff7}
+.official-source small{display:block;margin-top:4px;font-size:10px;line-height:1.5;color:#9fc8bf}
+.official-answer{
+  margin-top:8px;
+  padding:8px 10px;
+  border-radius:12px;
+  border:1px solid rgba(137,164,216,.18);
+  background:rgba(8,17,34,.44);
+  color:#dbe7fb;
+  font-size:11px;
+  line-height:1.5;
+}
+.official-answer b{color:#fff}
+.source-badge{
+  border-color:rgba(78,221,177,.34)!important;
+  color:#a8f2da!important;
+  background:rgba(27,82,68,.28)!important;
+}
+.drill-official{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(38,87,76,.4);
+  border:1px solid rgba(77,223,177,.26);
+  color:#b6f4df;
+  font-size:10px;
+  font-weight:850;
+}
+.drill-question-pane .drill-official{align-self:center}
+.drill-typing-inner .drill-official{justify-self:center}
+.canvas-tools,.drill-write-controls{
+  gap:6px!important;
+}
+#writeCanvas,.drill-canvas-wrap{
+  box-shadow:0 10px 32px rgba(0,4,18,.25);
+}
+.card.utility-modern{
+  border-radius:23px;
+  background:linear-gradient(145deg,rgba(28,42,70,.9),rgba(16,25,45,.94));
+  border-color:rgba(145,171,223,.22);
+}
+.utility-modern>.prompt{letter-spacing:-.035em}
+.utility-modern .table-wrap{
+  border-radius:16px;
+  border:1px solid rgba(139,166,218,.16);
+}
+.utility-modern table{margin:0}
+.utility-modern thead th{
+  position:sticky;top:0;z-index:1;
+  background:#17233b;
+}
+.utility-modern tbody tr:hover{background:rgba(94,116,166,.08)}
+@media(max-width:600px){
+  .official-source{padding:10px;border-radius:15px;gap:9px}
+  .official-source-icon{width:31px;height:31px;flex-basis:31px}
+  .official-source b{font-size:12px}
+  .official-source small{font-size:9px}
+  .official-answer{font-size:10px;padding:7px 9px}
+  .drill-official{font-size:9px;padding:4px 7px}
+  .card.utility-modern{padding:12px;border-radius:18px}
+  .utility-modern .table-wrap{
+    margin-left:-4px;margin-right:-4px;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .utility-modern table{min-width:680px}
+}
+
 </style>
 </head>
 <body>
@@ -1777,7 +1867,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.3.0-20260924";
+const APP_BUILD="2.4.0-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -2026,24 +2116,49 @@ function inRangeRound(item){
   const f=+$("#roundFrom").value||1,t=+$("#roundTo").value||Infinity;
   return item.round>=f&&item.round<=t;
 }
-function charPrimary(c){
-  const m=c.meanings?.[0]||{meanings:[],sounds:[c.sound]};
-  let meaning=Array.isArray(m.meanings)?(m.meanings[0]||""):String(m.meanings||"");
-  let sound=Array.isArray(m.sounds)?(m.sounds[0]||c.sound):String(m.sounds||c.sound);
-  // 잘못 파싱된 캐시/데이터에서 훈과 음이 같아지는 경우는 훈으로 쓰지 않는다.
-  if(meaning===sound && c._rawMeaningHint) meaning=c._rawMeaningHint;
-  return {meaning,sound};
-}
-function allMeaningSoundAnswers(c){
-  const out=[];
+function officialMeaningGroups(c){
+  const groups=[];
   for(const m of (c.meanings||[])){
-    const ms=Array.isArray(m.meanings)?m.meanings:[m.meanings].filter(Boolean);
-    const ss=Array.isArray(m.sounds)?m.sounds:[m.sounds||c.sound].filter(Boolean);
-    for(const mean of ms)for(const snd of ss){
-      if(mean && snd)out.push(`${mean} ${snd}`);
+    let meanings=(Array.isArray(m.meanings)?m.meanings:[m.meanings]).map(x=>String(x||"").trim()).filter(Boolean);
+    let sounds=(Array.isArray(m.sounds)?m.sounds:[m.sounds||c.sound]).map(x=>String(x||"").trim()).filter(Boolean);
+    if(!sounds.length&&c.sound)sounds=[String(c.sound).trim()];
+    meanings=[...new Set(meanings)];
+    sounds=[...new Set(sounds)];
+    if(meanings.length||sounds.length)groups.push({meanings,sounds});
+  }
+  if(!groups.length)groups.push({meanings:c._rawMeaningHint?[String(c._rawMeaningHint)]:[],sounds:c.sound?[String(c.sound)]:[]});
+  return groups;
+}
+function officialMeaningSoundForms(c){
+  const groups=officialMeaningGroups(c);
+  const canonicalGroups=[];
+  const variants=[];
+  for(const g of groups){
+    const joinedMean=g.meanings.join("/");
+    const joinedSound=g.sounds.join("/");
+    if(joinedMean&&joinedSound)canonicalGroups.push(`${joinedMean} ${joinedSound}`);
+    for(const mean of g.meanings)for(const snd of g.sounds){
+      if(mean&&snd)variants.push(`${mean} ${snd}`);
     }
   }
-  return [...new Set(out)];
+  const canonical=canonicalGroups.join(" · ")||([c._rawMeaningHint,c.sound].filter(Boolean).join(" "));
+  return {canonical,groups,variants:[...new Set([canonical,...canonicalGroups,...variants].filter(Boolean))]};
+}
+function officialMeaningDisplay(c){
+  const g=officialMeaningGroups(c)[0]||{meanings:[],sounds:[c.sound]};
+  const meaning=g.meanings.join("/")||(c._rawMeaningHint||"");
+  const sound=g.sounds[0]||c.sound||"";
+  return {meaning,sound,canonical:[meaning,sound].filter(Boolean).join(" ")};
+}
+function charPrimary(c){
+  return officialMeaningDisplay(c);
+}
+function allMeaningSoundAnswers(c){
+  return officialMeaningSoundForms(c).variants;
+}
+function officialAnswerDisplay(q){
+  if(q?.canonicalAnswer)return String(q.canonicalAnswer);
+  return Array.isArray(q?.answer)?String(q.answer[0]??""):String(q?.answer??"");
 }
 function hideTargetHanja(text,hanja){
   let out=String(text??"");
@@ -2059,11 +2174,30 @@ function safeClue(c){
 }
 function makeGeneratedQuestion(c,type){
   const p=charPrimary(c);
-  let prompt="",answer="",display=c.hanja,note="";
+  let prompt="",answer="",display=c.hanja,note="",canonicalAnswer="";
   if(type==="sound"){prompt=`「${c.hanja}」의 음을 쓰세요.`;answer=[c.sound,...(c.meanings||[]).flatMap(x=>x.sounds||[])];}
-  if(type==="meaning"){prompt=`「${c.hanja}」의 대표 훈을 쓰세요.`;answer=(c.meanings||[]).flatMap(x=>Array.isArray(x.meanings)?x.meanings:[x.meanings].filter(Boolean));note=`대표음: ${c.sound}`;}
-  if(type==="meaningSound"){prompt=`「${c.hanja}」의 훈음을 쓰세요. (예: 집 가)`;answer=allMeaningSoundAnswers(c);note=`부수 ${c.radical} · ${c.total}획`;}
-  if(type==="write"){const sp=safeClue(c);prompt=`${sp.meaning} ${sp.sound} — 알맞은 한자를 쓰세요.`;answer=c.hanja;display="✍";note="정답 한자는 힌트에서 숨김 처리됩니다.";}
+  if(type==="meaning"){
+    const forms=officialMeaningSoundForms(c), groups=officialMeaningGroups(c);
+    const allMeanings=[...new Set(groups.flatMap(x=>x.meanings))];
+    const primaryCombined=(groups[0]?.meanings||[]).join("/");
+    prompt=`「${c.hanja}」의 대표 훈을 쓰세요.`;
+    answer=[primaryCombined,...allMeanings].filter(Boolean);
+    canonicalAnswer=primaryCombined||allMeanings[0]||"";
+    note=`한국어문회 배정한자 기준 · 대표음 ${c.sound}`;
+  }
+  if(type==="meaningSound"){
+    const forms=officialMeaningSoundForms(c);
+    prompt=`「${c.hanja}」의 훈음을 쓰세요. (예: 집 가)`;
+    answer=forms.variants;
+    canonicalAnswer=forms.canonical;
+    note=`한국어문회 배정한자 기준 · 부수 ${c.radical} · ${c.total}획`;
+  }
+  if(type==="write"){
+    const sp=safeClue(c), forms=officialMeaningSoundForms(c);
+    prompt=`${sp.meaning} ${sp.sound} — 알맞은 한자를 쓰세요.`;
+    answer=c.hanja;display="✍";canonicalAnswer=c.hanja;
+    note=`한국어문회 훈음: ${forms.canonical}`;
+  }
   if(type==="radical"){prompt=`「${c.hanja}」의 부수를 쓰세요.`;answer=c.radical;}
   if(type==="strokes"){prompt=`「${c.hanja}」의 총획수를 숫자로 쓰세요.`;answer=String(c.total);note=`부수: ${c.radical}`;}
   if(type==="sameSound"){
@@ -2079,7 +2213,7 @@ function makeGeneratedQuestion(c,type){
     prompt=`「${c.hanja}」의 여러 음을 쉼표로 구분해 모두 쓰세요.`;
     answer=readings.sort().join(",");note="순서는 달라도 허용";
   }
-  return {source:"generated",level:c.level,type,prompt,answer,hanja:c.hanja,display,note,radical:c.radical,total:c.total};
+  return {source:"generated",level:c.level,type,prompt,answer,canonicalAnswer,hanja:c.hanja,display,note,radical:c.radical,total:c.total};
 }
 function freqCount(hanja){
   if(!hanja)return 0;
@@ -2230,7 +2364,7 @@ function renderQuestion(){
       <div>
         <div class="meta">
           <span class="badge">${esc(q.level)}</span><span class="badge">${esc(TYPES[q.type]||q.type)}</span>
-          <span class="badge ${cl}">${esc(fl)}</span>
+          <span class="badge ${cl}">${esc(fl)}</span>${q.source==="generated"?`<span class="badge source-badge">어문회 훈음</span>`:""}
         </div>
         <div class="prompt" style="margin-top:14px">${esc(q.prompt)}</div>
         ${q.note?`<div class="sub">${esc(q.note)}</div>`:""}
@@ -2303,7 +2437,7 @@ function checkAnswer(){
   }
   saveProgress();
   const fb=$("#feedback");fb.className="feedback "+(ok?"ok":"no");
-  fb.innerHTML=ok?`정답입니다. <b>${esc(answerList(q)[0])}</b>`:`오답 · 정답: <b>${esc(answerList(q).join(" / "))}</b>`;
+  fb.innerHTML=ok?`정답입니다. <b>${esc(officialAnswerDisplay(q))}</b>`:`오답 · 정답: <b>${esc(officialAnswerDisplay(q))}</b>`;
   $("#submitAns").textContent="다음";$("#submitAns").onclick=()=>{current++;renderQuestion()};
   inp.disabled=true;
 }
@@ -4062,13 +4196,12 @@ function startDrill(){
   drillState.list=list;drillState.index=0;drillState.checked=false;renderDrillCard();
 }
 function drillQuestion(c){
-  const p=charPrimary(c);
+  const forms=officialMeaningSoundForms(c);
   if(drillState.mode==="meaningSound"){
-    const answers=allMeaningSoundAnswers(c);
-    return {prompt:`「${c.hanja}」의 훈음을 적으세요.`,display:c.hanja,answer:answers,note:`${c.radical}부 · ${c.total}획`};
+    return {prompt:`「${c.hanja}」의 훈음을 적으세요.`,display:c.hanja,answer:forms.variants,canonicalAnswer:forms.canonical,note:`한국어문회 기준 · ${c.radical}부 · ${c.total}획`};
   }
   const sp=safeClue(c);
-  return {prompt:`「${sp.meaning} ${sp.sound}」에 해당하는 한자를 쓰세요.`,display:`${sp.meaning} ${sp.sound}`,answer:c.hanja,note:`${c.level} · ${c.total}획`};
+  return {prompt:`「${sp.meaning} ${sp.sound}」에 해당하는 한자를 쓰세요.`,display:`${sp.meaning} ${sp.sound}`,answer:c.hanja,canonicalAnswer:c.hanja,note:`한국어문회 훈음 ${forms.canonical} · ${c.level} · ${c.total}획`};
 }
 function renderDrillCard(){
   const st=drillState,c=st.list[st.index],q=drillQuestion(c);
@@ -4099,6 +4232,7 @@ function renderDrillCard(){
       <div class="drill-stage write-stage">
         <section class="drill-question-pane">
           <div class="meta"><span class="badge">${esc(st.grade)}</span><span class="badge good">손글씨 전용</span></div>
+          <span class="drill-official">✓ 한국어문회 훈음 기준</span>
           <div class="prompt">${esc(q.prompt)}</div>
           <div class="drill-clue">${esc(q.display)}</div>
           <div class="drill-tip">캔버스에 직접 쓴 뒤 채점하세요. 정답은 필요할 때만 잠깐 볼 수 있습니다.</div>
@@ -4180,9 +4314,9 @@ function checkDrill(c,q){
 function showDrillResult(c,q,ok,revealOnly,val=""){
   const fb=$("#drillFeedback");if(!fb)return;
   fb.className="feedback "+(ok?"ok":"no");
-  fb.innerHTML=revealOnly?`정답: <b>${esc((Array.isArray(q.answer)?q.answer:[q.answer]).join(" / "))}</b>`:
-    ok?`정답입니다. <b>${esc((Array.isArray(q.answer)?q.answer:[q.answer])[0])}</b>`:
-    `오답 · 입력: <b>${esc(val)}</b> · 정답: <b>${esc((Array.isArray(q.answer)?q.answer:[q.answer]).join(" / "))}</b>`;
+  fb.innerHTML=revealOnly?`정답: <b>${esc(officialAnswerDisplay(q))}</b>`:
+    ok?`정답입니다. <b>${esc(officialAnswerDisplay(q))}</b>`:
+    `오답 · 입력: <b>${esc(val)}</b> · 정답: <b>${esc(officialAnswerDisplay(q))}</b>`;
   if(!revealOnly){
     const k=`drill|${drillState.mode}|${c.level}|${c.hanja}`;
     stats[k]=stats[k]||{ok:0,no:0,last:0,type:drillState.mode==="write"?"write":"meaningSound",hanja:c.hanja,level:c.level,prompt:q.prompt};
@@ -4425,7 +4559,7 @@ function downloadExamTemplate(){
 function renderWrite(){
   const level=$("#level")?.value||"1급";
   const pool=chars.filter(c=>gradeAllowed(c.level,level));
-  const c=pool[Math.floor(Math.random()*pool.length)]||FALLBACK[0],p=safeClue(c);
+  const c=pool[Math.floor(Math.random()*pool.length)]||FALLBACK[0],p=safeClue(c),official=officialMeaningSoundForms(c);
   $("#write").innerHTML=`
     <div class="card">
       <div class="meta"><span class="badge">${esc(c.level)}</span><span class="badge">쓰기 연습</span></div>
@@ -4488,7 +4622,7 @@ function renderFreq(){
   });
   const rows=[...map.values()].sort((a,b)=>b.count-a.count).slice(0,300);
   $("#freq").innerHTML=`
-    <div class="card">
+    <div class="card utility-modern">
       <div class="prompt">기출 빈출 분석 · ${f}회~${isFinite(t)?t:"최신"}</div>
       <div class="sub">실제 회차 정보가 포함된 가져오기 데이터만 집계합니다. 같은 글자가 여러 유형에 나오면 모두 합산합니다.</div>
       <div class="table-wrap" style="margin-top:14px">
@@ -4503,7 +4637,7 @@ function renderWrong(){
   const level=$("#level")?.value||"1급";
   const rows=Object.values(wrong).filter(x=>gradeAllowed(x.level,level)).sort((a,b)=>(b.count||0)-(a.count||0));
   $("#wrong").innerHTML=`
-    <div class="card"><div class="prompt">오답 노트 · ${rows.length}항목</div>
+    <div class="card utility-modern"><div class="prompt">오답 노트 · ${rows.length}항목</div>
     <div class="sub">오답 횟수가 많은 순입니다. 연습에서 '오답 위주'를 선택하면 이 목록에서 다시 출제합니다.</div>
     <div class="table-wrap" style="margin-top:14px">${rows.length?`<table><thead><tr><th>한자</th><th>급수</th><th>유형</th><th>오답</th><th>문제</th><th>정답</th></tr></thead><tbody>
     ${rows.map(x=>`<tr><td style="font-family:serif;font-size:22px">${esc(x.hanja||"")}</td><td>${esc(x.level)}</td><td>${esc(TYPES[x.type]||x.type)}</td><td>${x.count||0}</td><td>${esc(x.prompt)}</td><td>${esc(Array.isArray(x.answer)?x.answer.join("/"):x.answer)}</td></tr>`).join("")}
@@ -4518,7 +4652,11 @@ function renderData(){
   $("#data").innerHTML=`
     <div class="card">
       <div class="prompt">데이터 관리</div>
-      <div class="sub">배정한자 데이터와 기출문제 데이터를 분리했습니다. 배정한자는 온라인 공개 CSV를 자동 로드하고 브라우저에 캐시합니다.</div>
+      <div class="sub">배정한자 데이터와 기출문제 데이터를 분리했습니다. 훈음·급수·부수·획수는 한국어문회 배정한자 원자료를 CSV로 변환한 데이터셋을 자동 로드하고 브라우저에 캐시합니다.</div>
+       <div class="official-source" style="margin-top:11px">
+         <span class="official-source-icon">漢</span>
+         <span><b>훈음 기준: 한국어문회 배정한자</b><small>여러 대표훈이 함께 제시된 글자는 하나를 임의로 버리지 않습니다. 예: 紺 = 감색/연보라 감, 敢 = 감히/구태여 감. 문제 채점에서는 각 대표훈 단독 표기도 함께 정답으로 인정합니다.</small></span>
+       </div>
       <div class="note" style="margin-top:9px"><b>iPhone/iPad:</b> 파일 앱의 미리보기보다 Safari에서 여는 것을 권장합니다. 손글씨 입력은 손가락과 Apple Pencil 모두 지원하며, 홈 화면에 추가해 앱처럼 사용할 수 있습니다.</div>
       <div class="modecards" style="margin-top:14px">
         ${GRADE_ORDER.map(g=>`<div class="modecard"><b>${g}</b><small>${(counts[g]||0).toLocaleString()}자</small></div>`).join("")}
@@ -4539,7 +4677,7 @@ function renderData(){
       </div>
       <hr>
       <div class="section-title">현재 상태</div>
-      <div class="note">훈음 표시는 원본의 <b>훈 + 음</b>으로 분리해 읽습니다. 예: <b>場 = 마당 장</b>, <b>章 = 글 장</b>, <b>丈 = 어른 장</b>.</div>
+      <div class="note">훈음 표시는 한국어문회 원자료의 대표훈을 누락하지 않고 묶어서 표시합니다. 예: <b>場 = 마당 장</b>, <b>紺 = 감색/연보라 감</b>, <b>敢 = 감히/구태여 감</b>.</div>
       <div class="note">배정한자 ${chars.length.toLocaleString()}자 · 기출/응용 ${examItems.length.toLocaleString()}문항 · 회차 정보 포함 ${examItems.filter(x=>x.round).length.toLocaleString()}문항</div>
     </div>`;
   $("#examFile").onchange=importExamFile;$("#charFile").onchange=importCharFile;
