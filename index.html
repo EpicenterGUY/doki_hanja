@@ -739,6 +739,30 @@ body.drill-active .app2-update{display:none!important}
   .app-section{padding:14px;border-radius:21px}.app-form-grid{grid-template-columns:1fr}.app-stats-hero{grid-template-columns:1fr}.app-score-side{grid-template-columns:1fr 1fr}
 }
 
+
+/* UPDATE CENTER 2.1 */
+.update-sheet{
+  position:fixed;z-index:130;left:50%;bottom:max(10px,env(safe-area-inset-bottom));
+  width:min(620px,calc(100% - 18px));max-height:min(78dvh,760px);
+  overflow:auto;padding:10px 15px 18px;border-radius:28px;
+  border:1px solid rgba(151,178,230,.34);
+  background:linear-gradient(160deg,rgba(28,42,72,.99),rgba(12,21,39,.995));
+  box-shadow:0 30px 90px rgba(0,4,18,.62);
+  backdrop-filter:blur(28px) saturate(155%);
+  transform:translate(-50%,115%) scale(.98);opacity:0;pointer-events:none;
+  transition:transform .26s cubic-bezier(.2,.8,.2,1),opacity .2s ease
+}
+.update-sheet.open{transform:translate(-50%,0) scale(1);opacity:1;pointer-events:auto}
+.update-hero{padding:16px;border-radius:21px;background:linear-gradient(135deg,#5f70ff,#8259ef);border:1px solid rgba(255,255,255,.14)}
+.update-hero b{display:block;font-size:24px}.update-hero small{color:#e4e9ff}
+.update-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.update-actions .btn{min-height:48px}
+.update-log{display:grid;gap:8px;margin-top:12px}
+.update-log-item{padding:12px 13px;border-radius:17px;border:1px solid rgba(140,165,217,.22);background:rgba(24,36,62,.76)}
+.update-log-item b{display:block;font-size:14px}.update-log-item small{display:block;margin-top:4px;color:#9fb0cd;line-height:1.5}
+.update-version-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;color:#d9e1f1;font-size:12px}
+@media(max-width:560px){.update-actions{grid-template-columns:1fr}.update-sheet{max-height:82dvh}}
+
 </style>
 </head>
 <body>
@@ -753,6 +777,7 @@ body.drill-active .app2-update{display:none!important}
     </div>
     <div class="app2-actions">
       <button class="app2-action install" id="installAppBtn" hidden>설치</button>
+      <button class="app2-action icon-only" id="openUpdateCenter" aria-label="업데이트">↻</button>
       <button class="app2-action icon-only" id="openPracticeSettings" aria-label="연습 설정">⚙</button>
     </div>
   </header>
@@ -850,6 +875,14 @@ body.drill-active .app2-update{display:none!important}
     <svg viewBox="0 0 24 24"><path d="M5 19V9M12 19V5M19 19v-7"/><path d="M3 19h18"/></svg><span>기록</span>
   </button>
 </nav>
+<div class="update-sheet" id="updateSheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head">
+    <div><strong>업데이트 센터</strong><div class="soft">웹앱과 Android 앱 버전을 확인합니다.</div></div>
+    <button class="sheet-close" id="closeUpdateCenter" aria-label="닫기">×</button>
+  </div>
+  <div id="updateCenterBody"><div class="remote-status">버전 확인 중…</div></div>
+</div>
 <div class="app2-update" id="app2Update" hidden>
   <span><b>새 버전 준비됨</b><br><small>학습 기록은 그대로 유지됩니다.</small></span>
   <button id="applyAppUpdate">업데이트</button>
@@ -1157,11 +1190,87 @@ function syncAppChrome(id=mode){
   if(id!=="practice")closePracticeSheet();
 }
 
+function isAndroidShell(){
+  return !!window.DokiAndroid || /DokiHanjaApp\//.test(navigator.userAgent);
+}
+
+function androidShellVersion(){
+  try{return window.DokiAndroid?.getVersionName?.()||"0.1.0"}catch{return "0.1.0"}
+}
+
+function closeUpdateCenter(){
+  $("#updateSheet")?.classList.remove("open");
+  $("#app2Backdrop")?.classList.remove("open");
+}
+
+async function fetchVersionInfo(){
+  try{
+    const res=await fetch("./version.json?t="+Date.now(),{cache:"no-store"});
+    if(!res.ok)throw Error("HTTP "+res.status);
+    return await res.json();
+  }catch{
+    return {
+      webBuild:APP_BUILD,
+      androidVersion:"0.2.0",
+      apkUrl:"https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
+      changelog:[{version:APP_BUILD,title:"현재 버전",items:["버전 정보를 불러오지 못했습니다."]}]
+    };
+  }
+}
+
+async function applyWebUpdate(){
+  const btn=$("#forceWebUpdate");
+  if(btn){btn.disabled=true;btn.textContent="업데이트 확인 중…"}
+  try{
+    if("serviceWorker" in navigator){
+      const regs=await navigator.serviceWorker.getRegistrations();
+      await Promise.all(regs.map(r=>r.update().catch(()=>{})));
+    }
+  }catch{}
+  const u=new URL(location.href);
+  u.searchParams.set("v",Date.now().toString(36));
+  location.replace(u.toString());
+}
+
+function startApkUpdate(url){
+  if(window.DokiAndroid?.startUpdate){
+    try{window.DokiAndroid.startUpdate(String(url));return}catch{}
+  }
+  window.open(String(url),"_blank");
+}
+
+async function openUpdateCenter(){
+  const sheet=$("#updateSheet");
+  const body=$("#updateCenterBody");
+  if(!sheet||!body)return;
+  sheet.classList.add("open");
+  $("#app2Backdrop")?.classList.add("open");
+  body.innerHTML='<div class="remote-status">최신 버전 확인 중…</div>';
+  const info=await fetchVersionInfo();
+  const logs=Array.isArray(info.changelog)?info.changelog:[];
+  const native=isAndroidShell();
+  const nativeVer=native?androidShellVersion():"브라우저/PWA";
+  const logHtml=logs.map(x=>{
+    const items=Array.isArray(x.items)?x.items:[];
+    return '<div class="update-log-item"><b>'+esc(x.version||"")+' · '+esc(x.title||"업데이트")+'</b><small>'+items.map(esc).join(" · ")+'</small></div>';
+  }).join("") || '<div class="remote-status">업데이트 로그가 없습니다.</div>';
+  body.innerHTML=
+    '<div class="update-hero"><b>DOKI 漢字</b><small>'+(native?'Android 앱':'웹앱/PWA')+' 업데이트</small>'+
+    '<div class="update-version-row"><span>웹 '+esc(APP_BUILD)+'</span><span>앱 '+esc(nativeVer)+'</span></div></div>'+
+    '<div class="update-actions"><button class="btn primary" id="forceWebUpdate">웹 최신판 적용</button>'+
+    (native?'<button class="btn good" id="apkUpdateBtn">APK 업데이트</button>':'<a class="btn" href="'+esc(info.apkUrl||"#")+'" target="_blank" rel="noopener">APK 받기</a>')+
+    '</div><div class="app-section-title" style="margin-top:16px">업데이트 로그</div><div class="update-log">'+logHtml+'</div>';
+  $("#forceWebUpdate").onclick=applyWebUpdate;
+  if(native&&$("#apkUpdateBtn"))$("#apkUpdateBtn").onclick=()=>startApkUpdate(info.apkUrl);
+}
+
 function bindAppShell(){
   $$("#app2Dock .app2-nav").forEach(b=>b.onclick=()=>switchTab(b.dataset.appTab));
   $("#openPracticeSettings")?.addEventListener("click",openPracticeSheet);
+  $("#openUpdateCenter")?.addEventListener("click",openUpdateCenter);
+  $("#closeUpdateCenter")?.addEventListener("click",closeUpdateCenter);
   $("#closePracticeSettings")?.addEventListener("click",closePracticeSheet);
-  $("#app2Backdrop")?.addEventListener("click",closePracticeSheet);
+  $("#app2Backdrop")?.addEventListener("click",()=>{closePracticeSheet();closeUpdateCenter()});
 
   $("#installAppBtn")?.addEventListener("click",async()=>{
     if(!deferredInstallPrompt)return;
@@ -1415,6 +1524,7 @@ function renderMore(){
         <button class="app-list-row" onclick="openUtility('freq')"><span class="app-list-main"><span class="app-list-icon">▥</span><span class="app-list-text"><b>빈출 분석</b><small>기출 회차별 출현 빈도 확인</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('write')"><span class="app-list-main"><span class="app-list-icon">✍</span><span class="app-list-text"><b>자유 쓰기</b><small>원하는 글자를 손글씨로 연습</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('data')"><span class="app-list-main"><span class="app-list-icon">⌁</span><span class="app-list-text"><b>데이터 관리</b><small>백업 · 가져오기 · 기출 데이터</small></span></span><span class="app-list-chevron">›</span></button>
+        <button class="app-list-row" onclick="openUpdateCenter()"><span class="app-list-main"><span class="app-list-icon">↻</span><span class="app-list-text"><b>업데이트 센터</b><small>웹·APK 업데이트와 변경사항 확인</small></span></span><span class="app-list-chevron">›</span></button>
       </div>
     </section>
   </div>`;
