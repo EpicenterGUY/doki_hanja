@@ -2576,7 +2576,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.9.5-20260924";
+const APP_BUILD="2.9.6-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -6092,55 +6092,88 @@ const ATLAS_DICT_SEED={
     {word:"가책하다(呵責하다)",meaning:"자기나 남의 잘못을 꾸짖다.",example:"자기의 과오를 가책하다.",source:"한국어기초사전"}
   ]
 };
-function atlasDictSeedMarkup(term){
-  const rows=ATLAS_DICT_SEED[term]||[];
-  if(!rows.length)return "";
-  return rows.map(function(x){
-    return '<div class="atlas-usage"><div class="atlas-usage-top"><b>'+esc(x.word)+'</b><span>'+esc(x.source||"사전")+'</span></div><p>'+esc(x.meaning||"")+'</p>'+(x.example?'<p><b>예문</b> · '+esc(x.example)+'</p>':'')+'</div>';
+function atlasDictHeadword(word){
+  return String(word||"").replace(/\[[^\]]*\]/g,"").split(/[（(]/)[0].replace(/[^가-힣]/g,"").trim();
+}
+function atlasDictHanja(word){
+  return (String(word||"").match(/[\u3400-\u9fff\uf900-\ufaff]/g)||[]).join("");
+}
+function atlasDictEntryKey(x){
+  return atlasDictHeadword(x&&x.word)+"|"+atlasDictHanja(x&&x.word);
+}
+function atlasDictUniqueRows(rows,term){
+  const seen=new Set(),out=[];
+  for(const x of rows||[]){
+    const hanja=atlasDictHanja(x&&x.word);
+    if(!hanja||!hanja.includes(term))continue;
+    const key=atlasDictEntryKey(x);
+    if(!key||seen.has(key))continue;
+    seen.add(key);out.push(x);
+  }
+  return out;
+}
+function atlasDictWordLabel(head,hanja){
+  const suffix=["시키다","되다","하다"].find(function(s){return head.endsWith(s)})||"";
+  return head+"("+hanja+suffix+")";
+}
+function atlasDictRowsMarkup(rows){
+  return (rows||[]).map(function(x){
+    return '<div class="atlas-usage"><div class="atlas-usage-top"><b>'+esc(x.word)+'</b><span>'+esc(x.source||"표준국어대사전")+'</span></div><p>'+esc(x.meaning||"")+'</p>'+(x.example?'<p><b>예문</b> · '+esc(x.example)+'</p>':'')+'</div>';
   }).join("");
+}
+function atlasDictSeedRows(term){
+  return atlasDictUniqueRows(ATLAS_DICT_SEED[term]||[],term);
+}
+function atlasDictSeedMarkup(term){
+  return atlasDictRowsMarkup(atlasDictSeedRows(term));
 }
 function dictionaryFallbackMarkup(term){
   if(!term)return "";
   const seed=atlasDictSeedMarkup(term);
   const single=extractHanjaChars(term).length===1;
   return '<div class="atlas-detail-section"><h4>사전 용례</h4>'+
-    '<div class="atlas-usage-list" id="atlasDictPreview">'+(seed||'<div class="atlas-usage"><p>'+(single?'사전 단어·예문을 불러오는 중…':'해당 한자어를 표준국어대사전에서 추가 확인할 수 있습니다.')+'</p></div>')+'</div>'+
-    '<div class="atlas-detail-note">기출 문맥이 없거나 부족하면 표준국어대사전 기반 참고 단어·예문을 보완 표시합니다. 네트워크 상태에 따라 미리보기가 없을 수 있습니다.</div>'+
+    '<div class="atlas-usage-list" id="atlasDictPreview">'+(seed||'<div class="atlas-usage"><p>'+(single?'한자 표기가 확인된 사전 단어·예문을 불러오는 중…':'해당 한자어를 표준국어대사전에서 추가 확인할 수 있습니다.')+'</p></div>')+'</div>'+
+    '<div class="atlas-detail-note">한자 표기가 확인되는 항목만 표시하고, 같은 표제어·한자 조합은 한 번만 보여줍니다. 기출 문맥이 부족하면 표준국어대사전 기반 단어·예문으로 보완합니다.</div>'+
     '<div class="diag-actions" style="margin-top:8px"><a class="btn" href="'+esc(dictionaryLookupUrl(term))+'" target="_blank" rel="noopener">표준국어대사전에서 보기</a></div></div>';
 }
 async function hydrateAtlasDictionaryUsage(term){
   const box=$("#atlasDictPreview");if(!box||extractHanjaChars(term).length!==1)return;
-  const seed=atlasDictSeedMarkup(term);
+  const seedRows=atlasDictSeedRows(term);
   try{
     const url="https://r.jina.ai/https://hanja.wordrow.kr/%ED%95%9C%EC%9E%90/"+encodeURIComponent(term)+"/";
     const res=await fetchWithTimeout(url,{cache:"no-store",headers:{"Accept":"text/plain"}},9000);
     if(!res.ok)throw Error("HTTP "+res.status);
     const raw=await res.text(),lines=raw.split(/\r?\n/).map(function(x){return x.replace(/^#+\s*/,"").replace(/\*\*/g,"").trim()}).filter(Boolean);
     const rows=[];let cur=null;
+    const pushCur=function(){
+      if(cur&&cur.meaning&&atlasDictHanja(cur.word).includes(term))rows.push(cur);
+      cur=null;
+    };
     for(const line of lines){
-      if(rows.length>=5)break;
-      if(line.includes(term)&&/[가-힣]/.test(line)&&!/^한자 기본 정보/.test(line)&&!/^이 한자가/.test(line)){
-        const clean=line.replace(/\[([^\]]+)\]\([^)]*\)/g,"[$1]").slice(0,90);
-        if(clean.length<80){cur={word:clean,meaning:"",example:""};continue}
+      if(rows.length>=12)break;
+      const m=line.match(/([가-힣]{1,30})(?:\[[^\]]+\])?\s*\(([\u3400-\u9fff\uf900-\ufaff]+)\)/);
+      if(m&&m[2].includes(term)){
+        pushCur();
+        cur={word:atlasDictWordLabel(m[1],m[2]),meaning:"",example:"",source:"표준국어대사전"};
+        continue;
       }
       if(cur&&/^사전 뜻\s*/.test(line)){
-        cur.meaning=line.replace(/^사전 뜻\s*/,"").trim().slice(0,140);
+        cur.meaning=line.replace(/^사전 뜻\s*/,"").trim().slice(0,180);
       }
       if(cur&&/^사전 예문/.test(line)){
-        cur.example=line.replace(/^사전 예문\s*/,"").replace(/[“”"]/g,"").trim().slice(0,140);
-        rows.push(cur);cur=null;
+        cur.example=line.replace(/^사전 예문\s*/,"").replace(/[“”"]/g,"").trim().slice(0,180);
+        pushCur();
       }else if(cur&&cur.meaning&&/^단어 구성/.test(line)){
-        rows.push(cur);cur=null;
+        pushCur();
       }
     }
-    if(cur&&cur.meaning&&rows.length<5)rows.push(cur);
-    const html=rows.length?rows.map(function(x){
-      return '<div class="atlas-usage"><div class="atlas-usage-top"><b>'+esc(x.word)+'</b><span>표준사전 기반 참고</span></div><p>'+esc(x.meaning)+'</p>'+(x.example?'<p><b>예문</b> · '+esc(x.example)+'</p>':'')+'</div>';
-    }).join(""):"";
-    if(html)box.innerHTML=seed+html;
-    else if(!seed)box.innerHTML='<div class="atlas-usage"><p>자동으로 가져온 사전 용례가 없습니다. 아래 표준국어대사전 버튼에서 확인할 수 있습니다.</p></div>';
+    pushCur();
+    const merged=atlasDictUniqueRows(seedRows.concat(rows),term).slice(0,8);
+    if(merged.length)box.innerHTML=atlasDictRowsMarkup(merged);
+    else box.innerHTML='<div class="atlas-usage"><p>한자 표기가 확인된 자동 사전 용례가 없습니다. 아래 표준국어대사전 버튼에서 확인할 수 있습니다.</p></div>';
   }catch(e){
-    if(!seed&&box)box.innerHTML='<div class="atlas-usage"><p>사전 미리보기를 불러오지 못했습니다. 아래 표준국어대사전 버튼에서 확인할 수 있습니다.</p></div>';
+    if(seedRows.length)box.innerHTML=atlasDictRowsMarkup(seedRows);
+    else box.innerHTML='<div class="atlas-usage"><p>사전 미리보기를 불러오지 못했습니다. 아래 표준국어대사전 버튼에서 확인할 수 있습니다.</p></div>';
   }
 }
 function atlasRelatedForChar(hanja){
