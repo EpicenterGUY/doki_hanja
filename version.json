@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.2.0-20260924",
+  "webBuild": "2.3.0-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.3.0",
+      "title": "한자력 레벨 + UI 2.3",
+      "items": [
+        "누적 학습 기록을 기반으로 한자력 Lv.1~50과 칭호 추가",
+        "아는 한자·숙련 한자·누적 정답·정답률을 한자력 카드에 통합",
+        "기록 화면에 유형별 숙련도와 레벨 기준표 추가",
+        "레벨 상승 시 즉시 알림 표시",
+        "기출 풀이·결과 화면과 Fold 접힘 UI를 한 번 더 정리",
+        "학습 도구 아이콘을 통일된 선형 아이콘으로 교체"
+      ]
+    },
     {
       "version": "2.2.0",
       "title": "Fold-first UI polish",
