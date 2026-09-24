@@ -1117,7 +1117,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.1.0-20260924";
+const APP_BUILD="2.1.1-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -1158,7 +1158,7 @@ function syncAppChrome(id=mode){
 }
 
 function bindAppShell(){
-  $$$("#app2Dock .app2-nav").forEach(b=>b.onclick=()=>switchTab(b.dataset.appTab));
+  $$("#app2Dock .app2-nav").forEach(b=>b.onclick=()=>switchTab(b.dataset.appTab));
   $("#openPracticeSettings")?.addEventListener("click",openPracticeSheet);
   $("#closePracticeSettings")?.addEventListener("click",closePracticeSheet);
   $("#app2Backdrop")?.addEventListener("click",closePracticeSheet);
@@ -1250,19 +1250,19 @@ function init(){
   setTimeout(()=>refreshSpecialArchive(false),300);
 }
 function bind(){
-  $$$(".tab").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+  $$(".tab").forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
   $("#startBtn").onclick=()=>startPractice(false);
   $("#randomBtn").onclick=()=>{$("#count").value="10";startPractice(true)};
   $("#level").onchange=()=>{renderFreq();renderData();renderWrong();renderWrite()};
-  $$$("#typeChecks input[type='checkbox']").forEach(x=>x.onchange=refreshTypeChecks);
+  $$("#typeChecks input[type='checkbox']").forEach(x=>x.onchange=refreshTypeChecks);
   refreshTypeChecks();
 }
 function switchTab(id){
   mode=id;
   syncAppChrome(id);
   if(id!=="drill")document.body.classList.remove("drill-active");
-  $$$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
-  $$$(".tabpage").forEach(p=>p.hidden=p.id!==id);
+  $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+  $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
 
   const grid=document.querySelector(".grid");
   const settings=document.getElementById("practiceSettingsPanel");
@@ -1279,12 +1279,12 @@ function switchTab(id){
   if(id==="write")renderWrite();
 }
 function refreshTypeChecks(){
-  $$$("#typeChecks .check").forEach(label=>{
+  $$("#typeChecks .check").forEach(label=>{
     const input=label.querySelector('input[type="checkbox"]');
     label.classList.toggle("selected",!!input?.checked);
   });
 }
-function selectedTypes(){return $$$("#typeChecks input:checked").map(x=>x.value)}
+function selectedTypes(){return $$("#typeChecks input:checked").map(x=>x.value)}
 function inRangeRound(item){
   if(!item.round) return true;
   const f=+$("#roundFrom").value||1,t=+$("#roundTo").value||Infinity;
@@ -1422,8 +1422,8 @@ function renderMore(){
 function openUtility(id){
   mode=id;
   syncAppChrome(id);
-  $$$(".tab").forEach(b=>b.classList.remove("active"));
-  $$$(".tabpage").forEach(p=>p.hidden=p.id!==id);
+  $$(".tab").forEach(b=>b.classList.remove("active"));
+  $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
   if(id==="wrong")renderWrong();
   if(id==="freq")renderFreq();
   if(id==="write")renderWrite();
@@ -1928,7 +1928,7 @@ function renderExam(){
       <div id="bulkBuildStatus" class="remote-status">${local?"로컬 파일 모드":"원하는 회차를 누르면 준비합니다."}</div>
     </section>
   </div>`;
-  $$$("#examGradeChips .grade-chip").forEach(btn=>btn.onclick=()=>{examArchiveLevel=btn.dataset.grade;renderExam()});
+  $$("#examGradeChips .grade-chip").forEach(btn=>btn.onclick=()=>{examArchiveLevel=btn.dataset.grade;renderExam()});
   if(local){
     const input=$("#multiExamPdf");
     $("#chooseMultiPdf").onclick=()=>input.click();
@@ -2948,7 +2948,7 @@ function renderRemoteQuestion(){
   }
   $("#remotePrev").onclick=()=>{if(n>1){st.index--;renderRemoteQuestion()}};
   $("#remoteNext").onclick=()=>{if(n<200){st.index++;renderRemoteQuestion()}else renderRemoteResult()};
-  $$$(".remote-nav button").forEach(b=>b.onclick=()=>{st.index=+b.dataset.rq;renderRemoteQuestion()});
+  $$(".remote-nav button").forEach(b=>b.onclick=()=>{st.index=+b.dataset.rq;renderRemoteQuestion()});
   if(st.checked[n])restoreRemoteFeedback(n,ans);
 }
 function renderRemoteTextAnswer(n,ans,type){
@@ -3062,7 +3062,7 @@ function renderExamQuestion(){
     <details class="compact-settings"><summary>문제 번호 이동</summary><div><div class="exam-nav">${st.questions.map((_,i)=>`<button class="exam-dot ${st.checked[i]?"done":""} ${i===st.index?"current":""}" data-i="${i}">${i+1}</button>`).join("")}</div></div></details>
     <div class="actions"><button class="btn" id="prevExam" ${st.index===0?"disabled":""}>이전</button><button class="btn" id="nextExam">${st.index===st.questions.length-1?"결과 보기":"다음"}</button></div>
   </div>`;
-  $$$(".exam-dot").forEach(b=>b.onclick=()=>{examState.index=+b.dataset.i;renderExamQuestion()});
+  $$(".exam-dot").forEach(b=>b.onclick=()=>{examState.index=+b.dataset.i;renderExamQuestion()});
   $("#prevExam").onclick=()=>{if(st.index>0){st.index--;renderExamQuestion()}};
   $("#nextExam").onclick=()=>{if(st.index<st.questions.length-1){st.index++;renderExamQuestion()}else renderExamResult()};
   if(q.manual){
@@ -3078,7 +3078,7 @@ function renderExamQuestion(){
   }else if(q.type==="wordWrite"){
     setupWordWriteCanvases(q);
   }else if(choices.length){
-    $$$(".choice-btn").forEach(b=>b.onclick=()=>gradeExamAnswer(b.dataset.choice));
+    $$(".choice-btn").forEach(b=>b.onclick=()=>gradeExamAnswer(b.dataset.choice));
   }else{
     $("#examCheck").onclick=()=>gradeExamAnswer($("#examAnswer").value);
     $("#examAnswer").onkeydown=e=>{if(e.key==="Enter")gradeExamAnswer($("#examAnswer").value)};
@@ -3284,9 +3284,9 @@ function renderDrill(){
       <button class="btn primary app-start" id="startDrill" style="margin-top:14px">연습 시작 · ${count.toLocaleString()}자</button>
     </section>
   </div>`;
-  $$$("#drillGradeChips .grade-chip").forEach(btn=>btn.onclick=()=>{drillState.grade=btn.dataset.grade;renderDrill()});
-  $$$("#drillModeSeg button").forEach(btn=>btn.onclick=()=>{drillState.mode=btn.dataset.value;renderDrill()});
-  $$$("#drillOrderSeg button").forEach(btn=>btn.onclick=()=>{drillState.order=btn.dataset.value;renderDrill()});
+  $$("#drillGradeChips .grade-chip").forEach(btn=>btn.onclick=()=>{drillState.grade=btn.dataset.grade;renderDrill()});
+  $$("#drillModeSeg button").forEach(btn=>btn.onclick=()=>{drillState.mode=btn.dataset.value;renderDrill()});
+  $$("#drillOrderSeg button").forEach(btn=>btn.onclick=()=>{drillState.order=btn.dataset.value;renderDrill()});
   $("#startDrill").onclick=startDrill;
 }
 function startDrill(){
