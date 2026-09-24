@@ -1416,6 +1416,216 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   .utility-modern table{min-width:680px}
 }
 
+
+/* ATLAS + FREQUENCY STUDY 2.5 */
+.atlas-shell{display:grid;gap:10px;min-width:0}
+.atlas-toolbar{
+  position:sticky;
+  top:calc(var(--appbar-h) + 8px);
+  z-index:25;
+  padding:12px;
+  border:1px solid rgba(145,171,223,.22);
+  border-radius:20px;
+  background:rgba(15,25,46,.93);
+  backdrop-filter:blur(18px) saturate(150%);
+  box-shadow:0 14px 38px rgba(0,5,20,.22);
+}
+.atlas-toolbar-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.atlas-title{font-size:20px;font-weight:950;letter-spacing:-.04em}
+.atlas-sub{margin-top:3px;color:#91a7ca;font-size:11px;line-height:1.45}
+.atlas-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:10px}
+.atlas-control{
+  min-width:0;
+  display:grid;
+  gap:5px;
+}
+.atlas-control>span{font-size:9px;font-weight:850;color:#8197ba;letter-spacing:.05em}
+.atlas-control select,.atlas-search{
+  width:100%;min-width:0;height:40px;
+  border-radius:12px;
+  border:1px solid rgba(139,164,214,.24);
+  background:rgba(8,17,34,.78);
+  color:#f5f8ff;
+  padding:0 10px;
+  font:750 12px/1 inherit;
+  outline:none;
+}
+.atlas-search{margin-top:8px}
+.atlas-actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.atlas-actions .btn{min-height:38px;font-size:11px!important;padding:7px 10px}
+.atlas-tone-legend{
+  display:flex;flex-wrap:wrap;gap:6px;
+  margin-top:9px;
+  color:#91a7c8;font-size:9px;line-height:1.45;
+}
+.atlas-tone-legend span{
+  padding:5px 7px;border-radius:999px;
+  border:1px solid rgba(136,163,216,.18);
+  background:rgba(8,17,34,.4);
+}
+.atlas-summary{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:6px;
+}
+.atlas-summary>div{
+  min-width:0;
+  padding:9px 10px;
+  border:1px solid rgba(139,165,216,.16);
+  border-radius:14px;
+  background:rgba(17,29,53,.7);
+}
+.atlas-summary b{display:block;font-size:17px;letter-spacing:-.03em}
+.atlas-summary span{display:block;margin-top:3px;color:#879dc0;font-size:9px}
+.atlas-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(128px,1fr));
+  gap:7px;
+  min-width:0;
+}
+.atlas-card{
+  position:relative;
+  min-width:0;
+  min-height:144px;
+  padding:12px 9px 10px;
+  border:1px solid rgba(139,165,216,.18);
+  border-radius:18px;
+  background:
+    radial-gradient(circle at 80% 10%,rgba(104,126,255,.08),transparent 38%),
+    linear-gradient(145deg,rgba(30,44,73,.92),rgba(16,26,47,.96));
+  color:#edf3ff;
+  overflow:hidden;
+  cursor:pointer;
+  text-align:center;
+  box-shadow:inset 0 1px rgba(255,255,255,.035);
+}
+.atlas-card:active{transform:scale(.985)}
+.atlas-rank{
+  position:absolute;left:7px;top:7px;
+  min-width:25px;height:22px;padding:0 6px;
+  display:flex;align-items:center;justify-content:center;
+  border-radius:999px;
+  background:rgba(255,193,77,.12);
+  border:1px solid rgba(255,193,77,.25);
+  color:#ffd889;
+  font-size:9px;font-weight:900;
+}
+.atlas-freq{
+  position:absolute;right:7px;top:7px;
+  min-height:22px;padding:4px 6px;
+  border-radius:999px;
+  background:rgba(78,220,177,.12);
+  border:1px solid rgba(78,220,177,.25);
+  color:#9ef0d5;
+  font-size:9px;font-weight:900;
+}
+.atlas-hanja{
+  margin-top:17px;
+  min-height:50px;
+  display:grid;place-items:center;
+  font:800 42px/1 "Noto Serif CJK KR","Noto Serif KR",serif;
+  color:#73c8ff;
+  text-shadow:0 5px 18px rgba(71,164,255,.08);
+}
+.atlas-hun{
+  min-height:34px;
+  display:flex;align-items:flex-start;justify-content:center;
+  padding:0 2px;
+  font-size:12px;font-weight:800;line-height:1.35;
+  color:#edf3ff;
+  word-break:keep-all;
+}
+.atlas-tone{color:#ffcc69;font-weight:950}
+.atlas-meta{
+  margin-top:6px;
+  display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;
+  color:#7f96ba;font-size:8px;
+}
+.atlas-meta span{
+  padding:3px 5px;border-radius:999px;background:rgba(8,17,34,.46)
+}
+.atlas-hidden{
+  filter:blur(9px);
+  opacity:.18;
+  user-select:none;
+}
+.atlas-card.revealed .atlas-hidden{filter:none;opacity:1}
+.atlas-mask-tip{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  z-index:2;
+  padding:6px 8px;border-radius:999px;
+  background:rgba(4,10,23,.84);
+  border:1px solid rgba(157,181,226,.28);
+  color:#c9d8ef;font-size:9px;font-weight:850;
+  pointer-events:none;
+}
+.atlas-card.revealed .atlas-mask-tip{display:none}
+.atlas-table-wrap{
+  border:1px solid rgba(139,165,216,.17);
+  border-radius:18px;
+  overflow:auto;
+  background:rgba(14,24,44,.72);
+  -webkit-overflow-scrolling:touch;
+}
+.atlas-table{width:100%;border-collapse:collapse;min-width:720px}
+.atlas-table th,.atlas-table td{
+  padding:10px 9px;border-bottom:1px solid rgba(133,158,207,.1);
+  text-align:left;font-size:11px;white-space:nowrap;
+}
+.atlas-table th{
+  position:sticky;top:0;z-index:3;
+  background:#17243e;color:#94a9c9;font-size:9px;letter-spacing:.04em;
+}
+.atlas-table .hanja-cell{font:800 25px/1 serif;color:#77caff}
+.atlas-empty{
+  padding:36px 18px;text-align:center;
+  border:1px dashed rgba(143,169,219,.24);
+  border-radius:18px;color:#8ea4c7;font-size:12px;line-height:1.6;
+}
+.atlas-progress{
+  margin-top:8px;padding:9px 10px;border-radius:13px;
+  background:rgba(10,20,39,.64);
+  border:1px solid rgba(134,161,213,.16);
+  color:#9db0ce;font-size:10px;line-height:1.45;
+}
+.atlas-progress.ok{border-color:rgba(77,222,177,.3);color:#a8ebd5}
+.atlas-progress.bad{border-color:rgba(255,113,123,.3);color:#ffb7bd}
+
+@media(min-width:760px){
+  .atlas-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:9px}
+  .atlas-card{min-height:160px;padding:14px 10px}
+  .atlas-hanja{font-size:48px}
+  .atlas-hun{font-size:13px}
+}
+@media(max-width:600px){
+  .atlas-toolbar{top:calc(var(--appbar-h) + 5px);padding:9px;border-radius:17px}
+  .atlas-toolbar-top{align-items:center}
+  .atlas-title{font-size:17px}
+  .atlas-sub{font-size:9px}
+  .atlas-controls{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+  .atlas-control select,.atlas-search{height:37px;border-radius:11px;font-size:11px}
+  .atlas-summary{grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+  .atlas-summary>div{padding:7px 4px;text-align:center;border-radius:11px}
+  .atlas-summary b{font-size:14px}
+  .atlas-summary span{font-size:7px}
+  .atlas-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+  .atlas-card{min-height:126px;padding:9px 5px 7px;border-radius:14px}
+  .atlas-hanja{margin-top:14px;min-height:45px;font-size:36px}
+  .atlas-hun{min-height:30px;font-size:10px;line-height:1.3}
+  .atlas-meta{font-size:7px;gap:3px;margin-top:4px}
+  .atlas-rank,.atlas-freq{font-size:7px;min-height:18px;height:18px;padding:2px 5px}
+  .atlas-mask-tip{font-size:8px;padding:5px 6px}
+  .atlas-actions{gap:5px}
+  .atlas-actions .btn{min-height:35px;font-size:10px!important;padding:6px 8px}
+}
+@media(max-width:380px){
+  .atlas-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+  .atlas-card{min-height:119px}
+  .atlas-hanja{font-size:32px}
+  .atlas-hun{font-size:9px}
+  .atlas-meta span:nth-child(n+3){display:none}
+}
+
 </style>
 </head>
 <body>
@@ -1510,6 +1720,7 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
       <section id="freq" class="tabpage" hidden></section>
       <section id="wrong" class="tabpage" hidden></section>
       <section id="data" class="tabpage" hidden></section>
+      <section id="atlas" class="tabpage" hidden></section>
     </main>
   </div>
 </div>
@@ -1669,6 +1880,10 @@ const SPECIAL_NEW_META={"92":["u3BnH","btq4Y4RGae5","AAAAAAAAAAAAAAAAAAAAABvVu3a
 let stats=JSON.parse(localStorage.getItem("hanjaStatsV2")||"{}");
 let wrong=JSON.parse(localStorage.getItem("hanjaWrongV2")||"{}");
 let seenHanjaPowerLevel=+(localStorage.getItem("hanjaPowerSeenLevel")||0);
+let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"grid",query:""};
+const atlasRevealSet=new Set();
+const atlasToneBusy=new Set();
+let atlasFreqBusy=false;
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",1800)}
@@ -1867,7 +2082,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.4.0-20260924";
+const APP_BUILD="2.5.0-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -1876,7 +2091,8 @@ const APP_TAB_META={
   write:{title:"자유 쓰기",kicker:"손글씨 연습"},
   freq:{title:"빈출 분석",kicker:"기출 통계"},
   wrong:{title:"오답 노트",kicker:"복습"},
-  data:{title:"데이터 관리",kicker:"백업 · 가져오기"}
+  data:{title:"데이터 관리",kicker:"백업 · 가져오기"},
+  atlas:{title:"한자 도감",kicker:"암기 · 장단음 · 빈출"}
 };
 let deferredInstallPrompt=null;
 let appUpdateReady=false;
@@ -1900,7 +2116,7 @@ function syncAppChrome(id=mode){
   if(title)title.textContent=meta.title;
   const kicker=document.querySelector(".app2-kicker");
   if(kicker)kicker.textContent="DOKI 漢字 · "+meta.kicker;
-  const dockId=["write","freq","wrong","data"].includes(id)?"more":id;
+  const dockId=["write","freq","wrong","data","atlas"].includes(id)?"more":id;
   $$("#app2Dock .app2-nav").forEach(b=>b.classList.toggle("active",b.dataset.appTab===dockId));
   const settings=$("#openPracticeSettings");
   if(settings)settings.hidden=id!=="practice";
@@ -2103,6 +2319,7 @@ function switchTab(id){
   if(id==="wrong")renderWrong();
   if(id==="data")renderData();
   if(id==="write")renderWrite();
+  if(id==="atlas")renderAtlas();
 }
 function refreshTypeChecks(){
   $$("#typeChecks .check").forEach(label=>{
@@ -2289,6 +2506,7 @@ function renderMore(){
     <section class="app-section">
       <div class="app-section-head"><div><div class="app-section-title">학습 도구</div><div class="app-section-sub">오답 ${wrongCount}개 · 기록 항목 ${allStats.length}개</div></div></div>
       <div class="app-list">
+        <button class="app-list-row" onclick="openUtility('atlas')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg></span><span class="app-list-text"><b>한자 도감 · 빈출 도감</b><small>장단음 · 가림 암기 · 빈출순 표</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('wrong')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span class="app-list-text"><b>오답 노트</b><small>틀린 문제와 반복 오답 복습</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('freq')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M5 19V9M12 19V5M19 19v-7"/><path d="M3 19h18"/></svg></span><span class="app-list-text"><b>빈출 분석</b><small>기출 회차별 출현 빈도 확인</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('write')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10-3.5-3.5-10 10L4 20Z"/><path d="m13.5 6.5 3.5 3.5"/></svg></span><span class="app-list-text"><b>자유 쓰기</b><small>원하는 글자를 손글씨로 연습</small></span></span><span class="app-list-chevron">›</span></button>
@@ -2307,6 +2525,7 @@ function openUtility(id){
   if(id==="freq")renderFreq();
   if(id==="write")renderWrite();
   if(id==="data")renderData();
+  if(id==="atlas")renderAtlas();
   const sec=$("#"+id);
   if(sec)sec.insertAdjacentHTML("afterbegin",`<button class="btn ghost" onclick="switchTab('more')" style="margin-bottom:10px">← 기록·설정으로</button>`);
 }
@@ -2342,6 +2561,7 @@ function renderPracticeWelcome(){
         <button class="app-action" onclick="switchTab('drill')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10-3.5-3.5-10 10L4 20Z"/><path d="m13.5 6.5 3.5 3.5"/></svg></span><span><b>손글씨</b><small>급수 전체를 캔버스로 연습</small></span></button>
         <button class="app-action" onclick="switchTab('exam')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></span><span><b>기출</b><small>급수·회차를 골라 실전 풀이</small></span></button>
         <button class="app-action" onclick="openUtility('wrong')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span><b>오답 복습</b><small>틀린 항목만 다시 확인</small></span></button>
+        <button class="app-action" onclick="openUtility('atlas')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg></span><span><b>한자 도감</b><small>장단음과 빈출을 표로 암기</small></span></button>
       </div>
     </section>
   </div>`;
