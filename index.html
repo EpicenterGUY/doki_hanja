@@ -2789,7 +2789,7 @@ function init(){
   $("#level").innerHTML=GRADE_ORDER.map(g=>`<option ${g==="1급"?"selected":""}>${g}</option>`).join("");
   $("#typeChecks").innerHTML=Object.entries(TYPES).map(([k,v])=>`<label class="check"><input type="checkbox" value="${k}" ${["sound","meaning","meaningSound","write","radical","strokes"].includes(k)?"checked":""}> ${v}</label>`).join("");
   bind();
-  bindAppShell();
+  try{bindAppShell()}catch(e){console.error("app shell bind failed",e)}
   initPWA();
   updateFreqBadge();
   renderPracticeWelcome();renderExam();renderDrill();renderMore();renderWrite();renderFreq();renderWrong();renderData();
@@ -5993,6 +5993,7 @@ function openAtlasItemDetail(key){
   const row=atlasApplyPeriod([raw])[0]||raw,tr=atlasTrend(raw),ui=ensureAtlasDetailElements();
   const examples=(row.examples||[]).slice(0,6);
   ui.sh.innerHTML='<div class="atlas-detail-handle"></div><div class="atlas-detail-head"><div class="atlas-detail-title"><span class="atlas-detail-glyph">'+esc(row.primary)+'</span><div class="atlas-detail-reading">'+esc(row.secondary||TYPES[row.type]||row.type)+'</div><div class="atlas-detail-sub">'+esc(TYPES[row.type]||row.type)+' · '+atlasPeriodLabel()+'</div></div><button class="atlas-detail-close" onclick="closeAtlasDetail()">×</button></div>'+
+    '<div class="atlas-source-priority"><span>1순위 · 한국어문회 기출/지정어</span><span>보완 · 국립국어원 사전</span></div>'+
     '<div class="atlas-detail-kpis"><div class="atlas-detail-kpi"><b>'+row.rounds.length+'</b><span>출현 회차</span></div><div class="atlas-detail-kpi"><b>'+row.count+'</b><span>출제 문항</span></div><div class="atlas-detail-kpi"><b>'+tr.label+'</b><span>빈출 경향</span></div><div class="atlas-detail-kpi"><b>'+(row.rounds.slice(-1)[0]||"-")+'</b><span>최근 출현</span></div></div>'+
     '<div class="atlas-detail-section"><h4>출현 회차</h4><div class="atlas-related">'+(row.rounds.length?row.rounds.map(function(x){return "<span>제"+x+"회</span>"}).join(""):"<span>기록 없음</span>")+'</div></div>'+
     '<div class="atlas-detail-section"><h4>어문회 기출 용례</h4><div class="atlas-usage-list">'+(examples.length?examples.map(function(ex){return '<div class="atlas-usage"><div class="atlas-usage-top"><b>제'+ex.round+'회 '+(ex.no?ex.no+'번':'')+'</b><span>'+esc(TYPES[row.type]||row.type)+'</span></div><p>'+esc(ex.text)+'</p>'+(ex.answer?'<p><b>정답</b> · '+esc(ex.answer)+'</p>':'')+'</div>'}).join(""):'<div class="atlas-usage"><p>저장된 기출 문맥이 없습니다. 전체 집계를 실행하면 원문에서 용례를 모읍니다.</p></div>')+'</div></div>'+
@@ -6021,6 +6022,7 @@ function openAtlasCharDetail(key){
   const examples=[];
   related.forEach(function(r){(r.examples||[]).forEach(function(ex){if(examples.length<5&&!examples.some(function(x){return x.round===ex.round&&x.no===ex.no}))examples.push(ex)})});
   ui.sh.innerHTML='<div class="atlas-detail-handle"></div><div class="atlas-detail-head"><div class="atlas-detail-title"><span class="atlas-detail-glyph">'+esc(c.hanja)+'</span><div class="atlas-detail-reading">'+esc(f.canonical)+(tone?' <span class="atlas-tone">'+esc(tone)+'</span>':'')+'</div><div class="atlas-detail-sub">'+esc(c.level)+' · '+esc(c.radical||"-")+'부 · '+(+c.total||0)+'획 · 한국어문회 훈음</div></div><button class="atlas-detail-close" onclick="closeAtlasDetail()">×</button></div>'+
+    '<div class="atlas-source-priority"><span>훈음 · 한국어문회</span><span>용례 · 어문회 기출/지정어 → 사전</span></div>'+
     '<div class="atlas-detail-kpis"><div class="atlas-detail-kpi"><b>'+study.pct+'%</b><span>내 숙련도</span></div><div class="atlas-detail-kpi"><b>'+study.ok+'</b><span>누적 정답</span></div><div class="atlas-detail-kpi"><b>'+study.no+'</b><span>누적 오답</span></div><div class="atlas-detail-kpi"><b>'+(tone||"-")+'</b><span>장단음</span></div></div>'+
     '<div class="atlas-detail-section"><h4>어문회 기출·관련어</h4><div class="atlas-related">'+(related.length?related.map(function(r){return "<span>"+esc(r.primary)+(r.secondary?" · "+esc(r.secondary):"")+"</span>"}).join(""):"<span>기출 관련어 없음</span>")+'</div></div>'+
     '<div class="atlas-detail-section"><h4>기출 문맥</h4><div class="atlas-usage-list">'+(examples.length?examples.map(function(ex){return '<div class="atlas-usage"><div class="atlas-usage-top"><b>제'+ex.round+'회 '+(ex.no?ex.no+'번':'')+'</b></div><p>'+esc(ex.text)+'</p></div>'}).join(""):'<div class="atlas-usage"><p>빈출 전체 집계를 실행하면 이 글자가 실제로 나온 기출 문맥을 모아 보여줍니다.</p></div>')+'</div></div>'+
