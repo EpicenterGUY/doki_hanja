@@ -26,8 +26,8 @@ public class MainActivity extends Activity {
     private static final String APP_URL = "https://epicenterguy.github.io/doki_hanja/?app=android";
     private static final String APP_HOST = "epicenterguy.github.io";
     private static final int FILE_CHOOSER_REQUEST = 8102;
-    private static final String APP_SHELL_VERSION = "0.2.0";
-    private static final int APP_SHELL_VERSION_CODE = 2;
+    private static final String APP_SHELL_VERSION = "0.3.0";
+    private static final int APP_SHELL_VERSION_CODE = 3;
 
     private WebView webView;
     private ValueCallback<Uri[]> fileCallback;
