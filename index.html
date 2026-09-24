@@ -2051,6 +2051,22 @@ html[data-hanja-font="serif"]{
   }
 }
 
+
+/* FREQUENCY TYPE OVERVIEW 2.9 */
+.atlas-type-row{padding-top:6px}
+.atlas-type-chip.active{box-shadow:0 6px 18px rgba(91,92,255,.2)}
+.atlas-source-split{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:8px 0 0;
+}
+.atlas-source-split>div{
+  padding:8px 9px;border-radius:12px;
+  border:1px solid rgba(135,163,214,.16);
+  background:rgba(8,17,34,.36);
+}
+.atlas-source-split b{display:block;font-size:10px;color:#dce8f8}
+.atlas-source-split span{display:block;margin-top:3px;font-size:8px;color:#8299bc}
+@media(max-width:380px){.atlas-source-split{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -2190,6 +2206,7 @@ const TYPES={
   abbreviation:"약자", wordFormation:"한자어 조합", fill:"빈칸 완성", homonym:"동음이의어", multiReading:"동자이음", choice:"객관식", hanmun:"한문·응용"
 };
 const GENERATED_TYPES=new Set(["sound","meaning","meaningSound","write","radical","strokes","sameSound","multiReading"]);
+const SPECIAL_FREQ_TYPE_ORDER=["sound","wordWrite","meaningSound","wordFormation","radical","abbreviation","longSound","synonym","antonym","homonym","idiom","definition","hanmun","fill","sameSound","multiReading","choice"];
 const RAW_URL="https://raw.githubusercontent.com/rycont/hanja-grade-dataset/main/hanja.csv";
 
 let chars=[], examItems=[], session=[], current=0, sessionScore={ok:0,no:0}, mode="practice";
@@ -6067,7 +6084,7 @@ function renderAtlasResults(){
     items.forEach(function(r){r.rounds.forEach(function(x){roundSet.add(x)})});
     sum.innerHTML='<div><b>'+summaries.length+'</b><span>문제 유형</span></div><div><b>'+items.length.toLocaleString()+'</b><span>빈출 항목</span></div><div><b>'+roundSet.size+'</b><span>'+atlasPeriodLabel()+'</span></div><div><b>'+(type==="all"?"전체":esc(TYPES[type]||type))+'</b><span>현재 유형</span></div>';
     const coverage=atlasState.grade==="특급"
-      ?'<div class="atlas-progress ok" style="margin-bottom:9px"><b>특급 유형별 빈출</b> · 제38회부터 최신 회차까지 원문 기출을 유형별로 재분류합니다. 38~100회와 101회 이후를 따로 비교할 수 있습니다.</div>'
+      ?'<div class="atlas-progress ok" style="margin-bottom:9px"><b>특급 유형별 빈출</b> · 실제 특급은 제38회부터 시작합니다. 원문 기출을 문제유형별로 다시 분류해 집계합니다.<div class="atlas-source-split"><div><b>기존 참고 구간</b><span>제38~100회</span></div><div><b>추가 최신 구간</b><span>제101~114회</span></div></div></div>'
       :"";
     out.innerHTML=coverage+(type==="all"?atlasTypeOverviewHtml():atlasItemFrequencyHtml(type));
     document.querySelectorAll("[data-pick-type]").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.pickType;renderAtlas()}});
@@ -6100,7 +6117,7 @@ function renderAtlas(){
   h+='<label class="atlas-control"><span>보기</span><select id="atlasView"><option value="compact" '+(atlasState.view==="compact"?"selected":"")+'>배정표</option><option value="grid" '+(atlasState.view==="grid"?"selected":"")+'>카드</option><option value="table" '+(atlasState.view==="table"?"selected":"")+'>목록표</option></select></label></div>';
   h+='<input class="atlas-search" id="atlasSearch" value="'+esc(atlasState.query)+'" placeholder="한자 · 훈음 · 부수 검색">';
   if(atlasState.mode==="freq"){
-    const typeKeys=["all"].concat(Object.keys(TYPES));
+    const typeKeys=["all"].concat((atlasState.grade==="특급"?SPECIAL_FREQ_TYPE_ORDER:Object.keys(TYPES)).filter(function(t,i,a){return TYPES[t]&&a.indexOf(t)===i}));
     h+='<div class="atlas-type-row">'+typeKeys.map(function(t){return '<button class="atlas-type-chip '+((atlasState.freqType||"all")===t?"active":"")+'" data-atlas-type="'+t+'">'+(t==="all"?"전체 유형":esc(TYPES[t]||t))+'</button>'}).join("")+'</div>';
     const periods=atlasState.grade==="특급"
       ?[["all","38회~최신"],["to100","38~100회"],["post100","101회~최신"],["10","최근 10회"],["20","최근 20회"],["30","최근 30회"]]
