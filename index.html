@@ -5373,7 +5373,8 @@ function atlasAvailableRounds(rows){
   return [...s].sort(function(a,b){return a-b});
 }
 function atlasPeriodRoundSet(rows){
-  const all=atlasAvailableRounds(rows);
+  const universe=currentAtlasItemRows(atlasState.grade,atlasState.scope);
+  const all=atlasAvailableRounds(universe.length?universe:rows);
   if(atlasState.period==="all")return new Set(all);
   const n=Math.max(1,+atlasState.period||10);
   return new Set(all.slice(-n));
