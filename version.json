@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.9.6-20260924",
+  "webBuild": "2.9.7-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.9.7",
+      "title": "손글씨 유사도 판정 강화",
+      "items": [
+        "단일 한자 손글씨 자동통과 기준을 62%에서 75%로 높이고, 양방향 형태 일치·격자 IoU·영역 커버리지 조건을 추가",
+        "55~74%는 '비슷하지만 재확인'으로 표시해 낮은 점수의 오통과를 방지",
+        "유사도 표기를 '형태 일치도'로 바꾸고 참고값임을 명확히 표시",
+        "한자어쓰기·원문 손글씨 채점도 글자별 72% 이상과 핵심 형태 조건을 요구하도록 강화",
+        "여러 글자 한자어쓰기는 평균 75% 이상일 때만 최종 통과"
+      ]
+    },
     {
       "version": "2.9.6",
       "title": "사전 용례 한자 표기 · 중복 정리",
