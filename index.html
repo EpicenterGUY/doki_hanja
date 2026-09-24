@@ -1030,10 +1030,11 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
     grid-template-columns:minmax(0,1.22fr) minmax(290px,.78fr);
     align-items:start;
   }
-  .practice-home .app-hero{grid-column:1;grid-row:1 / span 2;min-height:260px;padding:28px}
+  .practice-home .app-hero{grid-column:1;grid-row:1 / span 3;min-height:300px;padding:28px}
   .practice-home .app-hero h2{font-size:38px}
   .practice-home .app-metrics{grid-column:2;grid-row:1;grid-template-columns:1fr 1fr}
-  .practice-home .app-section{grid-column:2;grid-row:2}
+  .practice-home .power-card{grid-column:2;grid-row:2}
+  .practice-home .app-section{grid-column:2;grid-row:3}
   .practice-home .app-action-grid{grid-template-columns:1fr 1fr}
   .practice-home .app-action{min-height:116px}
   .exam-screen .app-section,.drill-setup-screen .app-section{padding:22px}
@@ -1775,7 +1776,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.1.1-20260924";
+const APP_BUILD="2.3.0-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -2140,15 +2141,24 @@ function renderMore(){
       <div class="mastery-list">
         ${mastery.length?mastery.map(x=>`<div class="mastery-row"><div class="mastery-name">${esc(TYPES[x.type]||x.type)}</div><div class="mastery-track"><i style="width:${x.pct}%"></i></div><div class="mastery-pct">${x.pct}%</div></div>`).join(""):`<div class="empty">문제를 풀면 유형별 숙련도가 여기에 쌓입니다.</div>`}
       </div>
+      <details class="compact-settings" style="margin-top:12px">
+        <summary>한자력 레벨 기준</summary>
+        <div>
+          <div class="soft">정답 수, 누적 풀이, 한 번 이상 맞힌 한자, 숙련 한자를 합산해 자동 계산합니다. 숙련 한자는 같은 글자를 3회 이상 맞히고 누적 정답률 75% 이상일 때 집계합니다.</div>
+          <div class="meta" style="margin-top:10px">
+            ${HANJA_POWER_TITLES.map(([lv,t])=>`<span class="badge">Lv.${lv} ${esc(t)}</span>`).join("")}
+          </div>
+        </div>
+      </details>
     </section>
     <section class="app-section">
       <div class="app-section-head"><div><div class="app-section-title">학습 도구</div><div class="app-section-sub">오답 ${wrongCount}개 · 기록 항목 ${allStats.length}개</div></div></div>
       <div class="app-list">
-        <button class="app-list-row" onclick="openUtility('wrong')"><span class="app-list-main"><span class="app-list-icon">↻</span><span class="app-list-text"><b>오답 노트</b><small>틀린 문제와 반복 오답 복습</small></span></span><span class="app-list-chevron">›</span></button>
-        <button class="app-list-row" onclick="openUtility('freq')"><span class="app-list-main"><span class="app-list-icon">▥</span><span class="app-list-text"><b>빈출 분석</b><small>기출 회차별 출현 빈도 확인</small></span></span><span class="app-list-chevron">›</span></button>
-        <button class="app-list-row" onclick="openUtility('write')"><span class="app-list-main"><span class="app-list-icon">✍</span><span class="app-list-text"><b>자유 쓰기</b><small>원하는 글자를 손글씨로 연습</small></span></span><span class="app-list-chevron">›</span></button>
-        <button class="app-list-row" onclick="openUtility('data')"><span class="app-list-main"><span class="app-list-icon">⌁</span><span class="app-list-text"><b>데이터 관리</b><small>백업 · 가져오기 · 기출 데이터</small></span></span><span class="app-list-chevron">›</span></button>
-        <button class="app-list-row" onclick="openUpdateCenter()"><span class="app-list-main"><span class="app-list-icon">↻</span><span class="app-list-text"><b>업데이트 센터</b><small>웹·APK 업데이트와 변경사항 확인</small></span></span><span class="app-list-chevron">›</span></button>
+        <button class="app-list-row" onclick="openUtility('wrong')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span class="app-list-text"><b>오답 노트</b><small>틀린 문제와 반복 오답 복습</small></span></span><span class="app-list-chevron">›</span></button>
+        <button class="app-list-row" onclick="openUtility('freq')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M5 19V9M12 19V5M19 19v-7"/><path d="M3 19h18"/></svg></span><span class="app-list-text"><b>빈출 분석</b><small>기출 회차별 출현 빈도 확인</small></span></span><span class="app-list-chevron">›</span></button>
+        <button class="app-list-row" onclick="openUtility('write')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10-3.5-3.5-10 10L4 20Z"/><path d="m13.5 6.5 3.5 3.5"/></svg></span><span class="app-list-text"><b>자유 쓰기</b><small>원하는 글자를 손글씨로 연습</small></span></span><span class="app-list-chevron">›</span></button>
+        <button class="app-list-row" onclick="openUtility('data')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M5 19h14"/></svg></span><span class="app-list-text"><b>데이터 관리</b><small>백업 · 가져오기 · 기출 데이터</small></span></span><span class="app-list-chevron">›</span></button>
+        <button class="app-list-row" onclick="openUpdateCenter()"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span class="app-list-text"><b>업데이트 센터</b><small>웹·APK 업데이트와 변경사항 확인</small></span></span><span class="app-list-chevron">›</span></button>
       </div>
     </section>
   </div>`;
