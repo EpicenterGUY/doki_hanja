@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.8.0-20260924",
+  "webBuild": "2.8.1-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.8.1",
+      "title": "연습 설정창 표시 오류 수정",
+      "items": [
+        "설정 버튼을 눌렀을 때 배경만 흐려지고 설정창이 보이지 않던 문제 수정",
+        "no-sidebar 레이아웃의 display:none 규칙보다 설정 바텀시트가 우선 표시되도록 수정",
+        "Fold 펼침·가로 화면에서도 설정창이 화면 밖으로 밀리지 않도록 너비와 최대 높이 보정",
+        "세로 높이가 짧은 화면에서는 하단 도크 위 공간에 맞춰 설정창 높이를 자동 조절"
+      ]
+    },
     {
       "version": "2.8.0",
       "title": "적응형 급수 진단 + 맞춤 학습",
