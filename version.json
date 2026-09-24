@@ -1,9 +1,18 @@
 {
-  "webBuild": "2.1.1-20260924",
+  "webBuild": "2.1.2-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.1.2",
+      "title": "Fold 접힘 화면 폭 수정",
+      "items": [
+        "급수 칩 가로 스크롤이 전체 화면 폭을 밀어내던 문제 수정",
+        "기출 회차 버튼 그리드를 접힘 화면에서 4열로 맞춤",
+        "연습 종류·순서 세그먼트와 시작 버튼이 화면 밖으로 잘리던 문제 수정"
+      ]
+    },
     {
       "version": "0.3.0",
       "title": "Android 설치 호환성 재빌드",
