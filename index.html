@@ -4983,7 +4983,7 @@ function atlasRows(){
 function atlasMaskedClass(which,key){return atlasState.mask===which&&!atlasRevealSet.has(key)?"atlas-hidden":""}
 function atlasCardHtml(x,i){
   const key=x.c.level+"|"+x.c.hanja,hidden=atlasState.mask!=="none"&&!atlasRevealSet.has(key);
-  let h='<button class="atlas-card '+(atlasRevealSet.has(key)?"revealed":"")+'" onclick="toggleAtlasReveal(\\''+esc(key)+'\\')">';
+  let h='<button class="atlas-card '+(atlasRevealSet.has(key)?"revealed":"")+'" onclick="toggleAtlasReveal(\''+esc(key)+'\')">';
   if(atlasState.mode==="freq")h+='<span class="atlas-rank">#'+(i+1)+'</span><span class="atlas-freq">'+x.rounds+'회차 · '+x.count+'문항</span>';
   h+='<div class="atlas-hanja '+atlasMaskedClass("hanja",key)+'">'+esc(x.c.hanja)+'</div>';
   h+='<div class="atlas-hun '+atlasMaskedClass("meaning",key)+'">'+esc(x.canonical)+(x.tone?'<span class="atlas-tone">'+esc(x.tone)+'</span>':'')+'</div>';
@@ -4996,7 +4996,7 @@ function atlasTableHtml(rows){
   let h='<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>순위</th><th>한자</th><th>훈음</th><th>급수</th><th>장단음</th><th>빈출</th><th>부수</th><th>획수</th><th>내 숙련</th></tr></thead><tbody>';
   rows.forEach(function(x,i){
     const key=x.c.level+"|"+x.c.hanja;
-    h+='<tr onclick="toggleAtlasReveal(\\''+esc(key)+'\\')" style="cursor:pointer"><td>'+(atlasState.mode==="freq"?i+1:"-")+'</td>';
+    h+='<tr onclick="toggleAtlasReveal(\''+esc(key)+'\')" style="cursor:pointer"><td>'+(atlasState.mode==="freq"?i+1:"-")+'</td>';
     h+='<td class="hanja-cell"><span class="'+atlasMaskedClass("hanja",key)+'">'+esc(x.c.hanja)+'</span></td>';
     h+='<td><span class="'+atlasMaskedClass("meaning",key)+'">'+esc(x.canonical)+'</span></td><td>'+esc(x.c.level)+'</td>';
     h+='<td>'+(x.tone?'<b class="atlas-tone">'+esc(x.tone)+'</b>':'-')+'</td><td>'+(x.rounds?x.rounds+'회차 / '+x.count+'문항':'-')+'</td>';
@@ -5019,8 +5019,8 @@ function renderAtlas(){
   let freqCache=null,toneCache=null;
   try{freqCache=JSON.parse(localStorage.getItem(atlasFreqKey(atlasState.grade))||"null")}catch{}
   try{toneCache=JSON.parse(localStorage.getItem(atlasToneKey(atlasState.grade))||"null")}catch{}
-  let h='<div class="atlas-shell"><section class="atlas-toolbar"><div class="atlas-toolbar-top"><div><div class="atlas-title">'+(atlasState.mode==="freq"?"빈출 도감":"한자 도감")+'</div><div class="atlas-sub">한국어문회 훈음 · 장단음 참고표 · 가림 암기</div></div><button class="btn ghost" onclick="switchTab(\\'more\\')">← 기록</button></div>';
-  h+='<div class="grade-scroller" style="margin-top:9px">'+GRADE_ORDER.map(function(g){return '<button class="grade-chip '+(g===atlasState.grade?"active":"")+'" onclick="setAtlasState(\\'grade\\',\\''+g+'\\')">'+g+'</button>'}).join("")+'</div>';
+  let h='<div class="atlas-shell"><section class="atlas-toolbar"><div class="atlas-toolbar-top"><div><div class="atlas-title">'+(atlasState.mode==="freq"?"빈출 도감":"한자 도감")+'</div><div class="atlas-sub">한국어문회 훈음 · 장단음 참고표 · 가림 암기</div></div><button class="btn ghost" onclick="switchTab(\'more\')">← 기록</button></div>';
+  h+='<div class="grade-scroller" style="margin-top:9px">'+GRADE_ORDER.map(function(g){return '<button class="grade-chip '+(g===atlasState.grade?"active":"")+'" onclick="setAtlasState(\'grade\',\''+g+'\')">'+g+'</button>'}).join("")+'</div>';
   h+='<div class="atlas-controls">';
   h+='<label class="atlas-control"><span>도감 종류</span><select id="atlasMode"><option value="grade" '+(atlasState.mode==="grade"?"selected":"")+'>배정한자</option><option value="freq" '+(atlasState.mode==="freq"?"selected":"")+'>기출 빈출</option></select></label>';
   h+='<label class="atlas-control"><span>범위</span><select id="atlasScope"><option value="exact" '+(atlasState.scope==="exact"?"selected":"")+'>해당 급수 신규</option><option value="cumulative" '+(atlasState.scope==="cumulative"?"selected":"")+'>누적 배정</option></select></label>';
