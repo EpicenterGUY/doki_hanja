@@ -28,43 +28,63 @@ jobs:
       - name: Install Android SDK packages
         shell: bash
         run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
           SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -type f -name sdkmanager | head -n 1)"
-          echo "SDKMANAGER=$SDKMANAGER"
           test -x "$SDKMANAGER"
           yes | "$SDKMANAGER" --licenses >/dev/null || true
           "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0"
 
-      - name: Persist Android debug signing key
+      - name: Restore Android signing key
         uses: actions/cache@v4
         with:
           path: ~/.android/debug.keystore
           key: doki-hanja-debug-signing-v1
+
+      - name: Ensure stable signing key exists
+        shell: bash
+        run: |
+          mkdir -p ~/.android
+          if [ ! -f ~/.android/debug.keystore ]; then
+            keytool -genkeypair -v               -keystore ~/.android/debug.keystore               -storepass android               -alias androiddebugkey               -keypass android               -keyalg RSA               -keysize 2048               -validity 10000               -dname "CN=Android Debug,O=Android,C=US"
+          fi
 
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.9"
 
-      - name: Build installable debug APK
+      - name: Build unsigned release APK
         working-directory: android
-        run: gradle :app:assembleDebug --no-daemon
+        run: gradle :app:assembleRelease --no-daemon
+
+      - name: Zipalign and sign APK (v1 + v2 + v3)
+        shell: bash
+        run: |
+          BUILD_TOOLS="$ANDROID_HOME/build-tools/35.0.0"
+          UNSIGNED="android/app/build/outputs/apk/release/app-release-unsigned.apk"
+          ALIGNED="android/app/build/outputs/apk/release/app-release-aligned.apk"
+          FINAL="DOKI-Hanja.apk"
+
+          test -f "$UNSIGNED"
+          "$BUILD_TOOLS/zipalign" -f -v 4 "$UNSIGNED" "$ALIGNED"
+          "$BUILD_TOOLS/apksigner" sign             --ks ~/.android/debug.keystore             --ks-key-alias androiddebugkey             --ks-pass pass:android             --key-pass pass:android             --v1-signing-enabled true             --v2-signing-enabled true             --v3-signing-enabled true             --out "$FINAL"             "$ALIGNED"
+
+          "$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$FINAL"
+          "$BUILD_TOOLS/aapt" dump badging "$FINAL" | head -n 6
+          ls -lh "$FINAL"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: doki-hanja-android
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          name: doki-hanja-android-release
+          path: DOKI-Hanja.apk
           if-no-files-found: error
-
 
       - name: Publish direct APK download
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          cp android/app/build/outputs/apk/debug/app-debug.apk DOKI-Hanja.apk
           if ! gh release view android-latest >/dev/null 2>&1; then
-            gh release create android-latest               --title "DOKI 漢字 Android"               --notes "Android 앱입니다. 웹 UI와 기출 데이터는 앱 실행 시 최신 GitHub Pages 버전을 사용합니다."               --target "$GITHUB_SHA"               --latest
+            gh release create android-latest               --title "DOKI 漢字 Android"               --notes "Release-signed Android APK. Fresh package ID from 0.3.0; v1/v2/v3 APK signatures enabled."               --target "$GITHUB_SHA"               --latest
           fi
           gh release upload android-latest DOKI-Hanja.apk --clobber
