@@ -1,9 +1,22 @@
 {
-  "webBuild": "2.4.0-20260924",
+  "webBuild": "2.5.0-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.5.0",
+      "title": "한자 도감 · 빈출 도감",
+      "items": [
+        "배정한자를 표 형태의 도감 격자와 전체 표 보기로 추가",
+        "한자 숨기기·훈음 숨기기와 셀 터치 공개 기능으로 암기 모드 추가",
+        "장음 ':' 및 장·단음 공용 '(:)' 참고 표시와 급수별 동기화 기능 추가",
+        "훈음은 한국어문회 배정한자 데이터를 유지하고 장단음 표시는 별도 참고자료로 구분",
+        "내장 기출 회차 전체를 집계해 회차 빈도·문항 빈도로 정렬하는 빈출 도감 추가",
+        "검색·신규/누적 범위·가나다/빈출 정렬·도감/표 전환 지원",
+        "Fold 접힘 화면은 3열 암기 도감, 펼친 화면은 자동 다열 구조로 최적화"
+      ]
+    },
     {
       "version": "2.4.0",
       "title": "한국어문회 훈음 기준 강화 + UI 다듬기",
