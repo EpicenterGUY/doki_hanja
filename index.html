@@ -1865,6 +1865,70 @@ html[data-hanja-font="serif"]{
   .atlas-actions{grid-template-columns:1fr 1fr}
 }
 
+
+/* REFERENCE-TABLE ATLAS 2.7 */
+.atlas-compact-grid{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  border:1px solid rgba(129,157,204,.24);
+  border-radius:15px;
+  overflow:hidden;
+  background:rgba(13,23,42,.72);
+}
+.atlas-compact-cell{
+  position:relative;
+  min-width:0;
+  min-height:104px;
+  padding:10px 4px 8px;
+  border:0;
+  border-right:1px solid rgba(130,158,206,.16);
+  border-bottom:1px solid rgba(130,158,206,.16);
+  background:rgba(19,31,54,.58);
+  color:#e8effb;
+  text-align:center;
+}
+.atlas-compact-cell:nth-child(5n){border-right:0}
+.atlas-compact-cell:active{background:rgba(42,60,93,.62)}
+.atlas-compact-hanja{
+  min-height:39px;
+  display:grid;place-items:center;
+  font-family:var(--hanja-font);
+  font-size:29px;
+  line-height:1;
+  font-weight:540;
+  color:#31a9df;
+}
+.atlas-compact-hun{
+  margin-top:4px;
+  font-size:9px;
+  font-weight:760;
+  line-height:1.35;
+  color:#e9eef7;
+  word-break:keep-all;
+  overflow-wrap:anywhere;
+}
+.atlas-compact-hun .atlas-tone{margin-left:1px}
+.atlas-compact-mask{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  padding:4px 6px;border-radius:999px;
+  background:rgba(4,10,22,.88);border:1px solid rgba(156,180,223,.28);
+  color:#cbd8ec;font-size:7px;font-weight:900;
+}
+.atlas-compact-cell.revealed .atlas-compact-mask{display:none}
+@media(min-width:760px){
+  .atlas-compact-grid{grid-template-columns:repeat(7,minmax(0,1fr))}
+  .atlas-compact-cell:nth-child(5n){border-right:1px solid rgba(130,158,206,.16)}
+  .atlas-compact-cell:nth-child(7n){border-right:0}
+  .atlas-compact-cell{min-height:116px;padding:12px 6px 9px}
+  .atlas-compact-hanja{font-size:34px;min-height:44px}
+  .atlas-compact-hun{font-size:10px}
+}
+@media(max-width:360px){
+  .atlas-compact-cell{min-height:96px;padding:8px 3px 7px}
+  .atlas-compact-hanja{font-size:26px;min-height:35px}
+  .atlas-compact-hun{font-size:8px}
+}
+
 </style>
 </head>
 <body>
@@ -2119,12 +2183,12 @@ const SPECIAL_NEW_META={"92":["u3BnH","btq4Y4RGae5","AAAAAAAAAAAAAAAAAAAAABvVu3a
 let stats=JSON.parse(localStorage.getItem("hanjaStatsV2")||"{}");
 let wrong=JSON.parse(localStorage.getItem("hanjaWrongV2")||"{}");
 let seenHanjaPowerLevel=+(localStorage.getItem("hanjaPowerSeenLevel")||0);
-let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"grid",query:"",freqType:"all",period:"all"};
+let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"compact",query:"",freqType:"all",period:"all"};
 const atlasRevealSet=new Set();
 const atlasToneBusy=new Set();
 let atlasFreqBusy=false;
-let hanjaFontMode=localStorage.getItem("hanjaFontModeV1")||"atlas";
-function applyHanjaFontMode(mode){hanjaFontMode=["atlas","soft","serif"].includes(mode)?mode:"atlas";document.documentElement.dataset.hanjaFont=hanjaFontMode;localStorage.setItem("hanjaFontModeV1",hanjaFontMode)}
+let hanjaFontMode=localStorage.getItem("hanjaFontModeV2")||"atlas";
+function applyHanjaFontMode(mode){hanjaFontMode=["atlas","soft","serif"].includes(mode)?mode:"atlas";document.documentElement.dataset.hanjaFont=hanjaFontMode;localStorage.setItem("hanjaFontModeV2",hanjaFontMode)}
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",1800)}
@@ -5515,6 +5579,19 @@ function atlasCardHtml(x,i){
   if(hidden)h+='<span class="atlas-mask-tip">눌러 보기</span>';
   return h+'</button>';
 }
+
+function atlasCompactHtml(rows){
+  if(!rows.length)return '<div class="atlas-empty">조건에 맞는 한자가 없습니다.</div>';
+  return '<div class="atlas-compact-grid">'+rows.map(function(x){
+    const key=x.c.level+"|"+x.c.hanja,hidden=atlasState.mask!=="none"&&!atlasRevealSet.has(key);
+    return '<button class="atlas-compact-cell '+(atlasRevealSet.has(key)?"revealed":"")+'" onclick="toggleAtlasReveal(\''+esc(key)+'\')">'+
+      '<div class="atlas-compact-hanja '+atlasMaskedClass("hanja",key)+'">'+esc(x.c.hanja)+'</div>'+
+      '<div class="atlas-compact-hun '+atlasMaskedClass("meaning",key)+'">'+esc(x.canonical)+(x.tone?'<span class="atlas-tone">'+esc(x.tone)+'</span>':'')+'</div>'+
+      (hidden?'<span class="atlas-compact-mask">보기</span>':'')+
+    '</button>';
+  }).join("")+'</div>';
+}
+
 function atlasTableHtml(rows){
   if(!rows.length)return '<div class="atlas-empty">조건에 맞는 한자가 없습니다.</div>';
   let h='<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>순위</th><th>한자</th><th>훈음</th><th>급수</th><th>장단음</th><th>빈출</th><th>부수</th><th>획수</th><th>내 숙련</th></tr></thead><tbody>';
@@ -5544,7 +5621,7 @@ function renderAtlasResults(){
   const freqN=rows.filter(function(x){return x.rounds>0}).length,mastered=rows.filter(function(x){return x.study.n>=3&&x.study.pct>=75}).length;
   sum.innerHTML='<div><b>'+rows.length.toLocaleString()+'</b><span>표시 한자</span></div><div><b>'+freqN.toLocaleString()+'</b><span>기출 출현</span></div><div><b>'+(longN+mixedN)+'</b><span>장단음 표시</span></div><div><b>'+mastered+'</b><span>내 숙련</span></div>';
   if(!rows.length){out.innerHTML='<div class="atlas-empty">조건에 맞는 한자가 없습니다.</div>';return}
-  out.innerHTML=atlasState.view==="table"?atlasTableHtml(rows):'<div class="atlas-grid">'+rows.map(atlasCardHtml).join("")+'</div>';
+  out.innerHTML=atlasState.view==="table"?atlasTableHtml(rows):(atlasState.view==="compact"?atlasCompactHtml(rows):'<div class="atlas-grid">'+rows.map(atlasCardHtml).join("")+'</div>');
 }
 function toggleAtlasReveal(key){
   if(atlasState.mask==="none"){openAtlasCharDetail(key);return}
@@ -5563,7 +5640,7 @@ function renderAtlas(){
   h+='<label class="atlas-control"><span>도감 종류</span><select id="atlasMode"><option value="grade" '+(atlasState.mode==="grade"?"selected":"")+'>배정한자</option><option value="freq" '+(atlasState.mode==="freq"?"selected":"")+'>기출 빈출</option></select></label>';
   h+='<label class="atlas-control"><span>범위</span><select id="atlasScope"><option value="exact" '+(atlasState.scope==="exact"?"selected":"")+'>해당 급수 신규</option><option value="cumulative" '+(atlasState.scope==="cumulative"?"selected":"")+'>누적 배정</option></select></label>';
   h+='<label class="atlas-control"><span>암기 가림</span><select id="atlasMask"><option value="none" '+(atlasState.mask==="none"?"selected":"")+'>모두 보기</option><option value="hanja" '+(atlasState.mask==="hanja"?"selected":"")+'>한자 숨기기</option><option value="meaning" '+(atlasState.mask==="meaning"?"selected":"")+'>훈음 숨기기</option></select></label>';
-  h+='<label class="atlas-control"><span>보기</span><select id="atlasView"><option value="grid" '+(atlasState.view==="grid"?"selected":"")+'>도감 격자</option><option value="table" '+(atlasState.view==="table"?"selected":"")+'>표</option></select></label></div>';
+  h+='<label class="atlas-control"><span>보기</span><select id="atlasView"><option value="compact" '+(atlasState.view==="compact"?"selected":"")+'>배정표</option><option value="grid" '+(atlasState.view==="grid"?"selected":"")+'>카드</option><option value="table" '+(atlasState.view==="table"?"selected":"")+'>목록표</option></select></label></div>';
   h+='<input class="atlas-search" id="atlasSearch" value="'+esc(atlasState.query)+'" placeholder="한자 · 훈음 · 부수 검색">';
   if(atlasState.mode==="freq"){
     const typeKeys=["all"].concat(Object.keys(TYPES));
@@ -5583,7 +5660,7 @@ function renderAtlas(){
   }
   h+='<div id="atlasStatus" class="atlas-progress '+(freqCache?"ok":"")+'">'+st+'</div></section><div class="atlas-summary" id="atlasSummary"></div><div id="atlasResults"></div></div>';
   el.innerHTML=h;
-  $("#atlasMode").onchange=function(e){atlasState.mode=e.target.value;atlasState.freqType="all";atlasState.period="all";atlasState.query="";if(atlasState.mode==="freq")atlasState.sort="freq";renderAtlas()};
+  $("#atlasMode").onchange=function(e){atlasState.mode=e.target.value;atlasState.freqType="all";atlasState.period="all";atlasState.query="";if(atlasState.mode==="freq"){atlasState.sort="freq";if(atlasState.view==="compact")atlasState.view="grid"}renderAtlas()};
   $("#atlasScope").onchange=function(e){atlasState.scope=e.target.value;atlasRevealSet.clear();renderAtlas()};
   $("#atlasMask").onchange=function(e){atlasState.mask=e.target.value;atlasRevealSet.clear();renderAtlas()};
   $("#atlasView").onchange=function(e){atlasState.view=e.target.value;renderAtlas()};
