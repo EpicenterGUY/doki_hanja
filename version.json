@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.9.3-20260924",
+  "webBuild": "2.9.4-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.9.4",
+      "title": "도감 사전 용례 인라인 표시",
+      "items": [
+        "기출 문맥이 없거나 부족한 한자도 상세창 안에서 사전 단어·뜻·짧은 예문을 바로 확인할 수 있도록 보완",
+        "呵에는 한국어기초사전의 가책·가책하다 용례를 기본 예시로 포함",
+        "그 밖의 단일 한자는 온라인 사전 참고 데이터를 자동으로 불러오고 실패 시 표준국어대사전 링크를 유지",
+        "기출 용례와 사전 용례를 별도 구역으로 구분해 출처를 혼동하지 않도록 표시"
+      ]
+    },
     {
       "version": "2.9.3",
       "title": "버튼 먹통 · 빈출 저장공간 오류 수정",
