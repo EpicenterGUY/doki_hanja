@@ -99,6 +99,10 @@ select:focus,input:focus,textarea:focus{border-color:#88703d}
 .note{font-size:12px;color:var(--muted);line-height:1.5}
 .card{border:1px solid var(--line);background:#12151b;border-radius:15px;padding:18px}
 .hero{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+.hanja-peek-wrap{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+.hanja-peek-wrap .btn{align-self:flex-start;min-width:150px}
+.hanja-peek{font-family:serif;font-size:76px;line-height:1.15;text-align:center;padding:18px;border:1px solid var(--line);border-radius:18px;background:#0f1319;color:#fff;letter-spacing:.06em}
+.hanja-peek[hidden]{display:none!important}
 .big-hanja{font-family:"Noto Serif CJK KR","Batang","NanumMyeongjo",serif;font-size:clamp(74px,15vw,150px);line-height:1;text-align:center;min-width:180px}
 .prompt{font-size:clamp(20px,3.6vw,34px);font-weight:800;line-height:1.45}
 .sub{color:var(--muted);margin-top:8px}
@@ -2422,8 +2426,9 @@ function renderWordWriteUI(q){
         <div class="canvas-tools">
           <button class="btn" id="clearWordWrite">전체 지우기</button>
           <button class="btn" id="checkWordWrite">손글씨 검사</button>
-          <button class="btn" id="revealWordWrite">정답 공개</button>
+          <button class="btn" id="revealWordWrite">정답 한자 보기</button>
         </div>
+        <div id="wordWriteAnswerPeek" class="hanja-peek" hidden>${esc(ans.join(""))}</div>
       </div>
     </details>`;
 }
@@ -2440,10 +2445,16 @@ function setupWordWriteCanvases(q){
     ans.forEach((_,i)=>clearAnyCanvas(`#wordCanvas${i}`));
     const fb=$("#examFeedback");fb.className="feedback";fb.innerHTML="";
   };
-  $("#revealWordWrite").onclick=()=>{
-    const fb=$("#examFeedback");fb.className="feedback ok";
-    fb.innerHTML=`정답: <span style="font-family:serif;font-size:34px">${esc(ans.join(""))}</span>`;
-  };
+  const revealWordWrite=$("#revealWordWrite");
+  const wordWriteAnswerPeek=$("#wordWriteAnswerPeek");
+  if(revealWordWrite&&wordWriteAnswerPeek){
+    revealWordWrite.onclick=()=>{
+      const willShow=wordWriteAnswerPeek.hidden;
+      wordWriteAnswerPeek.hidden=!willShow;
+      revealWordWrite.textContent=willShow?"정답 한자 숨기기":"정답 한자 보기";
+      revealWordWrite.classList.toggle("primary",willShow);
+    };
+  }
   $("#checkWordWrite").onclick=()=>gradeWordWrite(q);
 }
 function gradeTypedWordWrite(q){
@@ -2594,7 +2605,7 @@ function renderDrillCard(){
     <div>
       <div class="meta"><span class="badge">${esc(st.grade)}</span><span class="badge">${st.order==="alpha"?"가나다순":"랜덤"}</span></div>
       <div class="prompt" style="margin-top:14px">${esc(q.prompt)}</div>
-      ${st.mode==="meaningSound"?`<div class="big-hanja">${esc(c.hanja)}</div>`:`<div class="drill-answer">${esc(q.display)}</div>`}
+      ${st.mode==="meaningSound"?`<div class="big-hanja">${esc(c.hanja)}</div>`:`<div class="drill-answer">${esc(q.display)}</div><div class="hanja-peek-wrap"><button class="btn" id="toggleDrillHanja">정답 한자 보기</button><div id="drillHanjaPeek" class="hanja-peek" hidden>${esc(c.hanja)}</div></div>`}
       <div class="answer-row">
         <input id="drillAnswer" autocomplete="off" autocapitalize="off" placeholder="${st.mode==="meaningSound"?"예: 마당 장":"정답 한자를 입력"}">
         <button class="btn primary" id="checkDrill">채점</button>
@@ -2609,6 +2620,16 @@ function renderDrillCard(){
     </div>
   </div>`;
   if(st.mode==="write"){
+    const toggleHanja=$("#toggleDrillHanja");
+    const peekHanja=$("#drillHanjaPeek");
+    if(toggleHanja&&peekHanja){
+      toggleHanja.onclick=()=>{
+        const willShow=peekHanja.hidden;
+        peekHanja.hidden=!willShow;
+        toggleHanja.textContent=willShow?"정답 한자 숨기기":"정답 한자 보기";
+        toggleHanja.classList.toggle("primary",willShow);
+      };
+    }
     setupAnyCanvas("#drillCanvas");
     $("#clearDrillCanvas").onclick=()=>clearAnyCanvas("#drillCanvas");
     $("#autoCheckDrill").onclick=()=>autoGradeHandwriting("#drillCanvas",c.hanja,c.total,(ok,score,label)=>{
