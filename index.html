@@ -2432,7 +2432,7 @@ function checkAnswer(){
     if(wrong[k]){wrong[k].streak=(wrong[k].streak||0)+1;if(wrong[k].streak>=3)delete wrong[k]}
   }else{
     sessionScore.no++;
-    wrong[k]=wrong[k]||{count:0,streak:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt,answer:q.answer};
+    wrong[k]=wrong[k]||{count:0,streak:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt,answer:q.answer,answerDisplay:officialAnswerDisplay(q)};
     wrong[k].count++;wrong[k].streak=0;wrong[k].last=Date.now();
   }
   saveProgress();
@@ -4163,7 +4163,7 @@ function renderDrill(){
   $("#drill").innerHTML=`<div class="app-screen drill-setup-screen">
     <section class="app-section">
       <div class="app-section-head">
-        <div><div class="app-section-title">급수별 집중 연습</div><div class="app-section-sub">${esc(grade)} 배정한자 ${count.toLocaleString()}자</div></div>
+        <div><div class="app-section-title">급수별 집중 연습</div><div class="app-section-sub">${esc(grade)} 배정한자 ${count.toLocaleString()}자 · 한국어문회 훈음 기준</div></div>
         <span class="badge good">${mode2==="write"?"손글씨":"훈음"}</span>
       </div>
       <div class="label">급수</div>
@@ -4303,7 +4303,7 @@ function renderDrillCard(){
     $("#drillAnswer").focus();
   }
 }
-function drillCorrect(q,val){return (Array.isArray(q.answer)?q.answer:[q.answer]).some(a=>norm(a)===norm(val))}
+function drillCorrect(q,val){const u=norm(val);return answerList(q).some(a=>flexibleAnswerVariants(a).has(u))}
 function checkDrill(c,q){
   const input=$("#drillAnswer");
   const val=input?.value||"";
@@ -4321,7 +4321,7 @@ function showDrillResult(c,q,ok,revealOnly,val=""){
     const k=`drill|${drillState.mode}|${c.level}|${c.hanja}`;
     stats[k]=stats[k]||{ok:0,no:0,last:0,type:drillState.mode==="write"?"write":"meaningSound",hanja:c.hanja,level:c.level,prompt:q.prompt};
     stats[k][ok?"ok":"no"]++;stats[k].last=Date.now();
-    if(!ok){wrong[k]=wrong[k]||{count:0,streak:0,type:drillState.mode==="write"?"write":"meaningSound",hanja:c.hanja,level:c.level,prompt:q.prompt,answer:q.answer};wrong[k].count++;wrong[k].last=Date.now()}
+    if(!ok){wrong[k]=wrong[k]||{count:0,streak:0,type:drillState.mode==="write"?"write":"meaningSound",hanja:c.hanja,level:c.level,prompt:q.prompt,answer:q.answer,answerDisplay:officialAnswerDisplay(q)};wrong[k].count++;wrong[k].last=Date.now()}
     saveProgress();
   }
 }
@@ -4561,9 +4561,10 @@ function renderWrite(){
   const pool=chars.filter(c=>gradeAllowed(c.level,level));
   const c=pool[Math.floor(Math.random()*pool.length)]||FALLBACK[0],p=safeClue(c),official=officialMeaningSoundForms(c);
   $("#write").innerHTML=`
-    <div class="card">
-      <div class="meta"><span class="badge">${esc(c.level)}</span><span class="badge">쓰기 연습</span></div>
+    <div class="card utility-modern">
+      <div class="meta"><span class="badge">${esc(c.level)}</span><span class="badge">쓰기 연습</span><span class="badge source-badge">어문회 훈음</span></div>
       <div class="prompt" style="margin-top:12px">${esc((p.meaning? p.meaning+" ":"")+p.sound)} — 알맞은 한자를 입력하세요.</div>
+      <div class="official-answer">한국어문회 표기 · <b>${esc(official.canonical)}</b></div>
       <div class="answer-row"><input id="freeWriteInput" autocomplete="off" autocapitalize="off" placeholder="한자 입력"><button class="btn primary" id="freeWriteCheck">채점</button></div>
       <div id="writeAnswer" class="feedback"></div>
       <details class="compact-settings" style="margin-top:12px">
@@ -4595,7 +4596,7 @@ function renderWrite(){
     showHandwritingResult("#writeAnswer",c.hanja,ok,score,label);
     recordWrite(c,ok);
   });
-  $("#revealWrite").onclick=()=>{const e=$("#writeAnswer");e.className="feedback ok";e.innerHTML=`정답: <span style="font-family:serif;font-size:44px">${esc(c.hanja)}</span> · ${esc(p.meaning)} ${esc(p.sound)} · 부수 ${esc(c.radical)} · ${c.total}획`};
+  $("#revealWrite").onclick=()=>{const e=$("#writeAnswer");e.className="feedback ok";e.innerHTML=`정답: <span style="font-family:serif;font-size:44px">${esc(c.hanja)}</span> · ${esc(official.canonical)} · 부수 ${esc(c.radical)} · ${c.total}획`};
   $("#selfNo").onclick=()=>recordWrite(c,false);$("#nextWrite").onclick=renderWrite;
 }
 function recordWrite(c,ok){
@@ -4632,6 +4633,10 @@ function renderFreq(){
       </div>
     </div>`;
 }
+function wrongAnswerDisplay(x){
+  if(x?.answerDisplay)return String(x.answerDisplay);
+  return Array.isArray(x?.answer)?String(x.answer[0]??""):String(x?.answer??"");
+}
 function renderWrong(){
   if(!$("#wrong"))return;
   const level=$("#level")?.value||"1급";
@@ -4640,7 +4645,7 @@ function renderWrong(){
     <div class="card utility-modern"><div class="prompt">오답 노트 · ${rows.length}항목</div>
     <div class="sub">오답 횟수가 많은 순입니다. 연습에서 '오답 위주'를 선택하면 이 목록에서 다시 출제합니다.</div>
     <div class="table-wrap" style="margin-top:14px">${rows.length?`<table><thead><tr><th>한자</th><th>급수</th><th>유형</th><th>오답</th><th>문제</th><th>정답</th></tr></thead><tbody>
-    ${rows.map(x=>`<tr><td style="font-family:serif;font-size:22px">${esc(x.hanja||"")}</td><td>${esc(x.level)}</td><td>${esc(TYPES[x.type]||x.type)}</td><td>${x.count||0}</td><td>${esc(x.prompt)}</td><td>${esc(Array.isArray(x.answer)?x.answer.join("/"):x.answer)}</td></tr>`).join("")}
+    ${rows.map(x=>`<tr><td style="font-family:serif;font-size:22px">${esc(x.hanja||"")}</td><td>${esc(x.level)}</td><td>${esc(TYPES[x.type]||x.type)}</td><td>${x.count||0}</td><td>${esc(x.prompt)}</td><td>${esc(wrongAnswerDisplay(x))}</td></tr>`).join("")}
     </tbody></table>`:`<div class="empty">오답이 없습니다.</div>`}</div>
     <div class="actions"><button class="btn bad" id="clearWrong">오답 노트 초기화</button><button class="btn" id="exportProgress">학습기록 내보내기</button></div></div>`;
   $("#clearWrong").onclick=()=>{if(confirm("오답 노트를 모두 지울까요?")){wrong={};saveProgress();renderWrong()}};
@@ -4650,7 +4655,7 @@ function renderData(){
   if(!$("#data"))return;
   const counts={};for(const c of chars)counts[c.level]=(counts[c.level]||0)+1;
   $("#data").innerHTML=`
-    <div class="card">
+    <div class="card utility-modern">
       <div class="prompt">데이터 관리</div>
       <div class="sub">배정한자 데이터와 기출문제 데이터를 분리했습니다. 훈음·급수·부수·획수는 한국어문회 배정한자 원자료를 CSV로 변환한 데이터셋을 자동 로드하고 브라우저에 캐시합니다.</div>
        <div class="official-source" style="margin-top:11px">
