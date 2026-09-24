@@ -2576,7 +2576,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.9.4-20260924";
+const APP_BUILD="2.9.5-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -2706,12 +2706,18 @@ async function openUpdateCenter(){
 
 function bindAppShell(){
   ensurePracticeSettingsPortal();
-  $("#app2Dock .app2-nav").forEach(b=>b.onclick=()=>switchTab(b.dataset.appTab));
-  $("#openPracticeSettings")?.addEventListener("click",openPracticeSheet);
-  $("#openUpdateCenter")?.addEventListener("click",openUpdateCenter);
-  $("#closeUpdateCenter")?.addEventListener("click",closeUpdateCenter);
-  $("#closePracticeSettings")?.addEventListener("click",closePracticeSheet);
-  $("#app2Backdrop")?.addEventListener("click",()=>{closePracticeSheet();closeUpdateCenter()});
+  const dock=$("#app2Dock");
+  if(dock){
+    dock.onclick=function(e){
+      const b=e.target.closest(".app2-nav");
+      if(b&&dock.contains(b))switchTab(b.dataset.appTab);
+    };
+  }
+  const practiceSettingsBtn=$("#openPracticeSettings");if(practiceSettingsBtn)practiceSettingsBtn.onclick=openPracticeSheet;
+  const updateBtn=$("#openUpdateCenter");if(updateBtn)updateBtn.onclick=openUpdateCenter;
+  const closeUpdateBtn=$("#closeUpdateCenter");if(closeUpdateBtn)closeUpdateBtn.onclick=closeUpdateCenter;
+  const closePracticeBtn=$("#closePracticeSettings");if(closePracticeBtn)closePracticeBtn.onclick=closePracticeSheet;
+  const backdrop=$("#app2Backdrop");if(backdrop)backdrop.onclick=()=>{closePracticeSheet();closeUpdateCenter()};
 
   $("#installAppBtn")?.addEventListener("click",async()=>{
     if(!deferredInstallPrompt)return;
@@ -3154,7 +3160,7 @@ function startDiagnosisWeakPractice(){
   const r=diagnosisState.result||latestDiagnosis();if(!r)return;
   const level=$("#level");if(level)level.value=r.grade;
   const types=(r.weakTypes||[]).map(function(x){return x.type}).filter(function(t){return ["sound","meaningSound","write"].includes(t)}).slice(0,2);
-  $("#typeChecks input[type='checkbox']").forEach(function(x){x.checked=types.length?types.includes(x.value):["sound","meaningSound"].includes(x.value)});
+  $$("#typeChecks input[type='checkbox']").forEach(function(x){x.checked=types.length?types.includes(x.value):["sound","meaningSound"].includes(x.value)});
   refreshTypeChecks();
   if($("#count"))$("#count").value="10";
   if($("#scope"))$("#scope").value="all";
@@ -5091,7 +5097,7 @@ function renderWordWriteUI(q){
           <button class="btn" id="checkWordWrite">손글씨 검사</button>
           <button class="btn" id="revealWordWrite">정답 한자 보기</button>
         </div>
-        <div id="wordWriteAnswerPeek" class="hanja-peek" hidden>${esc(ans.join(""))}</div>
+        <div id="wordWriteAnswerPeek" class="hanja-peek" hidden>${esc(ans)}</div>
       </div>
     </details>`;
 }
