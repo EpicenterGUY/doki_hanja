@@ -1191,6 +1191,140 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   .practice-session .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
+
+/* HANJA POWER + UI 2.3 */
+.hanja-power-pill{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:30px;
+  padding:5px 9px;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:999px;
+  background:rgba(8,16,38,.28);
+  color:#fff;
+  box-shadow:inset 0 1px rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
+}
+.hanja-power-pill span{font-size:9px;font-weight:850;letter-spacing:.05em;color:#d9e3ff}
+.hanja-power-pill b{font-size:12px;white-space:nowrap}
+.app-hero-topline{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.power-card{
+  position:relative;
+  overflow:hidden;
+  padding:18px;
+  border:1px solid rgba(152,178,230,.25);
+  border-radius:24px;
+  background:
+    radial-gradient(circle at 90% 10%,rgba(84,226,190,.17),transparent 32%),
+    linear-gradient(145deg,rgba(38,54,91,.94),rgba(17,27,50,.96));
+  box-shadow:0 16px 42px rgba(0,7,24,.22);
+}
+.power-card::after{
+  content:"漢";
+  position:absolute;
+  right:8px;bottom:-32px;
+  font:900 120px/1 serif;
+  color:rgba(255,255,255,.045);
+  pointer-events:none;
+}
+.power-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:relative;z-index:1}
+.power-eyebrow{font-size:10px;letter-spacing:.12em;font-weight:900;color:#8fa9d5}
+.power-level{margin-top:4px;font-size:28px;font-weight:950;letter-spacing:-.045em}
+.power-title{margin-top:3px;font-size:12px;color:#b9cae6;font-weight:750}
+.power-score{text-align:right}
+.power-score b{display:block;font-size:21px;line-height:1}
+.power-score span{display:block;margin-top:4px;font-size:10px;color:#91a7ca}
+.power-progress{position:relative;z-index:1;height:8px;margin-top:15px;border-radius:999px;background:rgba(5,12,27,.58);overflow:hidden}
+.power-progress>i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#677cff,#4fd8b7,#ffd05d)}
+.power-foot{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:7px;color:#93a8c9;font-size:10px}
+.power-mini-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:13px;position:relative;z-index:1}
+.power-mini{padding:9px;border-radius:14px;background:rgba(9,18,36,.44);border:1px solid rgba(140,166,218,.15)}
+.power-mini b{display:block;font-size:16px}.power-mini span{display:block;margin-top:3px;font-size:9px;color:#91a6c8}
+.mastery-list{display:grid;gap:9px}
+.mastery-row{display:grid;grid-template-columns:minmax(76px,.32fr) minmax(0,1fr) 40px;gap:9px;align-items:center}
+.mastery-name{min-width:0;font-size:12px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mastery-track{height:7px;border-radius:99px;background:rgba(8,15,31,.62);overflow:hidden}
+.mastery-track>i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#697cff,#53d8bb)}
+.mastery-pct{text-align:right;font-size:11px;font-weight:900;color:#c9d7ee}
+
+/* practice/exam session cards */
+.practice-session,.exam-session{width:100%;min-width:0}
+.exam-session{display:grid;gap:9px}
+.exam-session .kpis{margin-bottom:0}
+.exam-session .progress{margin:0}
+.exam-session>.card{
+  min-width:0;
+  overflow:hidden;
+}
+.exam-session .choice-grid{gap:8px}
+.exam-session .choice-btn{
+  min-width:0;
+  min-height:52px;
+  border-radius:15px;
+  background:linear-gradient(145deg,rgba(37,53,88,.92),rgba(21,32,58,.94));
+  border-color:rgba(137,164,216,.27);
+}
+.exam-session .choice-btn:active{transform:scale(.985)}
+.exam-session .exam-nav{gap:5px}
+.exam-session .exam-dot{border-radius:9px}
+.result-card{
+  overflow:hidden;
+  border-radius:24px!important;
+}
+.result-score-line{
+  display:flex;align-items:end;justify-content:space-between;gap:12px;
+  margin-bottom:6px;
+}
+.result-score-main{font-size:clamp(24px,5vw,38px);font-weight:950;letter-spacing:-.045em}
+.result-score-badge{
+  padding:7px 10px;border-radius:999px;
+  background:rgba(78,218,176,.13);border:1px solid rgba(78,218,176,.35);
+  color:#9cf2d5;font-size:12px;font-weight:900;white-space:nowrap;
+}
+
+@media(min-width:760px){
+  .practice-home .power-card{grid-column:2}
+  .more-screen .power-card{grid-column:1}
+}
+@media(max-width:600px){
+  .hanja-power-pill{min-height:27px;padding:4px 7px;gap:5px}
+  .hanja-power-pill span{font-size:8px}.hanja-power-pill b{font-size:10px}
+  .power-card{padding:13px;border-radius:19px}
+  .power-level{font-size:24px}
+  .power-score b{font-size:18px}
+  .power-mini-grid{gap:5px;margin-top:10px}
+  .power-mini{padding:7px 5px;border-radius:11px;text-align:center}
+  .power-mini b{font-size:14px}.power-mini span{font-size:8px}
+  .mastery-row{grid-template-columns:70px minmax(0,1fr) 34px;gap:7px}
+  .exam-session{gap:7px}
+  .exam-session .kpis{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+  .exam-session .kpi{padding:8px 4px;border-radius:13px;text-align:center}
+  .exam-session .kpi b{font-size:14px}
+  .exam-session .kpi span{font-size:8px}
+  .exam-session>.card{padding:13px;border-radius:18px}
+  .exam-session .meta{margin-top:0;gap:5px}
+  .exam-session .badge{font-size:9px;padding:5px 6px}
+  .exam-session .soft{font-size:10px}
+  .exam-session .prompt{font-size:18px!important;line-height:1.35}
+  .exam-session .big-hanja{font-size:min(25vw,94px)!important;margin:10px 0!important}
+  .exam-session .choice-grid{grid-template-columns:1fr;gap:6px;margin-top:10px}
+  .exam-session .choice-btn{min-height:46px;padding:10px;font-size:13px!important}
+  .exam-session .actions{gap:6px}
+  .exam-session .actions .btn{min-height:43px;font-size:13px!important}
+  .result-card{border-radius:19px!important}
+  .result-score-main{font-size:24px}
+  .result-score-badge{font-size:10px;padding:6px 8px}
+}
+@media(max-width:380px){
+  .app-hero-topline{align-items:flex-start}
+  .hanja-power-pill span{display:none}
+  .power-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .exam-session .kpi:nth-child(3){display:none}
+  .exam-session .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
 </style>
 </head>
 <body>
@@ -1450,6 +1584,69 @@ function norm(s){return String(s??"").replace(/\s+/g,"").replace(/[·ㆍ]/g,"").
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function sample(a,n){return shuffle([...a]).slice(0,n)}
+
+const HANJA_POWER_TITLES=[
+  [1,"새싹"],[5,"학습자"],[10,"수련생"],[15,"숙련자"],[20,"고수"],
+  [25,"달인"],[30,"명인"],[35,"한자박사"],[40,"한자장인"],[45,"문자대가"],[50,"극의"]
+];
+function hanjaPowerLevelStart(level){
+  const lv=Math.max(1,Math.min(50,Number(level)||1));
+  return 45*(lv-1)*(lv-1);
+}
+function hanjaPowerTitle(level){
+  let title=HANJA_POWER_TITLES[0][1];
+  for(const [lv,t] of HANJA_POWER_TITLES)if(level>=lv)title=t;
+  return title;
+}
+function hanjaPowerProfile(){
+  const rows=Object.values(stats||{});
+  let attempts=0,correct=0;
+  const perHanja=new Map();
+  const byType={};
+  for(const s of rows){
+    const ok=Math.max(0,+s.ok||0),no=Math.max(0,+s.no||0),n=ok+no;
+    attempts+=n;correct+=ok;
+    if(s.hanja){
+      const a=perHanja.get(s.hanja)||{ok:0,no:0};
+      a.ok+=ok;a.no+=no;perHanja.set(s.hanja,a);
+    }
+    const type=s.type||"other";
+    const t=byType[type]||(byType[type]={ok:0,no:0});
+    t.ok+=ok;t.no+=no;
+  }
+  const known=[...perHanja.values()].filter(x=>x.ok>0).length;
+  const mastered=[...perHanja.values()].filter(x=>{
+    const n=x.ok+x.no;return x.ok>=3&&n>0&&x.ok/n>=.75;
+  }).length;
+  // All values are derived from existing learning records, so old users get a level immediately.
+  const xp=Math.round(correct*8+attempts*2+known*6+mastered*12);
+  let level=1;
+  while(level<50&&xp>=hanjaPowerLevelStart(level+1))level++;
+  const start=hanjaPowerLevelStart(level);
+  const next=level>=50?start:hanjaPowerLevelStart(level+1);
+  const progress=level>=50?100:Math.max(0,Math.min(100,Math.round((xp-start)/(next-start)*100)));
+  const accuracy=attempts?Math.round(correct/attempts*100):0;
+  const typeRows=Object.entries(byType).map(([type,x])=>{
+    const n=x.ok+x.no;return {type,n,ok:x.ok,pct:n?Math.round(x.ok/n*100):0};
+  }).filter(x=>x.n>0).sort((a,b)=>b.n-a.n||b.pct-a.pct);
+  return {xp,level,title:hanjaPowerTitle(level),start,next,progress,attempts,correct,accuracy,known,mastered,typeRows};
+}
+function hanjaPowerMarkup(p,compact=false){
+  return `<div class="power-card ${compact?"compact":""}">
+    <div class="power-head">
+      <div><div class="power-eyebrow">HANJA POWER</div><div class="power-level">Lv.${p.level} · ${esc(p.title)}</div><div class="power-title">학습 기록으로 자동 계산되는 한자력 레벨</div></div>
+      <div class="power-score"><b>${p.xp.toLocaleString()}</b><span>한자력</span></div>
+    </div>
+    <div class="power-progress"><i style="width:${p.progress}%"></i></div>
+    <div class="power-foot"><span>Lv.${p.level}</span><span>${p.level>=50?"MAX":`다음 레벨까지 ${Math.max(0,p.next-p.xp).toLocaleString()}`}</span></div>
+    <div class="power-mini-grid">
+      <div class="power-mini"><b>${p.known.toLocaleString()}</b><span>아는 한자</span></div>
+      <div class="power-mini"><b>${p.mastered.toLocaleString()}</b><span>숙련 한자</span></div>
+      <div class="power-mini"><b>${p.correct.toLocaleString()}</b><span>누적 정답</span></div>
+      <div class="power-mini"><b>${p.accuracy}%</b><span>정답률</span></div>
+    </div>
+  </div>`;
+}
 function gradeIndex(g){return GRADE_ORDER.indexOf(g)}
 function gradeAllowed(g,target){return gradeIndex(g)>=0 && gradeIndex(g)<=gradeIndex(target)}
 function parseMeaning(raw){
@@ -1932,21 +2129,20 @@ function startPractice(random10){
 
 function renderMore(){
   if(!$("#more"))return;
+  const p=hanjaPowerProfile();
   const allStats=Object.values(stats||{});
-  const attempts=allStats.reduce((s,x)=>s+(x.ok||0)+(x.no||0),0);
-  const correct=allStats.reduce((s,x)=>s+(x.ok||0),0);
-  const acc=attempts?Math.round(correct/attempts*100):0;
   const wrongCount=Object.keys(wrong||{}).length;
+  const mastery=p.typeRows.slice(0,6);
   $("#more").innerHTML=`<div class="app-screen more-screen">
-    <div class="app-stats-hero">
-      <div class="app-score-card"><span>누적 정답률</span><b>${acc}%</b><span>${attempts.toLocaleString()}문제 풀이</span></div>
-      <div class="app-score-side">
-        <div class="app-score-mini"><span>오답 대기</span><b>${wrongCount}</b></div>
-        <div class="app-score-mini"><span>기록 항목</span><b>${allStats.length}</b></div>
-      </div>
-    </div>
+    ${hanjaPowerMarkup(p)}
     <section class="app-section">
-      <div class="app-section-head"><div><div class="app-section-title">학습 도구</div><div class="app-section-sub">분석과 관리 기능을 한곳에 모았습니다.</div></div></div>
+      <div class="app-section-head"><div><div class="app-section-title">유형별 숙련도</div><div class="app-section-sub">많이 푼 유형부터 누적 정답률을 보여줍니다.</div></div></div>
+      <div class="mastery-list">
+        ${mastery.length?mastery.map(x=>`<div class="mastery-row"><div class="mastery-name">${esc(TYPES[x.type]||x.type)}</div><div class="mastery-track"><i style="width:${x.pct}%"></i></div><div class="mastery-pct">${x.pct}%</div></div>`).join(""):`<div class="empty">문제를 풀면 유형별 숙련도가 여기에 쌓입니다.</div>`}
+      </div>
+    </section>
+    <section class="app-section">
+      <div class="app-section-head"><div><div class="app-section-title">학습 도구</div><div class="app-section-sub">오답 ${wrongCount}개 · 기록 항목 ${allStats.length}개</div></div></div>
       <div class="app-list">
         <button class="app-list-row" onclick="openUtility('wrong')"><span class="app-list-main"><span class="app-list-icon">↻</span><span class="app-list-text"><b>오답 노트</b><small>틀린 문제와 반복 오답 복습</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('freq')"><span class="app-list-main"><span class="app-list-icon">▥</span><span class="app-list-text"><b>빈출 분석</b><small>기출 회차별 출현 빈도 확인</small></span></span><span class="app-list-chevron">›</span></button>
@@ -1971,15 +2167,15 @@ function openUtility(id){
 }
 
 function renderPracticeWelcome(){
-  const allStats=Object.values(stats||{});
-  const attempts=allStats.reduce((s,x)=>s+(x.ok||0)+(x.no||0),0);
-  const correct=allStats.reduce((s,x)=>s+(x.ok||0),0);
-  const acc=attempts?Math.round(correct/attempts*100):0;
+  const p=hanjaPowerProfile();
   const wrongCount=Object.keys(wrong||{}).length;
   const target=$("#level")?.value||"1급";
   $("#practice").innerHTML=`<div class="app-screen practice-home">
     <section class="app-hero">
-      <span class="app-hero-kicker">DOKI DAILY TRAINING</span>
+      <div class="app-hero-topline">
+        <span class="app-hero-kicker">DOKI DAILY TRAINING</span>
+        <span class="hanja-power-pill"><span>한자력</span><b>Lv.${p.level} ${esc(p.title)}</b></span>
+      </div>
       <h2>${esc(target)} 오늘도 한 글자씩.</h2>
       <p>혼합 연습, 손글씨, 기출을 한 앱 안에서 이어서 공부합니다.</p>
       <div class="app-hero-actions">
@@ -1988,11 +2184,12 @@ function renderPracticeWelcome(){
       </div>
     </section>
     <div class="app-metrics">
-      <div class="app-metric"><b>${chars.length.toLocaleString()}</b><span>배정한자</span></div>
-      <div class="app-metric"><b>${attempts.toLocaleString()}</b><span>누적 풀이</span></div>
-      <div class="app-metric"><b>${acc}%</b><span>누적 정답률</span></div>
+      <div class="app-metric"><b>${p.known.toLocaleString()}</b><span>아는 한자</span></div>
+      <div class="app-metric"><b>${p.attempts.toLocaleString()}</b><span>누적 풀이</span></div>
+      <div class="app-metric"><b>${p.accuracy}%</b><span>누적 정답률</span></div>
       <div class="app-metric"><b>${wrongCount}</b><span>복습 대기</span></div>
     </div>
+    ${hanjaPowerMarkup(p,true)}
     <section class="app-section">
       <div class="app-section-head"><div><div class="app-section-title">빠른 시작</div><div class="app-section-sub">자주 쓰는 학습만 크게 꺼냈어요.</div></div></div>
       <div class="app-action-grid">
@@ -2106,10 +2303,11 @@ function renderResult(){
   for(const q of session){
     const s=stats[keyOf(q)]||{ok:0,no:0};const a=typeAgg[q.type]||(typeAgg[q.type]={ok:0,no:0});a.ok+=s.ok;a.no+=s.no;
   }
+  const p=hanjaPowerProfile();
   $("#practice").innerHTML=`
-    <div class="card">
-      <div class="prompt">연습 완료 · ${sessionScore.ok}/${total} 정답 (${acc}%)</div>
-      <div class="sub">틀린 문제는 오답 노트에 자동 저장되며, 같은 항목을 3회 연속 맞히면 자동 졸업합니다.</div>
+    <div class="card result-card">
+      <div class="result-score-line"><div class="result-score-main">연습 완료 · ${sessionScore.ok}/${total}</div><span class="result-score-badge">Lv.${p.level} ${esc(p.title)}</span></div>
+      <div class="sub">정답률 ${acc}% · 현재 한자력 ${p.xp.toLocaleString()} · 틀린 문제는 3회 연속 정답 시 오답 노트에서 졸업합니다.</div>
       <div class="result-list" style="margin-top:16px">
         ${Object.entries(typeAgg).map(([t,a])=>{const n=a.ok+a.no;return `<div class="result-item"><span>${TYPES[t]||t}</span><b>${n?Math.round(a.ok/n*100):0}%</b></div>`}).join("")}
       </div>
@@ -3581,7 +3779,8 @@ function renderExamQuestion(){
   if(!q){renderExamResult();return}
   const choices=normalizeChoices(q), no=q.no||q.number||st.index+1;
   const answerGuide=choices.length?"선택지를 눌러 바로 채점하세요.":"정답을 아래 입력칸에 직접 타이핑하세요. Enter로도 채점됩니다.";
-  $("#exam").innerHTML=`<div class="kpis">
+  $("#exam").innerHTML=`<div class="exam-session">
+  <div class="kpis">
     <div class="kpi"><b>제${st.round}회</b><span>${esc(st.level)}</span></div>
     <div class="kpi"><b>${st.index+1}/${st.questions.length}</b><span>현재 문항</span></div>
     <div class="kpi"><b>${st.checked.filter(Boolean).length}</b><span>채점 완료</span></div>
@@ -3600,7 +3799,8 @@ function renderExamQuestion(){
     <div id="examFeedback" class="feedback"></div>
     ${q.round?`<details class="compact-settings"><summary>원문 확인</summary><div><button class="btn" onclick="openGradePdf('${q.level}',${q.round})">${esc(q.level)} 제${q.round}회 원문 열기</button>${q.sourceText?`<div class="source-text" style="margin-top:8px">${esc(q.sourceText)}</div>`:""}</div></details>`:""}
     <details class="compact-settings"><summary>문제 번호 이동</summary><div><div class="exam-nav">${st.questions.map((_,i)=>`<button class="exam-dot ${st.checked[i]?"done":""} ${i===st.index?"current":""}" data-i="${i}">${i+1}</button>`).join("")}</div></div></details>
-    <div class="actions"><button class="btn" id="prevExam" ${st.index===0?"disabled":""}>이전</button><button class="btn" id="nextExam">${st.index===st.questions.length-1?"결과 보기":"다음"}</button></div>
+    <div class="actions"><button class="btn" id="prevExam" ${st.index===0?"disabled":""}>이전</button><button class="btn primary" id="nextExam">${st.index===st.questions.length-1?"결과 보기":"다음"}</button></div>
+  </div>
   </div>`;
   $$(".exam-dot").forEach(b=>b.onclick=()=>{examState.index=+b.dataset.i;renderExamQuestion()});
   $("#prevExam").onclick=()=>{if(st.index>0){st.index--;renderExamQuestion()}};
@@ -3779,9 +3979,11 @@ function renderExamResult(){
   const wrongRows=st.questions.map((q,i)=>({q,i,ok:st.checked[i]&&(q.type==="wordWrite"?!!st.answers[i]?.__wordWriteOk:isCorrect(q,st.answers[i]))})).filter(x=>!x.ok);
   const byType={};
   st.questions.forEach((q,i)=>{const a=byType[q.type]||(byType[q.type]={n:0,ok:0});a.n++;if(st.checked[i]&&(q.type==="wordWrite"?!!st.answers[i]?.__wordWriteOk:isCorrect(q,st.answers[i])))a.ok++});
-  $("#exam").innerHTML=`<div class="card">
-    <div class="prompt">제${st.round}회 ${esc(st.level)} 결과 · ${st.score}/${total} (${Math.round(st.score/total*100)}%)</div>
-    <div class="sub">채점한 문항 ${answered}/${total}. 틀린 문제는 오답 노트에도 저장됩니다.</div>
+  const p=hanjaPowerProfile();
+  const pct=total?Math.round(st.score/total*100):0;
+  $("#exam").innerHTML=`<div class="card result-card">
+    <div class="result-score-line"><div class="result-score-main">제${st.round}회 · ${st.score}/${total}</div><span class="result-score-badge">Lv.${p.level} ${esc(p.title)}</span></div>
+    <div class="sub">${esc(st.level)} · ${pct}% · 채점 ${answered}/${total} · 현재 한자력 ${p.xp.toLocaleString()}</div>
     <div class="modecards" style="margin-top:14px">${Object.entries(byType).map(([t,a])=>`<div class="modecard"><b>${esc(TYPES[t]||t)}</b><small>${a.ok}/${a.n} · ${Math.round(a.ok/a.n*100)}%</small></div>`).join("")}</div>
     <div class="section-title" style="margin-top:18px">틀림 / 미채점</div>
     <div class="result-list">${wrongRows.length?wrongRows.map(x=>`<div class="result-item"><span>${x.i+1}. ${esc(x.q.prompt)}</span><b>${esc(answerList(x.q)[0])}</b></div>`).join(""):`<div class="empty">전부 맞았습니다.</div>`}</div>
