@@ -763,6 +763,108 @@ body.drill-active .app2-update{display:none!important}
 .update-version-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:10px;color:#d9e1f1;font-size:12px}
 @media(max-width:560px){.update-actions{grid-template-columns:1fr}.update-sheet{max-height:82dvh}}
 
+
+/* FOLD COVER WIDTH FIX 2.1.2
+   Keep horizontally-scrollable chip rows from expanding their parent grid item
+   beyond the narrow Fold cover-screen viewport. */
+html,body{
+  width:100%;
+  max-width:100%;
+  overflow-x:hidden;
+}
+body:not(.drill-active) .app,
+body:not(.drill-active) .grid,
+body:not(.drill-active) .content,
+body:not(.drill-active) .tabpage,
+.app-screen,
+.app-section,
+.app-section-head,
+.app-form-grid,
+.app-form-grid > *,
+.segment,
+.grade-scroller,
+.remote-exam-list{
+  min-width:0;
+  max-width:100%;
+}
+.app-screen,
+.app-section,
+.app-form-grid,
+.segment,
+.grade-scroller,
+.remote-exam-list{
+  width:100%;
+}
+.app-section-head{
+  flex-wrap:wrap;
+}
+.app-section-head > *{
+  min-width:0;
+}
+.grade-scroller{
+  overflow-x:auto;
+  overflow-y:hidden;
+  -webkit-overflow-scrolling:touch;
+  contain:inline-size;
+}
+.segment{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.segment button{
+  min-width:0;
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.remote-exam-list{
+  grid-template-columns:repeat(auto-fill,minmax(70px,1fr))!important;
+}
+.round-btn{
+  min-width:0!important;
+  width:100%;
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.app-start{
+  max-width:100%;
+}
+@media(max-width:600px){
+  body:not(.drill-active) .app{
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+  }
+  body:not(.drill-active) .tabpage{
+    width:100%;
+    max-width:100%;
+  }
+  .app-section{
+    width:100%;
+    max-width:100%;
+    overflow:hidden;
+  }
+  .grade-scroller{
+    width:100%;
+    max-width:100%;
+  }
+  .app-form-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .remote-exam-list{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  }
+}
+@media(max-width:380px){
+  .app-section{padding:12px}
+  .grade-chip{min-width:54px;padding:0 11px}
+  .remote-exam-list{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .app-section-head .badge{font-size:11px}
+}
+
 </style>
 </head>
 <body>
