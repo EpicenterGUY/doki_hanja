@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.9.4-20260924",
+  "webBuild": "2.9.5-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.9.5",
+      "title": "버튼 전수검사 · 이벤트 바인딩 안정화",
+      "items": [
+        "HTML/동적 템플릿의 버튼 130개를 정적 전수검사해 연결되지 않은 버튼과 정의되지 않은 onclick 함수를 점검",
+        "하단 연습·기출·급수별·기록 메뉴를 개별 반복 바인딩 대신 부모 도크 이벤트 위임 방식으로 변경",
+        "급수 진단의 '약점만' 버튼에서 단일 querySelector 결과에 forEach를 호출하던 오류 수정",
+        "한자어쓰기 문제에서 문자열에 join()을 호출해 화면 렌더가 중단되던 오류 수정",
+        "상단 설정·업데이트·닫기 버튼 바인딩을 멱등적인 onclick 방식으로 정리",
+        "querySelector/배열 메서드 오용과 미연결 버튼을 빌드 전 점검해 같은 유형의 회귀를 방지"
+      ]
+    },
     {
       "version": "2.9.4",
       "title": "도감 사전 용례 인라인 표시",
