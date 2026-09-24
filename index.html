@@ -1578,6 +1578,7 @@ const SPECIAL_NEW_META={"92":["u3BnH","btq4Y4RGae5","AAAAAAAAAAAAAAAAAAAAABvVu3a
 
 let stats=JSON.parse(localStorage.getItem("hanjaStatsV2")||"{}");
 let wrong=JSON.parse(localStorage.getItem("hanjaWrongV2")||"{}");
+let seenHanjaPowerLevel=+(localStorage.getItem("hanjaPowerSeenLevel")||0);
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",1800)}
@@ -2306,7 +2307,19 @@ function checkAnswer(){
   $("#submitAns").textContent="다음";$("#submitAns").onclick=()=>{current++;renderQuestion()};
   inp.disabled=true;
 }
-function saveProgress(){localStorage.setItem("hanjaStatsV2",JSON.stringify(stats));localStorage.setItem("hanjaWrongV2",JSON.stringify(wrong))}
+function saveProgress(){
+  localStorage.setItem("hanjaStatsV2",JSON.stringify(stats));
+  localStorage.setItem("hanjaWrongV2",JSON.stringify(wrong));
+  const p=hanjaPowerProfile();
+  if(!seenHanjaPowerLevel){
+    seenHanjaPowerLevel=p.level;
+    localStorage.setItem("hanjaPowerSeenLevel",String(p.level));
+  }else if(p.level>seenHanjaPowerLevel){
+    seenHanjaPowerLevel=p.level;
+    localStorage.setItem("hanjaPowerSeenLevel",String(p.level));
+    setTimeout(()=>toast(`한자력 Lv.${p.level} 달성 · ${p.title}`),0);
+  }
+}
 function renderResult(){
   const total=sessionScore.ok+sessionScore.no,acc=total?Math.round(sessionScore.ok/total*100):0;
   const typeAgg={};
