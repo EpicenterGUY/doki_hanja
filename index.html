@@ -2867,7 +2867,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.10.3-20260924";
+const APP_BUILD="2.10.4-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -6394,6 +6394,38 @@ function atlasHanjaReading(term){
   }
   return out;
 }
+function atlasHanjaTextLen(v){
+  return (String(v||"").match(/[\u3400-\u9fff\uf900-\ufaff]/g)||[]).length;
+}
+function atlasPureHanja(v){
+  const t=String(v||"").replace(/\s+/g,"");
+  return !!t&&atlasHanjaTextLen(t)>0&&t.replace(/[\u3400-\u9fff\uf900-\ufaff]/g,"")==="";
+}
+function atlasStudyPair(row){
+  const type=row&&row.type||"",fk=row&&row.formatKey||"";
+  const reverse=type==="wordWrite"||type==="homonym"||type==="idiom"||fk==="definition_reverse";
+  let prompt=reverse?(row.secondary||""):(row.primary||"");
+  let answer=reverse?(row.primary||""):(row.secondary||"");
+  if(!prompt)prompt=row.primary||row.formatLabel||"문제";
+  if(!answer)answer=row.primary||"-";
+  return {prompt:String(prompt),answer:String(answer)};
+}
+function atlasStudyInstruction(row){
+  const t=row&&row.type||"",fk=row&&row.formatKey||"";
+  if(t==="sound")return "한자를 보고 독음을 떠올리기";
+  if(t==="meaningSound")return "한자를 보고 훈·음을 떠올리기";
+  if(t==="wordWrite")return fk==="wordwrite_from_meaning"?"뜻을 보고 한자어를 써보기":"제시어를 보고 한자로 써보기";
+  if(t==="definition")return fk==="definition_reverse"?"뜻을 보고 한자어 떠올리기":"한자어를 보고 뜻 떠올리기";
+  if(t==="idiom")return "독음·단서를 보고 4자 성어 떠올리기";
+  if(t==="homonym")return "독음을 보고 동음이의 한자어 구별하기";
+  if(t==="antonym")return "제시어의 반대·상대어 떠올리기";
+  if(t==="synonym")return "제시어의 동의·유의어 떠올리기";
+  if(t==="radical")return "한자를 보고 부수 떠올리기";
+  if(t==="abbreviation")return "정자를 보고 약자 떠올리기";
+  if(t==="longSound")return "훈음을 보고 장·단음 구별하기";
+  if(t==="fill")return "문맥을 보고 빈칸 떠올리기";
+  return row&&row.formatLabel||atlasFreqDisplayName(t);
+}
 function atlasIdiomCompleted(q,answerHanja){
   const ans=examHanjaTermSafe(answerHanja)||"";
   if(!ans)return "";
@@ -6436,39 +6468,44 @@ function atlasItemEntries(q){
   if(type==="abbreviation")return trusted?one(trusted,"약자 "+ans):[];
 
   if(type==="wordWrite"){
-    const primary=answerHanja[0]||"";
+    const primary=answerHanja.find(function(x){return atlasHanjaTextLen(x)>=2})||answerHanja[0]||"";
     if(!primary)return [];
     const reading=atlasHanjaReading(primary);
-    return one(primary,reading||clue);
+    return one(primary,/[가-힣]/.test(clue)?clue:reading);
   }
 
   if(type==="definition"){
     if(fmt.key==="definition_reverse"){
-      const primary=answerHanja[0]||"";
+      const primary=answerHanja.find(function(x){return atlasHanjaTextLen(x)>=2})||"";
       if(!primary||!/[가-힣]/.test(clue))return [];
       return one(primary,clue);
     }
-    const primary=trusted||sourceGroups[0]||"";
-    if(!primary||(!/[가-힣]/.test(ans)&&atlasHanjaGroups(ans,1).length))return [];
+    const primary=(atlasHanjaTextLen(trusted)>=2?trusted:"")||sourceGroups.find(function(x){return atlasHanjaTextLen(x)>=2})||"";
+    if(!primary||!/[가-힣]/.test(ans))return [];
     return one(primary,ans);
   }
 
   if(type==="homonym"){
-    const primary=answerHanja[0]||"";
+    const primary=answerHanja.find(function(x){return atlasHanjaTextLen(x)>=2})||"";
     if(!primary)return [];
-    return one(primary,atlasHanjaReading(primary)||clue||ans);
+    return one(primary,/[가-힣]/.test(clue)?clue:(atlasHanjaReading(primary)||ans));
   }
 
   if(type==="synonym"||type==="antonym"){
+    const charFormat=/(?:_char)$/.test(fmt.key||"");
     const primary=trusted||sourceGroups[0]||"";
     if(!primary)return [];
+    if(!charFormat&&atlasHanjaTextLen(primary)<2)return [];
+    const ansH=atlasHanjaGroups(ans,1)[0]||"";
+    if(ansH&&!charFormat&&atlasHanjaTextLen(ansH)<2)return [];
     return one(primary,ans);
   }
 
   if(type==="idiom"){
     const answerTerm=answerHanja[0]||"";
     const full=atlasIdiomCompleted(q,answerTerm);
-    const primary=full||trusted||sourceGroups.find(function(x){return [...x].length===4})||answerTerm;
+    const sourceFour=sourceGroups.find(function(x){return atlasHanjaTextLen(x)===4})||"";
+    const primary=(atlasHanjaTextLen(full)===4?full:"")||sourceFour||(atlasHanjaTextLen(answerTerm)===4?answerTerm:"");
     if(!primary)return [];
     const reading=atlasHanjaReading(primary);
     return one(primary,reading||clue||ans);
