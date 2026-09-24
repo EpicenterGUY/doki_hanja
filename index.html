@@ -1673,6 +1673,20 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   .atlas-freq-table th:nth-child(4),.atlas-freq-table td:nth-child(4){width:68px}
   .atlas-freq-table th:nth-child(5),.atlas-freq-table td:nth-child(5){width:52px}
 }
+.atlas-format-group{margin:0;border-top:1px solid rgba(139,165,216,.16)}
+.atlas-format-group:first-of-type{border-top:0}
+.atlas-format-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:9px 10px;background:rgba(18,33,57,.92);
+  border-bottom:1px solid rgba(139,165,216,.14)
+}
+.atlas-format-head>div{min-width:0}
+.atlas-format-head b{display:block;font-size:11px;color:#f0f5ff}
+.atlas-format-head span{display:block;margin-top:2px;font-size:8px;color:#8fa5c7}
+.atlas-format-head em{
+  flex:0 0 auto;font-style:normal;font-size:7px;font-weight:850;color:#92dbc8;
+  padding:3px 6px;border-radius:999px;background:rgba(64,209,174,.08);border:1px solid rgba(64,209,174,.18)
+}
 .atlas-empty{
   padding:36px 18px;text-align:center;
   border:1px dashed rgba(143,169,219,.24);
@@ -6278,11 +6292,22 @@ function atlasTypeOverviewHtml(){
 }
 function atlasItemFrequencyHtml(type){
   const rows=atlasItemRowsForType(type);
-  if(!rows.length)return '<div class="atlas-empty">'+esc(TYPES[type]||type)+' 유형의 집계 항목이 없습니다.<br>기간을 넓히거나 기출 전체 집계를 실행해 주세요.</div>';
-  if(atlasState.view==="table"){
-    let h='<div class="atlas-freq-sheet"><div class="atlas-freq-sheet-head"><b>'+esc(TYPES[type]||type)+' · 빈출순위</b><span>총 '+rows.length.toLocaleString()+'항목 · '+atlasPeriodLabel()+'</span></div>'+
+  if(!rows.length)return '<div class="atlas-empty">'+esc(TYPES[type]||type)+' 유형의 검증된 집계 항목이 없습니다.<br>기출 전체 집계를 다시 실행하거나 다른 출제형식을 확인해 주세요.</div>';
+
+  const gm=new Map();
+  for(const r of rows){
+    const k=r.formatKey||type;
+    const a=gm.get(k)||{key:k,label:r.formatLabel||TYPES[type]||type,rows:[],count:0,rounds:new Set()};
+    a.rows.push(r);a.count+=r.count;(r.rounds||[]).forEach(function(x){a.rounds.add(x)});gm.set(k,a);
+  }
+  const groups=[...gm.values()].sort(function(a,b){
+    return b.count-a.count||b.rows.length-a.rows.length||String(a.label).localeCompare(String(b.label),"ko-KR");
+  });
+
+  const tableBlock=function(g){
+    let h='<section class="atlas-format-group"><div class="atlas-format-head"><div><b>'+esc(g.label)+'</b><span>'+g.rows.length.toLocaleString()+'항목 · '+g.count+'문항 · '+g.rounds.size+'회차</span></div><em>동일 형식</em></div>'+
       '<div class="atlas-table-wrap atlas-freq-table-wrap"><table class="atlas-table atlas-freq-table"><thead><tr><th>순위</th><th>한자·한자어</th><th>독음·정답</th><th>빈출</th><th>최근</th></tr></thead><tbody>';
-    rows.forEach(function(r,i){
+    g.rows.forEach(function(r,i){
       const recent=(r.rounds&&r.rounds.length)?r.rounds[r.rounds.length-1]:"-";
       h+='<tr data-atlas-item-key="'+esc(encodeURIComponent(r.key))+'" style="cursor:pointer">'+
         '<td class="atlas-freq-rank">'+(i+1)+'</td>'+
@@ -6291,12 +6316,19 @@ function atlasItemFrequencyHtml(type){
         '<td class="atlas-freq-count-cell">'+r.count+'문항 / '+r.rounds.length+'회</td>'+
         '<td>제'+recent+'회</td></tr>';
     });
-    return h+'</tbody></table></div></div>';
+    return h+'</tbody></table></div></section>';
+  };
+
+  if(atlasState.view==="table"){
+    return '<div class="atlas-freq-sheet"><div class="atlas-freq-sheet-head"><b>'+esc(TYPES[type]||type)+' · 출제형식별 빈출순위</b><span>'+groups.length+'개 형식 · 총 '+rows.length.toLocaleString()+'항목 · '+atlasPeriodLabel()+'</span></div>'+groups.map(tableBlock).join("")+'</div>';
   }
-  return '<div class="atlas-grid">'+rows.map(function(r,i){
-    const len=[...String(r.primary)].length,fs=len>=5?'20px':(len>=3?'27px':'38px'),tr=atlasTrend(r),ex=(r.examples&&r.examples[0])?r.examples[0].text:"";
-    return '<button class="atlas-card" data-atlas-item-key="'+esc(encodeURIComponent(r.key))+'"><span class="atlas-rank">#'+(i+1)+'</span><span class="atlas-freq">'+r.rounds.length+'회차 · '+r.count+'문항</span><div class="atlas-hanja" style="font-size:'+fs+'">'+esc(r.primary)+'</div><div class="atlas-hun">'+esc(r.secondary||TYPES[type]||type)+'</div><div class="atlas-use">'+esc(ex||"눌러서 기출 용례·회차 보기")+'</div><div class="atlas-meta"><span>'+esc(TYPES[type]||type)+'</span><span class="atlas-trend '+tr.cls+'">'+tr.label+'</span></div></button>';
-  }).join("")+'</div>';
+
+  return groups.map(function(g){
+    return '<section class="atlas-format-group"><div class="atlas-format-head"><div><b>'+esc(g.label)+'</b><span>'+g.rows.length+'항목 · '+g.count+'문항</span></div></div><div class="atlas-grid">'+g.rows.map(function(r,i){
+      const len=[...String(r.primary)].length,fs=len>=5?'20px':(len>=3?'27px':'38px'),tr=atlasTrend(r),ex=(r.examples&&r.examples[0])?r.examples[0].text:"";
+      return '<button class="atlas-card" data-atlas-item-key="'+esc(encodeURIComponent(r.key))+'"><span class="atlas-rank">#'+(i+1)+'</span><span class="atlas-freq">'+r.rounds.length+'회차 · '+r.count+'문항</span><div class="atlas-hanja" style="font-size:'+fs+'">'+esc(r.primary)+'</div><div class="atlas-hun">'+esc(r.secondary||g.label)+'</div><div class="atlas-use">'+esc(ex||"눌러서 기출 용례·회차 보기")+'</div><div class="atlas-meta"><span>'+esc(g.label)+'</span><span class="atlas-trend '+tr.cls+'">'+tr.label+'</span></div></button>';
+    }).join("")+'</div></section>';
+  }).join("");
 }
 function ensureAtlasDetailElements(){
   let bd=$("#atlasDetailBackdrop"),sh=$("#atlasDetailSheet");
