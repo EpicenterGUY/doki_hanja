@@ -184,6 +184,78 @@ input[type=file]{display:none}
   .actions,.checks{grid-template-columns:1fr 1fr}.content{padding:13px}.sidebar{padding:12px}
   .answer-row{flex-direction:column}.answer-row .btn{width:100%}.modecards{grid-template-columns:1fr}
 }
+
+/* FOLD BRIGHT UI V2 */
+:root{
+  --bg:#09101f;--panel:#16213a;--panel2:#223252;--line:#435c8a;
+  --text:#f8fbff;--muted:#b8c8df;--accent:#ffc857;--good:#4de0b0;
+  --bad:#ff7c96;--info:#6ec0ff;--chip:#243553;--shadow:0 16px 38px rgba(2,8,24,.34)
+}
+html,body{background:
+  radial-gradient(circle at 12% -10%,rgba(111,126,255,.24),transparent 34%),
+  radial-gradient(circle at 95% 4%,rgba(66,221,190,.14),transparent 28%),
+  var(--bg)}
+.panel,.card{background:linear-gradient(145deg,rgba(28,41,70,.98),rgba(17,26,47,.98));border-color:#465f8d}
+.tab{background:#182540;border-color:#40577f;color:#c8d4e7}
+.tab.active{background:linear-gradient(135deg,#6576ff,#8a5cff);border-color:#9b8cff;color:#fff;box-shadow:0 8px 22px rgba(113,91,255,.28)}
+.btn{background:linear-gradient(145deg,#293b61,#1d2a47);border-color:#4a638f;color:#f8fbff}
+.btn.primary{background:linear-gradient(135deg,#ffb43f,#ffd369);border-color:#ffda79;color:#241500;box-shadow:0 8px 20px rgba(255,184,68,.22)}
+.btn.good{background:linear-gradient(135deg,#2bc091,#56e5b7);border-color:#6af0c6;color:#06271f}
+.badge{background:#243655;border-color:#4b638f;color:#eaf1ff}
+.badge.hot{background:#49371a;border-color:#d7a03d;color:#ffe49b}
+.badge.good{background:#173d36;border-color:#3fc99f;color:#a3f6d8}
+.progress{background:#111a2d}.progress>div{background:linear-gradient(90deg,#7087ff,#52d6c0,#ffd15d)}
+select,input[type="number"],input[type="text"],textarea{background:#0f192d;border-color:#435c89;color:#f8fbff}
+select:focus,input:focus,textarea:focus{border-color:#7fa8ff;box-shadow:0 0 0 3px rgba(111,144,255,.14)}
+
+body.drill-active{height:100dvh;overflow:hidden;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+body.drill-active .top,body.drill-active .tabs,body.drill-active #practiceSettingsPanel{display:none!important}
+body.drill-active .app{width:100%;max-width:none;height:100%;margin:0;padding:7px}
+body.drill-active .grid,body.drill-active .grid.no-sidebar{display:block;height:100%}
+body.drill-active .sidebar{display:none!important}
+body.drill-active .content{height:100%;min-height:0;padding:0;border:0;background:transparent;box-shadow:none}
+body.drill-active #drill{height:100%;min-height:0}
+
+.drill-session-shell{height:100%;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr);gap:8px}
+.drill-session-top{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px;border:1px solid #455f8d;border-radius:16px;background:linear-gradient(135deg,rgba(35,51,86,.97),rgba(23,34,61,.97));box-shadow:var(--shadow)}
+.drill-status-row{display:flex;align-items:center;gap:6px;min-width:0}
+.drill-status-pill{padding:7px 10px;border-radius:999px;background:#293c60;border:1px solid #506a98;color:#edf3ff;font-size:12px;font-weight:800;white-space:nowrap}
+.drill-status-pill.accent{background:linear-gradient(135deg,#684cff,#5e80ff);border-color:#a18fff}
+.drill-top-actions{display:flex;gap:6px}.drill-icon-btn{min-width:42px;height:38px;padding:0 10px;border-radius:12px;font-size:18px}.drill-settings-btn{font-size:12px;min-width:56px}
+.drill-stage{min-height:0;display:grid;gap:9px}
+.drill-stage.write-stage{grid-template-columns:minmax(250px,.82fr) minmax(320px,1.18fr)}
+.drill-stage.typing-stage{grid-template-columns:1fr}
+.drill-question-pane,.drill-canvas-pane,.drill-typing-pane{min-height:0;border:1px solid #435c89;border-radius:20px;background:linear-gradient(145deg,rgba(29,43,75,.98),rgba(16,25,46,.98));box-shadow:var(--shadow)}
+.drill-question-pane{display:flex;flex-direction:column;justify-content:center;gap:12px;padding:18px}
+.drill-question-pane .meta{margin:0}.drill-question-pane .prompt{font-size:clamp(18px,2.4vw,30px);line-height:1.32}
+.drill-clue{font-size:clamp(30px,5.1vw,64px);line-height:1.05;font-weight:900;letter-spacing:-.03em;color:#fff}
+.drill-tip{color:#a9d8ff;font-size:13px;font-weight:700}
+#drillFeedback{margin:0;font-size:13px;line-height:1.35}
+.drill-canvas-pane{display:grid;grid-template-rows:minmax(0,1fr) auto;gap:8px;padding:10px}
+.drill-canvas-wrap{position:relative;min-height:0;display:grid;place-items:center;overflow:hidden;border-radius:18px;background:linear-gradient(90deg,transparent 49.7%,rgba(103,130,178,.18) 50%,transparent 50.3%),linear-gradient(transparent 49.7%,rgba(103,130,178,.18) 50%,transparent 50.3%),#fdfefe;border:2px solid #86a9dc}
+.drill-canvas-wrap canvas{display:block;width:auto;height:100%;max-width:100%;max-height:100%;aspect-ratio:1;border:0;border-radius:0;background:transparent}
+.drill-answer-overlay{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none;background:rgba(11,19,38,.82);backdrop-filter:blur(3px);color:#fff3bd;font-family:"Noto Serif CJK KR","Batang","NanumMyeongjo",serif;font-size:min(38vw,28vh);font-weight:700;text-shadow:0 6px 24px rgba(0,0,0,.35)}
+.drill-answer-overlay[hidden]{display:none!important}
+.drill-write-controls{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:7px}.drill-write-controls .btn{min-height:44px}
+.drill-typing-pane{display:grid;place-items:center;padding:18px}.drill-typing-inner{width:min(720px,100%);display:grid;gap:12px}.drill-typing-inner .big-hanja{font-size:min(26vw,28vh)}
+
+@media(max-width:619px){
+  body.drill-active .app{padding:5px}.drill-session-shell{gap:5px}
+  .drill-session-top{min-height:44px;padding:4px 5px;border-radius:13px}
+  .drill-status-row{gap:4px}.drill-status-pill{padding:6px 7px;font-size:11px}.drill-status-pill.hide-folded{display:none}
+  .drill-top-actions{gap:4px}.drill-icon-btn{height:34px;min-width:36px;padding:0 8px}.drill-settings-btn{min-width:48px;font-size:11px}
+  .drill-stage.write-stage{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr);gap:5px}
+  .drill-question-pane{padding:9px 11px;border-radius:15px;gap:5px;justify-content:flex-start}
+  .drill-question-pane .meta{display:none}.drill-question-pane .prompt{font-size:16px;line-height:1.25}.drill-clue{font-size:28px;line-height:1.03}.drill-tip{display:none}
+  #drillFeedback{font-size:11px;padding:7px;margin-top:1px}
+  .drill-canvas-pane{padding:6px;border-radius:15px;gap:5px}.drill-canvas-wrap{border-radius:13px}
+  .drill-write-controls{gap:5px}.drill-write-controls .btn{min-height:39px;padding:7px 6px;font-size:13px;border-radius:10px}
+  .drill-answer-overlay{font-size:min(54vw,31vh)}
+  .drill-typing-pane{padding:10px;border-radius:15px}.drill-typing-inner{gap:7px}.drill-typing-inner .big-hanja{font-size:min(42vw,26vh)}
+  .drill-typing-inner .prompt{font-size:18px;text-align:center}.drill-typing-inner .answer-row{margin-top:4px}
+}
+@media(min-width:620px){.drill-question-pane{padding:clamp(16px,2.2vw,28px)}.drill-canvas-pane{padding:12px}}
+
 </style>
 </head>
 <body>
@@ -558,6 +630,7 @@ function bind(){
 }
 function switchTab(id){
   mode=id;
+  if(id!=="drill")document.body.classList.remove("drill-active");
   $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
   $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
 
@@ -2559,6 +2632,7 @@ function renderExamResult(){
 }
 
 function renderDrill(){
+  document.body.classList.remove("drill-active");
   if(!$("#drill"))return;
   const grade=drillState.grade||"8급", mode2=drillState.mode||"meaningSound", order=drillState.order||"alpha";
   $("#drill").innerHTML=`<div class="card">
@@ -2566,7 +2640,7 @@ function renderDrill(){
     <div class="sub">한 급수의 배정한자만 따로 연습합니다. 가나다순은 대표 음의 가나다순으로 정렬하며, 랜덤은 매번 섞습니다.</div>
     <div class="toolbar">
       <div><div class="label">급수</div><select id="drillGrade">${GRADE_ORDER.map(g=>`<option ${g===grade?"selected":""}>${g}</option>`).join("")}</select></div>
-      <div><div class="label">연습 종류</div><select id="drillMode"><option value="meaningSound" ${mode2==="meaningSound"?"selected":""}>한자 → 훈음 입력</option><option value="write" ${mode2==="write"?"selected":""}>훈음 → 한자 입력</option></select></div>
+      <div><div class="label">연습 종류</div><select id="drillMode"><option value="meaningSound" ${mode2==="meaningSound"?"selected":""}>한자 → 훈음 입력</option><option value="write" ${mode2==="write"?"selected":""}>훈음 → 한자 손글씨</option></select></div>
       <div><div class="label">순서</div><select id="drillOrder"><option value="alpha" ${order==="alpha"?"selected":""}>가나다순</option><option value="random" ${order==="random"?"selected":""}>랜덤</option></select></div>
       <div><button class="btn primary" id="startDrill" style="width:100%">연습 시작</button></div>
     </div>
@@ -2595,55 +2669,98 @@ function drillQuestion(c){
 }
 function renderDrillCard(){
   const st=drillState,c=st.list[st.index],q=drillQuestion(c);
-  $("#drill").innerHTML=`<div class="kpis">
-    <div class="kpi"><b>${esc(st.grade)}</b><span>급수</span></div>
-    <div class="kpi"><b>${st.index+1}/${st.list.length}</b><span>${st.order==="alpha"?"가나다순":"랜덤"}</span></div>
-    <div class="kpi"><b>${st.mode==="meaningSound"?"훈음":"한자"}</b><span>적기 종류</span></div>
-    <div class="kpi"><b>${Math.round((st.index+1)/st.list.length*100)}%</b><span>진행 위치</span></div>
-  </div>
-  <div class="card drill-grid">
-    <div>
-      <div class="meta"><span class="badge">${esc(st.grade)}</span><span class="badge">${st.order==="alpha"?"가나다순":"랜덤"}</span></div>
-      <div class="prompt" style="margin-top:14px">${esc(q.prompt)}</div>
-      ${st.mode==="meaningSound"?`<div class="big-hanja">${esc(c.hanja)}</div>`:`<div class="drill-answer">${esc(q.display)}</div><div class="hanja-peek-wrap"><button class="btn" id="toggleDrillHanja">정답 한자 보기</button><div id="drillHanjaPeek" class="hanja-peek" hidden>${esc(c.hanja)}</div></div>`}
-      <div class="answer-row">
-        <input id="drillAnswer" autocomplete="off" autocapitalize="off" placeholder="${st.mode==="meaningSound"?"예: 마당 장":"정답 한자를 입력"}">
-        <button class="btn primary" id="checkDrill">채점</button>
+  const isWrite=st.mode==="write";
+  const pct=Math.round((st.index+1)/st.list.length*100);
+  document.body.classList.add("drill-active");
+
+  $("#drill").innerHTML=`<div class="drill-session-shell">
+    <div class="drill-session-top">
+      <div class="drill-status-row">
+        <span class="drill-status-pill accent">${esc(st.grade)}</span>
+        <span class="drill-status-pill">${st.index+1}/${st.list.length}</span>
+        <span class="drill-status-pill hide-folded">${st.order==="alpha"?"가나다순":"랜덤"}</span>
+        <span class="drill-status-pill">${pct}%</span>
       </div>
-      ${st.mode==="write"?`<details class="compact-settings"><summary>✍ 손글씨로 풀기</summary><div><div class="soft">타이핑 대신 직접 쓰고 싶을 때만 사용하세요.</div></div></details>`:""}
-      <div id="drillFeedback" class="feedback"></div>
-      <div class="actions"><button class="btn" id="prevDrill" ${st.index===0?"disabled":""}>이전</button><button class="btn" id="nextDrill">${st.index===st.list.length-1?"처음으로":"다음"}</button></div>
+      <div class="drill-top-actions">
+        <button class="btn drill-icon-btn" id="prevDrill" ${st.index===0?"disabled":""} aria-label="이전">‹</button>
+        <button class="btn drill-icon-btn" id="nextDrill" aria-label="다음">›</button>
+        <button class="btn drill-icon-btn drill-settings-btn" id="exitDrill">설정</button>
+      </div>
     </div>
-    <div>
-      ${st.mode==="write"?`<div class="card" style="box-shadow:none"><div class="section-title">손글씨 보조</div><div class="soft">키보드 채점이 기본입니다. 손글씨가 필요하면 아래에 직접 쓰세요.</div><canvas id="drillCanvas" width="600" height="600" style="margin-top:10px"></canvas><div class="canvas-tools"><button class="btn" id="clearDrillCanvas">지우기</button><button class="btn" id="autoCheckDrill">손글씨 검사</button></div></div>`:
-      `<div class="card" style="box-shadow:none"><div class="section-title">가나다순 기준</div><div class="note">대표 음 → 대표 훈 → 한자 순으로 정렬합니다.<br>현재 대표음: <b>${esc(charPrimary(c).sound)}</b></div></div>`}
-    </div>
+
+    ${isWrite?`
+      <div class="drill-stage write-stage">
+        <section class="drill-question-pane">
+          <div class="meta"><span class="badge">${esc(st.grade)}</span><span class="badge good">손글씨 전용</span></div>
+          <div class="prompt">${esc(q.prompt)}</div>
+          <div class="drill-clue">${esc(q.display)}</div>
+          <div class="drill-tip">캔버스에 직접 쓴 뒤 채점하세요. 정답은 필요할 때만 잠깐 볼 수 있습니다.</div>
+          <div id="drillFeedback" class="feedback"></div>
+        </section>
+        <section class="drill-canvas-pane">
+          <div class="drill-canvas-wrap">
+            <canvas id="drillCanvas" width="600" height="600"></canvas>
+            <div id="drillHanjaPeek" class="drill-answer-overlay" hidden>${esc(c.hanja)}</div>
+          </div>
+          <div class="drill-write-controls">
+            <button class="btn" id="clearDrillCanvas">지우기</button>
+            <button class="btn" id="toggleDrillHanja">정답 보기</button>
+            <button class="btn primary" id="autoCheckDrill">채점</button>
+          </div>
+        </section>
+      </div>
+    `:`
+      <div class="drill-stage typing-stage">
+        <section class="drill-typing-pane">
+          <div class="drill-typing-inner">
+            <div class="meta"><span class="badge">${esc(st.grade)}</span><span class="badge">${st.order==="alpha"?"가나다순":"랜덤"}</span></div>
+            <div class="prompt">${esc(q.prompt)}</div>
+            <div class="big-hanja">${esc(c.hanja)}</div>
+            <div class="answer-row">
+              <input id="drillAnswer" autocomplete="off" autocapitalize="off" placeholder="예: 마당 장">
+              <button class="btn primary" id="checkDrill">채점</button>
+            </div>
+            <div id="drillFeedback" class="feedback"></div>
+          </div>
+        </section>
+      </div>
+    `}
   </div>`;
-  if(st.mode==="write"){
-    const toggleHanja=$("#toggleDrillHanja");
-    const peekHanja=$("#drillHanjaPeek");
-    if(toggleHanja&&peekHanja){
-      toggleHanja.onclick=()=>{
-        const willShow=peekHanja.hidden;
-        peekHanja.hidden=!willShow;
-        toggleHanja.textContent=willShow?"정답 한자 숨기기":"정답 한자 보기";
-        toggleHanja.classList.toggle("primary",willShow);
-      };
-    }
+
+  $("#exitDrill").onclick=()=>renderDrill();
+  $("#prevDrill").onclick=()=>{
+    if(st.index>0){st.index--;st.checked=false;renderDrillCard()}
+  };
+  $("#nextDrill").onclick=()=>{
+    st.index=st.index===st.list.length-1?0:st.index+1;
+    st.checked=false;
+    renderDrillCard();
+  };
+
+  if(isWrite){
     setupAnyCanvas("#drillCanvas");
-    $("#clearDrillCanvas").onclick=()=>clearAnyCanvas("#drillCanvas");
+    $("#clearDrillCanvas").onclick=()=>{
+      clearAnyCanvas("#drillCanvas");
+      const fb=$("#drillFeedback");
+      if(fb){fb.className="feedback";fb.innerHTML=""}
+    };
+    const toggle=$("#toggleDrillHanja"),peek=$("#drillHanjaPeek");
+    toggle.onclick=()=>{
+      const show=peek.hidden;
+      peek.hidden=!show;
+      toggle.textContent=show?"정답 숨기기":"정답 보기";
+      toggle.classList.toggle("primary",show);
+    };
     $("#autoCheckDrill").onclick=()=>autoGradeHandwriting("#drillCanvas",c.hanja,c.total,(ok,score,label)=>{
+      st.checked=true;
       showHandwritingResult("#drillFeedback",c.hanja,ok,score,label);
       recordDrillHandwriting(c,q,ok);
     });
-    const revealDrill=$("#revealDrill");
-    if(revealDrill)revealDrill.onclick=()=>showDrillResult(c,q,false,true);
+  }else{
+    $("#checkDrill").onclick=()=>checkDrill(c,q);
+    $("#drillAnswer").onkeydown=e=>{if(e.key==="Enter")checkDrill(c,q)};
+    $("#drillAnswer").focus();
   }
-  $("#checkDrill").onclick=()=>checkDrill(c,q);
-  $("#drillAnswer").onkeydown=e=>{if(e.key==="Enter")checkDrill(c,q)};
-  $("#drillAnswer").focus();
-  $("#prevDrill").onclick=()=>{if(st.index>0){st.index--;st.checked=false;renderDrillCard()}};
-  $("#nextDrill").onclick=()=>{st.index=st.index===st.list.length-1?0:st.index+1;st.checked=false;renderDrillCard()};
 }
 function drillCorrect(q,val){return (Array.isArray(q.answer)?q.answer:[q.answer]).some(a=>norm(a)===norm(val))}
 function checkDrill(c,q){
