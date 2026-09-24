@@ -1657,21 +1657,76 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
 }
 
 .atlas-freq-table-wrap{border:0;border-radius:0;background:transparent}
-.atlas-freq-table{min-width:0;table-layout:fixed}
-.atlas-freq-table th:nth-child(1),.atlas-freq-table td:nth-child(1){width:42px;text-align:center}
-.atlas-freq-table th:nth-child(2),.atlas-freq-table td:nth-child(2){width:26%}
-.atlas-freq-table th:nth-child(4),.atlas-freq-table td:nth-child(4){width:88px;text-align:center}
-.atlas-freq-table th:nth-child(5),.atlas-freq-table td:nth-child(5){width:62px;text-align:center}
-.atlas-freq-table td{white-space:normal;vertical-align:middle;line-height:1.3}
-.atlas-freq-table .hanja-cell{font-size:22px;text-align:center;overflow-wrap:anywhere}
-.atlas-freq-answer-cell{font-weight:750;color:#eef4ff;overflow-wrap:anywhere}
-.atlas-freq-count-cell{color:#9be8d0;font-size:9px!important;font-weight:850}
-.atlas-freq-rank{color:#ffd57e;font-weight:900}
-@media(max-width:600px){
-  .atlas-freq-table th,.atlas-freq-table td{padding:7px 5px;font-size:9px}
-  .atlas-freq-table .hanja-cell{font-size:19px}
-  .atlas-freq-table th:nth-child(4),.atlas-freq-table td:nth-child(4){width:68px}
-  .atlas-freq-table th:nth-child(5),.atlas-freq-table td:nth-child(5){width:52px}
+
+/* 원본 PDF식: 출제 | 한자 | 독음·정답 3열 묶음을 가로로 반복 */
+.atlas-pdf-rank-wrap{
+  overflow-x:auto;
+  background:#fff;
+  border-top:1px solid #aeb4bd;
+  border-bottom:1px solid #aeb4bd;
+  -webkit-overflow-scrolling:touch;
+}
+.atlas-pdf-rank-table{
+  width:100%;
+  min-width:0;
+  border-collapse:collapse;
+  table-layout:fixed;
+  background:#fff;
+  color:#111;
+  font-family:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+.atlas-pdf-rank-table th,
+.atlas-pdf-rank-table td{
+  border:1px solid #b7bcc4;
+  padding:3px 4px;
+  height:27px;
+  line-height:1.15;
+  vertical-align:middle;
+  background:#fff;
+}
+.atlas-pdf-rank-table th{
+  font-size:8px;
+  font-weight:800;
+  text-align:center;
+  color:#25282d;
+  background:#f4f4f2;
+}
+.atlas-pdf-rank-table td.pdf-count{
+  width:28px;
+  text-align:center;
+  font-size:8px;
+  font-weight:700;
+  color:#111;
+}
+.atlas-pdf-rank-table td.pdf-hanja{
+  text-align:center;
+  font:700 18px/1.05 "Noto Serif CJK KR","Noto Serif KR","Batang",serif;
+  color:#111;
+  overflow-wrap:anywhere;
+}
+.atlas-pdf-rank-table td.pdf-answer{
+  text-align:center;
+  font-size:9px;
+  font-weight:650;
+  color:#111;
+  overflow-wrap:anywhere;
+}
+.atlas-pdf-rank-table td.pdf-empty{background:#fafafa;color:transparent}
+.atlas-pdf-rank-table td[data-atlas-item-key]{cursor:pointer}
+.atlas-pdf-rank-table td[data-atlas-item-key]:active{background:#eaf1f8}
+.atlas-pdf-note{
+  padding:5px 8px 7px;
+  background:#fff;
+  color:#60646a;
+  font-size:7px;
+  line-height:1.35;
+  text-align:right;
+}
+@media(max-width:430px){
+  .atlas-pdf-rank-table th,.atlas-pdf-rank-table td{padding:3px 3px;height:26px}
+  .atlas-pdf-rank-table td.pdf-count{font-size:7px}
+  .atlas-pdf-rank-table td.pdf-hanja{font-size:16px}
+  .atlas-pdf-rank-table td.pdf-answer{font-size:8px}
 }
 .atlas-format-group{margin:0;border-top:1px solid rgba(139,165,216,.16)}
 .atlas-format-group:first-of-type{border-top:0}
@@ -2692,7 +2747,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.10.0-20260924";
+const APP_BUILD="2.10.1-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -6306,18 +6361,27 @@ function atlasItemFrequencyHtml(type){
   });
 
   const tableBlock=function(g){
-    let h='<section class="atlas-format-group"><div class="atlas-format-head"><div><b>'+esc(g.label)+'</b><span>'+g.rows.length.toLocaleString()+'항목 · '+g.count+'문항 · '+g.rounds.size+'회차</span></div><em>동일 형식</em></div>'+
-      '<div class="atlas-table-wrap atlas-freq-table-wrap"><table class="atlas-table atlas-freq-table"><thead><tr><th>순위</th><th>한자·한자어</th><th>독음·정답</th><th>빈출</th><th>최근</th></tr></thead><tbody>';
-    g.rows.forEach(function(r,i){
-      const recent=(r.rounds&&r.rounds.length)?r.rounds[r.rounds.length-1]:"-";
-      h+='<tr data-atlas-item-key="'+esc(encodeURIComponent(r.key))+'" style="cursor:pointer">'+
-        '<td class="atlas-freq-rank">'+(i+1)+'</td>'+
-        '<td class="hanja-cell">'+esc(r.primary)+'</td>'+
-        '<td class="atlas-freq-answer-cell">'+esc(r.secondary||"-")+'</td>'+
-        '<td class="atlas-freq-count-cell">'+r.count+'문항 / '+r.rounds.length+'회</td>'+
-        '<td>제'+recent+'회</td></tr>';
-    });
-    return h+'</tbody></table></div></section>';
+    const vw=Math.max(document.documentElement.clientWidth||0,window.innerWidth||0);
+    const cols=vw>=650?4:(vw>=360?2:1);
+    const rowsPerCol=Math.max(1,Math.ceil(g.rows.length/cols));
+    let h='<section class="atlas-format-group"><div class="atlas-format-head"><div><b>'+esc(g.label)+'</b><span>'+g.rows.length.toLocaleString()+'항목 · '+g.count+'문항 · '+g.rounds.size+'회차 · 빈출순</span></div><em>PDF 원본식</em></div>'+
+      '<div class="atlas-pdf-rank-wrap"><table class="atlas-pdf-rank-table"><thead><tr>';
+    for(let c=0;c<cols;c++)h+='<th>출제</th><th>한자</th><th>독음·정답</th>';
+    h+='</tr></thead><tbody>';
+    for(let row=0;row<rowsPerCol;row++){
+      h+='<tr>';
+      for(let c=0;c<cols;c++){
+        const i=c*rowsPerCol+row,r=g.rows[i];
+        if(!r){h+='<td class="pdf-empty"></td><td class="pdf-empty"></td><td class="pdf-empty"></td>';continue}
+        const key=esc(encodeURIComponent(r.key));
+        h+='<td class="pdf-count" data-atlas-item-key="'+key+'">'+r.count+'</td>'+
+          '<td class="pdf-hanja" data-atlas-item-key="'+key+'">'+esc(r.primary)+'</td>'+
+          '<td class="pdf-answer" data-atlas-item-key="'+key+'">'+esc(r.secondary||"-")+'</td>';
+      }
+      h+='</tr>';
+    }
+    h+='</tbody></table><div class="atlas-pdf-note">출제 횟수 내림차순 · 같은 출제형식끼리만 집계</div></div></section>';
+    return h;
   };
 
   if(atlasState.view==="table"){
@@ -6612,7 +6676,7 @@ function renderAtlasResults(){
       :"";
     out.innerHTML=coverage+(type==="all"?atlasTypeOverviewHtml():atlasItemFrequencyHtml(type));
     document.querySelectorAll("[data-pick-type]").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.pickType;if(atlasState.view!=="grid")atlasState.view="table";renderAtlas()}});
-    document.querySelectorAll("[data-atlas-item-key]").forEach(function(b){b.onclick=function(){try{openAtlasItemDetail(decodeURIComponent(b.dataset.atlasItemKey||""))}catch{}}});
+    document.querySelectorAll("[data-atlas-item-key]").forEach(function(b){b.onclick=function(e){e&&e.stopPropagation();try{openAtlasItemDetail(decodeURIComponent(b.dataset.atlasItemKey||""))}catch{}}});
     return;
   }
   const rows=atlasRows(),longN=rows.filter(function(x){return x.tone===":"}).length,mixedN=rows.filter(function(x){return x.tone==="(:)"}).length;
