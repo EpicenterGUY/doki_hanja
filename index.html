@@ -2288,7 +2288,7 @@ let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha"
 const atlasRevealSet=new Set();
 const atlasToneBusy=new Set();
 let atlasFreqBusy=false;
-let diagnosisState={mode:"quick",phase:"intro",low:0,high:14,best:-1,stageGrade:null,stageQuestions:[],stageIndex:0,stageCorrect:0,stageRows:[],answers:[],tested:[],retest:false,totalAnswered:0};
+let diagnosisState={mode:"quick",phase:"intro",low:0,high:14,best:-1,stageGrade:null,stageQuestions:[],stageIndex:0,stageCorrect:0,stageAttempted:0,answers:[],tested:[],retest:false,totalAnswered:0,result:null};
 let diagnosisHistory=JSON.parse(localStorage.getItem("hanjaDiagnosisHistoryV1")||"[]");
 let hanjaFontMode=localStorage.getItem("hanjaFontModeV2")||"atlas";
 function applyHanjaFontMode(mode){hanjaFontMode=["atlas","soft","serif"].includes(mode)?mode:"atlas";document.documentElement.dataset.hanjaFont=hanjaFontMode;localStorage.setItem("hanjaFontModeV2",hanjaFontMode)}
@@ -3269,6 +3269,7 @@ function renderPracticeWelcome(){
       <div class="app-metric"><b>${wrongCount}</b><span>복습 대기</span></div>
     </div>
     ${hanjaPowerMarkup(p,true)}
+    ${smartRecommendationMarkup()}
     <section class="app-section">
       <div class="app-section-head"><div><div class="app-section-title">빠른 시작</div><div class="app-section-sub">자주 쓰는 학습만 크게 꺼냈어요.</div></div></div>
       <div class="app-action-grid">
