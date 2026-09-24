@@ -2895,7 +2895,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.10.5-20260924";
+const APP_BUILD="2.10.6-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -6236,9 +6236,9 @@ function clearCanvas(){
 const ATLAS_TONE_SEED_1={"呵":":","苛":":","駕":"(:)","澗":":","癎":"(:)","諫":":","揀":":","慷":":","愾":":","漑":":","凱":":","箇":"(:)","羹":":"};
 const ATLAS_GRADE_SLUG={"8급":"8급","7급Ⅱ":"준7급","7급":"7급","6급Ⅱ":"준6급","6급":"6급","5급Ⅱ":"준5급","5급":"5급","4급Ⅱ":"준4급","4급":"4급","3급Ⅱ":"준3급","3급":"3급","2급":"2급","1급":"1급","특급Ⅱ":"준특급","특급":"특급"};
 function atlasToneKey(g){return "hanjaAtlasToneV1_"+g}
-const ATLAS_FREQ_SCHEMA=7;
-function atlasFreqKey(g){return "hanjaAtlasFreqV9_"+g}
-function atlasFreqMetaKey(g){return "hanjaAtlasFreqMetaV6_"+g}
+const ATLAS_FREQ_SCHEMA=8;
+function atlasFreqKey(g){return "hanjaAtlasFreqV10_"+g}
+function atlasFreqMetaKey(g){return "hanjaAtlasFreqMetaV7_"+g}
 const atlasFreqMemory=new Map();
 const atlasFreqHydrating=new Set();
 let atlasFreqDbPromise=null;
@@ -6396,7 +6396,7 @@ function atlasHanjaGroups(s,minLen){
 function atlasExampleFromQuestion(q){
   let text=atlasCleanItemText(q.sourceText||q.prompt||"");
   if(text.length>180)text=text.slice(0,177)+"…";
-  return {round:+q.round||0,no:+q.no||0,text:text,answer:examAnswerDisplay(q),formatLabel:q.formatLabel||""};
+  return {round:+q.round||0,no:+q.no||0,text:text,answer:examAnswerDisplay(q),formatLabel:q.formatLabel||"",note:String(q.note||"").trim()};
 }
 function atlasCleanAnswerText(v){
   return String(v||"")
@@ -6452,13 +6452,15 @@ function atlasRelationFormat(type,primary,target){
 function atlasMeaningIndex(rows){
   const m=new Map(),priority=new Map();
   for(const r of (rows||[])){
-    if(!r||!r.primary||!/[가-힣]/.test(String(r.secondary||"")))continue;
-    let p=0;
-    if(r.type==="idiom"&&r.formatKey==="idiom_meaning")p=3;
-    else if(r.type==="definition")p=2;
-    if(!p)continue;
+    if(!r||!r.primary)continue;
+    let meaning="",p=0;
+    const noted=(r.examples||[]).find(function(x){return x&&/[가-힣]/.test(String(x.note||""))});
+    if(r.type==="idiom"&&noted){meaning=String(noted.note).trim();p=4}
+    else if(r.type==="idiom"&&r.formatKey==="idiom_meaning"&&/[가-힣]/.test(String(r.secondary||""))){meaning=String(r.secondary).trim();p=3}
+    else if(r.type==="definition"&&/[가-힣]/.test(String(r.secondary||""))){meaning=String(r.secondary).trim();p=2}
+    if(!p||!meaning)continue;
     const old=priority.get(r.primary)||0;
-    if(p>=old){m.set(r.primary,String(r.secondary||"").trim());priority.set(r.primary,p)}
+    if(p>=old){m.set(r.primary,meaning);priority.set(r.primary,p)}
   }
   return m;
 }
@@ -6471,18 +6473,43 @@ function atlasStudySupplement(row,meaningIndex){
     if(reading)out.push({label:"읽기",value:reading});
     if(meaning)out.push({label:"뜻",value:meaning});
   }else if(row.type==="antonym"||row.type==="synonym"){
-    const target=atlasBestHanjaGroup(atlasHanjaGroups(row.secondary||"",1),1,8);
-    const a=atlasHanjaReading(row.primary),b=atlasHanjaReading(target);
-    if(a||b)out.push({label:"읽기",value:[a,b].filter(Boolean).join(" ↔ ")});
+    const rel=atlasRelationDisplay(row);
+    if(rel&&(rel.leftReading||rel.rightReading)){
+      out.push({label:"읽기",value:[rel.leftReading,rel.rightReading].filter(Boolean).join(" "+rel.symbol+" ")});
+    }
   }else if(row.type==="definition"){
     const reading=atlasHanjaReading(row.primary);
     if(reading)out.push({label:"읽기",value:reading});
   }
   return out;
 }
+function atlasRelationDisplay(row){
+  if(!row||(row.type!=="antonym"&&row.type!=="synonym"))return null;
+  const target=atlasBestHanjaGroup(atlasHanjaGroups(row.secondary||"",1),1,8);
+  if(!target)return null;
+  const left=String(row.primary||""),right=target;
+  const leftReading=atlasHanjaReading(left),rightReading=atlasHanjaReading(right);
+  return {
+    left:left,right:right,
+    leftReading:leftReading,rightReading:rightReading,
+    symbol:row.type==="antonym"?"↔":"≒"
+  };
+}
+function atlasLongSoundDisplay(row){
+  if(!row||row.type!=="longSound")return null;
+  const reading=String(row.secondary||"").replace(/\s*·\s*(?:첫소리\s*)?장음\s*$/,"").trim()||atlasHanjaReading(row.primary);
+  return {word:String(row.primary||""),reading:reading,label:/첫소리 장음/.test(row.secondary||"")?"첫소리 장음":"장음"};
+}
 function atlasStudyPair(row){
   const type=row&&row.type||"",fk=row&&row.formatKey||"";
-  const reverse=type==="wordWrite"||type==="homonym"||type==="idiom"||fk==="definition_reverse";
+  if(type==="homonym"){
+    return {prompt:String(row.secondary||atlasHanjaReading(row.primary)||""),answer:String(row.primary||"")};
+  }
+  if(type==="longSound"){
+    const d=atlasLongSoundDisplay(row);
+    return {prompt:d?d.word:String(row.primary||""),answer:d?([d.reading,d.label].filter(Boolean).join(" · ")):String(row.secondary||"")};
+  }
+  const reverse=type==="wordWrite"||type==="idiom"||fk==="definition_reverse";
   let prompt=reverse?(row.secondary||""):(row.primary||"");
   let answer=reverse?(row.primary||""):(row.secondary||"");
   if(!prompt)prompt=row.primary||row.formatLabel||"문제";
@@ -6495,13 +6522,13 @@ function atlasStudyInstruction(row){
   if(t==="meaningSound")return "한자를 보고 훈·음을 떠올리기";
   if(t==="wordWrite")return fk==="wordwrite_from_meaning"?"뜻을 보고 한자어를 써보기":"제시어를 보고 한자로 써보기";
   if(t==="definition")return fk==="definition_reverse"?"뜻을 보고 한자어 떠올리기":"한자어를 보고 뜻 떠올리기";
-  if(t==="idiom")return "독음·단서를 보고 4자 성어 떠올리기";
-  if(t==="homonym")return "독음을 보고 동음이의 한자어 구별하기";
-  if(t==="antonym")return "제시어의 반대·상대어 떠올리기";
-  if(t==="synonym")return "제시어의 동의·유의어 떠올리기";
+  if(t==="idiom")return fk==="idiom_meaning"?"뜻을 보고 4자 성어 떠올리기":"읽기와 뜻을 함께 외우기";
+  if(t==="homonym")return "같은 소리의 한자어를 단어로 구별하기";
+  if(t==="antonym")return "두 한자어를 짝으로 읽고 반대 관계 외우기";
+  if(t==="synonym")return "두 한자어를 짝으로 읽고 비슷한 뜻 외우기";
   if(t==="radical")return "한자를 보고 부수 떠올리기";
   if(t==="abbreviation")return "정자를 보고 약자 떠올리기";
-  if(t==="longSound")return "훈음을 보고 장·단음 구별하기";
+  if(t==="longSound")return "실제 독음으로 읽고 첫소리 장음 여부 외우기";
   if(t==="fill")return "문맥을 보고 빈칸 떠올리기";
   return row&&row.formatLabel||atlasFreqDisplayName(t);
 }
@@ -6567,7 +6594,9 @@ function atlasItemEntries(q){
   if(type==="homonym"){
     const primary=atlasBestHanjaGroup(answerHanja,2,12);
     if(!primary)return [];
-    return one(primary,/[가-힣]/.test(clue)?clue:(atlasHanjaReading(primary)||ans));
+    const reading=atlasHanjaReading(primary);
+    if(!reading)return [];
+    return one(primary,reading);
   }
 
   if(type==="synonym"||type==="antonym"){
@@ -6616,10 +6645,20 @@ function atlasItemEntries(q){
     return primary?one(primary,ans):[];
   }
   if(type==="longSound"){
-    let terms=[];
-    if(Array.isArray(q.choices)&&q.choices.length)for(const c of q.choices)terms.push(...atlasHanjaGroups(c,2));
-    if(!terms.length)terms=atlasHanjaGroups(src,2);
-    return [...new Set(terms.map(examHanjaTermSafe).filter(Boolean))].slice(0,8).flatMap(function(t){return one(t,"장단음 문항")});
+    const ord=choiceOrdinal(q.answer);
+    let chosen="";
+    if(ord&&Array.isArray(q.choices)&&q.choices[ord-1]){
+      chosen=atlasBestHanjaGroup(atlasHanjaGroups(q.choices[ord-1],1),2,12);
+    }
+    if(!chosen){
+      const candidates=sourceGroups.filter(function(x){return atlasHanjaTextLen(x)>=2});
+      if(ord&&candidates[ord-1])chosen=candidates[ord-1];
+      else if(candidates.length===1)chosen=candidates[0];
+    }
+    if(!chosen)return [];
+    const reading=atlasHanjaReading(chosen);
+    const label=fmt.key==="long_choice"?"첫소리 장음":"장음";
+    return [{type:type,formatKey:fmt.key,formatLabel:fmt.label,key:type+"|"+fmt.key+"|"+chosen,primary:chosen,secondary:(reading?reading+" · ":"")+label,example:example}];
   }
   if(type==="choice")return [];
   if(type==="hanmun")return [];
