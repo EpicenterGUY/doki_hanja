@@ -5092,8 +5092,9 @@ function atlasTypeSummary(){
   return [...m.values()].sort(function(a,b){return b.questions-a.questions||b.items-a.items});
 }
 function atlasItemRowsForType(type){
+  const q=norm(atlasState.query);
   return currentAtlasItemRows(atlasState.grade,atlasState.scope)
-    .filter(function(x){return x.type===type})
+    .filter(function(x){return x.type===type&&(!q||norm(x.primary).includes(q)||norm(x.secondary).includes(q))})
     .sort(function(a,b){return b.rounds.length-a.rounds.length||b.count-a.count||String(a.primary).localeCompare(String(b.primary),"ko-KR")});
 }
 function atlasTypeOverviewHtml(){
@@ -5154,18 +5155,10 @@ async function prepareAtlasFrequency(grade){
       const round=rounds[i];
       if(status){status.className="atlas-progress";status.textContent=grade+" 빈출 집계 "+(i+1)+"/"+rounds.length+" · 제"+round+"회 (완료 "+ok+", 실패 "+fail+")"}
       try{
-        let items;
-        if(grade==="특급"&&round===38)items=EMBEDDED_SPECIAL38;
-        else{
-          const existing=availableExamQuestions().filter(function(x){return x.level===grade&&+x.round===round});
-          if(existing.length>=20)items=existing;
-          else{
-            const flat=await loadBundledRound(grade,round,null);if(!flat)throw Error("내장 데이터 없음");
-            const answerStart=findAnswerStart(flat);if(answerStart<0)throw Error("답안지 미인식");
-            const answers=parseAnswerRows(flat.slice(answerStart).map(function(x){return x.line}),0);
-            items=problemizeFlatPdf(grade,round,flat,answerStart,answers);if(!items||!items.length)throw Error("문제화 실패");
-          }
-        }
+        const flat=await loadBundledRound(grade,round,null);if(!flat)throw Error("내장 데이터 없음");
+        const answerStart=findAnswerStart(flat);if(answerStart<0)throw Error("답안지 미인식");
+        const answers=parseAnswerRows(flat.slice(answerStart).map(function(x){return x.line}),0);
+        const items=problemizeFlatPdf(grade,round,flat,answerStart,answers);if(!items||!items.length)throw Error("문제화 실패");
         addAtlasFreqItems(items,map);addAtlasItemFrequency(items,itemMap);ok++;
       }catch{fail++}
       if(i%5===4)await new Promise(function(resolve){setTimeout(resolve,0)});
@@ -5253,7 +5246,7 @@ function renderAtlas(){
   let freqCache=null,toneCache=null;
   try{freqCache=JSON.parse(localStorage.getItem(atlasFreqKey(atlasState.grade))||"null")}catch{}
   try{toneCache=JSON.parse(localStorage.getItem(atlasToneKey(atlasState.grade))||"null")}catch{}
-  let h='<div class="atlas-shell"><section class="atlas-toolbar"><div class="atlas-toolbar-top"><div><div class="atlas-title">'+(atlasState.mode==="freq"?"빈출 도감":"한자 도감")+'</div><div class="atlas-sub">한국어문회 훈음 · 장단음 참고표 · 가림 암기</div></div><button class="btn ghost" onclick="switchTab(\'more\')">← 기록</button></div>';
+  let h='<div class="atlas-shell"><section class="atlas-toolbar"><div class="atlas-toolbar-top"><div><div class="atlas-title">'+(atlasState.mode==="freq"?"빈출 도감":"한자 도감")+'</div><div class="atlas-sub">'+(atlasState.mode==="freq"?"독음·훈음·장단음·한자쓰기·부수 등 문제유형별 기출 빈출":"한국어문회 훈음 · 장단음 참고표 · 가림 암기")+'</div></div><button class="btn ghost" onclick="switchTab(\'more\')">← 기록</button></div>';
   h+='<div class="grade-scroller" style="margin-top:9px">'+GRADE_ORDER.map(function(g){return '<button class="grade-chip '+(g===atlasState.grade?"active":"")+'" onclick="setAtlasState(\'grade\',\''+g+'\')">'+g+'</button>'}).join("")+'</div>';
   h+='<div class="atlas-controls">';
   h+='<label class="atlas-control"><span>도감 종류</span><select id="atlasMode"><option value="grade" '+(atlasState.mode==="grade"?"selected":"")+'>배정한자</option><option value="freq" '+(atlasState.mode==="freq"?"selected":"")+'>기출 빈출</option></select></label>';
@@ -5276,7 +5269,7 @@ function renderAtlas(){
   }
   h+='<div id="atlasStatus" class="atlas-progress '+(freqCache?"ok":"")+'">'+st+'</div></section><div class="atlas-summary" id="atlasSummary"></div><div id="atlasResults"></div></div>';
   el.innerHTML=h;
-  $("#atlasMode").onchange=function(e){atlasState.mode=e.target.value;atlasState.freqType="all";if(atlasState.mode==="freq")atlasState.sort="freq";renderAtlas()};
+  $("#atlasMode").onchange=function(e){atlasState.mode=e.target.value;atlasState.freqType="all";atlasState.query="";if(atlasState.mode==="freq")atlasState.sort="freq";renderAtlas()};
   $("#atlasScope").onchange=function(e){atlasState.scope=e.target.value;atlasRevealSet.clear();renderAtlas()};
   $("#atlasMask").onchange=function(e){atlasState.mask=e.target.value;atlasRevealSet.clear();renderAtlas()};
   $("#atlasView").onchange=function(e){atlasState.view=e.target.value;renderAtlas()};
@@ -5288,6 +5281,7 @@ function renderAtlas(){
   $("#atlasFont").onclick=function(){applyHanjaFontMode(hanjaFontMode==="soft"?"serif":"soft");renderAtlas()};
   renderAtlasResults();
   if(atlasState.grade==="1급"&&!toneCache&&!atlasToneBusy.has("1급"))setTimeout(function(){syncAtlasToneGrade("1급",{quiet:true})},80);
+  if(atlasState.mode==="freq"&&atlasState.grade==="특급"&&!freqCache&&!atlasFreqBusy)setTimeout(function(){prepareAtlasFrequency("특급")},120);
 }
 
 function renderFreq(){
