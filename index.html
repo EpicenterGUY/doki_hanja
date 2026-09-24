@@ -599,6 +599,7 @@ body:not(.drill-active) .kpi{
   transition:transform .26s cubic-bezier(.2,.8,.2,1),opacity .2s ease;
 }
 #practiceSettingsPanel.sheet-open{
+  display:block!important;
   transform:translate(-50%,0) scale(1);
   opacity:1;
   pointer-events:auto;
@@ -2029,6 +2030,27 @@ html[data-hanja-font="serif"]{
   .diag-result-grade{font-size:38px}
 }
 
+
+/* PRACTICE SETTINGS SHEET FIX 2.8.1 */
+#practiceSettingsPanel.sheet-open{
+  visibility:visible!important;
+}
+@media(max-width:900px){
+  #practiceSettingsPanel{
+    left:50%!important;
+    bottom:calc(var(--dock-h) + 12px + env(safe-area-inset-bottom))!important;
+    width:min(620px,calc(100vw - 20px))!important;
+    max-width:calc(100vw - 20px)!important;
+    max-height:min(74dvh,720px)!important;
+  }
+}
+@media(max-height:650px){
+  #practiceSettingsPanel{
+    bottom:calc(8px + env(safe-area-inset-bottom))!important;
+    max-height:calc(100dvh - var(--appbar-h) - 24px)!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2490,7 +2512,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.8.0-20260924";
+const APP_BUILD="2.8.1-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
