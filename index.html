@@ -6246,8 +6246,9 @@ function atlasApplyPeriod(rows){
 function atlasTypeSummary(){
   const rows=atlasApplyPeriod(currentAtlasItemRows(atlasState.grade,atlasState.scope)),m=new Map();
   for(const r of rows){
-    const a=m.get(r.type)||{type:r.type,questions:0,items:0,rounds:new Set()};
+    const a=m.get(r.type)||{type:r.type,questions:0,items:0,rounds:new Set(),formats:new Set()};
     a.questions+=r.count;a.items++;
+    a.formats.add(r.formatKey||r.type);
     r.rounds.forEach(function(x){a.rounds.add(x)});m.set(r.type,a);
   }
   return [...m.values()].sort(function(a,b){return b.questions-a.questions||b.items-a.items});
@@ -6282,12 +6283,12 @@ function atlasTypeOverviewHtml(){
   if(atlasState.view==="table"){
     let h='<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>순위</th><th>문제 유형</th><th>문항 수</th><th>빈출 항목</th><th>출현 회차</th></tr></thead><tbody>';
     rows.forEach(function(r,i){
-      h+='<tr data-pick-type="'+esc(r.type)+'" style="cursor:pointer"><td>'+(i+1)+'</td><td><b>'+esc(TYPES[r.type]||r.type)+'</b></td><td>'+r.questions+'</td><td>'+r.items+'</td><td>'+r.rounds.size+'회차</td></tr>';
+      h+='<tr data-pick-type="'+esc(r.type)+'" style="cursor:pointer"><td>'+(i+1)+'</td><td><b>'+esc(TYPES[r.type]||r.type)+'</b><br><span class="small">출제형식 '+r.formats.size+'개</span></td><td>'+r.questions+'</td><td>'+r.items+'</td><td>'+r.rounds.size+'회차</td></tr>';
     });
     return h+'</tbody></table></div>';
   }
   return '<div class="atlas-grid">'+rows.map(function(r){
-    return '<button class="atlas-card" data-pick-type="'+esc(r.type)+'"><div class="atlas-hanja" style="font-family:inherit!important;font-size:22px!important">'+esc(TYPES[r.type]||r.type)+'</div><div class="atlas-hun">'+r.rounds.size+'회차 · '+r.questions+'문항</div><div class="atlas-meta"><span>빈출 항목 '+r.items+'개</span><span>유형 순위 보기</span></div></button>';
+    return '<button class="atlas-card" data-pick-type="'+esc(r.type)+'"><div class="atlas-hanja" style="font-family:inherit!important;font-size:22px!important">'+esc(TYPES[r.type]||r.type)+'</div><div class="atlas-hun">'+r.rounds.size+'회차 · '+r.questions+'문항</div><div class="atlas-meta"><span>빈출 항목 '+r.items+'개</span><span>출제형식 '+r.formats.size+'개</span></div></button>';
   }).join("")+'</div>';
 }
 function atlasItemFrequencyHtml(type){
