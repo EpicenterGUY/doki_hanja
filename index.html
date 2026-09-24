@@ -5099,7 +5099,7 @@ function readAtlasToneCache(g){
   return base;
 }
 function toneMarkerFor(c){return c?(readAtlasToneCache(c.level)[c.hanja]||""):""}
-function atlasRegexEscape(s){return String(s).replace(/[.*+?^$(){}|[\]\\]/g,"\\function atlasRegexEscape(s){return String(s).replace(/[.*+?^$(){}|[\]\\]/g,"\\function atlasRegexEscape(s){return String(s).replace(/[.*+?^$(){}|[\]\\]/g,"\\function renderFreq(){")}")}
+function atlasRegexEscape(s){return String(s).replace(/[.*+?^$(){}|[\]\\]/g,"\\$&")}
 async function syncAtlasToneGrade")}
 async function syncAtlasToneGrade(grade,opts){
   opts=opts||{};
