@@ -2067,6 +2067,36 @@ html[data-hanja-font="serif"]{
 .atlas-source-split span{display:block;margin-top:3px;font-size:8px;color:#8299bc}
 @media(max-width:380px){.atlas-source-split{grid-template-columns:1fr}}
 
+
+/* PRACTICE SETTINGS PORTAL FIX 2.9.1 */
+body>.app2-backdrop{z-index:1900!important}
+body>#practiceSettingsPanel{
+  z-index:1910!important;
+  display:block;
+  position:fixed!important;
+  left:50%!important;
+  right:auto!important;
+  top:auto!important;
+  box-sizing:border-box!important;
+  visibility:hidden;
+}
+body>#practiceSettingsPanel[hidden]{display:none!important}
+body>#practiceSettingsPanel.sheet-open{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  transform:translate3d(-50%,0,0) scale(1)!important;
+}
+body.practice-sheet-open{overflow:hidden}
+@media(orientation:landscape) and (min-width:700px){
+  body>#practiceSettingsPanel{
+    width:min(680px,calc(100vw - 40px))!important;
+    max-height:min(72dvh,620px)!important;
+    bottom:calc(18px + env(safe-area-inset-bottom))!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2529,7 +2559,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.9.0-20260924";
+const APP_BUILD="2.9.1-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -2546,15 +2576,27 @@ let deferredInstallPrompt=null;
 let appUpdateReady=false;
 let appReloading=false;
 
+function ensurePracticeSettingsPortal(){
+  const sheet=$("#practiceSettingsPanel");
+  if(!sheet)return null;
+  if(sheet.parentElement!==document.body)document.body.appendChild(sheet);
+  return sheet;
+}
 function closePracticeSheet(){
-  $("#practiceSettingsPanel")?.classList.remove("sheet-open");
+  const sheet=ensurePracticeSettingsPortal();
+  sheet?.classList.remove("sheet-open");
+  document.body.classList.remove("practice-sheet-open");
   $("#app2Backdrop")?.classList.remove("open");
 }
 function openPracticeSheet(){
   if(mode!=="practice")return;
-  const sheet=$("#practiceSettingsPanel");
+  const sheet=ensurePracticeSettingsPortal();
   if(!sheet)return;
   sheet.hidden=false;
+  document.body.classList.add("practice-sheet-open");
+  // Force layout before opening so Samsung Internet/Chrome in Fold landscape
+  // cannot leave the fixed sheet in its off-canvas transform state.
+  void sheet.offsetHeight;
   sheet.classList.add("sheet-open");
   $("#app2Backdrop")?.classList.add("open");
 }
@@ -2646,7 +2688,8 @@ async function openUpdateCenter(){
 }
 
 function bindAppShell(){
-  $$("#app2Dock .app2-nav").forEach(b=>b.onclick=()=>switchTab(b.dataset.appTab));
+  ensurePracticeSettingsPortal();
+  $("#app2Dock .app2-nav").forEach(b=>b.onclick=()=>switchTab(b.dataset.appTab));
   $("#openPracticeSettings")?.addEventListener("click",openPracticeSheet);
   $("#openUpdateCenter")?.addEventListener("click",openUpdateCenter);
   $("#closeUpdateCenter")?.addEventListener("click",closeUpdateCenter);
@@ -2756,10 +2799,13 @@ function switchTab(id){
   $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
 
   const grid=document.querySelector(".grid");
-  const settings=document.getElementById("practiceSettingsPanel");
+  const settings=ensurePracticeSettingsPortal();
   const showSettings=id==="practice";
   if(grid)grid.classList.toggle("no-sidebar",true);
-  if(settings){settings.hidden=!showSettings;if(!showSettings)settings.classList.remove("sheet-open")}
+  if(settings){
+    settings.hidden=!showSettings;
+    if(!showSettings){settings.classList.remove("sheet-open");document.body.classList.remove("practice-sheet-open")}
+  }
 
   if(id==="exam")renderExam();
   if(id==="drill")renderDrill();
