@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.9.2-20260924",
+  "webBuild": "2.9.3-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.9.3",
+      "title": "버튼 먹통 · 빈출 저장공간 오류 수정",
+      "items": [
+        "하단 메뉴와 급수 진단 약점 연습의 querySelector/forEach 오류를 수정해 버튼 이벤트가 정상 연결되도록 개선",
+        "업데이트 센터가 공용 배경막 아래에 깔려 터치되지 않던 z-index 충돌 수정",
+        "대용량 빈출 집계를 localStorage 대신 IndexedDB에 저장하도록 변경해 quota exceeded 오류 제거",
+        "저장공간 쓰기가 실패해도 집계 결과를 메모리에 유지해 즉시 화면에 표시되도록 개선",
+        "기존 localStorage 빈출 캐시는 자동으로 읽어 IndexedDB로 이전하고 오래된 대용량 키를 정리",
+        "빈출 캐시를 앱 실행 시 비동기로 불러와 기출 용례와 관련어가 다시 표시되도록 개선"
+      ]
+    },
     {
       "version": "2.9.2",
       "title": "연습 화면 공백 오류 수정 + 용례 출처 정리",
