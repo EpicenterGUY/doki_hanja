@@ -2552,7 +2552,7 @@ const TYPES={
   abbreviation:"약자", wordFormation:"한자어 조합", fill:"빈칸 완성", homonym:"동음이의어", multiReading:"동자이음", choice:"객관식", hanmun:"한문·응용"
 };
 const GENERATED_TYPES=new Set(["sound","meaning","meaningSound","write","radical","strokes","sameSound","multiReading"]);
-const SPECIAL_FREQ_TYPE_ORDER=["sound","wordWrite","meaningSound","wordFormation","radical","abbreviation","longSound","synonym","antonym","homonym","idiom","definition","hanmun","fill","sameSound","multiReading","choice"];
+const SPECIAL_FREQ_TYPE_ORDER=["sound","wordWrite","meaningSound","radical","abbreviation","longSound","synonym","antonym","homonym","idiom","definition","sameSound","multiReading"];
 const RAW_URL="https://raw.githubusercontent.com/rycont/hanja-grade-dataset/main/hanja.csv";
 
 let chars=[], examItems=[], session=[], current=0, sessionScore={ok:0,no:0}, mode="practice";
@@ -2878,7 +2878,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.10.4-20260924";
+const APP_BUILD="2.10.5-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -5205,7 +5205,11 @@ function examFormatInfo(type,desc){
   if(type==="synonym"){if(/찾아.*번호|번호로답|고르/.test(t))return out("synonym_choice","유의어 고르기");if(/각漢字|類義字|유의자|비슷한뜻.*漢字(?!語)/.test(t))return out("synonym_char","유의자 쓰기");return out("synonym_word","한자어 유의어 쓰기")}
   if(type==="antonym"){if(/찾아.*번호|번호로답|고르/.test(t))return out("antonym_choice","반대·상대어 고르기");if(/각漢字|反義字|상대.*漢字(?!語)|반대.*漢字(?!語)/.test(t))return out("antonym_char","반대·상대자 쓰기");return out("antonym_word","한자어 반대·상대어 쓰기")}
   if(type==="homonym"){if(/구별|둘|두쌍|짝/.test(t))return out("homonym_context","문맥 동음이의어 구별");return out("homonym_write","동음이의어 쓰기")}
-  if(type==="idiom")return out("idiom_complete","사자성어 완성");
+  if(type==="idiom"){
+    if(/뜻|풀이|意味|의미|解釋|해석/.test(t))return out("idiom_meaning","사자성어 뜻풀이");
+    if(/讀音|독음|읽는소리|읽으/.test(t))return out("idiom_reading","사자성어 독음");
+    return out("idiom_complete","사자성어 완성");
+  }
   if(type==="fill"){if(/四字|成語|성어/.test(t))return out("fill_idiom","성어 빈칸 완성");return out("fill_context","문맥 빈칸 완성")}
   if(type==="wordFormation")return out("word_formation","한자어 성립 판별");
   if(type==="sameSound")return out("same_sound","동음자");
@@ -6215,9 +6219,9 @@ function clearCanvas(){
 const ATLAS_TONE_SEED_1={"呵":":","苛":":","駕":"(:)","澗":":","癎":"(:)","諫":":","揀":":","慷":":","愾":":","漑":":","凱":":","箇":"(:)","羹":":"};
 const ATLAS_GRADE_SLUG={"8급":"8급","7급Ⅱ":"준7급","7급":"7급","6급Ⅱ":"준6급","6급":"6급","5급Ⅱ":"준5급","5급":"5급","4급Ⅱ":"준4급","4급":"4급","3급Ⅱ":"준3급","3급":"3급","2급":"2급","1급":"1급","특급Ⅱ":"준특급","특급":"특급"};
 function atlasToneKey(g){return "hanjaAtlasToneV1_"+g}
-const ATLAS_FREQ_SCHEMA=6;
-function atlasFreqKey(g){return "hanjaAtlasFreqV8_"+g}
-function atlasFreqMetaKey(g){return "hanjaAtlasFreqMetaV5_"+g}
+const ATLAS_FREQ_SCHEMA=7;
+function atlasFreqKey(g){return "hanjaAtlasFreqV9_"+g}
+function atlasFreqMetaKey(g){return "hanjaAtlasFreqMetaV6_"+g}
 const atlasFreqMemory=new Map();
 const atlasFreqHydrating=new Set();
 let atlasFreqDbPromise=null;
@@ -6386,12 +6390,14 @@ function atlasCleanAnswerText(v){
 function atlasKoreanClue(q){
   let t=String(q&&q.korean||"").trim();
   if(t)return t;
-  t=stripQuestionMarker(q&&q.sourceText||q&&q.prompt||"",q&&q.no||0)
+  const source=q&&q.referenceText?String(q.referenceText):String(q&&q.sourceText||q&&q.prompt||"");
+  const marker=q&&q.referenceNo||q&&q.no||0;
+  t=stripQuestionMarker(source,marker)
     .replace(/[\u3400-\u9fff\uf900-\ufaff]+/g," ")
-    .replace(/[①②③④⑤⑥㈀㈁㈂㈃㈎㈏㈐㈑]/g," ")
+    .replace(/[①②③④⑤⑥⑦⑧⑨⑩㈀㈁㈂㈃㈎㈏㈐㈑]/g," ")
     .replace(/[()（）\[\]□△○:：]/g," ")
     .replace(/\s+/g," ").trim();
-  return t.slice(0,90);
+  return t.slice(0,120);
 }
 function atlasHanjaReading(term){
   const hs=[...String(term||"")].filter(function(ch){return /[\u3400-\u9fff\uf900-\ufaff]/.test(ch)});
@@ -6411,6 +6417,51 @@ function atlasHanjaTextLen(v){
 function atlasPureHanja(v){
   const t=String(v||"").replace(/\s+/g,"");
   return !!t&&atlasHanjaTextLen(t)>0&&t.replace(/[\u3400-\u9fff\uf900-\ufaff]/g,"")==="";
+}
+function atlasBestHanjaGroup(groups,minLen=1,maxLen=12){
+  return (groups||[])
+    .map(function(x){return examHanjaTermSafe(x)||""})
+    .filter(function(x){const n=atlasHanjaTextLen(x);return n>=minLen&&n<=maxLen})
+    .sort(function(a,b){return atlasHanjaTextLen(b)-atlasHanjaTextLen(a)})[0]||"";
+}
+function atlasRelationFormat(type,primary,target){
+  const a=atlasHanjaTextLen(primary),b=atlasHanjaTextLen(target);
+  const base=type==="antonym"?"반대·상대":"동의·유의";
+  if(a===1&&b===1)return {key:type+"_char",label:base+"자"};
+  if(a===2&&b===2)return {key:type+"_word2",label:"2자 "+base+"어"};
+  if(a>=2&&b>=2)return {key:type+"_word",label:"한자어 "+base+"어"};
+  return null;
+}
+function atlasMeaningIndex(rows){
+  const m=new Map(),priority=new Map();
+  for(const r of (rows||[])){
+    if(!r||!r.primary||!/[가-힣]/.test(String(r.secondary||"")))continue;
+    let p=0;
+    if(r.type==="idiom"&&r.formatKey==="idiom_meaning")p=3;
+    else if(r.type==="definition")p=2;
+    if(!p)continue;
+    const old=priority.get(r.primary)||0;
+    if(p>=old){m.set(r.primary,String(r.secondary||"").trim());priority.set(r.primary,p)}
+  }
+  return m;
+}
+function atlasStudySupplement(row,meaningIndex){
+  const out=[];
+  if(!row)return out;
+  if(row.type==="idiom"){
+    const reading=atlasHanjaReading(row.primary);
+    const meaning=(row.formatKey==="idiom_meaning"&&/[가-힣]/.test(row.secondary||""))?row.secondary:(meaningIndex&&meaningIndex.get(row.primary)||"");
+    if(reading)out.push({label:"읽기",value:reading});
+    if(meaning)out.push({label:"뜻",value:meaning});
+  }else if(row.type==="antonym"||row.type==="synonym"){
+    const target=atlasBestHanjaGroup(atlasHanjaGroups(row.secondary||"",1),1,8);
+    const a=atlasHanjaReading(row.primary),b=atlasHanjaReading(target);
+    if(a||b)out.push({label:"읽기",value:[a,b].filter(Boolean).join(" ↔ ")});
+  }else if(row.type==="definition"){
+    const reading=atlasHanjaReading(row.primary);
+    if(reading)out.push({label:"읽기",value:reading});
+  }
+  return out;
 }
 function atlasStudyPair(row){
   const type=row&&row.type||"",fk=row&&row.formatKey||"";
@@ -6503,32 +6554,46 @@ function atlasItemEntries(q){
   }
 
   if(type==="synonym"||type==="antonym"){
-    const charFormat=/(?:_char)$/.test(fmt.key||"");
-    const primary=trusted||sourceGroups[0]||"";
+    const target=atlasBestHanjaGroup(answerHanja,1,8);
+    if(!target)return [];
+    const targetLen=atlasHanjaTextLen(target);
+    const candidates=sourceGroups.concat(trusted?[trusted]:[]).filter(Boolean);
+    const sameLen=candidates.find(function(x){return atlasHanjaTextLen(x)===targetLen});
+    const primary=sameLen||atlasBestHanjaGroup(candidates,targetLen===1?1:2,8);
     if(!primary)return [];
-    if(!charFormat&&atlasHanjaTextLen(primary)<2)return [];
-    const ansH=atlasHanjaGroups(ans,1)[0]||"";
-    if(ansH&&!charFormat&&atlasHanjaTextLen(ansH)<2)return [];
-    return one(primary,ans);
+    const rf=atlasRelationFormat(type,primary,target);
+    if(!rf)return [];
+    return [{type:type,formatKey:rf.key,formatLabel:rf.label,key:type+"|"+rf.key+"|"+primary+"|"+target,primary:primary,secondary:target,example:example}];
   }
 
   if(type==="idiom"){
-    const answerTerm=answerHanja[0]||"";
-    const full=atlasIdiomCompleted(q,answerTerm);
+    const answerTerm=atlasBestHanjaGroup(answerHanja,1,4);
     const sourceFour=sourceGroups.find(function(x){return atlasHanjaTextLen(x)===4})||"";
+    if(fmt.key==="idiom_meaning"){
+      const primary=sourceFour||(atlasHanjaTextLen(trusted)===4?trusted:"")||(atlasHanjaTextLen(answerTerm)===4?answerTerm:"");
+      if(!primary||!/[가-힣]/.test(ans))return [];
+      return one(primary,ans);
+    }
+    const full=atlasIdiomCompleted(q,answerTerm);
     const primary=(atlasHanjaTextLen(full)===4?full:"")||sourceFour||(atlasHanjaTextLen(answerTerm)===4?answerTerm:"");
     if(!primary)return [];
     const reading=atlasHanjaReading(primary);
     return one(primary,reading||clue||ans);
   }
+
+  // 빈칸형은 그 자체로는 암기 단위가 불명확하다.
+  // 단, 4자 성어 완성으로 확실히 복원되는 경우만 사자성어로 승격한다.
   if(type==="fill"){
-    const primary=answerHanja[0]||trusted||sourceGroups[0]||"";
-    return primary?one(primary,atlasHanjaReading(primary)||clue||ans):[];
+    if(fmt.key!=="fill_idiom")return [];
+    const answerTerm=atlasBestHanjaGroup(answerHanja,1,4);
+    const full=atlasIdiomCompleted(q,answerTerm);
+    if(atlasHanjaTextLen(full)!==4)return [];
+    const reading=atlasHanjaReading(full);
+    return [{type:"idiom",formatKey:"idiom_complete",formatLabel:"사자성어 완성",key:"idiom|idiom_complete|"+full,primary:full,secondary:reading||"",example:example}];
   }
-  if(type==="wordFormation"){
-    const primary=trusted||sourceGroups[0]||"";
-    return primary?one(primary,ans||"한자어 조합 판별"):[];
-  }
+
+  // 성립 판별·일반 객관식·한문 응용은 빈출 암기표에 넣지 않는다.
+  if(type==="wordFormation")return [];
   if(type==="sameSound"||type==="multiReading"){
     const primary=trusted||sourceGroups[0]||"";
     return primary?one(primary,ans):[];
@@ -6539,14 +6604,8 @@ function atlasItemEntries(q){
     if(!terms.length)terms=atlasHanjaGroups(src,2);
     return [...new Set(terms.map(examHanjaTermSafe).filter(Boolean))].slice(0,8).flatMap(function(t){return one(t,"장단음 문항")});
   }
-  if(type==="choice"){
-    const primary=answerHanja[0]||"";
-    return primary?one(primary,clue||ans):[];
-  }
-  if(type==="hanmun"){
-    const primary=trusted||sourceGroups.find(function(x){return x.length>=2})||"";
-    return primary?one(primary,ans):[];
-  }
+  if(type==="choice")return [];
+  if(type==="hanmun")return [];
   return [];
 }
 function addAtlasItemFrequency(items,map){
@@ -6637,7 +6696,8 @@ function atlasApplyPeriod(rows){
   }).filter(function(r){return r.rounds.length&&r.count>0});
 }
 function atlasTypeSummary(){
-  const rows=atlasApplyPeriod(currentAtlasItemRows(atlasState.grade,atlasState.scope)),m=new Map();
+  const allowed=new Set(SPECIAL_FREQ_TYPE_ORDER);
+  const rows=atlasApplyPeriod(currentAtlasItemRows(atlasState.grade,atlasState.scope)).filter(function(r){return allowed.has(r.type)}),m=new Map();
   for(const r of rows){
     const a=m.get(r.type)||{type:r.type,questions:0,items:0,rounds:new Set(),formats:new Set()};
     a.questions+=r.count;a.items++;
@@ -6681,7 +6741,7 @@ function atlasTrend(row){
 }
 function atlasTypeOverviewHtml(){
   const rows=atlasTypeSummary();
-  if(!rows.length)return '<div class="atlas-empty">아직 유형별 빈출 데이터가 없습니다.<br>‘기출 전체 집계’를 실행하면 독음·한자어쓰기·훈음·한자어 조합·부수·약자·장단음·유의어·반의어·동음이의어·사자성어·뜻풀이·한문/응용을 각각 따로 만듭니다.</div>';
+  if(!rows.length)return '<div class="atlas-empty">아직 암기용 빈출 데이터가 없습니다.<br>‘기출 전체 집계’를 실행하면 독음·한자쓰기·훈음·부수·약자·장단음·유의어·반대/상대어·동음이의어·사자성어·뜻풀이 등 실제 암기에 도움이 되는 유형만 정리합니다.</div>';
   if(atlasState.view==="table"){
     let h='<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>순위</th><th>문제 유형</th><th>문항 수</th><th>빈출 항목</th><th>출현 회차</th></tr></thead><tbody>';
     rows.forEach(function(r,i){
