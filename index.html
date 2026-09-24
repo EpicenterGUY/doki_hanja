@@ -3058,6 +3058,38 @@ function startDiagnosisWeakPractice(){
   if($("#scope"))$("#scope").value="all";
   startPractice(false);
 }
+function uniqueQuestions(list){
+  const m=new Map();
+  for(const q of list||[]){const k=keyOf(q);if(!m.has(k))m.set(k,q)}
+  return [...m.values()];
+}
+function startSmartRoutine(){
+  const d=latestDiagnosis(),level=d?.grade||$("#level")?.value||"1급";
+  if($("#level"))$("#level").value=level;
+  let types=(d?.weakTypes||[]).map(function(x){return x.type}).filter(function(t){return ["sound","meaningSound","write"].includes(t)}).slice(0,2);
+  if(!types.length){
+    const p=hanjaPowerProfile();
+    types=(p.typeRows||[]).filter(function(x){return ["sound","meaningSound","write"].includes(x.type)}).sort(function(a,b){return a.pct-b.pct}).slice(0,2).map(function(x){return x.type});
+  }
+  if(!types.length)types=["meaningSound","sound"];
+  let pool=[];
+  const allowed=chars.filter(function(c){return gradeAllowed(c.level,level)});
+  for(const t of types)for(const c of allowed){const q=makeGeneratedQuestion(c,t);if(q)pool.push(q)}
+  pool=uniqueQuestions(pool);
+  const wrongPool=shuffle(pool.filter(function(q){return wrong[keyOf(q)]?.count>0})).slice(0,5);
+  const wrongKeys=new Set(wrongPool.map(keyOf));
+  const unseenPool=shuffle(pool.filter(function(q){return !wrongKeys.has(keyOf(q))&&!stats[keyOf(q)]})).slice(0,5);
+  const used=new Set(wrongPool.concat(unseenPool).map(keyOf));
+  let freqPool=pool.filter(function(q){return !used.has(keyOf(q))&&freqCount(q.hanja)>0}).sort(function(a,b){return freqCount(b.hanja)-freqCount(a.hanja)}).slice(0,5);
+  freqPool.forEach(function(q){used.add(keyOf(q))});
+  const fill=shuffle(pool.filter(function(q){return !used.has(keyOf(q))})).slice(0,15-wrongPool.length-unseenPool.length-freqPool.length);
+  session=wrongPool.concat(unseenPool,freqPool,fill);
+  if(!session.length){toast("맞춤 루틴을 만들 문제가 없습니다.");return}
+  shuffle(session);current=0;sessionScore={ok:0,no:0};
+  switchTab("practice");renderQuestion();
+  toast(level+" 맞춤 루틴 · "+session.length+"문제");
+}
+
 function diagnosisResultMarkup(r){
   const weak=(r.weakTypes||[]).slice(0,2);
   const tested=(r.tested||[]).slice().sort(function(a,b){return gradeIndex(a.grade)-gradeIndex(b.grade)});
@@ -3075,7 +3107,7 @@ function diagnosisResultMarkup(r){
     </div>
     <div class="diag-actions">
       <button class="btn primary" onclick="applyDiagnosisGrade('${esc(r.grade)}')">이 급수로 공부</button>
-      <button class="btn" onclick="startDiagnosisWeakPractice()">약점 10문제</button>
+      <button class="btn" onclick="startSmartRoutine()">맞춤 15문제</button>
       <button class="btn" onclick="diagnosisState.phase='intro';renderDiagnosis()">다시 진단</button>
     </div>
     <div class="atlas-detail-note">이 결과는 한국어문회 배정한자 데이터를 이용한 앱 내 학습 진단이며 실제 검정시험의 합격 판정이나 공식 급수 인증은 아닙니다.</div>
@@ -3155,7 +3187,7 @@ function smartRecommendationMarkup(){
   return `<div class="smart-card">
     <div class="smart-card-head"><b>맞춤 추천 · ${esc(r.grade)}</b><span>${esc(r.confidence)} 신뢰도</span></div>
     <p>최근 진단 ${r.accuracy}% · ${weak?"가장 약한 유형은 "+esc(label)+" "+weak.pct+"%.":"유형별 약점은 아직 뚜렷하지 않아요."}</p>
-    <div class="actions"><button class="btn primary" onclick="startDiagnosisWeakPractice()">약점 연습</button><button class="btn" onclick="openUtility('diagnosis')">진단 결과</button></div>
+    <div class="actions"><button class="btn primary" onclick="startSmartRoutine()">오늘의 맞춤 루틴</button><button class="btn" onclick="startDiagnosisWeakPractice()">약점만</button><button class="btn" onclick="openUtility('diagnosis')">진단 결과</button></div>
   </div>`;
 }
 
