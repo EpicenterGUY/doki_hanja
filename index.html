@@ -2527,7 +2527,7 @@ function openUtility(id){
   if(id==="data")renderData();
   if(id==="atlas")renderAtlas();
   const sec=$("#"+id);
-  if(sec)sec.insertAdjacentHTML("afterbegin",`<button class="btn ghost" onclick="switchTab('more')" style="margin-bottom:10px">← 기록·설정으로</button>`);
+  if(sec&&id!=="atlas")sec.insertAdjacentHTML("afterbegin",`<button class="btn ghost" onclick="switchTab('more')" style="margin-bottom:10px">← 기록·설정으로</button>`);
 }
 
 function renderPracticeWelcome(){
@@ -4855,7 +4855,7 @@ async function syncAtlasToneGrade(grade,opts){
   try{
     if(status&&!opts.quiet){status.className="atlas-progress";status.textContent=grade+" 장단음 참고표 동기화 중…"}
     const title="전국한자능력검정시험/배정한자/"+(ATLAS_GRADE_SLUG[grade]||grade);
-    const url="https://r.jina.ai/https://namu.moe/w/"+encodeURIComponent(title);
+    const url="https://r.jina.ai/https://namu.moe/w/"+title.split("/").map(encodeURIComponent).join("/");
     const res=await fetchWithTimeout(url,{cache:"no-store",headers:{"Accept":"text/plain"}},10000);
     if(!res.ok)throw Error("HTTP "+res.status);
     const lines=(await res.text()).split(/\r?\n/),map=grade==="1급"?Object.assign({},ATLAS_TONE_SEED_1):{};
