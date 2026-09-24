@@ -1843,6 +1843,28 @@ html[data-hanja-font="serif"]{
   .atlas-period-chip{min-height:29px;padding:5px 9px;font-size:8px}
 }
 
+
+/* ATLAS MOBILE WIDTH FIX 2.7.1 */
+.atlas-shell,.atlas-toolbar,.atlas-toolbar-top,.atlas-controls,.atlas-control,#atlasResults{min-width:0;max-width:100%;box-sizing:border-box}
+.atlas-toolbar{overflow:hidden}
+.atlas-controls>*{min-width:0;max-width:100%}
+.atlas-control select,.atlas-search{max-width:100%;box-sizing:border-box;text-overflow:ellipsis}
+.grade-scroller,.atlas-type-row,.atlas-period-row{max-width:100%;overscroll-behavior-inline:contain}
+.atlas-actions{max-width:100%}
+.atlas-actions .btn{min-width:0;white-space:normal;line-height:1.2}
+@media(max-width:600px){
+  .atlas-toolbar{width:100%}
+  .atlas-controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .atlas-toolbar-top>div{min-width:0}
+  .atlas-title,.atlas-sub{overflow-wrap:anywhere}
+  .atlas-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+  .atlas-actions .btn{width:100%;justify-content:center}
+}
+@media(max-width:360px){
+  .atlas-controls{grid-template-columns:1fr}
+  .atlas-actions{grid-template-columns:1fr 1fr}
+}
+
 </style>
 </head>
 <body>
@@ -5448,7 +5470,7 @@ async function prepareAtlasFrequency(grade){
       if(i%5===4)await new Promise(function(resolve){setTimeout(resolve,0)});
     }
     const rows=[...map.values()].map(function(a){const tr={};for(const [t,rs] of Object.entries(a.typeRounds||{}))tr[t]=[...rs].sort(function(x,y){return x-y});return {hanja:a.hanja,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),types:[...a.types],typeCounts:a.typeCounts||{},typeRounds:tr}});
-    const itemRows=[...itemMap.values()].map(function(a){return {type:a.type,key:a.key,primary:a.primary,secondary:a.secondary,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y})}});
+    const itemRows=[...itemMap.values()].map(function(a){return {type:a.type,key:a.key,primary:a.primary,secondary:a.secondary,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),roundCounts:a.roundCounts||{},examples:(a.examples||[]).slice(0,10)}});
     localStorage.setItem(atlasFreqKey(grade),JSON.stringify({at:Date.now(),grade:grade,roundsProcessed:ok,totalRounds:rounds.length,failed:fail,rows:rows,itemRows:itemRows}));
     if(status){status.className="atlas-progress "+(fail?"":"ok");status.textContent=grade+" 빈출 집계 완료 · "+ok+"/"+rounds.length+"회 · 한자 "+rows.length.toLocaleString()+"자 · 유형별 항목 "+itemRows.length.toLocaleString()+"개"+(fail?" · 실패 "+fail+"회":"")}
     toast(grade+" 빈출 도감 갱신 완료");
@@ -5509,12 +5531,13 @@ function atlasTableHtml(rows){
 function renderAtlasResults(){
   const out=$("#atlasResults"),sum=$("#atlasSummary");if(!out||!sum)return;
   if(atlasState.mode==="freq"){
-    const type=atlasState.freqType||"all",items=currentAtlasItemRows(atlasState.grade,atlasState.scope);
+    const type=atlasState.freqType||"all",rawItems=currentAtlasItemRows(atlasState.grade,atlasState.scope),items=atlasApplyPeriod(rawItems);
     const summaries=atlasTypeSummary(),roundSet=new Set();
     items.forEach(function(r){r.rounds.forEach(function(x){roundSet.add(x)})});
-    sum.innerHTML='<div><b>'+summaries.length+'</b><span>문제 유형</span></div><div><b>'+items.length.toLocaleString()+'</b><span>빈출 항목</span></div><div><b>'+roundSet.size+'</b><span>집계 회차</span></div><div><b>'+(type==="all"?"전체":esc(TYPES[type]||type))+'</b><span>현재 유형</span></div>';
+    sum.innerHTML='<div><b>'+summaries.length+'</b><span>문제 유형</span></div><div><b>'+items.length.toLocaleString()+'</b><span>빈출 항목</span></div><div><b>'+roundSet.size+'</b><span>'+atlasPeriodLabel()+'</span></div><div><b>'+(type==="all"?"전체":esc(TYPES[type]||type))+'</b><span>현재 유형</span></div>';
     out.innerHTML=type==="all"?atlasTypeOverviewHtml():atlasItemFrequencyHtml(type);
     document.querySelectorAll("[data-pick-type]").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.pickType;renderAtlas()}});
+    document.querySelectorAll("[data-atlas-item-key]").forEach(function(b){b.onclick=function(){try{openAtlasItemDetail(decodeURIComponent(b.dataset.atlasItemKey||""))}catch{}}});
     return;
   }
   const rows=atlasRows(),longN=rows.filter(function(x){return x.tone===":"}).length,mixedN=rows.filter(function(x){return x.tone==="(:)"}).length;
@@ -5523,7 +5546,11 @@ function renderAtlasResults(){
   if(!rows.length){out.innerHTML='<div class="atlas-empty">조건에 맞는 한자가 없습니다.</div>';return}
   out.innerHTML=atlasState.view==="table"?atlasTableHtml(rows):'<div class="atlas-grid">'+rows.map(atlasCardHtml).join("")+'</div>';
 }
-function toggleAtlasReveal(key){if(atlasState.mask==="none")return;if(atlasRevealSet.has(key))atlasRevealSet.delete(key);else atlasRevealSet.add(key);renderAtlasResults()}
+function toggleAtlasReveal(key){
+  if(atlasState.mask==="none"){openAtlasCharDetail(key);return}
+  if(atlasRevealSet.has(key)){openAtlasCharDetail(key);return}
+  atlasRevealSet.add(key);renderAtlasResults();
+}
 function setAtlasState(k,v){atlasState[k]=v;if(k==="grade"||k==="scope"||k==="mask")atlasRevealSet.clear();renderAtlas()}
 function renderAtlas(){
   const el=$("#atlas");if(!el)return;
@@ -5541,8 +5568,11 @@ function renderAtlas(){
   if(atlasState.mode==="freq"){
     const typeKeys=["all"].concat(Object.keys(TYPES));
     h+='<div class="atlas-type-row">'+typeKeys.map(function(t){return '<button class="atlas-type-chip '+((atlasState.freqType||"all")===t?"active":"")+'" data-atlas-type="'+t+'">'+(t==="all"?"전체 유형":esc(TYPES[t]||t))+'</button>'}).join("")+'</div>';
+    const periods=[["all","전체"],["10","최근 10회"],["20","최근 20회"],["30","최근 30회"]];
+    h+='<div class="atlas-period-row">'+periods.map(function(p){return '<button class="atlas-period-chip '+(String(atlasState.period)===p[0]?"active":"")+'" data-atlas-period="'+p[0]+'">'+p[1]+'</button>'}).join("")+'</div>';
   }
-  h+='<div class="atlas-actions"><button class="btn" id="atlasToneSync">장단음 자료 동기화</button><button class="btn '+(atlasState.mode==="freq"?"primary":"")+'" id="atlasFreqBuild">'+atlasState.grade+' 기출 전체 집계</button><button class="btn" id="atlasSort">'+(atlasState.sort==="freq"?"가나다순으로":"빈출순으로")+'</button><button class="btn" id="atlasFont">'+(hanjaFontMode==="soft"?"명조로 보기":"부드러운 고딕")+'</button></div>';
+  const fontLabel=hanjaFontMode==="atlas"?"도감체":"";
+  h+='<div class="atlas-actions"><button class="btn" id="atlasToneSync">장단음 자료 동기화</button><button class="btn '+(atlasState.mode==="freq"?"primary":"")+'" id="atlasFreqBuild">'+atlasState.grade+' 기출 전체 집계</button><button class="btn" id="atlasSort">'+(atlasState.sort==="freq"?"가나다순으로":"빈출순으로")+'</button><button class="btn" id="atlasFont">글꼴 · '+(fontLabel||(hanjaFontMode==="serif"?"명조":"고딕"))+'</button></div>';
   h+='<div class="atlas-tone-legend"><span><b class="atlas-tone">:</b> 장음</span><span><b class="atlas-tone">(:)</b> 장·단음 모두 쓰임</span><span>훈음: 한국어문회 기준</span><span>장단음: 참고표 기준</span></div>';
   let st;
   if(atlasState.mode==="freq")st=freqCache?(atlasState.grade+' 집계 '+(freqCache.roundsProcessed||0)+'/'+(freqCache.totalRounds||0)+'회 · '+((freqCache.rows||[]).length)+'자'):'현재 준비된 기출만 우선 표시 · 전체 집계 가능';
@@ -5553,16 +5583,17 @@ function renderAtlas(){
   }
   h+='<div id="atlasStatus" class="atlas-progress '+(freqCache?"ok":"")+'">'+st+'</div></section><div class="atlas-summary" id="atlasSummary"></div><div id="atlasResults"></div></div>';
   el.innerHTML=h;
-  $("#atlasMode").onchange=function(e){atlasState.mode=e.target.value;atlasState.freqType="all";atlasState.query="";if(atlasState.mode==="freq")atlasState.sort="freq";renderAtlas()};
+  $("#atlasMode").onchange=function(e){atlasState.mode=e.target.value;atlasState.freqType="all";atlasState.period="all";atlasState.query="";if(atlasState.mode==="freq")atlasState.sort="freq";renderAtlas()};
   $("#atlasScope").onchange=function(e){atlasState.scope=e.target.value;atlasRevealSet.clear();renderAtlas()};
   $("#atlasMask").onchange=function(e){atlasState.mask=e.target.value;atlasRevealSet.clear();renderAtlas()};
   $("#atlasView").onchange=function(e){atlasState.view=e.target.value;renderAtlas()};
   $("#atlasSearch").oninput=function(e){atlasState.query=e.target.value;renderAtlasResults()};
   document.querySelectorAll(".atlas-type-chip").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.atlasType||"all";renderAtlas()}});
+  document.querySelectorAll(".atlas-period-chip").forEach(function(b){b.onclick=function(){atlasState.period=b.dataset.atlasPeriod||"all";renderAtlas()}});
   $("#atlasToneSync").onclick=syncAtlasToneScope;
   $("#atlasFreqBuild").onclick=function(){prepareAtlasFrequency(atlasState.grade)};
   $("#atlasSort").onclick=function(){atlasState.sort=atlasState.sort==="freq"?"alpha":"freq";renderAtlas()};
-  $("#atlasFont").onclick=function(){applyHanjaFontMode(hanjaFontMode==="soft"?"serif":"soft");renderAtlas()};
+  $("#atlasFont").onclick=function(){const next=hanjaFontMode==="atlas"?"serif":(hanjaFontMode==="serif"?"soft":"atlas");applyHanjaFontMode(next);renderAtlas()};
   renderAtlasResults();
   if(atlasState.grade==="1급"&&!toneCache&&!atlasToneBusy.has("1급"))setTimeout(function(){syncAtlasToneGrade("1급",{quiet:true})},80);
   if(atlasState.mode==="freq"&&atlasState.grade==="특급"&&!freqCache&&!atlasFreqBusy)setTimeout(function(){prepareAtlasFrequency("특급")},120);
