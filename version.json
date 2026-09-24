@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.9.5-20260924",
+  "webBuild": "2.9.6-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.9.6",
+      "title": "사전 용례 한자 표기 · 중복 정리",
+      "items": [
+        "사전 용례 자동 수집 시 표제어의 한자 표기가 확인되는 항목만 표시하도록 변경",
+        "가책[가:책](呵責) 같은 발음 표기를 정리해 가책(呵責) 형식으로 통일",
+        "하다·되다 계열은 가책하다(呵責하다)처럼 한자 부분과 접미 표현을 함께 표시",
+        "기본 용례와 자동 사전 용례가 같은 표제어·한자 조합이면 한 번만 표시",
+        "한글 표제어가 같아도 한자 조합이 다른 동형어는 서로 다른 항목으로 유지",
+        "사전 용례를 최대 8개의 중복 없는 항목으로 표시"
+      ]
+    },
     {
       "version": "2.9.5",
       "title": "버튼 전수검사 · 이벤트 바인딩 안정화",
