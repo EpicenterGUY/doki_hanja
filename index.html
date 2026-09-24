@@ -1626,6 +1626,55 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   .atlas-meta span:nth-child(n+3){display:none}
 }
 
+
+/* HANJA FONT + RESET UI 2.6 */
+:root{
+  --hanja-font:"Noto Sans CJK KR","Noto Sans KR","Source Han Sans K","Malgun Gothic","Apple SD Gothic Neo","Yu Gothic",sans-serif;
+}
+html[data-hanja-font="serif"]{
+  --hanja-font:"Noto Serif CJK KR","Noto Serif KR","Source Han Serif K","Batang","Yu Mincho",serif;
+}
+.big-hanja,.drill-answer,.hanja-peek,.atlas-hanja,.atlas-table .hanja-cell,
+.word-char-box,.exam-session [style*="font-family:serif"],
+.practice-session [style*="font-family:serif"],
+.utility-modern [style*="font-family:serif"]{
+  font-family:var(--hanja-font)!important;
+  font-weight:650!important;
+  letter-spacing:-.035em;
+}
+.atlas-hanja{font-weight:680!important}
+.reset-zone{
+  display:grid;gap:8px;margin-top:10px;
+}
+.reset-row{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 13px;border-radius:16px;
+  border:1px solid rgba(255,112,125,.18);
+  background:rgba(80,20,31,.16);
+}
+.reset-row>span{min-width:0}
+.reset-row b{display:block;font-size:12px;color:#f4f7ff}
+.reset-row small{display:block;margin-top:3px;color:#9eabc2;font-size:9px;line-height:1.45}
+.reset-row .btn{flex:0 0 auto}
+.atlas-type-row{
+  display:flex;gap:6px;overflow:auto;padding:1px 0 3px;
+  scrollbar-width:none;
+}
+.atlas-type-row::-webkit-scrollbar{display:none}
+.atlas-type-chip{
+  flex:0 0 auto;border:1px solid rgba(138,164,216,.2);
+  background:rgba(8,17,34,.58);color:#91a6c7;
+  padding:7px 10px;border-radius:999px;font-size:9px;font-weight:850;
+}
+.atlas-type-chip.active{
+  color:#fff;border-color:rgba(114,129,255,.55);
+  background:linear-gradient(135deg,rgba(91,112,255,.88),rgba(126,77,246,.82));
+}
+@media(max-width:600px){
+  .reset-row{padding:10px 11px}
+  .reset-row b{font-size:11px}.reset-row small{font-size:8px}
+}
+
 </style>
 </head>
 <body>
@@ -1880,10 +1929,12 @@ const SPECIAL_NEW_META={"92":["u3BnH","btq4Y4RGae5","AAAAAAAAAAAAAAAAAAAAABvVu3a
 let stats=JSON.parse(localStorage.getItem("hanjaStatsV2")||"{}");
 let wrong=JSON.parse(localStorage.getItem("hanjaWrongV2")||"{}");
 let seenHanjaPowerLevel=+(localStorage.getItem("hanjaPowerSeenLevel")||0);
-let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"grid",query:""};
+let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"grid",query:"",freqType:"all"};
 const atlasRevealSet=new Set();
 const atlasToneBusy=new Set();
 let atlasFreqBusy=false;
+let hanjaFontMode=localStorage.getItem("hanjaFontModeV1")||"soft";
+function applyHanjaFontMode(mode){hanjaFontMode=mode==="serif"?"serif":"soft";document.documentElement.dataset.hanjaFont=hanjaFontMode;localStorage.setItem("hanjaFontModeV1",hanjaFontMode)}
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",1800)}
@@ -2082,7 +2133,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.5.0-20260924";
+const APP_BUILD="2.6.0-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -2268,6 +2319,7 @@ function initPWA(){
 }
 
 function init(){
+  applyHanjaFontMode(hanjaFontMode);
   try{
     const oldKeys=[];
     for(let i=0;i<localStorage.length;i++){
@@ -2480,6 +2532,32 @@ function startPractice(random10){
   switchTab("practice");renderQuestion();
 }
 
+
+function resetSessionProgress(){
+  const ok=confirm("현재 진행 중인 연습·기출·급수별 학습 위치와 도감에서 펼쳐 본 항목을 초기화할까요?\n\n누적 정답률, 오답 노트, 한자력 등 '나의 진척도'는 유지됩니다.");
+  if(!ok)return;
+  session=[];current=0;sessionScore={ok:0,no:0};
+  examState={questions:[],index:0,answers:[],checked:[],score:0,round:null,level:null};
+  drillState={list:[],index:0,mode:"meaningSound",order:"alpha",grade:$("#level")?.value||"8급",checked:false};
+  remoteExamState={round:null,url:null,pdf:null,questions:{},answers:{},types:{},pages:{},index:1,user:{},checked:{},score:0,loaded:false};
+  atlasRevealSet.clear();
+  renderPracticeWelcome();renderExam();renderDrill();
+  toast("현재 진행도를 초기화했습니다.");
+}
+function resetMyLearningProgress(){
+  const ok=confirm("경고: 나의 진척도를 초기화하면 누적 풀이 수, 정답률, 아는 한자, 숙련 한자, 유형별 숙련도, 오답 노트, 한자력 레벨이 모두 삭제됩니다.\n\n이 작업은 되돌릴 수 없습니다. 정말 초기화할까요?");
+  if(!ok)return;
+  const typed=prompt("정말 삭제하려면 아래 칸에 '초기화'라고 입력하세요.");
+  if(typed!=="초기화"){toast("진척도 초기화를 취소했습니다.");return}
+  stats={};wrong={};seenHanjaPowerLevel=0;
+  localStorage.removeItem("hanjaStatsV2");
+  localStorage.removeItem("hanjaWrongV2");
+  localStorage.removeItem("hanjaPowerSeenLevel");
+  atlasRevealSet.clear();
+  renderPracticeWelcome();renderMore();renderWrong();renderAtlasResults();
+  toast("나의 진척도를 초기화했습니다.");
+}
+
 function renderMore(){
   if(!$("#more"))return;
   const p=hanjaPowerProfile();
@@ -2512,6 +2590,13 @@ function renderMore(){
         <button class="app-list-row" onclick="openUtility('write')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10-3.5-3.5-10 10L4 20Z"/><path d="m13.5 6.5 3.5 3.5"/></svg></span><span class="app-list-text"><b>자유 쓰기</b><small>원하는 글자를 손글씨로 연습</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('data')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M5 19h14"/></svg></span><span class="app-list-text"><b>데이터 관리</b><small>백업 · 가져오기 · 기출 데이터</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUpdateCenter()"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span class="app-list-text"><b>업데이트 센터</b><small>웹·APK 업데이트와 변경사항 확인</small></span></span><span class="app-list-chevron">›</span></button>
+      </div>
+    </section>
+    <section class="app-section">
+      <div class="app-section-head"><div><div class="app-section-title">초기화</div><div class="app-section-sub">원하는 범위만 지울 수 있습니다.</div></div></div>
+      <div class="reset-zone">
+        <div class="reset-row"><span><b>현재 진행도 초기화</b><small>진행 중인 연습·기출·급수별 위치만 처음으로 돌립니다. 누적 기록은 유지됩니다.</small></span><button class="btn bad" onclick="resetSessionProgress()">초기화</button></div>
+        <div class="reset-row"><span><b>나의 진척도 초기화</b><small>정답률·숙련도·오답노트·한자력까지 모두 삭제합니다. 확인 문구 입력이 필요합니다.</small></span><button class="btn bad" onclick="resetMyLearningProgress()">전체 삭제</button></div>
       </div>
     </section>
   </div>`;
@@ -4839,7 +4924,7 @@ function clearCanvas(){
 const ATLAS_TONE_SEED_1={"呵":":","苛":":","駕":"(:)","澗":":","癎":"(:)","諫":":","揀":":","慷":":","愾":":","漑":":","凱":":","箇":"(:)","羹":":"};
 const ATLAS_GRADE_SLUG={"8급":"8급","7급Ⅱ":"준7급","7급":"7급","6급Ⅱ":"준6급","6급":"6급","5급Ⅱ":"준5급","5급":"5급","4급Ⅱ":"준4급","4급":"4급","3급Ⅱ":"준3급","3급":"3급","2급":"2급","1급":"1급","특급Ⅱ":"준특급","특급":"특급"};
 function atlasToneKey(g){return "hanjaAtlasToneV1_"+g}
-function atlasFreqKey(g){return "hanjaAtlasFreqV1_"+g}
+function atlasFreqKey(g){return "hanjaAtlasFreqV2_"+g}
 function readAtlasToneCache(g){
   const base=g==="1급"?Object.assign({},ATLAS_TONE_SEED_1):{};
   try{const x=JSON.parse(localStorage.getItem(atlasToneKey(g))||"null");if(x&&x.map)Object.assign(base,x.map)}catch{}
@@ -4898,9 +4983,14 @@ function addAtlasFreqItems(items,map){
     let basis=q.hanja||"";
     if(!basis&&q.type==="wordWrite")basis=Array.isArray(q.answer)?q.answer[0]:q.answer;
     if(!basis&&["fill","idiom","synonym","antonym","homonym","abbreviation"].includes(q.type))basis=Array.isArray(q.answer)?q.answer.join(""):q.answer;
+    const type=q.type||"other";
     for(const ch of extractHanjaChars(basis)){
-      const a=map.get(ch)||{hanja:ch,count:0,rounds:new Set(),types:new Set()};
-      a.count++;a.rounds.add(+q.round);if(q.type)a.types.add(q.type);map.set(ch,a);
+      const a=map.get(ch)||{hanja:ch,count:0,rounds:new Set(),types:new Set(),typeCounts:{},typeRounds:{}};
+      a.count++;a.rounds.add(+q.round);a.types.add(type);
+      a.typeCounts[type]=(a.typeCounts[type]||0)+1;
+      if(!a.typeRounds[type])a.typeRounds[type]=new Set();
+      a.typeRounds[type].add(+q.round);
+      map.set(ch,a);
     }
   }
 }
@@ -4912,10 +5002,15 @@ function currentAtlasFreqMap(grade,scope){
     try{
       const c=JSON.parse(localStorage.getItem(atlasFreqKey(g))||"null");
       for(const r of ((c&&c.rows)||[])){
-        const a=map.get(r.hanja)||{hanja:r.hanja,count:0,rounds:new Set(),types:new Set()};
+        const a=map.get(r.hanja)||{hanja:r.hanja,count:0,rounds:new Set(),types:new Set(),typeCounts:{},typeRounds:{}};
         a.count=Math.max(a.count,+r.count||0);
         (r.rounds||[]).forEach(function(x){a.rounds.add(+x)});
         (r.types||[]).forEach(function(x){a.types.add(x)});
+        for(const [t,n] of Object.entries(r.typeCounts||{}))a.typeCounts[t]=Math.max(a.typeCounts[t]||0,+n||0);
+        for(const [t,rs] of Object.entries(r.typeRounds||{})){
+          if(!a.typeRounds[t])a.typeRounds[t]=new Set();
+          (rs||[]).forEach(function(x){a.typeRounds[t].add(+x)});
+        }
         map.set(r.hanja,a);
       }
     }catch{}
@@ -4950,7 +5045,7 @@ async function prepareAtlasFrequency(grade){
       }catch{fail++}
       if(i%5===4)await new Promise(function(resolve){setTimeout(resolve,0)});
     }
-    const rows=[...map.values()].map(function(a){return {hanja:a.hanja,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),types:[...a.types]}});
+    const rows=[...map.values()].map(function(a){const tr={};for(const [t,rs] of Object.entries(a.typeRounds||{}))tr[t]=[...rs].sort(function(x,y){return x-y});return {hanja:a.hanja,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),types:[...a.types],typeCounts:a.typeCounts||{},typeRounds:tr}});
     localStorage.setItem(atlasFreqKey(grade),JSON.stringify({at:Date.now(),grade:grade,roundsProcessed:ok,totalRounds:rounds.length,failed:fail,rows:rows}));
     if(status){status.className="atlas-progress "+(fail?"":"ok");status.textContent=grade+" 빈출 집계 완료 · "+ok+"/"+rounds.length+"회 · "+rows.length.toLocaleString()+"자"+(fail?" · 실패 "+fail+"회":"")}
     toast(grade+" 빈출 도감 갱신 완료");
@@ -4972,8 +5067,12 @@ function atlasStudyStats(c){
 function atlasRows(){
   const freq=currentAtlasFreqMap(atlasState.grade,atlasState.scope);
   let rows=atlasCharacterPool().map(function(c){
-    const f=freq.get(c.hanja),study=atlasStudyStats(c);
-    return {c:c,canonical:officialMeaningSoundForms(c).canonical,tone:toneMarkerFor(c),count:f?f.count:0,rounds:f?f.rounds.size:0,roundList:f?[...f.rounds].sort(function(a,b){return a-b}):[],types:f?[...f.types]:[],study:study};
+    const f=freq.get(c.hanja),study=atlasStudyStats(c),ft=atlasState.freqType||"all";
+    const typeSet=f&&ft!=="all"&&f.typeRounds&&f.typeRounds[ft]?f.typeRounds[ft]:null;
+    const count=f?(ft==="all"?f.count:+(f.typeCounts&&f.typeCounts[ft]||0)):0;
+    const rounds=f?(ft==="all"?f.rounds.size:(typeSet?typeSet.size:0)):0;
+    const roundList=f?(ft==="all"?[...f.rounds].sort(function(a,b){return a-b}):(typeSet?[...typeSet].sort(function(a,b){return a-b}):[])):[];
+    return {c:c,canonical:officialMeaningSoundForms(c).canonical,tone:toneMarkerFor(c),count:count,rounds:rounds,roundList:roundList,types:f?[...f.types]:[],study:study};
   });
   if(atlasState.mode==="freq")rows=rows.filter(function(x){return x.count>0||x.rounds>0});
   if(atlasState.sort==="freq"||atlasState.mode==="freq")rows.sort(function(a,b){return b.rounds-a.rounds||b.count-a.count||String(a.c.sound).localeCompare(String(b.c.sound),"ko-KR")||String(a.c.hanja).localeCompare(String(b.c.hanja),"ko-KR")});
@@ -5027,11 +5126,19 @@ function renderAtlas(){
   h+='<label class="atlas-control"><span>암기 가림</span><select id="atlasMask"><option value="none" '+(atlasState.mask==="none"?"selected":"")+'>모두 보기</option><option value="hanja" '+(atlasState.mask==="hanja"?"selected":"")+'>한자 숨기기</option><option value="meaning" '+(atlasState.mask==="meaning"?"selected":"")+'>훈음 숨기기</option></select></label>';
   h+='<label class="atlas-control"><span>보기</span><select id="atlasView"><option value="grid" '+(atlasState.view==="grid"?"selected":"")+'>도감 격자</option><option value="table" '+(atlasState.view==="table"?"selected":"")+'>표</option></select></label></div>';
   h+='<input class="atlas-search" id="atlasSearch" value="'+esc(atlasState.query)+'" placeholder="한자 · 훈음 · 부수 검색">';
-  h+='<div class="atlas-actions"><button class="btn" id="atlasToneSync">장단음 자료 동기화</button><button class="btn '+(atlasState.mode==="freq"?"primary":"")+'" id="atlasFreqBuild">'+atlasState.grade+' 기출 전체 집계</button><button class="btn" id="atlasSort">'+(atlasState.sort==="freq"?"가나다순으로":"빈출순으로")+'</button></div>';
+  if(atlasState.mode==="freq"){
+    const typeKeys=["all"].concat(Object.keys(TYPES));
+    h+='<div class="atlas-type-row">'+typeKeys.map(function(t){return '<button class="atlas-type-chip '+((atlasState.freqType||"all")===t?"active":"")+'" data-atlas-type="'+t+'">'+(t==="all"?"전체 유형":esc(TYPES[t]||t))+'</button>'}).join("")+'</div>';
+  }
+  h+='<div class="atlas-actions"><button class="btn" id="atlasToneSync">장단음 자료 동기화</button><button class="btn '+(atlasState.mode==="freq"?"primary":"")+'" id="atlasFreqBuild">'+atlasState.grade+' 기출 전체 집계</button><button class="btn" id="atlasSort">'+(atlasState.sort==="freq"?"가나다순으로":"빈출순으로")+'</button><button class="btn" id="atlasFont">'+(hanjaFontMode==="soft"?"명조로 보기":"부드러운 고딕")+'</button></div>';
   h+='<div class="atlas-tone-legend"><span><b class="atlas-tone">:</b> 장음</span><span><b class="atlas-tone">(:)</b> 장·단음 모두 쓰임</span><span>훈음: 한국어문회 기준</span><span>장단음: 참고표 기준</span></div>';
   let st;
   if(atlasState.mode==="freq")st=freqCache?(atlasState.grade+' 집계 '+(freqCache.roundsProcessed||0)+'/'+(freqCache.totalRounds||0)+'회 · '+((freqCache.rows||[]).length)+'자'):'현재 준비된 기출만 우선 표시 · 전체 집계 가능';
   else st=toneCache?('장단음 참고표 저장됨 · '+new Date(toneCache.at||Date.now()).toLocaleDateString()):'장단음 표시는 저장된 참고자료부터 표시합니다.';
+  if(atlasState.mode==="freq"&&atlasState.grade==="특급"){
+    const latest=(bundledExamManifest&&bundledExamManifest.grades&&bundledExamManifest.grades["특급"]&&bundledExamManifest.grades["특급"].rounds||[]).slice(-1)[0]||114;
+    st+=" · 특급은 제38회 첫 시행 → 38~"+latest+"회 기준";
+  }
   h+='<div id="atlasStatus" class="atlas-progress '+(freqCache?"ok":"")+'">'+st+'</div></section><div class="atlas-summary" id="atlasSummary"></div><div id="atlasResults"></div></div>';
   el.innerHTML=h;
   $("#atlasMode").onchange=function(e){atlasState.mode=e.target.value;if(atlasState.mode==="freq")atlasState.sort="freq";renderAtlas()};
@@ -5039,9 +5146,11 @@ function renderAtlas(){
   $("#atlasMask").onchange=function(e){atlasState.mask=e.target.value;atlasRevealSet.clear();renderAtlas()};
   $("#atlasView").onchange=function(e){atlasState.view=e.target.value;renderAtlas()};
   $("#atlasSearch").oninput=function(e){atlasState.query=e.target.value;renderAtlasResults()};
+  $(".atlas-type-chip").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.atlasType||"all";renderAtlas()}});
   $("#atlasToneSync").onclick=syncAtlasToneScope;
   $("#atlasFreqBuild").onclick=function(){prepareAtlasFrequency(atlasState.grade)};
   $("#atlasSort").onclick=function(){atlasState.sort=atlasState.sort==="freq"?"alpha":"freq";renderAtlas()};
+  $("#atlasFont").onclick=function(){applyHanjaFontMode(hanjaFontMode==="soft"?"serif":"soft");renderAtlas()};
   renderAtlasResults();
   if(atlasState.grade==="1급"&&!toneCache&&!atlasToneBusy.has("1급"))setTimeout(function(){syncAtlasToneGrade("1급",{quiet:true})},80);
 }
@@ -5057,7 +5166,8 @@ function renderFreq(){
   $("#freq").innerHTML=`
     <div class="card utility-modern">
       <div class="prompt">기출 빈출 분석 · ${f}회~${isFinite(t)?t:"최신"}</div>
-      <div class="sub">실제 회차 정보가 포함된 가져오기 데이터만 집계합니다. 같은 글자가 여러 유형에 나오면 모두 합산합니다.</div>
+      <div class="sub">빠른 통합 통계입니다. <b>문제유형별 빈출</b>은 한자 도감 → 기출 빈출에서 독음·훈음·장단음·한자쓰기 등 유형을 따로 선택해 공부할 수 있습니다.</div>
+      <div class="actions" style="margin-top:10px"><button class="btn primary" onclick="openUtility('atlas');atlasState.mode='freq';atlasState.sort='freq';renderAtlas()">문제유형별 빈출 도감 열기</button></div>
       <div class="table-wrap" style="margin-top:14px">
       ${rows.length?`<table><thead><tr><th>순위</th><th>한자</th><th>출현</th><th>유형</th><th>회차</th></tr></thead><tbody>
         ${rows.map((r,i)=>`<tr><td>${i+1}</td><td style="font-family:serif;font-size:24px">${esc(r.hanja)}</td><td><span class="tag ${r.count>=3?"hot1":""}">${r.count}회</span></td><td>${[...r.types].map(x=>TYPES[x]||x).join(", ")}</td><td>${[...r.rounds].sort((a,b)=>a-b).join(", ")}</td></tr>`).join("")}
