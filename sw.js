@@ -1,4 +1,4 @@
-const CACHE="doki-hanja-app-v27-20260924";
+const CACHE="doki-hanja-app-v28-20260924";
 const CORE=["./","./index.html","./manifest.webmanifest","./version.json","./icon.svg","./icon-maskable.svg","./report-config.js"];
 
 self.addEventListener("install",event=>{
