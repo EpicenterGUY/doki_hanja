@@ -2109,6 +2109,11 @@ body.practice-sheet-open{overflow:hidden}
   color:#a9ead6;font-size:8px;font-weight:850
 }
 
+
+/* INTERACTION + STORAGE FIX 2.9.3 */
+body>.update-sheet{z-index:1920!important}
+body>.app2-update{z-index:1930!important}
+
 </style>
 </head>
 <body>
@@ -2571,7 +2576,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.9.2-20260924";
+const APP_BUILD="2.9.3-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -5690,6 +5695,76 @@ const ATLAS_TONE_SEED_1={"呵":":","苛":":","駕":"(:)","澗":":","癎":"(:)","
 const ATLAS_GRADE_SLUG={"8급":"8급","7급Ⅱ":"준7급","7급":"7급","6급Ⅱ":"준6급","6급":"6급","5급Ⅱ":"준5급","5급":"5급","4급Ⅱ":"준4급","4급":"4급","3급Ⅱ":"준3급","3급":"3급","2급":"2급","1급":"1급","특급Ⅱ":"준특급","특급":"특급"};
 function atlasToneKey(g){return "hanjaAtlasToneV1_"+g}
 function atlasFreqKey(g){return "hanjaAtlasFreqV4_"+g}
+function atlasFreqMetaKey(g){return "hanjaAtlasFreqMetaV1_"+g}
+const atlasFreqMemory=new Map();
+const atlasFreqHydrating=new Set();
+let atlasFreqDbPromise=null;
+function openAtlasFreqDb(){
+  if(!("indexedDB" in window))return Promise.reject(Error("IndexedDB unavailable"));
+  if(atlasFreqDbPromise)return atlasFreqDbPromise;
+  atlasFreqDbPromise=new Promise(function(resolve,reject){
+    const req=indexedDB.open("DokiHanjaCache",1);
+    req.onupgradeneeded=function(){const db=req.result;if(!db.objectStoreNames.contains("atlasFreq"))db.createObjectStore("atlasFreq")};
+    req.onsuccess=function(){resolve(req.result)};
+    req.onerror=function(){reject(req.error||Error("IndexedDB open failed"))};
+  });
+  return atlasFreqDbPromise;
+}
+async function idbGetAtlasFreq(g){
+  const db=await openAtlasFreqDb();
+  return await new Promise(function(resolve,reject){
+    const tx=db.transaction("atlasFreq","readonly"),req=tx.objectStore("atlasFreq").get(g);
+    req.onsuccess=function(){resolve(req.result||null)};
+    req.onerror=function(){reject(req.error||Error("IndexedDB read failed"))};
+  });
+}
+async function idbSetAtlasFreq(g,data){
+  const db=await openAtlasFreqDb();
+  return await new Promise(function(resolve,reject){
+    const tx=db.transaction("atlasFreq","readwrite");
+    tx.objectStore("atlasFreq").put(data,g);
+    tx.oncomplete=function(){resolve(true)};
+    tx.onerror=function(){reject(tx.error||Error("IndexedDB write failed"))};
+    tx.onabort=function(){reject(tx.error||Error("IndexedDB write aborted"))};
+  });
+}
+function readAtlasFreqCache(g){
+  if(atlasFreqMemory.has(g))return atlasFreqMemory.get(g);
+  try{
+    const raw=localStorage.getItem(atlasFreqKey(g));
+    if(raw){
+      const c=JSON.parse(raw);
+      atlasFreqMemory.set(g,c);
+      idbSetAtlasFreq(g,c).then(function(){try{localStorage.removeItem(atlasFreqKey(g))}catch{}}).catch(function(){});
+      return c;
+    }
+  }catch{}
+  return null;
+}
+async function hydrateAtlasFreqCache(g){
+  if(atlasFreqMemory.has(g)||atlasFreqHydrating.has(g))return atlasFreqMemory.get(g)||null;
+  atlasFreqHydrating.add(g);
+  try{
+    const c=await idbGetAtlasFreq(g);
+    if(c){atlasFreqMemory.set(g,c);renderAtlasResults();return c}
+  }catch{}
+  finally{atlasFreqHydrating.delete(g)}
+  return null;
+}
+async function persistAtlasFreqCache(g,data){
+  atlasFreqMemory.set(g,data);
+  let persisted=false;
+  try{await idbSetAtlasFreq(g,data);persisted=true}catch{}
+  try{
+    localStorage.removeItem(atlasFreqKey(g));
+    localStorage.setItem(atlasFreqMetaKey(g),JSON.stringify({
+      at:data.at,grade:g,roundsProcessed:data.roundsProcessed,totalRounds:data.totalRounds,
+      failed:data.failed,rows:(data.rows||[]).length,itemRows:(data.itemRows||[]).length,
+      storage:persisted?"indexedDB":"memory"
+    }));
+  }catch{}
+  return persisted;
+}
 function readAtlasToneCache(g){
   const base=g==="1급"?Object.assign({},ATLAS_TONE_SEED_1):{};
   try{const x=JSON.parse(localStorage.getItem(atlasToneKey(g))||"null");if(x&&x.map)Object.assign(base,x.map)}catch{}
@@ -5877,7 +5952,7 @@ function currentAtlasItemRows(grade,scope){
   const grades=scope==="exact"?[grade]:GRADE_ORDER.filter(function(g){return gradeAllowed(g,grade)});
   for(const g of grades){
     try{
-      const c=JSON.parse(localStorage.getItem(atlasFreqKey(g))||"null");
+      const c=readAtlasFreqCache(g);
       mergeAtlasItemRows(map,c&&c.itemRows);
     }catch{}
   }
@@ -6037,7 +6112,7 @@ function currentAtlasFreqMap(grade,scope){
   const grades=scope==="exact"?[grade]:GRADE_ORDER.filter(function(g){return gradeAllowed(g,grade)});
   for(const g of grades){
     try{
-      const c=JSON.parse(localStorage.getItem(atlasFreqKey(g))||"null");
+      const c=readAtlasFreqCache(g);
       for(const r of ((c&&c.rows)||[])){
         const a=map.get(r.hanja)||{hanja:r.hanja,count:0,rounds:new Set(),types:new Set(),typeCounts:{},typeRounds:{}};
         a.count=Math.max(a.count,+r.count||0);
@@ -6076,8 +6151,11 @@ async function prepareAtlasFrequency(grade){
     }
     const rows=[...map.values()].map(function(a){const tr={};for(const [t,rs] of Object.entries(a.typeRounds||{}))tr[t]=[...rs].sort(function(x,y){return x-y});return {hanja:a.hanja,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),types:[...a.types],typeCounts:a.typeCounts||{},typeRounds:tr}});
     const itemRows=[...itemMap.values()].map(function(a){return {type:a.type,key:a.key,primary:a.primary,secondary:a.secondary,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),roundCounts:a.roundCounts||{},examples:(a.examples||[]).slice(0,10)}});
-    localStorage.setItem(atlasFreqKey(grade),JSON.stringify({at:Date.now(),grade:grade,firstRound:rounds[0]||null,lastRound:rounds[rounds.length-1]||null,roundsProcessed:ok,totalRounds:rounds.length,post100Rounds:rounds.filter(function(x){return x>=101}).length,failed:fail,rows:rows,itemRows:itemRows}));
-    if(status){status.className="atlas-progress "+(fail?"":"ok");status.textContent=grade+" 빈출 집계 완료 · "+ok+"/"+rounds.length+"회 · 한자 "+rows.length.toLocaleString()+"자 · 유형별 항목 "+itemRows.length.toLocaleString()+"개"+(fail?" · 실패 "+fail+"회":"")}
+    const payload={at:Date.now(),grade:grade,firstRound:rounds[0]||null,lastRound:rounds[rounds.length-1]||null,roundsProcessed:ok,totalRounds:rounds.length,post100Rounds:rounds.filter(function(x){return x>=101}).length,failed:fail,rows:rows,itemRows:itemRows};
+    atlasFreqMemory.set(grade,payload);
+    renderAtlasResults();
+    const persisted=await persistAtlasFreqCache(grade,payload);
+    if(status){status.className="atlas-progress "+(fail?"":"ok");status.textContent=grade+" 빈출 집계 완료 · "+ok+"/"+rounds.length+"회 · 한자 "+rows.length.toLocaleString()+"자 · 유형별 항목 "+itemRows.length.toLocaleString()+"개"+(fail?" · 실패 "+fail+"회":"")+(persisted?" · 기기에 저장됨":" · 저장공간 부족: 이번 실행에서 사용")}
     toast(grade+" 빈출 도감 갱신 완료");
   }catch(e){
     if(status){status.className="atlas-progress bad";status.textContent="빈출 집계 실패 · "+(e.message||e)}
@@ -6175,9 +6253,10 @@ function toggleAtlasReveal(key){
 function setAtlasState(k,v){atlasState[k]=v;if(k==="grade"||k==="scope"||k==="mask")atlasRevealSet.clear();renderAtlas()}
 function renderAtlas(){
   const el=$("#atlas");if(!el)return;
-  let freqCache=null,toneCache=null;
-  try{freqCache=JSON.parse(localStorage.getItem(atlasFreqKey(atlasState.grade))||"null")}catch{}
+  let freqCache=readAtlasFreqCache(atlasState.grade),toneCache=null;
   try{toneCache=JSON.parse(localStorage.getItem(atlasToneKey(atlasState.grade))||"null")}catch{}
+  const cacheGrades=atlasState.scope==="exact"?[atlasState.grade]:GRADE_ORDER.filter(function(g){return gradeAllowed(g,atlasState.grade)});
+  cacheGrades.forEach(function(g){if(!readAtlasFreqCache(g))hydrateAtlasFreqCache(g)});
   let h='<div class="atlas-shell"><section class="atlas-toolbar"><div class="atlas-toolbar-top"><div><div class="atlas-title">'+(atlasState.mode==="freq"?"빈출 도감":"한자 도감")+'</div><div class="atlas-sub">'+(atlasState.mode==="freq"?"독음·훈음·장단음·한자쓰기·부수 등 문제유형별 기출 빈출":"한국어문회 훈음 · 장단음 참고표 · 가림 암기")+'</div></div><button class="btn ghost" onclick="switchTab(\'more\')">← 기록</button></div>';
   h+='<div class="grade-scroller" style="margin-top:9px">'+GRADE_ORDER.map(function(g){return '<button class="grade-chip '+(g===atlasState.grade?"active":"")+'" onclick="setAtlasState(\'grade\',\''+g+'\')">'+g+'</button>'}).join("")+'</div>';
   h+='<div class="atlas-controls">';
