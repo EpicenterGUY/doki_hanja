@@ -2900,6 +2900,7 @@ function resetSessionProgress(){
   drillState={list:[],index:0,mode:"meaningSound",order:"alpha",grade:$("#level")?.value||"8급",checked:false};
   remoteExamState={round:null,url:null,pdf:null,questions:{},answers:{},types:{},pages:{},index:1,user:{},checked:{},score:0,loaded:false};
   atlasRevealSet.clear();
+  diagnosisState={mode:"quick",phase:"intro",low:0,high:14,best:-1,stageGrade:null,stageQuestions:[],stageIndex:0,stageCorrect:0,stageRows:[],answers:[],tested:[],retest:false,totalAnswered:0};
   renderPracticeWelcome();renderExam();renderDrill();
   toast("현재 진행도를 초기화했습니다.");
 }
@@ -2908,8 +2909,9 @@ function resetMyLearningProgress(){
   if(!ok)return;
   const typed=prompt("정말 삭제하려면 아래 칸에 '초기화'라고 입력하세요.");
   if(typed!=="초기화"){toast("진척도 초기화를 취소했습니다.");return}
-  stats={};wrong={};seenHanjaPowerLevel=0;
+  stats={};wrong={};seenHanjaPowerLevel=0;diagnosisHistory=[];
   localStorage.removeItem("hanjaStatsV2");
+  localStorage.removeItem("hanjaDiagnosisHistoryV1");
   localStorage.removeItem("hanjaWrongV2");
   localStorage.removeItem("hanjaPowerSeenLevel");
   atlasRevealSet.clear();
@@ -2943,6 +2945,7 @@ function renderMore(){
     <section class="app-section">
       <div class="app-section-head"><div><div class="app-section-title">학습 도구</div><div class="app-section-sub">오답 ${wrongCount}개 · 기록 항목 ${allStats.length}개</div></div></div>
       <div class="app-list">
+        <button class="app-list-row" onclick="openUtility('diagnosis')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-4 3 2 5-6"/></svg></span><span class="app-list-text"><b>적응형 급수 진단</b><small>빠른/정밀 진단 · 권장 학습 급수</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('atlas')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg></span><span class="app-list-text"><b>한자 도감 · 빈출 도감</b><small>장단음 · 가림 암기 · 빈출순 표</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('wrong')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span class="app-list-text"><b>오답 노트</b><small>틀린 문제와 반복 오답 복습</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('freq')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M5 19V9M12 19V5M19 19v-7"/><path d="M3 19h18"/></svg></span><span class="app-list-text"><b>빈출 분석</b><small>기출 회차별 출현 빈도 확인</small></span></span><span class="app-list-chevron">›</span></button>
@@ -3007,6 +3010,7 @@ function renderPracticeWelcome(){
         <button class="app-action" onclick="switchTab('exam')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></span><span><b>기출</b><small>급수·회차를 골라 실전 풀이</small></span></button>
         <button class="app-action" onclick="openUtility('wrong')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span><b>오답 복습</b><small>틀린 항목만 다시 확인</small></span></button>
         <button class="app-action" onclick="openUtility('atlas')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg></span><span><b>한자 도감</b><small>장단음과 빈출을 표로 암기</small></span></button>
+        <button class="app-action" onclick="openUtility('diagnosis')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-4 3 2 5-6"/><path d="M17 7h2v2"/></svg></span><span><b>급수 진단</b><small>적응형 문제로 현재 수준 찾기</small></span></button>
       </div>
     </section>
   </div>`;
