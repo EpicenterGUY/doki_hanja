@@ -1,9 +1,19 @@
 {
   "webBuild": "2.1.1-20260924",
-  "androidVersion": "0.2.0",
-  "androidVersionCode": 2,
+  "androidVersion": "0.3.0",
+  "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "0.3.0",
+      "title": "Android 설치 호환성 재빌드",
+      "items": [
+        "Android 패키지 ID를 새로 지정해 기존 패키지 충돌 가능성 제거",
+        "debug APK 대신 release APK로 빌드",
+        "APK Signature Scheme v1/v2/v3를 모두 적용",
+        "zipalign 및 apksigner 검증 후 배포"
+      ]
+    },
     {
       "version": "2.1.1",
       "title": "안정화 + 업데이트 센터",
