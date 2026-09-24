@@ -1929,6 +1929,106 @@ html[data-hanja-font="serif"]{
   .atlas-compact-hun{font-size:8px}
 }
 
+
+/* GRADE DIAGNOSIS + SMART STUDY 2.8 */
+.diag-shell{display:grid;gap:10px;min-width:0}
+.diag-hero{
+  position:relative;overflow:hidden;
+  padding:20px;border-radius:24px;
+  border:1px solid rgba(144,171,223,.23);
+  background:
+    radial-gradient(circle at 88% 8%,rgba(112,93,255,.24),transparent 32%),
+    radial-gradient(circle at 12% 90%,rgba(72,215,180,.13),transparent 28%),
+    linear-gradient(145deg,rgba(31,45,77,.96),rgba(15,25,47,.98));
+}
+.diag-hero::after{
+  content:"級";position:absolute;right:8px;bottom:-44px;
+  color:rgba(255,255,255,.045);font:900 150px/1 serif;pointer-events:none;
+}
+.diag-kicker{font-size:9px;font-weight:900;letter-spacing:.12em;color:#95a9ce}
+.diag-title{margin-top:6px;font-size:28px;font-weight:950;letter-spacing:-.045em}
+.diag-desc{margin-top:6px;max-width:560px;color:#a4b5d0;font-size:11px;line-height:1.55}
+.diag-mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.diag-mode{
+  min-width:0;padding:13px;border-radius:17px;text-align:left;
+  border:1px solid rgba(143,169,221,.19);
+  background:rgba(9,18,36,.42);color:#eaf0fb;
+}
+.diag-mode.active{border-color:rgba(120,108,255,.62);background:rgba(81,68,203,.18)}
+.diag-mode b{display:block;font-size:13px}.diag-mode small{display:block;margin-top:4px;color:#8fa3c5;font-size:9px;line-height:1.4}
+.diag-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+.diag-actions .btn{min-height:43px}
+.diag-stage{
+  padding:13px;border-radius:18px;border:1px solid rgba(140,166,217,.18);
+  background:rgba(15,27,49,.78);
+}
+.diag-stage-head{display:flex;align-items:center;justify-content:space-between;gap:9px}
+.diag-stage-head b{font-size:14px}
+.diag-stage-head span{font-size:9px;color:#8da2c4}
+.diag-progress{height:7px;margin-top:9px;border-radius:99px;background:#09152b;overflow:hidden}
+.diag-progress>i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#706cff,#5fdcc1)}
+.diag-question{
+  padding:18px 14px;border-radius:22px;border:1px solid rgba(146,173,222,.22);
+  background:linear-gradient(145deg,rgba(29,43,72,.95),rgba(16,26,48,.97));
+  text-align:center;
+}
+.diag-qtype{font-size:9px;font-weight:900;letter-spacing:.08em;color:#89a0c5}
+.diag-glyph{
+  margin-top:9px;font-family:var(--hanja-font);font-size:clamp(58px,17vw,96px);line-height:1.05;
+  font-weight:560;color:#42b5e9;letter-spacing:-.03em;
+}
+.diag-prompt{margin-top:7px;font-size:13px;font-weight:850;line-height:1.45}
+.diag-choices{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:14px}
+.diag-choice{
+  min-width:0;min-height:55px;padding:9px 10px;border-radius:15px;
+  border:1px solid rgba(141,168,219,.22);
+  background:rgba(8,17,34,.58);color:#edf3ff;
+  font-size:12px;font-weight:800;line-height:1.35;
+}
+.diag-choice.correct{border-color:rgba(76,224,181,.58);background:rgba(38,116,92,.3);color:#baf5e1}
+.diag-choice.wrong{border-color:rgba(255,108,122,.52);background:rgba(116,38,50,.27);color:#ffc0c6}
+.diag-choice:disabled{opacity:1}
+.diag-feedback{min-height:24px;margin-top:9px;font-size:10px;color:#a7b8d2}
+.diag-result{
+  overflow:hidden;padding:19px;border-radius:24px;border:1px solid rgba(142,170,221,.22);
+  background:
+    radial-gradient(circle at 88% 10%,rgba(82,220,182,.16),transparent 30%),
+    linear-gradient(145deg,rgba(29,44,74,.96),rgba(15,25,47,.98));
+}
+.diag-result-grade{font-size:44px;font-weight:950;letter-spacing:-.055em;color:#fff}
+.diag-result-label{margin-top:3px;color:#9db0ce;font-size:10px}
+.diag-confidence{
+  display:inline-flex;margin-top:8px;padding:5px 8px;border-radius:999px;
+  background:rgba(77,221,179,.12);border:1px solid rgba(77,221,179,.3);
+  color:#aaf1db;font-size:9px;font-weight:900;
+}
+.diag-breakdown{display:grid;gap:7px;margin-top:13px}
+.diag-grade-row{display:grid;grid-template-columns:70px minmax(0,1fr) 42px;gap:8px;align-items:center}
+.diag-grade-row b{font-size:11px}
+.diag-grade-track{height:7px;border-radius:99px;background:#0a1427;overflow:hidden}
+.diag-grade-track i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#6879ff,#55d8ba)}
+.diag-grade-row span{text-align:right;font-size:10px;font-weight:900;color:#bdd0e9}
+.smart-card{
+  padding:13px;border-radius:18px;border:1px solid rgba(103,220,185,.2);
+  background:linear-gradient(145deg,rgba(26,59,66,.46),rgba(17,31,53,.76));
+}
+.smart-card-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.smart-card-head b{font-size:14px}.smart-card-head span{font-size:9px;color:#8ddfc6}
+.smart-card p{margin:6px 0 0;color:#a8b9d1;font-size:10px;line-height:1.5}
+.smart-card .actions{margin-top:10px}
+@media(max-width:600px){
+  .diag-hero{padding:15px;border-radius:20px}
+  .diag-title{font-size:24px}.diag-desc{font-size:10px}
+  .diag-mode-grid{gap:6px;margin-top:12px}
+  .diag-mode{padding:10px;border-radius:14px}
+  .diag-mode b{font-size:12px}.diag-mode small{font-size:8px}
+  .diag-question{padding:14px 10px;border-radius:18px}
+  .diag-choices{gap:6px}
+  .diag-choice{min-height:50px;padding:8px;font-size:11px}
+  .diag-result{padding:14px;border-radius:20px}
+  .diag-result-grade{font-size:38px}
+}
+
 </style>
 </head>
 <body>
@@ -2024,6 +2124,7 @@ html[data-hanja-font="serif"]{
       <section id="wrong" class="tabpage" hidden></section>
       <section id="data" class="tabpage" hidden></section>
       <section id="atlas" class="tabpage" hidden></section>
+      <section id="diagnosis" class="tabpage" hidden></section>
     </main>
   </div>
 </div>
@@ -2187,6 +2288,8 @@ let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha"
 const atlasRevealSet=new Set();
 const atlasToneBusy=new Set();
 let atlasFreqBusy=false;
+let diagnosisState={mode:"quick",phase:"intro",low:0,high:14,best:-1,stageGrade:null,stageQuestions:[],stageIndex:0,stageCorrect:0,stageRows:[],answers:[],tested:[],retest:false,totalAnswered:0};
+let diagnosisHistory=JSON.parse(localStorage.getItem("hanjaDiagnosisHistoryV1")||"[]");
 let hanjaFontMode=localStorage.getItem("hanjaFontModeV2")||"atlas";
 function applyHanjaFontMode(mode){hanjaFontMode=["atlas","soft","serif"].includes(mode)?mode:"atlas";document.documentElement.dataset.hanjaFont=hanjaFontMode;localStorage.setItem("hanjaFontModeV2",hanjaFontMode)}
 
@@ -2387,7 +2490,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.7.0-20260924";
+const APP_BUILD="2.8.0-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -2397,7 +2500,8 @@ const APP_TAB_META={
   freq:{title:"빈출 분석",kicker:"기출 통계"},
   wrong:{title:"오답 노트",kicker:"복습"},
   data:{title:"데이터 관리",kicker:"백업 · 가져오기"},
-  atlas:{title:"한자 도감",kicker:"암기 · 장단음 · 빈출"}
+  atlas:{title:"한자 도감",kicker:"암기 · 장단음 · 빈출"},
+  diagnosis:{title:"급수 진단",kicker:"한국어문회 배정한자 기반"}
 };
 let deferredInstallPrompt=null;
 let appUpdateReady=false;
@@ -2421,7 +2525,7 @@ function syncAppChrome(id=mode){
   if(title)title.textContent=meta.title;
   const kicker=document.querySelector(".app2-kicker");
   if(kicker)kicker.textContent="DOKI 漢字 · "+meta.kicker;
-  const dockId=["write","freq","wrong","data","atlas"].includes(id)?"more":id;
+  const dockId=["write","freq","wrong","data","atlas","diagnosis"].includes(id)?"more":id;
   $$("#app2Dock .app2-nav").forEach(b=>b.classList.toggle("active",b.dataset.appTab===dockId));
   const settings=$("#openPracticeSettings");
   if(settings)settings.hidden=id!=="practice";
@@ -2626,6 +2730,7 @@ function switchTab(id){
   if(id==="data")renderData();
   if(id==="write")renderWrite();
   if(id==="atlas")renderAtlas();
+  if(id==="diagnosis")renderDiagnosis();
 }
 function refreshTypeChecks(){
   $$("#typeChecks .check").forEach(label=>{
@@ -2865,8 +2970,9 @@ function openUtility(id){
   if(id==="write")renderWrite();
   if(id==="data")renderData();
   if(id==="atlas")renderAtlas();
+  if(id==="diagnosis")renderDiagnosis();
   const sec=$("#"+id);
-  if(sec&&id!=="atlas")sec.insertAdjacentHTML("afterbegin",`<button class="btn ghost" onclick="switchTab('more')" style="margin-bottom:10px">← 기록·설정으로</button>`);
+  if(sec&&id!=="atlas"&&id!=="diagnosis")sec.insertAdjacentHTML("afterbegin",`<button class="btn ghost" onclick="switchTab('more')" style="margin-bottom:10px">← 기록·설정으로</button>`);
 }
 
 function renderPracticeWelcome(){
