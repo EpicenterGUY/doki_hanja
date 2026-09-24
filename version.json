@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.9.7-20260924",
+  "webBuild": "2.9.8-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.9.8",
+      "title": "PDF식 빈출 순위표",
+      "items": [
+        "빈출 도감의 기본 보기를 카드에서 PDF 자료집식 압축 표로 변경",
+        "순위·출제 한자/한자어·독음/정답·빈출 횟수를 한 줄에 배치해 한 화면에서 더 많은 항목을 확인",
+        "Fold 펼침 화면에서는 여러 열로, 좁은 화면에서는 2열/1열로 자동 재배치",
+        "빈출 순위는 문항 수 내림차순 → 출현 회차 수 → 최근 출현 회차 순으로 고정",
+        "문제 유형 전체 화면도 표 형태에서 문항 수 기준 순위를 바로 확인 가능",
+        "카드 보기는 선택 옵션으로 유지하고 빈출 모드에서는 가나다순 토글을 숨겨 정렬 기준 혼동 방지"
+      ]
+    },
     {
       "version": "2.9.7",
       "title": "손글씨 유사도 판정 강화",
