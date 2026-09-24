@@ -1,9 +1,24 @@
 {
-  "webBuild": "2.10.0-20260924",
+  "webBuild": "2.10.2-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.10.2",
+      "title": "PDF 원본식 빈출표 · 비공개 오류 신고",
+      "items": [
+        "빈출표를 원본 PDF의 반복 3열 구조(출제·한자·독음/정답)로 변경",
+        "화면 폭에 따라 4묶음·2묶음·1묶음으로 자동 배치하되 빈출순과 출제형식 분리는 유지",
+        "기록·설정에 오류 신고 메뉴 추가",
+        "사진·스크린샷과 PDF·문서·ZIP·데이터 파일을 여러 개 첨부할 수 있는 신고 폼 추가",
+        "앱 build·현재 화면·브라우저·화면 크기를 오류 신고에 자동 첨부",
+        "Supabase RLS 기반 비공개 수신함 구조 추가: 일반 사용자는 신고 작성/파일 업로드만 가능하고 조회는 차단",
+        "개발자 로그인 전용 report-admin.html 수신함 추가",
+        "신고 상태와 개발자 메모를 수신함에서 관리 가능",
+        "비공개 스토리지의 첨부파일은 개발자 인증 후 임시 서명 URL로만 열리도록 구성"
+      ]
+    },
     {
       "version": "2.10.0",
       "title": "출제형식별 빈출 재분류",
