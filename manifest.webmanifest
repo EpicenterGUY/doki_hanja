@@ -1,0 +1,35 @@
+{
+  "name": "DOKI 漢字 — 한국어문회 한자 트레이너",
+  "short_name": "DOKI 漢字",
+  "description": "한국어문회 8급부터 특급까지 연습·기출·손글씨 학습",
+  "start_url": "./?pwa=1",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui"
+  ],
+  "background_color": "#09101f",
+  "theme_color": "#6677ff",
+  "orientation": "any",
+  "lang": "ko-KR",
+  "categories": [
+    "education",
+    "productivity"
+  ],
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
