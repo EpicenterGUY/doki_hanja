@@ -3061,33 +3061,33 @@ function startDiagnosisWeakPractice(){
 function diagnosisResultMarkup(r){
   const weak=(r.weakTypes||[]).slice(0,2);
   const tested=(r.tested||[]).slice().sort(function(a,b){return gradeIndex(a.grade)-gradeIndex(b.grade)});
-  return \`<div class="diag-result">
+  return `<div class="diag-result">
     <div class="diag-kicker">DIAGNOSIS RESULT</div>
-    <div class="diag-result-grade">\${esc(r.grade)}</div>
+    <div class="diag-result-grade">${esc(r.grade)}</div>
     <div class="diag-result-label">권장 학습 급수 · 앱 내 적응형 진단 결과</div>
-    <span class="diag-confidence">신뢰도 \${esc(r.confidence)}</span>
+    <span class="diag-confidence">신뢰도 ${esc(r.confidence)}</span>
     <div class="diag-breakdown">
-      \${tested.map(function(x){return \`<div class="diag-grade-row"><b>\${esc(x.grade)}</b><div class="diag-grade-track"><i style="width:\${x.pct}%"></i></div><span>\${x.pct}%</span></div>\`}).join("")}
+      ${tested.map(function(x){return `<div class="diag-grade-row"><b>${esc(x.grade)}</b><div class="diag-grade-track"><i style="width:${x.pct}%"></i></div><span>${x.pct}%</span></div>`}).join("")}
     </div>
     <div class="official-answer" style="margin-top:12px">
-      전체 정답률 <b>\${r.accuracy}%</b> · \${r.total}문항 ·
-      \${weak.length?"약점 "+weak.map(function(x){return diagnosisTypeLabel(x.type)+" "+x.pct+"%"}).join(" · "):"약점 데이터 없음"}
+      전체 정답률 <b>${r.accuracy}%</b> · ${r.total}문항 ·
+      ${weak.length?"약점 "+weak.map(function(x){return diagnosisTypeLabel(x.type)+" "+x.pct+"%"}).join(" · "):"약점 데이터 없음"}
     </div>
     <div class="diag-actions">
-      <button class="btn primary" onclick="applyDiagnosisGrade('\${esc(r.grade)}')">이 급수로 공부</button>
+      <button class="btn primary" onclick="applyDiagnosisGrade('${esc(r.grade)}')">이 급수로 공부</button>
       <button class="btn" onclick="startDiagnosisWeakPractice()">약점 10문제</button>
       <button class="btn" onclick="diagnosisState.phase='intro';renderDiagnosis()">다시 진단</button>
     </div>
     <div class="atlas-detail-note">이 결과는 한국어문회 배정한자 데이터를 이용한 앱 내 학습 진단이며 실제 검정시험의 합격 판정이나 공식 급수 인증은 아닙니다.</div>
-  </div>\`;
+  </div>`;
 }
 function renderDiagnosis(){
   const el=$("#diagnosis");if(!el)return;
   if(diagnosisState.phase==="result"&&diagnosisState.result){
-    el.innerHTML=\`<div class="diag-shell">
+    el.innerHTML=`<div class="diag-shell">
       <button class="btn ghost" onclick="switchTab('more')">← 기록·설정</button>
-      \${diagnosisResultMarkup(diagnosisState.result)}
-    </div>\`;
+      ${diagnosisResultMarkup(diagnosisState.result)}
+    </div>`;
     return;
   }
   if(diagnosisState.phase==="test"){
@@ -3096,41 +3096,41 @@ function renderDiagnosis(){
     const totalStage=diagnosisState.stageQuestions.length;
     const completed=diagnosisState.stageIndex;
     const overall=Math.min(96,Math.round((diagnosisState.tested.length*24)+(completed/Math.max(1,totalStage))*22));
-    el.innerHTML=\`<div class="diag-shell">
+    el.innerHTML=`<div class="diag-shell">
       <div class="diag-stage">
-        <div class="diag-stage-head"><b>\${esc(q.grade)} 진단 중</b><span>\${diagnosisState.mode==="precise"?"정밀":"빠른"} · \${diagnosisState.totalAnswered+1}번째 문제</span></div>
-        <div class="diag-progress"><i style="width:\${overall}%"></i></div>
+        <div class="diag-stage-head"><b>${esc(q.grade)} 진단 중</b><span>${diagnosisState.mode==="precise"?"정밀":"빠른"} · ${diagnosisState.totalAnswered+1}번째 문제</span></div>
+        <div class="diag-progress"><i style="width:${overall}%"></i></div>
       </div>
       <div class="diag-question">
-        <div class="diag-qtype">\${esc(diagnosisTypeLabel(q.type))}</div>
-        <div class="diag-glyph">\${esc(q.display)}</div>
-        <div class="diag-prompt">\${esc(q.prompt)}</div>
+        <div class="diag-qtype">${esc(diagnosisTypeLabel(q.type))}</div>
+        <div class="diag-glyph">${esc(q.display)}</div>
+        <div class="diag-prompt">${esc(q.prompt)}</div>
         <div class="diag-choices">
-          \${q.choices.map(function(c,i){
+          ${q.choices.map(function(c,i){
             const cls=q.locked?(norm(c)===norm(q.answer)?"correct":(i===q.chosen?"wrong":"")):"";
-            return \`<button class="diag-choice \${cls}" \${q.locked?"disabled":""} onclick="answerDiagnosis(\${i})">\${esc(c)}</button>\`;
+            return `<button class="diag-choice ${cls}" ${q.locked?"disabled":""} onclick="answerDiagnosis(${i})">${esc(c)}</button>`;
           }).join("")}
         </div>
-        <div class="diag-feedback">\${q.locked?(q.correct?"정답 · "+esc(q.answer):"정답은 "+esc(q.answer)):"정답 하나를 선택하세요."}</div>
+        <div class="diag-feedback">${q.locked?(q.correct?"정답 · "+esc(q.answer):"정답은 "+esc(q.answer)):"정답 하나를 선택하세요."}</div>
       </div>
-      <div class="diag-stage"><div class="soft">지금까지 판정: \${diagnosisState.tested.length?diagnosisState.tested.map(function(x){return x.grade+" "+x.pct+"%"}).join(" · "):"첫 단계"}</div></div>
-    </div>\`;
+      <div class="diag-stage"><div class="soft">지금까지 판정: ${diagnosisState.tested.length?diagnosisState.tested.map(function(x){return x.grade+" "+x.pct+"%"}).join(" · "):"첫 단계"}</div></div>
+    </div>`;
     return;
   }
   const last=latestDiagnosis();
-  el.innerHTML=\`<div class="diag-shell">
+  el.innerHTML=`<div class="diag-shell">
     <button class="btn ghost" onclick="switchTab('more')">← 기록·설정</button>
     <section class="diag-hero">
       <div class="diag-kicker">ADAPTIVE GRADE CHECK</div>
       <div class="diag-title">내 한자 급수는 어디쯤?</div>
       <div class="diag-desc">쉬운 급수부터 전부 푸는 대신 정답에 따라 난도가 오르내리는 적응형 진단입니다. 한국어문회 배정한자의 훈음·독음·한자 찾기를 섞어 현재 학습 시작점을 추정합니다.</div>
       <div class="diag-mode-grid">
-        <button class="diag-mode \${diagnosisState.mode==="quick"?"active":""}" onclick="diagnosisState.mode='quick';renderDiagnosis()"><b>빠른 진단</b><small>약 15~25문항 · 2~4분</small></button>
-        <button class="diag-mode \${diagnosisState.mode==="precise"?"active":""}" onclick="diagnosisState.mode='precise';renderDiagnosis()"><b>정밀 진단</b><small>약 20~35문항 · 경계 급수 재검사 강화</small></button>
+        <button class="diag-mode ${diagnosisState.mode==="quick"?"active":""}" onclick="diagnosisState.mode='quick';renderDiagnosis()"><b>빠른 진단</b><small>약 15~25문항 · 2~4분</small></button>
+        <button class="diag-mode ${diagnosisState.mode==="precise"?"active":""}" onclick="diagnosisState.mode='precise';renderDiagnosis()"><b>정밀 진단</b><small>약 20~35문항 · 경계 급수 재검사 강화</small></button>
       </div>
       <div class="diag-actions">
-        <button class="btn primary" onclick="startDiagnosis('\${diagnosisState.mode}')">진단 시작</button>
-        \${last?\`<button class="btn" onclick="diagnosisState.phase='result';diagnosisState.result=latestDiagnosis();renderDiagnosis()">최근 결과 · \${esc(last.grade)}</button>\`:""}
+        <button class="btn primary" onclick="startDiagnosis('${diagnosisState.mode}')">진단 시작</button>
+        ${last?`<button class="btn" onclick="diagnosisState.phase='result';diagnosisState.result=latestDiagnosis();renderDiagnosis()">최근 결과 · ${esc(last.grade)}</button>`:""}
       </div>
     </section>
     <section class="app-section">
@@ -3142,21 +3142,21 @@ function renderDiagnosis(){
         <div class="app-metric"><b>분리</b><span>학습 통계 미반영</span></div>
       </div>
     </section>
-  </div>\`;
+  </div>`;
 }
 function smartRecommendationMarkup(){
   const r=latestDiagnosis();
-  if(!r)return \`<div class="smart-card">
+  if(!r)return `<div class="smart-card">
     <div class="smart-card-head"><b>급수 진단으로 시작점 찾기</b><span>NEW</span></div>
     <p>현재 실력을 잘 모르겠다면 2~4분 적응형 진단으로 권장 학습 급수를 먼저 잡을 수 있어요.</p>
     <div class="actions"><button class="btn primary" onclick="openUtility('diagnosis')">급수 진단</button></div>
-  </div>\`;
+  </div>`;
   const weak=(r.weakTypes||[])[0],label=weak?diagnosisTypeLabel(weak.type):"혼합";
-  return \`<div class="smart-card">
-    <div class="smart-card-head"><b>맞춤 추천 · \${esc(r.grade)}</b><span>\${esc(r.confidence)} 신뢰도</span></div>
-    <p>최근 진단 \${r.accuracy}% · \${weak?"가장 약한 유형은 "+esc(label)+" "+weak.pct+"%.":"유형별 약점은 아직 뚜렷하지 않아요."}</p>
+  return `<div class="smart-card">
+    <div class="smart-card-head"><b>맞춤 추천 · ${esc(r.grade)}</b><span>${esc(r.confidence)} 신뢰도</span></div>
+    <p>최근 진단 ${r.accuracy}% · ${weak?"가장 약한 유형은 "+esc(label)+" "+weak.pct+"%.":"유형별 약점은 아직 뚜렷하지 않아요."}</p>
     <div class="actions"><button class="btn primary" onclick="startDiagnosisWeakPractice()">약점 연습</button><button class="btn" onclick="openUtility('diagnosis')">진단 결과</button></div>
-  </div>\`;
+  </div>`;
 }
 
 function resetSessionProgress(){
