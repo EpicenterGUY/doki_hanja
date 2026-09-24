@@ -1578,6 +1578,83 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   background:#17243e;color:#94a9c9;font-size:9px;letter-spacing:.04em;
 }
 .atlas-table .hanja-cell{font:800 25px/1 serif;color:#77caff}
+
+/* PDF 자료집식 빈출표 */
+.atlas-freq-sheet{
+  border:1px solid rgba(139,165,216,.22);
+  border-radius:10px;
+  overflow:hidden;
+  background:rgba(10,19,35,.92);
+  box-shadow:0 10px 28px rgba(0,0,0,.14);
+}
+.atlas-freq-sheet-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:8px 10px;
+  border-bottom:1px solid rgba(139,165,216,.22);
+  background:rgba(25,38,64,.96);
+}
+.atlas-freq-sheet-head b{font-size:12px;color:#f3f7ff}
+.atlas-freq-sheet-head span{font-size:9px;color:#8ea4c7}
+.atlas-freq-board{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  background:rgba(125,151,199,.16);
+  gap:1px;
+}
+.atlas-freq-entry{
+  appearance:none;border:0;border-radius:0;margin:0;
+  display:grid;
+  grid-template-columns:31px minmax(48px,.78fr) minmax(58px,1fr) 46px;
+  min-width:0;min-height:43px;padding:0;
+  background:#111f38;color:#eaf2ff;
+  text-align:left;cursor:pointer;
+}
+.atlas-freq-entry:active{background:#1a3154}
+.atlas-freq-entry>span{
+  min-width:0;padding:7px 5px;
+  display:flex;align-items:center;
+  border-right:1px solid rgba(139,165,216,.13);
+  font-size:10px;line-height:1.25;
+}
+.atlas-freq-entry>span:last-child{border-right:0}
+.atlas-freq-no{
+  justify-content:center;
+  color:#ffd57e;font-size:9px!important;font-weight:900;
+  background:rgba(255,198,82,.055);
+}
+.atlas-freq-word{
+  justify-content:center;text-align:center;
+  color:#6bc9ff;
+  font:850 20px/1.05 "Noto Serif CJK KR","Noto Serif KR",serif!important;
+  overflow-wrap:anywhere;
+}
+.atlas-freq-answer{
+  color:#edf3ff;font-weight:760;
+  white-space:normal;overflow-wrap:anywhere;
+}
+.atlas-freq-count{
+  justify-content:center;text-align:center;
+  color:#9be8d0;font-size:8px!important;font-weight:850;
+  white-space:normal;
+}
+.atlas-freq-entry:nth-child(6n+4),
+.atlas-freq-entry:nth-child(6n+5),
+.atlas-freq-entry:nth-child(6n+6){background:#13233e}
+.atlas-freq-entry:nth-child(6n+4):active,
+.atlas-freq-entry:nth-child(6n+5):active,
+.atlas-freq-entry:nth-child(6n+6):active{background:#1b3459}
+.atlas-freq-legend{
+  display:grid;grid-template-columns:31px minmax(48px,.78fr) minmax(58px,1fr) 46px;
+  border-bottom:1px solid rgba(139,165,216,.18);
+  background:#192a48;color:#91a7ca;
+}
+.atlas-freq-legend span{
+  padding:5px 4px;text-align:center;
+  border-right:1px solid rgba(139,165,216,.13);
+  font-size:8px;font-weight:850;
+}
+.atlas-freq-legend span:last-child{border-right:0}
+
 .atlas-empty{
   padding:36px 18px;text-align:center;
   border:1px dashed rgba(143,169,219,.24);
@@ -1618,6 +1695,12 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   .atlas-mask-tip{font-size:8px;padding:5px 6px}
   .atlas-actions{gap:5px}
   .atlas-actions .btn{min-height:35px;font-size:10px!important;padding:6px 8px}
+  .atlas-freq-board{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .atlas-freq-entry{grid-template-columns:27px minmax(42px,.78fr) minmax(52px,1fr) 40px;min-height:40px}
+  .atlas-freq-word{font-size:18px!important}
+  .atlas-freq-entry>span{padding:6px 4px;font-size:9px}
+  .atlas-freq-count{font-size:7px!important}
+  .atlas-freq-legend{grid-template-columns:27px minmax(42px,.78fr) minmax(52px,1fr) 40px}
 }
 @media(max-width:380px){
   .atlas-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
@@ -1625,6 +1708,8 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   .atlas-hanja{font-size:32px}
   .atlas-hun{font-size:9px}
   .atlas-meta span:nth-child(n+3){display:none}
+  .atlas-freq-board{grid-template-columns:1fr}
+  .atlas-freq-entry{grid-template-columns:29px minmax(52px,.75fr) minmax(72px,1.15fr) 43px}
 }
 
 
@@ -2576,7 +2661,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.9.7-20260924";
+const APP_BUILD="2.9.8-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -6014,7 +6099,11 @@ function atlasItemRowsForType(type){
   const q=norm(atlasState.query);
   return atlasApplyPeriod(currentAtlasItemRows(atlasState.grade,atlasState.scope))
     .filter(function(x){return x.type===type&&(!q||norm(x.primary).includes(q)||norm(x.secondary).includes(q))})
-    .sort(function(a,b){return b.rounds.length-a.rounds.length||b.count-a.count||String(a.primary).localeCompare(String(b.primary),"ko-KR")});
+    .sort(function(a,b){
+      const ar=(a.rounds&&a.rounds.length)?Math.max.apply(null,a.rounds):0;
+      const br=(b.rounds&&b.rounds.length)?Math.max.apply(null,b.rounds):0;
+      return b.count-a.count||b.rounds.length-a.rounds.length||br-ar||String(a.primary).localeCompare(String(b.primary),"ko-KR");
+    });
 }
 function atlasTrend(row){
   const all=currentAtlasItemRows(atlasState.grade,atlasState.scope);
@@ -6033,6 +6122,13 @@ function atlasTrend(row){
 function atlasTypeOverviewHtml(){
   const rows=atlasTypeSummary();
   if(!rows.length)return '<div class="atlas-empty">아직 유형별 빈출 데이터가 없습니다.<br>‘기출 전체 집계’를 실행하면 독음·한자어쓰기·훈음·한자어 조합·부수·약자·장단음·유의어·반의어·동음이의어·사자성어·뜻풀이·한문/응용을 각각 따로 만듭니다.</div>';
+  if(atlasState.view==="table"){
+    let h='<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>순위</th><th>문제 유형</th><th>문항 수</th><th>빈출 항목</th><th>출현 회차</th></tr></thead><tbody>';
+    rows.forEach(function(r,i){
+      h+='<tr data-pick-type="'+esc(r.type)+'" style="cursor:pointer"><td>'+(i+1)+'</td><td><b>'+esc(TYPES[r.type]||r.type)+'</b></td><td>'+r.questions+'</td><td>'+r.items+'</td><td>'+r.rounds.size+'회차</td></tr>';
+    });
+    return h+'</tbody></table></div>';
+  }
   return '<div class="atlas-grid">'+rows.map(function(r){
     return '<button class="atlas-card" data-pick-type="'+esc(r.type)+'"><div class="atlas-hanja" style="font-family:inherit!important;font-size:22px!important">'+esc(TYPES[r.type]||r.type)+'</div><div class="atlas-hun">'+r.rounds.size+'회차 · '+r.questions+'문항</div><div class="atlas-meta"><span>빈출 항목 '+r.items+'개</span><span>유형 순위 보기</span></div></button>';
   }).join("")+'</div>';
@@ -6041,11 +6137,17 @@ function atlasItemFrequencyHtml(type){
   const rows=atlasItemRowsForType(type);
   if(!rows.length)return '<div class="atlas-empty">'+esc(TYPES[type]||type)+' 유형의 집계 항목이 없습니다.<br>기간을 넓히거나 기출 전체 집계를 실행해 주세요.</div>';
   if(atlasState.view==="table"){
-    let h='<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>순위</th><th>출제 항목</th><th>정답·설명</th><th>출현</th><th>최근 회차</th></tr></thead><tbody>';
+    let h='<div class="atlas-freq-sheet"><div class="atlas-freq-sheet-head"><b>'+esc(TYPES[type]||type)+' · 빈출순위</b><span>총 '+rows.length.toLocaleString()+'항목 · '+atlasPeriodLabel()+'</span></div>'+
+      '<div class="atlas-freq-legend"><span>순위</span><span>한자</span><span>독음·정답</span><span>빈출</span></div><div class="atlas-freq-board">';
     rows.forEach(function(r,i){
-      h+='<tr data-atlas-item-key="'+esc(encodeURIComponent(r.key))+'" style="cursor:pointer"><td>'+(i+1)+'</td><td class="hanja-cell">'+esc(r.primary)+'</td><td>'+esc(r.secondary||"-")+'</td><td>'+r.rounds.length+'회차 / '+r.count+'문항</td><td>'+r.rounds.slice(-6).join(", ")+'</td></tr>';
+      h+='<button class="atlas-freq-entry" data-atlas-item-key="'+esc(encodeURIComponent(r.key))+'" aria-label="'+esc((i+1)+'위 '+r.primary)+'">'+
+        '<span class="atlas-freq-no">'+(i+1)+'</span>'+
+        '<span class="atlas-freq-word">'+esc(r.primary)+'</span>'+
+        '<span class="atlas-freq-answer">'+esc(r.secondary||"-")+'</span>'+
+        '<span class="atlas-freq-count">'+r.count+'문항<br>'+r.rounds.length+'회</span>'+
+      '</button>';
     });
-    return h+'</tbody></table></div>';
+    return h+'</div></div>';
   }
   return '<div class="atlas-grid">'+rows.map(function(r,i){
     const len=[...String(r.primary)].length,fs=len>=5?'20px':(len>=3?'27px':'38px'),tr=atlasTrend(r),ex=(r.examples&&r.examples[0])?r.examples[0].text:"";
@@ -6280,7 +6382,7 @@ function atlasRows(){
     return {c:c,canonical:officialMeaningSoundForms(c).canonical,tone:toneMarkerFor(c),count:count,rounds:rounds,roundList:roundList,types:f?[...f.types]:[],study:study};
   });
   if(atlasState.mode==="freq")rows=rows.filter(function(x){return x.count>0||x.rounds>0});
-  if(atlasState.sort==="freq"||atlasState.mode==="freq")rows.sort(function(a,b){return b.rounds-a.rounds||b.count-a.count||String(a.c.sound).localeCompare(String(b.c.sound),"ko-KR")||String(a.c.hanja).localeCompare(String(b.c.hanja),"ko-KR")});
+  if(atlasState.sort==="freq"||atlasState.mode==="freq")rows.sort(function(a,b){return b.count-a.count||b.rounds-a.rounds||String(a.c.sound).localeCompare(String(b.c.sound),"ko-KR")||String(a.c.hanja).localeCompare(String(b.c.hanja),"ko-KR")});
   else rows.sort(function(a,b){return String(a.c.sound).localeCompare(String(b.c.sound),"ko-KR")||String(a.canonical).localeCompare(String(b.canonical),"ko-KR")||String(a.c.hanja).localeCompare(String(b.c.hanja),"ko-KR")});
   return rows;
 }
@@ -6332,7 +6434,7 @@ function renderAtlasResults(){
       ?'<div class="atlas-progress ok" style="margin-bottom:9px"><b>특급 유형별 빈출</b> · 실제 특급은 제38회부터 시작합니다. 원문 기출을 문제유형별로 다시 분류해 집계합니다.<div class="atlas-source-split"><div><b>기존 참고 구간</b><span>제38~100회</span></div><div><b>추가 최신 구간</b><span>제101~114회</span></div></div></div>'
       :"";
     out.innerHTML=coverage+(type==="all"?atlasTypeOverviewHtml():atlasItemFrequencyHtml(type));
-    document.querySelectorAll("[data-pick-type]").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.pickType;renderAtlas()}});
+    document.querySelectorAll("[data-pick-type]").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.pickType;if(atlasState.view!=="grid")atlasState.view="table";renderAtlas()}});
     document.querySelectorAll("[data-atlas-item-key]").forEach(function(b){b.onclick=function(){try{openAtlasItemDetail(decodeURIComponent(b.dataset.atlasItemKey||""))}catch{}}});
     return;
   }
@@ -6360,7 +6462,11 @@ function renderAtlas(){
   h+='<label class="atlas-control"><span>도감 종류</span><select id="atlasMode"><option value="grade" '+(atlasState.mode==="grade"?"selected":"")+'>배정한자</option><option value="freq" '+(atlasState.mode==="freq"?"selected":"")+'>기출 빈출</option></select></label>';
   h+='<label class="atlas-control"><span>범위</span><select id="atlasScope"><option value="exact" '+(atlasState.scope==="exact"?"selected":"")+'>해당 급수 신규</option><option value="cumulative" '+(atlasState.scope==="cumulative"?"selected":"")+'>누적 배정</option></select></label>';
   h+='<label class="atlas-control"><span>암기 가림</span><select id="atlasMask"><option value="none" '+(atlasState.mask==="none"?"selected":"")+'>모두 보기</option><option value="hanja" '+(atlasState.mask==="hanja"?"selected":"")+'>한자 숨기기</option><option value="meaning" '+(atlasState.mask==="meaning"?"selected":"")+'>훈음 숨기기</option></select></label>';
-  h+='<label class="atlas-control"><span>보기</span><select id="atlasView"><option value="compact" '+(atlasState.view==="compact"?"selected":"")+'>배정표</option><option value="grid" '+(atlasState.view==="grid"?"selected":"")+'>카드</option><option value="table" '+(atlasState.view==="table"?"selected":"")+'>목록표</option></select></label></div>';
+  h+='<label class="atlas-control"><span>보기</span><select id="atlasView">'+
+    (atlasState.mode==="freq"
+      ? '<option value="table" '+(atlasState.view==="table"?"selected":"")+'>PDF식 빈출표</option><option value="grid" '+(atlasState.view==="grid"?"selected":"")+'>카드</option>'
+      : '<option value="compact" '+(atlasState.view==="compact"?"selected":"")+'>배정표</option><option value="grid" '+(atlasState.view==="grid"?"selected":"")+'>카드</option><option value="table" '+(atlasState.view==="table"?"selected":"")+'>목록표</option>')+
+    '</select></label></div>';
   h+='<input class="atlas-search" id="atlasSearch" value="'+esc(atlasState.query)+'" placeholder="한자 · 훈음 · 부수 검색">';
   if(atlasState.mode==="freq"){
     const typeKeys=["all"].concat((atlasState.grade==="특급"?SPECIAL_FREQ_TYPE_ORDER:Object.keys(TYPES)).filter(function(t,i,a){return TYPES[t]&&a.indexOf(t)===i}));
@@ -6384,7 +6490,7 @@ function renderAtlas(){
   }
   h+='<div id="atlasStatus" class="atlas-progress '+(freqCache?"ok":"")+'">'+st+'</div></section><div class="atlas-summary" id="atlasSummary"></div><div id="atlasResults"></div></div>';
   el.innerHTML=h;
-  $("#atlasMode").onchange=function(e){atlasState.mode=e.target.value;atlasState.freqType="all";atlasState.period="all";atlasState.query="";if(atlasState.mode==="freq"){atlasState.sort="freq";if(atlasState.view==="compact")atlasState.view="grid"}renderAtlas()};
+  $("#atlasMode").onchange=function(e){atlasState.mode=e.target.value;atlasState.freqType="all";atlasState.period="all";atlasState.query="";if(atlasState.mode==="freq"){atlasState.sort="freq";atlasState.view="table"}renderAtlas()};
   $("#atlasScope").onchange=function(e){atlasState.scope=e.target.value;atlasRevealSet.clear();renderAtlas()};
   $("#atlasMask").onchange=function(e){atlasState.mask=e.target.value;atlasRevealSet.clear();renderAtlas()};
   $("#atlasView").onchange=function(e){atlasState.view=e.target.value;renderAtlas()};
@@ -6412,7 +6518,7 @@ function renderFreq(){
     <div class="card utility-modern">
       <div class="prompt">기출 빈출 분석 · ${f}회~${isFinite(t)?t:"최신"}</div>
       <div class="sub">빠른 통합 통계입니다. <b>문제유형별 빈출</b>은 한자 도감 → 기출 빈출에서 독음·훈음·장단음·한자쓰기 등 유형을 따로 선택해 공부할 수 있습니다.</div>
-      <div class="actions" style="margin-top:10px"><button class="btn primary" onclick="openUtility('atlas');atlasState.mode='freq';atlasState.sort='freq';renderAtlas()">문제유형별 빈출 도감 열기</button></div>
+      <div class="actions" style="margin-top:10px"><button class="btn primary" onclick="openUtility('atlas');atlasState.mode='freq';atlasState.sort='freq';atlasState.view='table';renderAtlas()">문제유형별 빈출 도감 열기</button></div>
       <div class="table-wrap" style="margin-top:14px">
       ${rows.length?`<table><thead><tr><th>순위</th><th>한자</th><th>출현</th><th>유형</th><th>회차</th></tr></thead><tbody>
         ${rows.map((r,i)=>`<tr><td>${i+1}</td><td style="font-family:serif;font-size:24px">${esc(r.hanja)}</td><td><span class="tag ${r.count>=3?"hot1":""}">${r.count}회</span></td><td>${[...r.types].map(x=>TYPES[x]||x).join(", ")}</td><td>${[...r.rounds].sort((a,b)=>a-b).join(", ")}</td></tr>`).join("")}
