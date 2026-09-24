@@ -7,11 +7,12 @@ android {
     compileSdk 35
 
     defaultConfig {
-        applicationId "com.epicenterguy.dokihanja"
+        // Fresh package ID so the rebuilt app is always treated as a clean install.
+        applicationId "com.epicenterguy.dokihanja.mobile"
         minSdk 26
         targetSdk 35
-        versionCode 2
-        versionName "0.2.0"
+        versionCode 3
+        versionName "0.3.0"
     }
 
     buildTypes {
@@ -20,6 +21,7 @@ android {
         }
         release {
             minifyEnabled false
+            shrinkResources false
         }
     }
 }
