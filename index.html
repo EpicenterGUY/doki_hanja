@@ -865,6 +865,332 @@ body:not(.drill-active) .tabpage,
   .app-section-head .badge{font-size:11px}
 }
 
+
+/* UI POLISH 2.2 — Fold-first native layout */
+html{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+body{
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+button,.btn,.app-action,.app-list-row,.grade-chip,.round-btn,.app2-nav{
+  transition:transform .14s ease,background-color .14s ease,border-color .14s ease,opacity .14s ease,box-shadow .14s ease;
+}
+button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.975)}
+.app2-nav:active{transform:scale(.95)}
+.app-screen{min-width:0}
+.app-section{
+  position:relative;
+  overflow:hidden;
+}
+.app-section::before{
+  content:"";
+  position:absolute;
+  top:0;left:20px;right:20px;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(137,170,255,.5),transparent);
+  pointer-events:none;
+}
+.app-section-head{min-height:42px}
+.app-section-title{
+  letter-spacing:-.025em;
+  line-height:1.15;
+}
+.app-section-sub{line-height:1.45}
+.badge{
+  font-weight:800;
+  letter-spacing:-.01em;
+}
+.app-hero{
+  isolation:isolate;
+}
+.app-hero::before{
+  content:"";
+  position:absolute;
+  inset:auto -60px -100px auto;
+  width:220px;height:220px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.16),transparent 68%);
+  z-index:-1;
+}
+.app-hero h2{letter-spacing:-.045em}
+.app-hero-actions .btn{padding-inline:16px}
+.app-metric{
+  position:relative;
+  overflow:hidden;
+}
+.app-metric::after{
+  content:"";
+  position:absolute;
+  right:-18px;top:-24px;
+  width:62px;height:62px;border-radius:50%;
+  background:rgba(118,139,255,.08);
+}
+.app-metric b{letter-spacing:-.035em}
+.app-action{
+  position:relative;
+  overflow:hidden;
+}
+.app-action::after{
+  content:"›";
+  position:absolute;
+  right:13px;top:12px;
+  color:#7589b2;
+  font-size:21px;
+  line-height:1;
+  opacity:.8;
+}
+.app-action:hover{border-color:rgba(155,181,235,.42)}
+.app-action-icon{
+  box-shadow:inset 0 1px rgba(255,255,255,.22),0 8px 18px rgba(0,0,0,.16);
+}
+.app-action-icon svg{
+  width:21px;height:21px;
+  fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.app-action b{letter-spacing:-.02em}
+.app-list-row{min-width:0}
+.app-list-row:hover{border-color:rgba(152,181,235,.38)}
+.app-list-icon{
+  box-shadow:inset 0 1px rgba(255,255,255,.08);
+}
+.app-list-icon svg{
+  width:20px;height:20px;
+  fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;
+}
+.grade-scroller{
+  scroll-snap-type:x proximity;
+  scroll-padding-inline:1px;
+}
+.grade-chip{
+  scroll-snap-align:start;
+  letter-spacing:-.02em;
+}
+.grade-chip.active{transform:translateY(-1px)}
+.remote-status{
+  line-height:1.45;
+  border-radius:14px;
+  margin-top:9px;
+}
+.remote-exam-list{align-items:stretch}
+.round-btn{
+  min-width:0!important;
+  line-height:1.15;
+  letter-spacing:-.02em;
+}
+.compact-settings{
+  overflow:hidden;
+}
+.compact-settings summary{
+  list-style:none;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.compact-settings summary::-webkit-details-marker{display:none}
+.compact-settings summary::after{
+  content:"⌄";
+  color:#8fa7d0;
+  font-size:17px;
+  transition:transform .18s ease;
+}
+.compact-settings[open] summary::after{transform:rotate(180deg)}
+.segment button{letter-spacing:-.02em}
+.app-start{
+  box-shadow:0 10px 24px rgba(255,184,67,.14)!important;
+}
+.app2-bar{
+  box-shadow:0 8px 24px rgba(0,8,25,.12);
+}
+.app2-dock{
+  box-shadow:0 18px 52px rgba(0,5,20,.52),inset 0 1px rgba(255,255,255,.04);
+}
+.app2-nav span{line-height:1.05}
+.practice-session{
+  display:grid;
+  gap:10px;
+  min-width:0;
+}
+.practice-session .kpis{margin-bottom:0}
+.practice-session .progress{margin:0}
+.practice-session .hero{
+  min-width:0;
+  overflow:hidden;
+}
+.practice-session .hero>div{min-width:0}
+.practice-session .answer-row input{min-width:0;width:100%}
+
+/* Fold unfolded / tablet: use the extra canvas instead of merely stretching cards */
+@media(min-width:760px){
+  .practice-home{
+    grid-template-columns:minmax(0,1.22fr) minmax(290px,.78fr);
+    align-items:start;
+  }
+  .practice-home .app-hero{grid-column:1;grid-row:1 / span 2;min-height:260px;padding:28px}
+  .practice-home .app-hero h2{font-size:38px}
+  .practice-home .app-metrics{grid-column:2;grid-row:1;grid-template-columns:1fr 1fr}
+  .practice-home .app-section{grid-column:2;grid-row:2}
+  .practice-home .app-action-grid{grid-template-columns:1fr 1fr}
+  .practice-home .app-action{min-height:116px}
+  .exam-screen .app-section,.drill-setup-screen .app-section{padding:22px}
+  .more-screen{
+    grid-template-columns:minmax(280px,.42fr) minmax(0,.58fr);
+    align-items:start;
+  }
+  .more-screen .app-stats-hero{position:sticky;top:calc(var(--appbar-h) + 18px);grid-template-columns:1fr}
+  .more-screen .app-score-side{grid-template-columns:1fr 1fr}
+}
+
+/* Fold cover-screen: compact, thumb-friendly, no horizontal leakage */
+@media(max-width:600px){
+  :root{--appbar-h:56px;--dock-h:64px}
+  body:not(.drill-active) .app{
+    padding-top:calc(var(--appbar-h) + 8px + env(safe-area-inset-top));
+    padding-left:8px;
+    padding-right:8px;
+    padding-bottom:calc(var(--dock-h) + 20px + env(safe-area-inset-bottom));
+  }
+  .app2-bar{
+    height:var(--appbar-h);
+    padding:6px 9px;
+  }
+  .app2-logo{width:36px;height:36px;border-radius:12px}
+  .app2-kicker{display:none}
+  .app2-title{margin-top:0;font-size:18px;letter-spacing:-.03em}
+  .app2-actions{gap:5px}
+  .app2-action,.app2-action.icon-only{
+    width:36px;min-width:36px;height:36px;padding:0;border-radius:12px;
+    font-size:15px!important;
+  }
+  .app2-action.install{width:auto;padding-inline:10px}
+  .app2-dock{
+    width:calc(100% - 12px);
+    min-height:var(--dock-h);
+    bottom:max(6px,env(safe-area-inset-bottom));
+    padding:5px;
+    border-radius:20px;
+    gap:3px;
+  }
+  .app2-nav{
+    min-height:52px;
+    border-radius:15px;
+    font-size:9px!important;
+    gap:2px;
+  }
+  .app2-nav svg{width:20px;height:20px}
+  .app-screen{gap:10px}
+  .app-hero{
+    min-height:144px;
+    padding:16px;
+    border-radius:20px;
+  }
+  .app-hero::after{font-size:150px;right:4px;bottom:-43px}
+  .app-hero h2{font-size:25px;margin:7px 0 5px}
+  .app-hero p{font-size:12px;line-height:1.42;max-width:82%}
+  .app-hero-actions{margin-top:13px;gap:6px}
+  .app-hero-actions .btn{min-height:40px;padding:8px 12px;font-size:13px!important;border-radius:13px}
+  .app-metrics{gap:6px}
+  .app-metric{padding:11px;border-radius:16px}
+  .app-metric b{font-size:20px}
+  .app-metric span{font-size:10px;margin-top:4px}
+  .app-section{padding:12px;border-radius:18px}
+  .app-section::before{left:14px;right:14px}
+  .app-section-head{min-height:0;margin-bottom:9px;gap:7px}
+  .app-section-title{font-size:17px}
+  .app-section-sub{font-size:11px}
+  .app-section-head .badge{font-size:10px;padding:5px 7px}
+  .app-action-grid{gap:7px}
+  .app-action{
+    min-height:88px;
+    padding:11px;
+    border-radius:17px;
+    gap:7px;
+  }
+  .app-action::after{right:10px;top:9px;font-size:18px}
+  .app-action-icon{width:34px;height:34px;border-radius:11px;font-size:16px}
+  .app-action-icon svg{width:18px;height:18px}
+  .app-action b{font-size:14px}
+  .app-action small{font-size:10px;line-height:1.3}
+  .grade-scroller{gap:6px;padding-bottom:5px}
+  .grade-chip{
+    height:39px;
+    min-width:54px;
+    padding:0 11px;
+    border-radius:13px;
+    font-size:13px!important;
+  }
+  .label{font-size:11px;margin-top:9px;margin-bottom:5px}
+  .segment{gap:4px;padding:4px;border-radius:14px}
+  .segment button{
+    min-height:40px;
+    border-radius:11px;
+    font-size:13px!important;
+  }
+  .app-start{min-height:50px!important;font-size:14px!important}
+  .remote-status{font-size:11px;padding:8px 9px;margin-top:7px}
+  .remote-exam-list{
+    gap:6px!important;
+    margin-top:8px!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  }
+  .round-btn{
+    min-height:44px!important;
+    padding:7px 3px!important;
+    border-radius:13px!important;
+    font-size:13px!important;
+  }
+  .compact-settings{border-radius:15px;margin-top:9px!important}
+  .compact-settings summary{padding:11px 12px;font-size:13px}
+  .app-score-card{min-height:105px;padding:15px;border-radius:20px}
+  .app-score-card b{font-size:32px}
+  .app-score-mini{padding:11px;border-radius:15px}
+  .app-score-mini b{font-size:16px}
+  .app-list{gap:6px}
+  .app-list-row{min-height:62px;padding:9px 10px;border-radius:16px}
+  .app-list-main{gap:9px}
+  .app-list-icon{width:37px;height:37px;flex-basis:37px;border-radius:12px}
+  .app-list-text b{font-size:14px}
+  .app-list-text small{font-size:10px}
+  .app-list-chevron{font-size:20px}
+  .practice-session{gap:7px}
+  .practice-session .kpis{gap:5px;grid-template-columns:repeat(4,minmax(0,1fr))}
+  .practice-session .kpi{padding:8px 5px;border-radius:13px;text-align:center}
+  .practice-session .kpi b{font-size:16px}
+  .practice-session .kpi span{font-size:9px}
+  .practice-session .progress{height:6px}
+  .practice-session .hero{
+    grid-template-columns:1fr;
+    gap:8px;
+    padding:14px;
+    border-radius:18px;
+  }
+  .practice-session .big-hanja{
+    order:-1;
+    min-width:0;
+    font-size:min(30vw,112px);
+    line-height:1;
+  }
+  .practice-session .prompt{font-size:18px!important;line-height:1.35}
+  .practice-session .meta{margin-top:0}
+  .practice-session .badge{font-size:10px;padding:5px 7px}
+  .practice-session .answer-row{gap:6px;margin-top:10px}
+  .practice-session .answer-row input{min-height:46px;padding:10px 12px;font-size:16px}
+  .practice-session .answer-row .btn{min-width:76px;min-height:46px;font-size:13px!important}
+}
+
+@media(max-width:380px){
+  .app-action small{display:none}
+  .app-action{min-height:76px}
+  .app-hero p{max-width:92%}
+  .remote-exam-list{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .practice-session .kpi:nth-child(3){display:none}
+  .practice-session .kpis{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
 </style>
 </head>
 <body>
@@ -1611,7 +1937,7 @@ function renderMore(){
   const correct=allStats.reduce((s,x)=>s+(x.ok||0),0);
   const acc=attempts?Math.round(correct/attempts*100):0;
   const wrongCount=Object.keys(wrong||{}).length;
-  $("#more").innerHTML=`<div class="app-screen">
+  $("#more").innerHTML=`<div class="app-screen more-screen">
     <div class="app-stats-hero">
       <div class="app-score-card"><span>누적 정답률</span><b>${acc}%</b><span>${attempts.toLocaleString()}문제 풀이</span></div>
       <div class="app-score-side">
@@ -1651,7 +1977,7 @@ function renderPracticeWelcome(){
   const acc=attempts?Math.round(correct/attempts*100):0;
   const wrongCount=Object.keys(wrong||{}).length;
   const target=$("#level")?.value||"1급";
-  $("#practice").innerHTML=`<div class="app-screen">
+  $("#practice").innerHTML=`<div class="app-screen practice-home">
     <section class="app-hero">
       <span class="app-hero-kicker">DOKI DAILY TRAINING</span>
       <h2>${esc(target)} 오늘도 한 글자씩.</h2>
@@ -1670,10 +1996,10 @@ function renderPracticeWelcome(){
     <section class="app-section">
       <div class="app-section-head"><div><div class="app-section-title">빠른 시작</div><div class="app-section-sub">자주 쓰는 학습만 크게 꺼냈어요.</div></div></div>
       <div class="app-action-grid">
-        <button class="app-action" onclick="startPractice(false)"><span class="app-action-icon">✓</span><span><b>혼합 연습</b><small>선택 유형을 섞어 바로 풀기</small></span></button>
-        <button class="app-action" onclick="switchTab('drill')"><span class="app-action-icon">✍</span><span><b>손글씨</b><small>급수 전체를 캔버스로 연습</small></span></button>
-        <button class="app-action" onclick="switchTab('exam')"><span class="app-action-icon">試</span><span><b>기출</b><small>급수·회차를 골라 실전 풀이</small></span></button>
-        <button class="app-action" onclick="openUtility('wrong')"><span class="app-action-icon">↻</span><span><b>오답 복습</b><small>틀린 항목만 다시 확인</small></span></button>
+        <button class="app-action" onclick="startPractice(false)"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h9M5 17h11"/><path d="m17 12 2 2 3-4"/></svg></span><span><b>혼합 연습</b><small>선택 유형을 섞어 바로 풀기</small></span></button>
+        <button class="app-action" onclick="switchTab('drill')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10-3.5-3.5-10 10L4 20Z"/><path d="m13.5 6.5 3.5 3.5"/></svg></span><span><b>손글씨</b><small>급수 전체를 캔버스로 연습</small></span></button>
+        <button class="app-action" onclick="switchTab('exam')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></span><span><b>기출</b><small>급수·회차를 골라 실전 풀이</small></span></button>
+        <button class="app-action" onclick="openUtility('wrong')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span><b>오답 복습</b><small>틀린 항목만 다시 확인</small></span></button>
       </div>
     </section>
   </div>`;
@@ -2114,7 +2440,7 @@ function renderExam(){
   if(!$("#exam"))return;
   const level=examArchiveLevel||"특급";
   const local=isLocalContentMode();
-  $("#exam").innerHTML=`<div class="app-screen">
+  $("#exam").innerHTML=`<div class="app-screen exam-screen">
     <section class="app-section">
       <div class="app-section-head">
         <div><div class="app-section-title">기출 실전</div><div class="app-section-sub">급수를 고른 뒤 원하는 회차를 누르면 바로 시작합니다.</div></div>
@@ -3473,7 +3799,7 @@ function renderDrill(){
   const mode2=drillState.mode||"meaningSound";
   const order=drillState.order||"alpha";
   const count=exactGradeChars(grade).length;
-  $("#drill").innerHTML=`<div class="app-screen">
+  $("#drill").innerHTML=`<div class="app-screen drill-setup-screen">
     <section class="app-section">
       <div class="app-section-head">
         <div><div class="app-section-title">급수별 집중 연습</div><div class="app-section-sub">${esc(grade)} 배정한자 ${count.toLocaleString()}자</div></div>
