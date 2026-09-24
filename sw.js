@@ -1,5 +1,5 @@
-const CACHE="doki-hanja-app-v24-20260924";
-const CORE=["./","./index.html","./manifest.webmanifest","./version.json","./icon.svg","./icon-maskable.svg"];
+const CACHE="doki-hanja-app-v25-20260924";
+const CORE=["./","./index.html","./manifest.webmanifest","./version.json","./icon.svg","./icon-maskable.svg","./report-config.js"];
 
 self.addEventListener("install",event=>{
   event.waitUntil(
