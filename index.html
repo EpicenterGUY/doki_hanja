@@ -2576,7 +2576,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.9.3-20260924";
+const APP_BUILD="2.9.4-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -6074,15 +6074,68 @@ function openAtlasItemDetail(key){
     '<div class="atlas-detail-section"><h4>어문회 기출 용례</h4><div class="atlas-usage-list">'+(examples.length?examples.map(function(ex){return '<div class="atlas-usage"><div class="atlas-usage-top"><b>제'+ex.round+'회 '+(ex.no?ex.no+'번':'')+'</b><span>'+esc(TYPES[row.type]||row.type)+'</span></div><p>'+esc(ex.text)+'</p>'+(ex.answer?'<p><b>정답</b> · '+esc(ex.answer)+'</p>':'')+'</div>'}).join(""):'<div class="atlas-usage"><p>저장된 기출 문맥이 없습니다. 전체 집계를 실행하면 원문에서 용례를 모읍니다.</p></div>')+'</div></div>'+
     dictionaryFallbackMarkup(row.primary)+
     '<div class="atlas-detail-note">빈출 순위는 선택한 기간의 실제 내장 기출 문항을 기준으로 계산합니다. 용례는 한국어문회 기출/지정어를 우선하고, 부족한 항목은 국립국어원 사전 확인 링크를 제공합니다.</div>';
-  requestAnimationFrame(function(){ui.bd.classList.add("open");ui.sh.classList.add("open")});
+  requestAnimationFrame(function(){ui.bd.classList.add("open");ui.sh.classList.add("open");hydrateAtlasDictionaryUsage(row.primary)});
 }
 function dictionaryLookupUrl(term){
   const q=encodeURIComponent(String(term||"").trim());
   return "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword="+q;
 }
+const ATLAS_DICT_SEED={
+  "呵":[
+    {word:"가책(呵責)",meaning:"자기나 남의 잘못을 꾸짖어 책망함.",example:"가책을 받다.",source:"한국어기초사전"},
+    {word:"가책하다(呵責하다)",meaning:"자기나 남의 잘못을 꾸짖다.",example:"자기의 과오를 가책하다.",source:"한국어기초사전"}
+  ]
+};
+function atlasDictSeedMarkup(term){
+  const rows=ATLAS_DICT_SEED[term]||[];
+  if(!rows.length)return "";
+  return rows.map(function(x){
+    return '<div class="atlas-usage"><div class="atlas-usage-top"><b>'+esc(x.word)+'</b><span>'+esc(x.source||"사전")+'</span></div><p>'+esc(x.meaning||"")+'</p>'+(x.example?'<p><b>예문</b> · '+esc(x.example)+'</p>':'')+'</div>';
+  }).join("");
+}
 function dictionaryFallbackMarkup(term){
   if(!term)return "";
-  return '<div class="atlas-detail-section"><h4>사전 용례</h4><div class="atlas-detail-note">어문회 기출·지정어에서 충분한 용례를 찾지 못한 경우 국립국어원 사전에서 추가 확인할 수 있습니다.</div><div class="diag-actions" style="margin-top:8px"><a class="btn" href="'+esc(dictionaryLookupUrl(term))+'" target="_blank" rel="noopener">표준국어대사전에서 보기</a></div></div>';
+  const seed=atlasDictSeedMarkup(term);
+  const single=extractHanjaChars(term).length===1;
+  return '<div class="atlas-detail-section"><h4>사전 용례</h4>'+
+    '<div class="atlas-usage-list" id="atlasDictPreview">'+(seed||'<div class="atlas-usage"><p>'+(single?'사전 단어·예문을 불러오는 중…':'해당 한자어를 표준국어대사전에서 추가 확인할 수 있습니다.')+'</p></div>')+'</div>'+
+    '<div class="atlas-detail-note">기출 문맥이 없거나 부족하면 표준국어대사전 기반 참고 단어·예문을 보완 표시합니다. 네트워크 상태에 따라 미리보기가 없을 수 있습니다.</div>'+
+    '<div class="diag-actions" style="margin-top:8px"><a class="btn" href="'+esc(dictionaryLookupUrl(term))+'" target="_blank" rel="noopener">표준국어대사전에서 보기</a></div></div>';
+}
+async function hydrateAtlasDictionaryUsage(term){
+  const box=$("#atlasDictPreview");if(!box||extractHanjaChars(term).length!==1)return;
+  const seed=atlasDictSeedMarkup(term);
+  try{
+    const url="https://r.jina.ai/https://hanja.wordrow.kr/%ED%95%9C%EC%9E%90/"+encodeURIComponent(term)+"/";
+    const res=await fetchWithTimeout(url,{cache:"no-store",headers:{"Accept":"text/plain"}},9000);
+    if(!res.ok)throw Error("HTTP "+res.status);
+    const raw=await res.text(),lines=raw.split(/\r?\n/).map(function(x){return x.replace(/^#+\s*/,"").replace(/\*\*/g,"").trim()}).filter(Boolean);
+    const rows=[];let cur=null;
+    for(const line of lines){
+      if(rows.length>=5)break;
+      if(line.includes(term)&&/[가-힣]/.test(line)&&!/^한자 기본 정보/.test(line)&&!/^이 한자가/.test(line)){
+        const clean=line.replace(/\[([^\]]+)\]\([^)]*\)/g,"[$1]").slice(0,90);
+        if(clean.length<80){cur={word:clean,meaning:"",example:""};continue}
+      }
+      if(cur&&/^사전 뜻\s*/.test(line)){
+        cur.meaning=line.replace(/^사전 뜻\s*/,"").trim().slice(0,140);
+      }
+      if(cur&&/^사전 예문/.test(line)){
+        cur.example=line.replace(/^사전 예문\s*/,"").replace(/[“”"]/g,"").trim().slice(0,140);
+        rows.push(cur);cur=null;
+      }else if(cur&&cur.meaning&&/^단어 구성/.test(line)){
+        rows.push(cur);cur=null;
+      }
+    }
+    if(cur&&cur.meaning&&rows.length<5)rows.push(cur);
+    const html=rows.length?rows.map(function(x){
+      return '<div class="atlas-usage"><div class="atlas-usage-top"><b>'+esc(x.word)+'</b><span>표준사전 기반 참고</span></div><p>'+esc(x.meaning)+'</p>'+(x.example?'<p><b>예문</b> · '+esc(x.example)+'</p>':'')+'</div>';
+    }).join(""):"";
+    if(html)box.innerHTML=seed+html;
+    else if(!seed)box.innerHTML='<div class="atlas-usage"><p>자동으로 가져온 사전 용례가 없습니다. 아래 표준국어대사전 버튼에서 확인할 수 있습니다.</p></div>';
+  }catch(e){
+    if(!seed&&box)box.innerHTML='<div class="atlas-usage"><p>사전 미리보기를 불러오지 못했습니다. 아래 표준국어대사전 버튼에서 확인할 수 있습니다.</p></div>';
+  }
 }
 function atlasRelatedForChar(hanja){
   return currentAtlasItemRows(atlasState.grade,atlasState.scope)
@@ -6103,7 +6156,7 @@ function openAtlasCharDetail(key){
     '<div class="atlas-detail-section"><h4>기출 문맥</h4><div class="atlas-usage-list">'+(examples.length?examples.map(function(ex){return '<div class="atlas-usage"><div class="atlas-usage-top"><b>제'+ex.round+'회 '+(ex.no?ex.no+'번':'')+'</b></div><p>'+esc(ex.text)+'</p></div>'}).join(""):'<div class="atlas-usage"><p>빈출 전체 집계를 실행하면 이 글자가 실제로 나온 기출 문맥을 모아 보여줍니다.</p></div>')+'</div></div>'+
     dictionaryFallbackMarkup(c.hanja)+
     '<div class="atlas-detail-note">훈음은 한국어문회 배정한자 데이터를 기준으로 표시하며, 용례·관련어는 어문회 기출/지정어를 우선합니다. 부족한 경우 국립국어원 사전에서 추가 확인할 수 있습니다.</div>';
-  requestAnimationFrame(function(){ui.bd.classList.add("open");ui.sh.classList.add("open")});
+  requestAnimationFrame(function(){ui.bd.classList.add("open");ui.sh.classList.add("open");hydrateAtlasDictionaryUsage(c.hanja)});
 }
 
 function currentAtlasFreqMap(grade,scope){
