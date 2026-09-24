@@ -1764,6 +1764,24 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   color:#88a0c1;font-size:8px;line-height:1.45;font-weight:650
 }
 .atlas-study-extra em{font-style:normal;color:#6fcfb3;font-size:7px;margin-right:5px;font-weight:900}
+.atlas-study-main.relation-pair{padding:2px 0}
+.atlas-relation-words{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.atlas-relation-words b{font:850 23px/1.08 "Noto Serif CJK KR","Noto Serif KR","Batang",serif!important;color:#62caff!important}
+.atlas-relation-words i{font-style:normal;color:#83e2c7;font-size:16px;font-weight:900}
+.atlas-relation-readings{display:block;margin-top:5px;color:#d7e4f5;font-size:10px;font-weight:800;letter-spacing:.02em}
+.atlas-relation-readings i{font-style:normal;color:#70cdb4;margin:0 4px}
+.atlas-long-badge{
+  display:inline-flex;margin-top:6px;padding:3px 6px;border-radius:999px;
+  border:1px solid rgba(255,194,84,.2);background:rgba(255,194,84,.08);
+  color:#ffd17a;font-size:7px;font-weight:900
+}
+.atlas-idiom-meaning{
+  padding:10px 11px;border-radius:12px;background:rgba(8,18,34,.56);
+  border:1px solid rgba(126,157,205,.14);color:#eaf3ff;font-size:10px;line-height:1.55
+}
+.atlas-idiom-meaning.loading{color:#8fa5c6}
+.atlas-idiom-meaning.ok{border-color:rgba(74,211,172,.22);color:#b8eddc}
+.atlas-idiom-meaning a{color:#86cfff;font-weight:800}
 .atlas-study-detail-extra{display:grid;gap:7px}
 .atlas-study-detail-extra>div{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px;align-items:start}
 .atlas-study-detail-extra b{font-size:8px;color:#72d1b6}
@@ -1810,6 +1828,24 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
 .atlas-memory-answer.hanja-answer{
   font:850 22px/1.15 "Noto Serif CJK KR","Noto Serif KR","Batang",serif;color:#9de6d1
 }
+.atlas-memory-relation{
+  margin:auto 0 4px;display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap
+}
+.atlas-memory-relation span{
+  font:850 24px/1.08 "Noto Serif CJK KR","Noto Serif KR","Batang",serif;color:#55c8ff
+}
+.atlas-memory-relation i{font-style:normal;color:#80dec3;font-size:16px;font-weight:900}
+.atlas-memory-relation-reading{
+  min-height:28px;display:grid;place-items:center;padding:5px 6px;border-radius:9px;
+  background:rgba(7,15,28,.42);color:#d8e5f5;font-size:9px;font-weight:800;
+  filter:blur(6px);opacity:.22;transition:filter .12s ease,opacity .12s ease
+}
+.atlas-memory-long{
+  align-self:center;margin-top:5px;padding:3px 7px;border-radius:999px;
+  color:#ffd17b;background:rgba(255,193,82,.08);border:1px solid rgba(255,193,82,.16);
+  font-size:7px;font-weight:900
+}
+.atlas-memory-card.revealed .atlas-memory-relation-reading{filter:none;opacity:1}
 .atlas-memory-card.revealed .atlas-memory-answer{filter:none;opacity:1}
 .atlas-memory-extra{
   display:grid;gap:3px;margin-top:6px;padding:6px 7px;border-radius:9px;
@@ -6830,12 +6866,24 @@ function atlasItemFrequencyHtml(type){
     let h='<section class="atlas-format-group"><div class="atlas-format-head"><div><b>'+esc(g.label)+'</b><span>'+esc(instruction)+' · '+g.rows.length.toLocaleString()+'항목</span></div><em>'+g.count+'문항</em></div><div class="atlas-study-list">';
     g.rows.forEach(function(r,i){
       const recent=(r.rounds&&r.rounds.length)?r.rounds[r.rounds.length-1]:"-",pair=atlasStudyPair(r);
+      const rel=atlasRelationDisplay(r),longInfo=atlasLongSoundDisplay(r);
       const promptClass=atlasPureHanja(pair.prompt)?" hanja-prompt":" text-prompt";
       const answerClass=atlasPureHanja(pair.answer)?" hanja-answer":"";
       const extras=atlasStudySupplement(r,meaningIndex).filter(function(x){return norm(x.value)!==norm(pair.prompt)&&norm(x.value)!==norm(pair.answer)});
+      let main="";
+      if(rel){
+        main='<span class="atlas-relation-words"><b>'+esc(rel.left)+'</b><i>'+esc(rel.symbol)+'</i><b>'+esc(rel.right)+'</b></span>'+
+          '<span class="atlas-relation-readings">'+esc(rel.leftReading||"")+' <i>'+esc(rel.symbol)+'</i> '+esc(rel.rightReading||"")+'</span>';
+      }else{
+        main='<b>'+esc(pair.prompt)+'</b><small class="'+answerClass+'"><i>정답</i> '+esc(pair.answer)+'</small>';
+      }
+      if(longInfo)main+='<span class="atlas-long-badge">'+esc(longInfo.label)+'</span>';
+      if(r.type==="idiom"&&!extras.some(function(x){return x.label==="뜻"})){
+        extras.push({label:"뜻",value:"탭해서 상세에서 확인"});
+      }
       h+='<button class="atlas-study-row" data-atlas-item-key="'+esc(encodeURIComponent(r.key))+'">'+
         '<span class="atlas-study-rank">#'+(i+1)+'</span>'+
-        '<span class="atlas-study-main'+promptClass+'"><b>'+esc(pair.prompt)+'</b><small class="'+answerClass+'"><i>정답</i> '+esc(pair.answer)+'</small>'+
+        '<span class="atlas-study-main'+(rel?" relation-pair":promptClass)+'">'+main+
           (extras.length?'<span class="atlas-study-extra">'+extras.map(function(x){return '<em>'+esc(x.label)+'</em> '+esc(x.value)}).join('<br>')+'</span>':'')+
         '</span>'+
         '<span class="atlas-study-frequency"><b>'+r.count+'</b><small>문항</small></span>'+
@@ -6859,14 +6907,18 @@ function atlasItemFrequencyHtml(type){
   h+='<div class="atlas-memory-grid">';
   slice.forEach(function(x){
     const r=x.row,key=encodeURIComponent(r.key),revealed=atlasFreqCardRevealSet.has(r.key),pair=atlasStudyPair(r);
+    const rel=atlasRelationDisplay(r),longInfo=atlasLongSoundDisplay(r);
     const promptClass=atlasPureHanja(pair.prompt)?"":" textual";
     const answerClass=atlasPureHanja(pair.answer)?" hanja-answer":"";
     const extras=atlasStudySupplement(r,meaningIndex).filter(function(v){return norm(v.value)!==norm(pair.prompt)&&norm(v.value)!==norm(pair.answer)});
+    if(r.type==="idiom"&&!extras.some(function(v){return v.label==="뜻"}))extras.push({label:"뜻",value:"한 번 더 탭해 상세에서 확인"});
     h+='<button class="atlas-memory-card '+(revealed?'revealed':'')+'" data-atlas-memory-key="'+esc(key)+'">'+
       '<div class="atlas-memory-top"><span>#'+x.rank+' · '+esc(x.label)+'</span><b>'+r.count+'문항</b></div>'+
       '<div class="atlas-memory-mode">'+esc(atlasStudyInstruction(r))+'</div>'+
-      '<div class="atlas-memory-term'+promptClass+'">'+esc(pair.prompt)+'</div>'+
-      '<div class="atlas-memory-answer'+answerClass+'">'+esc(pair.answer)+'</div>'+
+      (rel
+        ? '<div class="atlas-memory-relation"><span>'+esc(rel.left)+'</span><i>'+esc(rel.symbol)+'</i><span>'+esc(rel.right)+'</span></div><div class="atlas-memory-relation-reading">'+esc(rel.leftReading||"")+' '+esc(rel.symbol)+' '+esc(rel.rightReading||"")+'</div>'
+        : '<div class="atlas-memory-term'+promptClass+'">'+esc(pair.prompt)+'</div><div class="atlas-memory-answer'+answerClass+'">'+esc(pair.answer)+'</div>')+
+      (longInfo?'<div class="atlas-memory-long">'+esc(longInfo.label)+'</div>':'')+
       (extras.length?'<div class="atlas-memory-extra">'+extras.map(function(v){return '<span><i>'+esc(v.label)+'</i>'+esc(v.value)+'</span>'}).join("")+'</div>':'')+
       '<div class="atlas-memory-hint">'+(revealed?'한 번 더 누르면 기출·회차 상세 보기':'정답을 떠올린 뒤 탭')+'</div>'+
     '</button>';
@@ -6900,15 +6952,52 @@ function openAtlasItemDetail(key){
   const row=atlasApplyPeriod([raw])[0]||raw,tr=atlasTrend(raw),ui=ensureAtlasDetailElements();
   const examples=(row.examples||[]).slice(0,6);
   const meaningIndex=atlasMeaningIndex(atlasApplyPeriod(all)),studyExtras=atlasStudySupplement(row,meaningIndex);
+  const knownIdiomMeaning=row.type==="idiom"?(meaningIndex.get(row.primary)||""):"";
   ui.sh.innerHTML='<div class="atlas-detail-handle"></div><div class="atlas-detail-head"><div class="atlas-detail-title"><span class="atlas-detail-glyph">'+esc(row.primary)+'</span><div class="atlas-detail-reading">'+esc(row.secondary||TYPES[row.type]||row.type)+'</div><div class="atlas-detail-sub">'+esc(row.formatLabel||TYPES[row.type]||row.type)+' · '+atlasPeriodLabel()+'</div></div><button class="atlas-detail-close" onclick="closeAtlasDetail()">×</button></div>'+
     '<div class="atlas-source-priority"><span>1순위 · 한국어문회 기출/지정어</span><span>보완 · 국립국어원 사전</span></div>'+
     '<div class="atlas-detail-kpis"><div class="atlas-detail-kpi"><b>'+row.rounds.length+'</b><span>출현 회차</span></div><div class="atlas-detail-kpi"><b>'+row.count+'</b><span>출제 문항</span></div><div class="atlas-detail-kpi"><b>'+tr.label+'</b><span>빈출 경향</span></div><div class="atlas-detail-kpi"><b>'+(row.rounds.slice(-1)[0]||"-")+'</b><span>최근 출현</span></div></div>'+
     (studyExtras.length?'<div class="atlas-detail-section"><h4>암기 핵심</h4><div class="atlas-study-detail-extra">'+studyExtras.map(function(x){return '<div><b>'+esc(x.label)+'</b><span>'+esc(x.value)+'</span></div>'}).join("")+'</div></div>':'')+
+    (row.type==="idiom"?'<div class="atlas-detail-section"><h4>사자성어 뜻</h4><div id="atlasIdiomMeaning" class="atlas-idiom-meaning '+(knownIdiomMeaning?'ok':'loading')+'">'+(knownIdiomMeaning?esc(knownIdiomMeaning):'사전 뜻을 확인하는 중…')+'</div></div>':'')+
     '<div class="atlas-detail-section"><h4>출현 회차</h4><div class="atlas-related">'+(row.rounds.length?row.rounds.map(function(x){return "<span>제"+x+"회</span>"}).join(""):"<span>기록 없음</span>")+'</div></div>'+
     '<div class="atlas-detail-section"><h4>어문회 기출 용례</h4><div class="atlas-usage-list">'+(examples.length?examples.map(function(ex){return '<div class="atlas-usage"><div class="atlas-usage-top"><b>제'+ex.round+'회 '+(ex.no?ex.no+'번':'')+'</b><span>'+esc(ex.formatLabel||row.formatLabel||TYPES[row.type]||row.type)+'</span></div><p>'+esc(ex.text)+'</p>'+(ex.answer?'<p><b>정답</b> · '+esc(ex.answer)+'</p>':'')+'</div>'}).join(""):'<div class="atlas-usage"><p>저장된 기출 문맥이 없습니다. 전체 집계를 실행하면 원문에서 용례를 모읍니다.</p></div>')+'</div></div>'+
     dictionaryFallbackMarkup(row.primary)+
     '<div class="atlas-detail-note">빈출 순위는 선택한 기간의 실제 내장 기출 문항을 기준으로 계산합니다. 용례는 한국어문회 기출/지정어를 우선하고, 부족한 항목은 국립국어원 사전 확인 링크를 제공합니다.</div>';
-  requestAnimationFrame(function(){ui.bd.classList.add("open");ui.sh.classList.add("open");hydrateAtlasDictionaryUsage(row.primary)});
+  requestAnimationFrame(function(){
+    ui.bd.classList.add("open");ui.sh.classList.add("open");
+    hydrateAtlasDictionaryUsage(row.primary);
+    if(row.type==="idiom"&&!knownIdiomMeaning)hydrateAtlasIdiomMeaning(row.primary);
+  });
+}
+async function hydrateAtlasIdiomMeaning(term){
+  const box=$("#atlasIdiomMeaning");if(!box||atlasHanjaTextLen(term)!==4)return;
+  const chars4=[...String(term)].filter(function(ch){return /[\u3400-\u9fff\uf900-\ufaff]/.test(ch)});
+  const tried=new Set();
+  try{
+    for(const ch of chars4){
+      if(tried.has(ch))continue;tried.add(ch);
+      const url="https://r.jina.ai/https://hanja.wordrow.kr/%ED%95%9C%EC%9E%90/"+encodeURIComponent(ch)+"/";
+      const res=await fetchWithTimeout(url,{cache:"force-cache",headers:{"Accept":"text/plain"}},6500);
+      if(!res.ok)continue;
+      const lines=(await res.text()).split(/\r?\n/).map(function(x){return x.replace(/^#+\s*/,"").replace(/\*\*/g,"").trim()}).filter(Boolean);
+      for(let i=0;i<lines.length;i++){
+        const m=lines[i].match(/([가-힣]{2,30})(?:\[[^\]]+\])?\s*\(([\u3400-\u9fff\uf900-\ufaff]+)\)/);
+        if(!m||m[2]!==term)continue;
+        for(let j=i+1;j<Math.min(lines.length,i+8);j++){
+          if(/^사전 뜻\s*/.test(lines[j])){
+            const meaning=lines[j].replace(/^사전 뜻\s*/,"").trim();
+            if(meaning){
+              box.className="atlas-idiom-meaning ok";box.textContent=meaning;
+              return;
+            }
+          }
+        }
+      }
+    }
+  }catch(e){}
+  if(box){
+    box.className="atlas-idiom-meaning";
+    box.innerHTML='자동으로 뜻을 찾지 못했습니다. <a href="'+esc(dictionaryLookupUrl(term))+'" target="_blank" rel="noopener">표준국어대사전에서 확인</a>';
+  }
 }
 function dictionaryLookupUrl(term){
   const q=encodeURIComponent(String(term||"").trim());
