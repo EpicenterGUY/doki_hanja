@@ -2097,6 +2097,18 @@ body.practice-sheet-open{overflow:hidden}
   }
 }
 
+
+/* SOURCE PRIORITY 2.9.2 */
+.atlas-source-priority{
+  display:flex;gap:6px;flex-wrap:wrap;margin-top:8px
+}
+.atlas-source-priority span{
+  padding:5px 7px;border-radius:999px;
+  border:1px solid rgba(112,214,183,.22);
+  background:rgba(26,74,64,.2);
+  color:#a9ead6;font-size:8px;font-weight:850
+}
+
 </style>
 </head>
 <body>
@@ -2559,7 +2571,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.9.1-20260924";
+const APP_BUILD="2.9.2-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -5983,9 +5995,18 @@ function openAtlasItemDetail(key){
   ui.sh.innerHTML='<div class="atlas-detail-handle"></div><div class="atlas-detail-head"><div class="atlas-detail-title"><span class="atlas-detail-glyph">'+esc(row.primary)+'</span><div class="atlas-detail-reading">'+esc(row.secondary||TYPES[row.type]||row.type)+'</div><div class="atlas-detail-sub">'+esc(TYPES[row.type]||row.type)+' · '+atlasPeriodLabel()+'</div></div><button class="atlas-detail-close" onclick="closeAtlasDetail()">×</button></div>'+
     '<div class="atlas-detail-kpis"><div class="atlas-detail-kpi"><b>'+row.rounds.length+'</b><span>출현 회차</span></div><div class="atlas-detail-kpi"><b>'+row.count+'</b><span>출제 문항</span></div><div class="atlas-detail-kpi"><b>'+tr.label+'</b><span>빈출 경향</span></div><div class="atlas-detail-kpi"><b>'+(row.rounds.slice(-1)[0]||"-")+'</b><span>최근 출현</span></div></div>'+
     '<div class="atlas-detail-section"><h4>출현 회차</h4><div class="atlas-related">'+(row.rounds.length?row.rounds.map(function(x){return "<span>제"+x+"회</span>"}).join(""):"<span>기록 없음</span>")+'</div></div>'+
-    '<div class="atlas-detail-section"><h4>기출 용례</h4><div class="atlas-usage-list">'+(examples.length?examples.map(function(ex){return '<div class="atlas-usage"><div class="atlas-usage-top"><b>제'+ex.round+'회 '+(ex.no?ex.no+'번':'')+'</b><span>'+esc(TYPES[row.type]||row.type)+'</span></div><p>'+esc(ex.text)+'</p>'+(ex.answer?'<p><b>정답</b> · '+esc(ex.answer)+'</p>':'')+'</div>'}).join(""):'<div class="atlas-usage"><p>저장된 기출 문맥이 없습니다. 전체 집계를 실행하면 원문에서 용례를 모읍니다.</p></div>')+'</div></div>'+
-    '<div class="atlas-detail-note">빈출 순위는 선택한 기간의 실제 내장 기출 문항을 기준으로 계산합니다. 용례는 해당 회차의 문제 문맥을 그대로 학습용으로 정리한 것입니다.</div>';
+    '<div class="atlas-detail-section"><h4>어문회 기출 용례</h4><div class="atlas-usage-list">'+(examples.length?examples.map(function(ex){return '<div class="atlas-usage"><div class="atlas-usage-top"><b>제'+ex.round+'회 '+(ex.no?ex.no+'번':'')+'</b><span>'+esc(TYPES[row.type]||row.type)+'</span></div><p>'+esc(ex.text)+'</p>'+(ex.answer?'<p><b>정답</b> · '+esc(ex.answer)+'</p>':'')+'</div>'}).join(""):'<div class="atlas-usage"><p>저장된 기출 문맥이 없습니다. 전체 집계를 실행하면 원문에서 용례를 모읍니다.</p></div>')+'</div></div>'+
+    dictionaryFallbackMarkup(row.primary)+
+    '<div class="atlas-detail-note">빈출 순위는 선택한 기간의 실제 내장 기출 문항을 기준으로 계산합니다. 용례는 한국어문회 기출/지정어를 우선하고, 부족한 항목은 국립국어원 사전 확인 링크를 제공합니다.</div>';
   requestAnimationFrame(function(){ui.bd.classList.add("open");ui.sh.classList.add("open")});
+}
+function dictionaryLookupUrl(term){
+  const q=encodeURIComponent(String(term||"").trim());
+  return "https://stdict.korean.go.kr/search/searchResult.do?searchKeyword="+q;
+}
+function dictionaryFallbackMarkup(term){
+  if(!term)return "";
+  return '<div class="atlas-detail-section"><h4>사전 용례</h4><div class="atlas-detail-note">어문회 기출·지정어에서 충분한 용례를 찾지 못한 경우 국립국어원 사전에서 추가 확인할 수 있습니다.</div><div class="diag-actions" style="margin-top:8px"><a class="btn" href="'+esc(dictionaryLookupUrl(term))+'" target="_blank" rel="noopener">표준국어대사전에서 보기</a></div></div>';
 }
 function atlasRelatedForChar(hanja){
   return currentAtlasItemRows(atlasState.grade,atlasState.scope)
@@ -6001,9 +6022,10 @@ function openAtlasCharDetail(key){
   related.forEach(function(r){(r.examples||[]).forEach(function(ex){if(examples.length<5&&!examples.some(function(x){return x.round===ex.round&&x.no===ex.no}))examples.push(ex)})});
   ui.sh.innerHTML='<div class="atlas-detail-handle"></div><div class="atlas-detail-head"><div class="atlas-detail-title"><span class="atlas-detail-glyph">'+esc(c.hanja)+'</span><div class="atlas-detail-reading">'+esc(f.canonical)+(tone?' <span class="atlas-tone">'+esc(tone)+'</span>':'')+'</div><div class="atlas-detail-sub">'+esc(c.level)+' · '+esc(c.radical||"-")+'부 · '+(+c.total||0)+'획 · 한국어문회 훈음</div></div><button class="atlas-detail-close" onclick="closeAtlasDetail()">×</button></div>'+
     '<div class="atlas-detail-kpis"><div class="atlas-detail-kpi"><b>'+study.pct+'%</b><span>내 숙련도</span></div><div class="atlas-detail-kpi"><b>'+study.ok+'</b><span>누적 정답</span></div><div class="atlas-detail-kpi"><b>'+study.no+'</b><span>누적 오답</span></div><div class="atlas-detail-kpi"><b>'+(tone||"-")+'</b><span>장단음</span></div></div>'+
-    '<div class="atlas-detail-section"><h4>기출 용례 · 관련어</h4><div class="atlas-related">'+(related.length?related.map(function(r){return "<span>"+esc(r.primary)+(r.secondary?" · "+esc(r.secondary):"")+"</span>"}).join(""):"<span>기출 관련어 없음</span>")+'</div></div>'+
+    '<div class="atlas-detail-section"><h4>어문회 기출·관련어</h4><div class="atlas-related">'+(related.length?related.map(function(r){return "<span>"+esc(r.primary)+(r.secondary?" · "+esc(r.secondary):"")+"</span>"}).join(""):"<span>기출 관련어 없음</span>")+'</div></div>'+
     '<div class="atlas-detail-section"><h4>기출 문맥</h4><div class="atlas-usage-list">'+(examples.length?examples.map(function(ex){return '<div class="atlas-usage"><div class="atlas-usage-top"><b>제'+ex.round+'회 '+(ex.no?ex.no+'번':'')+'</b></div><p>'+esc(ex.text)+'</p></div>'}).join(""):'<div class="atlas-usage"><p>빈출 전체 집계를 실행하면 이 글자가 실제로 나온 기출 문맥을 모아 보여줍니다.</p></div>')+'</div></div>'+
-    '<div class="atlas-detail-note">훈음은 한국어문회 배정한자 데이터를 기준으로 표시하며, 장단음은 별도 참고표로 구분합니다.</div>';
+    dictionaryFallbackMarkup(c.hanja)+
+    '<div class="atlas-detail-note">훈음은 한국어문회 배정한자 데이터를 기준으로 표시하며, 용례·관련어는 어문회 기출/지정어를 우선합니다. 부족한 경우 국립국어원 사전에서 추가 확인할 수 있습니다.</div>';
   requestAnimationFrame(function(){ui.bd.classList.add("open");ui.sh.classList.add("open")});
 }
 
