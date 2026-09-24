@@ -2678,7 +2678,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.9.9-20260924";
+const APP_BUILD="2.10.0-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -4212,6 +4212,20 @@ function headerRangesFromFlat(flat,answerStart){
   }
   return ranges;
 }
+function referencedQuestionNumber(rg,n){
+  if(!rg||!rg.desc)return 0;
+  const count=(+rg.b||0)-(+rg.a||0)+1,idx=(+n||0)-(+rg.a||0);
+  if(count<1||idx<0||idx>=count)return 0;
+  const body=String(rg.desc||"").replace(/\[?\s*(?:問|문제)\s*\d{1,3}\s*[-~－–]\s*\d{1,3}\s*\]?/," ");
+  let m=body.match(/[\(（\[]\s*(\d{1,3})\s*[\)）\]]?\s*[-~～－–]\s*[\(（\[]?\s*(\d{1,3})\s*[\)）\]]/);
+  if(m){
+    const a=+m[1],b=+m[2];
+    if(b>=a&&(b-a+1)===count)return a+idx;
+  }
+  const refs=[...body.matchAll(/[\(（\[]\s*(\d{1,3})\s*[\)）\]]/g)].map(function(x){return +x[1]}).filter(function(x){return x>0&&x<=250});
+  if(refs.length===count)return refs[idx]||0;
+  return 0;
+}
 
 function choiceOrdinal(v){
   const s=String(v??"").trim();
@@ -4388,8 +4402,12 @@ function problemizeFlatPdf(level,round,flat,answerStart,answers){
       built.hanja="";
     }
 
-    const sourceHanja=extractHanjaFromProblemLines(problemLines,n);
-    const sourceKorean=extractKoreanFromProblemLines(problemLines,n);
+    const refNo=referencedQuestionNumber(rg,n);
+    const sourceNo=refNo||n;
+    const sourceHanja=extractHanjaFromProblemLines(problemLines,sourceNo);
+    const sourceKorean=extractKoreanFromProblemLines(problemLines,sourceNo);
+    const referenceText=refNo?contextForQuestion(problemLines,refNo):"";
+    const fmt=examFormatInfo(type,(rg&&rg.desc)||ctx||built.prompt);
     const q={
       round,no:n,level,type,
       prompt:built.prompt,
@@ -4398,6 +4416,11 @@ function problemizeFlatPdf(level,round,flat,answerStart,answers){
       sourceHanja:sourceHanja||"",
       korean:built.korean||sourceKorean||"",
       sourceText:ctx||"",
+      referenceNo:refNo||0,
+      referenceText:referenceText||"",
+      formatKey:fmt.key,
+      formatLabel:fmt.label,
+      formatDesc:(rg&&rg.desc)||"",
       passage:passageMap[n]||"",
       note:"제"+round+"회 "+gradeDisplay(level)+" 기출 자동 문제화",
       autoParsed:true
@@ -4834,6 +4857,30 @@ function classifyExamHeader(desc){
   if(/뜻.*쓰|뜻.*풀이|풀이하시오|해설하시오|번역하시오/.test(t))return "definition";
   if(/漢字.*찾아.*번호|한자.*찾아.*번호|알맞은.*漢字.*번호|알맞은.*한자.*번호/.test(t))return "wordWrite";
   return "other";
+}
+function examFormatInfo(type,desc){
+  const raw=String(desc||"").replace(/\s+/g," ").trim();
+  const t=raw.replace(/\s+/g,"");
+  const out=function(key,label){return {key:key,label:label,desc:raw}};
+  if(type==="sound"){if(/문장|제시문|밑줄친|글의밑줄/.test(t))return out("sound_context","문장 속 한자어 독음");return out("sound_direct","제시 한자어 독음")}
+  if(type==="meaningSound")return out("meaning_sound","한자 훈·음");
+  if(type==="radical")return out("radical_direct","부수 쓰기");
+  if(type==="strokes")return out("strokes_direct","획수 쓰기");
+  if(type==="abbreviation"){if(/正字.*(?:略字|略字)|(?:略字|略字).*正字/.test(t))return out("abbr_convert","정자·약자 변환");return out("abbr_write","약자 쓰기")}
+  if(type==="longSound"){if(/長短|장단|두가지|두가지씩/.test(t))return out("long_both","장·단음 판별");if(/10개|가려|고르/.test(t))return out("long_choice","장음 항목 고르기");return out("long_direct","장음 판별")}
+  if(type==="wordWrite"){if(/뜻을가진|의미를가진|뜻풀이.*알맞|의미.*지닌|뜻.*맞는.*(?:漢字語|單語)/.test(t))return out("wordwrite_from_meaning","뜻 → 한자어");if(/문장|제시문|밑줄친|글의밑줄|윗글밑줄/.test(t))return out("wordwrite_context","문장 속 한자어쓰기");return out("wordwrite_direct","한자어쓰기")}
+  if(type==="definition"){if(/뜻풀이에알맞|(?:뜻|意味|의미).*지닌.*(?:單語|漢字語)|(?:뜻|의미).*맞는.*(?:漢字語|單語)/.test(t))return out("definition_reverse","뜻풀이 → 한자어");if(/轉義|字義대로|본래의字義/.test(t))return out("definition_transferred","전의(轉義) 풀이");if(/우리말로옮기/.test(t))return out("definition_native","우리말 풀이");return out("definition_direct","한자어 → 뜻풀이")}
+  if(type==="synonym"){if(/찾아.*번호|번호로답|고르/.test(t))return out("synonym_choice","유의어 고르기");if(/각漢字|類義字|유의자|비슷한뜻.*漢字(?!語)/.test(t))return out("synonym_char","유의자 쓰기");return out("synonym_word","한자어 유의어 쓰기")}
+  if(type==="antonym"){if(/찾아.*번호|번호로답|고르/.test(t))return out("antonym_choice","반대·상대어 고르기");if(/각漢字|反義字|상대.*漢字(?!語)|반대.*漢字(?!語)/.test(t))return out("antonym_char","반대·상대자 쓰기");return out("antonym_word","한자어 반대·상대어 쓰기")}
+  if(type==="homonym"){if(/구별|둘|두쌍|짝/.test(t))return out("homonym_context","문맥 동음이의어 구별");return out("homonym_write","동음이의어 쓰기")}
+  if(type==="idiom")return out("idiom_complete","사자성어 완성");
+  if(type==="fill"){if(/四字|成語|성어/.test(t))return out("fill_idiom","성어 빈칸 완성");return out("fill_context","문맥 빈칸 완성")}
+  if(type==="wordFormation")return out("word_formation","한자어 성립 판별");
+  if(type==="sameSound")return out("same_sound","동음자");
+  if(type==="multiReading")return out("multi_reading","동자이음");
+  if(type==="choice")return out("choice_general","객관식");
+  if(type==="hanmun")return out("hanmun_apply","한문·응용");
+  return out(type||"other","기타");
 }
 function findAnswerStart(flat){
   if(!Array.isArray(flat)||!flat.length)return -1;
@@ -5836,9 +5883,9 @@ function clearCanvas(){
 const ATLAS_TONE_SEED_1={"呵":":","苛":":","駕":"(:)","澗":":","癎":"(:)","諫":":","揀":":","慷":":","愾":":","漑":":","凱":":","箇":"(:)","羹":":"};
 const ATLAS_GRADE_SLUG={"8급":"8급","7급Ⅱ":"준7급","7급":"7급","6급Ⅱ":"준6급","6급":"6급","5급Ⅱ":"준5급","5급":"5급","4급Ⅱ":"준4급","4급":"4급","3급Ⅱ":"준3급","3급":"3급","2급":"2급","1급":"1급","특급Ⅱ":"준특급","특급":"특급"};
 function atlasToneKey(g){return "hanjaAtlasToneV1_"+g}
-const ATLAS_FREQ_SCHEMA=3;
-function atlasFreqKey(g){return "hanjaAtlasFreqV5_"+g}
-function atlasFreqMetaKey(g){return "hanjaAtlasFreqMetaV2_"+g}
+const ATLAS_FREQ_SCHEMA=4;
+function atlasFreqKey(g){return "hanjaAtlasFreqV6_"+g}
+function atlasFreqMetaKey(g){return "hanjaAtlasFreqMetaV3_"+g}
 const atlasFreqMemory=new Map();
 const atlasFreqHydrating=new Set();
 let atlasFreqDbPromise=null;
