@@ -2187,7 +2187,7 @@ const TYPES={
   sound:"독음", meaning:"훈", meaningSound:"훈음", longSound:"장단음", write:"한자쓰기", wordWrite:"한자어쓰기", definition:"뜻풀이",
   radical:"부수", strokes:"총획", sameSound:"동음자",
   antonym:"반대·상대어", synonym:"동의·유의어", idiom:"사자성어",
-  abbreviation:"약자", fill:"한자어 완성", homonym:"동음이의어", multiReading:"동자이음", choice:"객관식", hanmun:"한문·응용"
+  abbreviation:"약자", wordFormation:"한자어 조합", fill:"빈칸 완성", homonym:"동음이의어", multiReading:"동자이음", choice:"객관식", hanmun:"한문·응용"
 };
 const GENERATED_TYPES=new Set(["sound","meaning","meaningSound","write","radical","strokes","sameSound","multiReading"]);
 const RAW_URL="https://raw.githubusercontent.com/rycont/hanja-grade-dataset/main/hanja.csv";
@@ -2512,7 +2512,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.8.1-20260924";
+const APP_BUILD="2.9.0-20260924";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -4608,6 +4608,10 @@ function classifyExamHeader(desc){
   if(/反對|相對|반대|상대|뜻이.*반대/.test(t))return "antonym";
   if(/四字|故事|成語|성어/.test(t))return "idiom";
   if(/略字|略字|약자/.test(t))return "abbreviation";
+  if(/同字異音|同字異訓|동자이음|같은.*漢字.*다른.*音/.test(t))return "multiReading";
+  if(/同音字|동음자/.test(t))return "sameSound";
+  if(/성립하지\s*않|漢字語로\s*성립하지|단어로\s*성립하지/.test(t))return "wordFormation";
+  if(/(?:빈칸|\( \)|\(\)).*(?:<보기>|보기)|<보기>.*(?:골라|써넣|알맞)|안에\s*알맞은\s*漢字.*(?:골라|쓰)/.test(t))return "fill";
   if(/뜻.*쓰|뜻.*풀이|풀이하시오|해설하시오|번역하시오/.test(t))return "definition";
   if(/뜻을\s*가진.*(?:漢字語|한자어)|漢字.*쓰|한자.*쓰|漢字語.*漢字|正字.*쓰|漢字\(正字\)|한자\(정자\)/.test(t))return "wordWrite";
   if(/다음\s*(?:밑줄\s*친\s*)?漢字語를/.test(t))return "wordWrite";
@@ -5610,7 +5614,7 @@ function clearCanvas(){
 const ATLAS_TONE_SEED_1={"呵":":","苛":":","駕":"(:)","澗":":","癎":"(:)","諫":":","揀":":","慷":":","愾":":","漑":":","凱":":","箇":"(:)","羹":":"};
 const ATLAS_GRADE_SLUG={"8급":"8급","7급Ⅱ":"준7급","7급":"7급","6급Ⅱ":"준6급","6급":"6급","5급Ⅱ":"준5급","5급":"5급","4급Ⅱ":"준4급","4급":"4급","3급Ⅱ":"준3급","3급":"3급","2급":"2급","1급":"1급","특급Ⅱ":"준특급","특급":"특급"};
 function atlasToneKey(g){return "hanjaAtlasToneV1_"+g}
-function atlasFreqKey(g){return "hanjaAtlasFreqV3_"+g}
+function atlasFreqKey(g){return "hanjaAtlasFreqV4_"+g}
 function readAtlasToneCache(g){
   const base=g==="1급"?Object.assign({},ATLAS_TONE_SEED_1):{};
   try{const x=JSON.parse(localStorage.getItem(atlasToneKey(g))||"null");if(x&&x.map)Object.assign(base,x.map)}catch{}
@@ -5712,6 +5716,18 @@ function atlasItemEntries(q){
   if(type==="strokes")return one(q.hanja,ans+"획");
   if(type==="abbreviation")return one(q.hanja,"약자 "+ans);
   if(type==="definition")return one(q.hanja||atlasHanjaGroups(src,1)[0],ans);
+  if(type==="wordFormation"){
+    const hs=atlasHanjaGroups(src,1);
+    const primary=q.hanja||hs[0]||"";
+    return one(primary,ans||"한자어 조합 판별");
+  }
+  if(type==="fill"){
+    const hs=atlasHanjaGroups(src,2);
+    return one(q.hanja||hs[0]||atlasHanjaGroups(src,1)[0],ans);
+  }
+  if(type==="sameSound"||type==="multiReading"){
+    return one(q.hanja||atlasHanjaGroups(src,1)[0],ans);
+  }
   if(type==="wordWrite"){
     const hs=atlasHanjaGroups(Array.isArray(q.answer)?q.answer.join(" "):q.answer,2);
     const primary=hs[0]||String(Array.isArray(q.answer)?q.answer[0]:q.answer||"");
@@ -5808,6 +5824,8 @@ function atlasPeriodRoundSet(rows){
   const universe=currentAtlasItemRows(atlasState.grade,atlasState.scope);
   const all=atlasAvailableRounds(universe.length?universe:rows);
   if(atlasState.period==="all")return new Set(all);
+  if(atlasState.period==="to100")return new Set(all.filter(function(r){return r<=100}));
+  if(atlasState.period==="post100")return new Set(all.filter(function(r){return r>=101}));
   const n=Math.max(1,+atlasState.period||10);
   return new Set(all.slice(-n));
 }
@@ -5853,7 +5871,7 @@ function atlasTrend(row){
 }
 function atlasTypeOverviewHtml(){
   const rows=atlasTypeSummary();
-  if(!rows.length)return '<div class="atlas-empty">아직 유형별 빈출 데이터가 없습니다.<br>기출 전체 집계를 실행하면 유형별 표가 만들어집니다.</div>';
+  if(!rows.length)return '<div class="atlas-empty">아직 유형별 빈출 데이터가 없습니다.<br>‘기출 전체 집계’를 실행하면 독음·한자어쓰기·훈음·한자어 조합·부수·약자·장단음·유의어·반의어·동음이의어·사자성어·뜻풀이·한문/응용을 각각 따로 만듭니다.</div>';
   return '<div class="atlas-grid">'+rows.map(function(r){
     return '<button class="atlas-card" data-pick-type="'+esc(r.type)+'"><div class="atlas-hanja" style="font-family:inherit!important;font-size:22px!important">'+esc(TYPES[r.type]||r.type)+'</div><div class="atlas-hun">'+r.rounds.size+'회차 · '+r.questions+'문항</div><div class="atlas-meta"><span>빈출 항목 '+r.items+'개</span><span>유형 순위 보기</span></div></button>';
   }).join("")+'</div>';
@@ -5889,7 +5907,10 @@ function closeAtlasDetail(){
   $("#atlasDetailSheet")?.classList.remove("open");
 }
 function atlasPeriodLabel(){
-  return atlasState.period==="all"?"전체 회차":"최근 "+atlasState.period+"회";
+  if(atlasState.period==="all")return "전체 회차";
+  if(atlasState.period==="to100")return atlasState.grade==="특급"?"제38~100회":"~제100회";
+  if(atlasState.period==="post100")return "제101회~최신";
+  return "최근 "+atlasState.period+"회";
 }
 function openAtlasItemDetail(key){
   const all=currentAtlasItemRows(atlasState.grade,atlasState.scope);
@@ -5968,7 +5989,7 @@ async function prepareAtlasFrequency(grade){
     }
     const rows=[...map.values()].map(function(a){const tr={};for(const [t,rs] of Object.entries(a.typeRounds||{}))tr[t]=[...rs].sort(function(x,y){return x-y});return {hanja:a.hanja,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),types:[...a.types],typeCounts:a.typeCounts||{},typeRounds:tr}});
     const itemRows=[...itemMap.values()].map(function(a){return {type:a.type,key:a.key,primary:a.primary,secondary:a.secondary,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),roundCounts:a.roundCounts||{},examples:(a.examples||[]).slice(0,10)}});
-    localStorage.setItem(atlasFreqKey(grade),JSON.stringify({at:Date.now(),grade:grade,roundsProcessed:ok,totalRounds:rounds.length,failed:fail,rows:rows,itemRows:itemRows}));
+    localStorage.setItem(atlasFreqKey(grade),JSON.stringify({at:Date.now(),grade:grade,firstRound:rounds[0]||null,lastRound:rounds[rounds.length-1]||null,roundsProcessed:ok,totalRounds:rounds.length,post100Rounds:rounds.filter(function(x){return x>=101}).length,failed:fail,rows:rows,itemRows:itemRows}));
     if(status){status.className="atlas-progress "+(fail?"":"ok");status.textContent=grade+" 빈출 집계 완료 · "+ok+"/"+rounds.length+"회 · 한자 "+rows.length.toLocaleString()+"자 · 유형별 항목 "+itemRows.length.toLocaleString()+"개"+(fail?" · 실패 "+fail+"회":"")}
     toast(grade+" 빈출 도감 갱신 완료");
   }catch(e){
@@ -6045,7 +6066,10 @@ function renderAtlasResults(){
     const summaries=atlasTypeSummary(),roundSet=new Set();
     items.forEach(function(r){r.rounds.forEach(function(x){roundSet.add(x)})});
     sum.innerHTML='<div><b>'+summaries.length+'</b><span>문제 유형</span></div><div><b>'+items.length.toLocaleString()+'</b><span>빈출 항목</span></div><div><b>'+roundSet.size+'</b><span>'+atlasPeriodLabel()+'</span></div><div><b>'+(type==="all"?"전체":esc(TYPES[type]||type))+'</b><span>현재 유형</span></div>';
-    out.innerHTML=type==="all"?atlasTypeOverviewHtml():atlasItemFrequencyHtml(type);
+    const coverage=atlasState.grade==="특급"
+      ?'<div class="atlas-progress ok" style="margin-bottom:9px"><b>특급 유형별 빈출</b> · 제38회부터 최신 회차까지 원문 기출을 유형별로 재분류합니다. 38~100회와 101회 이후를 따로 비교할 수 있습니다.</div>'
+      :"";
+    out.innerHTML=coverage+(type==="all"?atlasTypeOverviewHtml():atlasItemFrequencyHtml(type));
     document.querySelectorAll("[data-pick-type]").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.pickType;renderAtlas()}});
     document.querySelectorAll("[data-atlas-item-key]").forEach(function(b){b.onclick=function(){try{openAtlasItemDetail(decodeURIComponent(b.dataset.atlasItemKey||""))}catch{}}});
     return;
@@ -6078,7 +6102,9 @@ function renderAtlas(){
   if(atlasState.mode==="freq"){
     const typeKeys=["all"].concat(Object.keys(TYPES));
     h+='<div class="atlas-type-row">'+typeKeys.map(function(t){return '<button class="atlas-type-chip '+((atlasState.freqType||"all")===t?"active":"")+'" data-atlas-type="'+t+'">'+(t==="all"?"전체 유형":esc(TYPES[t]||t))+'</button>'}).join("")+'</div>';
-    const periods=[["all","전체"],["10","최근 10회"],["20","최근 20회"],["30","최근 30회"]];
+    const periods=atlasState.grade==="특급"
+      ?[["all","38회~최신"],["to100","38~100회"],["post100","101회~최신"],["10","최근 10회"],["20","최근 20회"],["30","최근 30회"]]
+      :[["all","전체"],["to100","~100회"],["post100","101회~최신"],["10","최근 10회"],["20","최근 20회"],["30","최근 30회"]];
     h+='<div class="atlas-period-row">'+periods.map(function(p){return '<button class="atlas-period-chip '+(String(atlasState.period)===p[0]?"active":"")+'" data-atlas-period="'+p[0]+'">'+p[1]+'</button>'}).join("")+'</div>';
   }
   const fontLabel=hanjaFontMode==="atlas"?"도감체":"";
@@ -6088,8 +6114,10 @@ function renderAtlas(){
   if(atlasState.mode==="freq")st=freqCache?(atlasState.grade+' 집계 '+(freqCache.roundsProcessed||0)+'/'+(freqCache.totalRounds||0)+'회 · '+((freqCache.rows||[]).length)+'자'):'현재 준비된 기출만 우선 표시 · 전체 집계 가능';
   else st=toneCache?('장단음 참고표 저장됨 · '+new Date(toneCache.at||Date.now()).toLocaleDateString()):'장단음 표시는 저장된 참고자료부터 표시합니다.';
   if(atlasState.mode==="freq"&&atlasState.grade==="특급"){
-    const latest=(bundledExamManifest&&bundledExamManifest.grades&&bundledExamManifest.grades["특급"]&&bundledExamManifest.grades["특급"].rounds||[]).slice(-1)[0]||114;
-    st+=" · 특급은 제38회 첫 시행 → 38~"+latest+"회 기준";
+    const rounds=(bundledExamManifest&&bundledExamManifest.grades&&bundledExamManifest.grades["특급"]&&bundledExamManifest.grades["특급"].rounds)||[];
+    const latest=rounds.slice(-1)[0]||114;
+    const post100=rounds.filter(function(x){return +x>=101}).length;
+    st+=" · 특급 제38회 첫 시행 · 38~100회 기존 구간 + 101~"+latest+"회 최신 "+post100+"개 회차 반영";
   }
   h+='<div id="atlasStatus" class="atlas-progress '+(freqCache?"ok":"")+'">'+st+'</div></section><div class="atlas-summary" id="atlasSummary"></div><div id="atlasResults"></div></div>';
   el.innerHTML=h;
