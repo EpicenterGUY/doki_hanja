@@ -670,6 +670,75 @@ body.drill-active .app2-update{display:none!important}
   body:not(.drill-active) .card{border-radius:20px}
 }
 
+
+/* APP SCREEN 2.1 */
+.app-screen{display:grid;gap:14px}
+.app-hero{
+  position:relative;overflow:hidden;min-height:174px;padding:22px;
+  border:1px solid rgba(160,181,230,.24);border-radius:28px;
+  background:radial-gradient(circle at 88% 20%,rgba(82,226,190,.22),transparent 28%),linear-gradient(135deg,#5e69ff 0%,#7b58ee 52%,#283c73 100%);
+  box-shadow:0 22px 54px rgba(39,43,114,.34)
+}
+.app-hero::after{content:"漢";position:absolute;right:16px;bottom:-50px;font:900 190px/1 serif;color:rgba(255,255,255,.09);pointer-events:none}
+.app-hero-kicker{font-size:11px;font-weight:900;letter-spacing:.12em;color:#dce4ff}
+.app-hero h2{margin:8px 0 7px;font-size:clamp(26px,6vw,42px);line-height:1.06}
+.app-hero p{margin:0;max-width:560px;color:#e4eaff;line-height:1.55;font-size:14px}
+.app-hero-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.app-hero .btn{min-height:44px;background:rgba(10,16,37,.28);border-color:rgba(255,255,255,.25)}
+.app-hero .btn.primary{background:#fff;color:#283057;border-color:#fff}
+
+.app-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.app-metric{padding:14px 13px;border:1px solid rgba(144,168,220,.2);border-radius:20px;background:linear-gradient(145deg,rgba(34,49,82,.86),rgba(18,28,50,.9))}
+.app-metric b{display:block;font-size:22px;line-height:1.1}.app-metric span{display:block;margin-top:5px;color:#9fb0cd;font-size:11px;font-weight:750}
+
+.app-section{border:1px solid rgba(144,168,220,.2);border-radius:24px;padding:17px;background:linear-gradient(145deg,rgba(26,40,68,.84),rgba(15,24,44,.9));box-shadow:0 14px 38px rgba(0,7,24,.18)}
+.app-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.app-section-title{font-size:18px;font-weight:900}.app-section-sub{font-size:12px;color:#98aac8;margin-top:3px}
+.app-section-action{border:0;background:transparent;color:#9fc3ff;font-size:12px;font-weight:900}
+
+.app-action-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.app-action{min-height:104px;padding:16px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;gap:10px;border:1px solid rgba(147,172,222,.24);border-radius:21px;background:linear-gradient(145deg,rgba(41,59,97,.9),rgba(22,34,61,.92));color:#f8fbff}
+.app-action:active{transform:scale(.985)}
+.app-action-icon{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-size:19px;background:linear-gradient(135deg,#6378ff,#8758ef)}
+.app-action:nth-child(2) .app-action-icon{background:linear-gradient(135deg,#32cfa3,#62e6c3);color:#08271f}
+.app-action:nth-child(3) .app-action-icon{background:linear-gradient(135deg,#ffb643,#ffd66f);color:#311b00}
+.app-action:nth-child(4) .app-action-icon{background:linear-gradient(135deg,#ff7898,#ff9aaf)}
+.app-action b{display:block;font-size:16px}.app-action small{color:#9eb0cd;line-height:1.4}
+
+.grade-scroller{display:flex;gap:7px;overflow-x:auto;padding:2px 1px 7px;scrollbar-width:none;overscroll-behavior-x:contain}
+.grade-scroller::-webkit-scrollbar{display:none}
+.grade-chip{flex:0 0 auto;min-width:58px;height:42px;padding:0 14px;border-radius:14px;border:1px solid rgba(139,164,216,.25);background:rgba(29,43,73,.82);color:#afbdd5;font-weight:850}
+.grade-chip.active{background:linear-gradient(135deg,#6977ff,#865cf0);border-color:#9d8dff;color:#fff;box-shadow:0 8px 18px rgba(103,96,255,.22)}
+
+.segment{display:grid;grid-template-columns:repeat(2,1fr);gap:5px;padding:5px;border-radius:17px;background:rgba(7,14,29,.48);border:1px solid rgba(136,160,210,.18)}
+.segment button{min-height:42px;border:0;border-radius:13px;background:transparent;color:#95a6c3;font-weight:850}
+.segment button.active{color:#fff;background:linear-gradient(145deg,#344b79,#293b65);box-shadow:0 5px 14px rgba(0,6,20,.22)}
+.app-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.app-start{width:100%;min-height:54px;border-radius:17px!important;font-size:16px}
+
+.remote-exam-list{grid-template-columns:repeat(auto-fill,minmax(78px,1fr))!important;gap:7px!important}
+.round-btn{min-height:48px!important;border-radius:15px!important;background:linear-gradient(145deg,rgba(31,45,75,.9),rgba(20,31,55,.92))!important;border-color:rgba(133,160,213,.24)!important;color:#b8c6dc!important;font-weight:850}
+.round-btn.built{background:linear-gradient(145deg,rgba(35,91,78,.88),rgba(24,58,57,.9))!important;border-color:rgba(75,224,177,.4)!important;color:#bdfce6!important}
+.round-btn:active{transform:scale(.97)}
+
+.app-list{display:grid;gap:8px}
+.app-list-row{min-height:70px;padding:12px 13px;display:flex;align-items:center;justify-content:space-between;gap:12px;border:1px solid rgba(141,166,218,.21);border-radius:18px;background:linear-gradient(145deg,rgba(35,50,83,.82),rgba(19,29,52,.88));color:#fff}
+.app-list-main{display:flex;align-items:center;gap:11px;min-width:0}.app-list-icon{flex:0 0 42px;width:42px;height:42px;border-radius:14px;display:grid;place-items:center;background:#2b3f68;font-size:19px}
+.app-list-text{min-width:0;text-align:left}.app-list-text b{display:block;font-size:15px}.app-list-text small{display:block;margin-top:3px;color:#98aac8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app-list-chevron{font-size:23px;color:#6f83aa}
+
+.app-stats-hero{display:grid;grid-template-columns:1.1fr .9fr;gap:10px}
+.app-score-card{min-height:130px;padding:18px;border-radius:24px;border:1px solid rgba(149,173,224,.22);background:linear-gradient(135deg,#5c6cff,#7f59f1)}
+.app-score-card b{display:block;font-size:38px}.app-score-card span{font-size:12px;color:#e4e9ff}
+.app-score-side{display:grid;gap:8px}.app-score-mini{display:flex;align-items:center;justify-content:space-between;padding:13px;border:1px solid rgba(143,168,219,.2);border-radius:18px;background:rgba(30,44,75,.82)}
+.app-score-mini b{font-size:18px}.app-score-mini span{font-size:11px;color:#9fb0cd}
+
+@media(max-width:620px){
+  .app-hero{min-height:155px;padding:18px;border-radius:23px}.app-hero h2{font-size:28px}
+  .app-metrics{grid-template-columns:repeat(2,1fr)}.app-action-grid{grid-template-columns:1fr 1fr}.app-action{min-height:96px;padding:14px}
+  .app-section{padding:14px;border-radius:21px}.app-form-grid{grid-template-columns:1fr}.app-stats-hero{grid-template-columns:1fr}.app-score-side{grid-template-columns:1fr 1fr}
+}
+
 </style>
 </head>
 <body>
@@ -1081,7 +1150,8 @@ function syncAppChrome(id=mode){
   if(title)title.textContent=meta.title;
   const kicker=document.querySelector(".app2-kicker");
   if(kicker)kicker.textContent="DOKI 漢字 · "+meta.kicker;
-  $$("#app2Dock .app2-nav").forEach(b=>b.classList.toggle("active",b.dataset.appTab===id));
+  const dockId=["write","freq","wrong","data"].includes(id)?"more":id;
+  $("#app2Dock .app2-nav").forEach(b=>b.classList.toggle("active",b.dataset.appTab===dockId));
   const settings=$("#openPracticeSettings");
   if(settings)settings.hidden=id!=="practice";
   if(id!=="practice")closePracticeSheet();
@@ -1325,20 +1395,33 @@ function startPractice(random10){
 
 function renderMore(){
   if(!$("#more"))return;
-  $("#more").innerHTML=`
-    <div class="card">
-      <div class="prompt">기록·설정</div>
-      <div class="sub">자주 쓰는 기능만 앞으로 빼고, 분석/데이터 기능은 여기로 모았습니다.</div>
-      <div class="hub-grid" style="margin-top:14px">
-        <div class="hub-card"><b>오답 노트</b><p>틀린 문제와 반복 오답을 확인합니다.</p><button class="btn primary" onclick="openUtility('wrong')">열기</button></div>
-        <div class="hub-card"><b>빈출 분석</b><p>기출 회차 데이터를 기준으로 출현 빈도를 봅니다.</p><button class="btn" onclick="openUtility('freq')">열기</button></div>
-        <div class="hub-card"><b>자유 쓰기</b><p>원하는 급수에서 한 글자씩 타이핑/손글씨 연습합니다.</p><button class="btn" onclick="openUtility('write')">열기</button></div>
-        <div class="hub-card"><b>데이터 관리</b><p>기출 CSV/JSON과 배정한자 데이터를 관리합니다.</p><button class="btn" onclick="openUtility('data')">열기</button></div>
+  const allStats=Object.values(stats||{});
+  const attempts=allStats.reduce((s,x)=>s+(x.ok||0)+(x.no||0),0);
+  const correct=allStats.reduce((s,x)=>s+(x.ok||0),0);
+  const acc=attempts?Math.round(correct/attempts*100):0;
+  const wrongCount=Object.keys(wrong||{}).length;
+  $("#more").innerHTML=`<div class="app-screen">
+    <div class="app-stats-hero">
+      <div class="app-score-card"><span>누적 정답률</span><b>${acc}%</b><span>${attempts.toLocaleString()}문제 풀이</span></div>
+      <div class="app-score-side">
+        <div class="app-score-mini"><span>오답 대기</span><b>${wrongCount}</b></div>
+        <div class="app-score-mini"><span>기록 항목</span><b>${allStats.length}</b></div>
       </div>
-    </div>`;
+    </div>
+    <section class="app-section">
+      <div class="app-section-head"><div><div class="app-section-title">학습 도구</div><div class="app-section-sub">분석과 관리 기능을 한곳에 모았습니다.</div></div></div>
+      <div class="app-list">
+        <button class="app-list-row" onclick="openUtility('wrong')"><span class="app-list-main"><span class="app-list-icon">↻</span><span class="app-list-text"><b>오답 노트</b><small>틀린 문제와 반복 오답 복습</small></span></span><span class="app-list-chevron">›</span></button>
+        <button class="app-list-row" onclick="openUtility('freq')"><span class="app-list-main"><span class="app-list-icon">▥</span><span class="app-list-text"><b>빈출 분석</b><small>기출 회차별 출현 빈도 확인</small></span></span><span class="app-list-chevron">›</span></button>
+        <button class="app-list-row" onclick="openUtility('write')"><span class="app-list-main"><span class="app-list-icon">✍</span><span class="app-list-text"><b>자유 쓰기</b><small>원하는 글자를 손글씨로 연습</small></span></span><span class="app-list-chevron">›</span></button>
+        <button class="app-list-row" onclick="openUtility('data')"><span class="app-list-main"><span class="app-list-icon">⌁</span><span class="app-list-text"><b>데이터 관리</b><small>백업 · 가져오기 · 기출 데이터</small></span></span><span class="app-list-chevron">›</span></button>
+      </div>
+    </section>
+  </div>`;
 }
 function openUtility(id){
   mode=id;
+  syncAppChrome(id);
   $$(".tab").forEach(b=>b.classList.remove("active"));
   $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
   if(id==="wrong")renderWrong();
@@ -1350,22 +1433,38 @@ function openUtility(id){
 }
 
 function renderPracticeWelcome(){
-  $("#practice").innerHTML=`
-    <div class="card">
-      <div class="prompt">한자 연습</div>
-      <div class="sub">급수를 고르고 바로 시작하세요. 모든 주관식은 프로그램 안에서 직접 타이핑해 채점합니다.</div>
-      <div class="simple-home" style="margin-top:14px">
-        <button class="simple-card" onclick="startPractice(false)"><b>혼합 연습</b><small>선택한 유형을 섞어서 풉니다.</small></button>
-        <button class="simple-card" onclick="switchTab('drill')"><b>급수별 훈음·쓰기</b><small>가나다순 또는 랜덤으로 한 급수 전체를 돕니다.</small></button>
-        <button class="simple-card" onclick="switchTab('exam')"><b>전 급수 기출</b><small>8급~특급 · 급수/회차 선택 → 자동 문제화 → 타이핑 풀이</small></button>
-        <button class="simple-card" onclick="openUtility('wrong')"><b>오답 복습</b><small>틀린 문제만 다시 봅니다.</small></button>
+  const allStats=Object.values(stats||{});
+  const attempts=allStats.reduce((s,x)=>s+(x.ok||0)+(x.no||0),0);
+  const correct=allStats.reduce((s,x)=>s+(x.ok||0),0);
+  const acc=attempts?Math.round(correct/attempts*100):0;
+  const wrongCount=Object.keys(wrong||{}).length;
+  const target=$("#level")?.value||"1급";
+  $("#practice").innerHTML=`<div class="app-screen">
+    <section class="app-hero">
+      <span class="app-hero-kicker">DOKI DAILY TRAINING</span>
+      <h2>${esc(target)} 오늘도 한 글자씩.</h2>
+      <p>혼합 연습, 손글씨, 기출을 한 앱 안에서 이어서 공부합니다.</p>
+      <div class="app-hero-actions">
+        <button class="btn primary" onclick="startPractice(false)">바로 연습</button>
+        <button class="btn" onclick="openPracticeSheet()">연습 설정</button>
       </div>
-      <div class="quick-row">
-        <span class="quick-pill">배정한자 ${chars.length.toLocaleString()}자</span>
-        <span class="quick-pill">오답 ${Object.keys(wrong).length}</span>
-        <span class="quick-pill">풀이 기록 ${Object.keys(stats).length}</span>
+    </section>
+    <div class="app-metrics">
+      <div class="app-metric"><b>${chars.length.toLocaleString()}</b><span>배정한자</span></div>
+      <div class="app-metric"><b>${attempts.toLocaleString()}</b><span>누적 풀이</span></div>
+      <div class="app-metric"><b>${acc}%</b><span>누적 정답률</span></div>
+      <div class="app-metric"><b>${wrongCount}</b><span>복습 대기</span></div>
+    </div>
+    <section class="app-section">
+      <div class="app-section-head"><div><div class="app-section-title">빠른 시작</div><div class="app-section-sub">자주 쓰는 학습만 크게 꺼냈어요.</div></div></div>
+      <div class="app-action-grid">
+        <button class="app-action" onclick="startPractice(false)"><span class="app-action-icon">✓</span><span><b>혼합 연습</b><small>선택 유형을 섞어 바로 풀기</small></span></button>
+        <button class="app-action" onclick="switchTab('drill')"><span class="app-action-icon">✍</span><span><b>손글씨</b><small>급수 전체를 캔버스로 연습</small></span></button>
+        <button class="app-action" onclick="switchTab('exam')"><span class="app-action-icon">試</span><span><b>기출</b><small>급수·회차를 골라 실전 풀이</small></span></button>
+        <button class="app-action" onclick="openUtility('wrong')"><span class="app-action-icon">↻</span><span><b>오답 복습</b><small>틀린 항목만 다시 확인</small></span></button>
       </div>
-    </div>`;
+    </section>
+  </div>`;
 }
 function renderQuestion(){
   const q=session[current];
@@ -1803,81 +1902,40 @@ function renderExam(){
   if(!$("#exam"))return;
   const level=examArchiveLevel||"특급";
   const local=isLocalContentMode();
-
-  $("#exam").innerHTML=`
-    <div class="card">
-      <div class="meta">
-        <span class="badge hot">한국어문회 기출</span>
-        <span class="badge">8급 → 특급</span>
-        <span class="badge good">타이핑 풀이</span>
-        ${local?`<span class="badge">로컬 파일 모드</span>`:""}
+  $("#exam").innerHTML=`<div class="app-screen">
+    <section class="app-section">
+      <div class="app-section-head">
+        <div><div class="app-section-title">기출 실전</div><div class="app-section-sub">급수를 고른 뒤 원하는 회차를 누르면 바로 시작합니다.</div></div>
+        <span class="badge good">✓ 즉시 풀이</span>
       </div>
-
-      <div class="prompt" style="margin-top:10px">급수와 회차를 골라 풀기</div>
-      <div class="sub">
-        ${local
-          ?`지금은 Android의 <b>content://downloads</b>에서 실행 중이라 아직 문제화되지 않은 회차는 외부 PDF를 자동으로 읽지 않습니다. <b>✓ 회차는 즉시 풀이</b>, 나머지는 누르면 바로 PDF 선택 화면으로 갑니다.`
-          :`처음 여는 회차는 원문 PDF를 문제화한 뒤 프로그램 안에서 직접 타이핑해서 풉니다.`}
+      <div class="grade-scroller" id="examGradeChips">
+        ${ARCHIVE_LEVELS.map(g=>`<button class="grade-chip ${g===level?"active":""}" data-grade="${g}">${gradeDisplay(g)}</button>`).join("")}
       </div>
-
-      <div class="toolbar" style="margin-top:14px">
-        <div>
-          <div class="label">급수</div>
-          <select id="examArchiveLevel">
-            ${ARCHIVE_LEVELS.map(g=>`<option value="${g}" ${g===level?"selected":""}>${gradeDisplay(g)}</option>`).join("")}
-          </select>
-        </div>
-        <div>
-          <div class="label">표시</div>
-          <div class="remote-status ok">✓ = 바로 풀 수 있음</div>
-        </div>
-      </div>
-
       <div id="gradeArchiveStatus" class="remote-status"></div>
       <div id="gradeRoundGrid" class="remote-exam-list" style="margin-top:10px"></div>
-
-      ${local?`
-      <details class="compact-settings" open style="margin-top:12px">
-        <summary>PDF 여러 개 한꺼번에 문제화</summary>
+      <details class="compact-settings" style="margin-top:12px">
+        <summary>원문 · 고급 도구</summary>
         <div>
-          <div class="sub">파일명이 <b>한자능력검정 특급 109회.pdf</b>처럼 급수와 회차를 포함하면 자동으로 구분합니다. 여러 개를 한 번에 선택할 수 있습니다.</div>
-          <input id="multiExamPdf" type="file" accept="application/pdf,.pdf" multiple style="display:none">
-          <div class="actions">
-            <button class="btn primary" id="chooseMultiPdf">여러 PDF 선택</button>
-            <a class="btn filebtn" id="gradeArchiveLink" href="${archivePageUrl(level)}" target="_blank" rel="noopener">원문 자료실</a>
-          </div>
-          <div id="multiPdfStatus" class="remote-status">아직 선택한 PDF가 없습니다.</div>
+          ${local?`
+            <input id="multiExamPdf" type="file" accept="application/pdf,.pdf" multiple style="display:none">
+            <div class="actions"><button class="btn primary" id="chooseMultiPdf">PDF 여러 개 가져오기</button><a class="btn filebtn" id="gradeArchiveLink" href="${archivePageUrl(level)}" target="_blank" rel="noopener">원문 자료실</a></div>
+            <div id="multiPdfStatus" class="remote-status">아직 선택한 PDF가 없습니다.</div>
+          `:`
+            <div class="actions"><button class="btn" id="buildGradeAllBtn">선택 급수 전체 준비</button><a class="btn filebtn" id="gradeArchiveLink" href="${archivePageUrl(level)}" target="_blank" rel="noopener">원문 자료실</a></div>
+          `}
         </div>
-      </details>`:
-      `<details class="compact-settings" style="margin-top:12px">
-        <summary>전체 준비 / 원문</summary>
-        <div>
-          <div class="actions">
-            <button class="btn primary" id="buildGradeAllBtn">선택 급수 전체 문제화</button>
-            <a class="btn filebtn" id="gradeArchiveLink" href="${archivePageUrl(level)}" target="_blank" rel="noopener">원문 자료실</a>
-          </div>
-        </div>
-      </details>`}
-
-      <div id="bulkBuildStatus" class="remote-status">
-        ${local?"회차 버튼이 안 뜨는 문제는 없도록 목록 자체는 HTML에 내장되어 있습니다.":"원하는 회차를 누르면 준비합니다."}
-      </div>
-    </div>`;
-
-  $("#examArchiveLevel").onchange=()=>{
-    examArchiveLevel=$("#examArchiveLevel").value;
-    $("#gradeArchiveLink").href=archivePageUrl(examArchiveLevel);
-    updateGradeArchiveGrid(examArchiveLevel,false);
-  };
-
+      </details>
+      <div id="bulkBuildStatus" class="remote-status">${local?"로컬 파일 모드":"원하는 회차를 누르면 준비합니다."}</div>
+    </section>
+  </div>`;
+  $$("#examGradeChips .grade-chip").forEach(btn=>btn.onclick=()=>{examArchiveLevel=btn.dataset.grade;renderExam()});
   if(local){
     const input=$("#multiExamPdf");
     $("#chooseMultiPdf").onclick=()=>input.click();
-    input.onchange=()=>importMultipleExamPdfs(input.files,$("#examArchiveLevel").value);
+    input.onchange=()=>importMultipleExamPdfs(input.files,examArchiveLevel);
   }else{
-    $("#buildGradeAllBtn").onclick=()=>buildAllGradeRounds($("#examArchiveLevel").value);
+    $("#buildGradeAllBtn").onclick=()=>buildAllGradeRounds(examArchiveLevel);
   }
-
   updateGradeArchiveGrid(level,false);
 }
 
@@ -3199,25 +3257,40 @@ function renderDrill(){
   document.body.classList.remove("drill-active");
   if(window._drillViewportFit){window.visualViewport?.removeEventListener("resize",window._drillViewportFit);window._drillViewportFit=null}
   if(!$("#drill"))return;
-  const grade=drillState.grade||"8급", mode2=drillState.mode||"meaningSound", order=drillState.order||"alpha";
-  $("#drill").innerHTML=`<div class="card">
-    <div class="prompt">급수별 적기 연습</div>
-    <div class="sub">한 급수의 배정한자만 따로 연습합니다. 가나다순은 대표 음의 가나다순으로 정렬하며, 랜덤은 매번 섞습니다.</div>
-    <div class="toolbar">
-      <div><div class="label">급수</div><select id="drillGrade">${GRADE_ORDER.map(g=>`<option ${g===grade?"selected":""}>${g}</option>`).join("")}</select></div>
-      <div><div class="label">연습 종류</div><select id="drillMode"><option value="meaningSound" ${mode2==="meaningSound"?"selected":""}>한자 → 훈음 입력</option><option value="write" ${mode2==="write"?"selected":""}>훈음 → 한자 손글씨</option></select></div>
-      <div><div class="label">순서</div><select id="drillOrder"><option value="alpha" ${order==="alpha"?"selected":""}>가나다순</option><option value="random" ${order==="random"?"selected":""}>랜덤</option></select></div>
-      <div><button class="btn primary" id="startDrill" style="width:100%">연습 시작</button></div>
-    </div>
-    <div class="note">현재 ${esc(grade)} 배정한자: ${exactGradeChars(grade).length.toLocaleString()}자</div>
+  const grade=drillState.grade||"8급";
+  const mode2=drillState.mode||"meaningSound";
+  const order=drillState.order||"alpha";
+  const count=exactGradeChars(grade).length;
+  $("#drill").innerHTML=`<div class="app-screen">
+    <section class="app-section">
+      <div class="app-section-head">
+        <div><div class="app-section-title">급수별 집중 연습</div><div class="app-section-sub">${esc(grade)} 배정한자 ${count.toLocaleString()}자</div></div>
+        <span class="badge good">${mode2==="write"?"손글씨":"훈음"}</span>
+      </div>
+      <div class="label">급수</div>
+      <div class="grade-scroller" id="drillGradeChips">
+        ${GRADE_ORDER.map(g=>`<button class="grade-chip ${g===grade?"active":""}" data-grade="${g}">${g}</button>`).join("")}
+      </div>
+      <div class="app-form-grid" style="margin-top:10px">
+        <div><div class="label">연습 종류</div><div class="segment" id="drillModeSeg">
+          <button data-value="meaningSound" class="${mode2==="meaningSound"?"active":""}">한자 → 훈음</button>
+          <button data-value="write" class="${mode2==="write"?"active":""}">훈음 → 손글씨</button>
+        </div></div>
+        <div><div class="label">순서</div><div class="segment" id="drillOrderSeg">
+          <button data-value="alpha" class="${order==="alpha"?"active":""}">가나다순</button>
+          <button data-value="random" class="${order==="random"?"active":""}">랜덤</button>
+        </div></div>
+      </div>
+      <button class="btn primary app-start" id="startDrill" style="margin-top:14px">연습 시작 · ${count.toLocaleString()}자</button>
+    </section>
   </div>`;
-  $("#drillGrade").onchange=()=>{drillState.grade=$("#drillGrade").value;renderDrill()};
-  $("#drillMode").onchange=()=>drillState.mode=$("#drillMode").value;
-  $("#drillOrder").onchange=()=>drillState.order=$("#drillOrder").value;
+  $$("#drillGradeChips .grade-chip").forEach(btn=>btn.onclick=()=>{drillState.grade=btn.dataset.grade;renderDrill()});
+  $$("#drillModeSeg button").forEach(btn=>btn.onclick=()=>{drillState.mode=btn.dataset.value;renderDrill()});
+  $$("#drillOrderSeg button").forEach(btn=>btn.onclick=()=>{drillState.order=btn.dataset.value;renderDrill()});
   $("#startDrill").onclick=startDrill;
 }
 function startDrill(){
-  drillState.grade=$("#drillGrade").value;drillState.mode=$("#drillMode").value;drillState.order=$("#drillOrder").value;
+  drillState.grade=$("#drillGrade")?.value||drillState.grade||"8급";drillState.mode=$("#drillMode")?.value||drillState.mode||"meaningSound";drillState.order=$("#drillOrder")?.value||drillState.order||"alpha";
   let list=exactGradeChars(drillState.grade);
   list=drillState.order==="alpha"?koSortChars(list):shuffle([...list]);
   if(!list.length){toast("해당 급수 데이터가 없습니다");return}
