@@ -6043,57 +6043,88 @@ function atlasHanjaGroups(s,minLen){
 function atlasExampleFromQuestion(q){
   let text=atlasCleanItemText(q.sourceText||q.prompt||"");
   if(text.length>180)text=text.slice(0,177)+"…";
-  return {round:+q.round||0,no:+q.no||0,text:text,answer:examAnswerDisplay(q)};
+  return {round:+q.round||0,no:+q.no||0,text:text,answer:examAnswerDisplay(q),formatLabel:q.formatLabel||""};
+}
+function atlasCleanAnswerText(v){
+  return String(v||"")
+    .replace(/^\s*[\(（\[]\s*\d{1,3}\s*[\)）\]]\s*/,"")
+    .replace(/^[㈀㈁㈂㈃㈄㈅㈎㈏㈐㈑㈒㈓①②③④⑤⑥]\s*/,"")
+    .replace(/\s+/g," ").trim();
+}
+function atlasKoreanClue(q){
+  let t=String(q&&q.korean||"").trim();
+  if(t)return t;
+  t=stripQuestionMarker(q&&q.sourceText||q&&q.prompt||"",q&&q.no||0)
+    .replace(/[\u3400-\u9fff\uf900-\ufaff]+/g," ")
+    .replace(/[①②③④⑤⑥㈀㈁㈂㈃㈎㈏㈐㈑]/g," ")
+    .replace(/[()（）\[\]□△○:：]/g," ")
+    .replace(/\s+/g," ").trim();
+  return t.slice(0,90);
 }
 function atlasItemEntries(q){
   if(!q||!q.type||!q.round)return [];
-  const type=q.type,ans=examAnswerDisplay(q),src=atlasCleanItemText(q.sourceText||q.prompt||""),example=atlasExampleFromQuestion(q);
+  const type=q.type,fmt=q.formatKey?{key:q.formatKey,label:q.formatLabel||q.formatKey}:examFormatInfo(type,q.formatDesc||q.prompt||q.sourceText||"");
+  const ans=atlasCleanAnswerText(examAnswerDisplay(q)),src=atlasCleanItemText(q.sourceText||q.prompt||""),example=atlasExampleFromQuestion(q);
   const trusted=examHanjaTermSafe(q.sourceHanja)||examHanjaTermSafe(q.hanja);
   const answerHanja=atlasHanjaGroups(Array.isArray(q.answer)?q.answer.join(" "):q.answer,1).map(examHanjaTermSafe).filter(Boolean);
   const sourceGroups=atlasHanjaGroups(src,1).map(examHanjaTermSafe).filter(Boolean);
+  const clue=atlasKoreanClue(q);
   const one=function(primary,secondary){
-    primary=examHanjaTermSafe(primary)||String(primary||"").trim();
+    primary=examHanjaTermSafe(primary)||"";
+    secondary=atlasCleanAnswerText(secondary);
     if(!primary||/(?:韓國漢字能力檢定會|全國漢字能力檢定試驗|韓國語文會|問題紙|答案紙)/.test(primary))return [];
-    return [{type:type,key:type+"|"+primary,primary:primary,secondary:String(secondary||"").trim(),example:example}];
+    if(/(?:한국한자능력검정|문제지|답안지|수험번호)/.test(secondary))return [];
+    return [{type:type,formatKey:fmt.key,formatLabel:fmt.label,key:type+"|"+fmt.key+"|"+primary,primary:primary,secondary:secondary,example:example}];
   };
 
-  if(type==="sound"||type==="meaningSound")return one(trusted,ans);
-  if(type==="radical")return one(trusted,"부수 "+ans);
-  if(type==="strokes")return one(trusted,ans+"획");
-  if(type==="abbreviation")return one(trusted,"약자 "+ans);
+  if(type==="sound"||type==="meaningSound"){
+    if(!trusted||!/[가-힣]/.test(ans))return [];
+    return one(trusted,ans);
+  }
+  if(type==="radical")return trusted?one(trusted,"부수 "+ans):[];
+  if(type==="strokes")return trusted?one(trusted,ans+"획"):[];
+  if(type==="abbreviation")return trusted?one(trusted,"약자 "+ans):[];
 
-  // 한자어쓰기: 답안의 한자어 ↔ 문제 본문의 한국어 제시어를 정확히 짝지음.
   if(type==="wordWrite"){
     const primary=answerHanja[0]||"";
-    return one(primary,q.korean||"");
+    if(!primary||!/[가-힣]/.test(clue))return [];
+    return one(primary,clue);
   }
 
-  // 뜻풀이: 문제에 제시된 한자어 ↔ 답안의 우리말 풀이.
   if(type==="definition"){
+    if(fmt.key==="definition_reverse"){
+      const primary=answerHanja[0]||"";
+      if(!primary||!/[가-힣]/.test(clue))return [];
+      return one(primary,clue);
+    }
     const primary=trusted||sourceGroups[0]||"";
+    if(!primary||(!/[가-힣]/.test(ans)&&atlasHanjaGroups(ans,1).length))return [];
     return one(primary,ans);
   }
 
-  // 동음이의어는 답안 자체가 한자어이며, 문제의 같은 발음 한글을 보조표기로 사용.
   if(type==="homonym"){
     const primary=answerHanja[0]||"";
-    return one(primary,q.korean||"");
+    if(!primary)return [];
+    return one(primary,clue||ans);
   }
 
   if(type==="synonym"||type==="antonym"){
     const primary=trusted||sourceGroups[0]||"";
+    if(!primary)return [];
     return one(primary,ans);
   }
+
   if(type==="idiom"||type==="fill"){
-    const primary=trusted||sourceGroups[0]||answerHanja[0]||"";
-    return one(primary,ans);
+    const primary=answerHanja[0]||trusted||sourceGroups[0]||"";
+    return primary?one(primary,clue||ans):[];
   }
   if(type==="wordFormation"){
     const primary=trusted||sourceGroups[0]||"";
-    return one(primary,ans||"한자어 조합 판별");
+    return primary?one(primary,ans||"한자어 조합 판별"):[];
   }
   if(type==="sameSound"||type==="multiReading"){
-    return one(trusted||sourceGroups[0]||"",ans);
+    const primary=trusted||sourceGroups[0]||"";
+    return primary?one(primary,ans):[];
   }
   if(type==="longSound"){
     let terms=[];
@@ -6102,20 +6133,21 @@ function atlasItemEntries(q){
     return [...new Set(terms.map(examHanjaTermSafe).filter(Boolean))].slice(0,8).flatMap(function(t){return one(t,"장단음 문항")});
   }
   if(type==="choice"){
-    const hs=sourceGroups.filter(function(x){return x.length>=2});
-    if(hs.length)return hs.slice(0,6).flatMap(function(t){return one(t,"객관식")});
+    const primary=answerHanja[0]||"";
+    return primary?one(primary,clue||ans):[];
   }
   if(type==="hanmun"){
-    const hs=sourceGroups.filter(function(x){return x.length>=2});
-    if(hs.length)return one(hs[0],ans);
+    const primary=trusted||sourceGroups.find(function(x){return x.length>=2})||"";
+    return primary?one(primary,ans):[];
   }
-  return one(trusted||sourceGroups[0]||"",ans);
+  return [];
 }
 function addAtlasItemFrequency(items,map){
   for(const q of (items||[])){
     for(const e of atlasItemEntries(q)){
       const a=map.get(e.key)||{
-        type:e.type,key:e.key,primary:e.primary,secondary:e.secondary,
+        type:e.type,formatKey:e.formatKey||e.type,formatLabel:e.formatLabel||TYPES[e.type]||e.type,
+        key:e.key,primary:e.primary,secondary:e.secondary,
         count:0,rounds:new Set(),roundCounts:{},examples:[]
       };
       const round=+q.round||0;
@@ -6132,9 +6164,11 @@ function addAtlasItemFrequency(items,map){
 }
 function mergeAtlasItemRows(map,rows){
   for(const r of (rows||[])){
-    const key=r.key||(r.type+"|"+r.primary);
+    const fk=r.formatKey||r.type;
+    const key=r.key||(r.type+"|"+fk+"|"+r.primary);
     const a=map.get(key)||{
-      type:r.type,key:key,primary:r.primary,secondary:r.secondary||"",
+      type:r.type,formatKey:fk,formatLabel:r.formatLabel||TYPES[r.type]||r.type,
+      key:key,primary:r.primary,secondary:r.secondary||"",
       count:0,rounds:new Set(),roundCounts:{},examples:[]
     };
     a.count=Math.max(a.count,+r.count||0);
@@ -6163,7 +6197,7 @@ function currentAtlasItemRows(grade,scope){
   }
   return [...map.values()].map(function(a){
     return {
-      type:a.type,key:a.key,primary:a.primary,secondary:a.secondary,count:a.count,
+      type:a.type,formatKey:a.formatKey||a.type,formatLabel:a.formatLabel||TYPES[a.type]||a.type,key:a.key,primary:a.primary,secondary:a.secondary,count:a.count,
       rounds:[...a.rounds].sort(function(x,y){return x-y}),
       roundCounts:Object.assign({},a.roundCounts||{}),
       examples:[...(a.examples||[])].sort(function(x,y){return (+y.round||0)-(+x.round||0)||(+y.no||0)-(+x.no||0)})
@@ -6459,7 +6493,7 @@ async function prepareAtlasFrequency(grade){
       if(i%5===4)await new Promise(function(resolve){setTimeout(resolve,0)});
     }
     const rows=[...map.values()].map(function(a){const tr={};for(const [t,rs] of Object.entries(a.typeRounds||{}))tr[t]=[...rs].sort(function(x,y){return x-y});return {hanja:a.hanja,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),types:[...a.types],typeCounts:a.typeCounts||{},typeRounds:tr}});
-    const itemRows=[...itemMap.values()].map(function(a){return {type:a.type,key:a.key,primary:a.primary,secondary:a.secondary,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),roundCounts:a.roundCounts||{},examples:(a.examples||[]).slice(0,10)}});
+    const itemRows=[...itemMap.values()].map(function(a){return {type:a.type,formatKey:a.formatKey||a.type,formatLabel:a.formatLabel||TYPES[a.type]||a.type,key:a.key,primary:a.primary,secondary:a.secondary,count:a.count,rounds:[...a.rounds].sort(function(x,y){return x-y}),roundCounts:a.roundCounts||{},examples:(a.examples||[]).slice(0,10)}});
     const payload={schema:ATLAS_FREQ_SCHEMA,at:Date.now(),grade:grade,firstRound:rounds[0]||null,lastRound:rounds[rounds.length-1]||null,roundsProcessed:ok,totalRounds:rounds.length,post100Rounds:rounds.filter(function(x){return x>=101}).length,failed:fail,rows:rows,itemRows:itemRows};
     atlasFreqMemory.set(grade,payload);
     renderAtlasResults();
