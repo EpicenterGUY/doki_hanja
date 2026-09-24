@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.3.0-20260924",
+  "webBuild": "2.4.0-20260924",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.4.0",
+      "title": "한국어문회 훈음 기준 강화 + UI 다듬기",
+      "items": [
+        "훈음·급수·부수·획수 데이터가 한국어문회 공식 XLS 기반 공개 CSV임을 앱에 명시",
+        "복수 대표훈을 하나로 축약하지 않고 그대로 표시: 紺 감색/연보라 감, 敢 감히/구태여 감",
+        "훈음 문제는 복수 대표훈 통합 표기와 각 대표훈 단독 표기를 모두 정답으로 인정",
+        "급수별 연습·자유 쓰기에 한국어문회 훈음 기준 배지와 공식 표기 표시 추가",
+        "오답 노트에는 복수 정답 후보 전체 대신 대표 공식 표기를 간결하게 표시",
+        "자유 쓰기·빈출 분석·오답 노트·데이터 관리 화면을 카드/표 중심으로 재정리"
+      ]
+    },
     {
       "version": "2.3.0",
       "title": "한자력 레벨 + UI 2.3",
