@@ -165,6 +165,7 @@ input[type=file]{display:none}
 
 .source-text{margin-top:12px;padding:12px 14px;border-left:3px solid var(--accent);background:#11161d;border-radius:8px;line-height:1.7}
 .source-text b{color:#ffd781}
+.exam-passage{margin:14px 0;background:#151a21;border-left-color:#6fa5d8;font-size:15px;line-height:1.8}
 
 .exam-dot.done{border-color:#52755f;color:#a8e6bd}.exam-dot.current{background:#6f5119;color:#fff}
 @media(max-width:820px){.drill-grid{grid-template-columns:1fr}.choice-grid{grid-template-columns:1fr}}
@@ -269,7 +270,7 @@ const TYPES={
   sound:"독음", meaning:"훈", meaningSound:"훈음", longSound:"장단음", write:"한자쓰기", wordWrite:"한자어쓰기", definition:"뜻풀이",
   radical:"부수", strokes:"총획", sameSound:"동음자",
   antonym:"반대·상대어", synonym:"동의·유의어", idiom:"사자성어",
-  abbreviation:"약자", fill:"한자어 완성", homonym:"동음이의어", multiReading:"동자이음"
+  abbreviation:"약자", fill:"한자어 완성", homonym:"동음이의어", multiReading:"동자이음", choice:"객관식", hanmun:"한문·응용"
 };
 const GENERATED_TYPES=new Set(["sound","meaning","meaningSound","write","radical","strokes","sameSound","multiReading"]);
 const RAW_URL="https://raw.githubusercontent.com/rycont/hanja-grade-dataset/main/hanja.csv";
@@ -279,7 +280,7 @@ let examState={questions:[],index:0,answers:[],checked:[],score:0,round:null,lev
 let drillState={list:[],index:0,mode:"meaningSound",order:"alpha",grade:"8급",checked:false};
 let remoteExamState={round:null,url:null,pdf:null,questions:{},answers:{},types:{},pages:{},index:1,user:{},checked:{},score:0,loaded:false};
 let freshSpecialUrls={};
-const SPECIAL_CACHE_PREFIX="hanjaSpecialQuizV6_";
+const SPECIAL_CACHE_PREFIX="hanjaSpecialQuizV7_";
 let specialBuildBusy=false;
 const SPECIAL_ARCHIVE_URL="https://winteriscoming2u.tistory.com/38";
 
@@ -302,7 +303,7 @@ const GRADE_ARCHIVES={
 };
 const ARCHIVE_LEVELS=["8급","7급Ⅱ","7급","6급Ⅱ","6급","5급Ⅱ","5급","4급Ⅱ","4급","3급Ⅱ","3급","2급","1급","특급Ⅱ","특급"];
 const GRADE_ARCHIVE_CACHE_PREFIX="hanjaGradeArchiveV4_";
-const GRADE_QUIZ_CACHE_PREFIX="hanjaGradeQuizV5_";
+const GRADE_QUIZ_CACHE_PREFIX="hanjaGradeQuizV7_";
 let examArchiveLevel="특급";
 let gradeArchiveLinks={};
 function examGradeSlug(level){
@@ -793,6 +794,12 @@ function isCorrect(q,user){
     const b=norm(user).split(",").filter(Boolean).sort().join(",");
     return a===b;
   }
+  const choices=normalizeChoices(q);
+  if(choices.length){
+    const uo=choiceOrdinal(user);
+    const ao=answerList(q).map(choiceOrdinal).find(Boolean)||0;
+    if(uo&&ao)return uo===ao;
+  }
   const u=norm(user);
   return answerList(q).some(a=>flexibleAnswerVariants(a).has(u));
 }
@@ -1241,10 +1248,12 @@ function compactSpecialItem(q){
   const o={
     round:+q.round,no:+q.no,level:q.level||"특급",type:q.type||"other",
     prompt:q.prompt||"",answer:q.answer??"",hanja:q.hanja||"",
-    korean:q.korean||"",sourceText:q.sourceText||"",note:q.note||"",autoParsed:true
+    korean:q.korean||"",sourceText:q.sourceText||"",passage:q.passage||"",
+    note:q.note||"",autoParsed:true
   };
   if(q.manual)o.manual=true;
   if(q.choices)o.choices=q.choices;
+  if(q.choiceKeys)o.choiceKeys=q.choiceKeys;
   if(q.choiceHint)o.choiceHint=q.choiceHint;
   return o;
 }
@@ -1408,6 +1417,104 @@ function headerRangesFromFlat(flat,answerStart){
   }
   return ranges;
 }
+
+function choiceOrdinal(v){
+  const s=String(v??"").trim();
+  const families=[
+    ["㈀","㈁","㈂","㈃","㈄","㈅"],
+    ["㈎","㈏","㈐","㈑","㈒","㈓"],
+    ["①","②","③","④","⑤","⑥"],
+    ["㉠","㉡","㉢","㉣","㉤","㉥"]
+  ];
+  for(const fam of families){
+    const exact=fam.indexOf(s);
+    if(exact>=0)return exact+1;
+    const lead=fam.findIndex(x=>s.startsWith(x));
+    if(lead>=0)return lead+1;
+  }
+  const n=s.match(/^(?:정답\s*)?([1-6])(?:번)?$/);
+  return n?+n[1]:0;
+}
+function parseChoiceOptions(ctx){
+  const text=String(ctx||"");
+  const families=[
+    ["㈀","㈁","㈂","㈃","㈄","㈅"],
+    ["㈎","㈏","㈐","㈑","㈒","㈓"],
+    ["①","②","③","④","⑤","⑥"]
+  ];
+  let best=null;
+  for(const fam of families){
+    const hits=[];
+    for(const mark of fam){
+      const idx=text.indexOf(mark);
+      if(idx>=0)hits.push({mark,idx});
+    }
+    hits.sort((a,b)=>a.idx-b.idx);
+    if(hits.length>=2&&(!best||hits.length>best.hits.length))best={fam,hits};
+  }
+  if(!best)return null;
+
+  const choices=[],keys=[];
+  for(let i=0;i<best.hits.length;i++){
+    const h=best.hits[i],next=best.hits[i+1];
+    const body=text.slice(h.idx+h.mark.length,next?next.idx:text.length).replace(/\s+/g," ").trim();
+    if(!body)continue;
+    keys.push(h.mark);
+    choices.push(h.mark+" "+body);
+  }
+  if(choices.length<2)return null;
+  return {keys,choices,stem:text.slice(0,best.hits[0].idx).replace(/\s+/g," ").trim()};
+}
+function stripQuestionMarker(text,n){
+  return String(text||"").replace(markerRE(n),"").replace(/\s+/g," ").trim();
+}
+function buildPassageMap(problemLines){
+  const map={};
+  let passage=[];
+  let questionSeen=false;
+  const isHeader=line=>/^(?:제\d+회|第\d+回)|(?:문제지|問題紙)|^\s*-\s*$|^<끝>/.test(line);
+  const isReadingHeader=line=>/다음\s*(?:漢文|글).*읽고.*물음|다음\s*글을\s*읽고.*물음/.test(line);
+  const qnum=line=>{
+    const m=String(line||"").match(/\[\s*(?:問|문)?\s*(\d{1,3})(?:\s*;[^\]]*)?\s*\]|\(\s*(\d{1,3})\s*\)|【\s*(\d{1,3})\s*】|〔\s*(\d{1,3})\s*〕/);
+    return m?+(m[1]||m[2]||m[3]||m[4]):0;
+  };
+
+  for(const row of problemLines){
+    const line=String(row.line||"").trim();
+    if(!line||isHeader(line))continue;
+    if(isReadingHeader(line)){passage=[];questionSeen=false;continue}
+
+    const n=qnum(line);
+    if(n){
+      if(passage.length)map[n]=cleanExamText(passage.join(" "));
+      questionSeen=true;
+      continue;
+    }
+
+    if(line.startsWith("○")){
+      if(questionSeen)passage=[];
+      passage.push(line);
+      questionSeen=false;
+      continue;
+    }
+
+    if(passage.length&&!questionSeen&&!/^[㈀㈁㈂㈃㈎㈏㈐㈑①②③④⑤⑥]/.test(line)){
+      passage.push(line);
+    }
+  }
+  return map;
+}
+function shouldShowBigHanja(q){
+  if(!q?.hanja||normalizeChoices(q).length)return false;
+  return new Set(["sound","meaning","meaningSound","radical","strokes","sameSound","multiReading","abbreviation"]).has(q.type);
+}
+function examAnswerDisplay(q){
+  const choices=normalizeChoices(q);
+  const ord=choiceOrdinal(answerList(q)[0]);
+  if(ord&&choices[ord-1])return choices[ord-1];
+  return answerList(q).join(" / ");
+}
+
 function parseCircledChoices(ctx){
   const matches=[...ctx.matchAll(/([①②③④⑤⑥⑦⑧⑨⑩])\s*([^\s①②③④⑤⑥⑦⑧⑨⑩]+)/g)];
   return matches.map(m=>`${m[1]} ${m[2]}`);
@@ -1442,11 +1549,13 @@ function isGenericExamPrompt(q){
     /^제회\s*\d+번\s*문제$/.test(p);
 }
 function problemizeFlatPdf(level,round,flat,answerStart,answers){
-  const problemLines=flat.slice(0,answerStart),ranges=headerRangesFromFlat(flat,answerStart);
+  const problemLines=flat.slice(0,answerStart);
+  const ranges=headerRangesFromFlat(flat,answerStart);
+  const passageMap=buildPassageMap(problemLines);
   const nums=Object.keys(answers).map(Number).filter(Boolean);
 
   for(const x of problemLines){
-    const re=/\[\s*(?:問|문)?\s*(\d{1,3})(?:\s*;[^\]]*)?\s*\]|\(\s*(\d{1,3})\s*\)|【\s*(\d{1,3})\s*】|〔\s*(\d{1,3})\s*〕|^\s*(\d{1,3})\s*[\.．:)）]?\s+/g;
+    const re=/\[\s*(?:問|문)?\s*(\d{1,3})(?:\s*;[^\]]*)?\s*\]|\(\s*(\d{1,3})\s*\)|【\s*(\d{1,3})\s*】|〔\s*(\d{1,3})\s*〕|^\s*(\d{1,3})\s*[.．:)）]?\s+/g;
     for(const m of x.line.matchAll(re)){
       const n=+(m[1]||m[2]||m[3]||m[4]||m[5]);
       if(n>=1&&n<=250)nums.push(n);
@@ -1454,7 +1563,7 @@ function problemizeFlatPdf(level,round,flat,answerStart,answers){
   }
 
   let maxQ=Math.max(0,...nums);
-  if(level==="특급")maxQ=Math.max(maxQ,200);
+  if(level==="특급"||level==="특급Ⅱ")maxQ=Math.max(maxQ,200);
 
   const out=[];
   for(let n=1;n<=maxQ;n++){
@@ -1467,15 +1576,22 @@ function problemizeFlatPdf(level,round,flat,answerStart,answers){
       const sm=String(rg.desc||"").match(/[\(（]\s*(\d{1,3})\s*[\)）]\s*[-~－–]\s*[\(（]\s*(\d{1,3})\s*[\)）]/);
       if(sm){
         const s=+sm[1],e=+sm[2];
-        if((e-s)===(rg.b-rg.a)){
-          const mapped=s+(n-rg.a);
-          ctx=contextForQuestion(problemLines,mapped);
-        }
+        if((e-s)===(rg.b-rg.a))ctx=contextForQuestion(problemLines,s+(n-rg.a));
       }
       if(!ctx)ctx=String(rg.desc||"")+" · "+n+"번 답";
     }
+
     const ans=String(answers[n]??"").trim();
-    const built=buildProblemizedPrompt(n,type,ctx,ans);
+    const choice=parseChoiceOptions(ctx);
+    let built=buildProblemizedPrompt(n,type,ctx,ans);
+
+    if(choice){
+      type="choice";
+      built={prompt:stripQuestionMarker(choice.stem,n)||stripQuestionMarker(ctx,n),hanja:"",korean:""};
+    }else if((level==="특급"||level==="특급Ⅱ")&&type==="other"){
+      type="hanmun";
+      built.hanja="";
+    }
 
     const q={
       round,no:n,level,type,
@@ -1484,9 +1600,11 @@ function problemizeFlatPdf(level,round,flat,answerStart,answers){
       hanja:built.hanja||"",
       korean:built.korean||"",
       sourceText:ctx||"",
-      note:`제${round}회 ${gradeDisplay(level)} 기출 자동 문제화`,
+      passage:passageMap[n]||"",
+      note:"제"+round+"회 "+gradeDisplay(level)+" 기출 자동 문제화",
       autoParsed:true
     };
+    if(choice){q.choices=choice.choices;q.choiceKeys=choice.keys}
     if(!ans)q.manual=true;
     if(type==="longSound"){
       const ch=parseCircledChoices(ctx);
@@ -2227,6 +2345,7 @@ function renderExamQuestion(){
   const st=examState,q=st.questions[st.index];
   if(!q){renderExamResult();return}
   const choices=normalizeChoices(q), no=q.no||q.number||st.index+1;
+  const answerGuide=choices.length?"선택지를 눌러 바로 채점하세요.":"정답을 아래 입력칸에 직접 타이핑하세요. Enter로도 채점됩니다.";
   $("#exam").innerHTML=`<div class="kpis">
     <div class="kpi"><b>제${st.round}회</b><span>${esc(st.level)}</span></div>
     <div class="kpi"><b>${st.index+1}/${st.questions.length}</b><span>현재 문항</span></div>
@@ -2236,12 +2355,12 @@ function renderExamQuestion(){
   <div class="progress"><div style="width:${(st.index/st.questions.length)*100}%"></div></div>
   <div class="card">
     <div class="meta"><span class="badge">제${st.round}회</span><span class="badge">${esc(st.level)}</span><span class="badge">${esc(TYPES[q.type]||q.type)}</span><span class="badge">${no}번</span></div>
-    <div class="soft" style="margin-top:10px">정답을 아래 입력칸에 직접 타이핑하세요. Enter로도 채점됩니다.</div>
+    <div class="soft" style="margin-top:10px">${answerGuide}</div>
     <div class="prompt" style="margin-top:14px">${esc(q.prompt)}</div>
-    ${(q.sourceText||q.original)?`<div class="source-text"><b>원문</b><br>${esc(q.sourceText||q.original)}</div>`:""}
-    ${q.hanja&&q.type!=="wordWrite"?`<div class="big-hanja" style="font-size:88px;margin:15px 0">${esc(q.hanja)}</div>`:""}
+    ${q.passage?`<div class="source-text exam-passage"><b>지문</b><br>${esc(q.passage)}</div>`:""}
+    ${shouldShowBigHanja(q)?`<div class="big-hanja" style="font-size:88px;margin:15px 0">${esc(q.hanja)}</div>`:""}
     ${q.type==="wordWrite"?renderWordWriteUI(q):
-      choices.length?`<div class="choice-grid">${choices.map((c,i)=>`<button class="choice-btn" data-choice="${esc(c)}">${i+1}. ${esc(c)}</button>`).join("")}</div>`:
+      choices.length?`<div class="choice-grid">${choices.map((c,i)=>`<button class="choice-btn" data-choice="${i+1}">${esc(c)}</button>`).join("")}</div>`:
       `<div class="answer-row"><input id="examAnswer" value="${esc(st.answers[st.index]||"")}" autocomplete="off" autocapitalize="off" placeholder="${q.type==="meaningSound"?"예: 마당 장":q.type==="sound"?"독음 입력":"정답 직접 입력"}"><button class="btn primary" id="examCheck">채점</button></div>`}
     <div id="examFeedback" class="feedback"></div>
     ${q.round?`<details class="compact-settings"><summary>원문 확인</summary><div><button class="btn" onclick="openGradePdf('${q.level}',${q.round})">${esc(q.level)} 제${q.round}회 원문 열기</button>${q.sourceText?`<div class="source-text" style="margin-top:8px">${esc(q.sourceText)}</div>`:""}</div></details>`:""}
@@ -2406,8 +2525,12 @@ function gradeExamAnswer(val){
   saveProgress();showExamFeedback(q,val,ok);
 }
 function showExamFeedback(q,val,ok){
-  const fb=$("#examFeedback");if(!fb)return;fb.className="feedback "+(ok?"ok":"no");
-  fb.innerHTML=ok?`정답입니다. <b>${esc(answerList(q)[0])}</b>`:`오답 · 입력: <b>${esc(val)}</b> · 정답: <b>${esc(answerList(q).join(" / "))}</b>${q.note?`<br><span class="small">${esc(q.note)}</span>`:""}`;
+  const fb=$("#examFeedback");if(!fb)return;
+  fb.className="feedback "+(ok?"ok":"no");
+  const answer=examAnswerDisplay(q);
+  fb.innerHTML=ok
+    ?`정답입니다. <b>${esc(answer)}</b>`
+    :`오답 · 입력: <b>${esc(val)}</b> · 정답: <b>${esc(answer)}</b>${q.note?`<br><span class="small">${esc(q.note)}</span>`:""}`;
 }
 function renderExamResult(){
   const st=examState,total=st.questions.length,answered=st.checked.filter(Boolean).length;
