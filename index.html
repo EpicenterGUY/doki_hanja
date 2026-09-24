@@ -53,6 +53,8 @@ button{cursor:pointer}
 @media(max-width:600px){.simple-home,.hub-grid{grid-template-columns:1fr}}
 
 .grid{display:grid;grid-template-columns:310px 1fr;gap:14px}
+.grid.no-sidebar{grid-template-columns:1fr}
+.grid.no-sidebar .sidebar{display:none}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
 .sidebar{padding:14px}
 .content{padding:18px;min-height:640px}
@@ -200,8 +202,9 @@ input[type=file]{display:none}
   </div>
 
   <div class="grid">
-    <aside class="panel sidebar">
-      <div class="section-title">빠른 연습</div>
+    <aside class="panel sidebar" id="practiceSettingsPanel">
+      <div class="section-title">연습 설정</div>
+      <div class="note" style="margin-bottom:10px">연습 탭에서만 보이는 빠른 시작 설정입니다.</div>
       <div class="label">목표 급수</div>
       <select id="level"></select>
 
@@ -549,9 +552,23 @@ function bind(){
   refreshTypeChecks();
 }
 function switchTab(id){
-  mode=id;$$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+  mode=id;
+  $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
   $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
-  if(id==="exam")renderExam(); if(id==="drill")renderDrill(); if(id==="more")renderMore(); if(id==="freq")renderFreq(); if(id==="wrong")renderWrong(); if(id==="data")renderData(); if(id==="write")renderWrite();
+
+  const grid=document.querySelector(".grid");
+  const settings=document.getElementById("practiceSettingsPanel");
+  const showSettings=id==="practice";
+  if(grid)grid.classList.toggle("no-sidebar",!showSettings);
+  if(settings)settings.hidden=!showSettings;
+
+  if(id==="exam")renderExam();
+  if(id==="drill")renderDrill();
+  if(id==="more")renderMore();
+  if(id==="freq")renderFreq();
+  if(id==="wrong")renderWrong();
+  if(id==="data")renderData();
+  if(id==="write")renderWrite();
 }
 function refreshTypeChecks(){
   $$("#typeChecks .check").forEach(label=>{
