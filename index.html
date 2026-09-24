@@ -1770,6 +1770,14 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
 .atlas-relation-words i{font-style:normal;color:#83e2c7;font-size:16px;font-weight:900}
 .atlas-relation-readings{display:block;margin-top:5px;color:#d7e4f5;font-size:10px;font-weight:800;letter-spacing:.02em}
 .atlas-relation-readings i{font-style:normal;color:#70cdb4;margin:0 4px}
+.atlas-relation-compound{display:block}
+.atlas-relation-compound b{
+  font:850 31px/1.08 "Noto Serif CJK KR","Noto Serif KR","Batang",serif!important;
+  color:#58cbff!important;letter-spacing:.10em
+}
+.atlas-relation-readings.compound-reading{
+  margin-top:4px;color:#eef5ff;font-size:13px;font-weight:900;letter-spacing:.14em
+}
 .atlas-long-badge{
   display:inline-flex;margin-top:6px;padding:3px 6px;border-radius:999px;
   border:1px solid rgba(255,194,84,.2);background:rgba(255,194,84,.08);
@@ -1835,6 +1843,7 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   font:850 24px/1.08 "Noto Serif CJK KR","Noto Serif KR","Batang",serif;color:#55c8ff
 }
 .atlas-memory-relation i{font-style:normal;color:#80dec3;font-size:16px;font-weight:900}
+.atlas-memory-relation.compound span{font-size:34px!important;letter-spacing:.11em}
 .atlas-memory-relation-reading{
   min-height:28px;display:grid;place-items:center;padding:5px 6px;border-radius:9px;
   background:rgba(7,15,28,.42);color:#d8e5f5;font-size:9px;font-weight:800;
@@ -1845,6 +1854,7 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
   color:#ffd17b;background:rgba(255,193,82,.08);border:1px solid rgba(255,193,82,.16);
   font-size:7px;font-weight:900
 }
+.atlas-memory-relation-reading.compound{font-size:13px;font-weight:900;letter-spacing:.14em;color:#eef5ff}
 .atlas-memory-card.revealed .atlas-memory-relation-reading{filter:none;opacity:1}
 .atlas-memory-card.revealed .atlas-memory-answer{filter:none;opacity:1}
 .atlas-memory-extra{
@@ -2931,7 +2941,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.10.6-20260924";
+const APP_BUILD="2.10.7-20260925";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -6480,7 +6490,7 @@ function atlasBestHanjaGroup(groups,minLen=1,maxLen=12){
 function atlasRelationFormat(type,primary,target){
   const a=atlasHanjaTextLen(primary),b=atlasHanjaTextLen(target);
   const base=type==="antonym"?"반대·상대":"동의·유의";
-  if(a===1&&b===1)return {key:type+"_char",label:base+"자"};
+  if(a===1&&b===1)return {key:type+"_char",label:base+" 한자쌍"};
   if(a===2&&b===2)return {key:type+"_word2",label:"2자 "+base+"어"};
   if(a>=2&&b>=2)return {key:type+"_word",label:"한자어 "+base+"어"};
   return null;
@@ -6509,26 +6519,57 @@ function atlasStudySupplement(row,meaningIndex){
     if(reading)out.push({label:"읽기",value:reading});
     if(meaning)out.push({label:"뜻",value:meaning});
   }else if(row.type==="antonym"||row.type==="synonym"){
-    const rel=atlasRelationDisplay(row);
-    if(rel&&(rel.leftReading||rel.rightReading)){
-      out.push({label:"읽기",value:[rel.leftReading,rel.rightReading].filter(Boolean).join(" "+rel.symbol+" ")});
-    }
+    // 메인 행에서 한자쌍과 독음을 함께 보여 주므로 중복 읽기 줄은 생략한다.
   }else if(row.type==="definition"){
     const reading=atlasHanjaReading(row.primary);
     if(reading)out.push({label:"읽기",value:reading});
   }
   return out;
 }
+const ATLAS_CHAR_PAIR_WORDS={
+  "雌雄":"雌雄","嫡庶":"嫡庶","俯仰":"俯仰","削添":"添削","貴賤":"貴賤",
+  "大小":"大小","上下":"上下","左右":"左右","前後":"前後","內外":"內外",
+  "長短":"長短","高低":"高低","强弱":"强弱","貧富":"貧富","老少":"老少",
+  "明暗":"明暗","善惡":"善惡","美醜":"美醜","輕重":"輕重","緩急":"緩急",
+  "開閉":"開閉","盛衰":"盛衰","興亡":"興亡","存亡":"存亡","生死":"生死",
+  "得失":"得失","勝敗":"勝敗","優劣":"優劣","正邪":"正邪","公私":"公私",
+  "遠近":"遠近","深淺":"深淺","多少":"多少","多寡":"多寡","新舊":"新舊",
+  "先後":"先後","主客":"主客","表裏":"表裏","本末":"本末","進退":"進退",
+  "苦樂":"苦樂","榮辱":"榮辱","利害":"利害","愛憎":"愛憎","吉凶":"吉凶",
+  "是非":"是非","曲直":"曲直","文武":"文武","動靜":"動靜","乾濕":"乾濕",
+  "寒暑":"寒暑","天地":"天地",
+  "隱匿":"隱匿","選擇":"選擇","購買":"購買","探索":"探索","搜索":"搜索",
+  "勤勉":"勤勉","扶助":"扶助","援助":"援助","保護":"保護","救援":"救援",
+  "思考":"思考","觀察":"觀察","希望":"希望","願望":"願望","憂慮":"憂慮"
+};
+function atlasCanonicalCharPair(a,b){
+  a=String(a||"");b=String(b||"");
+  if(atlasHanjaTextLen(a)!==1||atlasHanjaTextLen(b)!==1)return "";
+  return ATLAS_CHAR_PAIR_WORDS[a+b]||ATLAS_CHAR_PAIR_WORDS[b+a]||(a+b);
+}
 function atlasRelationDisplay(row){
   if(!row||(row.type!=="antonym"&&row.type!=="synonym"))return null;
   const target=atlasBestHanjaGroup(atlasHanjaGroups(row.secondary||"",1),1,8);
   if(!target)return null;
-  const left=String(row.primary||""),right=target;
-  const leftReading=atlasHanjaReading(left),rightReading=atlasHanjaReading(right);
+  let left=String(row.primary||""),right=target;
+  const isCharPair=atlasHanjaTextLen(left)===1&&atlasHanjaTextLen(right)===1;
+  let compound="",compoundReading="";
+  if(isCharPair){
+    compound=atlasCanonicalCharPair(left,right);
+    if(compound){
+      const cs=[...compound];
+      left=cs[0]||left;
+      right=cs[1]||right;
+      compoundReading=atlasHanjaReading(compound);
+    }
+  }
   return {
     left:left,right:right,
-    leftReading:leftReading,rightReading:rightReading,
-    symbol:row.type==="antonym"?"↔":"≒"
+    leftReading:atlasHanjaReading(left),rightReading:atlasHanjaReading(right),
+    symbol:row.type==="antonym"?"↔":"≒",
+    isCharPair:isCharPair,
+    compound:compound,
+    compoundReading:compoundReading
   };
 }
 function atlasLongSoundDisplay(row){
@@ -6872,8 +6913,9 @@ function atlasItemFrequencyHtml(type){
       const extras=atlasStudySupplement(r,meaningIndex).filter(function(x){return norm(x.value)!==norm(pair.prompt)&&norm(x.value)!==norm(pair.answer)});
       let main="";
       if(rel){
-        main='<span class="atlas-relation-words"><b>'+esc(rel.left)+'</b><i>'+esc(rel.symbol)+'</i><b>'+esc(rel.right)+'</b></span>'+
-          '<span class="atlas-relation-readings">'+esc(rel.leftReading||"")+' <i>'+esc(rel.symbol)+'</i> '+esc(rel.rightReading||"")+'</span>';
+        main=rel.isCharPair&&rel.compound
+          ? '<span class="atlas-relation-compound"><b>'+esc(rel.compound)+'</b></span><span class="atlas-relation-readings compound-reading">'+esc(rel.compoundReading||"")+'</span>'
+          : '<span class="atlas-relation-words"><b>'+esc(rel.left)+'</b><i>'+esc(rel.symbol)+'</i><b>'+esc(rel.right)+'</b></span><span class="atlas-relation-readings">'+esc(rel.leftReading||"")+' <i>'+esc(rel.symbol)+'</i> '+esc(rel.rightReading||"")+'</span>';
       }else{
         main='<b>'+esc(pair.prompt)+'</b><small class="'+answerClass+'"><i>정답</i> '+esc(pair.answer)+'</small>';
       }
@@ -6916,7 +6958,9 @@ function atlasItemFrequencyHtml(type){
       '<div class="atlas-memory-top"><span>#'+x.rank+' · '+esc(x.label)+'</span><b>'+r.count+'문항</b></div>'+
       '<div class="atlas-memory-mode">'+esc(atlasStudyInstruction(r))+'</div>'+
       (rel
-        ? '<div class="atlas-memory-relation"><span>'+esc(rel.left)+'</span><i>'+esc(rel.symbol)+'</i><span>'+esc(rel.right)+'</span></div><div class="atlas-memory-relation-reading">'+esc(rel.leftReading||"")+' '+esc(rel.symbol)+' '+esc(rel.rightReading||"")+'</div>'
+        ? (rel.isCharPair&&rel.compound
+          ? '<div class="atlas-memory-relation compound"><span>'+esc(rel.compound)+'</span></div><div class="atlas-memory-relation-reading compound">'+esc(rel.compoundReading||"")+'</div>'
+          : '<div class="atlas-memory-relation"><span>'+esc(rel.left)+'</span><i>'+esc(rel.symbol)+'</i><span>'+esc(rel.right)+'</span></div><div class="atlas-memory-relation-reading">'+esc(rel.leftReading||"")+' '+esc(rel.symbol)+' '+esc(rel.rightReading||"")+'</div>')
         : '<div class="atlas-memory-term'+promptClass+'">'+esc(pair.prompt)+'</div><div class="atlas-memory-answer'+answerClass+'">'+esc(pair.answer)+'</div>')+
       (longInfo?'<div class="atlas-memory-long">'+esc(longInfo.label)+'</div>':'')+
       (extras.length?'<div class="atlas-memory-extra">'+extras.map(function(v){return '<span><i>'+esc(v.label)+'</i>'+esc(v.value)+'</span>'}).join("")+'</div>':'')+
