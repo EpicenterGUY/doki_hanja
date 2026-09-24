@@ -26,6 +26,8 @@ public class MainActivity extends Activity {
     private static final String APP_URL = "https://epicenterguy.github.io/doki_hanja/?app=android";
     private static final String APP_HOST = "epicenterguy.github.io";
     private static final int FILE_CHOOSER_REQUEST = 8102;
+    private static final String APP_SHELL_VERSION = "0.2.0";
+    private static final int APP_SHELL_VERSION_CODE = 2;
 
     private WebView webView;
     private ValueCallback<Uri[]> fileCallback;
@@ -80,7 +82,7 @@ public class MainActivity extends Activity {
         settings.setSupportZoom(false);
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);
-        settings.setUserAgentString(settings.getUserAgentString() + " DokiHanjaApp/" + BuildConfig.VERSION_NAME);
+        settings.setUserAgentString(settings.getUserAgentString() + " DokiHanjaApp/" + APP_SHELL_VERSION);
 
         webView.addJavascriptInterface(new DokiBridge(), "DokiAndroid");
 
@@ -138,12 +140,12 @@ public class MainActivity extends Activity {
     private class DokiBridge {
         @JavascriptInterface
         public String getVersionName() {
-            return BuildConfig.VERSION_NAME;
+            return APP_SHELL_VERSION;
         }
 
         @JavascriptInterface
         public int getVersionCode() {
-            return BuildConfig.VERSION_CODE;
+            return APP_SHELL_VERSION_CODE;
         }
 
         @JavascriptInterface
