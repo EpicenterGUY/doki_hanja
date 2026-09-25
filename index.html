@@ -3258,6 +3258,128 @@ function closeUpdateCenter(){
   $("#app2Backdrop")?.classList.remove("open");
 }
 
+const GLOBAL_FEATURES=[
+  {action:"study",title:"학습 허브",desc:"혼합 연습 · 손글씨 · 기출 · 복습",keys:"학습 연습 혼합 손글씨 기출 복습"},
+  {action:"practice",title:"혼합 연습",desc:"현재 급수·유형 설정으로 문제 풀기",keys:"혼합 연습 문제 훈음 독음"},
+  {action:"drill",title:"급수별 손글씨",desc:"급수 전체 한자를 직접 쓰기",keys:"손글씨 쓰기 급수 한자쓰기"},
+  {action:"exam",title:"기출 실전",desc:"한국어문회 급수·회차별 기출",keys:"기출 시험 실전 회차"},
+  {action:"freq-practice",title:"빈출 집중 연습",desc:"기출에서 자주 나온 항목 우선 출제",keys:"빈출 자주 기출 집중"},
+  {action:"freq-atlas",title:"빈출 도감",desc:"문제유형별 출현 빈도와 순위",keys:"빈출 도감 순위 통계"},
+  {action:"wrong",title:"오답 · 모르는 한자",desc:"틀린 문제와 따로 저장한 글자",keys:"오답 복습 모름 저장"},
+  {action:"diagnosis",title:"급수 진단",desc:"적응형 문제로 현재 수준 찾기",keys:"진단 급수 실력 수준 약점"},
+  {action:"atlas",title:"한자 도감",desc:"훈음 · 장단음 · 부수 · 획수 검색",keys:"도감 한자 검색 훈음 부수 획수"},
+  {action:"jp",title:"日本漢字",desc:"常用漢字 · 表外漢字 학습",keys:"일본 일본한자 상용 표외 常用 表外"},
+  {action:"jp-word",title:"일본 단어 쓰기",desc:"읽기와 예문을 보고 한자 단어 쓰기",keys:"일본 단어 예문 쓰기 日本"},
+  {action:"record",title:"기록",desc:"한자력 · 유형별 숙련도 · 학습 기록",keys:"기록 통계 한자력 숙련도"},
+  {action:"data",title:"데이터 관리",desc:"백업 · 가져오기 · 기출 데이터",keys:"데이터 백업 가져오기 내보내기"},
+  {action:"update",title:"업데이트 센터",desc:"웹·APK 최신판과 변경사항",keys:"업데이트 버전 apk 웹"},
+  {action:"report",title:"오류 신고",desc:"화면·데이터 문제와 파일 첨부",keys:"오류 신고 버그 문제"}
+];
+
+function globalSearchFeatureMatches(q){
+  const n=norm(q);
+  if(!n)return GLOBAL_FEATURES.slice(0,8);
+  return GLOBAL_FEATURES.filter(function(x){return norm(x.title+" "+x.desc+" "+x.keys).includes(n)}).slice(0,8);
+}
+function globalSearchKorean(q){
+  const n=norm(q);if(!n)return[];
+  const out=[];
+  for(const ch of chars||[]){
+    const forms=officialMeaningSoundForms(ch).canonical||"";
+    const hay=norm(ch.hanja+" "+forms+" "+(ch.sound||"")+" "+(ch.radical||"")+" "+(ch.level||""));
+    if(hay.includes(n)){
+      out.push({char:ch.hanja,level:ch.level,meaning:forms,radical:ch.radical||"",total:+ch.total||0});
+      if(out.length>=16)break;
+    }
+  }
+  return out;
+}
+function globalSearchJapaneseWords(q){
+  const n=norm(q);if(!n||typeof jpWords==="undefined"||!Array.isArray(jpWords))return[];
+  return jpWords.filter(function(w){return norm((w.word||"")+" "+(w.reading||"")+" "+(w.meaning||"")).includes(n)}).slice(0,10);
+}
+function globalSearchJapaneseKanji(q){
+  const n=norm(q);if(!n||typeof jpJoyo==="undefined"||typeof jpHyogai==="undefined")return[];
+  return jpJoyo.concat(jpHyogai).filter(function(x){
+    return norm((x.char||"")+" "+(x.old||"")+" "+(x.radical||"")+" "+((x.variants||[]).join(" "))).includes(n);
+  }).slice(0,10);
+}
+function renderGlobalSearchResults(q){
+  const box=$("#globalSearchResults");if(!box)return;
+  const features=globalSearchFeatureMatches(q),kr=globalSearchKorean(q),jw=globalSearchJapaneseWords(q),jk=globalSearchJapaneseKanji(q);
+  let h="";
+  if(features.length){
+    h+="<section class='global-result-group'><div class='global-result-title'>기능</div>";
+    h+=features.map(function(x){return "<button class='global-result-row' data-global-action='"+esc(x.action)+"'><span class='global-result-icon'>⌘</span><span><b>"+esc(x.title)+"</b><small>"+esc(x.desc)+"</small></span><i>›</i></button>"}).join("");
+    h+="</section>";
+  }
+  if(kr.length){
+    h+="<section class='global-result-group'><div class='global-result-title'>한국 한자</div><div class='global-hanja-grid'>";
+    h+=kr.map(function(x){return "<button class='global-hanja-result' data-global-hanja='"+encodeURIComponent(x.level+"|"+x.char)+"'><strong>"+esc(x.char)+"</strong><span><b>"+esc(x.meaning||"훈음 없음")+"</b><small>"+esc(x.level)+" · "+esc(x.radical||"-")+"부 · "+x.total+"획</small></span></button>"}).join("");
+    h+="</div></section>";
+  }
+  if(jw.length){
+    h+="<section class='global-result-group'><div class='global-result-title'>일본 단어</div>";
+    h+=jw.map(function(w){return "<button class='global-result-row' data-global-jpword='"+encodeURIComponent(w.word)+"'><span class='global-result-icon jp'>日</span><span><b>"+esc(w.word)+" <em>"+esc(w.reading)+"</em></b><small>"+esc(w.meaning)+"</small></span><i>›</i></button>"}).join("");
+    h+="</section>";
+  }
+  if(jk.length){
+    h+="<section class='global-result-group'><div class='global-result-title'>일본 한자</div><div class='global-jp-grid'>";
+    h+=jk.map(function(x){return "<button class='global-jp-result' data-global-jpchar='"+encodeURIComponent((x.set||"joyo")+"|"+x.char)+"'><strong>"+esc(x.char)+"</strong><small>"+(x.set==="joyo"?"常用":"表外")+"</small></button>"}).join("");
+    h+="</div></section>";
+  }
+  if(!h)h="<div class='global-search-empty'>검색 결과가 없습니다.<small>한자, 훈음, 기능 이름, 일본어 읽기를 바꿔서 검색해 보세요.</small></div>";
+  box.innerHTML=h;
+  box.querySelectorAll("[data-global-action]").forEach(function(b){b.onclick=function(){runGlobalAction(b.dataset.globalAction)}});
+  box.querySelectorAll("[data-global-hanja]").forEach(function(b){b.onclick=function(){
+    const key=decodeURIComponent(b.dataset.globalHanja||"");closeGlobalSearch();atlasState.mode="grade";atlasState.filter="all";atlasState.query="";switchTab("atlas");setTimeout(function(){openAtlasCharDetail(key)},60);
+  }});
+  box.querySelectorAll("[data-global-jpword]").forEach(function(b){b.onclick=function(){
+    const word=decodeURIComponent(b.dataset.globalJpword||"");closeGlobalSearch();
+    if(typeof jpWords==="undefined")return;
+    const w=jpWords.find(function(x){return x.word===word});if(!w)return;
+    switchTab("jp");setTimeout(function(){jpState.set=w.set||"joyo";jpState.view="word";jpState.wordList=[w];jpState.wordIndex=0;renderJapaneseWordCard()},40);
+  }});
+  box.querySelectorAll("[data-global-jpchar]").forEach(function(b){b.onclick=function(){
+    const raw=decodeURIComponent(b.dataset.globalJpchar||""),p=raw.split("|"),set=p[0],ch=p.slice(1).join("|");closeGlobalSearch();
+    switchTab("jp");setTimeout(function(){jpState.set=set==="hyogai"?"hyogai":"joyo";jpState.view="atlas";jpState.query=ch;renderJapanese()},20);
+  }});
+}
+function runGlobalAction(action){
+  closeGlobalSearch();
+  if(action==="study"){switchTab("study");return}
+  if(action==="practice"){switchTab("practice");startPractice(false);return}
+  if(action==="drill"){switchTab("drill");return}
+  if(action==="exam"){switchTab("exam");return}
+  if(action==="freq-practice"){startFrequentPractice();return}
+  if(action==="freq-atlas"){atlasState.mode="freq";atlasState.filter="all";atlasState.sort="freq";atlasState.view="table";switchTab("atlas");return}
+  if(action==="wrong"){openUtility("wrong");return}
+  if(action==="diagnosis"){openUtility("diagnosis");return}
+  if(action==="atlas"){atlasState.mode="grade";atlasState.filter="all";switchTab("atlas");return}
+  if(action==="jp"){switchTab("jp");return}
+  if(action==="jp-word"){openJapaneseWordHub();return}
+  if(action==="record"){switchTab("more");return}
+  if(action==="data"){openUtility("data");return}
+  if(action==="update"){openUpdateCenter();return}
+  if(action==="report"){openUtility("report");return}
+}
+function openGlobalSearch(prefill){
+  closePracticeSheet();closeUpdateCenter();
+  const sheet=$("#globalSearchSheet"),input=$("#globalSearchInput");if(!sheet||!input)return;
+  sheet.classList.add("open");sheet.setAttribute("aria-hidden","false");$("#app2Backdrop")?.classList.add("open");
+  input.value=String(prefill||"");renderGlobalSearchResults(input.value);
+  setTimeout(function(){input.focus();input.select()},40);
+  if(typeof loadJapaneseData==="function"){
+    Promise.resolve(loadJapaneseData()).then(function(){if(sheet.classList.contains("open"))renderGlobalSearchResults(input.value)}).catch(function(){});
+  }
+}
+function closeGlobalSearch(){
+  const sheet=$("#globalSearchSheet");if(sheet){sheet.classList.remove("open");sheet.setAttribute("aria-hidden","true")}
+  const updateOpen=$("#updateSheet")?.classList.contains("open");
+  const practiceOpen=$("#practiceSettingsPanel")?.classList.contains("sheet-open");
+  if(!updateOpen&&!practiceOpen)$("#app2Backdrop")?.classList.remove("open");
+}
+
 async function fetchVersionInfo(){
   try{
     const res=await fetch("./version.json?t="+Date.now(),{cache:"no-store"});
@@ -3333,10 +3455,14 @@ function bindAppShell(){
     };
   }
   const practiceSettingsBtn=$("#openPracticeSettings");if(practiceSettingsBtn)practiceSettingsBtn.onclick=openPracticeSheet;
+  const searchBtn=$("#openGlobalSearch");if(searchBtn)searchBtn.onclick=function(){openGlobalSearch("")};
+  const searchClose=$("#closeGlobalSearch");if(searchClose)searchClose.onclick=closeGlobalSearch;
+  const searchInput=$("#globalSearchInput");if(searchInput)searchInput.oninput=function(e){renderGlobalSearchResults(e.target.value)};
+  $(".global-search-quick [data-global-action]").forEach(function(b){b.onclick=function(){runGlobalAction(b.dataset.globalAction)}});
   const updateBtn=$("#openUpdateCenter");if(updateBtn)updateBtn.onclick=openUpdateCenter;
   const closeUpdateBtn=$("#closeUpdateCenter");if(closeUpdateBtn)closeUpdateBtn.onclick=closeUpdateCenter;
   const closePracticeBtn=$("#closePracticeSettings");if(closePracticeBtn)closePracticeBtn.onclick=closePracticeSheet;
-  const backdrop=$("#app2Backdrop");if(backdrop)backdrop.onclick=()=>{closePracticeSheet();closeUpdateCenter()};
+  const backdrop=$("#app2Backdrop");if(backdrop)backdrop.onclick=()=>{closePracticeSheet();closeUpdateCenter();closeGlobalSearch()};
 
   $("#installAppBtn")?.addEventListener("click",async()=>{
     if(!deferredInstallPrompt)return;
