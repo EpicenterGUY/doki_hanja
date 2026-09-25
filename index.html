@@ -2473,6 +2473,76 @@ body>.app2-update{z-index:1930!important}
   .report-grid,.report-upload-grid{grid-template-columns:1fr}
 }
 
+
+/* DRILL BIG NAV + UNKNOWN SAVE · 2.10.8 */
+.drill-bottom-nav{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  position:relative;
+  z-index:5;
+}
+.drill-bottom-nav .btn{
+  min-height:50px;
+  border-radius:14px;
+  font-size:15px;
+  font-weight:900;
+  background:linear-gradient(145deg,#30466f,#223454);
+  border-color:#5875a8;
+  box-shadow:0 8px 18px rgba(1,7,22,.2);
+}
+.drill-bottom-nav .btn:active{transform:translateY(1px)}
+.drill-bottom-nav .btn:disabled{opacity:.38}
+.drill-write-controls{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+}
+#saveUnknownDrill{
+  border-color:#6f78ae;
+  background:linear-gradient(145deg,#30395f,#252d4d);
+  color:#e9eaff;
+}
+#saveUnknownDrill.saved{
+  border-color:#9d82ff;
+  background:linear-gradient(135deg,#5d4bd0,#7762ec);
+  color:#fff;
+}
+.drill-unknown-btn{
+  width:100%;
+  min-height:44px;
+  margin-top:2px;
+}
+@media(max-width:619px){
+  .drill-canvas-pane{
+    grid-template-rows:minmax(0,1fr) 46px 40px!important;
+  }
+  .drill-canvas-wrap{
+    width:min(100%,calc(var(--drill-vh,100dvh) - 305px))!important;
+  }
+  .drill-bottom-nav{height:46px;gap:5px}
+  .drill-bottom-nav .btn{
+    height:46px;
+    min-height:46px;
+    padding:6px 5px;
+    border-radius:11px;
+    font-size:13px;
+  }
+  .drill-write-controls{height:40px;gap:4px!important}
+  .drill-write-controls .btn{
+    height:40px!important;
+    min-height:40px!important;
+    padding:5px 2px!important;
+    font-size:11px!important;
+  }
+}
+@media(min-width:620px){
+  .drill-canvas-pane{
+    grid-template-rows:minmax(0,1fr) 52px 46px!important;
+  }
+  .drill-canvas-wrap{
+    width:min(100%,calc(var(--drill-vh,100dvh) - 185px))!important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -2731,6 +2801,7 @@ const SPECIAL_NEW_META={"92":["u3BnH","btq4Y4RGae5","AAAAAAAAAAAAAAAAAAAAABvVu3a
 
 let stats=JSON.parse(localStorage.getItem("hanjaStatsV2")||"{}");
 let wrong=JSON.parse(localStorage.getItem("hanjaWrongV2")||"{}");
+let unknownHanja=JSON.parse(localStorage.getItem("hanjaUnknownV1")||"{}");
 let seenHanjaPowerLevel=+(localStorage.getItem("hanjaPowerSeenLevel")||0);
 let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"compact",query:"",freqType:"all",period:"all"};
 let atlasFreqCardPage=0;
@@ -2750,6 +2821,33 @@ function norm(s){return String(s??"").replace(/\s+/g,"").replace(/[·ㆍ]/g,"").
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function sample(a,n){return shuffle([...a]).slice(0,n)}
+function unknownHanjaKey(c){return `${c.level}|${c.hanja}`}
+function unknownHanjaSaved(c){return !!unknownHanja[unknownHanjaKey(c)]}
+function persistUnknownHanja(){localStorage.setItem("hanjaUnknownV1",JSON.stringify(unknownHanja))}
+function saveUnknownHanja(c){
+  if(!c?.hanja)return;
+  const k=unknownHanjaKey(c),exists=!!unknownHanja[k],p=charPrimary(c),forms=officialMeaningSoundForms(c),now=Date.now();
+  unknownHanja[k]={
+    ...(unknownHanja[k]||{}),hanja:c.hanja,level:c.level,
+    meaningSound:forms.canonical||[p.meaning,p.sound].filter(Boolean).join(" "),
+    meaning:p.meaning||"",sound:p.sound||"",radical:c.radical||"",total:c.total||"",
+    savedAt:unknownHanja[k]?.savedAt||now,updatedAt:now
+  };
+  persistUnknownHanja();
+  const b=$("#saveUnknownDrill");
+  if(b){b.textContent="★ 저장됨";b.classList.add("saved")}
+  toast(exists?`「${c.hanja}」 이미 저장되어 있습니다`:`「${c.hanja}」 모르는 한자에 저장했습니다`);
+}
+function removeUnknownHanja(k){
+  if(!unknownHanja[k])return;
+  const ch=unknownHanja[k].hanja||"";
+  delete unknownHanja[k];persistUnknownHanja();renderWrong();
+  toast(ch?`「${ch}」 저장 해제`:"저장 해제");
+}
+function clearUnknownHanja(){
+  if(!Object.keys(unknownHanja).length){toast("저장된 모르는 한자가 없습니다");return}
+  if(confirm("저장한 모르는 한자를 모두 비울까요?")){unknownHanja={};localStorage.removeItem("hanjaUnknownV1");renderWrong();renderMore();toast("모르는 한자 목록을 비웠습니다")}
+}
 
 const HANJA_POWER_TITLES=[
   [1,"새싹"],[5,"학습자"],[10,"수련생"],[15,"숙련자"],[20,"고수"],
@@ -2941,7 +3039,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.10.7-20260925";
+const APP_BUILD="2.10.8-20260925";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -3679,14 +3777,15 @@ function resetSessionProgress(){
   toast("현재 진행도를 초기화했습니다.");
 }
 function resetMyLearningProgress(){
-  const ok=confirm("경고: 나의 진척도를 초기화하면 누적 풀이 수, 정답률, 아는 한자, 숙련 한자, 유형별 숙련도, 오답 노트, 한자력 레벨이 모두 삭제됩니다.\n\n이 작업은 되돌릴 수 없습니다. 정말 초기화할까요?");
+  const ok=confirm("경고: 나의 진척도를 초기화하면 누적 풀이 수, 정답률, 아는 한자, 숙련 한자, 유형별 숙련도, 오답 노트, 모르는 한자 저장 목록, 한자력 레벨이 모두 삭제됩니다.\n\n이 작업은 되돌릴 수 없습니다. 정말 초기화할까요?");
   if(!ok)return;
   const typed=prompt("정말 삭제하려면 아래 칸에 '초기화'라고 입력하세요.");
   if(typed!=="초기화"){toast("진척도 초기화를 취소했습니다.");return}
-  stats={};wrong={};seenHanjaPowerLevel=0;diagnosisHistory=[];
+  stats={};wrong={};unknownHanja={};seenHanjaPowerLevel=0;diagnosisHistory=[];
   localStorage.removeItem("hanjaStatsV2");
   localStorage.removeItem("hanjaDiagnosisHistoryV1");
   localStorage.removeItem("hanjaWrongV2");
+  localStorage.removeItem("hanjaUnknownV1");
   localStorage.removeItem("hanjaPowerSeenLevel");
   atlasRevealSet.clear();
   renderPracticeWelcome();renderMore();renderWrong();renderAtlasResults();
@@ -3698,6 +3797,7 @@ function renderMore(){
   const p=hanjaPowerProfile();
   const allStats=Object.values(stats||{});
   const wrongCount=Object.keys(wrong||{}).length;
+  const unknownCount=Object.keys(unknownHanja||{}).length;
   const mastery=p.typeRows.slice(0,6);
   $("#more").innerHTML=`<div class="app-screen more-screen">
     ${hanjaPowerMarkup(p)}
@@ -3717,11 +3817,11 @@ function renderMore(){
       </details>
     </section>
     <section class="app-section">
-      <div class="app-section-head"><div><div class="app-section-title">학습 도구</div><div class="app-section-sub">오답 ${wrongCount}개 · 기록 항목 ${allStats.length}개</div></div></div>
+      <div class="app-section-head"><div><div class="app-section-title">학습 도구</div><div class="app-section-sub">오답 ${wrongCount}개 · 모름 저장 ${unknownCount}자 · 기록 항목 ${allStats.length}개</div></div></div>
       <div class="app-list">
         <button class="app-list-row" onclick="openUtility('diagnosis')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-4 3 2 5-6"/></svg></span><span class="app-list-text"><b>적응형 급수 진단</b><small>빠른/정밀 진단 · 권장 학습 급수</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('atlas')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg></span><span class="app-list-text"><b>한자 도감 · 빈출 도감</b><small>장단음 · 가림 암기 · 빈출순 표</small></span></span><span class="app-list-chevron">›</span></button>
-        <button class="app-list-row" onclick="openUtility('wrong')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span class="app-list-text"><b>오답 노트</b><small>틀린 문제와 반복 오답 복습</small></span></span><span class="app-list-chevron">›</span></button>
+        <button class="app-list-row" onclick="openUtility('wrong')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span class="app-list-text"><b>오답 · 모르는 한자</b><small>틀린 문제와 따로 저장한 모르는 한자 복습</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('freq')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M5 19V9M12 19V5M19 19v-7"/><path d="M3 19h18"/></svg></span><span class="app-list-text"><b>빈출 분석</b><small>기출 회차별 출현 빈도 확인</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('write')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10-3.5-3.5-10 10L4 20Z"/><path d="m13.5 6.5 3.5 3.5"/></svg></span><span class="app-list-text"><b>자유 쓰기</b><small>원하는 글자를 손글씨로 연습</small></span></span><span class="app-list-chevron">›</span></button>
         <button class="app-list-row" onclick="openUtility('data')"><span class="app-list-main"><span class="app-list-icon"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M5 19h14"/></svg></span><span class="app-list-text"><b>데이터 관리</b><small>백업 · 가져오기 · 기출 데이터</small></span></span><span class="app-list-chevron">›</span></button>
@@ -5883,8 +5983,7 @@ function renderDrillCard(){
         <span class="drill-status-pill">${pct}%</span>
       </div>
       <div class="drill-top-actions">
-        <button class="btn drill-icon-btn" id="prevDrill" ${st.index===0?"disabled":""} aria-label="이전">‹</button>
-        <button class="btn drill-icon-btn" id="nextDrill" aria-label="다음">›</button>
+        ${isWrite?"":`<button class="btn drill-icon-btn" id="prevDrill" ${st.index===0?"disabled":""} aria-label="이전">‹</button><button class="btn drill-icon-btn" id="nextDrill" aria-label="다음">›</button>`}
         <button class="btn drill-icon-btn drill-settings-btn" id="exitDrill">설정</button>
       </div>
     </div>
@@ -5904,9 +6003,14 @@ function renderDrillCard(){
             <canvas id="drillCanvas" width="600" height="600"></canvas>
             <div id="drillHanjaPeek" class="drill-answer-overlay" hidden>${esc(c.hanja)}</div>
           </div>
+          <div class="drill-bottom-nav">
+            <button class="btn" id="prevDrill" ${st.index===0?"disabled":""}>← 이전 문제</button>
+            <button class="btn" id="nextDrill">${st.index===st.list.length-1?"처음으로":"다음 문제 →"}</button>
+          </div>
           <div class="drill-write-controls">
             <button class="btn" id="clearDrillCanvas">지우기</button>
             <button class="btn" id="toggleDrillHanja">정답 보기</button>
+            <button class="btn ${unknownHanjaSaved(c)?"saved":""}" id="saveUnknownDrill">${unknownHanjaSaved(c)?"★ 저장됨":"☆ 모름 저장"}</button>
             <button class="btn primary" id="autoCheckDrill">채점</button>
           </div>
         </section>
@@ -5924,6 +6028,7 @@ function renderDrillCard(){
               <button class="btn primary" id="checkDrill">채점</button>
             </div>
             <div id="drillFeedback" class="feedback"></div>
+            <button class="btn drill-unknown-btn ${unknownHanjaSaved(c)?"saved":""}" id="saveUnknownDrill">${unknownHanjaSaved(c)?"★ 모르는 한자 저장됨":"☆ 모르는 한자 저장"}</button>
           </div>
         </section>
       </div>
@@ -5939,6 +6044,9 @@ function renderDrillCard(){
     st.checked=false;
     renderDrillCard();
   };
+
+  const saveUnknownBtn=$("#saveUnknownDrill");
+  if(saveUnknownBtn)saveUnknownBtn.onclick=()=>saveUnknownHanja(c);
 
   if(isWrite){
     setupAnyCanvas("#drillCanvas");
@@ -7400,15 +7508,25 @@ function renderWrong(){
   if(!$("#wrong"))return;
   const level=$("#level")?.value||"1급";
   const rows=Object.values(wrong).filter(x=>gradeAllowed(x.level,level)).sort((a,b)=>(b.count||0)-(a.count||0));
+  const savedRows=Object.entries(unknownHanja).filter(([,x])=>gradeAllowed(x.level,level)).sort((a,b)=>((b[1].updatedAt||b[1].savedAt||0)-(a[1].updatedAt||a[1].savedAt||0)));
   $("#wrong").innerHTML=`
     <div class="card utility-modern"><div class="prompt">오답 노트 · ${rows.length}항목</div>
-    <div class="sub">오답 횟수가 많은 순입니다. 연습에서 '오답 위주'를 선택하면 이 목록에서 다시 출제합니다.</div>
+    <div class="sub">오답 횟수가 많은 순입니다. 연습에서 오답 위주를 선택하면 이 목록에서 다시 출제합니다.</div>
     <div class="table-wrap" style="margin-top:14px">${rows.length?`<table><thead><tr><th>한자</th><th>급수</th><th>유형</th><th>오답</th><th>문제</th><th>정답</th></tr></thead><tbody>
     ${rows.map(x=>`<tr><td style="font-family:serif;font-size:22px">${esc(x.hanja||"")}</td><td>${esc(x.level)}</td><td>${esc(TYPES[x.type]||x.type)}</td><td>${x.count||0}</td><td>${esc(x.prompt)}</td><td>${esc(wrongAnswerDisplay(x))}</td></tr>`).join("")}
     </tbody></table>`:`<div class="empty">오답이 없습니다.</div>`}</div>
-    <div class="actions"><button class="btn bad" id="clearWrong">오답 노트 초기화</button><button class="btn" id="exportProgress">학습기록 내보내기</button></div></div>`;
+    <div class="actions"><button class="btn bad" id="clearWrong">오답 노트 초기화</button><button class="btn" id="exportProgress">학습기록 내보내기</button></div></div>
+
+    <div class="card utility-modern" style="margin-top:12px"><div class="prompt">모르는 한자 · ${savedRows.length}자</div>
+    <div class="sub">급수별 연습에서 <b>☆ 모름 저장</b>을 누른 글자입니다. 기기 브라우저에 저장되며 다시 눌러도 중복되지 않습니다.</div>
+    <div class="table-wrap" style="margin-top:14px">${savedRows.length?`<table><thead><tr><th>한자</th><th>급수</th><th>훈음</th><th>부수</th><th>획수</th><th>관리</th></tr></thead><tbody>
+    ${savedRows.map(([k,x])=>`<tr><td style="font-family:serif;font-size:30px">${esc(x.hanja||"")}</td><td>${esc(x.level||"")}</td><td>${esc(x.meaningSound||"")}</td><td>${esc(x.radical||"")}</td><td>${esc(x.total||"")}${x.total?"획":""}</td><td><button class="btn remove-unknown" data-unknown-key="${encodeURIComponent(k)}" style="min-height:34px;padding:5px 9px">삭제</button></td></tr>`).join("")}
+    </tbody></table>`:`<div class="empty">아직 저장한 모르는 한자가 없습니다.<br>급수별 연습에서 ☆ 모름 저장을 눌러 두세요.</div>`}</div>
+    <div class="actions"><button class="btn bad" id="clearUnknown">모르는 한자 비우기</button><button class="btn" onclick="switchTab('drill')">급수별 연습으로</button></div></div>`;
   $("#clearWrong").onclick=()=>{if(confirm("오답 노트를 모두 지울까요?")){wrong={};saveProgress();renderWrong()}};
-  $("#exportProgress").onclick=()=>downloadJSON({stats,wrong},"한자_학습기록.json");
+  $("#exportProgress").onclick=()=>downloadJSON({stats,wrong,unknownHanja},"한자_학습기록.json");
+  $("#clearUnknown").onclick=clearUnknownHanja;
+  $$(".remove-unknown").forEach(b=>b.onclick=()=>removeUnknownHanja(decodeURIComponent(b.dataset.unknownKey||"")));
 }
 function renderData(){
   if(!$("#data"))return;
