@@ -7429,7 +7429,7 @@ function atlasTrend(row){
 }
 function atlasTypeOverviewHtml(){
   const rows=atlasTypeSummary();
-  if(!rows.length)return '<div class="atlas-empty">아직 암기용 빈출 데이터가 없습니다.<br>‘기출 전체 집계’를 실행하면 독음·한자쓰기·훈음·부수·약자·장단음·유의어·반대/상대어·동음이의어·사자성어·뜻풀이 등 실제 암기에 도움이 되는 유형만 정리합니다.</div>';
+  if(!rows.length)return '<div class="atlas-empty">아직 암기용 빈출 데이터가 없습니다.<br>‘기출 전체 집계’를 실행하면 독음·한자쓰기·훈음·부수·약자·장단음·유의어·반대/상대어·동음이의어·사자성어·뜻풀이·한문 해석 등 실제 암기에 도움이 되는 유형만 정리합니다.</div>';
   if(atlasState.view==="table"){
     let h='<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>순위</th><th>문제 유형</th><th>문항 수</th><th>빈출 항목</th><th>출현 회차</th></tr></thead><tbody>';
     rows.forEach(function(r,i){
@@ -7854,6 +7854,13 @@ function atlasGroupedRows(rows){
   if(m.has("#"))keys.push("#");
   return keys.map(function(k){return {initial:k,rows:m.get(k)||[]}});
 }
+function atlasInitialNavHtml(rows){
+  const groups=atlasGroupedRows(rows);
+  if(groups.length<2)return "";
+  return '<div class="atlas-initial-nav">'+groups.map(function(g){
+    return '<button data-atlas-initial="'+esc(g.initial)+'">'+esc(g.initial)+'</button>';
+  }).join("")+'</div>';
+}
 function atlasCardHtml(x,i){
   const key=x.c.level+"|"+x.c.hanja,hidden=atlasState.mask!=="none"&&!atlasRevealSet.has(key);
   let h='<button class="atlas-card '+(atlasRevealSet.has(key)?"revealed":"")+'" onclick="toggleAtlasReveal(\''+esc(key)+'\')">';
@@ -7886,7 +7893,7 @@ function atlasGridGroupedHtml(rows){
   return '<div class="atlas-initial-groups">'+groups.map(function(g){
     const body=g.rows.map(function(x,i){return atlasCardHtml(x,offset+i)}).join("");
     offset+=g.rows.length;
-    return '<section class="atlas-initial-section"><div class="atlas-initial-head"><b>'+esc(g.initial)+'</b><span>'+g.rows.length+'자</span></div><div class="atlas-grid">'+body+'</div></section>';
+    return '<section class="atlas-initial-section" id="atlas-initial-'+g.initial+'"><div class="atlas-initial-head"><b>'+esc(g.initial)+'</b><span>'+g.rows.length+'자</span></div><div class="atlas-grid">'+body+'</div></section>';
   }).join("")+'</div>';
 }
 function atlasTableHtml(rows){
@@ -7894,7 +7901,7 @@ function atlasTableHtml(rows){
   const groups=(atlasState.mode==="freq"||atlasState.sort==="freq")?[{initial:"",rows:rows}]:atlasGroupedRows(rows);
   let rank=0,h='<div class="atlas-initial-groups">';
   groups.forEach(function(g){
-    if(g.initial)h+='<div class="atlas-initial-head table-head"><b>'+esc(g.initial)+'</b><span>'+g.rows.length+'자</span></div>';
+    if(g.initial)h+='<div class="atlas-initial-head table-head" id="atlas-initial-'+g.initial+'"><b>'+esc(g.initial)+'</b><span>'+g.rows.length+'자</span></div>';
     h+='<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>순위</th><th>한자</th><th>훈음</th><th>급수</th><th>장단음</th><th>빈출</th><th>부수</th><th>획수</th><th>내 숙련</th></tr></thead><tbody>';
     g.rows.forEach(function(x){
       rank++;
@@ -7938,7 +7945,13 @@ function renderAtlasResults(){
   const freqN=rows.filter(function(x){return x.rounds>0}).length,mastered=rows.filter(function(x){return x.study.n>=3&&x.study.pct>=75}).length;
   sum.innerHTML='<div><b>'+rows.length.toLocaleString()+'</b><span>표시 한자</span></div><div><b>'+freqN.toLocaleString()+'</b><span>기출 출현</span></div><div><b>'+(longN+mixedN)+'</b><span>장단음 표시</span></div><div><b>'+mastered+'</b><span>내 숙련</span></div>';
   if(!rows.length){out.innerHTML='<div class="atlas-empty">조건에 맞는 한자가 없습니다.</div>';return}
-  out.innerHTML=atlasState.view==="table"?atlasTableHtml(rows):(atlasState.view==="compact"?atlasCompactHtml(rows):(atlasState.sort==="freq"?'<div class="atlas-grid">'+rows.map(atlasCardHtml).join("")+'</div>':atlasGridGroupedHtml(rows)));
+  const grouped=atlasState.sort!=="freq";
+  const nav=grouped?atlasInitialNavHtml(rows):"";
+  out.innerHTML=nav+(atlasState.view==="table"?atlasTableHtml(rows):(atlasState.view==="compact"?atlasCompactHtml(rows):(atlasState.sort==="freq"?'<div class="atlas-grid">'+rows.map(atlasCardHtml).join("")+'</div>':atlasGridGroupedHtml(rows))));
+  out.querySelectorAll("[data-atlas-initial]").forEach(function(b){b.onclick=function(){
+    const target=document.getElementById("atlas-initial-"+b.dataset.atlasInitial);
+    if(target)target.scrollIntoView({behavior:"smooth",block:"start"});
+  }});
 }
 function toggleAtlasReveal(key){
   if(atlasState.mask==="none"){openAtlasCharDetail(key);return}
