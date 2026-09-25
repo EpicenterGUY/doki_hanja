@@ -4052,7 +4052,7 @@ function renderDiagnosis(){
   const el=$("#diagnosis");if(!el)return;
   if(diagnosisState.phase==="result"&&diagnosisState.result){
     el.innerHTML=`<div class="diag-shell">
-      <button class="btn ghost" onclick="switchTab('more')">← 기록·설정</button>
+      <button class="btn ghost" onclick="switchTab('study')">← 학습</button>
       ${diagnosisResultMarkup(diagnosisState.result)}
     </div>`;
     return;
@@ -4086,7 +4086,7 @@ function renderDiagnosis(){
   }
   const last=latestDiagnosis();
   el.innerHTML=`<div class="diag-shell">
-    <button class="btn ghost" onclick="switchTab('more')">← 기록·설정</button>
+    <button class="btn ghost" onclick="switchTab('study')">← 학습</button>
     <section class="diag-hero">
       <div class="diag-kicker">ADAPTIVE GRADE CHECK</div>
       <div class="diag-title">내 한자 급수는 어디쯤?</div>
