@@ -85,6 +85,7 @@ body.drill-active #jp{height:100%;min-height:0}
 .jp-atlas-card{min-height:116px;padding:10px 7px;border:1px solid rgba(139,166,218,.2);border-radius:16px;background:linear-gradient(145deg,rgba(31,46,78,.9),rgba(15,24,43,.95));color:#fff;text-align:center}
 .jp-atlas-card .char{font:700 46px/1.1 "Noto Serif CJK JP","Yu Mincho","Hiragino Mincho ProN",serif}
 .jp-atlas-card .meta{display:block;margin-top:7px;color:#9fb1cf;font-size:9px}
+.jp-atlas-backdrop{position:fixed;inset:0;z-index:124;background:rgba(2,7,19,.58);backdrop-filter:blur(4px)}
 .jp-atlas-sheet{position:fixed;z-index:125;left:50%;bottom:max(8px,env(safe-area-inset-bottom));transform:translateX(-50%);width:min(680px,calc(100% - 14px));max-height:min(82dvh,760px);overflow:auto;padding:16px;border-radius:26px;border:1px solid rgba(151,178,230,.38);background:linear-gradient(160deg,rgba(27,41,70,.99),rgba(10,18,34,.99));box-shadow:0 30px 90px rgba(0,4,18,.65);backdrop-filter:blur(28px)}
 .jp-atlas-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center}
 .jp-atlas-big{width:92px;height:92px;display:grid;place-items:center;border-radius:22px;background:#f8fbff;color:#17233d;font:700 64px/1 "Noto Serif CJK JP","Yu Mincho",serif;border:2px solid #92b1e1}
