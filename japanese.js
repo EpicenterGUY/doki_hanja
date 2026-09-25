@@ -391,7 +391,7 @@ async function renderJapanese(){
   }
   const all=jpCurrentPool();
   let body=jpState.view==="home"?jpHomeHtml():(jpState.view==="atlas"?jpAtlasHomeHtml(all):(jpState.view==="word"?jpWordHomeHtml():jpPracticeHomeHtml(all)));
-  el.innerHTML="<div class='jp-screen'>"+jpHeroHtml()+jpMetricsHtml()+body+
+  el.innerHTML="<div class='jp-screen'>"+jpHeroHtml()+(jpState.view==="home"?"":jpMetricsHtml())+body+
     "<section class='app-section'><details class='compact-settings'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字는 현행 2,136자 목록, 表外漢字는 표외한자자체표의 기본자를 바탕으로 현행 상용한자와 겹치는 글자를 제외해 구성합니다. 표외한자자체표는 인쇄문자 기준이므로 손글씨 자동채점은 형태 연습용 참고 판정입니다. 단어 쓰기는 DOKI의 예문 학습 데이터로 별도 구성됩니다.</div></details></section></div>";
   bindJapaneseHome();
 }
