@@ -28,7 +28,8 @@ let jpState={
   wordRound:0,
   wordList:[],
   wordIndex:0,
-  wordChecked:false
+  wordChecked:false,
+  wordHideMeaning:localStorage.getItem("jpWordHideMeaningV1")!=="0"
 };
 let jpStats=JSON.parse(localStorage.getItem("jpHanjaStatsV1")||"{}");
 let jpUnknown=JSON.parse(localStorage.getItem("jpHanjaUnknownV1")||"{}");
@@ -550,6 +551,32 @@ function jpClearWordCanvases(){
   [...w.word].forEach(function(_,i){clearAnyCanvas("#jpWordCanvas"+i)});
   const fb=$("#jpWordFeedback");if(fb){fb.className="feedback jp-word-feedback";fb.innerHTML=""}
 }
+function jpHiraganaReading(value){
+  return [...String(value||"")].map(function(ch){
+    const code=ch.codePointAt(0);
+    return code>=0x30A1&&code<=0x30F6?String.fromCodePoint(code-0x60):ch;
+  }).join("");
+}
+function jpWordSentencePrompt(w){
+  let s=String((w&&w.sentence)||"");
+  if(/[＿_]{2,}/u.test(s))return s;
+  const word=String((w&&w.word)||"");
+  if(word&&s.includes(word))return s.replace(word,"＿＿");
+  return s;
+}
+function jpSetWordMeaningHidden(hidden){
+  jpState.wordHideMeaning=!!hidden;
+  try{localStorage.setItem("jpWordHideMeaningV1",jpState.wordHideMeaning?"1":"0")}catch{}
+  const panel=$("#jpWordMeaningPanel"),b=$("#jpWordMeaningToggle");
+  if(panel)panel.hidden=jpState.wordHideMeaning;
+  if(b){
+    b.textContent=jpState.wordHideMeaning?"뜻 보기":"뜻 가리기";
+    b.classList.toggle("active",!jpState.wordHideMeaning);
+    b.setAttribute("aria-expanded",String(!jpState.wordHideMeaning));
+  }
+}
+function jpToggleWordMeaning(){jpSetWordMeaningHidden(!jpState.wordHideMeaning)}
+
 function jpToggleWordAnswer(){
   const overlays=$$(".jp-word-answer");
   const show=overlays.some(function(x){return x.hidden});
@@ -574,15 +601,16 @@ function jpGradeWord(){
   const fb=$("#jpWordFeedback");
   if(fb){
     fb.className="feedback jp-word-feedback "+(allOk?"ok":"no");
-    fb.innerHTML=(allOk?"단어 전체 통과":"다시 확인해보세요")+" · 평균 형태 일치도 <b>"+avg+"%</b><br>"+
+    fb.innerHTML="<div class='jp-word-feedback-line'><span>"+(allOk?"단어 전체 통과":"다시 확인")+" · 평균 <b>"+avg+"%</b></span><span class='jp-word-feedback-scores'>"+
       results.map(function(r){return "<span class='jp-char-score "+(r.ok?"ok":"no")+"'><b lang='ja'>"+esc(r.ch)+"</b> "+r.score+"%</span>"}).join("")+
-      "<br><span class='small'>정답: <b lang='ja'>"+esc(w.word)+"</b>（"+esc(w.reading)+"） · "+esc(w.meaning)+"</span>";
+      "</span></div><div class='jp-word-feedback-answer'>정답 <b lang='ja'>"+esc(w.word)+"</b>（"+esc(jpHiraganaReading(w.reading))+"）</div>";
   }
 }
 function renderJapaneseWordCard(){
   const w=jpState.wordList[jpState.wordIndex];
   if(!w){exitJapanesePractice();return}
   const chars=[...w.word],pct=Math.round((jpState.wordIndex+1)/jpState.wordList.length*100);
+  const reading=jpHiraganaReading(w.reading),sentence=jpWordSentencePrompt(w);
   syncDrillViewport();document.body.classList.add("drill-active");
   if(window._drillViewportFit)window.visualViewport&&window.visualViewport.removeEventListener("resize",window._drillViewportFit);
   window._drillViewportFit=function(){syncDrillViewport()};
@@ -593,8 +621,8 @@ function renderJapaneseWordCard(){
     canvases+="<div class='jp-word-box'><canvas id='jpWordCanvas"+i+"' width='320' height='320'></canvas><div class='jp-word-answer' lang='ja' hidden>"+esc(ch)+"</div></div>";
   });
   let h="<div class='drill-session-shell'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+(jpState.wordRound+1)+"회차</span><span class='drill-status-pill'>"+(jpState.wordIndex+1)+"/"+jpState.wordList.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpWordExit'>목록</button></div></div>";
-  h+="<div class='jp-word-stage'><section class='jp-word-question'><span class='drill-official'>읽기 + 예문 → 한자쓰기</span><div class='jp-word-reading'>"+esc(w.reading)+"</div><div class='jp-word-meaning'>"+esc(w.meaning)+"</div><div class='jp-word-example'>"+esc(w.sentence)+"</div><div class='jp-word-translation'>"+esc(w.translation)+"</div><div id='jpWordFeedback' class='feedback jp-word-feedback'></div></section>";
-  h+="<section class='jp-word-canvas-pane'><div class='jp-word-canvas-grid' style='--word-len:"+chars.length+"'>"+canvases+"</div><div class='jp-word-nav'><button class='btn' id='jpWordPrev' "+(jpState.wordIndex===0?"disabled":"")+">← 이전 단어</button><button class='btn' id='jpWordNext'>"+(jpState.wordIndex===jpState.wordList.length-1?"회차 완료 →":"다음 단어 →")+"</button></div><div class='jp-word-controls'><button class='btn' id='jpWordClear'>지우기</button><button class='btn' id='jpWordReveal'>정답 보기</button><button class='btn primary' id='jpWordCheck'>채점</button></div></section></div></div>";
+  h+="<div class='jp-word-stage'><section class='jp-word-question'><button class='jp-word-meaning-toggle "+(jpState.wordHideMeaning?"":"active")+"' id='jpWordMeaningToggle' aria-expanded='"+String(!jpState.wordHideMeaning)+"'>"+(jpState.wordHideMeaning?"뜻 보기":"뜻 가리기")+"</button><div class='jp-word-reading'>"+esc(reading)+"</div><div class='jp-word-example'>"+esc(sentence)+"</div><div class='jp-word-meaning-panel' id='jpWordMeaningPanel' "+(jpState.wordHideMeaning?"hidden":"")+"><div class='jp-word-meaning'>"+esc(w.meaning)+"</div><div class='jp-word-translation'>"+esc(w.translation)+"</div></div></section>";
+  h+="<section class='jp-word-canvas-pane'><div class='jp-word-canvas-grid' style='--word-len:"+chars.length+"'>"+canvases+"</div><div id='jpWordFeedback' class='feedback jp-word-feedback'></div><div class='jp-word-nav'><button class='btn' id='jpWordPrev' "+(jpState.wordIndex===0?"disabled":"")+">← 이전 단어</button><button class='btn' id='jpWordNext'>"+(jpState.wordIndex===jpState.wordList.length-1?"회차 완료 →":"다음 단어 →")+"</button></div><div class='jp-word-controls'><button class='btn' id='jpWordClear'>지우기</button><button class='btn' id='jpWordReveal'>정답 보기</button><button class='btn primary' id='jpWordCheck'>채점</button></div></section></div></div>";
   $("#jp").innerHTML=h;
   chars.forEach(function(_,i){setupAnyCanvas("#jpWordCanvas"+i)});
   $("#jpWordExit").onclick=exitJapanesePractice;
@@ -607,6 +635,7 @@ function renderJapaneseWordCard(){
     }
     jpState.wordIndex++;jpState.wordChecked=false;renderJapaneseWordCard();
   };
+  $("#jpWordMeaningToggle").onclick=jpToggleWordMeaning;
   $("#jpWordClear").onclick=jpClearWordCanvases;
   $("#jpWordReveal").onclick=jpToggleWordAnswer;
   $("#jpWordCheck").onclick=jpGradeWord;
