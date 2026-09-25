@@ -1,9 +1,17 @@
 {
-  "webBuild": "2.12.0-20260925",
+  "webBuild": "2.12.1-20260925",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.12.1",
+      "title": "하단 메뉴 전환 오류 수정",
+      "items": [
+        "하단 메뉴를 눌렀을 때 제목과 선택 표시만 바뀌고 본문이 그대로 남던 탭 전환 오류 수정",
+        "연습·기출·급수별·日本·기록 모든 메인 탭의 화면 전환을 정상화"
+      ]
+    },
     {
       "version": "2.12.0",
       "title": "일본 한자 도감 · 단어식 한자쓰기 · 쓰기 UI 수정",
