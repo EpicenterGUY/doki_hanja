@@ -3322,7 +3322,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.18.1-20260925";
+const APP_BUILD="2.18.2-20260925";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -7881,12 +7881,15 @@ function atlasInitialNavHtml(rows){
 }
 function atlasCardHtml(x,i){
   const key=x.c.level+"|"+x.c.hanja,hidden=atlasState.mask!=="none"&&!atlasRevealSet.has(key);
-  let h='<button class="atlas-card '+(atlasRevealSet.has(key)?"revealed":"")+'" onclick="toggleAtlasReveal(\''+esc(key)+'\')">';
+  let h='<button class="atlas-card mask-'+esc(atlasState.mask)+' '+(atlasRevealSet.has(key)?"revealed":"")+'" onclick="toggleAtlasReveal(\''+esc(key)+'\')">';
   if(atlasState.mode==="freq")h+='<span class="atlas-rank">#'+(i+1)+'</span><span class="atlas-freq">'+x.rounds+'회차 · '+x.count+'문항</span>';
   h+='<div class="atlas-hanja '+atlasMaskedClass("hanja",key)+'">'+esc(x.c.hanja)+'</div>';
   h+='<div class="atlas-hun '+atlasMaskedClass("meaning",key)+'">'+esc(x.canonical)+(x.tone?'<span class="atlas-tone">'+esc(x.tone)+'</span>':'')+'</div>';
   h+='<div class="atlas-meta"><span>'+esc(x.c.level)+'</span><span>'+esc(x.c.radical||"")+'부</span><span>'+(+x.c.total||0)+'획</span>'+(x.study.n?'<span>내 숙련 '+x.study.pct+'%</span>':'')+'</div>';
-  if(atlasState.mask!=="none")h+='<span class="atlas-mask-tip">'+(hidden?"눌러 보기":"다시 눌러 숨기기")+'</span>';
+  if(atlasState.mask!=="none"){
+    const label=atlasState.mask==="meaning"?(hidden?"훈음 보기":"훈음 숨기기"):(hidden?"한자 보기":"한자 숨기기");
+    h+='<span class="atlas-mask-tip mask-'+esc(atlasState.mask)+'">'+label+'</span>';
+  }
   return h+'</button>';
 }
 
@@ -7896,10 +7899,10 @@ function atlasCompactHtml(rows){
   return '<div class="atlas-initial-groups">'+groups.map(function(g){
     return '<section class="atlas-initial-section" id="atlas-initial-'+g.initial+'"><div class="atlas-initial-head"><b>'+esc(g.initial)+'</b><span>'+g.rows.length+'자</span></div><div class="atlas-compact-grid">'+g.rows.map(function(x){
       const key=x.c.level+"|"+x.c.hanja,hidden=atlasState.mask!=="none"&&!atlasRevealSet.has(key);
-      return '<button class="atlas-compact-cell '+(atlasRevealSet.has(key)?"revealed":"")+'" onclick="toggleAtlasReveal(\''+esc(key)+'\')">'+
+      return '<button class="atlas-compact-cell mask-'+esc(atlasState.mask)+' '+(atlasRevealSet.has(key)?"revealed":"")+'" onclick="toggleAtlasReveal(\''+esc(key)+'\')">'+
         '<div class="atlas-compact-hanja '+atlasMaskedClass("hanja",key)+'">'+esc(x.c.hanja)+'</div>'+
         '<div class="atlas-compact-hun '+atlasMaskedClass("meaning",key)+'">'+esc(x.canonical)+(x.tone?'<span class="atlas-tone">'+esc(x.tone)+'</span>':'')+'</div>'+
-        (atlasState.mask!=="none"?'<span class="atlas-compact-mask">'+(hidden?"보기":"숨기기")+'</span>':'')+
+        (atlasState.mask!=="none"?'<span class="atlas-compact-mask mask-'+esc(atlasState.mask)+'">'+(atlasState.mask==="meaning"?(hidden?"훈음 보기":"훈음 숨기기"):(hidden?"한자 보기":"한자 숨기기"))+'</span>':'')+
       '</button>';
     }).join("")+'</div></section>';
   }).join("")+'</div>';
