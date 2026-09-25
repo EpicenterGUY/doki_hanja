@@ -203,12 +203,15 @@ function jpStartQuickChars(set){
 function jpHomeWordProgress(set){
   const rows=jpWords.filter(function(w){return w.set===set});
   const size=Math.max(1,+jpState.wordCount||20),total=Math.max(1,Math.ceil(rows.length/size));
-  let done=0,tried=0;
+  let done=0,tried=0,next=0,foundNext=false;
   for(let i=0;i<total;i++){
     const part=rows.slice(i*size,Math.min(rows.length,(i+1)*size)),st=jpWordRoundStatus(part);
-    if(st.done)done++;tried+=st.tried;
+    if(st.done)done++;
+    else if(!foundNext){next=i;foundNext=true}
+    tried+=st.tried;
   }
-  return {rows:rows,total:total,done:done,tried:tried,size:size};
+  if(!foundNext)next=Math.max(0,total-1);
+  return {rows:rows,total:total,done:done,tried:tried,size:size,next:next};
 }
 function setJapaneseGrade(g){jpState.grade=g;jpState.limit=120;jpState.atlasLimit=160;renderJapanese()}
 function setJapaneseMode(m){jpState.mode=m==="copy"?"copy":"memory";renderJapanese()}
@@ -276,7 +279,7 @@ function jpHomeHtml(){
   const wordCount=jpWords.filter(function(w){return w.set===jpState.set}).length;
   const saved=Object.keys(jpUnknown).filter(function(k){return k.startsWith(jpState.set+"|")}).length;
   let h="<section class='jp-home-main'>";
-  h+="<div class='jp-home-status'><div><span>현재 컬렉션</span><b>"+setLabel+"</b><small>"+total.toLocaleString()+"자 · 단어 "+wordCount.toLocaleString()+"개</small></div><div class='jp-home-ring'><b>"+p.accuracy+"%</b><span>글자 정확도</span></div></div>";
+  h+="<div class='jp-home-status'><div><span>현재 컬렉션</span><b>"+setLabel+"</b><small>"+total.toLocaleString()+"자 · 단어 "+wordCount.toLocaleString()+"개</small></div><div class='jp-home-ring' style='--jp-ring:"+p.accuracy+"%'><b>"+p.accuracy+"%</b><span>글자 정확도</span></div></div>";
   h+="<div class='jp-home-actions'>";
   h+="<button class='jp-home-action write' data-jp-view='practice'><span class='jp-action-glyph'>書</span><span><b>글자 쓰기</b><small>2초 암기 또는 보고 따라쓰기</small></span><i>›</i></button>";
   h+="<button class='jp-home-action word' data-jp-view='word'><span class='jp-action-glyph'>文</span><span><b>단어 쓰기</b><small>읽기·뜻·예문을 보고 직접 쓰기</small></span><i>›</i></button>";
@@ -302,7 +305,8 @@ function jpHomeHtml(){
     h+="</div></section>";
   }
 
-  h+="<section class='jp-home-next'><div><span>NEXT</span><b>"+(word.done<word.total?(word.done+1)+"회차 단어쓰기":"단어 회차 완료")+"</b><small>"+(word.done<word.total?"회차당 "+word.size+"단어 · 현재 컬렉션 "+wordCount+"단어":"원하는 회차를 골라 복습할 수 있습니다.")+"</small></div><button id='jpHomeWordNext'>"+(word.done<word.total?"이어가기":"복습하기")+" →</button></section>";
+  h+="<section class='jp-home-next'><div><span>NEXT</span><b>"+(word.done<word.total?(word.next+1)+"회차 단어쓰기":"단어 회차 완료")+"</b><small>"+(word.done<word.total?"회차당 "+word.size+"단어 · 현재 컬렉션 "+wordCount+"단어":"원하는 회차를 골라 복습할 수 있습니다.")+"</small></div><button id='jpHomeWordNext'>"+(word.done<word.total?"이어가기":"복습하기")+" →</button></section>";
+  h+="<button class='jp-home-search' id='jpHomeSearch'>⌕ 일본 한자·단어 전체 찾기</button>";
   return h;
 }
 function jpMetricsHtml(){
@@ -402,9 +406,10 @@ function bindJapaneseHome(){
   $("[data-jp-home-grade]").forEach(function(b){b.onclick=function(){jpOpenGradePractice(b.dataset.jpHomeGrade)}});
   if($("#jpHomeSaved"))$("#jpHomeSaved").onclick=jpOpenSavedAtlas;
   if($("#jpQuick20"))$("#jpQuick20").onclick=function(){jpStartQuickChars(jpState.set)};
+  if($("#jpHomeSearch"))$("#jpHomeSearch").onclick=function(){if(typeof openGlobalSearch==="function")openGlobalSearch("")};
   if($("#jpHomeWordNext"))$("#jpHomeWordNext").onclick=function(){
     const info=jpHomeWordProgress(jpState.set);
-    jpState.view="word";jpState.wordTier="all";jpState.wordRound=Math.min(info.done,Math.max(0,info.total-1));renderJapanese();
+    jpState.view="word";jpState.wordTier="all";jpState.wordRound=info.next;renderJapanese();
   };
   if($("#jpSavedOnly"))$("#jpSavedOnly").onclick=toggleJapaneseSavedOnly;
   if($("#jpSearch")){
