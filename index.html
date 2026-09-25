@@ -2784,6 +2784,24 @@ body>.app2-update{z-index:1930!important}
   .atlas-format-group:has(.atlas-study-row .text-prompt) .atlas-study-main.text-prompt> b{font-size:15px!important}
 }
 
+
+.atlas-initial-nav{
+  position:sticky;top:calc(var(--appbar-h) + 77px);z-index:8;
+  display:flex;gap:4px;overflow-x:auto;padding:5px 4px;margin-bottom:8px;
+  border-radius:13px;background:rgba(10,19,35,.9);border:1px solid rgba(139,166,218,.16);
+  backdrop-filter:blur(14px);scrollbar-width:none
+}
+.atlas-initial-nav::-webkit-scrollbar{display:none}
+.atlas-initial-nav button{
+  flex:0 0 auto;min-width:31px;height:29px;border-radius:9px;border:1px solid rgba(93,188,229,.16);
+  background:#182a48;color:#8fcae8;font-size:10px;font-weight:950
+}
+.atlas-initial-nav button:active{background:#2b4b72;color:#fff}
+@media(max-width:600px){
+  .atlas-initial-nav{top:calc(var(--appbar-h) + 68px);padding:4px 3px;margin-bottom:6px}
+  .atlas-initial-nav button{min-width:28px;height:27px;font-size:9px}
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css">
 </head>
