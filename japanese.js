@@ -412,6 +412,9 @@ function bindJapaneseHome(){
       const gradeBtn=e.target.closest("[data-jp-home-grade]");
       if(gradeBtn&&root.contains(gradeBtn)){e.preventDefault();jpOpenGradePractice(gradeBtn.dataset.jpHomeGrade);return}
 
+      const filterGradeBtn=e.target.closest("#jpGradeRow [data-grade]");
+      if(filterGradeBtn&&root.contains(filterGradeBtn)){e.preventDefault();setJapaneseGrade(filterGradeBtn.dataset.grade);return}
+
       const charBtn=e.target.closest(".jp-card[data-jp-char]");
       if(charBtn&&root.contains(charBtn)){e.preventDefault();startJapanesePractice(charBtn.dataset.jpChar);return}
 
