@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.12.2-20260925",
+  "webBuild": "2.13.0-20260925",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.13.0",
+      "title": "일본 한자 도감 한국어화 · 단어/예문 대폭 확장",
+      "items": [
+        "도감의 영문 뜻 표시를 제거하고 한국어문회 한자 데이터와 구자체 매칭을 이용한 한국어 훈음으로 교체",
+        "일본 신자체가 한국 한자 데이터와 직접 일치하지 않을 경우 旧字体를 통해 한국식 훈음을 찾아 표시",
+        "일본 단어·예문 학습 데이터를 154개에서 581개로 확대",
+        "検査·検討·検索·点検·検証 등 자주 쓰는 연관어를 포함해 도감의 연관 단어 밀도를 크게 보강",
+        "도감 한 글자당 표시 가능한 연관 단어를 최대 8개에서 24개로 확대"
+      ]
+    },
     {
       "version": "2.12.2",
       "title": "메인 메뉴 화면 전환 재수정",
