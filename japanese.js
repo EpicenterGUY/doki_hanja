@@ -8,7 +8,7 @@ let jpHideTimer=null;
 let jpItemMap=new Map();
 
 let jpState={
-  view:"practice",
+  view:"home",
   set:"joyo",
   grade:"all",
   query:"",
@@ -185,9 +185,30 @@ function setJapaneseSet(s){
   renderJapanese();
 }
 function setJapaneseView(v){
-  jpState.view=["practice","atlas","word"].includes(v)?v:"practice";
+  jpState.view=["home","practice","atlas","word"].includes(v)?v:"home";
   jpState.query="";jpState.savedOnly=false;jpState.limit=120;jpState.atlasLimit=160;
   renderJapanese();
+}
+function jpOpenSavedAtlas(){
+  jpState.view="atlas";jpState.savedOnly=true;jpState.query="";jpState.atlasLimit=160;renderJapanese();
+}
+function jpOpenGradePractice(g){
+  jpState.set="joyo";jpState.grade=g||"all";jpState.view="practice";jpState.savedOnly=false;jpState.query="";jpState.limit=120;renderJapanese();
+}
+function jpStartQuickChars(set){
+  jpState.set=set==="hyogai"?"hyogai":"joyo";jpState.grade="all";jpState.view="practice";jpState.savedOnly=false;jpState.query="";
+  jpState.order="random";jpState.count=20;
+  startJapanesePractice();
+}
+function jpHomeWordProgress(set){
+  const rows=jpWords.filter(function(w){return w.set===set});
+  const size=Math.max(1,+jpState.wordCount||20),total=Math.max(1,Math.ceil(rows.length/size));
+  let done=0,tried=0;
+  for(let i=0;i<total;i++){
+    const part=rows.slice(i*size,Math.min(rows.length,(i+1)*size)),st=jpWordRoundStatus(part);
+    if(st.done)done++;tried+=st.tried;
+  }
+  return {rows:rows,total:total,done:done,tried:tried,size:size};
 }
 function setJapaneseGrade(g){jpState.grade=g;jpState.limit=120;jpState.atlasLimit=160;renderJapanese()}
 function setJapaneseMode(m){jpState.mode=m==="copy"?"copy":"memory";renderJapanese()}
@@ -238,13 +259,51 @@ function jpCardsHtml(rows,atlas){
   }).join("");
 }
 function jpHeroHtml(){
-  return "<section class='jp-hero'>"+
-    "<div class='jp-kicker'>DOKI 漢字 · JAPANESE LAB</div><h2>日本漢字</h2>"+
-    "<p>상용·표외 한자를 따로 모아 보고, 도감에서 확인하고, 글자와 단어를 손으로 익힙니다.</p>"+
-    "<div class='jp-set-seg'><button class='"+(jpState.set==="joyo"?"active":"")+"' data-jp-set='joyo'>常用漢字<small>상용 2,136자</small></button>"+
-    "<button class='"+(jpState.set==="hyogai"?"active":"")+"' data-jp-set='hyogai'>表外漢字<small>표외 핵심 "+jpHyogai.length.toLocaleString()+"자</small></button></div>"+
-    "<div class='jp-view-seg'><button class='"+(jpState.view==="practice"?"active":"")+"' data-jp-view='practice'>✍ 글자 연습</button><button class='"+(jpState.view==="atlas"?"active":"")+"' data-jp-view='atlas'>▦ 한자 도감</button><button class='"+(jpState.view==="word"?"active":"")+"' data-jp-view='word'>文 단어 쓰기</button></div>"+
+  const home=jpState.view==="home";
+  return "<section class='jp-hero "+(home?"jp-home-hero":"jp-sub-hero")+"'>"+
+    "<div class='jp-kicker'>DOKI 漢字 · JAPANESE LAB</div><div class='jp-hero-line'><div><h2>"+(home?"日本漢字":(jpState.view==="practice"?"글자 쓰기":jpState.view==="word"?"단어 쓰기":"일본 한자 도감"))+"</h2>"+
+    "<p>"+(home?"상용·표외 한자를 찾고, 보고, 직접 쓰는 일본 한자 전용 학습 공간입니다.":(jpState.set==="joyo"?"常用漢字 2,136자":"表外漢字 핵심 "+jpHyogai.length.toLocaleString()+"자")+" · "+(jpState.view==="practice"?"손글씨 형태 연습":jpState.view==="word"?"예문 기반 단어쓰기":"읽기·훈음·연관 단어 탐색"))+"</p></div>"+
+    (home?"":"<button class='jp-home-back' data-jp-view='home'>⌂ 홈</button>")+"</div>"+
+    "<div class='jp-set-seg'><button class='"+(jpState.set==="joyo"?"active":"")+"' data-jp-set='joyo'>常用漢字<small>2,136자</small></button>"+
+    "<button class='"+(jpState.set==="hyogai"?"active":"")+"' data-jp-set='hyogai'>表外漢字<small>"+jpHyogai.length.toLocaleString()+"자</small></button></div>"+
+    (home?"":"<div class='jp-view-seg jp-sub-nav'><button data-jp-view='practice' class='"+(jpState.view==="practice"?"active":"")+"'>書 글자</button><button data-jp-view='word' class='"+(jpState.view==="word"?"active":"")+"'>文 단어</button><button data-jp-view='atlas' class='"+(jpState.view==="atlas"?"active":"")+"'>冊 도감</button></div>")+
   "</section>";
+}
+function jpHomeHtml(){
+  const p=jpProfile(),wp=jpWordProfile(),word=jpHomeWordProgress(jpState.set);
+  const total=jpState.set==="joyo"?jpJoyo.length:jpHyogai.length;
+  const setLabel=jpState.set==="joyo"?"常用漢字":"表外漢字";
+  const wordCount=jpWords.filter(function(w){return w.set===jpState.set}).length;
+  const saved=Object.keys(jpUnknown).filter(function(k){return k.startsWith(jpState.set+"|")}).length;
+  let h="<section class='jp-home-main'>";
+  h+="<div class='jp-home-status'><div><span>현재 컬렉션</span><b>"+setLabel+"</b><small>"+total.toLocaleString()+"자 · 단어 "+wordCount.toLocaleString()+"개</small></div><div class='jp-home-ring'><b>"+p.accuracy+"%</b><span>글자 정확도</span></div></div>";
+  h+="<div class='jp-home-actions'>";
+  h+="<button class='jp-home-action write' data-jp-view='practice'><span class='jp-action-glyph'>書</span><span><b>글자 쓰기</b><small>2초 암기 또는 보고 따라쓰기</small></span><i>›</i></button>";
+  h+="<button class='jp-home-action word' data-jp-view='word'><span class='jp-action-glyph'>文</span><span><b>단어 쓰기</b><small>읽기·뜻·예문을 보고 직접 쓰기</small></span><i>›</i></button>";
+  h+="<button class='jp-home-action atlas' data-jp-view='atlas'><span class='jp-action-glyph'>冊</span><span><b>한자 도감</b><small>음독·훈독·한국어 훈음·연관어</small></span><i>›</i></button>";
+  h+="<button class='jp-home-action saved' id='jpHomeSaved'><span class='jp-action-glyph'>★</span><span><b>저장한 한자</b><small>모르는 한자 "+saved+"자 다시 보기</small></span><i>›</i></button>";
+  h+="</div></section>";
+
+  h+="<section class='jp-home-progress-card'><div class='jp-home-progress-head'><div><span>학습 현황</span><b>"+setLabel+"</b></div><button id='jpQuick20'>랜덤 20자</button></div>";
+  h+="<div class='jp-home-progress-grid'><div><b>"+p.attempted.toLocaleString()+"</b><span>연습한 글자</span></div><div><b>"+p.accuracy+"%</b><span>글자 정답률</span></div><div><b>"+word.tried.toLocaleString()+"</b><span>연습한 단어</span></div><div><b>"+word.done+"/"+word.total+"</b><span>완료 회차</span></div></div>";
+  h+="<div class='jp-home-progress-bar'><i style='width:"+Math.min(100,total?Math.round(p.attempted/total*100):0)+"%'></i></div><small>글자 접촉률 "+(total?Math.round(p.attempted/total*100):0)+"% · 저장 "+saved+"자</small></section>";
+
+  if(jpState.set==="joyo"){
+    h+="<section class='app-section jp-grade-launch'><div class='app-section-head'><div><div class='app-section-title'>학년별 바로가기</div><div class='app-section-sub'>원하는 배정 범위를 눌러 바로 글자 쓰기로 들어갑니다.</div></div></div><div class='jp-home-grade-grid'>";
+    [["1","小1"],["2","小2"],["3","小3"],["4","小4"],["5","小5"],["6","小6"],["S","中高"]].forEach(function(g){
+      const n=jpJoyo.filter(function(x){return x.grade===g[0]}).length;
+      h+="<button data-jp-home-grade='"+g[0]+"'><b>"+g[1]+"</b><span>"+n+"자</span></button>";
+    });
+    h+="</div></section>";
+  }else{
+    const samples=jpWords.filter(function(w){return w.set==="hyogai"}).slice(0,6);
+    h+="<section class='app-section jp-hyogai-spot'><div class='app-section-head'><div><div class='app-section-title'>표외 단어 맛보기</div><div class='app-section-sub'>어려운 표기와 실제 단어를 예문으로 익힙니다.</div></div><button class='btn' data-jp-view='word'>전체 보기</button></div><div class='jp-hyogai-samples'>";
+    h+=samples.map(function(w){return "<div><b lang='ja'>"+esc(w.word)+"</b><span>"+esc(w.reading)+"</span><small>"+esc(w.meaning)+"</small></div>"}).join("");
+    h+="</div></section>";
+  }
+
+  h+="<section class='jp-home-next'><div><span>NEXT</span><b>"+(word.done<word.total?(word.done+1)+"회차 단어쓰기":"단어 회차 완료")+"</b><small>"+(word.done<word.total?"회차당 "+word.size+"단어 · 현재 컬렉션 "+wordCount+"단어":"원하는 회차를 골라 복습할 수 있습니다.")+"</small></div><button id='jpHomeWordNext'>"+(word.done<word.total?"이어가기":"복습하기")+" →</button></section>";
+  return h;
 }
 function jpMetricsHtml(){
   const p=jpProfile(),wp=jpWordProfile(),setTotal=jpState.set==="joyo"?jpJoyo.length:jpHyogai.length;
@@ -331,15 +390,22 @@ async function renderJapanese(){
     }
   }
   const all=jpCurrentPool();
-  let body=jpState.view==="atlas"?jpAtlasHomeHtml(all):(jpState.view==="word"?jpWordHomeHtml():jpPracticeHomeHtml(all));
+  let body=jpState.view==="home"?jpHomeHtml():(jpState.view==="atlas"?jpAtlasHomeHtml(all):(jpState.view==="word"?jpWordHomeHtml():jpPracticeHomeHtml(all)));
   el.innerHTML="<div class='jp-screen'>"+jpHeroHtml()+jpMetricsHtml()+body+
     "<section class='app-section'><details class='compact-settings'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字는 현행 2,136자 목록, 表外漢字는 표외한자자체표의 기본자를 바탕으로 현행 상용한자와 겹치는 글자를 제외해 구성합니다. 표외한자자체표는 인쇄문자 기준이므로 손글씨 자동채점은 형태 연습용 참고 판정입니다. 단어 쓰기는 DOKI의 예문 학습 데이터로 별도 구성됩니다.</div></details></section></div>";
   bindJapaneseHome();
 }
 function bindJapaneseHome(){
   $$("[data-jp-set]").forEach(function(b){b.onclick=function(){setJapaneseSet(b.dataset.jpSet)}});
-  $$("[data-jp-view]").forEach(function(b){b.onclick=function(){setJapaneseView(b.dataset.jpView)}});
-  $$("#jpGradeRow [data-grade]").forEach(function(b){b.onclick=function(){setJapaneseGrade(b.dataset.grade)}});
+  $("[data-jp-view]").forEach(function(b){b.onclick=function(){setJapaneseView(b.dataset.jpView)}});
+  $("#jpGradeRow [data-grade]").forEach(function(b){b.onclick=function(){setJapaneseGrade(b.dataset.grade)}});
+  $("[data-jp-home-grade]").forEach(function(b){b.onclick=function(){jpOpenGradePractice(b.dataset.jpHomeGrade)}});
+  if($("#jpHomeSaved"))$("#jpHomeSaved").onclick=jpOpenSavedAtlas;
+  if($("#jpQuick20"))$("#jpQuick20").onclick=function(){jpStartQuickChars(jpState.set)};
+  if($("#jpHomeWordNext"))$("#jpHomeWordNext").onclick=function(){
+    const info=jpHomeWordProgress(jpState.set);
+    jpState.view="word";jpState.wordTier="all";jpState.wordRound=Math.min(info.done,Math.max(0,info.total-1));renderJapanese();
+  };
   if($("#jpSavedOnly"))$("#jpSavedOnly").onclick=toggleJapaneseSavedOnly;
   if($("#jpSearch")){
     $("#jpSearch").onkeydown=function(e){if(e.key==="Enter")applyJapaneseSearch()};
