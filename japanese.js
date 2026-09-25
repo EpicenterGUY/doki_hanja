@@ -401,9 +401,9 @@ async function renderJapanese(){
 }
 function bindJapaneseHome(){
   $$("[data-jp-set]").forEach(function(b){b.onclick=function(){setJapaneseSet(b.dataset.jpSet)}});
-  $("[data-jp-view]").forEach(function(b){b.onclick=function(){setJapaneseView(b.dataset.jpView)}});
-  $("#jpGradeRow [data-grade]").forEach(function(b){b.onclick=function(){setJapaneseGrade(b.dataset.grade)}});
-  $("[data-jp-home-grade]").forEach(function(b){b.onclick=function(){jpOpenGradePractice(b.dataset.jpHomeGrade)}});
+  $$("[data-jp-view]").forEach(function(b){b.onclick=function(){setJapaneseView(b.dataset.jpView)}});
+  $$("#jpGradeRow [data-grade]").forEach(function(b){b.onclick=function(){setJapaneseGrade(b.dataset.grade)}});
+  $$("[data-jp-home-grade]").forEach(function(b){b.onclick=function(){jpOpenGradePractice(b.dataset.jpHomeGrade)}});
   if($("#jpHomeSaved"))$("#jpHomeSaved").onclick=jpOpenSavedAtlas;
   if($("#jpQuick20"))$("#jpQuick20").onclick=function(){jpStartQuickChars(jpState.set)};
   if($("#jpHomeSearch"))$("#jpHomeSearch").onclick=function(){if(typeof openGlobalSearch==="function")openGlobalSearch("")};
