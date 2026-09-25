@@ -3289,7 +3289,8 @@ function switchTab(id){
   mode=id;
   syncAppChrome(id);
   if(id!=="drill")document.body.classList.remove("drill-active");
-  $$(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+  if(id!=="jp"&&typeof closeJapaneseAtlasDetail==="function")closeJapaneseAtlasDetail();
+  $(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
   $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
 
   const grid=document.querySelector(".grid");
