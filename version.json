@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.18.4-20260925",
+  "webBuild": "2.18.5-20260925",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.18.5",
+      "title": "日本 글자쓰기 연습 범위 버튼 수정",
+      "items": [
+        "글자 쓰기의 연습 범위에서 전체·小1~小6·中高 버튼을 눌러도 반응하지 않던 이벤트 누락 수정",
+        "학년 버튼 클릭을 日本 화면의 컨테이너 이벤트 위임에 연결해 동적 재렌더링 후에도 정상 동작",
+        "학년 선택 즉시 해당 배정 한자 수와 목록·연습 시작 범위가 함께 갱신되도록 복구",
+        "japanese.js 캐시 버전을 갱신해 기존 2.18.4 스크립트가 남는 문제 방지"
+      ]
+    },
     {
       "version": "2.18.4",
       "title": "버튼 무반응 · 닫기 버튼 전면 수정",
