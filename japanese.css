@@ -132,3 +132,38 @@ body.drill-active #jp{height:100%;min-height:0}
   .jp-grid,.jp-atlas-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
   .jp-atlas-data{grid-template-columns:1fr}
 }
+
+
+/* WORD WRITING ROUNDS · 2.14 */
+.jp-word-round-head{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  margin-top:10px;padding:0 2px;color:#dce6f8
+}
+.jp-word-round-head b{font-size:15px}
+.jp-word-round-head span{font-size:10px;color:#8fa4c6}
+.jp-word-rounds{
+  display:flex;gap:7px;overflow-x:auto;padding:7px 1px 5px;
+  scroll-snap-type:x proximity;scrollbar-width:none
+}
+.jp-word-rounds::-webkit-scrollbar{display:none}
+.jp-word-round-chip{
+  flex:0 0 auto;min-width:104px;min-height:52px;padding:7px 11px;
+  scroll-snap-align:start;border-radius:14px;border:1px solid rgba(139,166,218,.24);
+  background:linear-gradient(145deg,#1b2a48,#15223b);color:#c5d0e5;
+  font-weight:900;text-align:left
+}
+.jp-word-round-chip small{
+  display:block;margin-top:3px;color:#8296b8;font-size:8px;font-weight:750
+}
+.jp-word-round-chip.active{
+  border-color:#8d7bff;background:linear-gradient(135deg,#5d51d7,#7359e9);
+  color:#fff;box-shadow:0 8px 20px rgba(71,56,194,.24)
+}
+.jp-word-round-chip.active small{color:#e6e2ff}
+.jp-word-round-chip.done:not(.active){
+  border-color:rgba(66,210,164,.45);background:linear-gradient(145deg,rgba(25,75,68,.88),rgba(19,47,53,.94));color:#bff7e4
+}
+@media(max-width:600px){
+  .jp-word-round-chip{min-width:94px;min-height:48px;padding:6px 9px;font-size:11px;border-radius:12px}
+  .jp-word-round-head b{font-size:13px}
+}
