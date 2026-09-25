@@ -400,10 +400,29 @@ async function renderJapanese(){
   bindJapaneseHome();
 }
 function bindJapaneseHome(){
-  $$("[data-jp-set]").forEach(function(b){b.onclick=function(){setJapaneseSet(b.dataset.jpSet)}});
-  $$("[data-jp-view]").forEach(function(b){b.onclick=function(){setJapaneseView(b.dataset.jpView)}});
-  $$("#jpGradeRow [data-grade]").forEach(function(b){b.onclick=function(){setJapaneseGrade(b.dataset.grade)}});
-  $$("[data-jp-home-grade]").forEach(function(b){b.onclick=function(){jpOpenGradePractice(b.dataset.jpHomeGrade)}});
+  const root=$(".jp-screen");
+  if(root){
+    root.onclick=function(e){
+      const setBtn=e.target.closest("[data-jp-set]");
+      if(setBtn&&root.contains(setBtn)){e.preventDefault();setJapaneseSet(setBtn.dataset.jpSet);return}
+
+      const viewBtn=e.target.closest("[data-jp-view]");
+      if(viewBtn&&root.contains(viewBtn)){e.preventDefault();setJapaneseView(viewBtn.dataset.jpView);return}
+
+      const gradeBtn=e.target.closest("[data-jp-home-grade]");
+      if(gradeBtn&&root.contains(gradeBtn)){e.preventDefault();jpOpenGradePractice(gradeBtn.dataset.jpHomeGrade);return}
+
+      const charBtn=e.target.closest(".jp-card[data-jp-char]");
+      if(charBtn&&root.contains(charBtn)){e.preventDefault();startJapanesePractice(charBtn.dataset.jpChar);return}
+
+      const atlasBtn=e.target.closest(".jp-atlas-card[data-jp-atlas]");
+      if(atlasBtn&&root.contains(atlasBtn)){e.preventDefault();openJapaneseAtlasDetail(atlasBtn.dataset.jpAtlas);return}
+
+      const roundBtn=e.target.closest("#jpWordRounds [data-round]");
+      if(roundBtn&&root.contains(roundBtn)){e.preventDefault();jpSetWordRound(+roundBtn.dataset.round);return}
+    };
+  }
+
   if($("#jpHomeSaved"))$("#jpHomeSaved").onclick=jpOpenSavedAtlas;
   if($("#jpQuick20"))$("#jpQuick20").onclick=function(){jpStartQuickChars(jpState.set)};
   if($("#jpHomeSearch"))$("#jpHomeSearch").onclick=function(){if(typeof openGlobalSearch==="function")openGlobalSearch("")};
@@ -421,13 +440,10 @@ function bindJapaneseHome(){
   if($("#jpCount"))$("#jpCount").onchange=function(e){jpState.count=+e.target.value};
   if($("#jpStart"))$("#jpStart").onclick=function(){startJapanesePractice()};
   if($("#jpMore"))$("#jpMore").onclick=function(){jpState.limit+=120;renderJapanese()};
-  $$(".jp-card[data-jp-char]").forEach(function(b){b.onclick=function(){startJapanesePractice(b.dataset.jpChar)}});
   if($("#jpAtlasMore"))$("#jpAtlasMore").onclick=function(){jpState.atlasLimit+=160;renderJapanese()};
-  $$(".jp-atlas-card[data-jp-atlas]").forEach(function(b){b.onclick=function(){openJapaneseAtlasDetail(b.dataset.jpAtlas)}});
   $$("#jpWordTier [data-tier]").forEach(function(b){b.onclick=function(){jpState.wordTier=b.dataset.tier;jpState.wordRound=0;renderJapanese()}});
   if($("#jpWordCount"))$("#jpWordCount").onchange=function(e){jpState.wordCount=+e.target.value;jpState.wordRound=0;renderJapanese()};
   if($("#jpWordOrder"))$("#jpWordOrder").onchange=function(e){jpState.wordOrder=e.target.value};
-  $$("#jpWordRounds [data-round]").forEach(function(b){b.onclick=function(){jpSetWordRound(+b.dataset.round)}});
   if($("#jpWordStart"))$("#jpWordStart").onclick=startJapaneseWordPractice;
 }
 function startJapanesePractice(startChar){
