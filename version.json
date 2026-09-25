@@ -1,9 +1,18 @@
 {
-  "webBuild": "2.18.0-20260925",
+  "webBuild": "2.18.1-20260925",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.18.1",
+      "title": "도감 가림 토글 개선",
+      "items": [
+        "도감에서 ‘훈음 숨기기’ 또는 ‘한자 숨기기’를 사용할 때 항목을 한 번 누르면 공개, 다시 누르면 다시 숨김",
+        "가림 상태에서는 두 번째 탭이 상세창으로 넘어가지 않고 같은 항목의 공개/숨김 토글로 동작",
+        "카드 보기에는 ‘눌러 보기 / 다시 눌러 숨기기’, 배정표에는 ‘보기 / 숨기기’ 안내 표시"
+      ]
+    },
     {
       "version": "2.18.0",
       "title": "도감 ㄱㄴㄷ 구분 · 준특급/특급 한문 분류 수정",
