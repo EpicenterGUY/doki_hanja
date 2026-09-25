@@ -2918,7 +2918,7 @@ body>.app2-update{z-index:1930!important}
       <div class="sheet-handle"></div>
       <div class="sheet-head">
         <div><strong>연습 설정</strong><div class="soft">급수 · 문제 수 · 유형을 빠르게 바꿉니다.</div></div>
-        <button class="sheet-close" id="closePracticeSettings" aria-label="닫기">×</button>
+        <button type="button" class="sheet-close" id="closePracticeSettings" aria-label="닫기" onclick="closePracticeSheet()">×</button>
       </div>
       <div class="label">목표 급수</div>
       <select id="level"></select>
@@ -2983,7 +2983,7 @@ body>.app2-update{z-index:1930!important}
 <div class="global-search-sheet" id="globalSearchSheet" aria-hidden="true">
   <div class="global-search-head">
     <div><strong>전체 찾기</strong><small>한자 · 기능 · 일본 단어를 한 번에 찾습니다.</small></div>
-    <button class="sheet-close" id="closeGlobalSearch" aria-label="닫기">×</button>
+    <button type="button" class="sheet-close" id="closeGlobalSearch" aria-label="닫기" onclick="closeGlobalSearch()">×</button>
   </div>
   <div class="global-search-box">
     <span>⌕</span><input id="globalSearchInput" type="text" inputmode="search" autocomplete="off" placeholder="예: 檢, 검사할 검, 빈출, 기출, けいけん">
@@ -3017,7 +3017,7 @@ body>.app2-update{z-index:1930!important}
   <div class="sheet-handle"></div>
   <div class="sheet-head">
     <div><strong>업데이트 센터</strong><div class="soft">웹앱과 Android 앱 버전을 확인합니다.</div></div>
-    <button class="sheet-close" id="closeUpdateCenter" aria-label="닫기">×</button>
+    <button class="sheet-close" id="closeUpdateCenter" aria-label="닫기" onclick="closeUpdateCenter()">×</button>
   </div>
   <div id="updateCenterBody"><div class="remote-status">버전 확인 중…</div></div>
 </div>
@@ -3394,7 +3394,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.18.2-20260925";
+const APP_BUILD="2.18.3-20260925";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -3650,6 +3650,13 @@ async function openUpdateCenter(){
 
 function bindAppShell(){
   ensurePracticeSettingsPortal();
+
+  // Critical dismiss controls first.
+  const closePracticeBtn=$("#closePracticeSettings");if(closePracticeBtn)closePracticeBtn.onclick=closePracticeSheet;
+  const searchClose=$("#closeGlobalSearch");if(searchClose)searchClose.onclick=closeGlobalSearch;
+  const closeUpdateBtn=$("#closeUpdateCenter");if(closeUpdateBtn)closeUpdateBtn.onclick=closeUpdateCenter;
+  const backdrop=$("#app2Backdrop");if(backdrop)backdrop.onclick=function(){closePracticeSheet();closeUpdateCenter();closeGlobalSearch()};
+
   const dock=$("#app2Dock");
   if(dock){
     dock.onclick=function(e){
@@ -3662,15 +3669,14 @@ function bindAppShell(){
       }
     };
   }
+
   const practiceSettingsBtn=$("#openPracticeSettings");if(practiceSettingsBtn)practiceSettingsBtn.onclick=openPracticeSheet;
   const searchBtn=$("#openGlobalSearch");if(searchBtn)searchBtn.onclick=function(){openGlobalSearch("")};
-  const searchClose=$("#closeGlobalSearch");if(searchClose)searchClose.onclick=closeGlobalSearch;
   const searchInput=$("#globalSearchInput");if(searchInput)searchInput.oninput=function(e){renderGlobalSearchResults(e.target.value)};
-  $(".global-search-quick [data-global-action]").forEach(function(b){b.onclick=function(){runGlobalAction(b.dataset.globalAction)}});
+  document.querySelectorAll(".global-search-quick [data-global-action]").forEach(function(b){
+    b.onclick=function(){runGlobalAction(b.dataset.globalAction)};
+  });
   const updateBtn=$("#openUpdateCenter");if(updateBtn)updateBtn.onclick=openUpdateCenter;
-  const closeUpdateBtn=$("#closeUpdateCenter");if(closeUpdateBtn)closeUpdateBtn.onclick=closeUpdateCenter;
-  const closePracticeBtn=$("#closePracticeSettings");if(closePracticeBtn)closePracticeBtn.onclick=closePracticeSheet;
-  const backdrop=$("#app2Backdrop");if(backdrop)backdrop.onclick=()=>{closePracticeSheet();closeUpdateCenter();closeGlobalSearch()};
 
   $("#installAppBtn")?.addEventListener("click",async()=>{
     if(!deferredInstallPrompt)return;
