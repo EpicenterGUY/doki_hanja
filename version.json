@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.19.0-20260925",
+  "webBuild": "2.19.1-20260925",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.1",
+      "title": "日本 단어쓰기 뜻 가리기 · 채점창 배치 수정",
+      "items": [
+        "단어 쓰기 문제는 기본적으로 히라가나 읽기와 빈칸 예문만 보이도록 변경",
+        "뜻 보기를 눌렀을 때만 한국어 뜻과 예문 해석을 펼치고 다시 뜻 가리기로 숨길 수 있도록 추가",
+        "단어 읽기에 가타카나가 섞여 있어도 문제 화면에서는 히라가나로 통일해 표시",
+        "형태 일치도 채점 결과를 문제 카드에서 그림판 아래 독립 영역으로 이동해 읽기·예문을 가리지 않도록 수정",
+        "채점 결과는 평균 점수·글자별 점수·정답만 간결하게 표시하고 숨긴 뜻을 채점창에서 다시 노출하지 않도록 변경"
+      ]
+    },
     {
       "version": "2.19.0",
       "title": "일본 고급 단어 대폭 확장",
