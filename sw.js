@@ -1,4 +1,4 @@
-const CACHE="doki-hanja-app-v48-20260925";
+const CACHE="doki-hanja-app-v49-20260925";
 const CORE=["./","./index.html","./manifest.webmanifest","./version.json","./icon.svg","./icon-maskable.svg","./report-config.js","./japanese.css","./japanese.js","./data/japanese/joyo.tsv","./data/japanese/hyogai.txt","./data/japanese/NOTICE.txt","./data/japanese/words.json"];
 
 self.addEventListener("install",event=>{
@@ -36,7 +36,13 @@ self.addEventListener("fetch",event=>{
   const url=new URL(req.url);
   if(url.origin!==self.location.origin)return;
 
-  if(req.mode==="navigate" || url.pathname.endsWith(".html") || url.pathname.includes("/data/")){
+  if(
+    req.mode==="navigate" ||
+    url.pathname.endsWith(".html") ||
+    url.pathname.endsWith(".js") ||
+    url.pathname.endsWith(".css") ||
+    url.pathname.includes("/data/")
+  ){
     event.respondWith(networkFirst(req));
     return;
   }
