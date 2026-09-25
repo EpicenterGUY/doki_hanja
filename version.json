@@ -1,9 +1,18 @@
 {
-  "webBuild": "2.12.1-20260925",
+  "webBuild": "2.12.2-20260925",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.12.2",
+      "title": "메인 메뉴 화면 전환 재수정",
+      "items": [
+        "이전 수정이 탭 바인딩 코드의 비슷한 문자열을 잘못 건드려 실제 switchTab 오류가 남아 있던 문제 수정",
+        "메인 탭 전환을 내부 선택자 헬퍼 대신 document.querySelectorAll 기반으로 변경해 연습·기출·급수별·日本·기록 화면을 확실히 숨김/표시",
+        "하단 메뉴 클릭 처리도 대상 탭 ID를 검증한 뒤 전환하도록 보강"
+      ]
+    },
     {
       "version": "2.12.1",
       "title": "하단 메뉴 전환 오류 수정",
