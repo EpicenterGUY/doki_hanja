@@ -181,7 +181,7 @@ async function renderJapanese(){
     h+="<div class='jp-grid'>"+jpCardsHtml(shown)+"</div>";
     if(all.length>shown.length)h+="<button class='btn jp-more' id='jpMore'>더 보기 · "+shown.length.toLocaleString()+"/"+all.length.toLocaleString()+"</button>";
   }else h+="<div class='jp-empty'>조건에 맞는 한자가 없습니다.</div>";
-  h+="<details class='compact-settings' style='margin-top:10px'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字는 2010년 현행 2,136자 목록을 기준으로 합니다. 表外漢字는 2000년 표외한자자체표 인쇄표준자 1,022자의 기본자를 사용하되, 이후 상용한자에 들어간 147자는 중복 학습을 막기 위해 제외합니다. 괄호 안 간이·이체 표기는 별도 글자로 세지 않고 카드 보조정보로 표시합니다.</div></details></section>";
+  h+="<details class='compact-settings' style='margin-top:10px'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字는 2010년 현행 2,136자 목록을 기준으로 합니다. 表外漢字는 2000년 표외한자자체표 인쇄표준자 1,022자의 기본자를 사용하되, 이후 상용한자에 들어간 147자는 중복 학습을 막기 위해 제외합니다. 괄호 안 간이·이체 표기는 별도 글자로 세지 않고 카드 보조정보로 표시합니다. 표외한자자체표 자체는 인쇄문자용 기준이므로, 이 앱의 손글씨 채점은 공식 필기 정답 판정이 아니라 형태 연습용 참고 판정입니다.</div></details></section>";
   h+="</div>";
   el.innerHTML=h;
 
