@@ -61,12 +61,16 @@ body.drill-active #jp{height:100%;min-height:0}
 
 /* word writing session */
 .jp-word-stage{min-height:0;display:grid;grid-template-columns:minmax(280px,.78fr) minmax(420px,1.22fr);gap:9px}
-.jp-word-question{min-height:0;border:1px solid #435c89;border-radius:20px;background:linear-gradient(145deg,rgba(29,43,75,.98),rgba(16,25,46,.98));box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:18px;overflow:hidden}
+.jp-word-question{position:relative;min-height:0;border:1px solid #435c89;border-radius:20px;background:linear-gradient(145deg,rgba(29,43,75,.98),rgba(16,25,46,.98));box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:8px;padding:36px 18px 18px;overflow:hidden}
 .jp-word-reading{font-size:clamp(25px,4vw,42px);font-weight:950;letter-spacing:.02em;color:#fff}
+.jp-word-meaning-toggle{position:absolute;right:10px;top:9px;min-height:27px;padding:4px 9px;border-radius:999px;border:1px solid #4a638f;background:#203451;color:#b8cae6;font-size:9px;font-weight:900}
+.jp-word-meaning-toggle.active{border-color:#5fd4b0;background:#173d36;color:#b9f6e2}
+.jp-word-meaning-panel{display:flex;flex-direction:column;align-items:center;gap:5px}
+.jp-word-meaning-panel[hidden]{display:none!important}
 .jp-word-meaning{padding:5px 10px;border-radius:999px;background:#253b5e;color:#dce8fb;font-size:11px;font-weight:850}
 .jp-word-example{font-size:clamp(17px,2.3vw,27px);font-weight:800;line-height:1.5;word-break:keep-all}
 .jp-word-translation{font-size:11px;color:#9fb1cf;line-height:1.4}
-.jp-word-canvas-pane{min-height:0;border:1px solid #435c89;border-radius:20px;background:linear-gradient(145deg,rgba(29,43,75,.98),rgba(16,25,46,.98));box-shadow:var(--shadow);display:grid;grid-template-rows:minmax(0,1fr) 50px 44px;gap:6px;padding:8px;overflow:hidden}
+.jp-word-canvas-pane{min-height:0;border:1px solid #435c89;border-radius:20px;background:linear-gradient(145deg,rgba(29,43,75,.98),rgba(16,25,46,.98));box-shadow:var(--shadow);display:grid;grid-template-rows:minmax(0,1fr) auto 50px 44px;gap:6px;padding:8px;overflow:hidden}
 .jp-word-canvas-grid{min-height:0;display:grid;grid-template-columns:repeat(var(--word-len,2),minmax(0,1fr));gap:6px;align-items:center}
 .jp-word-box{position:relative;aspect-ratio:1/1;min-width:0;overflow:hidden;border-radius:15px;background:#fff;border:2px solid #86a9dc}
 .jp-word-box canvas{display:block;width:100%;height:100%;touch-action:none}
@@ -76,7 +80,10 @@ body.drill-active #jp{height:100%;min-height:0}
 .jp-word-nav .btn{min-height:48px}
 .jp-word-controls{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
 .jp-word-controls .btn{min-height:42px}
-.jp-word-feedback{font-size:11px;line-height:1.45}
+.jp-word-feedback{margin:0!important;padding:7px 9px!important;max-height:76px;overflow:auto;font-size:10px;line-height:1.35}
+.jp-word-feedback-line{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.jp-word-feedback-scores{display:flex;align-items:center;gap:3px;flex-wrap:wrap}
+.jp-word-feedback-answer{margin-top:3px;color:#d7e1f2;font-size:9px}
 .jp-char-score{display:inline-flex;align-items:center;gap:3px;margin:2px 3px;padding:4px 7px;border-radius:999px;background:#263956;border:1px solid #49628f}
 .jp-char-score.ok{border-color:#3fc99f;color:#a3f6d8}.jp-char-score.no{border-color:#d66d78;color:#ffd2d6}
 
@@ -113,12 +120,16 @@ body.drill-active #jp{height:100%;min-height:0}
   .jp-search-row{grid-template-columns:minmax(0,1fr) 82px}
   .jp-word-preview-list{grid-template-columns:1fr}
   .jp-word-stage{grid-template-columns:1fr;grid-template-rows:minmax(150px,190px) minmax(0,1fr);gap:5px}
-  .jp-word-question{padding:10px;border-radius:15px;gap:5px;justify-content:center}
+  .jp-word-question{padding:30px 10px 9px;border-radius:15px;gap:5px;justify-content:center}
   .jp-word-reading{font-size:26px}.jp-word-example{font-size:15px;line-height:1.35}.jp-word-translation{font-size:9px}
-  .jp-word-canvas-pane{grid-template-rows:minmax(0,1fr) 46px 40px;padding:5px;border-radius:15px;gap:4px}
+  .jp-word-canvas-pane{grid-template-rows:minmax(0,1fr) auto 46px 40px;padding:5px;border-radius:15px;gap:4px}
   .jp-word-canvas-grid{gap:4px}.jp-word-box{border-radius:10px}
   .jp-word-nav .btn{min-height:44px;font-size:12px}.jp-word-controls .btn{min-height:38px;padding:5px 3px;font-size:11px}
   .jp-word-answer{font-size:min(18vw,15vh)}
+  .jp-word-meaning-toggle{right:7px;top:6px;min-height:24px;padding:3px 7px;font-size:8px}
+  .jp-word-feedback{max-height:60px;padding:6px 7px!important;font-size:9px}
+  .jp-word-feedback-answer{font-size:8px}
+  .jp-char-score{padding:3px 5px;margin:1px 2px}
   .jp-practice-question{max-height:205px!important;min-height:150px!important;padding:8px 10px!important;gap:4px!important}
   .jp-memory-target{min-height:64px;font-size:62px;border-radius:14px}
   .jp-memory-target.hidden{min-height:34px;font-size:10px}
