@@ -3264,13 +3264,13 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.16.0-20260925";
+const APP_BUILD="2.17.0-20260925";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
   drill:{title:"급수별",kicker:"급수 전체 훈련"},
-  jp:{title:"日本漢字",kicker:"常用 · 表外"},
+  jp:{title:"日本漢字",kicker:"글자 · 단어 · 도감"},
   more:{title:"기록 · 설정",kicker:"학습 데이터"},
   write:{title:"자유 쓰기",kicker:"손글씨 연습"},
   freq:{title:"빈출 분석",kicker:"기출 통계"},
@@ -3527,6 +3527,7 @@ function bindAppShell(){
       if(b&&dock.contains(b)){
         e.preventDefault();
         const target=b.dataset.appTab;
+        if(target==="jp"&&typeof jpState!=="undefined")jpState.view="home";
         if(target)switchTab(target);
       }
     };
