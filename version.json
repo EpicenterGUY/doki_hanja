@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.18.5-20260925",
+  "webBuild": "2.19.0-20260925",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.0",
+      "title": "일본 고급 단어 대폭 확장",
+      "items": [
+        "常用漢字 고급 단어를 38개에서 500개로 확대",
+        "고급 단어를 20문제 기준 2회차에서 25회차까지 연습 가능하도록 확장",
+        "개념·논리·학술·경제·법률·사회·심리·과학·기술·교육 등 고급 어휘를 대량 추가",
+        "추가 단어는 모두 현행 常用漢字만으로 구성되도록 검증",
+        "각 단어에 읽기·한국어 뜻·예문·예문 해석을 함께 연결",
+        "일본 단어 전체 데이터가 711개에서 1,173개로 확대"
+      ]
+    },
     {
       "version": "2.18.5",
       "title": "日本 글자쓰기 연습 범위 버튼 수정",
