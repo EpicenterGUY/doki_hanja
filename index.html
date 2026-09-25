@@ -3309,6 +3309,7 @@ function switchTab(id){
     if(!showSettings){settings.classList.remove("sheet-open");document.body.classList.remove("practice-sheet-open")}
   }
 
+  if(id==="practice")renderPracticeWelcome();
   if(id==="study")renderStudyHub();
   if(id==="exam")renderExam();
   if(id==="drill")renderDrill();
@@ -4003,43 +4004,72 @@ async function submitBugReport(ev){
   }finally{btn.disabled=false}
 }
 
+
+function startFrequentPractice(){
+  const scope=$("#scope");
+  if(scope)scope.value="freq";
+  switchTab("practice");
+  startPractice(false);
+}
+function openJapaneseWordHub(){
+  switchTab("jp");
+  if(typeof setJapaneseView==="function")setJapaneseView("word");
+}
+function renderStudyHub(){
+  const sec=$("#study");if(!sec)return;
+  const p=hanjaPowerProfile();
+  const wrongCount=Object.keys(wrong||{}).length;
+  const unknownCount=Object.keys(unknownHanja||{}).length;
+  const freqRows=examItems.filter(function(x){return x.round}).length;
+  let h="";
+  h+="<div class='app-screen study-hub-screen'>";
+  h+="<section class='hub-title-card'><div><span class='hub-eyebrow'>LEARN</span><h2>무엇을 공부할까요?</h2><p>문제 풀기, 쓰기, 기출, 복습을 목적별로 모았습니다.</p></div><button class='hub-settings-btn' onclick=\"switchTab('practice');openPracticeSheet()\">연습 설정</button></section>";
+  h+="<section class='app-section study-main-section'><div class='app-section-head'><div><div class='app-section-title'>자주 쓰는 학습</div><div class='app-section-sub'>가장 많이 찾는 기능을 위에 고정했습니다.</div></div></div><div class='study-main-grid'>";
+  h+="<button class='study-tile primary' onclick='startPractice(false)'><span class='study-tile-icon'>練</span><span><b>혼합 연습</b><small>훈음 · 독음 · 부수 · 획수 등을 섞어서</small></span></button>";
+  h+="<button class='study-tile mint' onclick=\"switchTab('drill')\"><span class='study-tile-icon'>書</span><span><b>급수별 손글씨</b><small>급수 전체를 넘기며 직접 쓰기</small></span></button>";
+  h+="<button class='study-tile gold' onclick=\"switchTab('exam')\"><span class='study-tile-icon'>試</span><span><b>기출 실전</b><small>급수와 회차를 골라 시험처럼</small></span></button>";
+  h+="<button class='study-tile pink' onclick=\"openUtility('wrong')\"><span class='study-tile-icon'>復</span><span><b>오답 · 모름 복습</b><small>오답 "+wrongCount+"개 · 저장 "+unknownCount+"자</small></span></button>";
+  h+="</div></section>";
+  h+="<section class='freq-spotlight'><div class='freq-spotlight-copy'><span class='freq-label'>🔥 빈출 바로가기</span><b>시험에 자주 나온 한자부터</b><small>기출 회차 데이터 "+freqRows.toLocaleString()+"건을 기준으로 실제 출현 빈도를 사용합니다.</small></div><div class='freq-spotlight-actions'>";
+  h+="<button class='btn primary' onclick='startFrequentPractice()'>빈출 집중 연습</button><button class='btn' onclick=\"openUtility('freq')\">빈출 분석</button><button class='btn' onclick=\"atlasState.mode='freq';atlasState.sort='freq';atlasState.view='table';switchTab('atlas')\">빈출 도감</button>";
+  h+="</div></section>";
+  h+="<section class='app-section'><div class='app-section-head'><div><div class='app-section-title'>더 공부하기</div><div class='app-section-sub'>목적이 분명한 학습 도구</div></div></div><div class='study-link-grid'>";
+  h+="<button class='study-link' onclick=\"openUtility('diagnosis')\"><b>급수 진단</b><small>현재 수준과 약점 찾기</small><span>›</span></button>";
+  h+="<button class='study-link' onclick=\"openUtility('write')\"><b>자유 쓰기</b><small>원하는 글자 캔버스 연습</small><span>›</span></button>";
+  h+="<button class='study-link' onclick=\"switchTab('atlas')\"><b>한자 도감</b><small>훈음 · 장단음 · 빈출 탐색</small><span>›</span></button>";
+  h+="<button class='study-link' onclick='openJapaneseWordHub()'><b>일본 단어 쓰기</b><small>상용·표외 단어와 예문</small><span>›</span></button>";
+  h+="</div></section>";
+  h+="<section class='study-status-strip'><span><b>한자력 Lv."+p.level+"</b><small>"+esc(p.title)+"</small></span><span><b>"+p.accuracy+"%</b><small>누적 정답률</small></span><span><b>"+p.known.toLocaleString()+"자</b><small>한 번 이상 정답</small></span></section>";
+  h+="</div>";
+  sec.innerHTML=h;
+}
 function renderPracticeWelcome(){
   const p=hanjaPowerProfile();
   const wrongCount=Object.keys(wrong||{}).length;
+  const unknownCount=Object.keys(unknownHanja||{}).length;
   const target=$("#level")?.value||"1급";
-  $("#practice").innerHTML=`<div class="app-screen practice-home">
-    <section class="app-hero">
-      <div class="app-hero-topline">
-        <span class="app-hero-kicker">DOKI DAILY TRAINING</span>
-        <span class="hanja-power-pill"><span>한자력</span><b>Lv.${p.level} ${esc(p.title)}</b></span>
-      </div>
-      <h2>${esc(target)} 오늘도 한 글자씩.</h2>
-      <p>혼합 연습, 손글씨, 기출을 한 앱 안에서 이어서 공부합니다.</p>
-      <div class="app-hero-actions">
-        <button class="btn primary" onclick="startPractice(false)">바로 연습</button>
-        <button class="btn" onclick="openPracticeSheet()">연습 설정</button>
-      </div>
-    </section>
-    <div class="app-metrics">
-      <div class="app-metric"><b>${p.known.toLocaleString()}</b><span>아는 한자</span></div>
-      <div class="app-metric"><b>${p.attempts.toLocaleString()}</b><span>누적 풀이</span></div>
-      <div class="app-metric"><b>${p.accuracy}%</b><span>누적 정답률</span></div>
-      <div class="app-metric"><b>${wrongCount}</b><span>복습 대기</span></div>
-    </div>
-    ${hanjaPowerMarkup(p,true)}
-    ${smartRecommendationMarkup()}
-    <section class="app-section">
-      <div class="app-section-head"><div><div class="app-section-title">빠른 시작</div><div class="app-section-sub">자주 쓰는 학습만 크게 꺼냈어요.</div></div></div>
-      <div class="app-action-grid">
-        <button class="app-action" onclick="startPractice(false)"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M5 7h14M5 12h9M5 17h11"/><path d="m17 12 2 2 3-4"/></svg></span><span><b>혼합 연습</b><small>선택 유형을 섞어 바로 풀기</small></span></button>
-        <button class="app-action" onclick="switchTab('drill')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10-3.5-3.5-10 10L4 20Z"/><path d="m13.5 6.5 3.5 3.5"/></svg></span><span><b>손글씨</b><small>급수 전체를 캔버스로 연습</small></span></button>
-        <button class="app-action" onclick="switchTab('exam')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M6 3h12v18H6z"/><path d="M9 7h6M9 11h6M9 15h4"/></svg></span><span><b>기출</b><small>급수·회차를 골라 실전 풀이</small></span></button>
-        <button class="app-action" onclick="openUtility('wrong')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M20 7v5h-5"/><path d="M19 12a7 7 0 1 0-2 5"/></svg></span><span><b>오답 복습</b><small>틀린 항목만 다시 확인</small></span></button>
-        <button class="app-action" onclick="openUtility('atlas')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H11v16H6.5A2.5 2.5 0 0 0 4 21.5z"/><path d="M20 5.5A2.5 2.5 0 0 0 17.5 3H13v16h4.5a2.5 2.5 0 0 1 2.5 2.5z"/></svg></span><span><b>한자 도감</b><small>장단음과 빈출을 표로 암기</small></span></button>
-        <button class="app-action" onclick="openUtility('diagnosis')"><span class="app-action-icon"><svg viewBox="0 0 24 24"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-4 3 2 5-6"/><path d="M17 7h2v2"/></svg></span><span><b>급수 진단</b><small>적응형 문제로 현재 수준 찾기</small></span></button>
-      </div>
-    </section>
-  </div>`;
+  const freqRows=examItems.filter(function(x){return x.round}).length;
+  const canResume=session.length>0&&current<session.length;
+  let h="";
+  h+="<div class='app-screen home-v2'>";
+  h+="<section class='home-welcome'><div class='home-welcome-copy'><span class='home-date-label'>DOKI 漢字</span><h2>"+esc(target)+" 학습을 이어가요.</h2><p>자주 쓰는 기능은 홈에서 바로 시작하고, 나머지는 ‘학습’과 ‘도감’에서 찾을 수 있습니다.</p></div><div class='home-level-orb'><span>한자력</span><b>Lv."+p.level+"</b><small>"+esc(p.title)+"</small></div></section>";
+  if(canResume)h+="<button class='home-resume' onclick='renderQuestion()'><span><b>이어서 풀기</b><small>혼합 연습 "+(current+1)+"/"+session.length+" · 정답 "+sessionScore.ok+"</small></span><strong>계속 →</strong></button>";
+  h+="<section class='home-start-section'><div class='home-section-label'><b>바로 시작</b><span>가장 자주 쓰는 기능</span></div><div class='home-primary-grid'>";
+  h+="<button class='home-primary-card violet' onclick='startPractice(false)'><span class='home-primary-icon'>練</span><span><b>혼합 연습</b><small>"+esc(target)+" · 현재 설정으로 바로 풀기</small></span></button>";
+  h+="<button class='home-primary-card mint' onclick=\"switchTab('drill')\"><span class='home-primary-icon'>書</span><span><b>손글씨</b><small>급수별로 넘기며 직접 쓰기</small></span></button>";
+  h+="<button class='home-primary-card gold' onclick=\"switchTab('exam')\"><span class='home-primary-icon'>試</span><span><b>기출</b><small>회차를 골라 실전 문제 풀기</small></span></button>";
+  h+="<button class='home-primary-card pink' onclick=\"openUtility('wrong')\"><span class='home-primary-icon'>復</span><span><b>복습</b><small>오답 "+wrongCount+" · 모름 "+unknownCount+"</small></span></button>";
+  h+="</div></section>";
+  h+="<section class='home-freq-card'><div class='home-freq-main'><span class='freq-label'>🔥 빈출</span><b>자주 나온 것부터 공부</b><small>기출 출현 "+freqRows.toLocaleString()+"건 기준 · 빈출 기능을 홈에서 바로 찾을 수 있게 고정했습니다.</small></div><div class='home-freq-buttons'><button onclick='startFrequentPractice()'>집중 연습</button><button onclick=\"atlasState.mode='freq';atlasState.sort='freq';atlasState.view='table';switchTab('atlas')\">빈출 도감</button></div></section>";
+  h+="<section class='home-shortcuts'>";
+  h+="<button onclick=\"switchTab('atlas')\"><span>冊</span><b>도감</b><small>전체 한자 찾기</small></button>";
+  h+="<button onclick=\"openUtility('diagnosis')\"><span>診</span><b>급수 진단</b><small>현재 수준 찾기</small></button>";
+  h+="<button onclick='openJapaneseWordHub()'><span>日</span><b>일본 단어</b><small>예문으로 쓰기</small></button>";
+  h+="<button onclick=\"switchTab('study')\"><span>＋</span><b>전체 학습</b><small>모든 기능 보기</small></button>";
+  h+="</section>";
+  h+="<div class='home-stats-row'><span><b>"+p.known.toLocaleString()+"</b><small>아는 한자</small></span><span><b>"+p.attempts.toLocaleString()+"</b><small>누적 풀이</small></span><span><b>"+p.accuracy+"%</b><small>정답률</small></span></div>";
+  h+="</div>";
+  $("#practice").innerHTML=h;
 }
 function renderQuestion(){
   const q=session[current];
