@@ -546,7 +546,7 @@ body:not(.drill-active) .kpi{
   min-height:var(--dock-h);
   padding:7px;
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+  grid-template-columns:repeat(5,1fr);
   gap:5px;
   border:1px solid rgba(143,169,220,.28);
   border-radius:25px;
@@ -2544,6 +2544,7 @@ body>.app2-update{z-index:1930!important}
 }
 
 </style>
+<link rel="stylesheet" href="./japanese.css">
 </head>
 <body>
 <div class="app">
@@ -2576,6 +2577,7 @@ body>.app2-update{z-index:1930!important}
     <button class="tab active" data-tab="practice">연습</button>
     <button class="tab" data-tab="exam">기출</button>
     <button class="tab" data-tab="drill">급수별</button>
+    <button class="tab" data-tab="jp">日本</button>
     <button class="tab" data-tab="more">기록·설정</button>
   </div>
 
@@ -2632,6 +2634,7 @@ body>.app2-update{z-index:1930!important}
       <section id="practice" class="tabpage"></section>
       <section id="exam" class="tabpage" hidden></section>
       <section id="drill" class="tabpage" hidden></section>
+      <section id="jp" class="tabpage" hidden></section>
       <section id="more" class="tabpage" hidden></section>
       <section id="write" class="tabpage" hidden></section>
       <section id="freq" class="tabpage" hidden></section>
@@ -2653,6 +2656,9 @@ body>.app2-update{z-index:1930!important}
   </button>
   <button class="app2-nav" data-app-tab="drill" aria-label="급수별">
     <svg viewBox="0 0 24 24"><path d="M4 5h7v6H4zM13 5h7v6h-7zM4 13h7v6H4zM13 13h7v6h-7z"/></svg><span>급수별</span>
+  </button>
+  <button class="app2-nav" data-app-tab="jp" aria-label="일본 한자">
+    <svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg><span>日本</span>
   </button>
   <button class="app2-nav" data-app-tab="more" aria-label="기록·설정">
     <svg viewBox="0 0 24 24"><path d="M5 19V9M12 19V5M19 19v-7"/><path d="M3 19h18"/></svg><span>기록</span>
@@ -3039,11 +3045,12 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.10.8-20260925";
+const APP_BUILD="2.11.0-20260925";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
   drill:{title:"급수별",kicker:"급수 전체 훈련"},
+  jp:{title:"日本漢字",kicker:"常用 · 表外"},
   more:{title:"기록 · 설정",kicker:"학습 데이터"},
   write:{title:"자유 쓰기",kicker:"손글씨 연습"},
   freq:{title:"빈출 분석",kicker:"기출 통계"},
@@ -3296,6 +3303,7 @@ function switchTab(id){
 
   if(id==="exam")renderExam();
   if(id==="drill")renderDrill();
+  if(id==="jp"&&typeof renderJapanese==="function")renderJapanese();
   if(id==="more")renderMore();
   if(id==="freq")renderFreq();
   if(id==="wrong")renderWrong();
@@ -7605,5 +7613,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
+<script src="./japanese.js"></script>
 </body>
 </html>
