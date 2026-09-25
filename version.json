@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.18.1-20260925",
+  "webBuild": "2.18.2-20260925",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.18.2",
+      "title": "도감 가림 버튼 위치 수정",
+      "items": [
+        "훈음 숨기기에서는 ‘훈음 보기/숨기기’ 버튼을 한자 중앙이 아니라 훈음 영역 아래에 배치",
+        "한자 숨기기일 때만 ‘한자 보기’ 버튼이 한자 자리 위에 표시되도록 분리",
+        "한자나 훈음을 공개한 뒤에도 작은 ‘숨기기’ 버튼을 아래에 남겨 같은 항목을 다시 눌러 숨길 수 있게 유지",
+        "배정표와 카드 보기 모두 같은 가림 위치 규칙을 사용하도록 통일"
+      ]
+    },
     {
       "version": "2.18.1",
       "title": "도감 가림 토글 개선",
