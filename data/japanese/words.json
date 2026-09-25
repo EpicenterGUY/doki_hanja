@@ -1,0 +1,1546 @@
+{
+  "version": 1,
+  "count": 154,
+  "items": [
+    {
+      "id": 1,
+      "word": "学校",
+      "reading": "がっこう",
+      "meaning": "학교",
+      "sentence": "毎日、＿＿へ通っています。",
+      "translation": "매일 학교에 다니고 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 2,
+      "word": "先生",
+      "reading": "せんせい",
+      "meaning": "선생님",
+      "sentence": "分からない所を＿＿に質問した。",
+      "translation": "모르는 부분을 선생님께 질문했다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 3,
+      "word": "学生",
+      "reading": "がくせい",
+      "meaning": "학생",
+      "sentence": "彼は大学の＿＿です。",
+      "translation": "그는 대학생입니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 4,
+      "word": "大学",
+      "reading": "だいがく",
+      "meaning": "대학교",
+      "sentence": "来年、＿＿に進学する予定です。",
+      "translation": "내년에 대학교에 진학할 예정입니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 5,
+      "word": "日本",
+      "reading": "にほん",
+      "meaning": "일본",
+      "sentence": "＿＿で日本語を勉強しています。",
+      "translation": "일본에서 일본어를 공부하고 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 6,
+      "word": "時間",
+      "reading": "じかん",
+      "meaning": "시간",
+      "sentence": "＿＿を大切に使いましょう。",
+      "translation": "시간을 소중히 사용합시다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 7,
+      "word": "会社",
+      "reading": "かいしゃ",
+      "meaning": "회사",
+      "sentence": "父は＿＿で働いています。",
+      "translation": "아버지는 회사에서 일하고 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 8,
+      "word": "仕事",
+      "reading": "しごと",
+      "meaning": "일·업무",
+      "sentence": "今日は＿＿が忙しい。",
+      "translation": "오늘은 일이 바쁘다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 9,
+      "word": "電話",
+      "reading": "でんわ",
+      "meaning": "전화",
+      "sentence": "後で＿＿をかけます。",
+      "translation": "나중에 전화를 걸겠습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 10,
+      "word": "電車",
+      "reading": "でんしゃ",
+      "meaning": "전철",
+      "sentence": "＿＿で学校へ行きます。",
+      "translation": "전철로 학교에 갑니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 11,
+      "word": "駅前",
+      "reading": "えきまえ",
+      "meaning": "역 앞",
+      "sentence": "＿＿で友達と会った。",
+      "translation": "역 앞에서 친구를 만났다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 12,
+      "word": "友達",
+      "reading": "ともだち",
+      "meaning": "친구",
+      "sentence": "＿＿と映画を見ました。",
+      "translation": "친구와 영화를 봤습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 13,
+      "word": "映画",
+      "reading": "えいが",
+      "meaning": "영화",
+      "sentence": "昨日、＿＿を見ました。",
+      "translation": "어제 영화를 봤습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 14,
+      "word": "音楽",
+      "reading": "おんがく",
+      "meaning": "음악",
+      "sentence": "＿＿を聞くのが好きです。",
+      "translation": "음악 듣는 것을 좋아합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 15,
+      "word": "読書",
+      "reading": "どくしょ",
+      "meaning": "독서",
+      "sentence": "休日は＿＿を楽しみます。",
+      "translation": "휴일에는 독서를 즐깁니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 16,
+      "word": "新聞",
+      "reading": "しんぶん",
+      "meaning": "신문",
+      "sentence": "朝、＿＿を読みます。",
+      "translation": "아침에 신문을 읽습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 17,
+      "word": "料理",
+      "reading": "りょうり",
+      "meaning": "요리",
+      "sentence": "母は＿＿が上手です。",
+      "translation": "어머니는 요리를 잘합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 18,
+      "word": "食事",
+      "reading": "しょくじ",
+      "meaning": "식사",
+      "sentence": "家族と＿＿をしました。",
+      "translation": "가족과 식사했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 19,
+      "word": "天気",
+      "reading": "てんき",
+      "meaning": "날씨",
+      "sentence": "明日は＿＿が良いそうです。",
+      "translation": "내일은 날씨가 좋다고 합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 20,
+      "word": "気温",
+      "reading": "きおん",
+      "meaning": "기온",
+      "sentence": "今日の＿＿は高い。",
+      "translation": "오늘 기온은 높다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 21,
+      "word": "病院",
+      "reading": "びょういん",
+      "meaning": "병원",
+      "sentence": "＿＿で診察を受けました。",
+      "translation": "병원에서 진찰을 받았습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 22,
+      "word": "医者",
+      "reading": "いしゃ",
+      "meaning": "의사",
+      "sentence": "＿＿に相談しました。",
+      "translation": "의사에게 상담했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 23,
+      "word": "健康",
+      "reading": "けんこう",
+      "meaning": "건강",
+      "sentence": "＿＿のために毎日歩きます。",
+      "translation": "건강을 위해 매일 걷습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 24,
+      "word": "運動",
+      "reading": "うんどう",
+      "meaning": "운동",
+      "sentence": "朝に＿＿をします。",
+      "translation": "아침에 운동을 합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 25,
+      "word": "旅行",
+      "reading": "りょこう",
+      "meaning": "여행",
+      "sentence": "夏休みに＿＿へ行きます。",
+      "translation": "여름방학에 여행을 갑니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 26,
+      "word": "空港",
+      "reading": "くうこう",
+      "meaning": "공항",
+      "sentence": "＿＿で家族を待ちました。",
+      "translation": "공항에서 가족을 기다렸습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 27,
+      "word": "海外",
+      "reading": "かいがい",
+      "meaning": "해외",
+      "sentence": "＿＿で働くのが夢です。",
+      "translation": "해외에서 일하는 것이 꿈입니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 28,
+      "word": "経験",
+      "reading": "けいけん",
+      "meaning": "경험",
+      "sentence": "海外で貴重な＿＿をしました。",
+      "translation": "해외에서 귀중한 경험을 했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 29,
+      "word": "勉強",
+      "reading": "べんきょう",
+      "meaning": "공부",
+      "sentence": "毎日二時間＿＿しています。",
+      "translation": "매일 두 시간 공부하고 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 30,
+      "word": "試験",
+      "reading": "しけん",
+      "meaning": "시험",
+      "sentence": "来週は大事な＿＿があります。",
+      "translation": "다음 주에는 중요한 시험이 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 31,
+      "word": "問題",
+      "reading": "もんだい",
+      "meaning": "문제",
+      "sentence": "この＿＿は少し難しい。",
+      "translation": "이 문제는 조금 어렵다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 32,
+      "word": "質問",
+      "reading": "しつもん",
+      "meaning": "질문",
+      "sentence": "分からない所を＿＿しました。",
+      "translation": "모르는 부분을 질문했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 33,
+      "word": "回答",
+      "reading": "かいとう",
+      "meaning": "회답·답변",
+      "sentence": "＿＿を紙に書いてください。",
+      "translation": "답변을 종이에 써 주세요.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 34,
+      "word": "説明",
+      "reading": "せつめい",
+      "meaning": "설명",
+      "sentence": "先生が文法を＿＿しました。",
+      "translation": "선생님이 문법을 설명했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 35,
+      "word": "意味",
+      "reading": "いみ",
+      "meaning": "의미",
+      "sentence": "この言葉の＿＿を調べます。",
+      "translation": "이 말의 의미를 조사합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 36,
+      "word": "漢字",
+      "reading": "かんじ",
+      "meaning": "한자",
+      "sentence": "難しい＿＿を覚えます。",
+      "translation": "어려운 한자를 외웁니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 37,
+      "word": "文章",
+      "reading": "ぶんしょう",
+      "meaning": "문장·글",
+      "sentence": "短い＿＿を書いてください。",
+      "translation": "짧은 글을 써 주세요.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 38,
+      "word": "文化",
+      "reading": "ぶんか",
+      "meaning": "문화",
+      "sentence": "日本の＿＿に興味があります。",
+      "translation": "일본 문화에 관심이 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 39,
+      "word": "社会",
+      "reading": "しゃかい",
+      "meaning": "사회",
+      "sentence": "＿＿の変化について考えます。",
+      "translation": "사회의 변화에 대해 생각합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 40,
+      "word": "歴史",
+      "reading": "れきし",
+      "meaning": "역사",
+      "sentence": "日本の＿＿を勉強しています。",
+      "translation": "일본 역사를 공부하고 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 41,
+      "word": "科学",
+      "reading": "かがく",
+      "meaning": "과학",
+      "sentence": "子どもの頃から＿＿が好きです。",
+      "translation": "어릴 때부터 과학을 좋아합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 42,
+      "word": "技術",
+      "reading": "ぎじゅつ",
+      "meaning": "기술",
+      "sentence": "新しい＿＿が生活を変えます。",
+      "translation": "새로운 기술이 생활을 바꿉니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 43,
+      "word": "情報",
+      "reading": "じょうほう",
+      "meaning": "정보",
+      "sentence": "必要な＿＿を集めました。",
+      "translation": "필요한 정보를 모았습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 44,
+      "word": "安全",
+      "reading": "あんぜん",
+      "meaning": "안전",
+      "sentence": "＿＿を確認してから進みます。",
+      "translation": "안전을 확인한 뒤 진행합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 45,
+      "word": "危険",
+      "reading": "きけん",
+      "meaning": "위험",
+      "sentence": "＿＿な場所には近づきません。",
+      "translation": "위험한 장소에는 가까이 가지 않습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 46,
+      "word": "自然",
+      "reading": "しぜん",
+      "meaning": "자연",
+      "sentence": "この町は＿＿が豊かです。",
+      "translation": "이 마을은 자연이 풍부합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 47,
+      "word": "環境",
+      "reading": "かんきょう",
+      "meaning": "환경",
+      "sentence": "＿＿を守ることが大切です。",
+      "translation": "환경을 지키는 것이 중요합니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 48,
+      "word": "地震",
+      "reading": "じしん",
+      "meaning": "지진",
+      "sentence": "大きな＿＿に備えます。",
+      "translation": "큰 지진에 대비합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 49,
+      "word": "交通",
+      "reading": "こうつう",
+      "meaning": "교통",
+      "sentence": "朝は＿＿が混雑します。",
+      "translation": "아침에는 교통이 혼잡합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 50,
+      "word": "道路",
+      "reading": "どうろ",
+      "meaning": "도로",
+      "sentence": "この＿＿は夜になると暗い。",
+      "translation": "이 도로는 밤이 되면 어둡다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 51,
+      "word": "住所",
+      "reading": "じゅうしょ",
+      "meaning": "주소",
+      "sentence": "ここに＿＿を書いてください。",
+      "translation": "여기에 주소를 써 주세요.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 52,
+      "word": "番号",
+      "reading": "ばんごう",
+      "meaning": "번호",
+      "sentence": "電話＿＿を教えてください。",
+      "translation": "전화번호를 알려 주세요.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 53,
+      "word": "銀行",
+      "reading": "ぎんこう",
+      "meaning": "은행",
+      "sentence": "＿＿でお金を下ろしました。",
+      "translation": "은행에서 돈을 찾았습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 54,
+      "word": "現金",
+      "reading": "げんきん",
+      "meaning": "현금",
+      "sentence": "＿＿で支払いました。",
+      "translation": "현금으로 지불했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 55,
+      "word": "料金",
+      "reading": "りょうきん",
+      "meaning": "요금",
+      "sentence": "＿＿は入口で払います。",
+      "translation": "요금은 입구에서 냅니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 56,
+      "word": "無料",
+      "reading": "むりょう",
+      "meaning": "무료",
+      "sentence": "このサービスは＿＿です。",
+      "translation": "이 서비스는 무료입니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 57,
+      "word": "商品",
+      "reading": "しょうひん",
+      "meaning": "상품",
+      "sentence": "新しい＿＿が発売されました。",
+      "translation": "새 상품이 출시되었습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 58,
+      "word": "価格",
+      "reading": "かかく",
+      "meaning": "가격",
+      "sentence": "商品の＿＿を比べます。",
+      "translation": "상품의 가격을 비교합니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 59,
+      "word": "予約",
+      "reading": "よやく",
+      "meaning": "예약",
+      "sentence": "レストランを＿＿しました。",
+      "translation": "레스토랑을 예약했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 60,
+      "word": "予定",
+      "reading": "よてい",
+      "meaning": "예정",
+      "sentence": "週末の＿＿を確認します。",
+      "translation": "주말 일정을 확인합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 61,
+      "word": "会議",
+      "reading": "かいぎ",
+      "meaning": "회의",
+      "sentence": "午後に＿＿があります。",
+      "translation": "오후에 회의가 있습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 62,
+      "word": "連絡",
+      "reading": "れんらく",
+      "meaning": "연락",
+      "sentence": "到着したら＿＿してください。",
+      "translation": "도착하면 연락해 주세요.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 63,
+      "word": "準備",
+      "reading": "じゅんび",
+      "meaning": "준비",
+      "sentence": "旅行の＿＿を始めました。",
+      "translation": "여행 준비를 시작했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 64,
+      "word": "必要",
+      "reading": "ひつよう",
+      "meaning": "필요",
+      "sentence": "＿＿な物を用意します。",
+      "translation": "필요한 물건을 준비합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 65,
+      "word": "重要",
+      "reading": "じゅうよう",
+      "meaning": "중요",
+      "sentence": "これはとても＿＿な問題です。",
+      "translation": "이것은 매우 중요한 문제입니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 66,
+      "word": "方法",
+      "reading": "ほうほう",
+      "meaning": "방법",
+      "sentence": "別の＿＿を試してみます。",
+      "translation": "다른 방법을 시험해 봅니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 67,
+      "word": "結果",
+      "reading": "けっか",
+      "meaning": "결과",
+      "sentence": "試験の＿＿が発表されました。",
+      "translation": "시험 결과가 발표되었습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 68,
+      "word": "成功",
+      "reading": "せいこう",
+      "meaning": "성공",
+      "sentence": "努力して計画を＿＿させました。",
+      "translation": "노력해서 계획을 성공시켰습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 69,
+      "word": "失敗",
+      "reading": "しっぱい",
+      "meaning": "실패",
+      "sentence": "＿＿から多くを学びました。",
+      "translation": "실패에서 많은 것을 배웠습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 70,
+      "word": "努力",
+      "reading": "どりょく",
+      "meaning": "노력",
+      "sentence": "毎日の＿＿が大切です。",
+      "translation": "매일의 노력이 중요합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 71,
+      "word": "目標",
+      "reading": "もくひょう",
+      "meaning": "목표",
+      "sentence": "今年の＿＿を決めました。",
+      "translation": "올해의 목표를 정했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 72,
+      "word": "選択",
+      "reading": "せんたく",
+      "meaning": "선택",
+      "sentence": "自分で進路を＿＿します。",
+      "translation": "스스로 진로를 선택합니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 73,
+      "word": "決定",
+      "reading": "けってい",
+      "meaning": "결정",
+      "sentence": "最終的な＿＿を伝えました。",
+      "translation": "최종 결정을 전달했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 74,
+      "word": "開始",
+      "reading": "かいし",
+      "meaning": "개시·시작",
+      "sentence": "試合は午後三時に＿＿します。",
+      "translation": "경기는 오후 3시에 시작합니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 75,
+      "word": "終了",
+      "reading": "しゅうりょう",
+      "meaning": "종료",
+      "sentence": "授業は五時に＿＿します。",
+      "translation": "수업은 5시에 끝납니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 76,
+      "word": "変化",
+      "reading": "へんか",
+      "meaning": "변화",
+      "sentence": "季節の＿＿を感じます。",
+      "translation": "계절의 변화를 느낍니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 77,
+      "word": "成長",
+      "reading": "せいちょう",
+      "meaning": "성장",
+      "sentence": "子どもの＿＿は早い。",
+      "translation": "아이의 성장은 빠르다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 78,
+      "word": "関係",
+      "reading": "かんけい",
+      "meaning": "관계",
+      "sentence": "二人は良い＿＿を築いています。",
+      "translation": "두 사람은 좋은 관계를 쌓고 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 79,
+      "word": "感情",
+      "reading": "かんじょう",
+      "meaning": "감정",
+      "sentence": "自分の＿＿を言葉にします。",
+      "translation": "자신의 감정을 말로 표현합니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 80,
+      "word": "記憶",
+      "reading": "きおく",
+      "meaning": "기억",
+      "sentence": "昔の＿＿がよみがえりました。",
+      "translation": "옛 기억이 되살아났습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 81,
+      "word": "理解",
+      "reading": "りかい",
+      "meaning": "이해",
+      "sentence": "内容を正しく＿＿します。",
+      "translation": "내용을 올바르게 이해합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 82,
+      "word": "判断",
+      "reading": "はんだん",
+      "meaning": "판단",
+      "sentence": "冷静に＿＿してください。",
+      "translation": "냉정하게 판단해 주세요.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 83,
+      "word": "確認",
+      "reading": "かくにん",
+      "meaning": "확인",
+      "sentence": "名前をもう一度＿＿します。",
+      "translation": "이름을 다시 한번 확인합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 84,
+      "word": "注意",
+      "reading": "ちゅうい",
+      "meaning": "주의",
+      "sentence": "足元に＿＿してください。",
+      "translation": "발밑을 주의해 주세요.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 85,
+      "word": "禁止",
+      "reading": "きんし",
+      "meaning": "금지",
+      "sentence": "ここでは写真撮影が＿＿されています。",
+      "translation": "여기서는 사진 촬영이 금지되어 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 86,
+      "word": "可能",
+      "reading": "かのう",
+      "meaning": "가능",
+      "sentence": "明日なら参加が＿＿です。",
+      "translation": "내일이라면 참가가 가능합니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 87,
+      "word": "未来",
+      "reading": "みらい",
+      "meaning": "미래",
+      "sentence": "＿＿のことを考えます。",
+      "translation": "미래를 생각합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 88,
+      "word": "世界",
+      "reading": "せかい",
+      "meaning": "세계",
+      "sentence": "＿＿には多くの言語があります。",
+      "translation": "세계에는 많은 언어가 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 89,
+      "word": "平和",
+      "reading": "へいわ",
+      "meaning": "평화",
+      "sentence": "誰もが＿＿を願っています。",
+      "translation": "모두가 평화를 바라고 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 90,
+      "word": "生活",
+      "reading": "せいかつ",
+      "meaning": "생활",
+      "sentence": "新しい＿＿に慣れてきました。",
+      "translation": "새 생활에 익숙해졌습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 91,
+      "word": "家庭",
+      "reading": "かてい",
+      "meaning": "가정",
+      "sentence": "＿＿で使う電気を節約します。",
+      "translation": "가정에서 쓰는 전기를 절약합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 92,
+      "word": "家族",
+      "reading": "かぞく",
+      "meaning": "가족",
+      "sentence": "＿＿と一緒に夕食を食べました。",
+      "translation": "가족과 함께 저녁을 먹었습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 93,
+      "word": "両親",
+      "reading": "りょうしん",
+      "meaning": "부모님",
+      "sentence": "＿＿に感謝しています。",
+      "translation": "부모님께 감사하고 있습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 94,
+      "word": "兄弟",
+      "reading": "きょうだい",
+      "meaning": "형제",
+      "sentence": "＿＿で同じ学校に通いました。",
+      "translation": "형제가 같은 학교에 다녔습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 95,
+      "word": "姉妹",
+      "reading": "しまい",
+      "meaning": "자매",
+      "sentence": "＿＿で旅行に出かけました。",
+      "translation": "자매가 여행을 떠났습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 96,
+      "word": "結婚",
+      "reading": "けっこん",
+      "meaning": "결혼",
+      "sentence": "来年＿＿する予定です。",
+      "translation": "내년에 결혼할 예정입니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 97,
+      "word": "写真",
+      "reading": "しゃしん",
+      "meaning": "사진",
+      "sentence": "旅行で＿＿をたくさん撮りました。",
+      "translation": "여행에서 사진을 많이 찍었습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 98,
+      "word": "景色",
+      "reading": "けしき",
+      "meaning": "경치",
+      "sentence": "山からの＿＿が美しい。",
+      "translation": "산에서 보는 경치가 아름답다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 99,
+      "word": "季節",
+      "reading": "きせつ",
+      "meaning": "계절",
+      "sentence": "春は好きな＿＿です。",
+      "translation": "봄은 좋아하는 계절입니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 100,
+      "word": "春夏秋冬",
+      "reading": "しゅんかしゅうとう",
+      "meaning": "춘하추동·사계절",
+      "sentence": "日本には＿＿があります。",
+      "translation": "일본에는 사계절이 있습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 101,
+      "word": "専門",
+      "reading": "せんもん",
+      "meaning": "전문",
+      "sentence": "大学では日本語を＿＿に学びます。",
+      "translation": "대학교에서는 일본어를 전공으로 배웁니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 102,
+      "word": "研究",
+      "reading": "けんきゅう",
+      "meaning": "연구",
+      "sentence": "新しいテーマを＿＿しています。",
+      "translation": "새로운 주제를 연구하고 있습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 103,
+      "word": "発表",
+      "reading": "はっぴょう",
+      "meaning": "발표",
+      "sentence": "来週、授業で＿＿します。",
+      "translation": "다음 주 수업에서 발표합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 104,
+      "word": "資料",
+      "reading": "しりょう",
+      "meaning": "자료",
+      "sentence": "必要な＿＿を集めてください。",
+      "translation": "필요한 자료를 모아 주세요.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 105,
+      "word": "内容",
+      "reading": "ないよう",
+      "meaning": "내용",
+      "sentence": "文章の＿＿を要約します。",
+      "translation": "글의 내용을 요약합니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 106,
+      "word": "原因",
+      "reading": "げんいん",
+      "meaning": "원인",
+      "sentence": "事故の＿＿を調べています。",
+      "translation": "사고의 원인을 조사하고 있습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 107,
+      "word": "対策",
+      "reading": "たいさく",
+      "meaning": "대책",
+      "sentence": "早めに＿＿を考える必要があります。",
+      "translation": "미리 대책을 생각할 필요가 있습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 108,
+      "word": "影響",
+      "reading": "えいきょう",
+      "meaning": "영향",
+      "sentence": "天候が試合に＿＿を与えました。",
+      "translation": "날씨가 경기에 영향을 주었습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 109,
+      "word": "制度",
+      "reading": "せいど",
+      "meaning": "제도",
+      "sentence": "新しい＿＿が始まりました。",
+      "translation": "새 제도가 시작되었습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 110,
+      "word": "条件",
+      "reading": "じょうけん",
+      "meaning": "조건",
+      "sentence": "参加の＿＿を確認してください。",
+      "translation": "참가 조건을 확인해 주세요.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 111,
+      "word": "状況",
+      "reading": "じょうきょう",
+      "meaning": "상황",
+      "sentence": "現在の＿＿を説明します。",
+      "translation": "현재 상황을 설명합니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 112,
+      "word": "能力",
+      "reading": "のうりょく",
+      "meaning": "능력",
+      "sentence": "自分の＿＿を伸ばしたい。",
+      "translation": "자신의 능력을 키우고 싶다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 113,
+      "word": "責任",
+      "reading": "せきにん",
+      "meaning": "책임",
+      "sentence": "自分の行動に＿＿を持つ。",
+      "translation": "자신의 행동에 책임을 진다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 114,
+      "word": "意見",
+      "reading": "いけん",
+      "meaning": "의견",
+      "sentence": "自分の＿＿をはっきり述べました。",
+      "translation": "자신의 의견을 분명히 말했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 115,
+      "word": "提案",
+      "reading": "ていあん",
+      "meaning": "제안",
+      "sentence": "新しい＿＿を出しました。",
+      "translation": "새로운 제안을 냈습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 116,
+      "word": "改善",
+      "reading": "かいぜん",
+      "meaning": "개선",
+      "sentence": "作業方法を＿＿しました。",
+      "translation": "작업 방법을 개선했습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 117,
+      "word": "比較",
+      "reading": "ひかく",
+      "meaning": "비교",
+      "sentence": "二つの商品を＿＿します。",
+      "translation": "두 상품을 비교합니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 118,
+      "word": "増加",
+      "reading": "ぞうか",
+      "meaning": "증가",
+      "sentence": "利用者が年々＿＿しています。",
+      "translation": "이용자가 해마다 증가하고 있습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 119,
+      "word": "減少",
+      "reading": "げんしょう",
+      "meaning": "감소",
+      "sentence": "人口が少しずつ＿＿しています。",
+      "translation": "인구가 조금씩 감소하고 있습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 120,
+      "word": "複雑",
+      "reading": "ふくざつ",
+      "meaning": "복잡",
+      "sentence": "この機械の仕組みは＿＿です。",
+      "translation": "이 기계의 구조는 복잡합니다.",
+      "tier": "advanced",
+      "set": "joyo"
+    },
+    {
+      "id": 121,
+      "word": "瞬間",
+      "reading": "しゅんかん",
+      "meaning": "순간",
+      "sentence": "その＿＿を写真に残しました。",
+      "translation": "그 순간을 사진으로 남겼습니다.",
+      "tier": "advanced",
+      "set": "joyo"
+    },
+    {
+      "id": 122,
+      "word": "尊敬",
+      "reading": "そんけい",
+      "meaning": "존경",
+      "sentence": "私は祖父を＿＿しています。",
+      "translation": "나는 할아버지를 존경합니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 123,
+      "word": "信頼",
+      "reading": "しんらい",
+      "meaning": "신뢰",
+      "sentence": "長い時間をかけて＿＿を築きました。",
+      "translation": "오랜 시간에 걸쳐 신뢰를 쌓았습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 124,
+      "word": "価値",
+      "reading": "かち",
+      "meaning": "가치",
+      "sentence": "この経験には大きな＿＿があります。",
+      "translation": "이 경험에는 큰 가치가 있습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 125,
+      "word": "魅力",
+      "reading": "みりょく",
+      "meaning": "매력",
+      "sentence": "この町の＿＿を紹介します。",
+      "translation": "이 도시의 매력을 소개합니다.",
+      "tier": "advanced",
+      "set": "joyo"
+    },
+    {
+      "id": 126,
+      "word": "課題",
+      "reading": "かだい",
+      "meaning": "과제",
+      "sentence": "今日の＿＿を提出しました。",
+      "translation": "오늘 과제를 제출했습니다.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 127,
+      "word": "現象",
+      "reading": "げんしょう",
+      "meaning": "현상",
+      "sentence": "不思議な自然＿＿を観察しました。",
+      "translation": "신기한 자연 현상을 관찰했습니다.",
+      "tier": "advanced",
+      "set": "joyo"
+    },
+    {
+      "id": 128,
+      "word": "証拠",
+      "reading": "しょうこ",
+      "meaning": "증거",
+      "sentence": "確かな＿＿を集めました。",
+      "translation": "확실한 증거를 모았습니다.",
+      "tier": "advanced",
+      "set": "joyo"
+    },
+    {
+      "id": 129,
+      "word": "権利",
+      "reading": "けんり",
+      "meaning": "권리",
+      "sentence": "自分の＿＿について学びます。",
+      "translation": "자신의 권리에 대해 배웁니다.",
+      "tier": "advanced",
+      "set": "joyo"
+    },
+    {
+      "id": 130,
+      "word": "義務",
+      "reading": "ぎむ",
+      "meaning": "의무",
+      "sentence": "ルールを守る＿＿があります。",
+      "translation": "규칙을 지킬 의무가 있습니다.",
+      "tier": "advanced",
+      "set": "joyo"
+    },
+    {
+      "id": 131,
+      "word": "構造",
+      "reading": "こうぞう",
+      "meaning": "구조",
+      "sentence": "建物の＿＿を調べました。",
+      "translation": "건물의 구조를 조사했습니다.",
+      "tier": "advanced",
+      "set": "joyo"
+    },
+    {
+      "id": 132,
+      "word": "規則",
+      "reading": "きそく",
+      "meaning": "규칙",
+      "sentence": "学校の＿＿を守ってください。",
+      "translation": "학교 규칙을 지켜 주세요.",
+      "tier": "intermediate",
+      "set": "joyo"
+    },
+    {
+      "id": 133,
+      "word": "範囲",
+      "reading": "はんい",
+      "meaning": "범위",
+      "sentence": "試験の＿＿を確認しました。",
+      "translation": "시험 범위를 확인했습니다.",
+      "tier": "advanced",
+      "set": "joyo"
+    },
+    {
+      "id": 134,
+      "word": "応援",
+      "reading": "おうえん",
+      "meaning": "응원",
+      "sentence": "友達の試合を＿＿しました。",
+      "translation": "친구의 경기를 응원했습니다.",
+      "tier": "basic",
+      "set": "joyo"
+    },
+    {
+      "id": 135,
+      "word": "珈琲",
+      "reading": "コーヒー",
+      "meaning": "커피",
+      "sentence": "朝に＿＿を一杯飲みます。",
+      "translation": "아침에 커피 한 잔을 마십니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 136,
+      "word": "檸檬",
+      "reading": "れもん",
+      "meaning": "레몬",
+      "sentence": "紅茶に＿＿を入れました。",
+      "translation": "홍차에 레몬을 넣었습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 137,
+      "word": "薔薇",
+      "reading": "ばら",
+      "meaning": "장미",
+      "sentence": "庭に赤い＿＿が咲きました。",
+      "translation": "정원에 붉은 장미가 피었습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 138,
+      "word": "葡萄",
+      "reading": "ぶどう",
+      "meaning": "포도",
+      "sentence": "秋になると＿＿が甘くなります。",
+      "translation": "가을이 되면 포도가 달아집니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 139,
+      "word": "胡桃",
+      "reading": "くるみ",
+      "meaning": "호두",
+      "sentence": "パンに＿＿を入れました。",
+      "translation": "빵에 호두를 넣었습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 140,
+      "word": "蜘蛛",
+      "reading": "くも",
+      "meaning": "거미",
+      "sentence": "窓の外に＿＿の巣があります。",
+      "translation": "창밖에 거미줄이 있습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 141,
+      "word": "蜻蛉",
+      "reading": "とんぼ",
+      "meaning": "잠자리",
+      "sentence": "秋空を＿＿が飛んでいます。",
+      "translation": "가을 하늘을 잠자리가 날고 있습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 142,
+      "word": "蝸牛",
+      "reading": "かたつむり",
+      "meaning": "달팽이",
+      "sentence": "雨上がりに＿＿を見つけました。",
+      "translation": "비가 갠 뒤 달팽이를 발견했습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 143,
+      "word": "躊躇",
+      "reading": "ちゅうちょ",
+      "meaning": "주저",
+      "sentence": "返事をするのを＿＿しました。",
+      "translation": "대답하기를 주저했습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 144,
+      "word": "齟齬",
+      "reading": "そご",
+      "meaning": "불일치·엇갈림",
+      "sentence": "説明と実際の内容に＿＿がありました。",
+      "translation": "설명과 실제 내용에 불일치가 있었습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 145,
+      "word": "躑躅",
+      "reading": "つつじ",
+      "meaning": "철쭉",
+      "sentence": "春になると＿＿が咲きます。",
+      "translation": "봄이 되면 철쭉이 핍니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 146,
+      "word": "醍醐味",
+      "reading": "だいごみ",
+      "meaning": "묘미",
+      "sentence": "旅の＿＿は新しい出会いです。",
+      "translation": "여행의 묘미는 새로운 만남입니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 147,
+      "word": "牡蠣",
+      "reading": "かき",
+      "meaning": "굴",
+      "sentence": "冬は＿＿がおいしい季節です。",
+      "translation": "겨울은 굴이 맛있는 계절입니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 148,
+      "word": "翡翠",
+      "reading": "ひすい",
+      "meaning": "비취",
+      "sentence": "＿＿の色は鮮やかな緑です。",
+      "translation": "비취의 색은 선명한 녹색입니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 149,
+      "word": "琥珀",
+      "reading": "こはく",
+      "meaning": "호박·앰버",
+      "sentence": "光に透かすと＿＿が輝きます。",
+      "translation": "빛에 비추면 호박이 빛납니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 150,
+      "word": "饅頭",
+      "reading": "まんじゅう",
+      "meaning": "만주·찐빵",
+      "sentence": "温かい＿＿を食べました。",
+      "translation": "따뜻한 만주를 먹었습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 151,
+      "word": "味噌",
+      "reading": "みそ",
+      "meaning": "된장",
+      "sentence": "毎朝、＿＿汁を飲みます。",
+      "translation": "매일 아침 된장국을 마십니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 152,
+      "word": "蕎麦",
+      "reading": "そば",
+      "meaning": "메밀국수",
+      "sentence": "昼に冷たい＿＿を食べました。",
+      "translation": "점심에 차가운 메밀국수를 먹었습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 153,
+      "word": "烏賊",
+      "reading": "いか",
+      "meaning": "오징어",
+      "sentence": "新鮮な＿＿を刺身で食べました。",
+      "translation": "신선한 오징어를 회로 먹었습니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    },
+    {
+      "id": 154,
+      "word": "山葵",
+      "reading": "わさび",
+      "meaning": "고추냉이",
+      "sentence": "刺身に＿＿を少し付けます。",
+      "translation": "회에 고추냉이를 조금 곁들입니다.",
+      "tier": "hyogai",
+      "set": "hyogai"
+    }
+  ]
+}
