@@ -1,0 +1,19 @@
+DOKI 漢字 — Japanese kanji inventory data
+
+Bundled files:
+- joyo.tsv: Jōyō kanji inventory (2,136 characters), school grade, radical, stroke count, old form.
+- hyogai.txt: 1,022-character Hyōgai print-standard inventory. The app filters this against the current Jōyō inventory at runtime; the current non-Jōyō core set is 875 base characters.
+
+Source repository:
+https://github.com/xiaolanchong/kanji_dashboard
+
+Source files:
+- data/joyo.txt
+- data/hyogai.txt
+
+The source repository declares ISC license in package.json.
+The inventory categories correspond to Japan's 2010 Jōyō kanji table and the 2000 Hyōgai Kanji Jitai-hyō (表外漢字字体表).
+
+Notes:
+- Parenthesized characters in hyogai.txt are alternate/simplified glyph forms and are kept as metadata, not counted as separate base study characters.
+- The 2000 Hyōgai table predates the 2010 Jōyō revision, so DOKI removes any base character that is in the current Jōyō set before presenting the current 表外 core collection.
