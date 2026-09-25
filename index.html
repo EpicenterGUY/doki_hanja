@@ -3045,7 +3045,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.12.1-20260925";
+const APP_BUILD="2.12.2-20260925";
 const APP_TAB_META={
   practice:{title:"연습",kicker:"오늘의 한자 학습"},
   exam:{title:"기출",kicker:"한국어문회 실전"},
@@ -3181,7 +3181,11 @@ function bindAppShell(){
   if(dock){
     dock.onclick=function(e){
       const b=e.target.closest(".app2-nav");
-      if(b&&dock.contains(b))switchTab(b.dataset.appTab);
+      if(b&&dock.contains(b)){
+        e.preventDefault();
+        const target=b.dataset.appTab;
+        if(target)switchTab(target);
+      }
     };
   }
   const practiceSettingsBtn=$("#openPracticeSettings");if(practiceSettingsBtn)practiceSettingsBtn.onclick=openPracticeSheet;
@@ -3290,8 +3294,8 @@ function switchTab(id){
   syncAppChrome(id);
   if(id!=="drill")document.body.classList.remove("drill-active");
   if(id!=="jp"&&typeof closeJapaneseAtlasDetail==="function")closeJapaneseAtlasDetail();
-  $(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
-  $$(".tabpage").forEach(p=>p.hidden=p.id!==id);
+  document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
+  document.querySelectorAll(".tabpage").forEach(p=>p.hidden=p.id!==id);
 
   const grid=document.querySelector(".grid");
   const settings=ensurePracticeSettingsPortal();
