@@ -2802,6 +2802,78 @@ body>.app2-update{z-index:1930!important}
   .atlas-initial-nav button{min-width:28px;height:27px;font-size:9px}
 }
 
+
+/* ATLAS MASK PLACEMENT FIX · 2.18.2 */
+/* 훈음 숨기기에서는 한자를 가리지 않고 훈음 영역 아래에 토글을 둔다. */
+.atlas-card .atlas-mask-tip.mask-meaning{
+  position:static;
+  transform:none;
+  display:inline-flex;
+  width:max-content;
+  margin:5px auto 0;
+  padding:4px 7px;
+  font-size:8px;
+}
+.atlas-card.revealed .atlas-mask-tip.mask-meaning{display:inline-flex}
+
+/* 한자 숨기기일 때만 한자 자리 위에 보기 버튼을 둔다. */
+.atlas-card:not(.revealed) .atlas-mask-tip.mask-hanja{
+  position:absolute;
+  left:50%;
+  top:61px;
+  transform:translate(-50%,-50%);
+  display:inline-flex;
+}
+.atlas-card.revealed .atlas-mask-tip.mask-hanja{
+  position:static;
+  transform:none;
+  display:inline-flex;
+  width:max-content;
+  margin:5px auto 0;
+  padding:4px 7px;
+  font-size:8px;
+}
+
+/* 배정표: 훈음 토글은 한자 아래의 훈음 자리에서만 보이게 한다. */
+.atlas-compact-cell .atlas-compact-mask.mask-meaning{
+  position:static;
+  transform:none;
+  display:inline-flex;
+  width:max-content;
+  margin:4px auto 0;
+  padding:3px 6px;
+  font-size:7px;
+}
+.atlas-compact-cell.revealed .atlas-compact-mask.mask-meaning{display:inline-flex}
+
+/* 한자 숨김만 중앙 오버레이. 공개된 뒤에는 아래쪽 작은 토글로 이동. */
+.atlas-compact-cell:not(.revealed) .atlas-compact-mask.mask-hanja{
+  position:absolute;
+  left:50%;
+  top:31px;
+  transform:translate(-50%,-50%);
+  display:inline-flex;
+}
+.atlas-compact-cell.revealed .atlas-compact-mask.mask-hanja{
+  position:static;
+  transform:none;
+  display:inline-flex;
+  width:max-content;
+  margin:4px auto 0;
+  padding:3px 6px;
+  font-size:7px;
+}
+
+/* 구버전의 revealed=무조건 숨김 규칙보다 우선 */
+.atlas-card.revealed .atlas-mask-tip,
+.atlas-compact-cell.revealed .atlas-compact-mask{
+  pointer-events:none;
+}
+@media(max-width:600px){
+  .atlas-card:not(.revealed) .atlas-mask-tip.mask-hanja{top:57px}
+  .atlas-compact-cell:not(.revealed) .atlas-compact-mask.mask-hanja{top:28px}
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css">
 </head>
