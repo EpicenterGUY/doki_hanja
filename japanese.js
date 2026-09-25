@@ -488,7 +488,23 @@ function renderJapaneseWordCard(){
 /* atlas */
 function jpFindItem(ch){return jpItemMap.get(ch)||null}
 function jpRelatedWords(ch){
-  return jpWords.filter(function(w){return w.word.includes(ch)}).slice(0,8);
+  return jpWords.filter(function(w){return w.word.includes(ch)}).slice(0,24);
+}
+function jpKoreanHanjaMeaning(item){
+  try{
+    const candidates=[item.char,item.old].concat(item.variants||[]).filter(Boolean);
+    const hit=(Array.isArray(chars)?chars:[]).find(function(c){return candidates.includes(c.hanja)});
+    if(!hit)return "";
+    if(typeof officialMeaningSoundForms==="function"){
+      const forms=officialMeaningSoundForms(hit);
+      if(forms&&forms.canonical)return forms.canonical;
+    }
+    if(typeof charPrimary==="function"){
+      const p=charPrimary(hit);
+      if(p)return [p.meaning,p.sound].filter(Boolean).join(" ");
+    }
+    return "";
+  }catch{return ""}
 }
 function closeJapaneseAtlasDetail(){
   const s=document.getElementById("jpAtlasSheet"),b=document.getElementById("jpAtlasBackdrop");
@@ -520,7 +536,7 @@ async function openJapaneseAtlasDetail(ch){
   const backdrop=document.createElement("div");backdrop.id="jpAtlasBackdrop";backdrop.className="jp-atlas-backdrop";backdrop.onclick=closeJapaneseAtlasDetail;
   const sheet=document.createElement("div");sheet.id="jpAtlasSheet";sheet.className="jp-atlas-sheet";
   sheet.innerHTML="<div class='jp-atlas-head'><div class='jp-atlas-big' lang='ja'>"+esc(ch)+"</div><div class='jp-atlas-title'><b>"+jpSetLabel(item.set)+" 도감</b><small>"+esc(jpCardMeta(item))+"</small></div><button class='jp-atlas-close' id='jpAtlasClose'>×</button></div>"+
-    "<div class='jp-atlas-data'>"+jpAtlasLocalCells(item)+"<div class='jp-atlas-cell'><span>음독</span><b id='jpAtlasOn' class='jp-atlas-loading'>불러오는 중…</b></div><div class='jp-atlas-cell'><span>훈독</span><b id='jpAtlasKun' class='jp-atlas-loading'>불러오는 중…</b></div><div class='jp-atlas-cell'><span>뜻(영문 사전)</span><b id='jpAtlasMeaning' class='jp-atlas-loading'>불러오는 중…</b></div></div>"+
+    "<div class='jp-atlas-data'>"+jpAtlasLocalCells(item)+"<div class='jp-atlas-cell'><span>음독</span><b id='jpAtlasOn' class='jp-atlas-loading'>불러오는 중…</b></div><div class='jp-atlas-cell'><span>훈독</span><b id='jpAtlasKun' class='jp-atlas-loading'>불러오는 중…</b></div><div class='jp-atlas-cell'><span>한국어 뜻·훈음</span><b id='jpAtlasMeaning'>"+esc(jpKoreanHanjaMeaning(item)||"한국 훈음 데이터 확인 중")+"</b></div></div>"+
     "<div class='app-section-title' style='margin-top:13px'>연관 단어</div><div class='jp-atlas-words'>"+(words.length?words.map(function(w){return "<div class='jp-atlas-word'><b lang='ja'>"+esc(w.word)+"</b><div>"+esc(w.reading)+" · "+esc(w.meaning)+"<small>"+esc(w.sentence)+"</small></div></div>"}).join(""):"<div class='jp-empty'>현재 예문 데이터에 연결된 단어가 없습니다.</div>")+"</div>"+
     "<div class='jp-atlas-actions'><button class='btn "+(saved?"primary":"")+"' id='jpAtlasSave'>"+(saved?"★ 저장됨":"☆ 모름 저장")+"</button><button class='btn primary' id='jpAtlasPractice'>이 글자 연습</button></div>";
   document.body.appendChild(backdrop);document.body.appendChild(sheet);
@@ -530,11 +546,12 @@ async function openJapaneseAtlasDetail(ch){
   const data=await jpFetchKanjiApi(ch);
   if(!document.getElementById("jpAtlasSheet"))return;
   const on=$("#jpAtlasOn"),kun=$("#jpAtlasKun"),meaning=$("#jpAtlasMeaning");
+  const ko=jpKoreanHanjaMeaning(item);
+  if(meaning)meaning.textContent=ko||"한국어 훈음 데이터 없음";
   if(data){
     if(on){on.className="";on.textContent=(data.on_readings||[]).join(" · ")||"—"}
     if(kun){kun.className="";kun.textContent=(data.kun_readings||[]).join(" · ")||"—"}
-    if(meaning){meaning.className="";meaning.textContent=(data.meanings||[]).join(", ")||"—"}
   }else{
-    [on,kun,meaning].forEach(function(x){if(x){x.className="";x.textContent="온라인 상세정보 없음"}});
+    [on,kun].forEach(function(x){if(x){x.className="";x.textContent="온라인 읽기 정보 없음"}});
   }
 }
