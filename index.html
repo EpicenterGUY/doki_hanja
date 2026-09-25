@@ -2951,7 +2951,7 @@ let stats=JSON.parse(localStorage.getItem("hanjaStatsV2")||"{}");
 let wrong=JSON.parse(localStorage.getItem("hanjaWrongV2")||"{}");
 let unknownHanja=JSON.parse(localStorage.getItem("hanjaUnknownV1")||"{}");
 let seenHanjaPowerLevel=+(localStorage.getItem("hanjaPowerSeenLevel")||0);
-let atlasState={mode:"grade",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"compact",query:"",freqType:"all",period:"all"};
+let atlasState={mode:"grade",filter:"all",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"compact",query:"",freqType:"all",period:"all"};
 let atlasFreqCardPage=0;
 const ATLAS_FREQ_CARD_PAGE_SIZE=24;
 const atlasFreqCardRevealSet=new Set();
@@ -7636,11 +7636,42 @@ async function prepareAtlasFrequency(grade){
     if(status){status.className="atlas-progress bad";status.textContent="빈출 집계 실패 · "+(e.message||e)}
   }finally{atlasFreqBusy=false;renderAtlasResults()}
 }
+function atlasWeakHanjaSet(){
+  const agg=new Map();
+  for(const s of Object.values(stats||{})){
+    if(!s||!s.hanja)continue;
+    const a=agg.get(s.hanja)||{ok:0,no:0};
+    a.ok+=+s.ok||0;a.no+=+s.no||0;agg.set(s.hanja,a);
+  }
+  const set=new Set();
+  for(const [hanja,a] of agg){
+    const n=a.ok+a.no,p=n?a.ok/n:1;
+    if(a.no>0&&(p<.75||a.no>=a.ok))set.add(hanja);
+  }
+  for(const x of Object.values(wrong||{}))if(x&&x.hanja)set.add(x.hanja);
+  return set;
+}
 function atlasCharacterPool(){
   let pool=atlasState.scope==="exact"?exactGradeChars(atlasState.grade):chars.filter(function(c){return gradeAllowed(c.level,atlasState.grade)});
+  if(atlasState.filter==="saved")pool=pool.filter(function(c){return unknownHanjaSaved(c)});
+  if(atlasState.filter==="weak"){
+    const weak=atlasWeakHanjaSet();
+    pool=pool.filter(function(c){return weak.has(c.hanja)});
+  }
   const q=norm(atlasState.query);
-  if(q)pool=pool.filter(function(c){const f=officialMeaningSoundForms(c).canonical;return norm(c.hanja).includes(q)||norm(f).includes(q)||norm(c.radical).includes(q)});
+  if(q)pool=pool.filter(function(c){const f=officialMeaningSoundForms(c).canonical;return norm(c.hanja).includes(q)||norm(f).includes(q)||norm(c.radical).includes(q)||norm(c.level).includes(q)});
   return pool;
+}
+function setAtlasQuickView(v){
+  atlasState.query="";
+  atlasFreqCardPage=0;atlasFreqCardRevealSet.clear();atlasRevealSet.clear();
+  if(v==="freq"){
+    atlasState.mode="freq";atlasState.filter="all";atlasState.sort="freq";atlasState.view="table";atlasState.freqType="all";atlasState.period="all";
+  }else{
+    atlasState.mode="grade";atlasState.filter=(v==="saved"||v==="weak")?v:"all";
+    atlasState.sort="alpha";if(atlasState.view==="table"&&v!=="all")atlasState.view="compact";
+  }
+  renderAtlas();
 }
 function atlasStudyStats(c){
   let ok=0,no=0;
