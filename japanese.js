@@ -206,7 +206,7 @@ function startJapanesePractice(startChar){
     const i=list.findIndex(function(x){return x.char===startChar});
     if(i>0)list=list.slice(i).concat(list.slice(0,i));
   }
-  if(jpState.count>0&&!startChar)list=list.slice(0,jpState.count);
+  if(jpState.count>0)list=list.slice(0,jpState.count);
   jpState.list=list;jpState.index=0;jpState.checked=false;jpState.phase=jpState.mode==="memory"?"memorize":"copy";
   renderJapanesePracticeCard();
 }
