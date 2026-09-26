@@ -2602,11 +2602,30 @@ body>.app2-update{z-index:1930!important}
 }
 .home-freq-buttons button:first-child{background:linear-gradient(135deg,#f1a933,#ffc955);color:#2e1b00}
 .home-shortcuts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
-.home-shortcuts button{
-  min-width:0;min-height:78px;padding:10px 7px;border-radius:17px;border:1px solid rgba(143,168,219,.2);
-  background:rgba(26,39,67,.88);color:#fff;display:flex;flex-direction:column;align-items:flex-start;text-align:left
+.home-shortcut{
+  min-width:0;min-height:88px;padding:10px;border-radius:17px;border:1px solid rgba(143,168,219,.2);
+  background:linear-gradient(150deg,rgba(29,44,76,.94),rgba(20,31,56,.96));color:#fff;
+  display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;text-align:left;
+  box-shadow:inset 0 1px rgba(255,255,255,.025)
 }
-.home-shortcuts span{font:900 19px/1 serif;color:#8d98ff}.home-shortcuts b{font-size:12px;margin-top:9px}.home-shortcuts small{font-size:8px;color:#8fa2c1;margin-top:2px}
+.home-shortcut-icon{
+  width:34px;height:34px;flex:0 0 34px;display:grid;place-items:center;border-radius:11px;
+  border:1px solid rgba(145,156,255,.28);background:linear-gradient(145deg,rgba(102,92,255,.22),rgba(58,77,145,.18));
+  box-shadow:inset 0 1px rgba(255,255,255,.08),0 6px 16px rgba(5,11,31,.15)
+}
+.home-shortcut-icon i{
+  font-style:normal;font-family:"Noto Serif CJK KR","Noto Serif CJK JP","Yu Mincho","Batang",serif;
+  font-size:20px;font-weight:900;line-height:1;color:#b9c0ff;transform:translateY(-.5px)
+}
+.home-shortcut.diagnosis .home-shortcut-icon{border-color:rgba(116,189,237,.28);background:linear-gradient(145deg,rgba(77,144,208,.22),rgba(55,82,145,.16))}
+.home-shortcut.diagnosis .home-shortcut-icon i{color:#a9d9f7}
+.home-shortcut.jpword .home-shortcut-icon{border-color:rgba(162,132,255,.25);background:linear-gradient(145deg,rgba(126,94,231,.2),rgba(65,68,139,.16))}
+.home-shortcut.jpword .home-shortcut-icon i{color:#c8b9ff}
+.home-shortcut.study .home-shortcut-icon{border-color:rgba(126,151,214,.22);background:rgba(84,104,164,.12)}
+.home-shortcut.study .home-shortcut-icon i{color:#9eaff4;font-family:inherit;font-size:22px}
+.home-shortcut-copy{display:block;min-width:0;margin-top:8px}
+.home-shortcut-copy b{display:block;font-size:12px;line-height:1.15;font-weight:900;letter-spacing:-.025em}
+.home-shortcut-copy small{display:block;margin-top:3px;font-size:8px;line-height:1.3;color:#8fa2c1;white-space:normal;word-break:keep-all}
 .home-stats-row,.study-status-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
 .home-stats-row span,.study-status-strip span{padding:10px 12px;border-radius:16px;background:rgba(21,33,57,.8);border:1px solid rgba(139,165,216,.17)}
 .home-stats-row b,.study-status-strip b{display:block;font-size:16px}.home-stats-row small,.study-status-strip small{display:block;color:#899dbc;font-size:9px;margin-top:2px}
@@ -2655,7 +2674,11 @@ body>.app2-update{z-index:1930!important}
   .home-level-orb{width:72px;height:72px;border-radius:21px}.home-level-orb b{font-size:21px}.home-level-orb small{font-size:8px}
   .home-primary-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.home-primary-card{min-height:88px;padding:10px;border-radius:16px;gap:6px}.home-primary-icon{width:32px;height:32px;border-radius:10px;font-size:17px}.home-primary-card b{font-size:13px}.home-primary-card small{font-size:9px}
   .home-freq-card,.freq-spotlight{grid-template-columns:1fr;padding:12px;border-radius:18px;gap:9px}.home-freq-main b,.freq-spotlight-copy b{font-size:16px}.home-freq-buttons{grid-template-columns:1fr 1fr}
-  .home-shortcuts{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.home-shortcuts button{min-height:68px;padding:8px 5px;border-radius:14px}.home-shortcuts span{font-size:17px}.home-shortcuts b{font-size:10px;margin-top:7px}.home-shortcuts small{display:none}
+  .home-shortcuts{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+  .home-shortcut{min-height:76px;padding:7px 6px;border-radius:14px}
+  .home-shortcut-icon{width:29px;height:29px;flex-basis:29px;border-radius:9px}
+  .home-shortcut-icon i{font-size:17px}.home-shortcut.study .home-shortcut-icon i{font-size:19px}
+  .home-shortcut-copy{margin-top:7px}.home-shortcut-copy b{font-size:10px;line-height:1.08}.home-shortcut-copy small{display:none}
   .home-stats-row span,.study-status-strip span{padding:8px;text-align:center}.home-stats-row b,.study-status-strip b{font-size:14px}
   .hub-title-card{min-height:105px;padding:14px;border-radius:19px}.hub-title-card h2{font-size:22px}.hub-title-card p{font-size:10px}.hub-settings-btn{min-height:38px;padding:6px 9px;font-size:10px}
   .study-main-grid{gap:6px}.study-tile{min-height:79px;padding:9px;border-radius:15px;gap:8px}.study-tile-icon{width:36px;height:36px;flex-basis:36px;border-radius:11px;font-size:17px}.study-tile b{font-size:13px}.study-tile small{font-size:9px}
@@ -3410,7 +3433,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.2-20260926";
+const APP_BUILD="2.19.3-20260927";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -4570,10 +4593,10 @@ function renderPracticeWelcome(){
   h+="</div></section>";
   h+="<section class='home-freq-card'><div class='home-freq-main'><span class='freq-label'>🔥 빈출</span><b>자주 나온 것부터 공부</b><small>기출 출현 "+freqRows.toLocaleString()+"건 기준 · 빈출 기능을 홈에서 바로 찾을 수 있게 고정했습니다.</small></div><div class='home-freq-buttons'><button onclick='startFrequentPractice()'>집중 연습</button><button onclick=\"atlasState.mode='freq';atlasState.sort='freq';atlasState.view='table';switchTab('atlas')\">빈출 도감</button></div></section>";
   h+="<section class='home-shortcuts'>";
-  h+="<button onclick=\"switchTab('atlas')\"><span>冊</span><b>도감</b><small>전체 한자 찾기</small></button>";
-  h+="<button onclick=\"openUtility('diagnosis')\"><span>診</span><b>급수 진단</b><small>현재 수준 찾기</small></button>";
-  h+="<button onclick='openJapaneseWordHub()'><span>日</span><b>일본 단어</b><small>예문으로 쓰기</small></button>";
-  h+="<button onclick=\"switchTab('study')\"><span>＋</span><b>전체 학습</b><small>모든 기능 보기</small></button>";
+  h+="<button class='home-shortcut atlas' onclick=\"switchTab('atlas')\"><span class='home-shortcut-icon' aria-hidden='true'><i>漢</i></span><span class='home-shortcut-copy'><b>도감</b><small>훈음 · 부수 · 빈출</small></span></button>";
+  h+="<button class='home-shortcut diagnosis' onclick=\"openUtility('diagnosis')\"><span class='home-shortcut-icon' aria-hidden='true'><i>級</i></span><span class='home-shortcut-copy'><b>급수 진단</b><small>수준 · 약점 확인</small></span></button>";
+  h+="<button class='home-shortcut jpword' onclick='openJapaneseWordHub()'><span class='home-shortcut-icon' aria-hidden='true'><i>日</i></span><span class='home-shortcut-copy'><b>일본 단어</b><small>읽기 · 예문 쓰기</small></span></button>";
+  h+="<button class='home-shortcut study' onclick=\"switchTab('study')\"><span class='home-shortcut-icon symbol' aria-hidden='true'><i>＋</i></span><span class='home-shortcut-copy'><b>전체 학습</b><small>모든 기능 보기</small></span></button>";
   h+="</section>";
   h+="<div class='home-stats-row'><span><b>"+p.known.toLocaleString()+"</b><small>아는 한자</small></span><span><b>"+p.attempts.toLocaleString()+"</b><small>누적 풀이</small></span><span><b>"+p.accuracy+"%</b><small>정답률</small></span></div>";
   h+="</div>";
