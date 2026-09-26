@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.19.2-20260926",
+  "webBuild": "2.19.3-20260927",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.3",
+      "title": "홈 바로가기 아이콘 · 글자 비율 정리",
+      "items": [
+        "홈의 도감 바로가기 아이콘을 冊에서 더 직관적인 漢으로 변경하고 전용 아이콘 배지 스타일 적용",
+        "급수 진단 아이콘을 診에서 級으로 변경해 기능 의미를 더 직접적으로 표현",
+        "도감·급수 진단·일본 단어·전체 학습 바로가기의 아이콘 크기와 배경·테두리 톤을 통일",
+        "바로가기 제목의 글자 크기·굵기·행간과 아이콘-제목 간격을 다시 조정",
+        "Fold 접힘 폭에서는 4열 구성을 유지하면서 아이콘과 제목이 덜 답답해 보이도록 높이와 여백을 재조정"
+      ]
+    },
     {
       "version": "2.19.2",
       "title": "한자 공부 가이드 추가",
