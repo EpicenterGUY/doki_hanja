@@ -82,6 +82,8 @@ public class MainActivity extends Activity {
         settings.setSupportZoom(false);
         settings.setLoadWithOverviewMode(true);
         settings.setUseWideViewPort(true);
+        // The APK is a live web shell: prefer freshly deployed GitHub Pages assets.
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         settings.setUserAgentString(settings.getUserAgentString() + " DokiHanjaApp/" + APP_SHELL_VERSION);
 
         webView.addJavascriptInterface(new DokiBridge(), "DokiAndroid");
@@ -104,7 +106,7 @@ public class MainActivity extends Activity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 if (url != null && url.startsWith("https://" + APP_HOST + "/")) {
-                    view.evaluateJavascript(LIVE_UPDATE_SCRIPT, null);
+                    view.evaluateJavascript("if(window.enableAndroidLiveUpdates){window.enableAndroidLiveUpdates();}", null);
                 }
             }
         });
@@ -220,7 +222,7 @@ public class MainActivity extends Activity {
         super.onResume();
         if (webView != null) {
             webView.evaluateJavascript(
-                    "if(window.__dokiNativeCheckUpdate){window.__dokiNativeCheckUpdate();}",
+                    "if(window.enableAndroidLiveUpdates){window.enableAndroidLiveUpdates();}if(window.checkAndroidLiveUpdate){window.checkAndroidLiveUpdate();}",
                     null
             );
         }
