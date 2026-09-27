@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.19.3-20260927",
+  "webBuild": "2.19.4-20260928",
   "androidVersion": "0.3.0",
   "androidVersionCode": 3,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.4",
+      "title": "日本 단어쓰기 채점 버튼 수정",
+      "items": [
+        "일본 단어쓰기에서 채점 버튼을 눌렀을 때 일부 모바일 환경에서 결과가 표시되지 않던 경로를 수정",
+        "비어 있거나 너무 작아 판정할 수 없는 칸은 채점 영역에 바로 안내가 표시되도록 변경",
+        "글자별 형태 일치도를 직접 계산해 모든 칸의 채점 결과가 안정적으로 모이도록 개선",
+        "채점 중 오류가 발생해도 무반응으로 끝나지 않고 다시 쓰기 안내를 표시하도록 보강"
+      ]
+    },
     {
       "version": "2.19.3",
       "title": "홈 바로가기 아이콘 · 글자 비율 정리",
