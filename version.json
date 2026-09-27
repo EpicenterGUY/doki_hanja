@@ -1,9 +1,29 @@
 {
-  "webBuild": "2.19.4-20260928",
-  "androidVersion": "0.3.0",
-  "androidVersionCode": 3,
+  "webBuild": "2.19.5-20260928",
+  "androidVersion": "0.4.0",
+  "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.5",
+      "title": "Android 실시간 웹 업데이트",
+      "items": [
+        "Android 앱을 0.4.0으로 올리고 GitHub Pages의 최신 웹앱을 직접 사용하는 온라인 셸 구조를 유지",
+        "앱 실행 중 60초마다 webBuild를 확인해 새 웹 버전을 자동 감지",
+        "앱을 다시 열거나 포그라운드로 돌아올 때 즉시 최신 버전 확인",
+        "손글씨 연습·기출 풀이 중에는 강제 새로고침을 미루고 업데이트 배너로 알려 학습 중단을 방지",
+        "일반 UI·기능·데이터 수정은 APK를 다시 설치하지 않아도 웹 배포 후 앱에서 자동 반영"
+      ]
+    },
+    {
+      "version": "0.4.0",
+      "title": "Android 라이브 업데이트 셸",
+      "items": [
+        "네이티브 앱 셸 버전 0.4.0 / versionCode 4",
+        "WebView 캐시를 우회하고 최신 원격 자산을 우선 사용",
+        "APK 자체 변경이 필요할 때는 앱의 APK 업데이트 버튼으로 android-latest를 내려받아 설치"
+      ]
+    },
     {
       "version": "2.19.4",
       "title": "日本 단어쓰기 채점 버튼 수정",
