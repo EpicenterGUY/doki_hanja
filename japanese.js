@@ -585,27 +585,69 @@ function jpToggleWordAnswer(){
 }
 function jpGradeWord(){
   const w=jpState.wordList[jpState.wordIndex];if(!w)return;
-  const chars=[...w.word];
-  for(let i=0;i<chars.length;i++){
-    const c=$("#jpWordCanvas"+i);
-    if(!c||!(c._strokeCount>0)){toast((i+1)+"번째 칸을 먼저 써 주세요");return}
-  }
-  const results=[];
-  chars.forEach(function(ch,i){
-    const meta=jpItemMap.get(ch),strokes=meta?meta.strokes:0;
-    autoGradeHandwriting("#jpWordCanvas"+i,ch,strokes||0,function(ok,score,label){results.push({ch:ch,ok:ok,score:score,label:label})});
-  });
-  if(results.length!==chars.length)return;
-  const allOk=results.every(function(r){return r.ok}),avg=Math.round(results.reduce(function(a,b){return a+b.score},0)/results.length);
-  jpState.wordChecked=true;jpWordRecord(w,allOk);
-  const fb=$("#jpWordFeedback");
-  if(fb){
-    fb.className="feedback jp-word-feedback "+(allOk?"ok":"no");
-    fb.innerHTML="<div class='jp-word-feedback-line'><span>"+(allOk?"단어 전체 통과":"다시 확인")+" · 평균 <b>"+avg+"%</b></span><span class='jp-word-feedback-scores'>"+
+  const chars=[...w.word],fb=$("#jpWordFeedback"),btn=$("#jpWordCheck");
+  if(btn&&btn.disabled)return;
+
+  const setFeedback=function(kind,html){
+    if(!fb)return;
+    fb.className="feedback jp-word-feedback "+(kind||"");
+    fb.innerHTML=html;
+  };
+
+  if(btn){btn.disabled=true;btn.textContent="채점 중…"}
+  try{
+    const results=[];
+    for(let i=0;i<chars.length;i++){
+      const canvas=$("#jpWordCanvas"+i);
+      if(!canvas){
+        setFeedback("no","채점 칸을 찾지 못했습니다. 화면을 다시 열어 주세요.");
+        return;
+      }
+
+      const r=handwritingSimilarity(canvas,chars[i]);
+      if(r.blank){
+        const msg=(i+1)+"번째 칸을 먼저 써 주세요.";
+        setFeedback("no",esc(msg));
+        toast(msg);
+        return;
+      }
+
+      const meta=jpItemMap.get(chars[i]),expected=meta?meta.strokes:0;
+      const observed=canvas._strokeCount||0;
+      const sf=strokeCountFactor(observed,+expected||0);
+      const score=Math.round(r.score*sf);
+      const d=r.details||{},grid=d.grid||{};
+      const shapeGate=(d.forward||0)>=.50&&(d.backward||0)>=.50&&(grid.iou||0)>=.24&&(grid.coverage||0)>=.48;
+      let ok=false,label="";
+      if(score>=75&&shapeGate){ok=true;label="전체 형태가 정답과 잘 맞습니다"}
+      else if(score>=55){label="형태는 비슷하지만 자동 통과 기준에는 못 미칩니다"}
+      else{label="정답 형태와 차이가 큽니다"}
+      results.push({ch:chars[i],ok:ok,score:score,label:label});
+    }
+
+    if(!results.length){
+      setFeedback("no","채점할 글씨를 찾지 못했습니다.");
+      return;
+    }
+
+    const allOk=results.every(function(r){return r.ok});
+    const avg=Math.round(results.reduce(function(a,b){return a+b.score},0)/results.length);
+    jpState.wordChecked=true;
+    jpWordRecord(w,allOk);
+    setFeedback(allOk?"ok":"no",
+      "<div class='jp-word-feedback-line'><span>"+(allOk?"단어 전체 통과":"다시 확인")+" · 평균 <b>"+avg+"%</b></span><span class='jp-word-feedback-scores'>"+
       results.map(function(r){return "<span class='jp-char-score "+(r.ok?"ok":"no")+"'><b lang='ja'>"+esc(r.ch)+"</b> "+r.score+"%</span>"}).join("")+
-      "</span></div><div class='jp-word-feedback-answer'>정답 <b lang='ja'>"+esc(w.word)+"</b>（"+esc(jpHiraganaReading(w.reading))+"）</div>";
+      "</span></div><div class='jp-word-feedback-answer'>정답 <b lang='ja'>"+esc(w.word)+"</b>（"+esc(jpHiraganaReading(w.reading))+"）</div>"
+    );
+  }catch(err){
+    console.error("jpGradeWord",err);
+    setFeedback("no","채점 중 오류가 생겼습니다. 지우고 다시 써 주세요.");
+    toast("채점 오류가 발생했습니다");
+  }finally{
+    if(btn){btn.disabled=false;btn.textContent="채점"}
   }
 }
+
 function renderJapaneseWordCard(){
   const w=jpState.wordList[jpState.wordIndex];
   if(!w){exitJapanesePractice();return}
