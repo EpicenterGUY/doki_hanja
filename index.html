@@ -3433,7 +3433,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.5-20260928";
+const APP_BUILD="2.19.6-20260928";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -3642,6 +3642,48 @@ async function fetchVersionInfo(){
       changelog:[{version:APP_BUILD,title:"현재 버전",items:["버전 정보를 불러오지 못했습니다."]}]
     };
   }
+}
+
+let androidLiveUpdateTimer=null;
+let androidLiveUpdateBusy=false;
+
+async function checkAndroidLiveUpdate(){
+  if(!isAndroidShell()||androidLiveUpdateBusy)return;
+  androidLiveUpdateBusy=true;
+  try{
+    const info=await fetchVersionInfo();
+    const remote=String(info?.webBuild||"");
+    if(!remote||remote===APP_BUILD)return;
+
+    const busy=document.body.classList.contains("drill-active") || mode==="exam";
+    if(busy){
+      showAppUpdate();
+      const bar=$("#app2Update");
+      if(bar){
+        bar.hidden=false;
+        const b=bar.querySelector("b");
+        if(b)b.textContent="새 버전 준비됨 · 학습 후 적용";
+      }
+      return;
+    }
+
+    appReloading=true;
+    const u=new URL(location.href);
+    u.searchParams.set("v",Date.now().toString(36));
+    location.replace(u.toString());
+  }catch{}finally{
+    androidLiveUpdateBusy=false;
+  }
+}
+
+function enableAndroidLiveUpdates(){
+  if(!isAndroidShell())return;
+  checkAndroidLiveUpdate();
+  if(androidLiveUpdateTimer)return;
+  androidLiveUpdateTimer=setInterval(checkAndroidLiveUpdate,60*1000);
+  document.addEventListener("visibilitychange",()=>{
+    if(!document.hidden)checkAndroidLiveUpdate();
+  });
 }
 
 async function applyWebUpdate(){
