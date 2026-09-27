@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.19.5-20260928",
+  "webBuild": "2.19.6-20260928",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.6",
+      "title": "Android 라이브 업데이트 안정화",
+      "items": [
+        "Android 셸과 웹앱의 실시간 업데이트 연결을 웹 함수 기반으로 정리해 네이티브 빌드 안정성 개선",
+        "앱 실행 중 60초 간격으로 최신 webBuild 확인",
+        "앱 복귀 시 즉시 업데이트 확인",
+        "손글씨·기출 풀이 중에는 자동 새로고침을 미루고 완료 후 적용할 수 있도록 업데이트 배너 표시",
+        "WebView는 최신 GitHub Pages 자산을 우선하도록 캐시 모드 보강"
+      ]
+    },
     {
       "version": "2.19.5",
       "title": "Android 실시간 웹 업데이트",
