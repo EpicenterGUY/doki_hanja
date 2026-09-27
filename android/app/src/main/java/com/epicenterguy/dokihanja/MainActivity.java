@@ -26,8 +26,8 @@ public class MainActivity extends Activity {
     private static final String APP_URL = "https://epicenterguy.github.io/doki_hanja/?app=android";
     private static final String APP_HOST = "epicenterguy.github.io";
     private static final int FILE_CHOOSER_REQUEST = 8102;
-    private static final String APP_SHELL_VERSION = "0.3.0";
-    private static final int APP_SHELL_VERSION_CODE = 3;
+    private static final String APP_SHELL_VERSION = "0.4.0";
+    private static final int APP_SHELL_VERSION_CODE = 4;
 
     private WebView webView;
     private ValueCallback<Uri[]> fileCallback;
@@ -98,6 +98,14 @@ public class MainActivity extends Activity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, android.webkit.WebResourceRequest request) {
                 return handleUrl(request.getUrl());
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                if (url != null && url.startsWith("https://" + APP_HOST + "/")) {
+                    view.evaluateJavascript(LIVE_UPDATE_SCRIPT, null);
+                }
             }
         });
 
@@ -210,6 +218,12 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (webView != null) {
+            webView.evaluateJavascript(
+                    "if(window.__dokiNativeCheckUpdate){window.__dokiNativeCheckUpdate();}",
+                    null
+            );
+        }
         if (pendingUpdateUrl != null &&
                 (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || getPackageManager().canRequestPackageInstalls())) {
             String url = pendingUpdateUrl;
