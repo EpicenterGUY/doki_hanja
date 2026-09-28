@@ -1,9 +1,17 @@
 {
-  "webBuild": "2.19.9-20260928",
+  "webBuild": "2.19.10-20260928",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.10",
+      "title": "기출 가짜 문항 제거",
+      "items": [
+        "새 다열 파서가 1번부터 공식 문항 수까지 완전 연속 범위를 확인한 회차에서는 기존 파서가 잘못 만든 범위 밖 가짜 문항을 제거",
+        "8급 50문항·7급Ⅱ 60문항 등 구형 답안지에서 페이지 숫자를 추가 문제번호로 오인하던 현상 차단"
+      ]
+    },
     {
       "version": "2.19.9",
       "title": "기출 파서 회귀 방지",
