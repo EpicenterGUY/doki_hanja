@@ -35,7 +35,10 @@ const names=[
   "classifyExamHeader","findAnswerStart","parseAnswerRows","markerRE","cleanExamText",
   "contextForQuestion","extractHanjaAfterMarker","extractKoreanBeforeMarker",
   "headerRangesFromFlat","parseCircledChoices","fallbackExamType",
-  "buildProblemizedPrompt","isGenericExamPrompt","problemizeFlatPdf"
+  "buildProblemizedPrompt","isGenericExamPrompt","buildPassageMap",
+  "parseChoiceOptions","stripQuestionMarker","referencedQuestionNumber",
+  "extractHanjaFromProblemLines","extractKoreanFromProblemLines",
+  "examFormatInfo","examHanjaTermSafe","problemizeFlatPdf"
 ];
 const src=names.map(extractFn).join("\n");
 const api=new Function(
