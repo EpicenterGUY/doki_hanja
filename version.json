@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.19.6-20260928",
+  "webBuild": "2.19.7-20260928",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.7",
+      "title": "전체 안정성 점검 · 기출 검증/PWA 복구",
+      "items": [
+        "손상된 학습기록·오답·모르는 한자·급수진단 저장값이 있어도 앱 시작 전체가 멈추지 않도록 안전 복구 처리",
+        "저장공간 오류가 나도 모르는 한자 저장 버튼이 무반응처럼 보이지 않도록 안내 처리",
+        "PWA 오프라인에서 버전 쿼리가 붙은 일본어 JS/CSS를 기존 캐시에서 찾지 못하던 문제 수정",
+        "기출 검증 스크립트에 최신 문제 파서 의존 함수를 추가해 buildPassageMap 누락으로 전 회차 검증이 실패하던 문제 수정",
+        "앱 내 스크립트 문법 및 인라인 이벤트 함수 연결 상태 재점검"
+      ]
+    },
     {
       "version": "2.19.6",
       "title": "Android 라이브 업데이트 안정화",
