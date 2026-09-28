@@ -3193,10 +3193,32 @@ const SPECIAL_SIGNED_EXPIRES=1790780399000;
 const SPECIAL_NEW_META={"92":["u3BnH","btq4Y4RGae5","AAAAAAAAAAAAAAAAAAAAABvVu3adGbKEuSDcKuC60elAwxrHultKd5RM868DUDon","2021.05.15"],"93":["bJFPtT","btq9iA7i7Br","AAAAAAAAAAAAAAAAAAAAAEYCbcercrM9X1b3ZIpm34-OI-3PBI3nNYjSfyWJUmzy","2021.07.10"],"94":["2TrXk","btreJR3WSA1","AAAAAAAAAAAAAAAAAAAAABlEL8xmbRW_ruQ1730LilfsCALiYsYDeXOSbiIOJlnb","2021.09.11"],"95":["7MeQd","btrlFnglFl5","AAAAAAAAAAAAAAAAAAAAAGdV_jhCsux-DU8eABUCdYTX1rV90_md0eX-j_Dkh7JY","2021.11.20"],"96":["bRwIy9","btruxj3rqFp","AAAAAAAAAAAAAAAAAAAAAPW-ptU0MB2n9iVuN29oAF9PoADP5DdHC24bRj7iWAz7","2022.02.26"],"97":["oUSHk","btrDrQEZDKE","AAAAAAAAAAAAAAAAAAAAAOmCNHcr0zG5Cb7_uyfG9tQd7liI65kTkT6ql3fa2TGa","2022.05.28"],"98":["WUFcZ","btrKGQMJ8Ax","AAAAAAAAAAAAAAAAAAAAAAwztp1RjVb6-1wjbtj6rlx2Dz4BZFJH2NtINUrtoEjP","2022.08.27"],"99":["Z1lL3","btrSa7GtiI5","AAAAAAAAAAAAAAAAAAAAAD0-ksspwA6AX4cOD4G4PDz824VEtTFUC7KS4vgLhgJt","2022.11.26"],"100":["orbWG","btr0RPJXV1g","AAAAAAAAAAAAAAAAAAAAAOH5olcdF28sh6xlYYTVA8Or6gIfNwbTipEDckMj8Obl","2023.02.25"],"101":["bjN3U1","btsiuMDq4FG","AAAAAAAAAAAAAAAAAAAAACGBU7yKribKdKSoPgl6L_nBdTXhweglNLo0h8E4q9H3","2023.06.03"],"102":["kSmwa","btsshkDzU5m","AAAAAAAAAAAAAAAAAAAAAG_qOEHVxMx5qUoeusmsSLKT1tbUxGcMmNHWjMZo02tU","2023.08.26"],"103":["dnTLUv","btsAcRNu9SY","AAAAAAAAAAAAAAAAAAAAAP03uJXqZxSj1PvKgz7AEBlsK9yXBlFjPErilxm-OzN_","2023.11.11"],"104":["bxnlK6","btsFjX2LM60","AAAAAAAAAAAAAAAAAAAAADS_x-X76RaWdVTQON3z0Arvmjk1ZT6CsDN-w-kvbEbM","2024.02.24"],"105":["tosAy","btsHDgTxjSS","AAAAAAAAAAAAAAAAAAAAAD_oBjJQsL-LBVaSnPegj2pUKJSUjk-70ijRBO5ecU0F","2024.05.25"],"106":["biWdAC","btsJeq9cUsA","AAAAAAAAAAAAAAAAAAAAAOd6EsyKDjvdvyLmfP7ztIZ8oCBj4oIP_bQwAknzrYVl","2024.08.24"],"107":["bguBJc","btsKDXDARkc","AAAAAAAAAAAAAAAAAAAAAOFP9uoFZ-2qS8WDU5g0rJfuMtBtR7sA_G3vwsiQ02AN","2024.11.09"],"108":["bw0On7","btsMsLij0eZ","AAAAAAAAAAAAAAAAAAAAABBSZfbZ5M6by_EJbz-RC__6hLN3S_L0RfPeSoyEA98X","2025.02.22"],"109":["bqwXfm","btsOcVvi3zK","AAAAAAAAAAAAAAAAAAAAADpQYAuHgDudeCS4UDMAczE8KnXpOPerzk7C-Sk7VaW2","2025.05.24"],"110":["dBtJJT","dJMb9XjU2ZX","AAAAAAAAAAAAAAAAAAAAAHbr27qfSxmG3-ohh3HjpZ9Q77Ah-PO_4Wp0WqHix6aN","2025.08.23"],"111":["cRUq3J","dJMcaaRceVT","AAAAAAAAAAAAAAAAAAAAAMFjLAecpmM77dsIUfsENqoNxuhYif4Bt4sHxbvRpQ0m","2025.11.15"],"112":["eCiY3n","dJMcaiWLgdH","AAAAAAAAAAAAAAAAAAAAALFpiJzimnV2eFGzFPkG1_X7OOSdgLkZqsrOQFajnly9","2026.02.28"],"113":["criszo","dJMcaiwE0u2","AAAAAAAAAAAAAAAAAAAAACQm-0jZS1mB7cvkSk0Ge69x_P9Js4a2pM289FpglqDX","2026.05.23"],"114":["AXEls","dJMcaiqVz4w","AAAAAAAAAAAAAAAAAAAAAJLV4TQkbjI2l78uD1CJjeoF5_uBkv6IhLFWkd2yn4F0","2026.08.22"]};
 
 
-let stats=JSON.parse(localStorage.getItem("hanjaStatsV2")||"{}");
-let wrong=JSON.parse(localStorage.getItem("hanjaWrongV2")||"{}");
-let unknownHanja=JSON.parse(localStorage.getItem("hanjaUnknownV1")||"{}");
-let seenHanjaPowerLevel=+(localStorage.getItem("hanjaPowerSeenLevel")||0);
+function storageGet(key,fallback=null){
+  try{
+    const value=localStorage.getItem(key);
+    return value==null?fallback:value;
+  }catch(e){
+    return fallback;
+  }
+}
+function storageJson(key,fallback){
+  const fresh=()=>Array.isArray(fallback)?[...fallback]:({...fallback});
+  try{
+    const raw=storageGet(key,null);
+    if(raw==null||raw==="")return fresh();
+    const value=JSON.parse(raw);
+    if(Array.isArray(fallback))return Array.isArray(value)?value:fresh();
+    if(fallback&&typeof fallback==="object")return value&&typeof value==="object"&&!Array.isArray(value)?value:fresh();
+    return value??fallback;
+  }catch(e){
+    try{localStorage.removeItem(key)}catch(_){}
+    return fresh();
+  }
+}
+let stats=storageJson("hanjaStatsV2",{});
+let wrong=storageJson("hanjaWrongV2",{});
+let unknownHanja=storageJson("hanjaUnknownV1",{});
+let seenHanjaPowerLevel=+(storageGet("hanjaPowerSeenLevel",0)||0);
 let atlasState={mode:"grade",filter:"all",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"compact",query:"",freqType:"all",period:"all"};
 let atlasFreqCardPage=0;
 const ATLAS_FREQ_CARD_PAGE_SIZE=24;
@@ -3205,19 +3227,19 @@ const atlasRevealSet=new Set();
 const atlasToneBusy=new Set();
 let atlasFreqBusy=false;
 let diagnosisState={mode:"quick",phase:"intro",low:0,high:14,best:-1,stageGrade:null,stageQuestions:[],stageIndex:0,stageCorrect:0,stageAttempted:0,answers:[],tested:[],retest:false,totalAnswered:0,result:null};
-let diagnosisHistory=JSON.parse(localStorage.getItem("hanjaDiagnosisHistoryV1")||"[]");
-let hanjaFontMode=localStorage.getItem("hanjaFontModeV2")||"atlas";
-function applyHanjaFontMode(mode){hanjaFontMode=["atlas","soft","serif"].includes(mode)?mode:"atlas";document.documentElement.dataset.hanjaFont=hanjaFontMode;localStorage.setItem("hanjaFontModeV2",hanjaFontMode)}
+let diagnosisHistory=storageJson("hanjaDiagnosisHistoryV1",[]);
+let hanjaFontMode=storageGet("hanjaFontModeV2","atlas")||"atlas";
+function applyHanjaFontMode(mode){hanjaFontMode=["atlas","soft","serif"].includes(mode)?mode:"atlas";document.documentElement.dataset.hanjaFont=hanjaFontMode;try{localStorage.setItem("hanjaFontModeV2",hanjaFontMode)}catch(e){}}
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-function toast(t){const e=$("#toast");e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",1800)}
+function toast(t){const e=$("#toast");if(!e){console.warn("[DOKI]",t);return}e.textContent=t;e.style.display="block";clearTimeout(e._t);e._t=setTimeout(()=>e.style.display="none",1800)}
 function norm(s){return String(s??"").replace(/\s+/g,"").replace(/[·ㆍ]/g,"").trim().toLowerCase()}
 function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]))}
 function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 function sample(a,n){return shuffle([...a]).slice(0,n)}
 function unknownHanjaKey(c){return `${c.level}|${c.hanja}`}
 function unknownHanjaSaved(c){return !!unknownHanja[unknownHanjaKey(c)]}
-function persistUnknownHanja(){localStorage.setItem("hanjaUnknownV1",JSON.stringify(unknownHanja))}
+function persistUnknownHanja(){try{localStorage.setItem("hanjaUnknownV1",JSON.stringify(unknownHanja))}catch(e){toast("저장공간에 기록하지 못했습니다. 브라우저 저장공간을 확인해 주세요.")}}
 function saveUnknownHanja(c){
   if(!c?.hanja)return;
   const k=unknownHanjaKey(c),exists=!!unknownHanja[k],p=charPrimary(c),forms=officialMeaningSoundForms(c),now=Date.now();
@@ -3433,7 +3455,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.6-20260928";
+const APP_BUILD="2.19.7-20260928";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
