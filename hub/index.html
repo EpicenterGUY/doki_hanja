@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<meta name="color-scheme" content="dark light">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Project Hub">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<title>Project Hub · EpicenterGUY</title>
+<style>
+:root{
+  --bg:#080b12;--panel:rgba(18,23,36,.78);--panel2:#141b2a;--line:rgba(255,255,255,.09);
+  --text:#f6f8ff;--muted:#9ba8bf;--soft:#69758c;--accent:#8aa0ff;--shadow:0 26px 70px rgba(0,0,0,.34);
+  --r:26px;
+}
+*{box-sizing:border-box}
+html{background:var(--bg);-webkit-text-size-adjust:100%}
+body{
+  margin:0;min-height:100vh;color:var(--text);
+  font-family:Inter,Pretendard,"Noto Sans KR","Noto Sans JP",system-ui,-apple-system,sans-serif;
+  background:
+    radial-gradient(circle at 8% 4%,rgba(108,130,255,.18),transparent 30%),
+    radial-gradient(circle at 88% 16%,rgba(77,220,210,.10),transparent 26%),
+    radial-gradient(circle at 55% 100%,rgba(255,110,150,.08),transparent 35%),
+    var(--bg);
+}
+button,input,a{font:inherit}
+a{color:inherit;text-decoration:none}
+button{cursor:pointer}
+.shell{width:min(1180px,100%);margin:auto;padding:clamp(18px,3vw,34px)}
+.top{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:28px;
+}
+.eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#91a0b8;font-weight:900}
+h1{margin:8px 0 8px;font-size:clamp(32px,6vw,62px);line-height:.98;letter-spacing:-.055em}
+.lead{margin:0;color:var(--muted);font-size:14px;line-height:1.55}
+.actions{display:flex;gap:8px;align-items:center}
+.iconbtn{
+  width:44px;height:44px;border:1px solid var(--line);border-radius:14px;background:rgba(18,23,36,.7);
+  color:var(--text);display:grid;place-items:center;backdrop-filter:blur(18px)
+}
+.toolbar{
+  display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;margin-bottom:16px
+}
+.search{
+  display:flex;align-items:center;gap:10px;padding:0 14px;height:48px;border-radius:16px;
+  border:1px solid var(--line);background:rgba(16,21,34,.76);backdrop-filter:blur(18px)
+}
+.search input{border:0;outline:0;background:transparent;color:var(--text);width:100%;min-width:0}
+.search input::placeholder{color:#758199}
+.count{
+  height:48px;padding:0 15px;border:1px solid var(--line);border-radius:16px;background:rgba(16,21,34,.76);
+  display:flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;font-weight:800
+}
+.dot{width:8px;height:8px;border-radius:50%;background:#69e4b2;box-shadow:0 0 14px rgba(105,228,178,.7)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.card{
+  position:relative;min-height:310px;padding:21px;border:1px solid var(--line);border-radius:var(--r);
+  background:linear-gradient(180deg,rgba(22,28,43,.91),rgba(13,17,28,.91));
+  box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;
+  transition:transform .22s ease,border-color .22s ease;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.18)}
+.card:before{
+  content:"";position:absolute;inset:-40% -30% auto auto;width:210px;height:210px;border-radius:50%;
+  background:var(--glow);filter:blur(8px);opacity:.18;pointer-events:none
+}
+.cardtop{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:relative}
+.logo{
+  width:58px;height:58px;border-radius:18px;display:grid;place-items:center;
+  background:var(--logo);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 12px 30px rgba(0,0,0,.18);
+  font-weight:1000;font-size:22px;letter-spacing:-.05em
+}
+.badge{
+  padding:7px 9px;border:1px solid rgba(255,255,255,.08);border-radius:999px;
+  background:rgba(255,255,255,.05);color:#c7d1e2;font-size:11px;font-weight:850
+}
+.card h2{font-size:24px;margin:20px 0 6px;letter-spacing:-.04em;position:relative}
+.desc{color:var(--muted);font-size:13px;line-height:1.55;min-height:61px;margin:0}
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:16px 0 18px}
+.tag{font-size:10px;color:#b9c5d8;background:rgba(255,255,255,.055);padding:6px 8px;border-radius:999px}
+.meta{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line)}
+.ver{display:flex;flex-direction:column;gap:3px}
+.ver small{font-size:9px;color:var(--soft);font-weight:900;letter-spacing:.08em}
+.ver strong{font-size:13px}
+.links{display:flex;gap:8px}
+.btn{
+  min-height:39px;padding:0 12px;border-radius:12px;border:1px solid var(--line);display:flex;align-items:center;gap:7px;
+  font-size:12px;font-weight:900;background:rgba(255,255,255,.055)
+}
+.btn.primary{background:var(--button);border-color:transparent;color:#fff}
+.empty{
+  display:none;text-align:center;padding:46px 20px;color:var(--muted);border:1px dashed var(--line);
+  border-radius:22px
+}
+.foot{
+  margin-top:18px;padding:14px 2px;display:flex;justify-content:space-between;gap:14px;align-items:center;
+  color:var(--soft);font-size:11px
+}
+.sync{display:flex;align-items:center;gap:7px}
+.sync i{width:6px;height:6px;border-radius:50%;background:#73809a}
+body.light{
+  --bg:#f4f6fb;--panel:rgba(255,255,255,.82);--panel2:#fff;--line:rgba(18,28,48,.09);
+  --text:#151b27;--muted:#667085;--soft:#8892a3;--shadow:0 24px 60px rgba(45,57,86,.10)
+}
+body.light{
+  background:
+    radial-gradient(circle at 8% 4%,rgba(108,130,255,.13),transparent 30%),
+    radial-gradient(circle at 88% 16%,rgba(77,220,210,.11),transparent 26%),
+    #f4f6fb
+}
+body.light .card{background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(248,250,255,.94))}
+body.light .iconbtn,body.light .search,body.light .count{background:rgba(255,255,255,.78)}
+body.light .tag,body.light .badge,body.light .btn{background:rgba(18,28,48,.045);color:#536078}
+body.light .btn.primary{color:#fff}
+@media(max-width:900px){.grid{grid-template-columns:1fr 1fr}.card{min-height:286px}}
+@media(max-width:640px){
+  .shell{padding:18px 14px 24px}.top{margin-bottom:20px}.lead{max-width:28em}
+  .toolbar{grid-template-columns:1fr}.count{display:none}
+  .grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding:1px 1px 9px;overscroll-behavior-x:contain}
+  .grid::-webkit-scrollbar{display:none}
+  .card{min-width:min(86vw,350px);min-height:360px;scroll-snap-align:center}
+  .foot{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:410px){.top{align-items:flex-start}.card{min-width:88vw;padding:18px}.logo{width:52px;height:52px}}
+</style>
+</head>
+<body>
+<main class="shell">
+  <header class="top">
+    <div>
+      <div class="eyebrow">EpicenterGUY · Personal Lab</div>
+      <h1>Project Hub</h1>
+      <p class="lead">만들고 있는 앱을 한곳에서 열고, 버전과 저장소까지 바로 확인하는 개인 프로젝트 허브.</p>
+    </div>
+    <div class="actions">
+      <button class="iconbtn" id="themeBtn" aria-label="테마 전환" title="테마 전환">◐</button>
+    </div>
+  </header>
+
+  <section class="toolbar">
+    <label class="search" aria-label="프로젝트 검색">
+      <span>⌕</span>
+      <input id="q" type="search" placeholder="프로젝트 검색" autocomplete="off">
+    </label>
+    <div class="count"><span class="dot"></span><span id="countText">프로젝트 불러오는 중</span></div>
+  </section>
+
+  <section class="grid" id="grid" aria-live="polite"></section>
+  <div class="empty" id="empty">검색 결과가 없어.</div>
+
+  <footer class="foot">
+    <span>새 프로젝트는 <b>projects.json</b>에 추가하면 허브에 자동 반영.</span>
+    <span class="sync"><i></i><span id="syncText">버전 확인 준비</span></span>
+  </footer>
+</main>
+
+<script>
+const fallbackProjects=[
+  {
+    id:"doki",name:"DOKI 漢字",mark:"漢",status:"개발 중",
+    description:"한국어문회 한자 학습, 기출 연습, 손글씨 채점과 일본 한자 학습을 한곳에 묶은 올인원 트레이너.",
+    tags:["한자","어문회","손글씨","PWA"],
+    live:"https://epicenterguy.github.io/doki_hanja/",
+    repo:"https://github.com/EpicenterGUY/doki_hanja",
+    version:"v2.19.10",
+    versionUrl:"/doki_hanja/version.json",versionType:"doki",
+    logo:"linear-gradient(145deg,#6f7cff,#9c72ff)",glow:"#7d87ff",button:"linear-gradient(135deg,#6677ff,#916bff)"
+  },
+  {
+    id:"nihongo",name:"日本語 MASTER",mark:"日",status:"개발 중",
+    description:"N5부터 N1, N1+와 오니 모드까지 이어지는 한국어 사용자용 일본어 학습 앱.",
+    tags:["JLPT","일본어","오니 모드","방언"],
+    live:"https://epicenterguy.github.io/nihongo-master/",
+    repo:"https://github.com/EpicenterGUY/nihongo-master",
+    version:"v10.15.1",
+    versionUrl:"/nihongo-master/version.json",versionType:"nihongo",
+    logo:"linear-gradient(145deg,#ff7858,#ffb45c)",glow:"#ff8d6c",button:"linear-gradient(135deg,#ff6f58,#ff9c5d)"
+  },
+  {
+    id:"vocadive",name:"VocaDive",mark:"VD",status:"개발 중",
+    description:"보컬로이드·UTAU·SynthV 등 음성합성 오리지널곡을 검색, 추천, 발굴하고 깊게 탐색하는 음악 앱.",
+    tags:["Vocaloid","UTAU","추천","탐정"],
+    live:"https://epicenterguy.github.io/voice-synth-archive/",
+    repo:"https://github.com/EpicenterGUY/voice-synth-archive",
+    version:"v39.97.0",
+    versionUrl:"/voice-synth-archive/manifest.webmanifest",versionType:"vocadive",
+    logo:"linear-gradient(145deg,#50d9ff,#8477ff)",glow:"#55d9ff",button:"linear-gradient(135deg,#35c9ea,#756cff)"
+  }
+];
+
+let projects=[];
+const grid=document.getElementById("grid");
+const empty=document.getElementById("empty");
+const countText=document.getElementById("countText");
+const syncText=document.getElementById("syncText");
+const q=document.getElementById("q");
+
+function esc(v){return String(v??"").replace(/[&<>"']/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c]})}
+function card(p){
+  return '<article class="card" data-id="'+esc(p.id)+'" style="--logo:'+esc(p.logo)+';--glow:'+esc(p.glow)+';--button:'+esc(p.button)+'">'+
+    '<div class="cardtop"><div class="logo">'+esc(p.mark)+'</div><span class="badge">'+esc(p.status||"개발 중")+'</span></div>'+
+    '<h2>'+esc(p.name)+'</h2><p class="desc">'+esc(p.description)+'</p>'+
+    '<div class="tags">'+(p.tags||[]).map(function(t){return '<span class="tag">'+esc(t)+'</span>'}).join("")+'</div>'+
+    '<div class="meta"><div class="ver"><small>CURRENT VERSION</small><strong data-version>'+esc(p.version||"확인 중")+'</strong></div>'+
+    '<div class="links"><a class="btn" href="'+esc(p.repo)+'" target="_blank" rel="noopener">Code ↗</a>'+
+    '<a class="btn primary" href="'+esc(p.live)+'">열기 →</a></div></div></article>';
+}
+function render(){
+  const term=q.value.trim().toLowerCase();
+  const filtered=projects.filter(function(p){
+    return !term || [p.name,p.description].concat(p.tags||[]).join(" ").toLowerCase().includes(term);
+  });
+  grid.innerHTML=filtered.map(card).join("");
+  empty.style.display=filtered.length?"none":"block";
+  countText.textContent=projects.length+" projects · active";
+}
+async function loadProjects(){
+  try{
+    const r=await fetch("./projects.json",{cache:"no-store"});
+    if(!r.ok) throw new Error("registry");
+    projects=await r.json();
+  }catch(e){projects=fallbackProjects}
+  render();
+  refreshVersions();
+}
+async function refreshVersions(){
+  let ok=0;
+  await Promise.all(projects.map(async function(p){
+    if(!p.versionUrl)return;
+    try{
+      const r=await fetch(p.versionUrl+"?hub="+Date.now(),{cache:"no-store"});
+      if(!r.ok)throw new Error("version");
+      const data=await r.json();
+      let v=p.version;
+      if(p.versionType==="doki")v="v"+(data.webBuild||"").split("-")[0];
+      else if(p.versionType==="nihongo")v="v"+data.version;
+      else if(p.versionType==="vocadive"){
+        const m=String(data.start_url||"").match(/[?&]appv=([^&]+)/);
+        if(m)v="v"+decodeURIComponent(m[1]);
+      }
+      if(v){
+        p.version=v;ok++;
+        const el=document.querySelector('[data-id="'+CSS.escape(p.id)+'"] [data-version]');
+        if(el)el.textContent=v;
+      }
+    }catch(e){}
+  }));
+  syncText.textContent=ok?("버전 동기화 "+ok+"/"+projects.length):"기본 버전 표시 중";
+}
+q.addEventListener("input",render);
+const savedTheme=localStorage.getItem("projectHubTheme");
+if(savedTheme==="light"||(!savedTheme&&matchMedia("(prefers-color-scheme: light)").matches))document.body.classList.add("light");
+document.getElementById("themeBtn").addEventListener("click",function(){
+  document.body.classList.toggle("light");
+  localStorage.setItem("projectHubTheme",document.body.classList.contains("light")?"light":"dark");
+});
+loadProjects();
+</script>
+</body>
+</html>
