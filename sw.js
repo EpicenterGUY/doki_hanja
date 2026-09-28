@@ -1,4 +1,4 @@
-const CACHE="doki-hanja-app-v55-20260928";
+const CACHE="doki-hanja-app-v56-20260928";
 const CORE=["./","./index.html","./manifest.webmanifest","./version.json","./icon.svg","./icon-maskable.svg","./report-config.js","./japanese.css","./japanese.js","./data/japanese/joyo.tsv","./data/japanese/hyogai.txt","./data/japanese/NOTICE.txt","./data/japanese/words.json"];
 
 self.addEventListener("install",event=>{
@@ -26,7 +26,8 @@ async function networkFirst(request){
     if(response&&response.ok)cache.put(request,response.clone());
     return response;
   }catch(err){
-    return (await cache.match(request)) || (request.mode==="navigate" ? cache.match("./index.html") : Promise.reject(err));
+    const cached=await cache.match(request,{ignoreSearch:true});
+    return cached || (request.mode==="navigate" ? cache.match("./index.html",{ignoreSearch:true}) : Promise.reject(err));
   }
 }
 
