@@ -1,0 +1,19 @@
+{
+  "name": "EpicenterGUY Project Hub",
+  "short_name": "Project Hub",
+  "description": "DOKI 漢字, 日本語 MASTER, VocaDive를 모아둔 개인 프로젝트 허브",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#080b12",
+  "theme_color": "#0b1020",
+  "lang": "ko-KR",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
