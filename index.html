@@ -7035,7 +7035,7 @@ function recordDrillHandwriting(c,q,ok){
 function bindCanvasDrawing(c,ctx,onStrokeStart){
   let drawing=false,last=null,activePointerId=null,activePointerType="";
   let penPreferredUntil=0;
-  const PALM_CONTACT_PX=26;
+  const PALM_CONTACT_PX=54;
   const PEN_GUARD_MS=1100;
   const clock=()=>window.performance?.now?.()??Date.now();
   const source=e=>e.touches?.[0]||e.changedTouches?.[0]||e;
