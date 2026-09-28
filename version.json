@@ -1,9 +1,18 @@
 {
-  "webBuild": "2.19.7-20260928",
+  "webBuild": "2.19.8-20260928",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.8",
+      "title": "구형 기출 답안 인식 보강",
+      "items": [
+        "옛 답안지에서 정답 자체가 숫자로 시작할 때 그 숫자를 새 문제번호로 오인하던 파서 수정",
+        "답안지의 2열·3열 문제번호를 다음 행과 비교해 실제 열 번호만 추적하도록 변경",
+        "줄바꿈된 정답을 같은 문항에 이어 붙여 오래된 회차의 자동채점 누락을 줄임"
+      ]
+    },
     {
       "version": "2.19.7",
       "title": "전체 안정성 점검 · 기출 검증/PWA 복구",
