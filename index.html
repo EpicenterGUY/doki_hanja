@@ -3455,7 +3455,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.8-20260928";
+const APP_BUILD="2.19.9-20260928";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -6044,103 +6044,190 @@ function findAnswerStart(flat){
   return idx;
 }
 function parseAnswerRows(allLines,startIndex){
-  const ans={};
-  let columnCount=0,starts=null,rowOffset=0,lastQuestion=null;
-
   const clean=s=>String(s||"")
     .replace(/\s+(?:1검|2검).*$/,"")
     .replace(/\s+/g," ").trim();
 
   const noise=line=>
-    /수험번호|주민등록|채점위원|감독위원|답안란|채점란|득점|서명|뒷면|사단법인|韓國語文會|한국어문회|본\s*답안지|컴퓨터로\s*처리|오답처리/.test(line) ||
+    /수험번호|주민등록|채점위원|감독위원|답안란|채점란|번호\s*정답|득점|서명|뒷면|사단법인|韓國語文會|한국어문회|본\s*답안지|컴퓨터로\s*처리|오답처리/.test(line) ||
     /^\s*[■□]+\s*$/.test(line) ||
     /^\s*[-–—]?\s*\d+\s*[-–—]?\s*$/.test(line);
 
-  const numberTokens=line=>[...String(line||"").matchAll(/(?:^|\s)(\d{1,3})(?=\s|$)/g)]
-    .map(m=>+m[1]).filter(n=>n>=1&&n<=200);
+  function legacyParse(){
+    const ans={};
+    let loose=[];
+    let pending=null;
+    let pendingContinuationUsed=false;
 
-  const tokenMark=(line,n,from=0)=>{
-    const re=new RegExp("(^|\\s)("+n+")(?=\\s|$)","g");
-    re.lastIndex=from;
-    const m=re.exec(line);
-    if(!m)return null;
-    const start=m.index+m[1].length;
-    return {n,start,end:start+String(n).length};
-  };
-
-  const nextNumberTokens=from=>{
-    for(let j=from;j<allLines.length;j++){
-      const raw=String(allLines[j]||"");
-      if((raw.match(/번호\s*정답/g)||[]).length)return[];
-      const line=clean(raw);
-      if(!line||noise(line))continue;
-      const nums=numberTokens(line);
-      if(nums.length)return nums;
-    }
-    return[];
-  };
-
-  for(let i=startIndex;i<allLines.length;i++){
-    const raw=String(allLines[i]||"");
-    const heads=(raw.match(/번호\s*정답/g)||[]).length;
-    if(heads){
-      columnCount=Math.max(1,heads);
-      starts=null;rowOffset=0;lastQuestion=null;
-      continue;
-    }
-
-    const line=clean(raw);
-    if(!line||noise(line))continue;
-
-    if(columnCount&&!starts){
-      const nums=numberTokens(line);
-      const next=nextNumberTokens(i+1);
-      let chosen=nums.filter(n=>next.includes(n+1));
-      if(chosen.length<columnCount){
-        chosen=[];
-        for(const n of nums){
-          if(!chosen.length||n>chosen[chosen.length-1])chosen.push(n);
-          if(chosen.length===columnCount)break;
-        }
-      }
-      if(chosen.length){
-        starts=chosen.slice(0,columnCount);
-        rowOffset=0;
-      }
-    }
-
-    if(starts&&starts.length){
-      const expected=starts.map(n=>n+rowOffset).filter(n=>n>=1&&n<=200);
-      const marks=[];
-      let from=0;
-      for(const n of expected){
-        const mark=tokenMark(line,n,from);
-        if(mark){marks.push(mark);from=mark.end}
-      }
-
-      if(marks.length){
-        for(let j=0;j<marks.length;j++){
-          const cur=marks[j],next=marks[j+1];
-          const value=clean(line.slice(cur.end,next?next.start:line.length));
-          if(value)ans[cur.n]=value;
-          else if(ans[cur.n]===undefined)ans[cur.n]="";
-        }
-        lastQuestion=marks[marks.length-1].n;
-        rowOffset++;
+    for(let i=startIndex;i<allLines.length;i++){
+      const line=clean(allLines[i]);
+      if(!line)continue;
+      if(noise(line)){
+        if(pending===null)loose=[];
         continue;
       }
+
+      if(pending!==null){
+        const dup=line.match(/^(\d{1,3})\s+(.+)$/);
+        if(dup && ans[+dup[1]]!==undefined && +dup[1]!==pending){
+          ans[pending]=clean(dup[2]);
+          pending=null;
+          pendingContinuationUsed=false;
+          continue;
+        }
+      }
+
+      const nums=[...line.matchAll(/(?:^|\s)(\d{1,3})(?=\s|$)/g)]
+        .map(m=>({n:+m[1],idx:m.index+(m[0].length-m[1].length),end:m.index+m[0].length}))
+        .filter(x=>x.n>=1&&x.n<=200);
+
+      if(nums.length){
+        const cells=[];
+        for(let j=0;j<nums.length;j++){
+          const cur=nums[j],next=nums[j+1];
+          const value=clean(line.slice(cur.end,next?next.idx:line.length));
+          cells.push({n:cur.n,a:value});
+        }
+
+        const empty=cells.filter(x=>!x.a);
+        const originallyEmpty=empty.map(x=>x.n);
+        if(loose.length&&empty.length)empty[empty.length-1].a=clean(loose.join(" "));
+        loose=[];
+
+        pending=null;
+        pendingContinuationUsed=false;
+        for(const cell of cells){
+          if(cell.a&&!/^(?:검|득점|서명)$/.test(cell.a))ans[cell.n]=cell.a;
+        }
+
+        const last=cells[cells.length-1];
+        if(last&&originallyEmpty.includes(last.n)){
+          ans[last.n]=ans[last.n]||last.a||"";
+          pending=last.n;
+          pendingContinuationUsed=false;
+        }
+        continue;
+      }
+
+      if(pending!==null){
+        if(!pendingContinuationUsed){
+          ans[pending]=clean((ans[pending]||"")+" "+line);
+          pendingContinuationUsed=true;
+        }else{
+          pending=null;
+          pendingContinuationUsed=false;
+          if(line.length<120)loose=[line];
+        }
+      }else if(line.length<120){
+        loose.push(line);
+        if(loose.length>2)loose.shift();
+      }
     }
 
-    if(lastQuestion!==null&&line.length<180){
-      ans[lastQuestion]=clean((ans[lastQuestion]||"")+" "+line);
+    for(const k of Object.keys(ans)){
+      ans[k]=clean(ans[k]);
+      if(!ans[k])delete ans[k];
     }
+    return ans;
   }
 
-  for(const k of Object.keys(ans)){
-    ans[k]=clean(ans[k]);
-    if(!ans[k])delete ans[k];
+  function structuredParse(){
+    const ans={};
+    let columnCount=0,starts=null,rowOffset=0,lastQuestion=null;
+
+    const numberTokens=line=>[...String(line||"").matchAll(/(?:^|\s)(\d{1,3})(?=\s|$)/g)]
+      .map(m=>+m[1]).filter(n=>n>=1&&n<=200);
+
+    const tokenMark=(line,n,from=0)=>{
+      const re=new RegExp("(^|\\s)("+n+")(?=\\s|$)","g");
+      re.lastIndex=from;
+      const m=re.exec(line);
+      if(!m)return null;
+      const start=m.index+m[1].length;
+      return {n,start,end:start+String(n).length};
+    };
+
+    const nextNumberTokens=from=>{
+      for(let j=from;j<allLines.length;j++){
+        const raw=String(allLines[j]||"");
+        if((raw.match(/번호\s*정답/g)||[]).length)return[];
+        const line=clean(raw);
+        if(!line||noise(line))continue;
+        const nums=numberTokens(line);
+        if(nums.length)return nums;
+      }
+      return[];
+    };
+
+    for(let i=startIndex;i<allLines.length;i++){
+      const raw=String(allLines[i]||"");
+      const heads=(raw.match(/번호\s*정답/g)||[]).length;
+      if(heads){
+        columnCount=Math.max(1,heads);
+        starts=null;rowOffset=0;lastQuestion=null;
+        continue;
+      }
+
+      const line=clean(raw);
+      if(!line||noise(line))continue;
+
+      if(columnCount&&!starts){
+        const nums=numberTokens(line);
+        const next=nextNumberTokens(i+1);
+        let chosen=nums.filter(n=>next.includes(n+1));
+        if(chosen.length<columnCount){
+          chosen=[];
+          for(const n of nums){
+            if(!chosen.length||n>chosen[chosen.length-1])chosen.push(n);
+            if(chosen.length===columnCount)break;
+          }
+        }
+        if(chosen.length){
+          starts=chosen.slice(0,columnCount);
+          rowOffset=0;
+        }
+      }
+
+      if(starts&&starts.length){
+        const expected=starts.map(n=>n+rowOffset).filter(n=>n>=1&&n<=200);
+        const marks=[];
+        let from=0;
+        for(const n of expected){
+          const mark=tokenMark(line,n,from);
+          if(mark){marks.push(mark);from=mark.end}
+        }
+
+        if(marks.length){
+          for(let j=0;j<marks.length;j++){
+            const cur=marks[j],next=marks[j+1];
+            const value=clean(line.slice(cur.end,next?next.start:line.length));
+            if(value)ans[cur.n]=value;
+            else if(ans[cur.n]===undefined)ans[cur.n]="";
+          }
+          lastQuestion=marks[marks.length-1].n;
+          rowOffset++;
+          continue;
+        }
+      }
+
+      if(lastQuestion!==null&&line.length<180){
+        ans[lastQuestion]=clean((ans[lastQuestion]||"")+" "+line);
+      }
+    }
+
+    for(const k of Object.keys(ans)){
+      ans[k]=clean(ans[k]);
+      if(!ans[k])delete ans[k];
+    }
+    return ans;
   }
-  return ans;
+
+  const base=legacyParse();
+  const structured=structuredParse();
+  for(const [k,v] of Object.entries(structured)){
+    if(!base[k]&&v)base[k]=v;
+  }
+  return base;
 }
 async function analyzeRemotePdf(round){
   const status=$("#remoteStatus");
