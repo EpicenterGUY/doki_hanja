@@ -29,21 +29,25 @@ let jpState={
   wordList:[],
   wordIndex:0,
   wordChecked:false,
-  wordHideMeaning:localStorage.getItem("jpWordHideMeaningV1")!=="0"
+  wordHideMeaning:storageGet("jpWordHideMeaningV1","1")!=="0"
 };
-let jpStats=JSON.parse(localStorage.getItem("jpHanjaStatsV1")||"{}");
-let jpUnknown=JSON.parse(localStorage.getItem("jpHanjaUnknownV1")||"{}");
-let jpWordStats=JSON.parse(localStorage.getItem("jpWordStatsV1")||"{}");
-let jpAtlasApiCache=JSON.parse(localStorage.getItem("jpKanjiApiCacheV1")||"{}");
+let jpStats=storageJson("jpHanjaStatsV1",{});
+let jpUnknown=storageJson("jpHanjaUnknownV1",{});
+let jpWordStats=storageJson("jpWordStatsV1",{});
+let jpAtlasApiCache=storageJson("jpKanjiApiCacheV1",{});
 
 function jpSetLabel(s){return s==="joyo"?"常用漢字":"表外漢字"}
 function jpGradeLabel(g){return g==="S"?"中高":("小"+g)}
 function jpKey(item){return (item.set||jpState.set)+"|"+item.char}
 function jpWordKey(item){return "word|"+item.word}
 function saveJpProgress(){
-  localStorage.setItem("jpHanjaStatsV1",JSON.stringify(jpStats));
-  localStorage.setItem("jpHanjaUnknownV1",JSON.stringify(jpUnknown));
-  localStorage.setItem("jpWordStatsV1",JSON.stringify(jpWordStats));
+  try{
+    localStorage.setItem("jpHanjaStatsV1",JSON.stringify(jpStats));
+    localStorage.setItem("jpHanjaUnknownV1",JSON.stringify(jpUnknown));
+    localStorage.setItem("jpWordStatsV1",JSON.stringify(jpWordStats));
+  }catch(e){
+    toast("日本漢字 학습기록을 저장하지 못했습니다. 브라우저 저장공간을 확인해 주세요.");
+  }
 }
 function saveJpApiCache(){
   try{localStorage.setItem("jpKanjiApiCacheV1",JSON.stringify(jpAtlasApiCache))}catch{}
