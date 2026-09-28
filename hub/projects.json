@@ -1,0 +1,65 @@
+[
+  {
+    "id": "doki",
+    "name": "DOKI 漢字",
+    "mark": "漢",
+    "status": "개발 중",
+    "description": "한국어문회 한자 학습, 기출 연습, 손글씨 채점과 일본 한자 학습을 한곳에 묶은 올인원 트레이너.",
+    "tags": [
+      "한자",
+      "어문회",
+      "손글씨",
+      "PWA"
+    ],
+    "live": "https://epicenterguy.github.io/doki_hanja/",
+    "repo": "https://github.com/EpicenterGUY/doki_hanja",
+    "version": "v2.19.10",
+    "versionUrl": "/doki_hanja/version.json",
+    "versionType": "doki",
+    "logo": "linear-gradient(145deg,#6f7cff,#9c72ff)",
+    "glow": "#7d87ff",
+    "button": "linear-gradient(135deg,#6677ff,#916bff)"
+  },
+  {
+    "id": "nihongo",
+    "name": "日本語 MASTER",
+    "mark": "日",
+    "status": "개발 중",
+    "description": "N5부터 N1, N1+와 오니 모드까지 이어지는 한국어 사용자용 일본어 학습 앱.",
+    "tags": [
+      "JLPT",
+      "일본어",
+      "오니 모드",
+      "방언"
+    ],
+    "live": "https://epicenterguy.github.io/nihongo-master/",
+    "repo": "https://github.com/EpicenterGUY/nihongo-master",
+    "version": "v10.15.1",
+    "versionUrl": "/nihongo-master/version.json",
+    "versionType": "nihongo",
+    "logo": "linear-gradient(145deg,#ff7858,#ffb45c)",
+    "glow": "#ff8d6c",
+    "button": "linear-gradient(135deg,#ff6f58,#ff9c5d)"
+  },
+  {
+    "id": "vocadive",
+    "name": "VocaDive",
+    "mark": "VD",
+    "status": "개발 중",
+    "description": "보컬로이드·UTAU·SynthV 등 음성합성 오리지널곡을 검색, 추천, 발굴하고 깊게 탐색하는 음악 앱.",
+    "tags": [
+      "Vocaloid",
+      "UTAU",
+      "추천",
+      "탐정"
+    ],
+    "live": "https://epicenterguy.github.io/voice-synth-archive/",
+    "repo": "https://github.com/EpicenterGUY/voice-synth-archive",
+    "version": "v39.97.0",
+    "versionUrl": "/voice-synth-archive/manifest.webmanifest",
+    "versionType": "vocadive",
+    "logo": "linear-gradient(145deg,#50d9ff,#8477ff)",
+    "glow": "#55d9ff",
+    "button": "linear-gradient(135deg,#35c9ea,#756cff)"
+  }
+]
