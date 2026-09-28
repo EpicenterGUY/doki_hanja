@@ -37,6 +37,12 @@ self.addEventListener("fetch",event=>{
   const url=new URL(req.url);
   if(url.origin!==self.location.origin)return;
 
+  // Project Hub must always bypass the DOKI app cache.
+  if(url.pathname.includes("/doki_hanja/hub/")){
+    event.respondWith(fetch(req,{cache:"no-store"}));
+    return;
+  }
+
   if(
     req.mode==="navigate" ||
     url.pathname.endsWith(".html") ||
