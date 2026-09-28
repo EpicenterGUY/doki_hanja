@@ -24,8 +24,13 @@ html,body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,
 body{padding-top:env(safe-area-inset-top);padding-right:env(safe-area-inset-right);padding-bottom:env(safe-area-inset-bottom);padding-left:env(safe-area-inset-left)}
 button,input:not([type="checkbox"]):not([type="radio"]),select,textarea{-webkit-appearance:none;appearance:none;border-radius:10px}
 button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
-canvas{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overscroll-behavior:contain}
-body{min-height:100vh}
+canvas{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-user-drag:none;overscroll-behavior:contain}
+body{min-height:100vh;min-height:100svh}
+@supports(height:100dvh){body{min-height:100dvh}}
+@supports(-webkit-touch-callout:none){
+  input,select,textarea{font-size:16px}
+  .table-wrap,#practiceSettingsPanel,.global-search-sheet{-webkit-overflow-scrolling:touch}
+}
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
 .app{max-width:1180px;margin:auto;padding:18px}
@@ -3455,7 +3460,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.10-20260928";
+const APP_BUILD="2.19.11-20260928";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -7028,36 +7033,84 @@ function recordDrillHandwriting(c,q,ok){
 
 
 function bindCanvasDrawing(c,ctx,onStrokeStart){
-  let drawing=false,last=null;
+  let drawing=false,last=null,activePointerId=null,activePointerType="";
+  let penPreferredUntil=0;
+  const PALM_CONTACT_PX=26;
+  const PEN_GUARD_MS=1100;
+  const clock=()=>window.performance?.now?.()??Date.now();
+  const source=e=>e.touches?.[0]||e.changedTouches?.[0]||e;
+  const inputType=e=>{
+    const src=source(e);
+    if(e.pointerType)return e.pointerType;
+    if(src?.touchType==="stylus")return "pen";
+    if(e.touches||e.changedTouches)return "touch";
+    return "mouse";
+  };
+  const contactSize=e=>{
+    const src=source(e);
+    const w=Number(e.width)||Number(src?.radiusX)*2||0;
+    const h=Number(e.height)||Number(src?.radiusY)*2||0;
+    return Math.max(w,h);
+  };
+  const eventId=e=>e.pointerId!==undefined?e.pointerId:"legacy";
   const pos=e=>{
     const r=c.getBoundingClientRect();
-    const src=e.touches?.[0]||e.changedTouches?.[0]||e;
+    const src=source(e);
     return [(src.clientX-r.left)*c.width/r.width,(src.clientY-r.top)*c.height/r.height];
   };
+  const suppress=e=>{if(e?.cancelable)e.preventDefault()};
+  const shouldIgnoreDown=e=>{
+    const type=inputType(e),size=contactSize(e);
+    if(type==="pen"){
+      penPreferredUntil=clock()+PEN_GUARD_MS;
+      return false;
+    }
+    if(type==="touch"){
+      // iPad/iPhone: Apple Pencil이 감지된 직후의 손바닥 입력과 넓은 접촉면을 획으로 취급하지 않는다.
+      if(clock()<penPreferredUntil||size>=PALM_CONTACT_PX||e.isPrimary===false)return true;
+      if((e.touches?.length||0)>1)return true;
+    }
+    return drawing;
+  };
   const down=e=>{
-    if(e.cancelable)e.preventDefault();
+    if(shouldIgnoreDown(e)){suppress(e);return}
+    suppress(e);
     drawing=true;
+    activePointerId=eventId(e);
+    activePointerType=inputType(e);
+    if(activePointerType==="pen")penPreferredUntil=clock()+PEN_GUARD_MS;
+    c.dataset.inputSource=activePointerType;
     if(onStrokeStart)onStrokeStart();
     last=pos(e);
-    try{ if(e.pointerId!==undefined&&c.setPointerCapture)c.setPointerCapture(e.pointerId) }catch{}
+    try{if(e.pointerId!==undefined&&c.setPointerCapture)c.setPointerCapture(e.pointerId)}catch{}
   };
   const move=e=>{
-    if(!drawing)return;
-    if(e.cancelable)e.preventDefault();
+    if(!drawing||eventId(e)!==activePointerId)return;
+    const type=inputType(e);
+    if(activePointerType==="pen"&&type!=="pen")return;
+    suppress(e);
+    if(type==="pen")penPreferredUntil=clock()+PEN_GUARD_MS;
     const p=pos(e);
     ctx.strokeStyle="#111";ctx.lineWidth=14;ctx.lineCap="round";ctx.lineJoin="round";
     ctx.beginPath();ctx.moveTo(...last);ctx.lineTo(...p);ctx.stroke();last=p;
   };
   const up=e=>{
-    if(e&&e.cancelable)e.preventDefault();
-    drawing=false;last=null;
+    if(!drawing||eventId(e)!==activePointerId)return;
+    suppress(e);
+    if(activePointerType==="pen")penPreferredUntil=clock()+PEN_GUARD_MS;
+    drawing=false;last=null;activePointerId=null;activePointerType="";
   };
+
+  c.style.touchAction="none";
+  c.addEventListener("contextmenu",e=>e.preventDefault());
+  c.addEventListener("selectstart",e=>e.preventDefault());
 
   if(window.PointerEvent){
     c.addEventListener("pointerdown",down,{passive:false});
     c.addEventListener("pointermove",move,{passive:false});
     c.addEventListener("pointerup",up,{passive:false});
     c.addEventListener("pointercancel",up,{passive:false});
+    c.addEventListener("lostpointercapture",up,{passive:false});
   }else{
     c.addEventListener("touchstart",down,{passive:false});
     c.addEventListener("touchmove",move,{passive:false});
