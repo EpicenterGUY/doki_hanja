@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.19.10-20260928",
+  "webBuild": "2.19.11-20260928",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.11",
+      "title": "iOS · Apple Pencil 손바닥 오입력 방지",
+      "items": [
+        "Apple Pencil 입력을 우선 처리하고 Pencil 사용 직후 들어오는 손바닥·손날 터치를 획에서 제외",
+        "넓은 접촉면과 멀티터치를 필터링해 손을 화면에 올린 상태에서도 글씨 획이 덜 섞이도록 개선",
+        "활성 포인터 ID를 잠가 손바닥을 떼는 동작이 Pencil 획을 중간에 끊지 않도록 수정",
+        "구형 iOS TouchEvent의 stylus 타입과 접촉 반경도 판별해 Pencil/손가락 입력 호환성 강화",
+        "iOS Safari의 동적 뷰포트·입력창 자동 확대·스크롤 관성을 보완"
+      ]
+    },
     {
       "version": "2.19.10",
       "title": "기출 가짜 문항 제거",
