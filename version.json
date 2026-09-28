@@ -1,9 +1,18 @@
 {
-  "webBuild": "2.19.8-20260928",
+  "webBuild": "2.19.9-20260928",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.9",
+      "title": "기출 파서 회귀 방지",
+      "items": [
+        "기존 답안 파서 결과를 유지하면서 구형 다열 답안지 보강 결과는 누락 문항에만 병합하도록 변경",
+        "최신 회차와 일반 답안 형식의 자동채점 정답을 잃지 않도록 회귀 방지",
+        "숫자로 시작하는 구형 정답·다열 답안지의 누락 복구는 그대로 유지"
+      ]
+    },
     {
       "version": "2.19.8",
       "title": "구형 기출 답안 인식 보강",
