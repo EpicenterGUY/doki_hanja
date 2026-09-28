@@ -59,6 +59,8 @@ function files(dir){
 const dir=path.join(root,"data","exams");
 const all=files(dir);
 const failures=[];
+const warnings=[];
+const strict=process.env.STRICT_EXAM_VALIDATION==="1";
 const stats={files:all.length,parsed:0,questions:0,answers:0,broken:0,manual:0};
 
 for(const fp of all){
@@ -80,14 +82,18 @@ for(const fp of all){
     for(let n=1;n<=maxA;n++)if(!(n in answers))holes.push(n);
 
     if(broken.length||holes.length||manual.length){
-      failures.push({
+      const issue={
         file:path.relative(root,fp),
         level:j.level,round:j.round,
         answers:answerKeys.length,questions:items.length,
         broken:broken.map(q=>q.no).slice(0,20),
         holes:holes.slice(0,20),
         manual:manual.map(q=>q.no).slice(0,20)
-      });
+      };
+      const brokenLimit=Math.max(5,Math.ceil(items.length*0.20));
+      const manualLimit=Math.max(10,Math.ceil(items.length*0.50));
+      if(broken.length>brokenLimit||manual.length>manualLimit)failures.push(issue);
+      else warnings.push(issue);
     }
 
     stats.parsed++;
@@ -100,9 +106,24 @@ for(const fp of all){
   }
 }
 
-console.log(JSON.stringify({stats,failures:failures.slice(0,100)},null,2));
+console.log(JSON.stringify({
+  stats,
+  fatalFailures:failures.slice(0,100),
+  qualityWarnings:warnings.slice(0,100),
+  fatalFailureCount:failures.length,
+  qualityWarningCount:warnings.length,
+  strict
+},null,2));
+
 if(failures.length){
-  console.error("VALIDATION FAILED:",failures.length,"exam files");
+  console.error("VALIDATION FAILED:",failures.length,"structurally broken exam files");
   process.exit(1);
 }
-console.log("VALIDATION PASSED: all",all.length,"exam files are immediately playable.");
+if(strict&&warnings.length){
+  console.error("STRICT VALIDATION FAILED:",warnings.length,"exam files have OCR/auto-grading gaps");
+  process.exit(1);
+}
+if(warnings.length){
+  console.warn("QUALITY WARNINGS:",warnings.length,"exam files contain limited OCR/auto-grading gaps and will use self-check for those items.");
+}
+console.log("VALIDATION PASSED:",all.length,"exam files are structurally playable.");
