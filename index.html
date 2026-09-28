@@ -7063,11 +7063,12 @@ function bindCanvasDrawing(c,ctx,onStrokeStart){
     const type=inputType(e),size=contactSize(e);
     if(type==="pen"){
       penPreferredUntil=clock()+PEN_GUARD_MS;
+      window.__dokiPencilSession=true;
       return false;
     }
     if(type==="touch"){
       // iPad/iPhone: Apple Pencil이 감지된 직후의 손바닥 입력과 넓은 접촉면을 획으로 취급하지 않는다.
-      if(clock()<penPreferredUntil||size>=PALM_CONTACT_PX||e.isPrimary===false)return true;
+      if(window.__dokiPencilSession===true||clock()<penPreferredUntil||size>=PALM_CONTACT_PX||e.isPrimary===false)return true;
       if((e.touches?.length||0)>1)return true;
     }
     return drawing;
@@ -7078,7 +7079,7 @@ function bindCanvasDrawing(c,ctx,onStrokeStart){
     drawing=true;
     activePointerId=eventId(e);
     activePointerType=inputType(e);
-    if(activePointerType==="pen")penPreferredUntil=clock()+PEN_GUARD_MS;
+    if(activePointerType==="pen"){penPreferredUntil=clock()+PEN_GUARD_MS;window.__dokiPencilSession=true;}
     c.dataset.inputSource=activePointerType;
     if(onStrokeStart)onStrokeStart();
     last=pos(e);
@@ -7089,7 +7090,7 @@ function bindCanvasDrawing(c,ctx,onStrokeStart){
     const type=inputType(e);
     if(activePointerType==="pen"&&type!=="pen")return;
     suppress(e);
-    if(type==="pen")penPreferredUntil=clock()+PEN_GUARD_MS;
+    if(type==="pen"){penPreferredUntil=clock()+PEN_GUARD_MS;window.__dokiPencilSession=true;}
     const p=pos(e);
     ctx.strokeStyle="#111";ctx.lineWidth=14;ctx.lineCap="round";ctx.lineJoin="round";
     ctx.beginPath();ctx.moveTo(...last);ctx.lineTo(...p);ctx.stroke();last=p;
