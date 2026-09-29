@@ -3032,6 +3032,37 @@ body>.app2-update{z-index:1930!important}
   .diag-type-row{grid-template-columns:minmax(110px,1fr) 70px 38px;gap:6px}
   .diag-question.direct .diag-glyph{font-size:clamp(46px,13vw,72px)}
 }
+
+/* HANDWRITING RESULT COMPACT + FORGIVING · 2.19.18 */
+.handwriting-feedback{
+  margin:0!important;
+  padding:6px 8px!important;
+  min-height:0!important;
+  max-height:38px;
+  overflow:hidden;
+  border-radius:11px!important;
+}
+.handwriting-feedback-main{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  white-space:nowrap;font-size:10px;line-height:1.1
+}
+.handwriting-feedback-main span{font-weight:900}
+.handwriting-feedback-main b{font-size:12px}
+.handwriting-feedback-main small{font-size:8px;opacity:.72}
+@media(max-width:619px){
+  #drillFeedback.handwriting-feedback{
+    position:absolute;
+    left:8px;right:8px;bottom:7px;
+    z-index:6;
+    max-height:34px;
+    backdrop-filter:blur(8px);
+    box-shadow:0 8px 20px rgba(0,0,0,.18)
+  }
+  .drill-question-pane{position:relative;padding-bottom:46px!important}
+  .handwriting-feedback-main{font-size:9px;gap:6px}
+  .handwriting-feedback-main b{font-size:11px}
+  .handwriting-feedback-main small{font-size:7px}
+}
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.19.13">
 </head>
@@ -3595,7 +3626,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.17-20260929";
+const APP_BUILD="2.19.18-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -6768,12 +6799,11 @@ function setupRemoteHandwriting(n,ans){
     for(let i=0;i<arr.length;i++){
       const c=$(`#remoteCanvas${i}`),r=handwritingSimilarity(c,arr[i]);
       if(r.blank){toast(`${i+1}번째 칸을 먼저 써 주세요`);return}
-      const meta=findCharMeta(arr[i]),sf=strokeCountFactor(c._strokeCount||0,meta?.total||0);
-      const score=Math.round(r.score*sf),d=r.details||{},g=d.grid||{};
-      const gate=(d.forward||0)>=.48&&(d.backward||0)>=.48&&(g.iou||0)>=.22;
-      results.push({ch:arr[i],score,ok:score>=72&&gate});
+      const meta=findCharMeta(arr[i]);
+      const decision=handwritingDecision(r,c._strokeCount||0,meta?.total||0);
+      results.push({ch:arr[i],score:decision.score,ok:decision.ok});
     }
-    const avg=Math.round(results.reduce((a,b)=>a+b.score,0)/results.length),ok=results.every(x=>x.ok)&&avg>=60;
+    const avg=Math.round(results.reduce((a,b)=>a+b.score,0)/results.length),ok=results.every(x=>x.ok);
     recordRemoteResult(n,ok,{scores:results.map(x=>x.score),text:primary});
     const fb=$("#remoteFeedback");fb.className="feedback "+(ok?"ok":"no");
     fb.innerHTML=`${ok?"정답 처리":"다시 확인"} · 평균 <b>${avg}%</b><br>${results.map((r,i)=>`${i+1}. ${r.score}%`).join(" / ")}${ok?"":`<br>정답: <b style="font-family:serif;font-size:28px">${esc(primary)}</b>`}`;
@@ -6980,14 +7010,12 @@ function gradeWordWrite(q){
     if(r.blank){toast(`${i+1}번째 칸을 먼저 써 주세요`);return}
     const meta=findCharMeta(ans[i]);
     const observed=c._strokeCount||0;
-    const sf=strokeCountFactor(observed,meta?.total||0);
-    const score=Math.round(r.score*sf),d=r.details||{},g=d.grid||{};
-    const gate=(d.forward||0)>=.48&&(d.backward||0)>=.48&&(g.iou||0)>=.22;
-    results.push({ch:ans[i],score,ok:score>=72&&gate,observed,expected:meta?.total||0});
+    const decision=handwritingDecision(r,observed,meta?.total||0);
+    results.push({ch:ans[i],score:decision.score,ok:decision.ok,observed,expected:meta?.total||0});
   }
   const avg=Math.round(results.reduce((a,b)=>a+b.score,0)/results.length);
   const passCount=results.filter(x=>x.ok).length;
-  const ok=passCount===results.length && avg>=75;
+  const ok=passCount===results.length;
 
   const st=examState,idx=st.index,was=st.checked[idx];
   if(was){
@@ -7344,23 +7372,22 @@ function handwritingSimilarity(canvas,ch){
   let best={score:0};
   for(const font of fonts){
     const target=renderTargetInk(ch,font,96);if(!target)continue;
-    const forward=nearMatch(user,target,5);
-    const backward=nearMatch(target,user,5);
+    // 손글씨는 인쇄체보다 획 위치·폭 편차가 크므로 근접 허용 반경을 넓힌다.
+    const forward=nearMatch(user,target,7);
+    const backward=nearMatch(target,user,7);
     const density=Math.min(user.n,target.n)/Math.max(user.n,target.n);
     const grid=gridSimilarity(user,target);
     const projection=projectionSimilarity(user,target);
 
-    // 양방향 커버리지를 강하게 요구해 "획 하나만 걸치기"를 방지
     const bidir=Math.sqrt(forward*backward);
-    let score = bidir*.46 + grid.iou*.24 + grid.coverage*.12 + projection*.13 + density*.05;
+    let score = bidir*.38 + grid.iou*.22 + grid.coverage*.14 + projection*.20 + density*.06;
 
-    // 정답이 차지하는 영역보다 지나치게 적은 영역만 그린 경우 강한 감점
-    if(grid.userCells < Math.max(2, grid.targetCells*.28)) score *= .48;
-    else if(grid.userCells < grid.targetCells*.45) score *= .76;
+    // 완전히 일부만 그린 낙서만 강하게 막고, 정상적인 크기·배치 편차는 덜 감점한다.
+    if(grid.userCells < Math.max(2, grid.targetCells*.20)) score *= .55;
+    else if(grid.userCells < grid.targetCells*.35) score *= .82;
 
-    // 잉크량이 너무 적은 낙서는 막되, 손글씨 편차는 넓게 허용
-    if(density < .16) score *= .55;
-    else if(density < .30) score *= .82;
+    if(density < .12) score *= .62;
+    else if(density < .22) score *= .88;
 
     score=Math.max(0,Math.min(1,score));
     if(score>best.score) best={score,forward,backward,density,grid,projection};
@@ -7370,12 +7397,24 @@ function handwritingSimilarity(canvas,ch){
 function strokeCountFactor(observed,expected){
   if(!expected||expected<1||!observed)return 1;
   const ratio=Math.min(observed,expected)/Math.max(observed,expected);
-  // 정확한 획수일 필요는 없지만 차이가 심하면 점수 상한을 낮춘다.
-  if(ratio<.18)return .42;
-  if(ratio<.30)return .58;
-  if(ratio<.45)return .74;
-  if(ratio<.60)return .90;
+  // 모바일/Pencil에서는 실제 필기 횟수와 사전 획수가 다를 수 있으므로 획수는 보조 지표로만 사용한다.
+  if(ratio<.15)return .78;
+  if(ratio<.25)return .86;
+  if(ratio<.40)return .93;
   return 1;
+}
+function handwritingDecision(r,observed,expected){
+  const sf=strokeCountFactor(observed,+expected||0);
+  const score=Math.round((r.score||0)*sf);
+  const d=r.details||{},g=d.grid||{};
+  const shapeGate=((d.forward||0)>=.36&&(d.backward||0)>=.36&&(g.iou||0)>=.14&&(g.coverage||0)>=.32)
+    ||(score>=70&&(d.projection||0)>=.58&&(g.coverage||0)>=.28);
+  const ok=score>=60&&shapeGate;
+  let label="";
+  if(ok)label="형태가 충분히 비슷합니다";
+  else if(score>=48)label="거의 비슷합니다 · 정답과 한 번 비교해 보세요";
+  else label="정답 형태와 차이가 큽니다";
+  return {ok,score,label,strokeFactor:sf};
 }
 function autoGradeHandwriting(sel,ch,expectedStrokes,callback){
   const canvas=$(sel);if(!canvas)return;
@@ -7383,24 +7422,17 @@ function autoGradeHandwriting(sel,ch,expectedStrokes,callback){
   if(r.blank){toast("먼저 한자를 써 주세요");return}
 
   const observed=canvas._strokeCount||0;
-  const sf=strokeCountFactor(observed,+expectedStrokes||0);
-  const finalScore=Math.round(r.score*sf);
-  const d=r.details||{},grid=d.grid||{};
-  const shapeGate=(d.forward||0)>=.50&&(d.backward||0)>=.50&&(grid.iou||0)>=.24&&(grid.coverage||0)>=.48;
-
-  let ok=false,label="";
-  if(finalScore>=75&&shapeGate){ok=true;label="전체 형태가 정답과 잘 맞습니다"}
-  else if(finalScore>=55){ok=false;label="형태는 비슷하지만 자동 통과 기준에는 못 미칩니다"}
-  else{ok=false;label="정답 형태와 차이가 큽니다"}
-
+  const d=handwritingDecision(r,observed,+expectedStrokes||0);
   const strokeText=(expectedStrokes&&observed)
-    ? ` · 그린 획 ${observed}회 / 기준 ${expectedStrokes}획`
+    ? ` · 필기 ${observed}회 / 기준 ${expectedStrokes}획(참고)`
     : "";
-  callback(ok,finalScore,label+strokeText);
+  callback(d.ok,d.score,d.label+strokeText);
 }
 function showHandwritingResult(sel,ch,ok,score,label){
-  const e=$(sel);if(!e)return;e.className="feedback "+(ok?"ok":"no");
-  e.innerHTML=`${ok?"자동검사 통과":"자동검사 재확인"} · 형태 일치도 <b>${score}%</b><br>${esc(label)} · 정답 <span style="font-family:serif;font-size:34px">${esc(ch)}</span><br><span class="small">※ 형태 일치도는 참고값입니다. 75% 이상이어도 핵심 형태 조건을 함께 만족해야 자동 통과합니다. 획순·정확한 서체 판정은 하지 않습니다.</span>`;
+  const e=$(sel);if(!e)return;
+  e.className="feedback handwriting-feedback "+(ok?"ok":"no");
+  e.title=label||"";
+  e.innerHTML=`<div class="handwriting-feedback-main"><span>${ok?"✓ 연습 통과":"↺ 다시 확인"}</span><b>${score}%</b><small>통과 기준 60%</small></div>`;
 }
 function recordDrillHandwriting(c,q,ok){
   const k=`drill|write|${c.level}|${c.hanja}`;
