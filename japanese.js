@@ -42,16 +42,13 @@ function jpGradeLabel(g){return g==="S"?"中高":("小"+g)}
 function jpKey(item){return (item.set||jpState.set)+"|"+item.char}
 function jpWordKey(item){return "word|"+item.word}
 function saveJpProgress(){
-  try{
-    localStorage.setItem("jpHanjaStatsV1",JSON.stringify(jpStats));
-    localStorage.setItem("jpHanjaUnknownV1",JSON.stringify(jpUnknown));
-    localStorage.setItem("jpWordStatsV1",JSON.stringify(jpWordStats));
-  }catch(e){
-    toast("日本漢字 학습기록을 저장하지 못했습니다. 브라우저 저장공간을 확인해 주세요.");
-  }
+  const ok1=storageSet("jpHanjaStatsV1",JSON.stringify(jpStats));
+  const ok2=storageSet("jpHanjaUnknownV1",JSON.stringify(jpUnknown));
+  const ok3=storageSet("jpWordStatsV1",JSON.stringify(jpWordStats));
+  if(!ok1||!ok2||!ok3)toast("日本漢字 학습기록을 저장하지 못했습니다. 브라우저 저장공간을 확인해 주세요.");
 }
 function saveJpApiCache(){
-  try{localStorage.setItem("jpKanjiApiCacheV1",JSON.stringify(jpAtlasApiCache))}catch{}
+  storageSet("jpKanjiApiCacheV1",JSON.stringify(jpAtlasApiCache));
 }
 function parseJoyoData(text){
   const lines=String(text||"").trim().split(/\r?\n/);
