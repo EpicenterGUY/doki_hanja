@@ -4283,15 +4283,14 @@ function diagnosisChoicePool(grade,c,kind){
   let pool=exactGradeChars(grade).filter(function(x){return x.hanja!==c.hanja});
   if(pool.length<8)pool=chars.filter(function(x){return gradeAllowed(x.level,grade)&&x.hanja!==c.hanja});
   shuffle(pool);
-  const correct=kind==="write"?c.hanja:(kind==="sound"?(c.sound||charPrimary(c).sound):officialMeaningSoundForms(c).canonical);
-  const correctNorm=norm(correct);
+  const correctNorms=new Set(diagnosisAcceptedAnswers(c,kind).map(function(x){return norm(x)}));
   const out=[];
   for(const x of pool){
     let v="";
     if(kind==="sound")v=x.sound||charPrimary(x).sound;
     else if(kind==="meaningSound")v=officialMeaningSoundForms(x).canonical;
     else v=x.hanja;
-    if(!v||norm(v)===correctNorm||out.some(function(y){return norm(y)===norm(v)}))continue;
+    if(!v||correctNorms.has(norm(v))||out.some(function(y){return norm(y)===norm(v)}))continue;
     out.push(v);
     if(out.length>=3)break;
   }
@@ -4325,11 +4324,14 @@ function makeDiagnosisQuestion(grade,seq,stageUsed,opts){
   let choices=[];
   if(!direct){
     choices=[answer].concat(diagnosisChoicePool(grade,c,kind));
-    while(choices.length<4){
+    const acceptedNorms=new Set(accept.map(function(x){return norm(x)}));
+    let guard=0;
+    while(choices.length<4&&guard<80){
+      guard++;
       const x=sample(chars.filter(function(z){return z.hanja!==c.hanja}),1)[0];
       if(!x)break;
       const v=kind==="write"?x.hanja:(kind==="sound"?(x.sound||charPrimary(x).sound):officialMeaningSoundForms(x).canonical);
-      if(v&&norm(v)!==norm(answer)&&!choices.some(function(y){return norm(y)===norm(v)}))choices.push(v);
+      if(v&&!acceptedNorms.has(norm(v))&&!choices.some(function(y){return norm(y)===norm(v)}))choices.push(v);
     }
     shuffle(choices);
   }
@@ -4488,7 +4490,8 @@ function answerDiagnosis(choiceIndex){
   if(diagnosisState.phase!=="test")return;
   const q=diagnosisState.stageQuestions[diagnosisState.stageIndex];if(!q||q.locked||q.inputMode==="direct")return;
   const chosen=q.choices[choiceIndex];
-  recordDiagnosisAnswer(q,chosen,norm(chosen)===norm(q.answer),{choiceIndex:choiceIndex});
+  const accepted=(q.accept&&q.accept.length?q.accept:[q.answer]).some(function(x){return norm(x)===norm(chosen)});
+  recordDiagnosisAnswer(q,chosen,accepted,{choiceIndex:choiceIndex});
 }
 function answerDiagnosisDirect(){
   if(diagnosisState.phase!=="test")return;
