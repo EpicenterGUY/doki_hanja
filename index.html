@@ -3646,7 +3646,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.19-20260929";
+const APP_BUILD="2.19.20-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -5146,9 +5146,16 @@ function renderQuestion(){
   $("#answer").onkeydown=e=>{if(e.key==="Enter")checkAnswer()};
   $("#submitAns").onclick=checkAnswer;
 }
+function splitOfficialAnswerVariants(v){
+  const raw=String(v??"").replace(/\s+/g," ").trim();
+  if(!raw)return [];
+  const parts=raw.split(/\s*(?:\/|／|또는|혹은)\s*/).map(function(x){return x.trim()}).filter(Boolean);
+  return [...new Set(parts.length?parts:[raw])];
+}
 function answerList(q){
-  if(Array.isArray(q.answer))return q.answer.map(String);
-  return [String(q.answer??"")];
+  if(Array.isArray(q&&q.answerVariants)&&q.answerVariants.length)return q.answerVariants.map(String);
+  if(Array.isArray(q&&q.answer))return q.answer.map(String);
+  return [String(q&&q.answer??"")];
 }
 function flexibleAnswerVariants(a){
   a=String(a??"").trim();
@@ -5271,6 +5278,7 @@ function archivePageUrl(level){
   return m?`https://winteriscoming2u.tistory.com/${m.post}`:"";
 }
 function gradeDisplay(level){return GRADE_ARCHIVES[level]?.label||level}
+function isHanmunGrade(level){return level==="특급"||level==="특급Ⅱ"}
 function archiveCacheKey(level){return GRADE_ARCHIVE_CACHE_PREFIX+encodeURIComponent(level)}
 function quizCacheKey(level,round){return GRADE_QUIZ_CACHE_PREFIX+encodeURIComponent(level)+"_"+round}
 function gradeQuestionCount(level,round){
@@ -5605,8 +5613,11 @@ function compactSpecialItem(q){
     round:+q.round,no:+q.no,level:q.level||"특급",type:q.type||"other",
     prompt:q.prompt||"",answer:q.answer??"",hanja:q.hanja||"",
     korean:q.korean||"",sourceText:q.sourceText||"",passage:q.passage||"",
-    note:q.note||"",autoParsed:true
+    sourceHanja:q.sourceHanja||"",referenceNo:+q.referenceNo||0,referenceText:q.referenceText||"",
+    formatKey:q.formatKey||"",formatLabel:q.formatLabel||"",formatDesc:q.formatDesc||"",
+    answerSource:q.answerSource||"",note:q.note||"",autoParsed:true
   };
+  if(Array.isArray(q.answerVariants)&&q.answerVariants.length)o.answerVariants=q.answerVariants;
   if(q.manual)o.manual=true;
   if(q.choices)o.choices=q.choices;
   if(q.choiceKeys)o.choiceKeys=q.choiceKeys;
@@ -5965,6 +5976,7 @@ function problemizeFlatPdf(level,round,flat,answerStart,answers){
   for(let n=1;n<=maxQ;n++){
     const rg=ranges.find(r=>n>=r.a&&n<=r.b);
     let type=rg?.type||"other";
+    if(type==="hanmun"&&!isHanmunGrade(level))type="other";
     if(type==="other")type=fallbackExamType(level,n);
 
     let ctx=contextForQuestion(problemLines,n);
@@ -5981,14 +5993,17 @@ function problemizeFlatPdf(level,round,flat,answerStart,answers){
     const choice=parseChoiceOptions(ctx);
     let built=buildProblemizedPrompt(n,type,ctx,ans);
 
+    const hanmunContext=isHanmunGrade(level)&&(
+      (rg&&rg.type==="hanmun")||passageMap[n]||
+      /漢文.*읽고.*물음|한문.*읽고.*물음|다음\s*(?:漢文|글).*읽고.*물음/.test(String(rg&&rg.desc||""))
+    );
+    if(hanmunContext){
+      type="hanmun";
+      built.hanja="";
+    }
     if(choice){
       if(type==="other")type="choice";
       built={prompt:stripQuestionMarker(choice.stem,n)||stripQuestionMarker(ctx,n),hanja:built.hanja||"",korean:built.korean||""};
-    }else if((level==="특급"||level==="특급Ⅱ")&&type==="other"&&(
-      passageMap[n]||/漢文.*읽고.*물음|한문.*읽고.*물음|다음\s*(?:漢文|글).*읽고.*물음/.test(String(rg&&rg.desc||""))
-    )){
-      type="hanmun";
-      built.hanja="";
     }
 
     const refNo=referencedQuestionNumber(rg,n);
@@ -6015,7 +6030,15 @@ function problemizeFlatPdf(level,round,flat,answerStart,answers){
       autoParsed:true
     };
     if(choice){q.choices=choice.choices;q.choiceKeys=choice.keys}
+    q.answerSource=ans?"official-sheet":"self-check";
+    const officialVariants=splitOfficialAnswerVariants(ans);
+    if(officialVariants.length>1)q.answerVariants=officialVariants;
     if(!ans)q.manual=true;
+    // 한문 번역·해석형은 표현 가능한 답이 여러 가지라 긴 서술 답안을 억지로 정확일치 채점하지 않는다.
+    if(type==="hanmun"&&!choice&&ans){
+      const compactAns=String(ans).replace(/\s+/g,"");
+      if(/[가-힣]/.test(ans)&&(compactAns.length>=5||/\s/.test(String(ans).trim())))q.manual=true;
+    }
     if(type==="longSound"){
       const ch=parseCircledChoices(ctx);
       if(ch.length>=2)q.choiceHint=ch;
@@ -6933,7 +6956,10 @@ function renderExamQuestion(){
       if(!v){toast("답을 입력하세요");return}
       st.answers[st.index]=v;st.checked[st.index]=true;
       const fb=$("#examFeedback");fb.className="feedback ok";
-      fb.innerHTML=`입력 저장: <b>${esc(v)}</b><br><span class="small">이 문항은 원문 구조상 자동 정답 연결이 어려워 자가확인형입니다.</span>`;
+      const official=examAnswerDisplay(q);
+      fb.innerHTML=`내 답: <b>${esc(v)}</b>`+
+        (official&&official!=="자가확인"?`<br>정답지 기준: <b>${esc(official)}</b>`:"")+
+        `<br><span class="small">${q.type==="hanmun"?"한문 해석은 표현이 여러 가지일 수 있습니다. 정답지의 핵심 뜻과 의미가 같으면 맞은 답으로 확인하세요.":"자동 정답 연결이 어려운 문항이라 직접 비교하는 자가확인형입니다."}</span>`;
     };
   }else if(q.type==="wordWrite"){
     setupWordWriteCanvases(q);
@@ -7726,9 +7752,9 @@ function clearCanvas(){
 const ATLAS_TONE_SEED_1={"呵":":","苛":":","駕":"(:)","澗":":","癎":"(:)","諫":":","揀":":","慷":":","愾":":","漑":":","凱":":","箇":"(:)","羹":":"};
 const ATLAS_GRADE_SLUG={"8급":"8급","7급Ⅱ":"준7급","7급":"7급","6급Ⅱ":"준6급","6급":"6급","5급Ⅱ":"준5급","5급":"5급","4급Ⅱ":"준4급","4급":"4급","3급Ⅱ":"준3급","3급":"3급","2급":"2급","1급":"1급","특급Ⅱ":"준특급","특급":"특급"};
 function atlasToneKey(g){return "hanjaAtlasToneV1_"+g}
-const ATLAS_FREQ_SCHEMA=9;
-function atlasFreqKey(g){return "hanjaAtlasFreqV10_"+g}
-function atlasFreqMetaKey(g){return "hanjaAtlasFreqMetaV7_"+g}
+const ATLAS_FREQ_SCHEMA=10;
+function atlasFreqKey(g){return "hanjaAtlasFreqV11_"+g}
+function atlasFreqMetaKey(g){return "hanjaAtlasFreqMetaV8_"+g}
 const atlasFreqMemory=new Map();
 const atlasFreqHydrating=new Set();
 let atlasFreqDbPromise=null;
@@ -8132,19 +8158,19 @@ function atlasItemEntries(q){
 
   if(type==="definition"){
     if(fmt.key==="definition_reverse"){
-      const primary=answerHanja.find(function(x){const n=atlasHanjaTextLen(x);return n>=2&&n<=4})||"";
+      const primary=answerHanja.find(function(x){const n=atlasHanjaTextLen(x);return n>=1&&n<=8})||"";
       if(!primary||!/[가-힣]/.test(clue))return [];
       return one(primary,clue);
     }
-    const longPassage=sourceGroups.find(function(x){return atlasHanjaTextLen(x)>=5&&atlasHanjaTextLen(x)<=32})||"";
-    if(fmt.key==="definition_native"&&longPassage){
-      const primary=longPassage;
-      if(!/[가-힣]/.test(ans))return [];
-      return [{type:"hanmun",formatKey:"hanmun_translation",formatLabel:"한문 해석",key:"hanmun|hanmun_translation|"+primary,primary:primary,secondary:ans,example:example}];
+    // 뜻풀이는 반드시 답안지의 한국어 정답을 사용한다. 한문 본문에서 임의의 구절을 뽑아 뜻과 붙이지 않는다.
+    if(!ans||ans==="자가확인"||!/[가-힣]/.test(ans))return [];
+    if(q.passage&&isHanmunGrade(q.level))return [];
+    let primary=(trusted&&atlasHanjaTextLen(trusted)>=1&&atlasHanjaTextLen(trusted)<=8)?trusted:"";
+    if(!primary){
+      const shortGroups=sourceGroups.filter(function(x){const n=atlasHanjaTextLen(x);return n>=1&&n<=4});
+      if(shortGroups.length===1)primary=shortGroups[0];
     }
-    const primary=sourceGroups.find(function(x){const n=atlasHanjaTextLen(x);return n>=2&&n<=4})||
-      ((atlasHanjaTextLen(trusted)>=2&&atlasHanjaTextLen(trusted)<=4)?trusted:"");
-    if(!primary||!/[가-힣]/.test(ans))return [];
+    if(!primary)return [];
     return one(primary,ans);
   }
 
@@ -8219,17 +8245,28 @@ function atlasItemEntries(q){
   }
   if(type==="choice")return [];
   if(type==="hanmun"){
-    const passageGroups=atlasHanjaGroups(atlasCleanItemText(q.passage||""),1).map(examHanjaTermSafe).filter(Boolean);
+    if(!isHanmunGrade(q.level))return [];
+    // 한문 정답은 문제 본문에서 추정하지 않고 답안지에서 읽힌 정답만 사용한다.
+    const official=atlasCleanAnswerText(examAnswerDisplay(q));
+    if(!official||official==="자가확인"||!/[가-힣]/.test(official))return [];
     const referenced=atlasHanmunReferencedTerm(q);
-    const primary=referenced||
-      sourceGroups.find(function(x){const n=atlasHanjaTextLen(x);return n>=1&&n<=32})||
-      ((atlasHanjaTextLen(trusted)>=1&&atlasHanjaTextLen(trusted)<=32)?trusted:"")||
-      passageGroups.find(function(x){const n=atlasHanjaTextLen(x);return n>=2&&n<=32})||"";
-    const secondary=/[가-힣]/.test(ans)?ans:clue;
-    if(!primary||!secondary||!/[가-힣]/.test(secondary))return [];
-    const fk=atlasHanjaTextLen(primary)>=4?"hanmun_translation":"hanmun_context";
-    const fl=fk==="hanmun_translation"?"한문 해석":"한문 문맥·어구";
-    return [{type:"hanmun",formatKey:fk,formatLabel:fl,key:"hanmun|"+fk+"|"+primary,primary:primary,secondary:secondary,example:example}];
+    const passageText=atlasCleanItemText(q.passage||"");
+    const passageHan=atlasHanjaTextLen(passageText);
+    const onlySource=sourceGroups.length===1&&atlasHanjaTextLen(sourceGroups[0])<=12?sourceGroups[0]:"";
+    let primary=referenced||
+      ((trusted&&atlasHanjaTextLen(trusted)<=12)?trusted:"")||
+      onlySource||"";
+    let fk="hanmun_context",fl="한문 문맥·어구";
+    // 짧은 한 글자와 긴 번역문을 억지로 연결하지 않는다. 전체 해석형은 본문 자체를 제시한다.
+    const koreanLen=(official.match(/[가-힣]/g)||[]).length;
+    if((!primary||(atlasHanjaTextLen(primary)===1&&koreanLen>8))&&passageHan>=4&&passageHan<=60){
+      primary=passageText;fk="hanmun_translation";fl="한문 해석";
+    }else if(primary&&atlasHanjaTextLen(primary)>=4){
+      fk="hanmun_translation";fl="한문 해석";
+    }
+    if(!primary)return [];
+    if(atlasHanjaTextLen(primary)===1&&koreanLen>8)return [];
+    return [{type:"hanmun",formatKey:fk,formatLabel:fl,key:"hanmun|"+fk+"|"+primary,primary:primary,secondary:official,example:example}];
   }
   return [];
 }
@@ -8294,7 +8331,7 @@ function currentAtlasItemRows(grade,scope){
       roundCounts:Object.assign({},a.roundCounts||{}),
       examples:[...(a.examples||[])].sort(function(x,y){return (+y.round||0)-(+x.round||0)||(+y.no||0)-(+x.no||0)})
     };
-  });
+  }).filter(function(r){return r.type!=="hanmun"||isHanmunGrade(grade)});
 }
 function atlasAvailableRounds(rows){
   const s=new Set();
@@ -8323,7 +8360,7 @@ function atlasApplyPeriod(rows){
 }
 function atlasTypeSummary(){
   const allowed=new Set(SPECIAL_FREQ_TYPE_ORDER);
-  const rows=atlasApplyPeriod(currentAtlasItemRows(atlasState.grade,atlasState.scope)).filter(function(r){return allowed.has(r.type)}),m=new Map();
+  const rows=atlasApplyPeriod(currentAtlasItemRows(atlasState.grade,atlasState.scope)).filter(function(r){return allowed.has(r.type)&&(r.type!=="hanmun"||isHanmunGrade(atlasState.grade))}),m=new Map();
   for(const r of rows){
     const a=m.get(r.type)||{type:r.type,questions:0,items:0,rounds:new Set(),formats:new Set()};
     a.questions+=r.count;a.items++;
@@ -8340,7 +8377,7 @@ function atlasFreqDisplayName(type){
 }
 function atlasAvailableFreqTypes(){
   const have=new Set(atlasTypeSummary().map(function(x){return x.type}));
-  return SPECIAL_FREQ_TYPE_ORDER.filter(function(t){return have.has(t)});
+  return SPECIAL_FREQ_TYPE_ORDER.filter(function(t){return have.has(t)&&(t!=="hanmun"||isHanmunGrade(atlasState.grade))});
 }
 function atlasItemRowsForType(type){
   const q=norm(atlasState.query);
@@ -8901,7 +8938,12 @@ function toggleAtlasReveal(key){
   else atlasRevealSet.add(key);
   renderAtlasResults();
 }
-function setAtlasState(k,v){atlasState[k]=v;if(k==="grade"||k==="scope"||k==="mask")atlasRevealSet.clear();renderAtlas()}
+function setAtlasState(k,v){
+  atlasState[k]=v;
+  if(k==="grade"&&!isHanmunGrade(v)&&atlasState.freqType==="hanmun")atlasState.freqType="all";
+  if(k==="grade"||k==="scope"||k==="mask")atlasRevealSet.clear();
+  renderAtlas();
+}
 function renderAtlas(){
   const el=$("#atlas");if(!el)return;
   let freqCache=readAtlasFreqCache(atlasState.grade),toneCache=null;
