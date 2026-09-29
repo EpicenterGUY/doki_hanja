@@ -555,6 +555,22 @@ function jpAtlasHomeHtml(all){
   h+="<div class='jp-mode-note'>카드를 누르면 공식 음독·훈독, 획수·부수, 구자체/신자체 관계, 한국어 훈음과 연관 단어를 함께 봅니다.</div></section>";
   return h;
 }
+async function jpSelectReading(key){
+  jpState.readingSelected=jpState.readingSelected===key?"":key;
+  await renderJapanese();
+  if(!jpState.readingSelected)return;
+  requestAnimationFrame(function(){
+    const el=document.querySelector(".jp-reading-inline-detail");
+    if(el&&el.scrollIntoView){
+      try{el.scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"})}
+      catch{el.scrollIntoView(false)}
+    }
+  });
+}
+function jpCloseReadingDetail(){
+  jpState.readingSelected="";
+  renderJapanese();
+}
 function jpReadingHomeHtml(){
   const kind=jpState.readingKind==="kun"?"kun":"on";
   const title=kind==="on"?"음독":"훈독";
@@ -568,17 +584,22 @@ function jpReadingHomeHtml(){
     const q=jpKanaFold(jpState.readingQuery||"");
     if(q)groups=groups.filter(function(g){return jpKanaFold(g.reading).includes(q)});
     h+="<div class='jp-search-row'><input id='jpReadingLocalInput' value='"+esc(jpState.readingQuery)+"' placeholder='"+(kind==="on"?"예: カン, コウ":"예: みる, たべる")+"'><button class='btn' id='jpReadingLocalClear'>초기화</button></div>";
-    h+="<div class='jp-reading-groups'>"+groups.slice(0,240).map(function(g){
-      return "<button class='jp-reading-group "+(jpState.readingSelected===g.key?"active":"")+"' data-reading-select='"+esc(g.key)+"'><b>"+esc(g.reading)+"</b><span>"+g.rows.length+"자</span></button>";
+    const visibleGroups=groups.slice(0,240);
+    const onlyOne=visibleGroups.length===1&&!jpState.readingSelected;
+    if(onlyOne)jpState.readingSelected=visibleGroups[0].key;
+    h+="<div class='jp-reading-groups'>"+visibleGroups.map(function(g){
+      const selected=jpState.readingSelected===g.key;
+      let chunk="<button class='jp-reading-group "+(selected?"active":"")+"' data-reading-select='"+esc(g.key)+"' aria-expanded='"+String(selected)+"'><b>"+esc(g.reading)+"</b><span>"+g.rows.length+"자</span></button>";
+      if(selected){
+        chunk+="<div class='jp-reading-selected jp-reading-inline-detail'><div class='jp-reading-selected-head'><div><small>"+(kind==="on"?"音読み":"訓読み")+"</small><b>"+esc(g.reading)+"</b></div><div class='jp-reading-selected-actions'><span>"+g.rows.length+"자</span><button type='button' class='jp-reading-close' data-reading-close aria-label='읽기 결과 닫기'>×</button></div></div><div class='jp-atlas-grid'>"+
+          g.rows.map(function(r){
+            const item=jpFindItem(r.char);
+            return "<button class='jp-atlas-card' data-jp-atlas='"+esc(r.char)+"'><div class='char' lang='ja'>"+esc(r.char)+"</div><span class='meta'>"+esc(item?jpCardMeta(item):"")+" · "+jpStageLabel(r.stage)+(r.special?" · 특별":"")+"</span></button>";
+          }).join("")+"</div></div>";
+      }
+      return chunk;
     }).join("")+"</div>";
-    const selected=groups.find(function(g){return g.key===jpState.readingSelected})||(groups.length===1?groups[0]:null);
-    if(selected){
-      h+="<div class='jp-reading-selected'><div class='jp-reading-selected-head'><b>"+esc(selected.reading)+"</b><span>"+selected.rows.length+"자</span></div><div class='jp-atlas-grid'>"+
-        selected.rows.map(function(r){
-          const item=jpFindItem(r.char);
-          return "<button class='jp-atlas-card' data-jp-atlas='"+esc(r.char)+"'><div class='char' lang='ja'>"+esc(r.char)+"</div><span class='meta'>"+esc(item?jpCardMeta(item):"")+" · "+jpStageLabel(r.stage)+(r.special?" · 특별":"")+"</span></button>";
-        }).join("")+"</div></div>";
-    }else h+="<div class='jp-mode-note'>읽기를 하나 누르면 그 읽기를 쓰는 상용한자를 한 번에 비교할 수 있습니다.</div>";
+    if(!jpState.readingSelected)h+="<div class='jp-mode-note'>읽기를 누르면 바로 그 아래에 해당 한자가 펼쳐집니다. 같은 읽기를 한 번 더 누르면 닫힙니다.</div>";
   }else{
     h+="<div class='jp-reading-remote-box'><div class='jp-search-row'><input id='jpReadingInput' value='"+esc(jpState.readingQuery)+"' placeholder='"+(kind==="on"?"예: コウ / こう":"예: みる / たべる")+"'><button class='btn primary' id='jpReadingLookup'>읽기 검색</button></div>";
     h+="<div class='jp-mode-note'>표외한자는 공식 상용 음훈표 대상이 아니므로 읽기 검색 결과를 KANJIDIC 기반 KanjiAPI에서 가져와 DOKI 표외 목록과 교차검증합니다.</div>";
@@ -674,8 +695,11 @@ function bindJapaneseHome(){
       const readingInitialBtn=e.target.closest("[data-reading-initial]");
       if(readingInitialBtn&&root.contains(readingInitialBtn)){e.preventDefault();jpState.readingInitial=readingInitialBtn.dataset.readingInitial;jpState.readingSelected="";renderJapanese();return}
 
+      const readingCloseBtn=e.target.closest("[data-reading-close]");
+      if(readingCloseBtn&&root.contains(readingCloseBtn)){e.preventDefault();e.stopPropagation();jpCloseReadingDetail();return}
+
       const readingSelectBtn=e.target.closest("[data-reading-select]");
-      if(readingSelectBtn&&root.contains(readingSelectBtn)){e.preventDefault();jpState.readingSelected=readingSelectBtn.dataset.readingSelect;renderJapanese();return}
+      if(readingSelectBtn&&root.contains(readingSelectBtn)){e.preventDefault();jpSelectReading(readingSelectBtn.dataset.readingSelect);return}
     };
   }
 
