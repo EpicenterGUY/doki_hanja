@@ -3976,15 +3976,10 @@ function openJapaneseTab(){
   try{
     if(typeof jpState!=="undefined")jpState.view="home";
   }catch{}
+  const moduleReady=typeof renderJapanese==="function";
   switchTab("jp");
+  if(moduleReady)return;
   const el=$("#jp");
-  if(typeof renderJapanese==="function"){
-    Promise.resolve(renderJapanese()).catch(function(err){
-      console.error("Japanese tab render failed",err);
-      if(el)el.innerHTML="<div class='app-screen'><section class='app-section'><div class='prompt'>日本漢字 화면을 열지 못했습니다.</div><div class='sub'>화면을 새로고침한 뒤 다시 시도해 주세요.</div><button class='btn primary' onclick='location.reload()' style='margin-top:12px'>새로고침</button></section></div>";
-    });
-    return;
-  }
   if(el)el.innerHTML="<div class='app-screen'><section class='app-section'><div class='prompt'>日本漢字 모듈 준비 중…</div><div class='sub'>잠시 뒤 자동으로 열립니다.</div></section></div>";
   let tries=0;
   const timer=setInterval(function(){
@@ -3992,7 +3987,10 @@ function openJapaneseTab(){
     if(mode!=="jp"){clearInterval(timer);return}
     if(typeof renderJapanese==="function"){
       clearInterval(timer);
-      Promise.resolve(renderJapanese()).catch(function(err){console.error("Japanese tab delayed render failed",err)});
+      Promise.resolve(renderJapanese()).catch(function(err){
+        console.error("Japanese tab delayed render failed",err);
+        if(el)el.innerHTML="<div class='app-screen'><section class='app-section'><div class='prompt'>日本漢字 화면을 열지 못했습니다.</div><div class='sub'>화면을 새로고침한 뒤 다시 시도해 주세요.</div><button class='btn primary' onclick='location.reload()' style='margin-top:12px'>새로고침</button></section></div>";
+      });
       return;
     }
     if(tries>=30){
@@ -4023,7 +4021,7 @@ function switchTab(id){
   if(id==="study")renderStudyHub();
   if(id==="exam")renderExam();
   if(id==="drill")renderDrill();
-  if(id==="jp"&&typeof renderJapanese==="function")renderJapanese();
+  if(id==="jp"&&typeof renderJapanese==="function")Promise.resolve(renderJapanese()).catch(function(err){console.error("Japanese tab render failed",err)});
   if(id==="more")renderMore();
   if(id==="freq")renderFreq();
   if(id==="wrong")renderWrong();
