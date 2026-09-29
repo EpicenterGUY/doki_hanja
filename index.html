@@ -2943,8 +2943,61 @@ body>.app2-update{z-index:1930!important}
 @media (hover:hover) and (pointer:fine){
   .app2-nav:hover,.btn:hover,.app-action:hover,.round-btn:hover{filter:brightness(1.06)}
 }
+
+/* iPad / landscape handwriting fit · 2.19.13 */
+@media(min-width:700px) and (orientation:landscape){
+  body.drill-active .app{
+    padding:
+      6px
+      max(8px,env(safe-area-inset-right))
+      max(6px,env(safe-area-inset-bottom))
+      max(8px,env(safe-area-inset-left))
+  }
+  .drill-session-shell{gap:6px}
+  .drill-session-top{min-height:44px;padding:4px 7px}
+  .drill-stage.write-stage{
+    grid-template-columns:minmax(220px,.62fr) minmax(0,1.38fr);
+    gap:7px
+  }
+  .drill-question-pane{padding:12px;gap:7px}
+  .drill-question-pane .prompt{font-size:clamp(16px,1.8vw,23px)}
+  .drill-clue{font-size:clamp(36px,4.4vw,64px)}
+  .drill-canvas-pane{
+    grid-template-rows:minmax(0,1fr) 52px 46px!important;
+    padding:7px;
+    gap:5px
+  }
+  .drill-canvas-wrap{
+    width:auto!important;
+    height:100%;
+    max-width:100%;
+    max-height:100%;
+    aspect-ratio:1/1
+  }
+  .drill-write-controls,.drill-bottom-nav{min-width:0}
+  .drill-write-controls .btn,.drill-bottom-nav .btn{min-width:0}
+}
+@media(min-width:1000px) and (orientation:landscape){
+  .drill-stage.write-stage{
+    grid-template-columns:minmax(280px,.7fr) minmax(0,1.3fr)
+  }
+  .drill-question-pane{padding:18px}
+}
+@media(min-width:700px) and (pointer:coarse){
+  .drill-icon-btn,.drill-settings-btn,
+  .drill-write-controls .btn,.drill-bottom-nav .btn{min-height:46px}
+}
+@supports(padding:max(0px)){
+  .app2-bar{
+    padding-left:max(16px,env(safe-area-inset-left));
+    padding-right:max(16px,env(safe-area-inset-right))
+  }
+  .app2-dock{
+    bottom:max(9px,env(safe-area-inset-bottom))
+  }
+}
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.19.12">
+<link rel="stylesheet" href="./japanese.css?v=2.19.13">
 </head>
 <body>
 <div class="app">
@@ -3486,7 +3539,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.12-20260929";
+const APP_BUILD="2.19.13-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -3880,6 +3933,14 @@ function initPWA(){
 
 function init(){
   applyHanjaFontMode(hanjaFontMode);
+  syncDrillViewport();
+  window.addEventListener("pageshow",syncDrillViewport,{passive:true});
+  window.addEventListener("resize",syncDrillViewport,{passive:true});
+  window.addEventListener("orientationchange",function(){
+    syncDrillViewport();
+    setTimeout(syncDrillViewport,120);
+    setTimeout(syncDrillViewport,420);
+  },{passive:true});
   try{
     const oldKeys=[];
     for(let i=0;i<localStorage.length;i++){
@@ -6729,7 +6790,9 @@ function renderExamResult(){
 
 function syncDrillViewport(){
   const h=Math.round(window.visualViewport?.height||window.innerHeight||document.documentElement.clientHeight||0);
+  const w=Math.round(window.visualViewport?.width||window.innerWidth||document.documentElement.clientWidth||0);
   if(h>0)document.documentElement.style.setProperty("--drill-vh",h+"px");
+  if(w>0)document.documentElement.style.setProperty("--drill-vw",w+"px");
 }
 function renderDrill(){
   document.body.classList.remove("drill-active");
