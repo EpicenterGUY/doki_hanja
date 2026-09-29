@@ -621,15 +621,8 @@ function jpGradeWord(){
 
       const meta=jpItemMap.get(chars[i]),expected=meta?meta.strokes:0;
       const observed=canvas._strokeCount||0;
-      const sf=strokeCountFactor(observed,+expected||0);
-      const score=Math.round(r.score*sf);
-      const d=r.details||{},grid=d.grid||{};
-      const shapeGate=(d.forward||0)>=.50&&(d.backward||0)>=.50&&(grid.iou||0)>=.24&&(grid.coverage||0)>=.48;
-      let ok=false,label="";
-      if(score>=75&&shapeGate){ok=true;label="전체 형태가 정답과 잘 맞습니다"}
-      else if(score>=55){label="형태는 비슷하지만 자동 통과 기준에는 못 미칩니다"}
-      else{label="정답 형태와 차이가 큽니다"}
-      results.push({ch:chars[i],ok:ok,score:score,label:label});
+      const decision=handwritingDecision(r,observed,+expected||0);
+      results.push({ch:chars[i],ok:decision.ok,score:decision.score,label:decision.label});
     }
 
     if(!results.length){
