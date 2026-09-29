@@ -4234,6 +4234,15 @@ function startPractice(random10){
 function latestDiagnosis(){return diagnosisHistory&&diagnosisHistory.length?diagnosisHistory[0]:null}
 function diagnosisModeQuestionCount(){return diagnosisState.mode==="precise"?7:5}
 function diagnosisRetestCount(){return diagnosisState.mode==="precise"?4:3}
+function diagnosisVerificationCount(){return diagnosisState.mode==="precise"?3:2}
+function diagnosisAcceptedAnswers(c,kind){
+  if(kind==="write")return [c.hanja];
+  if(kind==="sound"){
+    const sounds=[c.sound].concat(officialMeaningGroups(c).flatMap(function(g){return g.sounds||[]}));
+    return [...new Set(sounds.map(function(x){return String(x||"").trim()}).filter(Boolean))];
+  }
+  return officialMeaningSoundForms(c).variants||[officialMeaningSoundForms(c).canonical];
+}
 function diagnosisChoicePool(grade,c,kind){
   let pool=exactGradeChars(grade).filter(function(x){return x.hanja!==c.hanja});
   if(pool.length<8)pool=chars.filter(function(x){return gradeAllowed(x.level,grade)&&x.hanja!==c.hanja});
@@ -4252,7 +4261,8 @@ function diagnosisChoicePool(grade,c,kind){
   }
   return out;
 }
-function makeDiagnosisQuestion(grade,seq,stageUsed){
+function makeDiagnosisQuestion(grade,seq,stageUsed,opts){
+  opts=opts||{};
   const used=new Set(diagnosisState.answers.map(function(x){return x.hanja}));
   for(const ch of (stageUsed||[]))used.add(ch);
   let pool=exactGradeChars(grade).filter(function(c){return !used.has(c.hanja)});
@@ -4272,63 +4282,141 @@ function makeDiagnosisQuestion(grade,seq,stageUsed){
     prompt="이 한자의 한국어문회 훈음은?";
     display=c.hanja;answer=officialMeaningSoundForms(c).canonical;
   }
-  const choices=[answer].concat(diagnosisChoicePool(grade,c,kind));
-  while(choices.length<4){
-    const x=sample(chars.filter(function(z){return z.hanja!==c.hanja}),1)[0];
-    if(!x)break;
-    const v=kind==="write"?x.hanja:(kind==="sound"?(x.sound||charPrimary(x).sound):officialMeaningSoundForms(x).canonical);
-    if(v&&!choices.some(function(y){return norm(y)===norm(v)}))choices.push(v);
+  const direct=!!opts.forceDirect||
+    (!!diagnosisState.retest&&seq%2===0)||
+    (diagnosisState.mode==="precise"&&!diagnosisState.retest&&seq%4===3);
+  const accept=diagnosisAcceptedAnswers(c,kind);
+  let choices=[];
+  if(!direct){
+    choices=[answer].concat(diagnosisChoicePool(grade,c,kind));
+    while(choices.length<4){
+      const x=sample(chars.filter(function(z){return z.hanja!==c.hanja}),1)[0];
+      if(!x)break;
+      const v=kind==="write"?x.hanja:(kind==="sound"?(x.sound||charPrimary(x).sound):officialMeaningSoundForms(x).canonical);
+      if(v&&norm(v)!==norm(answer)&&!choices.some(function(y){return norm(y)===norm(v)}))choices.push(v);
+    }
+    shuffle(choices);
   }
-  shuffle(choices);
-  return {grade:grade,type:type,hanja:c.hanja,prompt:prompt,display:display,answer:answer,choices:choices.slice(0,4)};
+  return {
+    grade:grade,type:type,hanja:c.hanja,prompt:prompt,display:display,answer:answer,
+    accept:accept,choices:choices.slice(0,4),inputMode:direct?"direct":"choice",
+    stageKind:opts.stageKind||diagnosisState.stageKind||"search"
+  };
 }
-function buildDiagnosisQuestions(grade,n){
+function buildDiagnosisQuestions(grade,n,opts){
   const out=[],stageUsed=new Set();
   for(let i=0;i<n;i++){
-    const q=makeDiagnosisQuestion(grade,i,stageUsed);
+    const q=makeDiagnosisQuestion(grade,i,stageUsed,opts);
     if(q){out.push(q);stageUsed.add(q.hanja)}
   }
   return out;
 }
-function diagnosisConfidence(rows){
-  if(!rows||!rows.length)return "낮음";
+function buildDiagnosisVerificationQuestions(baseGrade){
+  const baseIdx=Math.max(0,gradeIndex(baseGrade));
+  const harder=GRADE_ORDER[Math.min(GRADE_ORDER.length-1,baseIdx+1)];
+  const per=diagnosisVerificationCount();
+  const base=buildDiagnosisQuestions(baseGrade,per,{forceDirect:true,stageKind:"verify"});
+  const up=harder&&harder!==baseGrade?buildDiagnosisQuestions(harder,per,{forceDirect:true,stageKind:"verify"}):[];
+  const out=[];
+  for(let i=0;i<Math.max(base.length,up.length);i++){
+    if(base[i])out.push(base[i]);
+    if(up[i])out.push(up[i]);
+  }
+  return out;
+}
+function diagnosisTypeStats(answers){
+  const m=new Map();
+  for(const a of answers||[]){
+    const t=a.type||"meaningSound";
+    const x=m.get(t)||{type:t,ok:0,n:0,direct:0,directOk:0,unknown:0};
+    x.n++;if(a.correct)x.ok++;
+    if(a.direct){x.direct++;if(a.correct)x.directOk++}
+    if(a.unknown)x.unknown++;
+    m.set(t,x);
+  }
+  return [...m.values()].map(function(x){
+    return {
+      type:x.type,pct:x.n?Math.round(x.ok/x.n*100):0,n:x.n,
+      direct:x.direct,directPct:x.direct?Math.round(x.directOk/x.direct*100):null,
+      unknown:x.unknown
+    };
+  });
+}
+function diagnosisConfidence(rows,answers,verification){
+  rows=rows||[];answers=answers||[];
+  if(!rows.length&&!answers.length)return "낮음";
   const margins=rows.map(function(r){return Math.abs((r.pct||0)-65)});
-  const avg=margins.reduce(function(a,b){return a+b},0)/margins.length;
-  if(rows.length>=4&&avg>=22)return "높음";
-  if(rows.length>=3&&avg>=12)return "보통";
+  const avg=margins.length?margins.reduce(function(a,b){return a+b},0)/margins.length:0;
+  const direct=answers.filter(function(a){return a.direct}).length;
+  const unknown=answers.filter(function(a){return a.unknown}).length;
+  let score=0;
+  if(rows.length>=3)score++;
+  if(rows.length>=4)score++;
+  if(avg>=18)score++;
+  if(direct>=4)score++;
+  if(verification)score++;
+  if(answers.length&&unknown/answers.length>.25)score--;
+  if(answers.length<12)score--;
+  if(score>=4)return "높음";
+  if(score>=2)return "보통";
   return "참고";
 }
 function diagnosisWeakTypes(answers){
-  const m=new Map();
-  for(const a of answers||[]){
-    const t=a.type||"meaningSound",x=m.get(t)||{type:t,ok:0,n:0};
-    x.n++;if(a.correct)x.ok++;m.set(t,x);
-  }
-  return [...m.values()].map(function(x){return {type:x.type,pct:x.n?Math.round(x.ok/x.n*100):0,n:x.n}})
-    .sort(function(a,b){return a.pct-b.pct||b.n-a.n});
+  return diagnosisTypeStats(answers).sort(function(a,b){return a.pct-b.pct||b.n-a.n});
 }
 function diagnosisTypeLabel(t){
   if(t==="write")return "한자 찾기·쓰기";
   return TYPES[t]||t;
 }
+function diagnosisRangeLabel(){
+  if(diagnosisState.stageKind==="verify"){
+    const a=diagnosisState.verificationBase||GRADE_ORDER[Math.max(0,diagnosisState.best)];
+    const b=diagnosisState.verificationHarder;
+    return b&&b!==a?"경계 검증 · "+a+" ↔ "+b:"최종 검증 · "+a;
+  }
+  if(diagnosisState.low<=diagnosisState.high){
+    return "현재 추정 범위 · "+GRADE_ORDER[Math.max(0,diagnosisState.low)]+" ~ "+GRADE_ORDER[Math.min(GRADE_ORDER.length-1,diagnosisState.high)];
+  }
+  return diagnosisState.best>=0?"현재 후보 · "+GRADE_ORDER[diagnosisState.best]:"기초 구간 확인 중";
+}
 function startDiagnosis(mode){
   diagnosisState={
     mode:mode==="precise"?"precise":"quick",phase:"test",
-    low:0,high:GRADE_ORDER.length-1,best:-1,stageGrade:null,
+    low:0,high:GRADE_ORDER.length-1,best:-1,stageGrade:null,stageKind:"search",
     stageQuestions:[],stageIndex:0,stageCorrect:0,stageAttempted:0,
-    answers:[],tested:[],retest:false,totalAnswered:0,result:null
+    answers:[],tested:[],retest:false,totalAnswered:0,result:null,
+    verificationStarted:false,verificationBase:null,verificationHarder:null,
+    verification:null,verifiedGrade:null
   };
   nextDiagnosisStage();
 }
+function startDiagnosisVerification(){
+  if(diagnosisState.verificationStarted){finishDiagnosis();return}
+  diagnosisState.verificationStarted=true;
+  diagnosisState.stageKind="verify";
+  diagnosisState.retest=false;
+  const baseIdx=Math.max(0,diagnosisState.best);
+  const base=GRADE_ORDER[baseIdx]||GRADE_ORDER[0];
+  const harder=GRADE_ORDER[Math.min(GRADE_ORDER.length-1,baseIdx+1)]||base;
+  diagnosisState.verificationBase=base;
+  diagnosisState.verificationHarder=harder!==base?harder:null;
+  diagnosisState.stageGrade=base;
+  diagnosisState.stageQuestions=buildDiagnosisVerificationQuestions(base);
+  diagnosisState.stageIndex=0;diagnosisState.stageCorrect=0;diagnosisState.stageAttempted=0;
+  if(!diagnosisState.stageQuestions.length){finishDiagnosis();return}
+  renderDiagnosis();
+}
 function nextDiagnosisStage(){
   if(diagnosisState.low>diagnosisState.high||diagnosisState.tested.length>=5){
-    finishDiagnosis();return;
+    startDiagnosisVerification();return;
   }
   const mid=Math.floor((diagnosisState.low+diagnosisState.high)/2);
   const grade=GRADE_ORDER[mid];
+  diagnosisState.stageKind="search";
   diagnosisState.stageGrade=grade;
-  diagnosisState.stageQuestions=buildDiagnosisQuestions(grade,diagnosisModeQuestionCount());
-  diagnosisState.stageIndex=0;diagnosisState.stageCorrect=0;diagnosisState.stageAttempted=0;diagnosisState.retest=false;
+  diagnosisState.retest=false;
+  diagnosisState.stageQuestions=buildDiagnosisQuestions(grade,diagnosisModeQuestionCount(),{stageKind:"search"});
+  diagnosisState.stageIndex=0;diagnosisState.stageCorrect=0;diagnosisState.stageAttempted=0;
   if(!diagnosisState.stageQuestions.length){diagnosisState.high=mid-1;nextDiagnosisStage();return}
   renderDiagnosis();
 }
@@ -4343,24 +4431,69 @@ function advanceDiagnosisQuestion(expectedQuestion){
   if(diagnosisState.stageIndex>=diagnosisState.stageQuestions.length)finishDiagnosisStage();
   else renderDiagnosis();
 }
-function answerDiagnosis(choiceIndex){
-  if(diagnosisState.phase!=="test")return;
-  const q=diagnosisState.stageQuestions[diagnosisState.stageIndex];if(!q||q.locked)return;
-  q.locked=true;
-  const chosen=q.choices[choiceIndex],ok=norm(chosen)===norm(q.answer);
-  q.chosen=choiceIndex;q.correct=ok;
+function recordDiagnosisAnswer(q,chosen,ok,meta){
+  meta=meta||{};
+  if(!q||q.locked)return;
+  q.locked=true;q.correct=!!ok;q.unknown=!!meta.unknown;q.direct=q.inputMode==="direct";
+  q.chosen=meta.choiceIndex!==undefined?meta.choiceIndex:null;
+  q.userAnswer=chosen;
   diagnosisState.stageAttempted++;diagnosisState.totalAnswered++;
   if(ok)diagnosisState.stageCorrect++;
-  diagnosisState.answers.push({grade:q.grade,type:q.type,hanja:q.hanja,correct:ok,answer:q.answer,chosen:chosen});
+  const responseMs=q.shownAt?Math.max(0,Math.round(performance.now()-q.shownAt)):null;
+  diagnosisState.answers.push({
+    grade:q.grade,type:q.type,hanja:q.hanja,correct:!!ok,answer:q.answer,chosen:chosen,
+    direct:q.inputMode==="direct",unknown:!!meta.unknown,stageKind:q.stageKind||diagnosisState.stageKind,
+    responseMs:responseMs
+  });
   renderDiagnosis();
-  // 자동 진행 + 수동 다음 버튼을 함께 둬 모바일/PWA에서 타이머가 지연되어도 막히지 않는다.
   window.setTimeout(function(){advanceDiagnosisQuestion(q)},650);
 }
+function answerDiagnosis(choiceIndex){
+  if(diagnosisState.phase!=="test")return;
+  const q=diagnosisState.stageQuestions[diagnosisState.stageIndex];if(!q||q.locked||q.inputMode==="direct")return;
+  const chosen=q.choices[choiceIndex];
+  recordDiagnosisAnswer(q,chosen,norm(chosen)===norm(q.answer),{choiceIndex:choiceIndex});
+}
+function answerDiagnosisDirect(){
+  if(diagnosisState.phase!=="test")return;
+  const q=diagnosisState.stageQuestions[diagnosisState.stageIndex];if(!q||q.locked||q.inputMode!=="direct")return;
+  const inp=$("#diagnosisDirectInput"),chosen=String(inp&&inp.value||"").trim();
+  if(!chosen){toast("답을 입력하거나 ‘모르겠음’을 눌러 주세요.");return}
+  const accepted=(q.accept&&q.accept.length?q.accept:[q.answer]).some(function(x){return norm(x)===norm(chosen)});
+  recordDiagnosisAnswer(q,chosen,accepted,{direct:true});
+}
+function answerDiagnosisUnknown(){
+  if(diagnosisState.phase!=="test")return;
+  const q=diagnosisState.stageQuestions[diagnosisState.stageIndex];if(!q||q.locked)return;
+  recordDiagnosisAnswer(q,"모르겠음",false,{unknown:true,direct:q.inputMode==="direct"});
+}
+function finishDiagnosisVerification(){
+  const rows=diagnosisState.answers.filter(function(a){return a.stageKind==="verify"});
+  const base=diagnosisState.verificationBase||GRADE_ORDER[Math.max(0,diagnosisState.best)];
+  const harder=diagnosisState.verificationHarder;
+  const pct=function(g){
+    const a=rows.filter(function(x){return x.grade===g});
+    return a.length?Math.round(a.filter(function(x){return x.correct}).length/a.length*100):null;
+  };
+  const basePct=pct(base),harderPct=harder?pct(harder):null;
+  const baseIdx=Math.max(0,gradeIndex(base));
+  let verified=base;
+  if(basePct!==null&&basePct<50&&baseIdx>0)verified=GRADE_ORDER[baseIdx-1];
+  else if(harder&&harderPct!==null&&harderPct>=75)verified=harder;
+  diagnosisState.verifiedGrade=verified;
+  diagnosisState.verification={
+    baseGrade:base,basePct:basePct,harderGrade:harder,harderPct:harderPct,
+    directQuestions:rows.length
+  };
+  finishDiagnosis();
+}
 function finishDiagnosisStage(){
+  if(diagnosisState.stageKind==="verify"){finishDiagnosisVerification();return}
   const ratio=diagnosisState.stageAttempted?diagnosisState.stageCorrect/diagnosisState.stageAttempted:0;
   if(!diagnosisState.retest&&ratio>=0.5&&ratio<0.72){
     diagnosisState.retest=true;
-    diagnosisState.stageQuestions=buildDiagnosisQuestions(diagnosisState.stageGrade,diagnosisRetestCount());
+    diagnosisState.stageKind="retest";
+    diagnosisState.stageQuestions=buildDiagnosisQuestions(diagnosisState.stageGrade,diagnosisRetestCount(),{stageKind:"retest"});
     diagnosisState.stageIndex=0;
     diagnosisState.stageCorrect=0;
     diagnosisState.stageAttempted=0;
@@ -4371,30 +4504,35 @@ function finishDiagnosisStage(){
   const grade=diagnosisState.stageGrade,idx=gradeIndex(grade);
   diagnosisState.tested.push({
     grade:grade,correct:diagnosisState.stageCorrect,total:diagnosisState.stageAttempted,
-    pct:Math.round(ratio*100),pass:pass
+    pct:Math.round(ratio*100),pass:pass,retest:!!diagnosisState.retest
   });
   if(pass){diagnosisState.best=Math.max(diagnosisState.best,idx);diagnosisState.low=idx+1}
   else diagnosisState.high=idx-1;
+  diagnosisState.retest=false;
   nextDiagnosisStage();
 }
 function finishDiagnosis(){
   const best=diagnosisState.best;
-  const recommended=GRADE_ORDER[Math.max(0,best)];
-  const weak=diagnosisWeakTypes(diagnosisState.answers);
+  const recommended=diagnosisState.verifiedGrade||GRADE_ORDER[Math.max(0,best)];
+  const typeStats=diagnosisTypeStats(diagnosisState.answers).sort(function(a,b){return a.pct-b.pct||b.n-a.n});
+  const weak=typeStats.slice(0,3);
   const ok=diagnosisState.answers.filter(function(x){return x.correct}).length;
   const total=diagnosisState.answers.length;
+  const directRows=diagnosisState.answers.filter(function(x){return x.direct});
+  const unknownCount=diagnosisState.answers.filter(function(x){return x.unknown}).length;
   const result={
     id:Date.now(),date:new Date().toISOString(),mode:diagnosisState.mode,grade:recommended,
-    confidence:diagnosisConfidence(diagnosisState.tested),
+    confidence:diagnosisConfidence(diagnosisState.tested,diagnosisState.answers,diagnosisState.verification),
     accuracy:total?Math.round(ok/total*100):0,total:total,
-    tested:diagnosisState.tested.slice(),weakTypes:weak.slice(0,3)
+    directCount:directRows.length,
+    directAccuracy:directRows.length?Math.round(directRows.filter(function(x){return x.correct}).length/directRows.length*100):null,
+    unknownCount:unknownCount,
+    tested:diagnosisState.tested.slice(),typeStats:typeStats,weakTypes:weak,
+    verification:diagnosisState.verification
   };
   diagnosisState.phase="result";diagnosisState.result=result;
   diagnosisHistory=[result].concat(diagnosisHistory||[]).slice(0,12);
-  let historySaved=true;
-  try{localStorage.setItem("hanjaDiagnosisHistoryV1",JSON.stringify(diagnosisHistory))}
-  catch(e){historySaved=false;console.warn("diagnosis history save failed",e)}
-  // 저장공간 오류가 나도 결과 화면 전환은 반드시 진행한다.
+  const historySaved=storageSet("hanjaDiagnosisHistoryV1",JSON.stringify(diagnosisHistory));
   renderDiagnosis();
   try{renderPracticeWelcome()}catch(e){console.error("diagnosis result home refresh failed",e)}
   if(!historySaved)toast("진단 결과는 표시됐지만 기기 저장공간 부족으로 기록 저장은 생략됐습니다.");
