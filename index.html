@@ -3544,7 +3544,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.14-20260929";
+const APP_BUILD="2.19.15-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -4295,6 +4295,17 @@ function nextDiagnosisStage(){
   if(!diagnosisState.stageQuestions.length){diagnosisState.high=mid-1;nextDiagnosisStage();return}
   renderDiagnosis();
 }
+function advanceDiagnosisQuestion(expectedQuestion){
+  if(diagnosisState.phase!=="test")return;
+  const currentQ=diagnosisState.stageQuestions[diagnosisState.stageIndex];
+  if(!currentQ||!currentQ.locked)return;
+  if(expectedQuestion&&currentQ!==expectedQuestion)return;
+  if(currentQ._advanced)return;
+  currentQ._advanced=true;
+  diagnosisState.stageIndex++;
+  if(diagnosisState.stageIndex>=diagnosisState.stageQuestions.length)finishDiagnosisStage();
+  else renderDiagnosis();
+}
 function answerDiagnosis(choiceIndex){
   if(diagnosisState.phase!=="test")return;
   const q=diagnosisState.stageQuestions[diagnosisState.stageIndex];if(!q||q.locked)return;
@@ -4305,11 +4316,8 @@ function answerDiagnosis(choiceIndex){
   if(ok)diagnosisState.stageCorrect++;
   diagnosisState.answers.push({grade:q.grade,type:q.type,hanja:q.hanja,correct:ok,answer:q.answer,chosen:chosen});
   renderDiagnosis();
-  setTimeout(function(){
-    diagnosisState.stageIndex++;
-    if(diagnosisState.stageIndex>=diagnosisState.stageQuestions.length)finishDiagnosisStage();
-    else renderDiagnosis();
-  },520);
+  // 자동 진행 + 수동 다음 버튼을 함께 둬 모바일/PWA에서 타이머가 지연되어도 막히지 않는다.
+  window.setTimeout(function(){advanceDiagnosisQuestion(q)},650);
 }
 function finishDiagnosisStage(){
   const ratio=diagnosisState.stageAttempted?diagnosisState.stageCorrect/diagnosisState.stageAttempted:0;
@@ -4344,8 +4352,13 @@ function finishDiagnosis(){
   };
   diagnosisState.phase="result";diagnosisState.result=result;
   diagnosisHistory=[result].concat(diagnosisHistory||[]).slice(0,12);
-  localStorage.setItem("hanjaDiagnosisHistoryV1",JSON.stringify(diagnosisHistory));
-  renderDiagnosis();renderPracticeWelcome();
+  let historySaved=true;
+  try{localStorage.setItem("hanjaDiagnosisHistoryV1",JSON.stringify(diagnosisHistory))}
+  catch(e){historySaved=false;console.warn("diagnosis history save failed",e)}
+  // 저장공간 오류가 나도 결과 화면 전환은 반드시 진행한다.
+  renderDiagnosis();
+  try{renderPracticeWelcome()}catch(e){console.error("diagnosis result home refresh failed",e)}
+  if(!historySaved)toast("진단 결과는 표시됐지만 기기 저장공간 부족으로 기록 저장은 생략됐습니다.");
 }
 function applyDiagnosisGrade(grade){
   const sel=$("#level");if(sel)sel.value=grade;
@@ -4435,7 +4448,7 @@ function renderDiagnosis(){
     const overall=Math.min(96,Math.round((diagnosisState.tested.length*24)+(completed/Math.max(1,totalStage))*22));
     el.innerHTML=`<div class="diag-shell">
       <div class="diag-stage">
-        <div class="diag-stage-head"><b>${esc(q.grade)} 진단 중</b><span>${diagnosisState.mode==="precise"?"정밀":"빠른"} · ${diagnosisState.totalAnswered+1}번째 문제</span></div>
+        <div class="diag-stage-head"><b>${esc(q.grade)} 진단 중</b><span>${diagnosisState.mode==="precise"?"정밀":"빠른"} · ${q.locked?diagnosisState.totalAnswered:diagnosisState.totalAnswered+1}번째 문제</span></div>
         <div class="diag-progress"><i style="width:${overall}%"></i></div>
       </div>
       <div class="diag-question">
@@ -4448,7 +4461,8 @@ function renderDiagnosis(){
             return `<button class="diag-choice ${cls}" ${q.locked?"disabled":""} onclick="answerDiagnosis(${i})">${esc(c)}</button>`;
           }).join("")}
         </div>
-        <div class="diag-feedback">${q.locked?(q.correct?"정답 · "+esc(q.answer):"정답은 "+esc(q.answer)):"정답 하나를 선택하세요."}</div>
+        <div class="diag-feedback" aria-live="polite">${q.locked?(q.correct?"정답 · "+esc(q.answer):"정답은 "+esc(q.answer)):"정답 하나를 선택하세요."}</div>
+        ${q.locked?`<button class="btn primary" onclick="advanceDiagnosisQuestion()" style="width:100%;margin-top:10px">다음 문제 →</button>`:""}
       </div>
       <div class="diag-stage"><div class="soft">지금까지 판정: ${diagnosisState.tested.length?diagnosisState.tested.map(function(x){return x.grade+" "+x.pct+"%"}).join(" · "):"첫 단계"}</div></div>
     </div>`;
