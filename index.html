@@ -7685,6 +7685,19 @@ function atlasIdiomCompleted(q,answerHanja){
   const chars4=[...joined].filter(function(ch){return /[\u3400-\u9fff\uf900-\ufaff]/.test(ch)}).slice(0,4).join("");
   return [...chars4].length===4?chars4:"";
 }
+function atlasHanmunReferencedTerm(q){
+  const src=String(q&&q.sourceText||q&&q.prompt||"");
+  const passage=String(q&&q.passage||"");
+  if(!src||!passage)return "";
+  const mm=src.match(/[㉠-㉻①-⑳]/);
+  if(!mm)return "";
+  const mark=mm[0],idx=passage.indexOf(mark);
+  if(idx<0)return "";
+  const after=passage.slice(idx+mark.length).match(/^\s*[)）]?\s*([\u3400-\u9fff\uf900-\ufaff]{1,12})/);
+  if(after&&after[1])return examHanjaTermSafe(after[1])||"";
+  const before=passage.slice(Math.max(0,idx-24),idx).match(/([\u3400-\u9fff\uf900-\ufaff]{1,12})\s*$/);
+  return before&&before[1]?(examHanjaTermSafe(before[1])||""):"";
+}
 function atlasItemEntries(q){
   if(!q||!q.type||!q.round)return [];
   const type=q.type,fmt=q.formatKey?{key:q.formatKey,label:q.formatLabel||q.formatKey}:examFormatInfo(type,q.formatDesc||q.prompt||q.sourceText||"");
@@ -7723,9 +7736,9 @@ function atlasItemEntries(q){
       return one(primary,clue);
     }
     const longPassage=sourceGroups.find(function(x){return atlasHanjaTextLen(x)>=5&&atlasHanjaTextLen(x)<=32})||"";
-    if(fmt.key==="definition_native"||longPassage){
-      const primary=longPassage||(atlasHanjaTextLen(trusted)>=5?trusted:"");
-      if(!primary||!/[가-힣]/.test(ans))return [];
+    if(fmt.key==="definition_native"&&longPassage){
+      const primary=longPassage;
+      if(!/[가-힣]/.test(ans))return [];
       return [{type:"hanmun",formatKey:"hanmun_translation",formatLabel:"한문 해석",key:"hanmun|hanmun_translation|"+primary,primary:primary,secondary:ans,example:example}];
     }
     const primary=sourceGroups.find(function(x){const n=atlasHanjaTextLen(x);return n>=2&&n<=4})||
@@ -7806,7 +7819,9 @@ function atlasItemEntries(q){
   if(type==="choice")return [];
   if(type==="hanmun"){
     const passageGroups=atlasHanjaGroups(atlasCleanItemText(q.passage||""),1).map(examHanjaTermSafe).filter(Boolean);
-    const primary=sourceGroups.find(function(x){const n=atlasHanjaTextLen(x);return n>=1&&n<=32})||
+    const referenced=atlasHanmunReferencedTerm(q);
+    const primary=referenced||
+      sourceGroups.find(function(x){const n=atlasHanjaTextLen(x);return n>=1&&n<=32})||
       ((atlasHanjaTextLen(trusted)>=1&&atlasHanjaTextLen(trusted)<=32)?trusted:"")||
       passageGroups.find(function(x){const n=atlasHanjaTextLen(x);return n>=2&&n<=32})||"";
     const secondary=/[가-힣]/.test(ans)?ans:clue;
