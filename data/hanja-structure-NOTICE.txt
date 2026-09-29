@@ -1,0 +1,46 @@
+DOKI 漢字 — PDF-style phonetic-component atlas data
+
+Generated file:
+- data/hanja-structure.json
+- Coverage: every Hanja in DOKI data/hanja.csv (8급 through 특급).
+
+How the generated atlas is used:
+- Explicit phonetic/semantic components are preferred when the source provides them.
+- Missing phonetic components are conservatively inferred from character structure plus Korean-reading similarity.
+- Characters without a defensible phonetic component are kept as independent/root forms instead of being shown as “unclassified”.
+- Japanese readings are split into official Jōyō-table readings and additional / Hyōgai readings.
+
+Data sources:
+
+1. Korean grade / Korean reading metadata
+   DOKI data/hanja.csv, derived from the Korean Hanja grade dataset already bundled by this project.
+
+2. Character structure and etymology
+   Make Me a Hanzi — dictionary.txt
+   https://github.com/skishore/makemeahanzi
+   The upstream dictionary data is derived from Unihan and CJKlib and is distributed under LGPL-3.0-or-later.
+   DOKI uses decomposition, radical, etymology type, phonetic component, semantic component, and short structural hints.
+
+3. Structural fallback
+   BabelStone CJK IDS data
+   https://www.babelstone.co.uk/CJK/IDS.TXT
+   Used only as a structural decomposition fallback when an explicit phonetic component is unavailable.
+   BabelStone states that the IDS facts and presentation may be freely reused.
+
+4. Japanese readings
+   KANJIDIC2, Electronic Dictionary Research and Development Group (EDRDG)
+   https://www.edrdg.org/wiki/index.php/KANJIDIC_Project
+   Licence statement:
+   https://www.edrdg.org/edrdg/licence.html
+   KANJIDIC2 is distributed under the EDRDG dictionary licence (Creative Commons Attribution-ShareAlike 4.0 terms described by EDRDG).
+
+5. Official Jōyō reading distinction
+   data/japanese/mext-onkun-2017.json
+   MEXT 「音訓の小・中・高等学校段階別割り振り表（平成29年3月）」 data bundled in DOKI.
+   This is used to distinguish official Jōyō-table readings from additional readings.
+
+Important:
+- “확정” means an explicit phonetic component was present in the structural source.
+- “추정” means DOKI selected a structural component using decomposition + reading-similarity evidence. It is a study aid, not a claim of a single uncontested historical etymology.
+- “독립” means the character is displayed as its own root/independent form because a phonetic component was not defensibly selected.
+- Six-Writings labels can vary between reference traditions; DOKI marks known disagreements instead of hiding them.
