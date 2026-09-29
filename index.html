@@ -3285,6 +3285,10 @@ function storageGet(key,fallback=null){
     return fallback;
   }
 }
+function storageSet(key,value){
+  try{localStorage.setItem(key,value);return true}
+  catch(e){console.warn("[DOKI] storage write failed",key,e);return false}
+}
 function storageJson(key,fallback){
   const fresh=()=>Array.isArray(fallback)?[...fallback]:({...fallback});
   try{
@@ -3462,8 +3466,8 @@ function loadCharCSV(text){
     });
   }
   chars=out;
-  localStorage.setItem("hanjaCharCacheV3",JSON.stringify({at:Date.now(),chars}));
-  localStorage.removeItem("hanjaCharCache");
+  storageSet("hanjaCharCacheV3",JSON.stringify({at:Date.now(),chars}));
+  try{localStorage.removeItem("hanjaCharCache")}catch(e){}
   $("#dataBadge").textContent=`배정한자 ${chars.length.toLocaleString()}자`;
   $("#dataBadge").classList.add("good");
   renderData();
@@ -3544,7 +3548,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.15-20260929";
+const APP_BUILD="2.19.16-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -4205,20 +4209,23 @@ function diagnosisChoicePool(grade,c,kind){
   let pool=exactGradeChars(grade).filter(function(x){return x.hanja!==c.hanja});
   if(pool.length<8)pool=chars.filter(function(x){return gradeAllowed(x.level,grade)&&x.hanja!==c.hanja});
   shuffle(pool);
+  const correct=kind==="write"?c.hanja:(kind==="sound"?(c.sound||charPrimary(c).sound):officialMeaningSoundForms(c).canonical);
+  const correctNorm=norm(correct);
   const out=[];
   for(const x of pool){
     let v="";
     if(kind==="sound")v=x.sound||charPrimary(x).sound;
     else if(kind==="meaningSound")v=officialMeaningSoundForms(x).canonical;
     else v=x.hanja;
-    if(!v||out.some(function(y){return norm(y)===norm(v)}))continue;
+    if(!v||norm(v)===correctNorm||out.some(function(y){return norm(y)===norm(v)}))continue;
     out.push(v);
     if(out.length>=3)break;
   }
   return out;
 }
-function makeDiagnosisQuestion(grade,seq){
+function makeDiagnosisQuestion(grade,seq,stageUsed){
   const used=new Set(diagnosisState.answers.map(function(x){return x.hanja}));
+  for(const ch of (stageUsed||[]))used.add(ch);
   let pool=exactGradeChars(grade).filter(function(c){return !used.has(c.hanja)});
   if(pool.length<4)pool=exactGradeChars(grade);
   const c=sample(pool,1)[0]||sample(chars.filter(function(x){return x.level===grade}),1)[0];
@@ -4246,10 +4253,10 @@ function makeDiagnosisQuestion(grade,seq){
   return {grade:grade,type:type,hanja:c.hanja,prompt:prompt,display:display,answer:answer,choices:choices.slice(0,4)};
 }
 function buildDiagnosisQuestions(grade,n){
-  const out=[];
+  const out=[],stageUsed=new Set();
   for(let i=0;i<n;i++){
-    const q=makeDiagnosisQuestion(grade,i);
-    if(q)out.push(q);
+    const q=makeDiagnosisQuestion(grade,i,stageUsed);
+    if(q){out.push(q);stageUsed.add(q.hanja)}
   }
   return out;
 }
@@ -4325,6 +4332,8 @@ function finishDiagnosisStage(){
     diagnosisState.retest=true;
     diagnosisState.stageQuestions=buildDiagnosisQuestions(diagnosisState.stageGrade,diagnosisRetestCount());
     diagnosisState.stageIndex=0;
+    diagnosisState.stageCorrect=0;
+    diagnosisState.stageAttempted=0;
     renderDiagnosis();return;
   }
   const threshold=diagnosisState.retest?0.625:0.72;
@@ -4685,7 +4694,7 @@ async function submitBugReport(ev){
   if(big){status.className="report-status bad";status.textContent=big.name+" 파일이 "+reportBytes(c.maxFileBytes)+" 제한을 넘습니다.";return}
   if(total>c.maxTotalBytes){status.className="report-status bad";status.textContent="전체 첨부 용량이 "+reportBytes(c.maxTotalBytes)+" 제한을 넘습니다.";return}
 
-  const last=+(localStorage.getItem("dokiLastBugReportAt")||0);
+  const last=+(storageGet("dokiLastBugReportAt",0)||0);
   if(Date.now()-last<30000){status.className="report-status bad";status.textContent="연속 전송을 막기 위해 30초 뒤 다시 신고할 수 있습니다.";return}
 
   const client=getReportSupabase();if(!client){status.className="report-status bad";status.textContent="신고 서버 연결에 실패했습니다.";return}
@@ -4719,7 +4728,7 @@ async function submitBugReport(ev){
       const up=await client.storage.from(c.bucket).upload(attachments[i].path,files[i],{cacheControl:"3600",upsert:false,contentType:files[i].type||undefined});
       if(up.error)throw Error("첨부 업로드 실패: "+(up.error.message||up.error));
     }
-    localStorage.setItem("dokiLastBugReportAt",String(Date.now()));
+    storageSet("dokiLastBugReportAt",String(Date.now()));
     status.className="report-status ok";
     status.textContent="신고가 접수되었습니다. 신고 번호: "+reportId.slice(0,8);
     ev.currentTarget.reset();renderReportFiles();
@@ -4902,17 +4911,18 @@ function checkAnswer(){
   inp.disabled=true;
 }
 function saveProgress(){
-  localStorage.setItem("hanjaStatsV2",JSON.stringify(stats));
-  localStorage.setItem("hanjaWrongV2",JSON.stringify(wrong));
+  const statsSaved=storageSet("hanjaStatsV2",JSON.stringify(stats));
+  const wrongSaved=storageSet("hanjaWrongV2",JSON.stringify(wrong));
   const p=hanjaPowerProfile();
   if(!seenHanjaPowerLevel){
     seenHanjaPowerLevel=p.level;
-    localStorage.setItem("hanjaPowerSeenLevel",String(p.level));
+    storageSet("hanjaPowerSeenLevel",String(p.level));
   }else if(p.level>seenHanjaPowerLevel){
     seenHanjaPowerLevel=p.level;
-    localStorage.setItem("hanjaPowerSeenLevel",String(p.level));
+    storageSet("hanjaPowerSeenLevel",String(p.level));
     setTimeout(()=>toast(`한자력 Lv.${p.level} 달성 · ${p.title}`),0);
   }
+  if(!statsSaved||!wrongSaved)console.warn("[DOKI] progress kept in memory because persistent storage is unavailable");
 }
 function renderResult(){
   const total=sessionScore.ok+sessionScore.no,acc=total?Math.round(sessionScore.ok/total*100):0;
@@ -8709,11 +8719,14 @@ async function importExamFile(e){
       ...x,round:x.round?+x.round:null,
       frequencyOnly:!(String(x.prompt||"").trim() && x.answer!==undefined && String(x.answer).trim()!=="")
     }));
-    examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38,...arr];localStorage.setItem("hanjaExamItems",JSON.stringify(arr));updateFreqBadge();renderData();renderFreq();renderExam();toast(`${arr.length}문항 불러옴`);
+    examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38,...arr];
+    const persisted=storageSet("hanjaExamItems",JSON.stringify(arr));
+    updateFreqBadge();renderData();renderFreq();renderExam();
+    toast(persisted?`${arr.length}문항 불러옴`:`${arr.length}문항 불러옴 · 저장공간 부족으로 이번 실행에서만 유지`);
   }catch(err){toast("파일 형식을 확인하세요")}
 }
 function updateFreqBadge(){
-  const saved=localStorage.getItem("hanjaExamItems");if(saved){try{const a=JSON.parse(saved);examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38,...a]}catch{}}
+  const saved=storageGet("hanjaExamItems","");if(saved){try{const a=JSON.parse(saved);examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38,...a]}catch{}}
   const n=examItems.filter(x=>x.round).length;$("#freqBadge").textContent=`기출 빈도 ${n.toLocaleString()}건`;
 }
 function downloadJSON(obj,name){
