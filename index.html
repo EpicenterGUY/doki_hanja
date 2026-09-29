@@ -3602,6 +3602,94 @@ body>.app2-update{z-index:1930!important}
   .atlas-pdf-jp-kind .kind-label{font-size:6px}
   .atlas-pdf-shinjitai>b{font-size:15px}
 }
+
+/* GLOBAL FINDER HARDENING + PER-AREA ATLAS + COMPARE SEARCH · 2.20.6 */
+.global-search-sheet{
+  visibility:hidden;
+}
+.global-search-sheet.open{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  z-index:10010!important;
+}
+body.global-search-open .app2-backdrop{
+  display:block!important;
+  opacity:1!important;
+  pointer-events:auto!important;
+  z-index:10000!important;
+}
+body.global-search-open .global-search-sheet{
+  top:max(62px,calc(env(safe-area-inset-top) + 56px))!important;
+  bottom:max(78px,calc(env(safe-area-inset-bottom) + 70px))!important;
+  max-height:none!important;
+}
+.atlas-settings-v2 summary small{
+  color:#6f86aa;
+  font-size:8px;
+  font-weight:800;
+}
+.atlas-compare-search{
+  display:grid;
+  gap:7px;
+}
+.atlas-compare-searchbox{
+  min-height:44px;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  align-items:center;
+  gap:7px;
+  padding:0 10px;
+  border:1px solid rgba(139,166,218,.2);
+  border-radius:13px;
+  background:rgba(10,20,38,.72);
+}
+.atlas-compare-searchbox>span{color:#748bb2;font-size:17px}
+.atlas-compare-searchbox input{
+  min-width:0;
+  border:0!important;
+  background:transparent!important;
+  color:#eef5ff!important;
+  padding:0!important;
+  min-height:42px;
+}
+.atlas-compare-kindrow{
+  display:flex;
+  gap:5px;
+  overflow-x:auto;
+  scrollbar-width:none;
+}
+.atlas-compare-kindrow::-webkit-scrollbar{display:none}
+.atlas-compare-kindrow button{
+  flex:0 0 auto;
+  min-height:34px;
+  padding:6px 10px;
+  border-radius:11px;
+  border:1px solid rgba(139,166,218,.18);
+  background:#182944;
+  color:#9fb1cf;
+  font-size:9px;
+  font-weight:900;
+}
+.atlas-compare-kindrow button.active{
+  border-color:#8d80ff;
+  background:linear-gradient(135deg,#5c56d8,#7358e5);
+  color:#fff;
+}
+@media(max-width:600px){
+  body.global-search-open .global-search-sheet{
+    left:6px!important;
+    right:6px!important;
+    width:auto!important;
+    transform:none!important;
+    top:max(60px,calc(env(safe-area-inset-top) + 54px))!important;
+    bottom:max(76px,calc(env(safe-area-inset-bottom) + 68px))!important;
+    border-radius:18px!important;
+  }
+  .global-search-sheet.open{transform:none!important}
+  .atlas-compare-searchbox{min-height:42px}
+}
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.5">
 </head>
@@ -4012,6 +4100,119 @@ const HANJA_COMPARE_GROUPS=[
     {c:"産",use:"낳다·생산하다·산업처럼 결과물을 만들어 냄.",ex:["出産 출산","生産 생산","産業 산업"]},
     {c:"育",use:"아이·사람·능력을 기르고 성장시킬 때.",ex:["敎育 교육","育成 육성","養育 양육"]}
   ]}
+  ,{kind:"shape",title:"새 鳥 · 까마귀 烏",tip:"烏는 눈 부분의 한 획이 생략된 전통 자형이라 鳥와 매우 비슷합니다.",members:[
+    {c:"鳥",use:"새·조류를 나타낼 때.",ex:["鳥類 조류","白鳥 백조"]},
+    {c:"烏",use:"까마귀 또는 검은빛을 나타내는 말에 쓰일 때.",ex:["烏鴉 오아","烏黑 오흑"]}
+  ]}
+  ,{kind:"shape",title:"눈 目 · 스스로 自",tip:"自는 윗부분의 짧은 획이 더해져 있고, 目은 직사각형 눈 모양입니다.",members:[
+    {c:"目",use:"눈·항목·목적처럼 보는 기관이나 조목을 나타낼 때.",ex:["目的 목적","項目 항목","注目 주목"]},
+    {c:"自",use:"자기·스스로·~로부터를 나타낼 때.",ex:["自己 자기","自由 자유","自動 자동"]}
+  ]}
+  ,{kind:"shape",title:"기다릴 待 · 가질 持 · 모실 侍",tip:"오른쪽 寺는 같고 왼쪽 부수 彳·扌·亻가 뜻을 갈라 줍니다.",members:[
+    {c:"待",use:"기다림·대우.",ex:["期待 기대","待機 대기","待遇 대우"]},
+    {c:"持",use:"가지다·유지하다.",ex:["所持 소지","維持 유지","持續 지속"]},
+    {c:"侍",use:"곁에서 모시다.",ex:["侍從 시종","侍女 시녀"]}
+  ]}
+  ,{kind:"shape",title:"때 時 · 시 詩 · 절 寺",tip:"모두 寺가 보이지만 日·言 같은 왼쪽 요소를 먼저 확인하면 구별이 쉽습니다.",members:[
+    {c:"時",use:"시간·때.",ex:["時間 시간","時代 시대"]},
+    {c:"詩",use:"시·운문.",ex:["詩人 시인","詩歌 시가"]},
+    {c:"寺",use:"절·사찰.",ex:["寺院 사원","古寺 고사"]}
+  ]}
+  ,{kind:"shape",title:"후보 侯 · 기후 候",tip:"候는 가운데 세로획 옆에 짧은 획이 하나 더 들어갑니다.",members:[
+    {c:"侯",use:"제후·작위·사람을 높여 이르는 말.",ex:["諸侯 제후","王侯 왕후"]},
+    {c:"候",use:"기다리다·살피다·기후.",ex:["氣候 기후","候補 후보","症候 증후"]}
+  ]}
+  ,{kind:"shape",title:"묶을 束 · 동녘 東",tip:"가운데 日 모양이 있는 東과 입 口 모양 중심의 束을 비교하세요.",members:[
+    {c:"束",use:"묶다·다발·구속.",ex:["約束 약속","拘束 구속","束縛 속박"]},
+    {c:"東",use:"동쪽.",ex:["東方 동방","東洋 동양"]}
+  ]}
+  ,{kind:"shape",title:"토끼 兔 · 면할 免",tip:"아랫부분 점·삐침 형태를 확인하면 兔와 免을 구별하기 쉽습니다.",members:[
+    {c:"兔",use:"토끼.",ex:["白兔 백토","兎角 토각"]},
+    {c:"免",use:"면하다·벗어나다.",ex:["免除 면제","免許 면허","免職 면직"]}
+  ]}
+  ,{kind:"shape",title:"개 犬 · 클 太",tip:"犬은 오른쪽 위에 점이 있고 太는 아래쪽에 점이 있습니다.",members:[
+    {c:"犬",use:"개.",ex:["愛犬 애견","番犬 번견"]},
+    {c:"太",use:"크다·굵다·매우.",ex:["太陽 태양","太古 태고"]}
+  ]}
+  ,{kind:"shape",title:"기록할 史 · 관리 吏",tip:"史와 吏는 중심 세로획과 가로획의 위치가 달라 전체 골격으로 구별합니다.",members:[
+    {c:"史",use:"역사·기록.",ex:["歷史 역사","史料 사료"]},
+    {c:"吏",use:"관리·벼슬아치.",ex:["官吏 관리","吏讀 이두"]}
+  ]}
+  ,{kind:"shape",title:"막 幕 · 저물 暮 · 무덤 墓 · 사모할 慕 · 모을 募",tip:"공통으로 莫이 들어가며 아래쪽 巾·日·土·心·力을 먼저 보면 빠르게 구별됩니다.",members:[
+    {c:"幕",use:"막·장막.",ex:["幕府 막부","開幕 개막"]},
+    {c:"暮",use:"저물다·해질녘.",ex:["日暮 일모","歲暮 세모"]},
+    {c:"墓",use:"무덤.",ex:["墓地 묘지","墓碑 묘비"]},
+    {c:"慕",use:"그리워하다·사모하다.",ex:["思慕 사모","敬慕 경모"]},
+    {c:"募",use:"모집하다.",ex:["募集 모집","募金 모금"]}
+  ]}
+  ,{kind:"shape",title:"심을 植 · 번식할 殖 · 값 値 · 둘 置",tip:"直이 공통으로 들어가며 왼쪽·아래의 木·歹·亻·罒 요소가 뜻을 가릅니다.",members:[
+    {c:"植",use:"심다·식물.",ex:["植物 식물","植樹 식수"]},
+    {c:"殖",use:"번식·불리다.",ex:["繁殖 번식","增殖 증식"]},
+    {c:"値",use:"값·가치.",ex:["價値 가치","數値 수치"]},
+    {c:"置",use:"두다·설치하다.",ex:["設置 설치","位置 위치"]}
+  ]}
+  ,{kind:"shape",title:"엷을 薄 · 넓을 博 · 잡을 搏 · 묶을 縛",tip:"尃 계열이 들어가 자형이 비슷합니다. 艹·十·扌·糹 부수를 먼저 보세요.",members:[
+    {c:"薄",use:"얇다·엷다.",ex:["薄弱 박약","希薄 희박"]},
+    {c:"博",use:"넓다·박식하다.",ex:["博士 박사","博物館 박물관"]},
+    {c:"搏",use:"치다·붙잡다.",ex:["搏擊 박격","脈搏 맥박"]},
+    {c:"縛",use:"묶다.",ex:["束縛 속박","捕縛 포박"]}
+  ]}
+  ,{kind:"shape",title:"재단할 裁 · 실을 載 · 심을 栽",tip:"가운데 戈 계열 골격은 비슷하고 衣·車·木 부분으로 구별합니다.",members:[
+    {c:"裁",use:"재단하다·판단하다.",ex:["裁判 재판","裁斷 재단"]},
+    {c:"載",use:"싣다·기재하다.",ex:["掲載 게재","積載 적재"]},
+    {c:"栽",use:"심다·재배하다.",ex:["栽培 재배","盆栽 분재"]}
+  ]}
+  ,{kind:"shape",title:"논할 論 · 바퀴 輪 · 인륜 倫",tip:"侖이 공통 성부이며 言·車·亻 부수가 의미를 나눕니다.",members:[
+    {c:"論",use:"논하다·이론.",ex:["討論 토론","理論 이론"]},
+    {c:"輪",use:"바퀴·차례.",ex:["車輪 차륜","輪番 윤번"]},
+    {c:"倫",use:"인륜·윤리.",ex:["倫理 윤리","人倫 인륜"]}
+  ]}
+  ,{kind:"shape",title:"적 適 · 대적할 敵 · 물방울 滴 · 적통 嫡",tip:"啇이 공통으로 보이며 辶·攵·氵·女를 먼저 확인하면 빠릅니다.",members:[
+    {c:"適",use:"맞다·가다.",ex:["適切 적절","適用 적용"]},
+    {c:"敵",use:"적·대적하다.",ex:["敵軍 적군","匹敵 필적"]},
+    {c:"滴",use:"물방울·떨어지다.",ex:["水滴 수적","點滴 점적"]},
+    {c:"嫡",use:"정실·적통.",ex:["嫡子 적자","嫡統 적통"]}
+  ]}
+  ,{kind:"shape",title:"누를 壓 · 싫어할 厭",tip:"壓은 아래 土가 붙고 厭은 厂 안쪽 구조로 끝납니다.",members:[
+    {c:"壓",use:"누르다·압력.",ex:["壓力 압력","壓縮 압축"]},
+    {c:"厭",use:"싫어하다·물리다.",ex:["嫌厭 혐오","厭世 염세"]}
+  ]}
+  ,{kind:"shape",title:"빌릴 借 · 아낄 惜 · 섞일 錯",tip:"昔이 공통으로 들어가며 亻·忄·金 부수가 뜻을 가릅니다.",members:[
+    {c:"借",use:"빌리다.",ex:["借用 차용","借款 차관"]},
+    {c:"惜",use:"아끼다·안타까워하다.",ex:["惜別 석별","愛惜 애석"]},
+    {c:"錯",use:"섞이다·어긋나다.",ex:["錯誤 착오","錯覺 착각"]}
+  ]}
+  ,{kind:"shape",title:"푸를 靑 · 맑을 淸 · 뜻 情 · 갤 晴 · 청할 請",tip:"青/靑 계열은 왼쪽 또는 위의 氵·忄·日·言을 보면 의미를 바로 나눌 수 있습니다.",members:[
+    {c:"靑",use:"푸르다.",ex:["靑年 청년","靑春 청춘"]},
+    {c:"淸",use:"맑다.",ex:["淸潔 청결","淸水 청수"]},
+    {c:"情",use:"마음·정.",ex:["感情 감정","事情 사정"]},
+    {c:"晴",use:"날이 개다.",ex:["晴天 청천"]},
+    {c:"請",use:"청하다·부탁하다.",ex:["申請 신청","請求 청구"]}
+  ]}
+  ,{kind:"shape",title:"구슬 珠 · 붉을 朱 · 베다 株",tip:"朱를 중심으로 王·木 부수가 붙는지 확인하면 珠·株를 구별할 수 있습니다.",members:[
+    {c:"朱",use:"붉다·주홍.",ex:["朱色 주색","朱印 주인"]},
+    {c:"珠",use:"구슬·진주.",ex:["眞珠 진주","珠玉 주옥"]},
+    {c:"株",use:"그루·주식의 단위.",ex:["株式 주식","一株 일주"]}
+  ]}
+  ,{kind:"meaning",title:"‘바꾸다’ 改 · 變 · 換 · 更",tip:"改=고쳐 바꿈, 變=상태 변화, 換=서로 맞바꿈, 更=새로 고침·다시의 뉘앙스가 강합니다.",members:[
+    {c:"改",use:"잘못된 점을 고치거나 개선할 때.",ex:["改善 개선","改正 개정"]},
+    {c:"變",use:"상태·성질이 달라질 때.",ex:["變化 변화","變更 변경"]},
+    {c:"換",use:"대상을 서로 바꾸거나 교환할 때.",ex:["交換 교환","換氣 환기"]},
+    {c:"更",use:"새로 고치거나 다시 할 때.",ex:["更新 갱신","變更 변경"]}
+  ]}
+  ,{kind:"meaning",title:"‘돕다’ 助 · 援 · 補 · 協",tip:"助=일반적 도움, 援=지원·구원, 補=부족한 것을 채움, 協=힘을 합침으로 나눕니다.",members:[
+    {c:"助",use:"직접 돕거나 보조할 때.",ex:["援助 원조","助手 조수"]},
+    {c:"援",use:"밖에서 힘을 보태 지원할 때.",ex:["支援 지원","援軍 원군"]},
+    {c:"補",use:"모자란 부분을 메우고 보충할 때.",ex:["補充 보충","候補 후보"]},
+    {c:"協",use:"여럿이 힘을 합할 때.",ex:["協力 협력","協議 협의"]}
+  ]}
+  ,{kind:"meaning",title:"‘얻다’ 得 · 獲 · 取 · 收",tip:"得=얻거나 가능함, 獲=획득·포획, 取=취함, 收=거두어들임으로 구별합니다.",members:[
+    {c:"得",use:"얻다·이익·가능.",ex:["取得 취득","所得 소득"]},
+    {c:"獲",use:"성과나 대상을 획득하다.",ex:["獲得 획득","捕獲 포획"]},
+    {c:"取",use:"집어 취하다·선택하다.",ex:["取得 취득","採取 채취"]},
+    {c:"收",use:"거두어 받아들이다.",ex:["收入 수입","收集 수집"]}
+  ]}
+
 ];
 
 
@@ -4103,7 +4304,45 @@ const HANJA_FORMATION_CURATED={
   "修":["disputed","업로드 자료에서 회의자로도 본다고 표기"],"座":["disputed","업로드 자료에서 회의자로도 본다고 표기"],"差":["disputed","업로드 자료에서 회의자로도 본다고 표기"],
   "笛":["disputed","업로드 자료에서 회의자로도 본다고 표기"],"堤":["disputed","업로드 자료에서 회의자로도 본다고 표기"],"怨":["disputed","업로드 자료에서 회의자로도 본다고 표기"]
 };
-let atlasState={mode:"grade",filter:"all",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"compact",query:"",freqType:"all",period:"all",formationType:"all",phoneticLimit:80};
+const ATLAS_AREA_PREF_DEFAULTS={
+  all:{scope:"exact",mask:"none",view:"compact"},
+  freq:{scope:"exact",mask:"none",view:"table"},
+  saved:{scope:"cumulative",mask:"none",view:"compact"},
+  weak:{scope:"cumulative",mask:"meaning",view:"compact"},
+  compare:{scope:"cumulative",mask:"none",view:"compact"},
+  sound:{scope:"cumulative",mask:"none",view:"compact"},
+  formation:{scope:"cumulative",mask:"none",view:"compact"}
+};
+let atlasAreaPrefs=storageJson("atlasAreaPrefsV1",{})||{};
+let atlasState={mode:"grade",filter:"all",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"compact",query:"",freqType:"all",period:"all",formationType:"all",phoneticLimit:80,compareKind:"all"};
+function atlasQuickKeyFromState(){
+  if(atlasState.mode==="freq")return "freq";
+  if(atlasState.mode==="compare")return "compare";
+  if(atlasState.mode==="sound")return "sound";
+  if(atlasState.mode==="formation")return "formation";
+  if(atlasState.filter==="saved")return "saved";
+  if(atlasState.filter==="weak")return "weak";
+  return "all";
+}
+function atlasSanitizeAreaPref(key,pref){
+  const d=ATLAS_AREA_PREF_DEFAULTS[key]||ATLAS_AREA_PREF_DEFAULTS.all,p=Object.assign({},d,pref||{});
+  p.scope=p.scope==="cumulative"?"cumulative":"exact";
+  p.mask=["none","hanja","meaning"].includes(p.mask)?p.mask:d.mask;
+  if(key==="freq")p.view=["table","grid"].includes(p.view)?p.view:"table";
+  else p.view=["compact","grid","table"].includes(p.view)?p.view:d.view;
+  return p;
+}
+function saveAtlasAreaPref(key){
+  key=key||atlasQuickKeyFromState();
+  atlasAreaPrefs[key]=atlasSanitizeAreaPref(key,{scope:atlasState.scope,mask:atlasState.mask,view:atlasState.view});
+  try{localStorage.setItem("atlasAreaPrefsV1",JSON.stringify(atlasAreaPrefs))}catch{}
+}
+function loadAtlasAreaPref(key){
+  const p=atlasSanitizeAreaPref(key,atlasAreaPrefs[key]);
+  atlasState.scope=p.scope;atlasState.mask=p.mask;atlasState.view=p.view;
+  atlasAreaPrefs[key]=p;
+}
+loadAtlasAreaPref("all");
 let atlasFreqCardPage=0;
 const ATLAS_FREQ_CARD_PAGE_SIZE=24;
 const atlasFreqCardRevealSet=new Set();
@@ -4366,7 +4605,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.20.5-20260929";
+const APP_BUILD="2.20.6-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -4539,7 +4778,9 @@ function runGlobalAction(action){
   if(action==="freq-atlas"){atlasState.mode="freq";atlasState.filter="all";atlasState.sort="freq";atlasState.view="table";switchTab("atlas");return}
   if(action==="wrong"){openUtility("wrong");return}
   if(action==="diagnosis"){openUtility("diagnosis");return}
-  if(action==="atlas"){atlasState.mode="grade";atlasState.filter="all";switchTab("atlas");return}
+  if(action==="atlas"){switchTab("atlas");setTimeout(function(){setAtlasQuickView("all")},0);return}
+  if(action==="compare-atlas"){switchTab("atlas");setTimeout(function(){setAtlasQuickView("compare")},0);return}
+  if(action==="phonetic-atlas"){switchTab("atlas");setTimeout(function(){setAtlasQuickView("sound")},0);return}
   if(action==="jp"){switchTab("jp");return}
   if(action==="jp-word"){openJapaneseWordHub();return}
   if(action==="record"){switchTab("more");return}
@@ -4550,15 +4791,33 @@ function runGlobalAction(action){
 function openGlobalSearch(prefill){
   closePracticeSheet();closeUpdateCenter();
   const sheet=$("#globalSearchSheet"),input=$("#globalSearchInput");if(!sheet||!input)return;
-  sheet.classList.add("open");sheet.setAttribute("aria-hidden","false");$("#app2Backdrop")?.classList.add("open");
-  input.value=String(prefill||"");renderGlobalSearchResults(input.value);
-  setTimeout(function(){input.focus();input.select()},40);
+  if(sheet.parentElement!==document.body)document.body.appendChild(sheet);
+  document.body.classList.add("global-search-open");
+  sheet.hidden=false;
+  sheet.setAttribute("aria-hidden","false");
+  sheet.classList.add("open");
+  $("#app2Backdrop")?.classList.add("open");
+  input.value=String(prefill||"");
+  try{renderGlobalSearchResults(input.value)}
+  catch(err){
+    console.error("global search render failed",err);
+    const box=$("#globalSearchResults");
+    if(box)box.innerHTML="<div class='global-search-empty'>검색 화면을 불러오는 중 오류가 났습니다.<small>닫았다가 다시 열어도 계속되면 현재 화면을 알려 주세요.</small></div>";
+  }
+  requestAnimationFrame(function(){sheet.classList.add("open")});
+  setTimeout(function(){try{input.focus({preventScroll:true});input.select()}catch{}},80);
   if(typeof loadJapaneseData==="function"){
-    Promise.resolve(loadJapaneseData()).then(function(){if(sheet.classList.contains("open"))renderGlobalSearchResults(input.value)}).catch(function(){});
+    Promise.resolve(loadJapaneseData()).then(function(){
+      if(sheet.classList.contains("open")){
+        try{renderGlobalSearchResults(input.value)}catch(err){console.error(err)}
+      }
+    }).catch(function(){});
   }
 }
 function closeGlobalSearch(){
-  const sheet=$("#globalSearchSheet");if(sheet){sheet.classList.remove("open");sheet.setAttribute("aria-hidden","true")}
+  const sheet=$("#globalSearchSheet");
+  if(sheet){sheet.classList.remove("open");sheet.setAttribute("aria-hidden","true")}
+  document.body.classList.remove("global-search-open");
   const updateOpen=$("#updateSheet")?.classList.contains("open");
   const practiceOpen=$("#practiceSettingsPanel")?.classList.contains("sheet-open");
   if(!updateOpen&&!practiceOpen)$("#app2Backdrop")?.classList.remove("open");
@@ -9843,8 +10102,9 @@ function atlasCompareSelectedSet(){
   return new Set(pool.map(function(c){return c.hanja}));
 }
 function atlasCompareGroups(){
-  const selected=atlasCompareSelectedSet(),q=norm(atlasState.query);
+  const selected=atlasCompareSelectedSet(),q=norm(atlasState.query),kind=atlasState.compareKind||"all";
   return HANJA_COMPARE_GROUPS.map(function(g){
+    if(kind!=="all"&&g.kind!==kind)return null;
     const members=g.members.map(function(m){
       const c=atlasCharByGlyph(m.c);
       const canonical=c?officialMeaningSoundForms(c).canonical:"";
@@ -9862,6 +10122,7 @@ function atlasCompareHtml(){
   if(!groups.length)return '<div class="atlas-compare-empty">현재 급수/검색 조건에 맞는 비교 묶음이 없습니다.</div>';
   return '<div class="atlas-compare-wrap">'+
     '<div class="atlas-compare-intro"><b>헷갈리는 한자 비교</b>모양이 비슷한 글자와 뜻이 비슷하지만 쓰임이 다른 글자를 한 묶음으로 정리했습니다. 보라색 테두리는 현재 선택한 급수/범위에 포함된 글자입니다.</div>'+
+    '<div class="atlas-compare-search"><div class="atlas-compare-searchbox"><span>⌕</span><input id="atlasCompareSearch" value="'+esc(atlasState.query)+'" placeholder="한자 · 훈음 · 예시 단어 · 구별 포인트 검색"></div><div class="atlas-compare-kindrow"><button class="'+((atlasState.compareKind||"all")==="all"?"active":"")+'" data-compare-kind="all">전체</button><button class="'+(atlasState.compareKind==="shape"?"active":"")+'" data-compare-kind="shape">모양 비슷</button><button class="'+(atlasState.compareKind==="meaning"?"active":"")+'" data-compare-kind="meaning">뜻·쓰임 비슷</button></div></div>'+
     '<div class="atlas-compare-grid">'+groups.map(function(g){
       return '<section class="atlas-compare-card"><div class="atlas-compare-head"><div><b>'+esc(g.title)+'</b><small>'+esc(g.tip)+'</small></div><span class="atlas-compare-kind '+(g.kind==="meaning"?"meaning":"")+'">'+(g.kind==="shape"?"모양 비슷":"뜻·쓰임 비슷")+'</span></div>'+
         '<div class="atlas-compare-members">'+g.members.map(function(m){
@@ -10058,20 +10319,22 @@ function atlasFormationHtml(){
     }).join("")+'</div>':'<div class="atlas-empty">이 조건의 자원 분류가 없습니다.</div>');
 }
 function setAtlasQuickView(v){
+  const previous=atlasQuickKeyFromState();
+  saveAtlasAreaPref(previous);
   atlasState.query="";
   atlasFreqCardPage=0;atlasFreqCardRevealSet.clear();atlasRevealSet.clear();
   if(v==="freq"){
-    atlasState.mode="freq";atlasState.filter="all";atlasState.sort="freq";atlasState.view="table";atlasState.freqType="all";atlasState.period="all";
+    atlasState.mode="freq";atlasState.filter="all";atlasState.sort="freq";atlasState.freqType=atlasState.freqType||"all";atlasState.period=atlasState.period||"all";
   }else if(v==="compare"){
-    atlasState.mode="compare";atlasState.filter="all";atlasState.sort="alpha";atlasState.view="compact";atlasState.scope="cumulative";
+    atlasState.mode="compare";atlasState.filter="all";atlasState.sort="alpha";atlasState.compareKind=atlasState.compareKind||"all";
   }else if(v==="sound"){
-    atlasState.mode="sound";atlasState.filter="all";atlasState.sort="alpha";atlasState.view="compact";atlasState.scope="cumulative";atlasState.phoneticLimit=80;
+    atlasState.mode="sound";atlasState.filter="all";atlasState.sort="alpha";atlasState.phoneticLimit=80;
   }else if(v==="formation"){
-    atlasState.mode="formation";atlasState.filter="all";atlasState.sort="alpha";atlasState.view="compact";atlasState.scope="cumulative";atlasState.formationType="all";
+    atlasState.mode="formation";atlasState.filter="all";atlasState.sort="alpha";atlasState.formationType=atlasState.formationType||"all";
   }else{
-    atlasState.mode="grade";atlasState.filter=(v==="saved"||v==="weak")?v:"all";
-    atlasState.sort="alpha";if(atlasState.view==="table"&&v!=="all")atlasState.view="compact";
+    atlasState.mode="grade";atlasState.filter=(v==="saved"||v==="weak")?v:"all";atlasState.sort="alpha";
   }
+  loadAtlasAreaPref(v==="freq"?"freq":v==="compare"?"compare":v==="sound"?"sound":v==="formation"?"formation":v==="saved"?"saved":v==="weak"?"weak":"all");
   renderAtlas();
 }
 function atlasStudyStats(c){
@@ -10212,6 +10475,13 @@ function renderAtlasResults(){
     groups.forEach(function(g){g.members.forEach(function(m){if(m.current)charsShown.add(m.c)})});
     sum.innerHTML='<div><b>'+groups.length+'</b><span>비교 묶음</span></div><div><b>'+charsShown.size+'</b><span>현재 범위 한자</span></div><div><b>'+groups.filter(function(g){return g.kind==="shape"}).length+'</b><span>모양 비교</span></div><div><b>'+groups.filter(function(g){return g.kind==="meaning"}).length+'</b><span>쓰임 비교</span></div>';
     out.innerHTML=atlasCompareHtml();
+    const compareSearch=$("#atlasCompareSearch");
+    if(compareSearch)compareSearch.oninput=function(e){
+      atlasState.query=e.target.value;
+      const top=$("#atlasSearch");if(top)top.value=atlasState.query;
+      renderAtlasResults();
+    };
+    out.querySelectorAll("[data-compare-kind]").forEach(function(b){b.onclick=function(){atlasState.compareKind=b.dataset.compareKind||"all";renderAtlasResults()}});
     out.querySelectorAll("[data-compare-char]").forEach(function(b){b.onclick=function(){
       const raw=decodeURIComponent(b.dataset.compareChar||""),parts=raw.split("|"),level=parts[0],ch=parts.slice(1).join("|");
       const c=atlasCharByGlyph(ch);if(!c)return;
@@ -10264,6 +10534,7 @@ function setAtlasState(k,v){
   atlasState[k]=v;
   if(k==="grade"&&!isHanmunGrade(v)&&atlasState.freqType==="hanmun")atlasState.freqType="all";
   if(k==="grade"||k==="scope"||k==="mask")atlasRevealSet.clear();
+  if(k==="scope"||k==="mask"||k==="view")saveAtlasAreaPref();
   renderAtlas();
 }
 function renderAtlas(){
@@ -10311,7 +10582,7 @@ function renderAtlas(){
   }
 
   const fontLabel=hanjaFontMode==="atlas"?"도감체":(hanjaFontMode==="serif"?"명조":"고딕");
-  h+='<details class="atlas-settings-v2"><summary>범위 · 암기 · 보기 설정</summary><div class="atlas-settings-body"><div class="atlas-controls">';
+  h+='<details class="atlas-settings-v2"><summary>범위 · 암기 · 보기 설정 <small>· '+esc(title)+' 전용</small></summary><div class="atlas-settings-body"><div class="atlas-controls">';
   h+='<label class="atlas-control"><span>범위</span><select id="atlasScope"><option value="exact" '+(atlasState.scope==="exact"?"selected":"")+'>해당 급수 신규</option><option value="cumulative" '+(atlasState.scope==="cumulative"?"selected":"")+'>누적 배정</option></select></label>';
   if(atlasState.mode==="grade")h+='<label class="atlas-control"><span>암기 가림</span><select id="atlasMask"><option value="none" '+(atlasState.mask==="none"?"selected":"")+'>모두 보기</option><option value="hanja" '+(atlasState.mask==="hanja"?"selected":"")+'>한자 숨기기</option><option value="meaning" '+(atlasState.mask==="meaning"?"selected":"")+'>훈음 숨기기</option></select></label>';
   if(atlasState.mode!=="compare"&&atlasState.mode!=="sound"&&atlasState.mode!=="formation")h+='<label class="atlas-control"><span>보기</span><select id="atlasView">'+
@@ -10343,9 +10614,9 @@ function renderAtlas(){
   el.innerHTML=h;
 
   document.querySelectorAll("[data-atlas-quick]").forEach(function(b){b.onclick=function(){setAtlasQuickView(b.dataset.atlasQuick||"all")}});
-  $("#atlasScope").onchange=function(e){atlasState.scope=e.target.value;atlasRevealSet.clear();renderAtlas()};
-  const atlasMaskSel=$("#atlasMask");if(atlasMaskSel)atlasMaskSel.onchange=function(e){atlasState.mask=e.target.value;atlasRevealSet.clear();renderAtlas()};
-  const atlasViewSel=$("#atlasView");if(atlasViewSel)atlasViewSel.onchange=function(e){atlasState.view=e.target.value;atlasFreqCardPage=0;renderAtlas()};
+  $("#atlasScope").onchange=function(e){atlasState.scope=e.target.value;atlasRevealSet.clear();saveAtlasAreaPref();renderAtlas()};
+  const atlasMaskSel=$("#atlasMask");if(atlasMaskSel)atlasMaskSel.onchange=function(e){atlasState.mask=e.target.value;atlasRevealSet.clear();saveAtlasAreaPref();renderAtlas()};
+  const atlasViewSel=$("#atlasView");if(atlasViewSel)atlasViewSel.onchange=function(e){atlasState.view=e.target.value;atlasFreqCardPage=0;saveAtlasAreaPref();renderAtlas()};
   $("#atlasSearch").oninput=function(e){atlasState.query=e.target.value;atlasFreqCardPage=0;renderAtlasResults()};
   document.querySelectorAll(".atlas-type-chip").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.atlasType||"all";atlasFreqCardPage=0;atlasFreqCardRevealSet.clear();renderAtlas()}});
   document.querySelectorAll(".atlas-period-chip").forEach(function(b){b.onclick=function(){atlasState.period=b.dataset.atlasPeriod||"all";atlasFreqCardPage=0;atlasFreqCardRevealSet.clear();renderAtlas()}});
