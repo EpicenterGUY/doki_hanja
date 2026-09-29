@@ -2738,7 +2738,7 @@ body>.app2-update{z-index:1930!important}
 
 /* Atlas landing is now task-first instead of settings-first */
 .atlas-top-v2{align-items:center}.atlas-global-find{min-height:38px;padding:7px 11px;border-radius:12px;border:1px solid rgba(142,169,220,.25);background:#23385f;color:#dce6f9;font-size:10px;font-weight:900;white-space:nowrap}
-.atlas-quick-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:11px}
+.atlas-quick-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin-top:11px}
 .atlas-quick-row button{
   min-width:0;min-height:56px;padding:7px;border-radius:15px;border:1px solid rgba(139,166,218,.2);
   background:linear-gradient(145deg,rgba(28,43,73,.9),rgba(18,28,50,.94));color:#9fb0ce;
@@ -2770,6 +2770,61 @@ body>.app2-update{z-index:1930!important}
 }
 @media(max-width:380px){
   .global-jp-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+/* Similar / confusing Hanja comparison atlas */
+.atlas-compare-wrap{display:grid;gap:12px}
+.atlas-compare-intro{
+  padding:12px 13px;border:1px solid rgba(139,166,218,.18);border-radius:16px;
+  background:linear-gradient(145deg,rgba(25,39,66,.92),rgba(13,24,43,.96));
+  color:#aebed6;font-size:10px;line-height:1.55
+}
+.atlas-compare-intro b{display:block;color:#f3f7ff;font-size:13px;margin-bottom:4px}
+.atlas-compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.atlas-compare-card{
+  min-width:0;border:1px solid rgba(139,166,218,.18);border-radius:18px;
+  background:linear-gradient(155deg,#132440,#0b182b);overflow:hidden
+}
+.atlas-compare-head{
+  display:flex;align-items:flex-start;justify-content:space-between;gap:8px;
+  padding:11px 12px 9px;border-bottom:1px solid rgba(139,166,218,.12)
+}
+.atlas-compare-head>div{min-width:0}.atlas-compare-head b{display:block;color:#f2f7ff;font-size:13px}
+.atlas-compare-head small{display:block;margin-top:3px;color:#8298ba;font-size:8px;line-height:1.35}
+.atlas-compare-kind{
+  flex:0 0 auto;padding:4px 7px;border-radius:999px;border:1px solid rgba(94,200,235,.2);
+  background:rgba(54,171,215,.08);color:#72d2ef;font-size:7px;font-weight:900
+}
+.atlas-compare-kind.meaning{border-color:rgba(105,219,178,.2);background:rgba(74,192,151,.08);color:#82ddbd}
+.atlas-compare-members{display:grid}
+.atlas-compare-member{
+  display:grid;grid-template-columns:50px minmax(0,1fr);gap:9px;padding:10px 11px;
+  border-bottom:1px solid rgba(139,166,218,.1)
+}
+.atlas-compare-member:last-child{border-bottom:0}
+.atlas-compare-glyph{
+  position:relative;display:grid;place-items:center;align-self:start;min-height:56px;border-radius:13px;
+  background:#f4f7fc;color:#17243d;font:800 34px/1 var(--hanja-font,"Noto Serif CJK KR","Batang",serif);
+  border:2px solid transparent
+}
+.atlas-compare-member.current .atlas-compare-glyph{border-color:#7e79ff;box-shadow:0 0 0 3px rgba(112,101,240,.13)}
+.atlas-compare-level{position:absolute;right:3px;bottom:3px;padding:2px 4px;border-radius:5px;background:#263a60;color:#dbe7ff;font:800 6px/1.2 system-ui}
+.atlas-compare-info{min-width:0}
+.atlas-compare-ms{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.atlas-compare-ms b{color:#f3f7ff;font-size:12px}.atlas-compare-ms em{font-style:normal;color:#7cd7bd;font-size:8px;font-weight:900}
+.atlas-compare-use{margin-top:4px;color:#b4c4db;font-size:9px;line-height:1.5;word-break:keep-all}
+.atlas-compare-examples{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.atlas-compare-examples span{padding:3px 5px;border-radius:7px;background:rgba(114,139,181,.1);color:#8fa9cd;font-size:7px;font-weight:800}
+.atlas-compare-tip{padding:9px 11px;background:rgba(5,13,25,.34);color:#93a9c8;font-size:8px;line-height:1.5}
+.atlas-compare-tip b{color:#f0c977}
+.atlas-compare-empty{padding:32px 12px;text-align:center;color:#90a3c1;font-size:11px;font-weight:800}
+@media(max-width:760px){.atlas-compare-grid{grid-template-columns:1fr}}
+@media(max-width:600px){
+  .atlas-quick-row{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .atlas-quick-row button{padding:4px 2px}
+  .atlas-compare-card{border-radius:16px}
+  .atlas-compare-member{grid-template-columns:46px minmax(0,1fr);padding:9px}
+  .atlas-compare-glyph{min-height:52px;font-size:31px}
 }
 
 
@@ -3440,6 +3495,105 @@ let stats=storageJson("hanjaStatsV2",{});
 let wrong=storageJson("hanjaWrongV2",{});
 let unknownHanja=storageJson("hanjaUnknownV1",{});
 let seenHanjaPowerLevel=+(storageGet("hanjaPowerSeenLevel",0)||0);
+const HANJA_COMPARE_GROUPS=[
+  {kind:"shape",title:"아직 未 · 끝 末",tip:"가운데 가로획의 위치를 보세요. 未는 위가 짧고 아래가 길며, 末은 맨 위 가로획이 더 깁니다.",members:[
+    {c:"未",use:"아직 이루어지지 않았거나 앞으로 올 것을 말할 때.",ex:["未來 미래","未成年 미성년","未完 미완"]},
+    {c:"末",use:"끝·마지막·말단을 나타낼 때.",ex:["年末 연말","末期 말기","末端 말단"]}
+  ]},
+  {kind:"shape",title:"자기 己 · 이미 已 · 뱀 巳",tip:"획이 어디까지 닫히는지 구별하면 쉽습니다. 巳는 십이지의 뱀을 나타내는 글자입니다.",members:[
+    {c:"己",use:"자기 자신·몸을 가리킬 때.",ex:["自己 자기","克己 극기"]},
+    {c:"已",use:"이미 끝났거나 그렇게 되어 있음을 나타낼 때.",ex:["已往 이왕","已然 이연"]},
+    {c:"巳",use:"십이지의 여섯째인 뱀·그 시간대를 나타낼 때.",ex:["巳時 사시","巳年 사년"]}
+  ]},
+  {kind:"shape",title:"흙 土 · 선비 士",tip:"土는 아래 가로획이 길고, 士는 위 가로획이 깁니다.",members:[
+    {c:"土",use:"흙·땅·영토처럼 토지와 관련된 뜻.",ex:["土地 토지","國土 국토","土木 토목"]},
+    {c:"士",use:"선비·사람의 신분·전문가나 군인을 나타낼 때.",ex:["博士 박사","紳士 신사","兵士 병사"]}
+  ]},
+  {kind:"shape",title:"사람 人 · 들 入",tip:"人은 사람이 서 있는 모양, 入은 안으로 들어가는 방향을 떠올리면 됩니다.",members:[
+    {c:"人",use:"사람·인간·인원을 나타낼 때.",ex:["人間 인간","人口 인구","個人 개인"]},
+    {c:"入",use:"안으로 들어감·가입·진입을 나타낼 때.",ex:["入學 입학","入國 입국","輸入 수입"]}
+  ]},
+  {kind:"shape",title:"소 牛 · 낮 午",tip:"牛는 가운데 세로획이 위로 튀어나오고, 午는 위쪽 획 모양이 다릅니다.",members:[
+    {c:"牛",use:"소 자체나 소와 관련된 것을 나타낼 때.",ex:["牛乳 우유","牛肉 우육"]},
+    {c:"午",use:"정오를 중심으로 한 낮 시간대를 나타낼 때.",ex:["午前 오전","午後 오후","正午 정오"]}
+  ]},
+  {kind:"shape",title:"날 日 · 가로 曰",tip:"曰은 세로폭이 낮고 안쪽 가로획이 오른쪽까지 닿지 않는 전통 자형이 많습니다.",members:[
+    {c:"日",use:"해·날짜·하루와 관련된 뜻.",ex:["日時 일시","每日 매일","休日 휴일"]},
+    {c:"曰",use:"한문에서 ‘말하다/이르다’의 뜻으로 자주 등장.",ex:["子曰 자왈","曰可曰否 왈가왈부"]}
+  ]},
+  {kind:"shape",title:"일천 千 · 방패 干",tip:"千은 삐침이 들어가고, 干은 반듯한 가로획 중심입니다.",members:[
+    {c:"千",use:"천(1000)이라는 수나 매우 많음을 나타낼 때.",ex:["千里 천리","千萬 천만"]},
+    {c:"干",use:"간섭하거나 관계함, 또는 干支처럼 특정 한자어에 쓰일 때.",ex:["干涉 간섭","干支 간지"]}
+  ]},
+  {kind:"shape",title:"하늘 天 · 지아비 夫",tip:"夫는 가운데 세로획이 위로 더 올라가고 사람의 모양이 강조됩니다.",members:[
+    {c:"天",use:"하늘·자연·세상처럼 위쪽/천체 개념.",ex:["天地 천지","天然 천연","天才 천재"]},
+    {c:"夫",use:"남편·사내·사람을 가리킬 때.",ex:["夫婦 부부","丈夫 장부"]}
+  ]},
+  {kind:"shape",title:"임금 王 · 구슬 玉",tip:"玉은 王에 점 하나가 더 붙어 ‘옥’을 나타냅니다.",members:[
+    {c:"王",use:"왕·임금·왕실을 나타낼 때.",ex:["王國 왕국","王子 왕자","帝王 제왕"]},
+    {c:"玉",use:"옥·보석 또는 귀하고 아름다운 것을 나타낼 때.",ex:["玉石 옥석","寶玉 보옥"]}
+  ]},
+  {kind:"shape",title:"흰 白 · 일백 百",tip:"百은 白 위에 一이 하나 더 있습니다.",members:[
+    {c:"白",use:"흰색·밝음·드러냄과 관련된 뜻.",ex:["白色 백색","告白 고백","明白 명백"]},
+    {c:"百",use:"백(100)이라는 수나 많은 수량.",ex:["百科 백과","百貨 백화","百萬 백만"]}
+  ]},
+  {kind:"shape",title:"말미암을 由 · 갑옷 甲 · 펼 申",tip:"가운데 세로획과 테두리를 관찰하세요. 비슷해 보여도 쓰임은 완전히 다릅니다.",members:[
+    {c:"由",use:"이유·근거·~로부터 비롯됨을 나타낼 때.",ex:["理由 이유","自由 자유","由來 유래"]},
+    {c:"甲",use:"갑옷·첫째·등급의 첫 항목을 나타낼 때.",ex:["甲乙 갑을","裝甲 장갑","甲板 갑판"]},
+    {c:"申",use:"의사나 내용을 펴서 밝히고 신청·신고할 때.",ex:["申告 신고","申請 신청","申述 신술"]}
+  ]},
+  {kind:"meaning",title:"‘보다’ 見 · 看 · 觀 · 視",tip:"모두 ‘보다’ 계열이지만 見=봄/견해, 看=살핌, 觀=관찰·관람, 視=시각·간주 쪽으로 자주 갈립니다.",members:[
+    {c:"見",use:"직접 보거나 발견·의견처럼 ‘보아서 알게 됨’에 가까울 때.",ex:["發見 발견","意見 의견","見學 견학"]},
+    {c:"看",use:"지켜보거나 돌보고 살피는 느낌이 강할 때.",ex:["看護 간호","看守 간수"]},
+    {c:"觀",use:"대상을 넓게 관찰·관람하거나 관점을 말할 때.",ex:["觀察 관찰","觀光 관광","觀點 관점"]},
+    {c:"視",use:"시각·시청 또는 어떤 대상으로 ‘여기다/보다’라는 뜻.",ex:["視覺 시각","視聽 시청","無視 무시"]}
+  ]},
+  {kind:"meaning",title:"‘듣다’ 聞 · 聽",tip:"聞은 소식이 귀에 들어오는 것, 聽은 의식적으로 귀 기울여 듣는 것에 더 가깝습니다.",members:[
+    {c:"聞",use:"소문·소식·견문처럼 ‘들어서 알게 됨’에 자주 씀.",ex:["見聞 견문","新聞 신문","醜聞 추문"]},
+    {c:"聽",use:"주의해서 듣거나 청취하는 행위에 자주 씀.",ex:["聽取 청취","傾聽 경청","視聽 시청"]}
+  ]},
+  {kind:"meaning",title:"‘말’ 言 · 語 · 話",tip:"言=말/발언, 語=언어·말의 체계, 話=대화·이야기의 뉘앙스로 구별하면 쉽습니다.",members:[
+    {c:"言",use:"말하다·발언·언론처럼 ‘말 그 자체나 발화’에 사용.",ex:["發言 발언","言論 언론","宣言 선언"]},
+    {c:"語",use:"언어·어휘·말의 체계를 나타낼 때.",ex:["國語 국어","語學 어학","用語 용어"]},
+    {c:"話",use:"대화·통화·이야기처럼 주고받는 말에 사용.",ex:["對話 대화","電話 전화","會話 회화"]}
+  ]},
+  {kind:"meaning",title:"‘생각’ 思 · 考 · 念",tip:"思=생각/사상, 考=따져 생각함, 念=마음에 두고 생각함의 느낌이 강합니다.",members:[
+    {c:"思",use:"생각·사상·의사를 넓게 나타낼 때.",ex:["思想 사상","意思 의사","思念 사념"]},
+    {c:"考",use:"검토하고 따져 생각하는 과정에 자주 씀.",ex:["考慮 고려","考察 고찰","參考 참고"]},
+    {c:"念",use:"마음에 두다·바라다·기억하다의 느낌.",ex:["念願 염원","念頭 염두","記念 기념"]}
+  ]},
+  {kind:"meaning",title:"‘알다’ 知 · 識 · 覺",tip:"知=알고 있음, 識=분별·인식한 지식, 覺=느끼거나 깨달음에 가깝습니다.",members:[
+    {c:"知",use:"어떤 사실을 알거나 알림을 나타낼 때.",ex:["知識 지식","通知 통지","認知 인지"]},
+    {c:"識",use:"분별해 알아봄·인식·상식을 나타낼 때.",ex:["認識 인식","常識 상식","知識 지식"]},
+    {c:"覺",use:"감각으로 느끼거나 스스로 깨달을 때.",ex:["感覺 감각","自覺 자각","覺悟 각오"]}
+  ]},
+  {kind:"meaning",title:"‘만들다’ 作 · 製 · 造",tip:"作=일반적으로 만들거나 하다, 製=제품을 제작하다, 造=형태를 만들어 내거나 건조하다로 보면 편합니다.",members:[
+    {c:"作",use:"글·작품·일 등 무언가를 만들거나 행할 때 널리 사용.",ex:["作品 작품","作文 작문","作業 작업"]},
+    {c:"製",use:"물건을 가공·제작해 제품으로 만들 때.",ex:["製作 제작","製品 제품","製造 제조"]},
+    {c:"造",use:"구조물·배·형태 등을 만들어 내는 행위에 자주 씀.",ex:["造船 조선","建造 건조","製造 제조"]}
+  ]},
+  {kind:"meaning",title:"‘가다/움직이다’ 行 · 走 · 步",tip:"行=가다/행하다, 走=달리다, 步=걷다·걸음으로 나누면 됩니다.",members:[
+    {c:"行",use:"이동하거나 행동·실행하는 넓은 의미.",ex:["行動 행동","旅行 여행","實行 실행"]},
+    {c:"走",use:"달리거나 바삐 움직이는 뜻.",ex:["走行 주행","奔走 분주"]},
+    {c:"步",use:"걷기·걸음·단계의 뜻.",ex:["步行 보행","步道 보도","進步 진보"]}
+  ]},
+  {kind:"meaning",title:"‘먹고 마시다’ 食 · 飮 · 飯",tip:"食=먹는 행위/음식 전반, 飮=마심, 飯=밥·식사를 가리키는 쪽입니다.",members:[
+    {c:"食",use:"먹다·음식·식사 전반에 가장 넓게 사용.",ex:["食事 식사","食品 식품","飮食 음식"]},
+    {c:"飮",use:"물을 비롯해 무엇을 마시는 행위.",ex:["飮料 음료","飮酒 음주","飮食 음식"]},
+    {c:"飯",use:"밥이나 식사 자체를 나타낼 때.",ex:["白飯 백반","飯店 반점"]}
+  ]},
+  {kind:"meaning",title:"‘배우고 익히다’ 學 · 習 · 修",tip:"學=배움, 習=반복해 익힘, 修=배운 것을 닦고 수련함의 차이.",members:[
+    {c:"學",use:"배우는 일·학교·학문 전반.",ex:["學校 학교","學問 학문","學習 학습"]},
+    {c:"習",use:"반복해서 익히고 습관화할 때.",ex:["學習 학습","練習 연습","習慣 습관"]},
+    {c:"修",use:"닦고 수련하거나 고쳐 바로잡을 때.",ex:["修學 수학","修正 수정","修練 수련"]}
+  ]},
+  {kind:"meaning",title:"‘나다/낳다/기르다’ 生 · 産 · 育",tip:"生=생기고 살아남, 産=낳거나 생산함, 育=기르고 성장시킴.",members:[
+    {c:"生",use:"생명·생활·생겨남과 관련된 넓은 뜻.",ex:["生命 생명","生活 생활","生産 생산"]},
+    {c:"産",use:"낳다·생산하다·산업처럼 결과물을 만들어 냄.",ex:["出産 출산","生産 생산","産業 산업"]},
+    {c:"育",use:"아이·사람·능력을 기르고 성장시킬 때.",ex:["敎育 교육","育成 육성","養育 양육"]}
+  ]}
+];
+
 let atlasState={mode:"grade",filter:"all",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"compact",query:"",freqType:"all",period:"all"};
 let atlasFreqCardPage=0;
 const ATLAS_FREQ_CARD_PAGE_SIZE=24;
@@ -3692,7 +3846,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.23-20260929";
+const APP_BUILD="2.19.24-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -3775,6 +3929,7 @@ const GLOBAL_FEATURES=[
   {action:"wrong",title:"오답 · 모르는 한자",desc:"틀린 문제와 따로 저장한 글자",keys:"오답 복습 모름 저장"},
   {action:"diagnosis",title:"급수 진단",desc:"적응형 문제로 현재 수준 찾기",keys:"진단 급수 실력 수준 약점"},
   {action:"atlas",title:"한자 도감",desc:"훈음 · 장단음 · 부수 · 획수 검색",keys:"도감 한자 검색 훈음 부수 획수"},
+  {action:"compare-atlas",title:"헷갈리는 한자",desc:"비슷한 모양 · 비슷한 뜻 · 실제 쓰임 비교",keys:"비슷 헷갈리는 유사 모양 뜻 쓰임 비교"},
   {action:"jp",title:"日本漢字",desc:"常用漢字 · 表外漢字 학습",keys:"일본 일본한자 상용 표외 常用 表外"},
   {action:"jp-word",title:"일본 단어 쓰기",desc:"읽기와 예문을 보고 한자 단어 쓰기",keys:"일본 단어 예문 쓰기 日本"},
   {action:"record",title:"기록",desc:"한자력 · 유형별 숙련도 · 학습 기록",keys:"기록 통계 한자력 숙련도"},
@@ -9053,11 +9208,53 @@ function atlasCharacterPool(){
   if(q)pool=pool.filter(function(c){const f=officialMeaningSoundForms(c).canonical;return norm(c.hanja).includes(q)||norm(f).includes(q)||norm(c.radical).includes(q)||norm(c.level).includes(q)});
   return pool;
 }
+function atlasCharByGlyph(ch){
+  return (chars||[]).find(function(c){return c&&c.hanja===ch})||null;
+}
+function atlasCompareSelectedSet(){
+  const pool=atlasState.scope==="exact"?exactGradeChars(atlasState.grade):chars.filter(function(c){return gradeAllowed(c.level,atlasState.grade)});
+  return new Set(pool.map(function(c){return c.hanja}));
+}
+function atlasCompareGroups(){
+  const selected=atlasCompareSelectedSet(),q=norm(atlasState.query);
+  return HANJA_COMPARE_GROUPS.map(function(g){
+    const members=g.members.map(function(m){
+      const c=atlasCharByGlyph(m.c);
+      const canonical=c?officialMeaningSoundForms(c).canonical:"";
+      return Object.assign({},m,{char:c,canonical:canonical,current:selected.has(m.c)});
+    });
+    const relevant=members.some(function(m){return m.current});
+    if(!relevant)return null;
+    const hay=norm(g.title+" "+g.tip+" "+(g.kind==="shape"?"모양 생김새":"뜻 의미 쓰임")+" "+members.map(function(m){return [m.c,m.canonical,m.use,(m.ex||[]).join(" ")].join(" ")}).join(" "));
+    if(q&&!hay.includes(q))return null;
+    return Object.assign({},g,{members:members});
+  }).filter(Boolean);
+}
+function atlasCompareHtml(){
+  const groups=atlasCompareGroups();
+  if(!groups.length)return '<div class="atlas-compare-empty">현재 급수/검색 조건에 맞는 비교 묶음이 없습니다.</div>';
+  return '<div class="atlas-compare-wrap">'+
+    '<div class="atlas-compare-intro"><b>헷갈리는 한자 비교</b>모양이 비슷한 글자와 뜻이 비슷하지만 쓰임이 다른 글자를 한 묶음으로 정리했습니다. 보라색 테두리는 현재 선택한 급수/범위에 포함된 글자입니다.</div>'+
+    '<div class="atlas-compare-grid">'+groups.map(function(g){
+      return '<section class="atlas-compare-card"><div class="atlas-compare-head"><div><b>'+esc(g.title)+'</b><small>'+esc(g.tip)+'</small></div><span class="atlas-compare-kind '+(g.kind==="meaning"?"meaning":"")+'">'+(g.kind==="shape"?"모양 비슷":"뜻·쓰임 비슷")+'</span></div>'+
+        '<div class="atlas-compare-members">'+g.members.map(function(m){
+          const c=m.char,level=c&&c.level||"참고",canonical=m.canonical||(c?[charPrimary(c).meaning,charPrimary(c).sound].filter(Boolean).join(" "):"");
+          return '<div class="atlas-compare-member '+(m.current?"current":"")+'">'+
+            '<button class="atlas-compare-glyph" data-compare-char="'+esc(encodeURIComponent((level||"")+"|"+m.c))+'">'+esc(m.c)+'<span class="atlas-compare-level">'+esc(level)+'</span></button>'+
+            '<div class="atlas-compare-info"><div class="atlas-compare-ms"><b>'+esc(canonical||"훈음 확인")+'</b>'+(m.current?'<em>현재 범위</em>':'')+'</div>'+
+            '<div class="atlas-compare-use">'+esc(m.use)+'</div>'+
+            '<div class="atlas-compare-examples">'+(m.ex||[]).map(function(x){return '<span>'+esc(x)+'</span>'}).join("")+'</div></div></div>';
+        }).join("")+'</div>'+
+        '<div class="atlas-compare-tip"><b>구별 포인트</b> · '+esc(g.tip)+'</div></section>';
+    }).join("")+'</div></div>';
+}
 function setAtlasQuickView(v){
   atlasState.query="";
   atlasFreqCardPage=0;atlasFreqCardRevealSet.clear();atlasRevealSet.clear();
   if(v==="freq"){
     atlasState.mode="freq";atlasState.filter="all";atlasState.sort="freq";atlasState.view="table";atlasState.freqType="all";atlasState.period="all";
+  }else if(v==="compare"){
+    atlasState.mode="compare";atlasState.filter="all";atlasState.sort="alpha";atlasState.view="compact";
   }else{
     atlasState.mode="grade";atlasState.filter=(v==="saved"||v==="weak")?v:"all";
     atlasState.sort="alpha";if(atlasState.view==="table"&&v!=="all")atlasState.view="compact";
@@ -9179,6 +9376,18 @@ function atlasTableHtml(rows){
 }
 function renderAtlasResults(){
   const out=$("#atlasResults"),sum=$("#atlasSummary");if(!out||!sum)return;
+  if(atlasState.mode==="compare"){
+    const groups=atlasCompareGroups(),charsShown=new Set();
+    groups.forEach(function(g){g.members.forEach(function(m){if(m.current)charsShown.add(m.c)})});
+    sum.innerHTML='<div><b>'+groups.length+'</b><span>비교 묶음</span></div><div><b>'+charsShown.size+'</b><span>현재 범위 한자</span></div><div><b>'+groups.filter(function(g){return g.kind==="shape"}).length+'</b><span>모양 비교</span></div><div><b>'+groups.filter(function(g){return g.kind==="meaning"}).length+'</b><span>쓰임 비교</span></div>';
+    out.innerHTML=atlasCompareHtml();
+    out.querySelectorAll("[data-compare-char]").forEach(function(b){b.onclick=function(){
+      const raw=decodeURIComponent(b.dataset.compareChar||""),parts=raw.split("|"),level=parts[0],ch=parts.slice(1).join("|");
+      const c=atlasCharByGlyph(ch);if(!c)return;
+      openAtlasCharDetail(c.level+"|"+c.hanja);
+    }});
+    return;
+  }
   if(atlasState.mode==="freq"){
     const type=atlasState.freqType||"all",rawItems=currentAtlasItemRows(atlasState.grade,atlasState.scope),items=atlasApplyPeriod(rawItems);
     const summaries=atlasTypeSummary(),roundSet=new Set();
@@ -9233,9 +9442,10 @@ function renderAtlas(){
   const cacheGrades=atlasState.scope==="exact"?[atlasState.grade]:GRADE_ORDER.filter(function(g){return gradeAllowed(g,atlasState.grade)});
   cacheGrades.forEach(function(g){if(!readAtlasFreqCache(g))hydrateAtlasFreqCache(g)});
 
-  const quick=atlasState.mode==="freq"?"freq":(atlasState.filter||"all");
-  const title=quick==="freq"?"빈출 도감":quick==="saved"?"저장한 한자":quick==="weak"?"약점 도감":"한자 도감";
+  const quick=atlasState.mode==="freq"?"freq":atlasState.mode==="compare"?"compare":(atlasState.filter||"all");
+  const title=quick==="freq"?"빈출 도감":quick==="compare"?"헷갈리는 한자":quick==="saved"?"저장한 한자":quick==="weak"?"약점 도감":"한자 도감";
   const sub=quick==="freq"?"기출에 실제로 나온 항목을 문제유형·기간별로 확인":
+            quick==="compare"?"모양이 비슷하거나 뜻은 비슷하지만 쓰임이 다른 한자를 비교":
             quick==="saved"?"‘모름 저장’한 글자만 한곳에서 다시 보기":
             quick==="weak"?"오답이 있거나 누적 정답률이 낮은 글자만 모아 보기":
             "한국어문회 배정한자 · 훈음 · 장단음 · 부수 · 획수";
@@ -9247,10 +9457,11 @@ function renderAtlas(){
   h+='<button class="'+(quick==="freq"?"active":"")+'" data-atlas-quick="freq"><b>🔥</b><span>빈출</span></button>';
   h+='<button class="'+(quick==="saved"?"active":"")+'" data-atlas-quick="saved"><b>★</b><span>저장</span></button>';
   h+='<button class="'+(quick==="weak"?"active":"")+'" data-atlas-quick="weak"><b>!</b><span>약점</span></button>';
+  h+='<button class="'+(quick==="compare"?"active":"")+'" data-atlas-quick="compare"><b>≒</b><span>비슷</span></button>';
   h+='</div>';
 
   h+='<div class="grade-scroller atlas-grade-row">'+GRADE_ORDER.map(function(g){return '<button class="grade-chip '+(g===atlasState.grade?"active":"")+'" onclick="setAtlasState(\'grade\',\''+g+'\')">'+g+'</button>'}).join("")+'</div>';
-  h+='<div class="atlas-search-wrap"><span>⌕</span><input class="atlas-search" id="atlasSearch" value="'+esc(atlasState.query)+'" placeholder="한자 · 훈음 · 부수 · 급수 검색"></div>';
+  h+='<div class="atlas-search-wrap"><span>⌕</span><input class="atlas-search" id="atlasSearch" value="'+esc(atlasState.query)+'" placeholder="'+(atlasState.mode==="compare"?"한자 · 뜻 · 쓰임 · 예시 단어 검색":"한자 · 훈음 · 부수 · 급수 검색")+'"></div>';
 
   if(atlasState.mode==="freq"){
     const availableTypes=atlasAvailableFreqTypes();
@@ -9267,19 +9478,21 @@ function renderAtlas(){
   const fontLabel=hanjaFontMode==="atlas"?"도감체":(hanjaFontMode==="serif"?"명조":"고딕");
   h+='<details class="atlas-settings-v2"><summary>범위 · 암기 · 보기 설정</summary><div class="atlas-settings-body"><div class="atlas-controls">';
   h+='<label class="atlas-control"><span>범위</span><select id="atlasScope"><option value="exact" '+(atlasState.scope==="exact"?"selected":"")+'>해당 급수 신규</option><option value="cumulative" '+(atlasState.scope==="cumulative"?"selected":"")+'>누적 배정</option></select></label>';
-  if(atlasState.mode!=="freq")h+='<label class="atlas-control"><span>암기 가림</span><select id="atlasMask"><option value="none" '+(atlasState.mask==="none"?"selected":"")+'>모두 보기</option><option value="hanja" '+(atlasState.mask==="hanja"?"selected":"")+'>한자 숨기기</option><option value="meaning" '+(atlasState.mask==="meaning"?"selected":"")+'>훈음 숨기기</option></select></label>';
-  h+='<label class="atlas-control"><span>보기</span><select id="atlasView">'+
+  if(atlasState.mode==="grade")h+='<label class="atlas-control"><span>암기 가림</span><select id="atlasMask"><option value="none" '+(atlasState.mask==="none"?"selected":"")+'>모두 보기</option><option value="hanja" '+(atlasState.mask==="hanja"?"selected":"")+'>한자 숨기기</option><option value="meaning" '+(atlasState.mask==="meaning"?"selected":"")+'>훈음 숨기기</option></select></label>';
+  if(atlasState.mode!=="compare")h+='<label class="atlas-control"><span>보기</span><select id="atlasView">'+
     (atlasState.mode==="freq"
       ? '<option value="table" '+(atlasState.view==="table"?"selected":"")+'>빈출 암기표</option><option value="grid" '+(atlasState.view==="grid"?"selected":"")+'>암기 카드</option>'
       : '<option value="compact" '+(atlasState.view==="compact"?"selected":"")+'>배정표</option><option value="grid" '+(atlasState.view==="grid"?"selected":"")+'>카드</option><option value="table" '+(atlasState.view==="table"?"selected":"")+'>목록표</option>')+
-    '</select></label></div>';
+    '</select></label>';
+  h+='</div>';
   h+='<div class="atlas-actions atlas-actions-v2"><button class="btn" id="atlasToneSync">장단음 자료 동기화</button>'+
-    (atlasState.mode==="freq"?'':'<button class="btn" id="atlasSort">'+(atlasState.sort==="freq"?"가나다순으로":"빈출순으로")+'</button>')+
+    (atlasState.mode==="grade"?'<button class="btn" id="atlasSort">'+(atlasState.sort==="freq"?"가나다순으로":"빈출순으로")+'</button>':'')+
     '<button class="btn" id="atlasFont">글꼴 · '+fontLabel+'</button></div>';
   h+='<div class="atlas-tone-legend"><span><b class="atlas-tone">:</b> 장음</span><span><b class="atlas-tone">(:)</b> 장·단음 모두</span><span>훈음: 한국어문회</span></div></div></details>';
 
   let st;
   if(atlasState.mode==="freq")st=freqCache?(atlasState.grade+' 집계 '+(freqCache.roundsProcessed||0)+'/'+(freqCache.totalRounds||0)+'회 · '+((freqCache.rows||[]).length)+'자'):'아직 빈출 집계가 없습니다. 위의 ‘빈출 데이터 갱신’을 눌러 주세요.';
+  else if(quick==="compare")st='현재 '+atlasState.grade+' 범위와 겹치는 헷갈림 묶음을 표시합니다. 다른 급수 글자도 비교를 위해 같은 카드 안에 함께 보여줍니다.';
   else if(quick==="saved")st='저장한 모르는 한자 '+Object.keys(unknownHanja||{}).length+'자 · 현재 급수/범위 조건을 함께 적용합니다.';
   else if(quick==="weak")st='오답 및 누적 정답률 75% 미만 항목을 현재 급수/범위에서 모아 표시합니다.';
   else st=toneCache?('장단음 참고표 저장됨 · '+new Date(toneCache.at||Date.now()).toLocaleDateString()):'장단음 표시는 저장된 참고자료부터 표시합니다.';
@@ -9295,7 +9508,7 @@ function renderAtlas(){
   document.querySelectorAll("[data-atlas-quick]").forEach(function(b){b.onclick=function(){setAtlasQuickView(b.dataset.atlasQuick||"all")}});
   $("#atlasScope").onchange=function(e){atlasState.scope=e.target.value;atlasRevealSet.clear();renderAtlas()};
   const atlasMaskSel=$("#atlasMask");if(atlasMaskSel)atlasMaskSel.onchange=function(e){atlasState.mask=e.target.value;atlasRevealSet.clear();renderAtlas()};
-  $("#atlasView").onchange=function(e){atlasState.view=e.target.value;atlasFreqCardPage=0;renderAtlas()};
+  const atlasViewSel=$("#atlasView");if(atlasViewSel)atlasViewSel.onchange=function(e){atlasState.view=e.target.value;atlasFreqCardPage=0;renderAtlas()};
   $("#atlasSearch").oninput=function(e){atlasState.query=e.target.value;atlasFreqCardPage=0;renderAtlasResults()};
   document.querySelectorAll(".atlas-type-chip").forEach(function(b){b.onclick=function(){atlasState.freqType=b.dataset.atlasType||"all";atlasFreqCardPage=0;atlasFreqCardRevealSet.clear();renderAtlas()}});
   document.querySelectorAll(".atlas-period-chip").forEach(function(b){b.onclick=function(){atlasState.period=b.dataset.atlasPeriod||"all";atlasFreqCardPage=0;atlasFreqCardRevealSet.clear();renderAtlas()}});
