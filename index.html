@@ -4003,7 +4003,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.25-20260929";
+const APP_BUILD="2.19.26-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -4869,9 +4869,13 @@ function makeDiagnosisQuestion(grade,seq,stageUsed,opts){
     prompt="이 한자의 한국어문회 훈음은?";
     display=c.hanja;answer=diagnosisMeaningSoundForms(c).canonical;
   }
-  const direct=!!opts.forceDirect||
+  // 급수진단에서 한자를 직접 타이핑하게 하지 않는다.
+  // 한자 찾기(write) 유형은 빠른/정밀/경계검증 모두 객관식으로만 출제한다.
+  const direct=kind!=="write"&&(
+    !!opts.forceDirect||
     (!!diagnosisState.retest&&seq%2===0)||
-    (diagnosisState.mode==="precise"&&!diagnosisState.retest&&seq%4===3);
+    (diagnosisState.mode==="precise"&&!diagnosisState.retest&&seq%4===3)
+  );
   const accept=diagnosisAcceptedAnswers(c,kind);
   let choices=[];
   if(!direct){
@@ -5237,8 +5241,15 @@ function renderDiagnosis(){
       :Math.min(88,Math.round((diagnosisState.tested.length*22)+(completed/Math.max(1,totalStage))*20));
     const stageTitle=verifying?"경계 정밀검증":(retesting?esc(q.grade)+" 경계 재검사":esc(q.grade)+" 진단 중");
     const modeLabel=verifying?"직접입력":(diagnosisState.mode==="precise"?"정밀":"빠른");
-    const direct=q.inputMode==="direct";
-    const placeholder=q.type==="write"?"한자 1자를 직접 입력":(q.type==="sound"?"독음을 직접 입력":"훈음을 직접 입력");
+    const direct=q.inputMode==="direct"&&q.type!=="write";
+    if(q.type==="write"&&q.inputMode==="direct"){
+      q.inputMode="choice";
+      if(!Array.isArray(q.choices)||q.choices.length<2){
+        q.choices=[q.answer].concat(diagnosisChoicePool(q.grade,atlasCharByGlyph(q.hanja)||chars.find(function(c){return c.hanja===q.hanja}),"write")).slice(0,4);
+        shuffle(q.choices);
+      }
+    }
+    const placeholder=q.type==="sound"?"독음을 직접 입력":"훈음을 직접 입력";
     const inputValue=q.locked?esc(q.userAnswer||""):"";
     el.innerHTML=`<div class="diag-shell">
       <div class="diag-stage">
@@ -5270,10 +5281,10 @@ function renderDiagnosis(){
     <section class="diag-hero">
       <div class="diag-kicker">ADAPTIVE GRADE CHECK</div>
       <div class="diag-title">내 한자 급수는 어디쯤?</div>
-      <div class="diag-desc">객관식 적응형 탐색으로 범위를 빠르게 좁힙니다. 선지는 동음·유사음과 뜻이 가까운 한자를 우선 섞어 구별력을 높이고, 경계 급수에서는 직접입력으로 다시 확인합니다.</div>
+      <div class="diag-desc">객관식 적응형 탐색으로 범위를 빠르게 좁힙니다. 한자 찾기는 항상 선택형으로만 출제하고, 독음·훈음만 일부 직접입력으로 경계를 다시 확인합니다.</div>
       <div class="diag-mode-grid">
-        <button class="diag-mode ${diagnosisState.mode==="quick"?"active":""}" onclick="diagnosisState.mode='quick';renderDiagnosis()"><b>빠른 진단</b><small>약 18~30문항 · 마지막 4문항 직접입력</small></button>
-        <button class="diag-mode ${diagnosisState.mode==="precise"?"active":""}" onclick="diagnosisState.mode='precise';renderDiagnosis()"><b>정밀 진단</b><small>약 24~40문항 · 중간 직접입력 + 마지막 6문항 검증</small></button>
+        <button class="diag-mode ${diagnosisState.mode==="quick"?"active":""}" onclick="diagnosisState.mode='quick';renderDiagnosis()"><b>빠른 진단</b><small>약 18~30문항 · 한자 입력 없음</small></button>
+        <button class="diag-mode ${diagnosisState.mode==="precise"?"active":""}" onclick="diagnosisState.mode='precise';renderDiagnosis()"><b>정밀 진단</b><small>약 24~40문항 · 한자 입력 없이 정밀검증</small></button>
       </div>
       <div class="diag-actions">
         <button class="btn primary" onclick="startDiagnosis('${diagnosisState.mode}')">진단 시작</button>
@@ -5285,7 +5296,7 @@ function renderDiagnosis(){
       <div class="app-metrics">
         <div class="app-metric"><b>15단계</b><span>8급~특급 적응형</span></div>
         <div class="app-metric"><b>3종</b><span>훈음·독음·한자</span></div>
-        <div class="app-metric"><b>직접입력</b><span>경계 급수 재검증</span></div>
+        <div class="app-metric"><b>선택+한글입력</b><span>한자 직접입력 없음</span></div>
         <div class="app-metric"><b>모르겠음</b><span>찍기 영향 감소</span></div>
       </div>
     </section>
