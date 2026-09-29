@@ -3537,8 +3537,49 @@ body>.app2-update{z-index:1930!important}
   #atlas .atlas-pdf-base strong{font-size:46px}
   #atlas .atlas-pdf-char strong{font-size:35px}
 }
+
+/* PHONO-SEMANTIC ORIGIN / LINEAGE · 2.20.2 */
+.atlas-phono-origin{
+  margin:7px 0 5px;padding:8px;border-radius:12px;
+  border:1px solid rgba(130,158,218,.18);
+  background:linear-gradient(145deg,rgba(8,19,38,.64),rgba(23,35,61,.54));
+  text-align:left
+}
+.atlas-phono-equation{display:flex;align-items:stretch;gap:5px;min-width:0}
+.atlas-phono-equation>span{
+  flex:1 1 0;min-width:0;display:grid;place-items:center;padding:6px 4px;border-radius:9px;
+  border:1px solid rgba(140,167,218,.14);background:rgba(14,27,49,.72)
+}
+.atlas-phono-equation>span i{font-style:normal;font-size:6px;font-weight:900;letter-spacing:.02em;color:#7f96ba}
+.atlas-phono-equation>span b{font:800 20px/1.1 var(--hanja-font);color:#f4f7ff}
+.atlas-phono-equation>span.semantic{background:rgba(62,194,157,.08);border-color:rgba(74,210,171,.2)}
+.atlas-phono-equation>span.semantic b{color:#8fe4c8}
+.atlas-phono-equation>span.phonetic{background:rgba(104,93,231,.11);border-color:rgba(128,116,255,.24)}
+.atlas-phono-equation>span.phonetic b{color:#b9b2ff}
+.atlas-phono-equation>span.result{background:rgba(72,166,224,.1);border-color:rgba(84,183,239,.24)}
+.atlas-phono-equation>span.result b{color:#89d5ff}
+.atlas-phono-equation>em{align-self:center;font-style:normal;color:#7089ae;font-size:11px;font-weight:950}
+.atlas-phono-lineage,.atlas-phono-root{
+  display:flex;align-items:center;gap:6px;min-width:0;margin-top:6px;color:#8098bb;font-size:7px;line-height:1.35
+}
+.atlas-phono-lineage>span,.atlas-phono-root>span:first-child{flex:0 0 auto;font-weight:900}
+.atlas-phono-lineage>b,.atlas-phono-root>b{min-width:0;color:#d7e2f7;font:800 12px/1.2 var(--hanja-font);word-break:break-all}
+.atlas-phono-root>span:last-child{min-width:0;color:#8ea5c6}
+.atlas-phono-root>span:last-child b{color:#c9c4ff;font-family:var(--hanja-font)}
+.atlas-phono-origin.compact{padding:6px;margin-top:6px}
+.atlas-phono-origin.compact .atlas-phono-equation>span{padding:4px 2px}
+.atlas-phono-origin.compact .atlas-phono-equation>span b{font-size:15px}
+.atlas-phono-origin.compact .atlas-phono-lineage,.atlas-phono-origin.compact .atlas-phono-root{font-size:6px}
+.atlas-phono-origin.compact .atlas-phono-lineage>b,.atlas-phono-origin.compact .atlas-phono-root>b{font-size:10px}
+@media(max-width:600px){
+  .atlas-formation-card{grid-template-columns:54px minmax(0,1fr)}
+  .atlas-phono-equation{gap:3px}
+  .atlas-phono-equation>span b{font-size:17px}
+  .atlas-phono-equation>span i{font-size:5.5px}
+  .atlas-phono-lineage,.atlas-phono-root{flex-wrap:wrap}
+}
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.19.13">
+<link rel="stylesheet" href="./japanese.css?v=2.20.2">
 </head>
 <body>
 <div class="app">
@@ -4301,7 +4342,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.20.1-20260929";
+const APP_BUILD="2.20.2-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -4789,9 +4830,6 @@ function bind(){
   refreshTypeChecks();
 }
 function openJapaneseTab(){
-  try{
-    if(typeof jpState!=="undefined")jpState.view="home";
-  }catch{}
   const moduleReady=typeof renderJapanese==="function";
   switchTab("jp");
   if(moduleReady)return;
@@ -4817,6 +4855,7 @@ function openJapaneseTab(){
 }
 
 function switchTab(id){
+  const previousMode=mode;
   mode=id;
   syncAppChrome(id);
   if(id!=="drill")document.body.classList.remove("drill-active");
@@ -4837,7 +4876,13 @@ function switchTab(id){
   if(id==="study")renderStudyHub();
   if(id==="exam")renderExam();
   if(id==="drill")renderDrill();
-  if(id==="jp"&&typeof renderJapanese==="function")Promise.resolve(renderJapanese()).catch(function(err){console.error("Japanese tab render failed",err)});
+  if(id==="jp"&&typeof renderJapanese==="function"){
+    Promise.resolve(renderJapanese()).then(function(){
+      if(previousMode!=="jp"){
+        requestAnimationFrame(function(){window.scrollTo({top:0,left:0,behavior:"auto"})});
+      }
+    }).catch(function(err){console.error("Japanese tab render failed",err)});
+  }
   if(id==="more")renderMore();
   if(id==="freq")renderFreq();
   if(id==="wrong")renderWrong();
@@ -9841,20 +9886,39 @@ function atlasPdfJapaneseHtml(r){
   if(!normal.length&&!extra.length)h+='<span class="atlas-pdf-empty">일본 읽기 없음</span>';
   return h;
 }
+function atlasPhonoOriginHtml(c,r,compact){
+  if(!r||r.f!=="형성"||!r.p||r.p===c.hanja)return "";
+  const semantic=(r.s&&r.s!==c.hanja)?r.s:"?";
+  const direct=r.p;
+  const chain=Array.isArray(r.chain)?r.chain.filter(Boolean):[];
+  const lineage=[];
+  for(const ch of chain){
+    if(ch&&ch!==c.hanja&&!lineage.includes(ch))lineage.push(ch);
+  }
+  if(!lineage.includes(direct))lineage.push(direct);
+  if(lineage[lineage.length-1]!==c.hanja)lineage.push(c.hanja);
+  const first=lineage.length>1?lineage[0]:direct;
+  return '<div class="atlas-phono-origin '+(compact?'compact':'')+'">'+
+    '<div class="atlas-phono-equation"><span class="semantic"><i>뜻부</i><b>'+esc(semantic)+'</b></span><em>+</em><span class="phonetic"><i>직접 성부</i><b>'+esc(direct)+'</b></span><em>→</em><span class="result"><i>형성자</i><b>'+esc(c.hanja)+'</b></span></div>'+
+    '<div class="atlas-phono-lineage"><span>성부 계보</span><b>'+lineage.map(esc).join(' → ')+'</b></div>'+
+    (first!==direct?'<div class="atlas-phono-root"><span>뿌리 성부</span><b>'+esc(first)+'</b><span>에서 <b>'+esc(direct)+'</b>을 거쳐 형성</span></div>':'')+
+  '</div>';
+}
 function atlasPdfNoteHtml(c,r){
   if(!r)return '<span class="atlas-pdf-empty">구조 데이터 없음</span>';
   const bits=[];
   if(r.f)bits.push(r.f);
   if(r.s&&r.s!==c.hanja)bits.push('뜻부 '+r.s);
-  if(r.p&&r.p!==c.hanja)bits.push('성부 '+r.p);
+  if(r.p&&r.p!==c.hanja)bits.push('직접 성부 '+r.p);
   if(r.q==="추정")bits.push("성부 추정");
   else if(r.q==="확정")bits.push("성부 확인");
   else if(r.q==="독립")bits.push("독립 자형");
+  const origin=atlasPhonoOriginHtml(c,r,true);
   let chain="";
-  if(Array.isArray(r.chain)&&r.chain.length){
+  if(!origin&&Array.isArray(r.chain)&&r.chain.length){
     chain='<div class="atlas-pdf-chain"><span>성부 계층</span><b>'+r.chain.concat(c.hanja).map(esc).join(" → ")+'</b></div>';
   }
-  return '<div class="atlas-pdf-note">'+bits.map(function(x){return '<span>'+esc(x)+'</span>'}).join("")+'</div>'+chain;
+  return '<div class="atlas-pdf-note">'+bits.map(function(x){return '<span>'+esc(x)+'</span>'}).join("")+'</div>'+origin+chain;
 }
 function atlasSoundGroups(){
   const pool=atlasCharacterPool(),m=new Map(),q=norm(atlasState.query);
@@ -9938,12 +10002,13 @@ function atlasFormationRecord(c){
 function atlasFormationRows(){
   const q=norm(atlasState.query),want=atlasState.formationType||"all";
   return atlasCharacterPool().map(function(c){
-    const r=atlasFormationRecord(c),def=HANJA_FORMATION_DEFS[r.type]||HANJA_FORMATION_DEFS.primitive;
-    return {c:c,type:r.type,label:def.label,note:r.note,confidence:r.confidence,canonical:officialMeaningSoundForms(c).canonical};
+    const r=atlasFormationRecord(c),def=HANJA_FORMATION_DEFS[r.type]||HANJA_FORMATION_DEFS.primitive,structure=atlasStructureRecord(c.hanja);
+    return {c:c,type:r.type,label:def.label,note:r.note,confidence:r.confidence,canonical:officialMeaningSoundForms(c).canonical,structure:structure};
   }).filter(function(x){
     if(want!=="all"&&x.type!==want)return false;
     if(!q)return true;
-    return norm([x.c.hanja,x.c.level,x.c.radical,x.canonical,x.label,x.note].join(" ")).includes(q);
+    const sr=x.structure||{};
+    return norm([x.c.hanja,x.c.level,x.c.radical,x.canonical,x.label,x.note,sr.p,sr.s,(sr.chain||[]).join(" ")].join(" ")).includes(q);
   }).sort(function(a,b){
     const order=["pictograph","indicative","compound","phono","derivative","loan","disputed","primitive","unknown"];
     return order.indexOf(a.type)-order.indexOf(b.type)||String(a.c.sound).localeCompare(String(b.c.sound),"ko-KR");
@@ -9951,11 +10016,12 @@ function atlasFormationRows(){
 }
 function atlasFormationHtml(){
   const rows=atlasFormationRows(),types=["pictograph","indicative","compound","phono","derivative","loan","disputed","primitive"];
-  return '<div class="atlas-formation-intro"><b>육서·자원 학습</b><span>성부표가 메인 학습 방식이고, 여기서는 상형·지사·회의·형성·전주·가차를 보조로 확인합니다. 전 한자에 구조 데이터를 연결하고 학설 차이는 이견/상형·지사로 분리합니다.</span><div class="atlas-formation-defs">'+types.slice(0,6).map(function(t){const d=HANJA_FORMATION_DEFS[t];return '<div><b>'+d.label+'</b><span>'+d.desc+'</span></div>'}).join("")+'</div></div>'+
+  return '<div class="atlas-formation-intro"><b>육서·자원 학습</b><span>성부표가 메인 학습 방식이고, 여기서는 상형·지사·회의·형성·전주·가차를 보조로 확인합니다. 형성자는 <b>뜻부 + 직접 성부 → 형성자</b>와 성부 계보를 따로 보여 어떤 글자에서 소리가 이어졌는지 바로 확인할 수 있습니다.</span><div class="atlas-formation-defs">'+types.slice(0,6).map(function(t){const d=HANJA_FORMATION_DEFS[t];return '<div><b>'+d.label+'</b><span>'+d.desc+'</span></div>'}).join("")+'</div></div>'+
     '<div class="atlas-formation-filters"><button class="'+((atlasState.formationType||"all")==="all"?"active":"")+'" data-formation-type="all">전체</button>'+
     types.map(function(t){const d=HANJA_FORMATION_DEFS[t];return '<button class="'+(atlasState.formationType===t?"active":"")+'" data-formation-type="'+t+'">'+d.label+'</button>'}).join("")+'</div>'+
     (rows.length?'<div class="atlas-formation-grid">'+rows.map(function(x){
-      return '<button class="atlas-formation-card type-'+x.type+'" data-atlas-formation-char="'+esc(x.c.level+"|"+x.c.hanja)+'"><div class="glyph">'+esc(x.c.hanja)+'</div><div class="body"><div><b>'+esc(x.canonical)+'</b><em>'+esc(x.label)+'</em></div><p>'+esc(x.note)+'</p><small>'+esc(x.c.level)+' · '+esc(x.c.radical||"-")+'부 · '+(+x.c.total||"-")+'획'+(x.confidence?' · '+esc(x.confidence):'')+'</small></div></button>';
+      const origin=x.type==="phono"?atlasPhonoOriginHtml(x.c,x.structure,false):"";
+      return '<button class="atlas-formation-card type-'+x.type+'" data-atlas-formation-char="'+esc(x.c.level+"|"+x.c.hanja)+'"><div class="glyph">'+esc(x.c.hanja)+'</div><div class="body"><div><b>'+esc(x.canonical)+'</b><em>'+esc(x.label)+'</em></div><p>'+esc(x.note)+'</p>'+origin+'<small>'+esc(x.c.level)+' · '+esc(x.c.radical||"-")+'부 · '+(+x.c.total||"-")+'획'+(x.confidence?' · '+esc(x.confidence):'')+'</small></div></button>';
     }).join("")+'</div>':'<div class="atlas-empty">이 조건의 자원 분류가 없습니다.</div>');
 }
 function setAtlasQuickView(v){
@@ -10408,6 +10474,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.19.18"></script>
+<script src="./japanese.js?v=2.20.2"></script>
 </body>
 </html>
