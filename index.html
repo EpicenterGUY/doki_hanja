@@ -3469,7 +3469,6 @@ function loadCharCSV(text){
   renderData();
 }
 async function autoLoad(){
-  let initialized=false;
   const cached=localStorage.getItem("hanjaCharCacheV3");
   if(cached){
     try{
@@ -3481,12 +3480,22 @@ async function autoLoad(){
       }
     }catch{}
   }
+
+  // iOS/PWA에서도 급수 데이터가 외부 네트워크 상태에 좌우되지 않도록 전체 배정한자를 앱에 내장한다.
+  if(!chars.length){
+    try{
+      const local=await fetchWithTimeout("./data/hanja.csv",{cache:"force-cache"},4000);
+      if(local.ok)loadCharCSV(await local.text());
+    }catch{}
+  }
+
   if(!chars.length){
     chars=FALLBACK;
-    $("#dataBadge").textContent=`기본 데이터 ${chars.length}자`;
+    $("#dataBadge").textContent=`오프라인 기본 ${chars.length}자`;
   }
-  init(); initialized=true;
+  init();
 
+  // 외부 원본은 앱 시작을 막지 않는 갱신용 fallback으로만 사용한다.
   const urls=[
     RAW_URL,
     "https://cdn.jsdelivr.net/gh/rycont/hanja-grade-dataset@main/hanja.csv"
@@ -3496,16 +3505,12 @@ async function autoLoad(){
       const res=await fetchWithTimeout(url,{cache:"force-cache"},5000);
       if(!res.ok)continue;
       loadCharCSV(await res.text());
-      // 데이터 갱신 후 화면의 선택지/카드도 갱신
       fillGradeOptions();
       renderPracticeWelcome();
       renderDrill();
       renderData();
       return;
     }catch{}
-  }
-  if(chars===FALLBACK || chars.length===FALLBACK.length){
-    $("#dataBadge").textContent=`오프라인 기본 ${chars.length}자`;
   }
 }
 const FALLBACK=[
@@ -3539,7 +3544,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.13-20260929";
+const APP_BUILD="2.19.14-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -5659,7 +5664,9 @@ function problemizeFlatPdf(level,round,flat,answerStart,answers){
     if(choice){
       if(type==="other")type="choice";
       built={prompt:stripQuestionMarker(choice.stem,n)||stripQuestionMarker(ctx,n),hanja:built.hanja||"",korean:built.korean||""};
-    }else if((level==="특급"||level==="특급Ⅱ")&&type==="other"){
+    }else if((level==="특급"||level==="특급Ⅱ")&&type==="other"&&(
+      passageMap[n]||/漢文.*읽고.*물음|한문.*읽고.*물음|다음\s*(?:漢文|글).*읽고.*물음/.test(String(rg&&rg.desc||""))
+    )){
       type="hanmun";
       built.hanja="";
     }
@@ -6099,7 +6106,7 @@ function pdfLineGroups(items){
 function classifyExamHeader(desc){
   const t=String(desc||"").replace(/\s+/g," ");
 
-  if(/漢文.*읽고.*물음|한문.*읽고.*물음/.test(t))return "other";
+  if(/漢文.*읽고.*물음|한문.*읽고.*물음|다음\s*(?:漢文|글).*읽고.*물음|다음.*읽고.*물음/.test(t))return "hanmun";
   if(/同.{0,100}音異義|동음.{0,60}이의/.test(t))return "homonym";
   if(/訓.{0,100}音|훈.{0,60}음|뜻.*소리/.test(t))return "meaningSound";
   if(/讀|독음|읽는\s*소리/.test(t))return "sound";
@@ -7498,6 +7505,19 @@ function atlasKoreanClue(q){
     .replace(/\s+/g," ").trim();
   return t.slice(0,120);
 }
+function applyKoreanInitialSoundLaw(reading){
+  const text=String(reading||"");
+  if(!text)return "";
+  const code=text.charCodeAt(0);
+  if(code<0xAC00||code>0xD7A3)return text;
+  const offset=code-0xAC00,initial=Math.floor(offset/588),vowel=Math.floor((offset%588)/28),final=offset%28;
+  const iVowels=new Set([2,6,7,12,17,20]); // 야·여·예·요·유·이 계열
+  let nextInitial=initial;
+  if(initial===5)nextInitial=iVowels.has(vowel)?11:2; // ㄹ → ㅇ/ㄴ
+  else if(initial===2&&iVowels.has(vowel))nextInitial=11; // ㄴ → ㅇ
+  if(nextInitial===initial)return text;
+  return String.fromCharCode(0xAC00+nextInitial*588+vowel*28+final)+text.slice(1);
+}
 function atlasHanjaReading(term){
   const hs=[...String(term||"")].filter(function(ch){return /[\u3400-\u9fff\uf900-\ufaff]/.test(ch)});
   if(!hs.length)return "";
@@ -7508,7 +7528,7 @@ function atlasHanjaReading(term){
     if(!sound)return "";
     out+=sound;
   }
-  return out;
+  return applyKoreanInitialSoundLaw(out);
 }
 function atlasHanjaTextLen(v){
   return (String(v||"").match(/[\u3400-\u9fff\uf900-\ufaff]/g)||[]).length;
@@ -7647,11 +7667,13 @@ function atlasStudyInstruction(row){
   return row&&row.formatLabel||atlasFreqDisplayName(t);
 }
 function atlasIdiomCompleted(q,answerHanja){
-  const ans=examHanjaTermSafe(answerHanja)||"";
-  if(!ans)return "";
+  const raw=Array.isArray(q&&q.answer)?q.answer.join(" "):String((q&&q.answer)||answerHanja||"");
+  const answerChars=[...raw].filter(function(ch){return /[\u3400-\u9fff\uf900-\ufaff]/.test(ch)});
+  if(!answerChars.length)return "";
   let t=String(q&&q.sourceText||q&&q.prompt||"");
   t=stripQuestionMarker(t,q&&q.no||0);
-  t=t.replace(/[（(]\s*[)）]/,ans).replace(/[□△○＿_]/,ans);
+  let ai=0;
+  t=t.replace(/[（(]\s*[)）]|[□△＿_]/g,function(){return answerChars[ai++]||""});
   const groups=atlasHanjaGroups(t,1).filter(function(x){
     return !["漢字","漢字語","正字","四字成語","成語"].includes(x);
   });
@@ -7783,11 +7805,15 @@ function atlasItemEntries(q){
   }
   if(type==="choice")return [];
   if(type==="hanmun"){
-    const primary=sourceGroups.find(function(x){const n=atlasHanjaTextLen(x);return n>=4&&n<=32})||
-      ((atlasHanjaTextLen(trusted)>=4&&atlasHanjaTextLen(trusted)<=32)?trusted:"");
+    const passageGroups=atlasHanjaGroups(atlasCleanItemText(q.passage||""),1).map(examHanjaTermSafe).filter(Boolean);
+    const primary=sourceGroups.find(function(x){const n=atlasHanjaTextLen(x);return n>=1&&n<=32})||
+      ((atlasHanjaTextLen(trusted)>=1&&atlasHanjaTextLen(trusted)<=32)?trusted:"")||
+      passageGroups.find(function(x){const n=atlasHanjaTextLen(x);return n>=2&&n<=32})||"";
     const secondary=/[가-힣]/.test(ans)?ans:clue;
     if(!primary||!secondary||!/[가-힣]/.test(secondary))return [];
-    return [{type:"hanmun",formatKey:"hanmun_translation",formatLabel:"한문 해석",key:"hanmun|hanmun_translation|"+primary,primary:primary,secondary:secondary,example:example}];
+    const fk=atlasHanjaTextLen(primary)>=4?"hanmun_translation":"hanmun_context";
+    const fl=fk==="hanmun_translation"?"한문 해석":"한문 문맥·어구";
+    return [{type:"hanmun",formatKey:fk,formatLabel:fl,key:"hanmun|"+fk+"|"+primary,primary:primary,secondary:secondary,example:example}];
   }
   return [];
 }
@@ -7846,7 +7872,8 @@ function currentAtlasItemRows(grade,scope){
   }
   return [...map.values()].map(function(a){
     return {
-      type:a.type,formatKey:a.formatKey||a.type,formatLabel:a.formatLabel||TYPES[a.type]||a.type,key:a.key,primary:a.primary,secondary:a.secondary,count:a.count,
+      type:a.type,formatKey:a.formatKey||a.type,formatLabel:a.formatLabel||TYPES[a.type]||a.type,key:a.key,primary:a.primary,
+      secondary:(a.type==="idiom"&&(a.formatKey||"")!=="idiom_meaning"?(atlasHanjaReading(a.primary)||a.secondary):a.secondary),count:a.count,
       rounds:[...a.rounds].sort(function(x,y){return x-y}),
       roundCounts:Object.assign({},a.roundCounts||{}),
       examples:[...(a.examples||[])].sort(function(x,y){return (+y.round||0)-(+x.round||0)||(+y.no||0)-(+x.no||0)})
@@ -8490,7 +8517,7 @@ function renderAtlas(){
     if((atlasState.freqType||"all")!=="all"&&!availableTypes.includes(atlasState.freqType))atlasState.freqType="all";
     const typeKeys=["all"].concat(availableTypes);
     h+='<div class="atlas-filter-label">문제 유형</div><div class="atlas-type-row">'+typeKeys.map(function(t){return '<button class="atlas-type-chip '+((atlasState.freqType||"all")===t?"active":"")+'" data-atlas-type="'+t+'">'+(t==="all"?"전체 유형":esc(atlasFreqDisplayName(t)))+'</button>'}).join("")+'</div>';
-    const periods=atlasState.grade==="특급"
+    const periods=(atlasState.grade==="특급"||atlasState.grade==="특급Ⅱ")
       ?[["all","38회~최신"],["to100","38~100회"],["post100","101회~최신"],["10","최근 10회"],["20","최근 20회"],["30","최근 30회"]]
       :[["all","전체"],["to100","~100회"],["post100","101회~최신"],["10","최근 10회"],["20","최근 20회"],["30","최근 30회"]];
     h+='<div class="atlas-filter-label">기출 기간</div><div class="atlas-period-row">'+periods.map(function(p){return '<button class="atlas-period-chip '+(String(atlasState.period)===p[0]?"active":"")+'" data-atlas-period="'+p[0]+'">'+p[1]+'</button>'}).join("")+'</div>';
@@ -8538,7 +8565,7 @@ function renderAtlas(){
   $("#atlasFont").onclick=function(){const next=hanjaFontMode==="atlas"?"serif":(hanjaFontMode==="serif"?"soft":"atlas");applyHanjaFontMode(next);renderAtlas()};
   renderAtlasResults();
   if(atlasState.grade==="1급"&&!toneCache&&!atlasToneBusy.has("1급"))setTimeout(function(){syncAtlasToneGrade("1급",{quiet:true})},80);
-  if(atlasState.mode==="freq"&&atlasState.grade==="특급"&&!freqCache&&!atlasFreqBusy)setTimeout(function(){prepareAtlasFrequency("특급")},120);
+  if(atlasState.mode==="freq"&&(atlasState.grade==="특급"||atlasState.grade==="특급Ⅱ")&&!freqCache&&!atlasFreqBusy)setTimeout(function(){prepareAtlasFrequency(atlasState.grade)},120);
 }
 
 function renderFreq(){
