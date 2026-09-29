@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.20.4-20260929",
+  "webBuild": "2.20.5-20260929",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.20.5",
+      "title": "음독·훈독 결과 즉시 펼치기",
+      "items": [
+        "음독·훈독 읽기 버튼을 눌렀을 때 결과가 전체 목록 맨 아래에 나타나던 구조를 제거",
+        "선택한 읽기 버튼 바로 아래에 해당 한자 목록이 인라인으로 펼쳐지도록 변경",
+        "같은 읽기를 다시 누르면 결과가 접히고 × 버튼으로도 바로 닫을 수 있도록 추가",
+        "선택 후 결과 영역이 화면 가까이에 오도록 부드러운 자동 스크롤을 적용",
+        "좁은 화면에서는 결과 한자 목록을 4열, 매우 좁은 화면에서는 3열로 재배치"
+      ]
+    },
     {
       "version": "2.20.4",
       "title": "일본 단어쓰기 통합 그림판 · 도감 글씨체/중앙 정렬",
