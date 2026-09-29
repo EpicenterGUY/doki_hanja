@@ -3454,8 +3454,10 @@ function parseCSV(text){
   return rows;
 }
 function loadCharCSV(text){
-  const rows=parseCSV(text), head=rows.shift();
-  const ix=Object.fromEntries(head.map((h,i)=>[h,i]));
+  const rows=parseCSV(text),head=rows.shift();
+  if(!Array.isArray(head)||!head.length)throw Error("배정한자 CSV 머리글이 없습니다.");
+  const ix=Object.fromEntries(head.map((h,i)=>[String(h||"").trim(),i]));
+  if(ix.hanja===undefined||ix.level===undefined||ix.main_sound===undefined)throw Error("배정한자 CSV 필수 열(hanja, level, main_sound)이 없습니다.");
   const out=[];
   for(const r of rows){
     if(!r[ix.hanja]) continue;
@@ -3465,6 +3467,7 @@ function loadCharCSV(text){
       meanings,radical:r[ix.radical],strokes:+r[ix.strokes],total:+r[ix.total_strokes]
     });
   }
+  if(!out.length)throw Error("배정한자 CSV에 사용할 수 있는 한자가 없습니다.");
   chars=out;
   storageSet("hanjaCharCacheV3",JSON.stringify({at:Date.now(),chars}));
   try{localStorage.removeItem("hanjaCharCache")}catch(e){}
@@ -3977,7 +3980,7 @@ function init(){
   bind();
   try{bindAppShell()}catch(e){console.error("app shell bind failed",e)}
   initPWA();
-  updateFreqBadge();
+  updateFreqBadge(true);
   renderPracticeWelcome();renderStudyHub();renderHanjaGuide();renderExam();renderDrill();renderMore();renderWrite();renderFreq();renderWrong();renderData();
   setTimeout(()=>refreshSpecialArchive(false),300);
 }
@@ -8721,7 +8724,19 @@ function renderData(){
   $("#examTemplate").onclick=downloadExamTemplate;
   $("#clearExam").onclick=()=>{if(confirm("가져온 기출 데이터를 초기화할까요? 기본 응용문항만 남습니다.")){examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38];localStorage.removeItem("hanjaExamItems");updateFreqBadge();renderData();renderFreq();renderExam()}};
 }
-async function importCharFile(e){const f=e.target.files[0];if(!f)return;loadCharCSV(await f.text());toast("배정한자 CSV 로드 완료")}
+async function importCharFile(e){
+  const f=e.target.files[0];if(!f)return;
+  try{
+    loadCharCSV(await f.text());
+    fillGradeOptions();renderPracticeWelcome();renderDrill();renderData();
+    toast("배정한자 CSV 로드 완료");
+  }catch(err){
+    console.error("Hanja CSV import failed",err);
+    toast("배정한자 CSV 형식을 확인하세요 · 기존 데이터는 유지됩니다.");
+  }finally{
+    try{e.target.value=""}catch(_){}
+  }
+}
 async function importExamFile(e){
   const f=e.target.files[0];if(!f)return;const text=await f.text();let arr=[];
   try{
@@ -8742,7 +8757,7 @@ async function importExamFile(e){
         sourceText:ix.sourceText!==undefined?(r[ix.sourceText]||""):""
       }));
     }
-    arr=arr.filter(x=>x&&x.level&&x.type&&x.hanja).map(x=>({
+    arr=arr.filter(x=>x&&x.level&&x.type&&(String(x.hanja||"").trim()||String(x.prompt||"").trim()||String(x.sourceText||"").trim())).map(x=>({
       ...x,round:x.round?+x.round:null,
       frequencyOnly:!(String(x.prompt||"").trim() && x.answer!==undefined && String(x.answer).trim()!=="")
     }));
@@ -8752,9 +8767,18 @@ async function importExamFile(e){
     toast(persisted?`${arr.length}문항 불러옴`:`${arr.length}문항 불러옴 · 저장공간 부족으로 이번 실행에서만 유지`);
   }catch(err){toast("파일 형식을 확인하세요")}
 }
-function updateFreqBadge(){
-  const saved=storageGet("hanjaExamItems","");if(saved){try{const a=JSON.parse(saved);examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38,...a]}catch{}}
-  const n=examItems.filter(x=>x.round).length;$("#freqBadge").textContent=`기출 빈도 ${n.toLocaleString()}건`;
+function updateFreqBadge(hydrateSaved=false){
+  if(hydrateSaved){
+    const saved=storageGet("hanjaExamItems","");
+    if(saved){
+      try{
+        const a=JSON.parse(saved);
+        if(Array.isArray(a))examItems=[...APP_ITEMS,...EMBEDDED_SPECIAL38,...a];
+      }catch(e){console.warn("saved exam data ignored",e)}
+    }
+  }
+  const n=examItems.filter(x=>x.round).length;
+  const badge=$("#freqBadge");if(badge)badge.textContent=`기출 빈도 ${n.toLocaleString()}건`;
 }
 function downloadJSON(obj,name){
   const blob=new Blob([JSON.stringify(obj,null,2)],{type:"application/json;charset=utf-8"}),a=document.createElement("a");
