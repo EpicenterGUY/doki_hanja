@@ -482,3 +482,113 @@ body.drill-active #jp{height:100%;min-height:0}
 @media(min-width:1200px){
   .jp-home-hero h2{font-size:38px}
 }
+
+
+/* JAPANESE ATLAS / GLYPH VISIBILITY · 2.20.3 */
+#jp button,
+.jp-atlas-sheet button{
+  pointer-events:auto;
+  touch-action:manipulation;
+  -webkit-tap-highlight-color:transparent;
+}
+.jp-screen{position:relative;z-index:0}
+.jp-screen button{position:relative;z-index:1}
+.jp-card-char,
+.jp-atlas-card .char,
+.jp-atlas-big,
+.jp-memory-target,
+.jp-reading-selected .jp-atlas-card .char{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  color:#f7fbff!important;
+  -webkit-text-fill-color:#f7fbff!important;
+  font-family:"Noto Sans CJK JP","Noto Sans JP","Yu Gothic","Meiryo","Hiragino Kaku Gothic ProN","Arial Unicode MS",sans-serif!important;
+  font-weight:700!important;
+  font-synthesis:none;
+}
+.jp-atlas-big{
+  color:#17233d!important;
+  -webkit-text-fill-color:#17233d!important;
+}
+.jp-card-char,.jp-atlas-card .char{
+  min-height:1.15em;
+  line-height:1.12!important;
+  overflow:visible!important;
+  text-rendering:optimizeLegibility;
+}
+.jp-card-reading{
+  display:block;
+  min-width:0;
+  margin-top:4px;
+  color:#7fdac0;
+  font-size:7px;
+  line-height:1.35;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.jp-atlas-group-mode{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  margin:0 0 9px;
+}
+.jp-atlas-initials{
+  margin-bottom:9px;
+  padding-bottom:2px;
+}
+.jp-atlas-reading-sections{
+  display:grid;
+  gap:10px;
+}
+.jp-atlas-reading-section{
+  min-width:0;
+  padding:10px;
+  border:1px solid rgba(139,166,218,.16);
+  border-radius:17px;
+  background:linear-gradient(145deg,rgba(18,31,55,.72),rgba(10,20,38,.72));
+}
+.jp-atlas-reading-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:8px;
+  padding:0 2px;
+}
+.jp-atlas-reading-head b{
+  color:#f0f5ff;
+  font-size:16px;
+  font-weight:950;
+  font-family:"Noto Sans JP","Yu Gothic","Meiryo",sans-serif;
+}
+.jp-atlas-reading-head span{
+  flex:0 0 auto;
+  padding:4px 7px;
+  border-radius:999px;
+  background:rgba(87,102,205,.16);
+  color:#aab8ec;
+  font-size:8px;
+  font-weight:900;
+}
+.jp-atlas-card{
+  overflow:visible;
+}
+.jp-atlas-card:active,.jp-card:active,.jp-reading-group:active,.jp-filter-chip:active{
+  transform:scale(.975);
+}
+@media(max-width:600px){
+  .jp-grid,.jp-atlas-grid{grid-template-columns:repeat(4,minmax(0,1fr))!important}
+  .jp-card,.jp-atlas-card{min-height:94px!important;padding:8px 4px!important}
+  .jp-card-char,.jp-atlas-card .char{font-size:36px!important}
+  .jp-card-reading{font-size:6.5px}
+  .jp-atlas-reading-section{padding:8px;border-radius:14px}
+  .jp-atlas-reading-head b{font-size:14px}
+}
+@media(max-width:380px){
+  .jp-grid,.jp-atlas-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+  .jp-card-char,.jp-atlas-card .char{font-size:38px!important}
+}
+@media(min-width:700px){
+  .jp-card-reading{font-size:8px}
+  .jp-atlas-reading-section{padding:12px}
+}
