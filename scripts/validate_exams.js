@@ -35,7 +35,7 @@ const names=[
   "classifyExamHeader","findAnswerStart","parseAnswerRows","markerRE","cleanExamText",
   "contextForQuestion","extractHanjaAfterMarker","extractKoreanBeforeMarker",
   "headerRangesFromFlat","parseCircledChoices","fallbackExamType",
-  "buildProblemizedPrompt","isGenericExamPrompt","buildPassageMap",
+  "buildProblemizedPrompt","isGenericExamPrompt","buildPassageMap","fillHanmunPassageGaps",
   "parseChoiceOptions","stripQuestionMarker","referencedQuestionNumber",
   "extractHanjaFromProblemLines","extractKoreanFromProblemLines",
   "examFormatInfo","examHanjaTermSafe","problemizeFlatPdf"
