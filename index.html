@@ -2917,8 +2917,34 @@ body>.app2-update{z-index:1930!important}
 @media(max-width:760px){.guide-hero{padding:17px}.guide-hero-glyph{width:76px;height:76px;font-size:44px}.guide-path-grid{grid-template-columns:1fr}.guide-yukseo-grid,.guide-tip-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-start-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.guide-start-grid button:last-child{grid-column:1/-1}}
 @media(max-width:430px){.guide-hero{grid-template-columns:1fr}.guide-hero-glyph{display:none}.guide-section,.guide-path-card{padding:13px}.guide-yukseo-grid,.guide-tip-grid{grid-template-columns:1fr}.guide-routine{align-items:flex-start;flex-direction:column}.guide-callout{grid-template-columns:1fr}}
 
+
+/* RESPONSIVE DEVICE FIT · 2.19.12 */
+@media (min-width:700px) and (max-width:1099px){
+  body:not(.drill-active) .app{max-width:980px;padding-left:18px;padding-right:18px}
+  .app2-bar{width:min(100%,980px)}
+  .app2-dock{width:min(600px,calc(100% - 28px))}
+  .app-screen{gap:12px}
+  .app-section{padding:18px}
+  .app-action-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .app-metrics{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (min-width:1100px){
+  body:not(.drill-active) .app{max-width:1280px;padding-left:28px;padding-right:28px}
+  .app2-bar{width:min(100%,1280px);padding-left:28px;padding-right:28px}
+  .app2-dock{width:min(620px,calc(100% - 40px))}
+  body:not(.drill-active) .tabpage{width:min(100%,1120px)}
+  .app-screen{gap:16px}
+  .app-section{padding:20px}
+  .app-action-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+@media (pointer:coarse){
+  .app2-nav,.btn,.grade-chip,.round-btn{min-height:44px}
+}
+@media (hover:hover) and (pointer:fine){
+  .app2-nav:hover,.btn:hover,.app-action:hover,.round-btn:hover{filter:brightness(1.06)}
+}
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.19.1">
+<link rel="stylesheet" href="./japanese.css?v=2.19.12">
 </head>
 <body>
 <div class="app">
@@ -3460,7 +3486,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.11-20260928";
+const APP_BUILD="2.19.12-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -3770,15 +3796,16 @@ function bindAppShell(){
 
   const dock=$("#app2Dock");
   if(dock){
-    dock.onclick=function(e){
-      const b=e.target.closest(".app2-nav");
-      if(b&&dock.contains(b)){
+    dock.onclick=null;
+    dock.querySelectorAll(".app2-nav").forEach(function(b){
+      b.onclick=function(e){
         e.preventDefault();
+        e.stopPropagation();
         const target=b.dataset.appTab;
-        if(target==="jp"&&typeof jpState!=="undefined")jpState.view="home";
+        if(target==="jp"){openJapaneseTab();return}
         if(target)switchTab(target);
-      }
-    };
+      };
+    });
   }
 
   const practiceSettingsBtn=$("#openPracticeSettings");if(practiceSettingsBtn)practiceSettingsBtn.onclick=openPracticeSheet;
@@ -3884,6 +3911,36 @@ function bind(){
   $$("#typeChecks input[type='checkbox']").forEach(x=>x.onchange=refreshTypeChecks);
   refreshTypeChecks();
 }
+function openJapaneseTab(){
+  try{
+    if(typeof jpState!=="undefined")jpState.view="home";
+  }catch{}
+  switchTab("jp");
+  const el=$("#jp");
+  if(typeof renderJapanese==="function"){
+    Promise.resolve(renderJapanese()).catch(function(err){
+      console.error("Japanese tab render failed",err);
+      if(el)el.innerHTML="<div class='app-screen'><section class='app-section'><div class='prompt'>日本漢字 화면을 열지 못했습니다.</div><div class='sub'>화면을 새로고침한 뒤 다시 시도해 주세요.</div><button class='btn primary' onclick='location.reload()' style='margin-top:12px'>새로고침</button></section></div>";
+    });
+    return;
+  }
+  if(el)el.innerHTML="<div class='app-screen'><section class='app-section'><div class='prompt'>日本漢字 모듈 준비 중…</div><div class='sub'>잠시 뒤 자동으로 열립니다.</div></section></div>";
+  let tries=0;
+  const timer=setInterval(function(){
+    tries++;
+    if(mode!=="jp"){clearInterval(timer);return}
+    if(typeof renderJapanese==="function"){
+      clearInterval(timer);
+      Promise.resolve(renderJapanese()).catch(function(err){console.error("Japanese tab delayed render failed",err)});
+      return;
+    }
+    if(tries>=30){
+      clearInterval(timer);
+      if(el)el.innerHTML="<div class='app-screen'><section class='app-section'><div class='prompt'>日本漢字 모듈을 불러오지 못했습니다.</div><button class='btn primary' onclick='location.reload()' style='margin-top:12px'>새로고침</button></section></div>";
+    }
+  },100);
+}
+
 function switchTab(id){
   mode=id;
   syncAppChrome(id);
@@ -8548,6 +8605,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.19.7"></script>
+<script src="./japanese.js?v=2.19.12"></script>
 </body>
 </html>
