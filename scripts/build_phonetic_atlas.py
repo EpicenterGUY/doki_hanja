@@ -108,10 +108,10 @@ def kana_fold(v):
 
 def load_japanese_official():
     joyo=set()
-    with JOYO.open(encoding="utf-8-sig") as f:
-        for line in f:
-            if not line.strip():continue
-            joyo.add(line.split("\t",1)[0].strip())
+    with JOYO.open(encoding="utf-8-sig",newline="") as f:
+        for row in csv.DictReader(f,delimiter="\t"):
+            ch=(row.get("New") or "").strip()
+            if ch:joyo.add(ch)
     data=json.loads(MEXT.read_text(encoding="utf-8"))
     official={}
     for e in data.get("entries",[]):
