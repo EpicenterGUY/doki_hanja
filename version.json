@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.19.25-20260929",
+  "webBuild": "2.19.26-20260929",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.26",
+      "title": "급수진단 한자 직접입력 제거",
+      "items": [
+        "급수진단의 한자 찾기 유형은 빠른 진단·정밀 진단·재검사·경계 검증 모두 객관식 선택형으로만 출제",
+        "독음·훈음 일부는 한글 직접입력을 유지하되 한자 글자를 직접 타이핑하는 입력은 완전히 제거",
+        "이전 진단 상태에 한자 직접입력 문항이 남아 있어도 화면 진입 시 자동으로 객관식 선지형으로 변환",
+        "급수진단 안내 문구도 한자 입력 없음 기준으로 정리"
+      ]
+    },
     {
       "version": "2.19.25",
       "title": "PC UI 개편 · 급수진단 선지 고도화 · 한자 확대",
