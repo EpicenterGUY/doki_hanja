@@ -15,6 +15,8 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 HANJA=ROOT/"data"/"hanja.csv"
 OUT=ROOT/"data"/"hanja-structure.json"
+JOYO=ROOT/"data"/"japanese"/"joyo.tsv"
+MEXT=ROOT/"data"/"japanese"/"mext-onkun-2017.json"
 
 MMH_URL="https://raw.githubusercontent.com/skishore/makemeahanzi/master/dictionary.txt"
 IDS_URL="https://www.babelstone.co.uk/CJK/IDS.TXT"
@@ -96,6 +98,33 @@ def load_ids():
                 seq=m.group(1);break
         if seq:mp[ch]=seq
     return mp
+
+def kana_fold(v):
+    out=[]
+    for ch in (v or "").replace(".","").replace("-",""):
+        cp=ord(ch)
+        out.append(chr(cp-0x60) if 0x30A1<=cp<=0x30F6 else ch)
+    return "".join(out)
+
+def load_japanese_official():
+    joyo=set()
+    with JOYO.open(encoding="utf-8-sig") as f:
+        for line in f:
+            if not line.strip():continue
+            joyo.add(line.split("\t",1)[0].strip())
+    data=json.loads(MEXT.read_text(encoding="utf-8"))
+    official={}
+    for e in data.get("entries",[]):
+        ch=e.get("kanji")
+        if not ch:continue
+        on=[];kun=[]
+        for r in e.get("readings",[]):
+            v=(r.get("reading") or "").strip()
+            if not v:continue
+            if r.get("kind")=="on":on.append(v)
+            elif r.get("kind")=="kun":kun.append(v)
+        official[ch]={"on":list(dict.fromkeys(on)),"kun":list(dict.fromkeys(kun))}
+    return joyo,official
 
 def load_kanjidic(wanted):
     result={}
@@ -195,6 +224,7 @@ def main():
     mmh=load_mmh()
     ids=load_ids()
     jp=load_kanjidic([x["c"] for x in rows])
+    joyo,official=load_japanese_official()
 
     records={}
     for x in rows:
@@ -229,10 +259,22 @@ def main():
             "q":confidence,"src":source,
         }
         if decomp:rec["d"]=decomp
-        j=jp.get(ch) or jp.get(base)
-        if j:
-            if j["on"]:rec["on"]=j["on"]
-            if j["kun"]:rec["kun"]=j["kun"]
+        j=jp.get(ch) or jp.get(base) or {"on":[],"kun":[]}
+        off=official.get(ch) or official.get(base) or {"on":[],"kun":[]}
+        is_joyo=ch in joyo or base in joyo
+        rec["j"]="상용" if is_joyo else "표외"
+        if is_joyo:
+            if off["on"]:rec["on"]=off["on"]
+            if off["kun"]:rec["kun"]=off["kun"]
+            off_on={kana_fold(x) for x in off["on"]}
+            off_kun={kana_fold(x) for x in off["kun"]}
+            onx=[x for x in j["on"] if kana_fold(x) not in off_on]
+            kunx=[x for x in j["kun"] if kana_fold(x) not in off_kun]
+            if onx:rec["onx"]=onx
+            if kunx:rec["kunx"]=kunx
+        else:
+            if j["on"]:rec["onx"]=j["on"]
+            if j["kun"]:rec["kunx"]=j["kun"]
         records[ch]=rec
 
     # A phonetic component can itself have a phonetic component, e.g. 京 → 景 → 憬.
@@ -258,7 +300,9 @@ def main():
             "explicit":sum(1 for r in records.values() if r["q"]=="확정"),
             "inferred":sum(1 for r in records.values() if r["q"]=="추정"),
             "independent":sum(1 for r in records.values() if r["q"]=="독립"),
-            "jpReadings":sum(1 for r in records.values() if r.get("on") or r.get("kun")),
+            "jpReadings":sum(1 for r in records.values() if r.get("on") or r.get("kun") or r.get("onx") or r.get("kunx")),
+            "joyo":sum(1 for r in records.values() if r.get("j")=="상용"),
+            "hyogai":sum(1 for r in records.values() if r.get("j")=="표외"),
         },
         "sources":{
             "korean":"DOKI data/hanja.csv (한국어문회 급수/훈음 데이터)",
