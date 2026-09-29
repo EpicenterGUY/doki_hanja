@@ -422,3 +422,63 @@ body.drill-active #jp{height:100%;min-height:0}
   .jp-reading-group{min-width:82px}
   .jp-reading-selected .jp-atlas-grid{grid-template-columns:repeat(auto-fill,minmax(125px,1fr))}
 }
+
+
+/* FOLD UNFOLDED / TABLET POLISH · 2.20.2 */
+.jp-hero-line>div{min-width:0}
+.jp-hero h2{line-height:1.08;overflow:visible;word-break:keep-all}
+.jp-screen,.jp-home-main,.jp-home-actions,.jp-home-progress-card,.jp-grade-launch{min-width:0}
+
+@media(min-width:700px) and (max-width:1199px){
+  .jp-screen{gap:10px;width:100%}
+  .jp-screen:has(.jp-home-main){
+    grid-template-columns:minmax(0,1.08fr) minmax(310px,.92fr);
+    column-gap:10px;row-gap:10px
+  }
+  .jp-home-hero{
+    min-height:154px!important;
+    padding:17px 20px 15px!important;
+    border-radius:23px
+  }
+  .jp-home-hero::after{font-size:154px;right:18px;bottom:-36px}
+  .jp-home-hero h2{font-size:32px!important;margin:4px 0 3px}
+  .jp-home-hero p{font-size:11px;line-height:1.42;max-width:72%}
+  .jp-home-hero .jp-set-seg{margin-top:10px}
+  .jp-home-hero .jp-set-seg button{min-height:46px;font-size:13px}
+  .jp-home-main{grid-template-columns:minmax(190px,.7fr) minmax(0,1.3fr);gap:7px}
+  .jp-home-status{min-height:152px!important;padding:14px}
+  .jp-home-status>div:first-child b{font-size:22px}
+  .jp-home-status>div:first-child small{font-size:9px}
+  .jp-home-ring{width:88px;height:88px}
+  .jp-home-action{
+    min-height:78px!important;padding:11px 12px;
+    grid-template-columns:48px minmax(0,1fr) 16px
+  }
+  .jp-home-action .jp-action-glyph{width:42px;height:42px;font-size:23px}
+  .jp-home-action b{font-size:14px}
+  .jp-home-action small{font-size:9px;line-height:1.4}
+  .jp-home-progress-card{padding:14px}
+  .jp-home-progress-head b{font-size:17px}
+  .jp-home-progress-grid>div b{font-size:20px}
+  .jp-home-progress-grid>div span{font-size:8px}
+  .jp-grade-launch{padding:14px}
+  .jp-home-grade-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .jp-home-grade-grid button{min-height:58px!important}
+  .jp-home-grade-grid button b{font-size:15px}
+  .jp-home-grade-grid button span{font-size:8px}
+  .jp-home-next{min-height:68px;padding:10px 12px}
+  .jp-home-search{min-height:46px}
+  .jp-grid,.jp-atlas-grid{grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px}
+  .jp-card,.jp-atlas-card{min-height:108px}
+  .jp-card-char,.jp-atlas-card .char{font-size:40px}
+  .jp-card-meta,.jp-atlas-card .meta{font-size:9px}
+}
+@media(min-width:700px) and (max-width:1199px) and (orientation:landscape){
+  .jp-screen:has(.jp-home-main){grid-template-columns:minmax(0,1.28fr) minmax(300px,.72fr)}
+  .jp-home-hero{min-height:142px!important}
+  .jp-home-main{grid-template-columns:minmax(210px,.72fr) minmax(0,1.28fr)}
+  .jp-home-grade-grid{grid-template-columns:repeat(7,minmax(0,1fr))}
+}
+@media(min-width:1200px){
+  .jp-home-hero h2{font-size:38px}
+}
