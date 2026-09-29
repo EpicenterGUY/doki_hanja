@@ -3473,24 +3473,30 @@ function loadCharCSV(text){
   renderData();
 }
 async function autoLoad(){
-  const cached=localStorage.getItem("hanjaCharCacheV3");
-  if(cached){
-    try{
-      const c=JSON.parse(cached);
-      if(c.chars?.length>5000){
-        chars=c.chars;
-        $("#dataBadge").textContent=`배정한자 ${chars.length.toLocaleString()}자`;
-        $("#dataBadge").classList.add("good");
-      }
-    }catch{}
-  }
+  let fullDataLoaded=false;
 
-  // iOS/PWA에서도 급수 데이터가 외부 네트워크 상태에 좌우되지 않도록 전체 배정한자를 앱에 내장한다.
-  if(!chars.length){
-    try{
-      const local=await fetchWithTimeout("./data/hanja.csv",{cache:"force-cache"},4000);
-      if(local.ok)loadCharCSV(await local.text());
-    }catch{}
+  // 배포본에 포함된 데이터가 항상 1순위다. 늦게 도착한 외부 요청이 학습 화면을 다시 그리는 레이스를 막는다.
+  try{
+    const local=await fetchWithTimeout("./data/hanja.csv",{cache:"force-cache"},4000);
+    if(local.ok){
+      loadCharCSV(await local.text());
+      fullDataLoaded=chars.length>5000;
+    }
+  }catch{}
+
+  if(!fullDataLoaded){
+    const cached=storageGet("hanjaCharCacheV3","");
+    if(cached){
+      try{
+        const c=JSON.parse(cached);
+        if(c.chars?.length>5000){
+          chars=c.chars;
+          fullDataLoaded=true;
+          $("#dataBadge").textContent=`배정한자 ${chars.length.toLocaleString()}자`;
+          $("#dataBadge").classList.add("good");
+        }
+      }catch{}
+    }
   }
 
   if(!chars.length){
@@ -3499,7 +3505,8 @@ async function autoLoad(){
   }
   init();
 
-  // 외부 원본은 앱 시작을 막지 않는 갱신용 fallback으로만 사용한다.
+  // 내장/캐시 전체 데이터가 없을 때만 외부 원본을 복구 경로로 사용한다.
+  if(fullDataLoaded)return;
   const urls=[
     RAW_URL,
     "https://cdn.jsdelivr.net/gh/rycont/hanja-grade-dataset@main/hanja.csv"
@@ -3510,9 +3517,10 @@ async function autoLoad(){
       if(!res.ok)continue;
       loadCharCSV(await res.text());
       fillGradeOptions();
-      renderPracticeWelcome();
-      renderDrill();
       renderData();
+      // 사용자가 이미 연습을 시작한 경우 현재 화면을 덮어쓰지 않는다.
+      if(mode==="practice"&&!session.length)renderPracticeWelcome();
+      if(mode==="drill"&&!document.body.classList.contains("drill-active"))renderDrill();
       return;
     }catch{}
   }
