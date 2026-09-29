@@ -3578,8 +3578,32 @@ body>.app2-update{z-index:1930!important}
   .atlas-phono-equation>span i{font-size:5.5px}
   .atlas-phono-lineage,.atlas-phono-root{flex-wrap:wrap}
 }
+
+/* JAPANESE READINGS / SHINJITAI IN KOREAN PHONETIC TABLE · 2.20.3 */
+.atlas-pdf-jp-kind{
+  display:grid;grid-template-columns:43px minmax(0,1fr);gap:5px;align-items:start;
+  margin-top:5px;padding-top:5px;border-top:1px solid rgba(132,161,210,.1)
+}
+.atlas-pdf-jp-kind .kind-label{
+  display:inline-flex;align-items:center;justify-content:center;min-height:22px;
+  border-radius:7px;background:rgba(91,104,210,.12);color:#b7c0ff;
+  font-size:7px;font-weight:950;white-space:nowrap
+}
+.atlas-pdf-jp-kind .atlas-pdf-reading{margin:0;min-width:0}
+.atlas-pdf-shinjitai{
+  display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:6px;padding:5px 6px;
+  border-radius:9px;border:1px solid rgba(83,216,177,.18);background:rgba(49,169,137,.08)
+}
+.atlas-pdf-shinjitai>span{font-size:7px;font-weight:950;color:#7ddbbd}
+.atlas-pdf-shinjitai>b{font:800 17px/1 var(--hanja-font);color:#effff9}
+.atlas-pdf-shinjitai>small{font-size:6px;color:#8ca9a1}
+@media(max-width:600px){
+  .atlas-pdf-jp-kind{grid-template-columns:38px minmax(0,1fr)}
+  .atlas-pdf-jp-kind .kind-label{font-size:6px}
+  .atlas-pdf-shinjitai>b{font-size:15px}
+}
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.20.2">
+<link rel="stylesheet" href="./japanese.css?v=2.20.3">
 </head>
 <body>
 <div class="app">
@@ -4342,7 +4366,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.20.2-20260929";
+const APP_BUILD="2.20.3-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -9876,14 +9900,19 @@ function atlasPdfUsageExamples(c){
   }
   return out.slice(0,3);
 }
-function atlasPdfJapaneseHtml(r){
+function atlasPdfJapaneseHtml(c,r){
   if(!r)return '<span class="atlas-pdf-empty">—</span>';
-  const normal=[].concat(r.on||[],r.kun||[]);
-  const extra=[].concat(r.onx||[],r.kunx||[]);
+  const on=[].concat(r.on||[]),kun=[].concat(r.kun||[]);
+  const onx=[].concat(r.onx||[]),kunx=[].concat(r.kunx||[]);
   let h='<div class="atlas-pdf-jp-head"><b>'+(r.j==="상용"?"常用":"表外")+'</b><span>'+(r.j==="상용"?"상용한자":"비상용·표외")+'</span></div>';
-  if(normal.length)h+='<div class="atlas-pdf-reading normal">'+normal.map(function(x){return '<span>'+esc(x)+'</span>'}).join("")+'</div>';
-  if(extra.length)h+='<div class="atlas-pdf-reading extra">'+extra.map(function(x){return '<span>'+esc(x)+'</span>'}).join("")+'</div>';
-  if(!normal.length&&!extra.length)h+='<span class="atlas-pdf-empty">일본 읽기 없음</span>';
+  h+='<div class="atlas-pdf-jp-kind"><span class="kind-label">音読み</span><div class="atlas-pdf-reading normal">'+(on.length?on.map(function(x){return '<span>'+esc(x)+'</span>'}).join(""):'<span class="atlas-pdf-empty">—</span>')+'</div>'+(onx.length?'<div class="atlas-pdf-reading extra">'+onx.map(function(x){return '<span>'+esc(x)+'</span>'}).join("")+'</div>':'')+'</div>';
+  h+='<div class="atlas-pdf-jp-kind"><span class="kind-label">訓読み</span><div class="atlas-pdf-reading normal">'+(kun.length?kun.map(function(x){return '<span>'+esc(x)+'</span>'}).join(""):'<span class="atlas-pdf-empty">—</span>')+'</div>'+(kunx.length?'<div class="atlas-pdf-reading extra">'+kunx.map(function(x){return '<span>'+esc(x)+'</span>'}).join("")+'</div>':'')+'</div>';
+  let variant=null;
+  try{if(typeof jpShinjitaiInfo==="function")variant=jpShinjitaiInfo(c.hanja)}catch{}
+  if(variant){
+    h+='<div class="atlas-pdf-shinjitai"><span>新字体</span><b>'+esc(variant.shinjitai)+'</b>'+(variant.traditional&&variant.traditional!==variant.shinjitai?'<small>旧字体 '+esc(variant.traditional)+'</small>':'')+'</div>';
+  }
+  if(!on.length&&!kun.length&&!onx.length&&!kunx.length)h+='<span class="atlas-pdf-empty">일본 읽기 없음</span>';
   return h;
 }
 function atlasPhonoOriginHtml(c,r,compact){
@@ -9955,8 +9984,8 @@ function atlasSoundHtml(){
   const stats=hanjaStructure.stats||{};
   let h='<div class="atlas-pdf-intro"><div><b>PDF식 성부 학습표</b><span>성부로 소리를 유추하고 뜻부로 의미를 연상합니다. 성부가 다시 다른 성부를 가지면 京 → 景 → 憬처럼 계층으로 표시합니다.</span></div>'+
     '<div class="atlas-pdf-stats"><span><b>'+(stats.total||chars.length).toLocaleString()+'</b>전체</span><span><b>'+(stats.explicit||0).toLocaleString()+'</b>성부 확인</span><span><b>'+(stats.inferred||0).toLocaleString()+'</b>구조 추정</span><span><b>'+(stats.jpReadings||0).toLocaleString()+'</b>일본 읽기</span></div></div>';
-  h+='<div class="atlas-pdf-legend"><span><i class="normal"></i> 일본 상용표 공식 음훈</span><span><i class="extra"></i> 상용표 밖·표외 읽기</span><span>확정/추정은 성부 데이터 신뢰도</span></div>';
-  h+='<div class="atlas-pdf-table"><div class="atlas-pdf-columns"><b>성부(소리)</b><b>확장 한자</b><b>훈음·독음</b><b>용례·기출</b><b>일본어 음독·훈독</b><b>비고</b></div>';
+  h+='<div class="atlas-pdf-legend"><span><i class="normal"></i> 일본 상용표 공식 음독·훈독</span><span><i class="extra"></i> 상용표 밖·표외 읽기</span><span>新字体가 있으면 旧字体와 함께 표시</span><span>확정/추정은 성부 데이터 신뢰도</span></div>';
+  h+='<div class="atlas-pdf-table"><div class="atlas-pdf-columns"><b>성부(소리)</b><b>확장 한자</b><b>훈음·독음</b><b>용례·기출</b><b>일본어 음독·훈독·신자체</b><b>비고</b></div>';
   shown.forEach(function(g){
     const baseCanonical=g.baseChar?officialMeaningSoundForms(g.baseChar).canonical:"";
     h+='<section class="atlas-pdf-group">'+
@@ -9970,7 +9999,7 @@ function atlasSoundHtml(){
         '<div class="atlas-pdf-char" data-label="확장 한자"><strong>'+esc(c.hanja)+'</strong><small>'+esc(c.level)+'</small></div>'+
         '<div class="atlas-pdf-kr" data-label="훈음·독음"><b>'+esc(canon)+'</b><small>'+esc(c.radical||"-")+'부 · '+(+c.total||"-")+'획</small></div>'+
         '<div class="atlas-pdf-example" data-label="용례·기출">'+(examples.length?examples.map(function(v){return '<span>'+esc(v)+'</span>'}).join(""):'<span class="atlas-pdf-empty">연결 용례 없음</span>')+'</div>'+
-        '<div class="atlas-pdf-jp" data-label="일본어 음독·훈독">'+atlasPdfJapaneseHtml(r)+'</div>'+
+        '<div class="atlas-pdf-jp" data-label="일본어 음독·훈독">'+atlasPdfJapaneseHtml(c,r)+'</div>'+
         '<div class="atlas-pdf-note-cell" data-label="비고">'+atlasPdfNoteHtml(c,r)+'</div>'+
       '</button>';
     });
@@ -10474,6 +10503,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.20.2"></script>
+<script src="./japanese.js?v=2.20.3"></script>
 </body>
 </html>
