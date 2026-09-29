@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.20.6-20260929",
+  "webBuild": "2.20.7-20260929",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.20.7",
+      "title": "비상용 음독 빨간색 표시",
+      "items": [
+        "상용한자 상세에서 常用漢字表 밖 음독을 '비상용 음독'으로 따로 표시",
+        "비상용 음독 텍스트와 칩을 빨간색 계열로 강조해 공식 상용표 음독과 즉시 구분",
+        "비상용 훈독은 연분홍으로 유지해 음독과 시각적으로 구별",
+        "한국 한자 성부 학습표의 일본 읽기에서도 상용표 밖 음독을 빨간색으로 표시하고 범례에 색 의미 추가"
+      ]
+    },
     {
       "version": "2.20.6",
       "title": "전체 찾기 복구 · 영역별 도감 설정 · 헷갈리는 한자 확장",
