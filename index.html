@@ -4117,6 +4117,24 @@ function safeClue(c){
   const p=charPrimary(c);
   return {meaning:hideTargetHanja(p.meaning,c.hanja),sound:p.sound};
 }
+function diagnosisSafeClue(c){
+  const p=safeClue(c);
+  const cleanMeaning=String(p.meaning||"")
+    .replace(/[\u3400-\u9fff\uf900-\ufaff]/g,"")
+    .replace(/[()（）\[\]【】<>〈〉《》「」『』]/g," ")
+    .replace(/[·ㆍ,:;]+/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+  const cleanSound=String(p.sound||"")
+    .replace(/[\u3400-\u9fff\uf900-\ufaff]/g,"")
+    .replace(/\s+/g," ")
+    .trim();
+  return {
+    meaning:cleanMeaning||"뜻 확인",
+    sound:cleanSound||String(c&&c.sound||"").trim(),
+    canonical:[cleanMeaning,cleanSound||String(c&&c.sound||"").trim()].filter(Boolean).join(" ")
+  };
+}
 function makeGeneratedQuestion(c,type){
   const p=charPrimary(c);
   let prompt="",answer="",display=c.hanja,note="",canonicalAnswer="";
@@ -4244,8 +4262,9 @@ function makeDiagnosisQuestion(grade,seq,stageUsed){
     prompt="이 한자의 대표 음은?";
     display=c.hanja;answer=c.sound||charPrimary(c).sound;
   }else if(kind==="write"){
+    const clue=diagnosisSafeClue(c);
     prompt="이 훈음에 해당하는 한자는?";
-    display=officialMeaningSoundForms(c).canonical;answer=c.hanja;
+    display=clue.canonical;answer=c.hanja;
   }else{
     prompt="이 한자의 한국어문회 훈음은?";
     display=c.hanja;answer=officialMeaningSoundForms(c).canonical;
