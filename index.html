@@ -9254,7 +9254,7 @@ function setAtlasQuickView(v){
   if(v==="freq"){
     atlasState.mode="freq";atlasState.filter="all";atlasState.sort="freq";atlasState.view="table";atlasState.freqType="all";atlasState.period="all";
   }else if(v==="compare"){
-    atlasState.mode="compare";atlasState.filter="all";atlasState.sort="alpha";atlasState.view="compact";
+    atlasState.mode="compare";atlasState.filter="all";atlasState.sort="alpha";atlasState.view="compact";atlasState.scope="cumulative";
   }else{
     atlasState.mode="grade";atlasState.filter=(v==="saved"||v==="weak")?v:"all";
     atlasState.sort="alpha";if(atlasState.view==="table"&&v!=="all")atlasState.view="compact";
