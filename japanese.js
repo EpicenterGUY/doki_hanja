@@ -222,7 +222,11 @@ function jpReadingPillsHtml(item,data,kind){
     }).join("")+"</div>";
   }
   if(extras.length){
-    h+="<div class='jp-reading-extra'><span>"+(item.set==="joyo"?"常用漢字表 밖 읽기":"표외 읽기")+"</span>"+extras.map(function(r){return "<b>"+esc(r)+"</b>"}).join("")+"</div>";
+    const extraClass=kind==="on"?"extra-on":"extra-kun";
+    const extraLabel=kind==="on"
+      ? (item.set==="joyo"?"비상용 음독":"표외 음독")
+      : (item.set==="joyo"?"비상용 훈독":"표외 훈독");
+    h+="<div class='jp-reading-extra "+extraClass+"'><span>"+extraLabel+"</span>"+extras.map(function(r){return "<b>"+esc(r)+"</b>"}).join("")+"</div>";
   }
   if(!official.length&&!extras.length)h="<span class='jp-reading-none'>—</span>";
   return h;
