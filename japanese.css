@@ -268,7 +268,7 @@ body.drill-active #jp{height:100%;min-height:0}
 .jp-home-next button{min-height:39px;padding:6px 11px;border:0;border-radius:12px;background:linear-gradient(135deg,#655df0,#7f5cec);color:#fff;font-size:10px;font-weight:900;white-space:nowrap}
 
 /* Fold unfolded: Japanese hub becomes a stable dashboard */
-@media(min-width:760px){
+@media(min-width:700px){
   .jp-screen:has(.jp-home-main){grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);align-items:start}
   .jp-screen:has(.jp-home-main)>.jp-home-hero{grid-column:1 / -1}
   .jp-screen:has(.jp-home-main)>.jp-home-main{grid-column:1;grid-row:2 / span 2}
@@ -305,3 +305,33 @@ body.drill-active #jp{height:100%;min-height:0}
   background:rgba(18,29,52,.86);color:#aebddd;font-size:10px;font-weight:900
 }
 .jp-home-search:active{transform:scale(.99)}
+
+
+/* DEVICE FIT · 2.19.12 */
+@media(min-width:601px) and (max-width:699px){
+  .jp-screen{gap:10px}
+  .jp-hero,.jp-home-hero{padding:17px;border-radius:23px}
+  .jp-grid,.jp-atlas-grid{grid-template-columns:repeat(auto-fill,minmax(78px,1fr))}
+  .jp-practice-grid{grid-template-columns:1fr 1fr}
+  .jp-practice-grid>.jp-field:last-child{grid-column:1 / -1}
+  .jp-home-actions{grid-template-columns:1fr 1fr}
+}
+@media(min-width:700px) and (max-width:1099px){
+  .jp-home-hero{min-height:188px}
+  .jp-home-actions{grid-template-columns:1fr 1fr}
+  .jp-grid,.jp-atlas-grid{grid-template-columns:repeat(auto-fill,minmax(92px,1fr))}
+  .jp-word-stage{grid-template-columns:minmax(240px,.72fr) minmax(380px,1.28fr)}
+}
+@media(min-width:1100px){
+  .jp-screen{gap:14px}
+  .jp-home-hero{min-height:200px;padding:24px 26px}
+  .jp-home-main{gap:10px}
+  .jp-home-actions{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .jp-grid,.jp-atlas-grid{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:9px}
+  .jp-card,.jp-atlas-card{min-height:118px}
+  .jp-word-preview-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .jp-word-stage{grid-template-columns:minmax(320px,.8fr) minmax(520px,1.2fr)}
+}
+@media(pointer:coarse){
+  .jp-set-seg button,.jp-view-seg button,.jp-home-action,.jp-home-search,.jp-filter-chip,.jp-word-round-chip{min-height:44px}
+}
