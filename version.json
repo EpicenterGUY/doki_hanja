@@ -1,9 +1,22 @@
 {
-  "webBuild": "2.19.11-20260928",
+  "webBuild": "2.19.12-20260929",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.12",
+      "title": "日本 탭 진입 복구 · iPad/PC 반응형 보강",
+      "items": [
+        "하단 日本 버튼을 부모 이벤트 위임 한 곳에만 의존하지 않고 각 메뉴 버튼에 직접 연결해 모바일·iOS에서 진입 안정성 강화",
+        "日本 모듈이 늦게 준비되는 경우 자동 재시도하고 로딩 실패 시 새로고침 안내를 표시하도록 진입 경로 보강",
+        "일본 한자 데이터 동시 로딩 요청을 하나의 Promise로 공유해 연속 탭 입력 시 실패처럼 처리되던 경쟁 상태 수정",
+        "日本 데이터 자산을 모듈 로드 직후 미리 준비해 탭 첫 진입 대기 시간을 단축",
+        "601~699px 중간 폭과 700~1099px 태블릿, 1100px 이상 PC 구간을 별도로 보정",
+        "iPad mini를 포함한 태블릿 폭에서 일본 허브 2열 레이아웃과 충분한 터치 영역 적용",
+        "PC에서는 콘텐츠 폭과 카드 밀도·일본어 단어 미리보기 배치를 넓은 화면에 맞게 조정"
+      ]
+    },
     {
       "version": "2.19.11",
       "title": "iOS · Apple Pencil 손바닥 오입력 방지",
