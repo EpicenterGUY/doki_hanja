@@ -17,3 +17,16 @@ The inventory categories correspond to Japan's 2010 Jōyō kanji table and the 2
 Notes:
 - Parenthesized characters in hyogai.txt are alternate/simplified glyph forms and are kept as metadata, not counted as separate base study characters.
 - The 2000 Hyōgai table predates the 2010 Jōyō revision, so DOKI removes any base character that is in the current Jōyō set before presenting the current 表外 core collection.
+
+
+Additional bundled reading data:
+- mext-onkun-2017.json: official Jōyō kanji on/kun readings and school-stage allocation extracted from Japan MEXT's "音訓の小・中・高等学校段階別割り振り表（平成29年3月）".
+
+Source repository:
+https://github.com/make1s/diglabo-kanji-data
+
+Source file:
+- data/mext-onkun-2017.json
+
+That repository states CC BY-SA 4.0 for the dataset and includes the original MEXT source metadata inside the JSON.
+DOKI preserves the source metadata and uses this file only to distinguish readings listed in the official Jōyō table from additional KANJIDIC readings.
