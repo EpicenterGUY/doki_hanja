@@ -1,0 +1,61 @@
+name: Build PDF-style Hanja phonetic atlas
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/build_phonetic_atlas.py"
+      - "data/hanja.csv"
+      - ".github/workflows/build-phonetic-atlas.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-pdf-style-phonetic-atlas
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build phonetic / structure atlas
+        run: python scripts/build_phonetic_atlas.py
+
+      - name: Validate generated data
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("data/hanja-structure.json")
+          d=json.loads(p.read_text(encoding="utf-8"))
+          s=d.get("stats",{})
+          assert s.get("total",0)>=5900, s
+          assert len(d.get("records",{}))==s["total"], (len(d.get("records",{})),s)
+          assert s.get("explicit",0)+s.get("inferred",0)+s.get("independent",0)==s["total"], s
+          assert s.get("jpReadings",0)>=2500, s
+          print("VALID",s)
+          PY
+
+      - name: Commit generated atlas data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/hanja-structure.json
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git commit -m "Generate full PDF-style Hanja phonetic atlas"
+          git pull --rebase origin main
+          git push origin HEAD:main
