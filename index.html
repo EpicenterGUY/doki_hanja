@@ -3183,6 +3183,163 @@ body>.app2-update{z-index:1930!important}
   .drill-resume-card{padding:12px!important}
   .drill-resume-count b{font-size:22px}
 }
+
+/* DESKTOP WORKSPACE + LARGE HANJA · 2.19.25 */
+.diag-glyph:not(.textual){
+  font-family:var(--hanja-font)!important;
+  font-size:clamp(96px,22vw,144px)!important;
+  line-height:.98!important;
+  margin-top:12px!important
+}
+.diag-glyph.textual{
+  font-size:clamp(26px,6vw,46px)!important;
+  line-height:1.22!important;
+  word-break:keep-all
+}
+.big-hanja{font-size:clamp(94px,18vw,176px)!important}
+.atlas-detail-glyph{font-size:clamp(68px,14vw,96px)!important}
+.atlas-hanja{font-size:50px!important}
+.hanja-peek{font-size:92px!important}
+
+@media(max-width:600px){
+  .diag-question{padding:20px 12px!important}
+  .diag-glyph:not(.textual){font-size:clamp(92px,29vw,120px)!important}
+  .diag-glyph.textual{font-size:clamp(24px,8vw,34px)!important}
+  .big-hanja{font-size:clamp(92px,31vw,144px)!important}
+  .drill-clue{font-size:clamp(38px,13vw,58px)!important}
+  .atlas-hanja{font-size:42px!important;min-height:50px!important}
+  .atlas-detail-glyph{font-size:clamp(72px,23vw,92px)!important}
+  .hanja-peek{font-size:88px!important}
+}
+@media(max-width:380px){
+  .atlas-hanja{font-size:39px!important}
+  .diag-glyph:not(.textual){font-size:clamp(84px,28vw,108px)!important}
+}
+
+@media (min-width:1100px) and (pointer:fine){
+  :root{--appbar-h:70px;--dock-h:0px}
+  body:not(.drill-active) .app{width:100%;max-width:none;margin:0;padding:102px 30px 38px 128px}
+  body:not(.drill-active) .tabpage{width:min(100%,1500px);max-width:1500px;margin:0 auto}
+  body:not(.drill-active) .content{min-height:calc(100vh - 126px)}
+
+  .app2-bar{
+    top:14px;left:126px;right:30px;transform:none;width:auto;max-width:none;height:68px;padding:9px 18px;
+    border:1px solid rgba(143,169,220,.22);border-radius:20px;
+    background:linear-gradient(180deg,rgba(16,26,47,.96),rgba(10,18,34,.91));
+    box-shadow:0 16px 44px rgba(0,5,20,.28)
+  }
+  .app2-logo{width:46px;height:46px;border-radius:15px}.app2-title{font-size:21px}
+  .app2-action,.app2-action.icon-only{width:44px;min-width:44px;height:44px;border-radius:14px}
+  .app2-action.install{width:auto;padding-inline:14px}
+
+  .app2-dock{
+    left:18px;top:100px;bottom:auto;transform:none;width:88px;min-height:0;padding:8px;
+    grid-template-columns:1fr;grid-auto-rows:66px;gap:6px;border-radius:26px;
+    background:linear-gradient(180deg,rgba(20,32,56,.97),rgba(10,18,33,.96));
+    box-shadow:0 18px 54px rgba(0,5,20,.38)
+  }
+  .app2-nav{min-height:66px;border-radius:18px;gap:5px;font-size:10px}
+  .app2-nav svg{width:24px;height:24px}.app2-nav span{font-size:10px;font-weight:900}
+  .app2-nav:hover{background:rgba(72,93,139,.28);transform:translateY(-1px)}
+
+  .app-screen{gap:18px}.app-section{padding:22px;border-radius:24px}
+  .app-section-title{font-size:20px}.app-section-sub{font-size:12px;line-height:1.5}
+  .app-action-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+  .app-action{min-height:124px;padding:17px}.app-action b{font-size:17px}.app-action small{font-size:11px}
+  .app-list-row{min-height:76px;padding:13px 15px}.app-list-text b{font-size:16px}.app-list-text small{font-size:11px}
+
+  .home-v2{grid-template-columns:minmax(0,1.38fr) minmax(380px,.62fr)!important;gap:16px!important}
+  .home-welcome{min-height:190px;padding:28px 30px}.home-welcome h2{font-size:40px}.home-welcome p{font-size:13px}
+  .home-level-orb{width:108px;height:108px}.home-level-orb b{font-size:31px}
+  .home-primary-card{min-height:132px;padding:16px}.home-primary-card b{font-size:16px}.home-primary-card small{font-size:11px}
+
+  .study-hub-screen{grid-template-columns:minmax(0,1.28fr) minmax(390px,.72fr)!important;gap:16px!important}
+  .hub-title-card{min-height:144px;padding:24px 26px}.hub-title-card h2{font-size:36px}.hub-title-card p{font-size:13px}
+  .study-main-grid{gap:10px}.study-tile{min-height:112px;padding:16px}
+  .study-tile-icon{width:50px;height:50px;flex-basis:50px;font-size:24px}.study-tile b{font-size:16px}.study-tile small{font-size:11px}
+  .study-link{min-height:74px;padding:13px 14px}.study-link b{font-size:14px}.study-link small{font-size:10px}
+
+  .more-screen{grid-template-columns:minmax(360px,.36fr) minmax(0,.64fr)!important;gap:18px!important}
+  .more-screen .app-stats-hero{top:98px!important}
+
+  #atlas.tabpage{width:min(100%,1560px);max-width:1560px}
+  #atlas .atlas-shell{
+    display:grid;grid-template-columns:326px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);
+    gap:16px 18px;align-items:start
+  }
+  #atlas .atlas-toolbar{
+    grid-column:1;grid-row:1 / span 2;position:sticky;top:98px;align-self:start;
+    max-height:calc(100vh - 120px);overflow:auto!important;scrollbar-width:thin;padding:16px;border-radius:22px
+  }
+  #atlas .atlas-summary{grid-column:2;grid-row:1;gap:9px}
+  #atlas .atlas-summary>div{padding:13px 14px;border-radius:16px}
+  #atlas .atlas-summary b{font-size:20px}#atlas .atlas-summary span{font-size:10px}
+  #atlas #atlasResults{grid-column:2;grid-row:2;min-width:0}
+  #atlas .atlas-title{font-size:24px}#atlas .atlas-sub{font-size:11px}
+  #atlas .atlas-quick-row button{min-height:62px}
+  #atlas .atlas-grade-row,#atlas .atlas-type-row,#atlas .atlas-period-row{flex-wrap:wrap;overflow:visible;max-width:none}
+  #atlas .atlas-controls{grid-template-columns:1fr 1fr}
+  #atlas .atlas-grid{grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:11px}
+  #atlas .atlas-card{min-height:188px;padding:16px 12px}
+  #atlas .atlas-hanja{font-size:58px!important;min-height:62px!important}
+  #atlas .atlas-hun{font-size:14px}
+  #atlas .atlas-compact-grid{grid-template-columns:repeat(8,minmax(0,1fr))}
+  #atlas .atlas-compact-cell{min-height:132px;padding:14px 7px 10px}
+  #atlas .atlas-compact-cell:nth-child(7n){border-right:1px solid rgba(130,158,206,.16)}
+  #atlas .atlas-compact-cell:nth-child(8n){border-right:0}
+  #atlas .atlas-compact-hanja{font-size:40px;min-height:50px}
+  #atlas .atlas-compact-hun{font-size:11px}
+  #atlas .atlas-table th,#atlas .atlas-table td{padding:12px 11px;font-size:12px}
+  #atlas .atlas-table .hanja-cell{font-size:30px}
+  #atlas .atlas-compare-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  #atlas .atlas-compare-glyph{min-height:64px;font-size:41px}
+
+  .global-search-sheet{
+    left:calc(50% + 48px);top:96px;width:min(920px,calc(100vw - 230px));
+    max-height:calc(100vh - 126px);padding:18px;border-radius:24px
+  }
+  .global-hanja-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .global-jp-grid{grid-template-columns:repeat(7,minmax(0,1fr))}
+
+  #practiceSettingsPanel{
+    left:auto!important;right:28px!important;top:96px!important;bottom:auto!important;
+    width:390px!important;max-height:calc(100vh - 122px)!important;padding:16px 18px 20px!important;
+    border-radius:22px!important;transform:translateX(calc(100% + 60px)) scale(.985)!important
+  }
+  #practiceSettingsPanel.sheet-open{transform:translateX(0) scale(1)!important}
+  #practiceSettingsPanel .sheet-handle{display:none}
+
+  .update-sheet{
+    left:auto;right:28px;top:96px;bottom:auto;width:480px;max-height:calc(100vh - 122px);
+    border-radius:22px;transform:translateX(calc(100% + 60px)) scale(.985)
+  }
+  .update-sheet.open{transform:translateX(0) scale(1)}
+
+  .atlas-detail-sheet{
+    left:auto;right:28px;top:96px;bottom:26px;width:min(560px,calc(100vw - 180px));
+    max-height:none;height:calc(100vh - 122px);transform:translateX(calc(100% + 60px));
+    padding:18px 20px 22px;border:1px solid rgba(145,171,223,.26);border-radius:24px;
+    box-shadow:-22px 24px 70px rgba(0,5,20,.5)
+  }
+  .atlas-detail-sheet.open{transform:translateX(0)}.atlas-detail-handle{display:none}
+  .atlas-detail-glyph{font-size:108px!important}.atlas-detail-reading{font-size:20px}
+
+  .diag-question{padding:26px 24px}
+  .diag-glyph:not(.textual){font-size:154px!important}
+  .diag-glyph.textual{font-size:48px!important}
+  .diag-prompt{font-size:16px}.diag-choice{font-size:14px;min-height:62px}
+
+  .home-primary-card,.home-shortcut,.study-tile,.study-link,.atlas-card,.atlas-compact-cell,
+  .atlas-study-row,.atlas-compare-glyph,.app-list-row,.global-result-row,.global-hanja-result{
+    transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease
+  }
+  .home-primary-card:hover,.home-shortcut:hover,.study-tile:hover,.study-link:hover,.atlas-card:hover,
+  .atlas-compact-cell:hover,.atlas-study-row:hover,.atlas-compare-glyph:hover,.app-list-row:hover,
+  .global-result-row:hover,.global-hanja-result:hover{
+    transform:translateY(-2px);border-color:rgba(126,158,224,.42);
+    box-shadow:0 14px 30px rgba(0,6,22,.18)
+  }
+}
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.19.13">
 </head>
@@ -3846,7 +4003,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.24-20260929";
+const APP_BUILD="2.19.25-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -4575,27 +4732,118 @@ function latestDiagnosis(){return diagnosisHistory&&diagnosisHistory.length?diag
 function diagnosisModeQuestionCount(){return diagnosisState.mode==="precise"?7:5}
 function diagnosisRetestCount(){return diagnosisState.mode==="precise"?4:3}
 function diagnosisVerificationCount(){return diagnosisState.mode==="precise"?3:2}
+function diagnosisCleanMeaning(text){
+  return String(text||"")
+    .replace(/[（(][^）)]*[\u3400-\u9fff\uf900-\ufaff][^）)]*[）)]/g," ")
+    .replace(/[\u3400-\u9fff\uf900-\ufaff]/g," ")
+    .replace(/[()（）\[\]【】<>〈〉《》「」『』]/g," ")
+    .replace(/[·ㆍ,:;]+/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+function diagnosisCleanSound(text){
+  return String(text||"")
+    .replace(/[\u3400-\u9fff\uf900-\ufaff]/g," ")
+    .replace(/[()（）\[\]【】<>〈〉《》「」『』]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+}
+function diagnosisMeaningSoundForms(c){
+  const canonicalGroups=[],variants=[];
+  for(const g of officialMeaningGroups(c)){
+    const means=[...new Set((g.meanings||[]).map(diagnosisCleanMeaning).filter(Boolean))];
+    const sounds=[...new Set((g.sounds||[]).map(diagnosisCleanSound).filter(Boolean))];
+    const joinedMean=means.join("/"),joinedSound=sounds.join("/");
+    if(joinedMean&&joinedSound)canonicalGroups.push(joinedMean+" "+joinedSound);
+    for(const mean of means)for(const snd of sounds)if(mean&&snd)variants.push(mean+" "+snd);
+  }
+  const fallbackMean=diagnosisCleanMeaning(c&&c._rawMeaningHint||"");
+  const fallbackSound=diagnosisCleanSound(c&&c.sound||"");
+  const canonical=canonicalGroups.join(" · ")||[fallbackMean,fallbackSound].filter(Boolean).join(" ");
+  return {canonical:canonical,variants:[...new Set([canonical].concat(canonicalGroups,variants).filter(Boolean))]};
+}
+function diagnosisHangulParts(text){
+  const ch=String(text||"").trim().charAt(0),code=ch.charCodeAt(0);
+  if(code<0xAC00||code>0xD7A3)return null;
+  const n=code-0xAC00;
+  return {cho:Math.floor(n/588),jung:Math.floor((n%588)/28),jong:n%28};
+}
+function diagnosisSoundSimilarity(a,b){
+  a=diagnosisCleanSound(a);b=diagnosisCleanSound(b);
+  if(!a||!b)return 0;
+  if(a===b)return 100;
+  let score=0;
+  const pa=diagnosisHangulParts(a),pb=diagnosisHangulParts(b);
+  if(pa&&pb){
+    if(pa.cho===pb.cho)score+=7;
+    if(pa.jung===pb.jung)score+=6;
+    if(pa.jong===pb.jong)score+=2;
+  }
+  if(a.charAt(0)===b.charAt(0))score+=5;
+  if(a.slice(-1)===b.slice(-1))score+=2;
+  return score;
+}
+function diagnosisMeaningTokens(c){
+  const out=new Set();
+  for(const g of officialMeaningGroups(c)){
+    for(const raw of (g.meanings||[])){
+      const clean=diagnosisCleanMeaning(raw);
+      clean.split(/[\/\s]+/).map(function(x){return x.trim()}).filter(function(x){return x.length>=1}).forEach(function(x){out.add(x)});
+    }
+  }
+  return out;
+}
+function diagnosisCuratedSimilarity(a,b){
+  if(typeof HANJA_COMPARE_GROUPS==="undefined")return 0;
+  let score=0;
+  for(const g of HANJA_COMPARE_GROUPS){
+    const set=new Set((g.members||[]).map(function(m){return m.c}));
+    if(set.has(a.hanja)&&set.has(b.hanja))score=Math.max(score,g.kind==="meaning"?16:8);
+  }
+  return score;
+}
+function diagnosisDistractorScore(target,candidate,kind){
+  const targetSound=diagnosisCleanSound(target.sound||charPrimary(target).sound);
+  const candSound=diagnosisCleanSound(candidate.sound||charPrimary(candidate).sound);
+  let score=diagnosisSoundSimilarity(targetSound,candSound);
+  const ta=diagnosisMeaningTokens(target),tb=diagnosisMeaningTokens(candidate);
+  let overlap=0;
+  ta.forEach(function(x){if(tb.has(x))overlap++});
+  score+=Math.min(12,overlap*5);
+  score+=diagnosisCuratedSimilarity(target,candidate);
+  if(kind==="write"){
+    if(target.radical&&candidate.radical&&target.radical===candidate.radical)score+=4;
+    if(Number.isFinite(+target.total)&&Number.isFinite(+candidate.total))score+=Math.max(0,4-Math.abs((+target.total)-(+candidate.total)));
+  }
+  return score;
+}
 function diagnosisAcceptedAnswers(c,kind){
   if(kind==="write")return [c.hanja];
   if(kind==="sound"){
     const sounds=[c.sound].concat(officialMeaningGroups(c).flatMap(function(g){return g.sounds||[]}));
-    return [...new Set(sounds.map(function(x){return String(x||"").trim()}).filter(Boolean))];
+    return [...new Set(sounds.map(diagnosisCleanSound).filter(Boolean))];
   }
-  return officialMeaningSoundForms(c).variants||[officialMeaningSoundForms(c).canonical];
+  return diagnosisMeaningSoundForms(c).variants;
+}
+function diagnosisChoiceValue(c,kind){
+  if(kind==="write")return c.hanja;
+  if(kind==="sound")return diagnosisCleanSound(c.sound||charPrimary(c).sound);
+  return diagnosisMeaningSoundForms(c).canonical;
 }
 function diagnosisChoicePool(grade,c,kind){
   let pool=exactGradeChars(grade).filter(function(x){return x.hanja!==c.hanja});
-  if(pool.length<8)pool=chars.filter(function(x){return gradeAllowed(x.level,grade)&&x.hanja!==c.hanja});
-  shuffle(pool);
+  if(pool.length<24)pool=chars.filter(function(x){return gradeAllowed(x.level,grade)&&x.hanja!==c.hanja});
   const correctNorms=new Set(diagnosisAcceptedAnswers(c,kind).map(function(x){return norm(x)}));
+  shuffle(pool);
+  const ranked=pool.map(function(x){
+    return {c:x,v:diagnosisChoiceValue(x,kind),score:diagnosisDistractorScore(c,x,kind)};
+  }).filter(function(x){
+    return x.v&&!correctNorms.has(norm(x.v));
+  }).sort(function(a,b){return b.score-a.score});
   const out=[];
-  for(const x of pool){
-    let v="";
-    if(kind==="sound")v=x.sound||charPrimary(x).sound;
-    else if(kind==="meaningSound")v=officialMeaningSoundForms(x).canonical;
-    else v=x.hanja;
-    if(!v||correctNorms.has(norm(v))||out.some(function(y){return norm(y)===norm(v)}))continue;
-    out.push(v);
+  for(const x of ranked){
+    if(out.some(function(y){return norm(y)===norm(x.v)}))continue;
+    out.push(x.v);
     if(out.length>=3)break;
   }
   return out;
@@ -4619,7 +4867,7 @@ function makeDiagnosisQuestion(grade,seq,stageUsed,opts){
     display=clue.canonical;answer=c.hanja;
   }else{
     prompt="이 한자의 한국어문회 훈음은?";
-    display=c.hanja;answer=officialMeaningSoundForms(c).canonical;
+    display=c.hanja;answer=diagnosisMeaningSoundForms(c).canonical;
   }
   const direct=!!opts.forceDirect||
     (!!diagnosisState.retest&&seq%2===0)||
@@ -4634,7 +4882,7 @@ function makeDiagnosisQuestion(grade,seq,stageUsed,opts){
       guard++;
       const x=sample(chars.filter(function(z){return z.hanja!==c.hanja}),1)[0];
       if(!x)break;
-      const v=kind==="write"?x.hanja:(kind==="sound"?(x.sound||charPrimary(x).sound):officialMeaningSoundForms(x).canonical);
+      const v=diagnosisChoiceValue(x,kind);
       if(v&&!acceptedNorms.has(norm(v))&&!choices.some(function(y){return norm(y)===norm(v)}))choices.push(v);
     }
     shuffle(choices);
@@ -5000,7 +5248,7 @@ function renderDiagnosis(){
       </div>
       <div class="diag-question ${direct?"direct":""}">
         <div class="diag-qtype">${esc(diagnosisTypeLabel(q.type))}${direct?" · 직접입력":""}</div>
-        <div class="diag-glyph">${esc(q.display)}</div>
+        <div class="diag-glyph ${q.type==="write"?"textual":""}">${esc(q.display)}</div>
         <div class="diag-prompt">${esc(q.prompt)}</div>
         ${direct
           ?`<div class="diag-direct"><input id="diagnosisDirectInput" type="text" inputmode="text" enterkeyhint="done" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(placeholder)}" value="${inputValue}" ${q.locked?"disabled":""} onkeydown="if(event.key==='Enter'){event.preventDefault();answerDiagnosisDirect()}"><button class="btn primary" ${q.locked?"disabled":""} onclick="answerDiagnosisDirect()">확인</button></div>`
@@ -5022,7 +5270,7 @@ function renderDiagnosis(){
     <section class="diag-hero">
       <div class="diag-kicker">ADAPTIVE GRADE CHECK</div>
       <div class="diag-title">내 한자 급수는 어디쯤?</div>
-      <div class="diag-desc">객관식 적응형 탐색으로 범위를 빠르게 좁힌 뒤, 경계 급수에서는 직접입력 문제로 다시 확인합니다. 모르면 찍지 않고 ‘모르겠음’을 선택할 수 있어 결과 왜곡을 줄였습니다.</div>
+      <div class="diag-desc">객관식 적응형 탐색으로 범위를 빠르게 좁힙니다. 선지는 동음·유사음과 뜻이 가까운 한자를 우선 섞어 구별력을 높이고, 경계 급수에서는 직접입력으로 다시 확인합니다.</div>
       <div class="diag-mode-grid">
         <button class="diag-mode ${diagnosisState.mode==="quick"?"active":""}" onclick="diagnosisState.mode='quick';renderDiagnosis()"><b>빠른 진단</b><small>약 18~30문항 · 마지막 4문항 직접입력</small></button>
         <button class="diag-mode ${diagnosisState.mode==="precise"?"active":""}" onclick="diagnosisState.mode='precise';renderDiagnosis()"><b>정밀 진단</b><small>약 24~40문항 · 중간 직접입력 + 마지막 6문항 검증</small></button>
