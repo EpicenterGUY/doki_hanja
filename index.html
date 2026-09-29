@@ -6950,16 +6950,20 @@ function renderExamQuestion(){
   $("#nextExam").onclick=()=>{if(st.index<st.questions.length-1){st.index++;renderExamQuestion()}else renderExamResult()};
   if(q.manual){
     const input=$("#examAnswer");
-    if(input) input.placeholder="정답을 직접 입력";
+    if(input) input.placeholder=q.type==="hanmun"?"우리말 해석을 입력하세요":"정답을 직접 입력";
     $("#examCheck").onclick=()=>{
       const v=input?.value?.trim()||"";
       if(!v){toast("답을 입력하세요");return}
-      st.answers[st.index]=v;st.checked[st.index]=true;
-      const fb=$("#examFeedback");fb.className="feedback ok";
-      const official=examAnswerDisplay(q);
-      fb.innerHTML=`내 답: <b>${esc(v)}</b>`+
-        (official&&official!=="자가확인"?`<br>정답지 기준: <b>${esc(official)}</b>`:"")+
-        `<br><span class="small">${q.type==="hanmun"?"한문 해석은 표현이 여러 가지일 수 있습니다. 정답지의 핵심 뜻과 의미가 같으면 맞은 답으로 확인하세요.":"자동 정답 연결이 어려운 문항이라 직접 비교하는 자가확인형입니다."}</span>`;
+      st.answers[st.index]=v;
+      // 정답지 문구와 완전히 일치하는 경우에는 바로 정답 처리한다.
+      if(isCorrect(q,v)){
+        applyManualExamGrade(true);
+        return;
+      }
+      st.manualGrades=st.manualGrades||[];
+      const fb=$("#examFeedback");fb.className="feedback";
+      fb.innerHTML=manualExamFeedbackHtml(q,v,null);
+      bindManualExamGradeButtons();
     };
   }else if(q.type==="wordWrite"){
     setupWordWriteCanvases(q);
@@ -6977,8 +6981,53 @@ function renderExamQuestion(){
       fb.innerHTML=a?.mode==="typing"
         ? `${a?.__wordWriteOk?"정답":"오답"} · 입력: <b style="font-family:serif">${esc(a?.text||"")}</b>${a?.__wordWriteOk?"":` · 정답: <b style="font-family:serif">${esc(getWordWriteAnswer(q))}</b>`}`
         : `${a?.__wordWriteOk?"정답 처리":"다시 확인"} · 저장된 글자별 점수: ${(a?.scores||[]).join(" / ")}%`;
+    }else if(q.manual){
+      st.manualGrades=st.manualGrades||[];
+      const grade=st.manualGrades[st.index];
+      const fb=$("#examFeedback");
+      fb.className="feedback "+(grade===true?"ok":grade===false?"no":"");
+      fb.innerHTML=manualExamFeedbackHtml(q,String(st.answers[st.index]||""),grade);
+      bindManualExamGradeButtons();
     }else showExamFeedback(q,st.answers[st.index],isCorrect(q,st.answers[st.index]));
   }
+}
+
+function manualExamFeedbackHtml(q,v,grade){
+  const official=examAnswerDisplay(q);
+  const judged=grade===true?" · 정답 처리됨":grade===false?" · 오답 처리됨":"";
+  return `내 답: <b>${esc(v)}</b>${judged}`+
+    (official&&official!=="자가확인"?`<br>정답지 기준: <b>${esc(official)}</b>`:"")+
+    `<br><span class="small">${q.type==="hanmun"?"한문 해석은 표현·어순이 달라도 핵심 의미가 같을 수 있습니다. 정답지와 의미를 비교한 뒤 직접 판정하세요.":"자동 정답 연결이 어려운 문항이라 직접 비교하는 자가확인형입니다."}</span>`+
+    `<div class="actions" style="margin-top:10px"><button class="btn primary" id="manualExamCorrect">의미 같음 · 정답</button><button class="btn" id="manualExamWrong">의미 다름 · 오답</button></div>`;
+}
+function bindManualExamGradeButtons(){
+  const yes=$("#manualExamCorrect"),no=$("#manualExamWrong");
+  if(yes)yes.onclick=()=>applyManualExamGrade(true);
+  if(no)no.onclick=()=>applyManualExamGrade(false);
+}
+function applyManualExamGrade(ok){
+  const st=examState,q=st.questions[st.index],idx=st.index;
+  st.manualGrades=st.manualGrades||[];
+  const prev=st.manualGrades[idx];
+  if(prev===true)st.score=Math.max(0,st.score-1);
+  if(ok)st.score++;
+  st.manualGrades[idx]=!!ok;
+  st.checked[idx]=true;
+
+  const k=keyOf(q);
+  stats[k]=stats[k]||{ok:0,no:0,last:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt};
+  if(prev===true)stats[k].ok=Math.max(0,(stats[k].ok||0)-1);
+  if(prev===false)stats[k].no=Math.max(0,(stats[k].no||0)-1);
+  stats[k][ok?"ok":"no"]=(stats[k][ok?"ok":"no"]||0)+1;
+  stats[k].last=Date.now();
+  if(ok){
+    if(wrong[k]){wrong[k].streak=(wrong[k].streak||0)+1;if(wrong[k].streak>=3)delete wrong[k]}
+  }else{
+    wrong[k]=wrong[k]||{count:0,streak:0,type:q.type,hanja:q.hanja,level:q.level,prompt:q.prompt,answer:q.answer,answerDisplay:officialAnswerDisplay(q)};
+    wrong[k].count++;wrong[k].streak=0;wrong[k].last=Date.now();
+  }
+  saveProgress();
+  renderExamQuestion();
 }
 
 function getWordWriteAnswer(q){
