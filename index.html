@@ -5155,7 +5155,7 @@ function splitOfficialAnswerVariants(v){
 function answerList(q){
   if(Array.isArray(q&&q.answerVariants)&&q.answerVariants.length)return q.answerVariants.map(String);
   if(Array.isArray(q&&q.answer))return q.answer.map(String);
-  return [String(q&&q.answer??"")];
+  return [String((q&&q.answer)??"")];
 }
 function flexibleAnswerVariants(a){
   a=String(a??"").trim();
