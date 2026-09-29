@@ -3003,7 +3003,7 @@ body>.app2-update{z-index:1930!important}
 .diag-direct input{
   min-width:0;width:100%;box-sizing:border-box;min-height:52px;padding:10px 12px;border-radius:15px;
   border:1px solid rgba(141,168,219,.28);background:rgba(8,17,34,.7);color:#f0f5ff;
-  font:800 16px/1.3 inherit;outline:none;text-align:center
+  font-family:inherit;font-size:16px;font-weight:800;line-height:1.3;outline:none;text-align:center
 }
 .diag-direct input:focus{border-color:#736fff;box-shadow:0 0 0 3px rgba(115,111,255,.13)}
 .diag-direct .btn{min-width:84px}
@@ -4699,7 +4699,7 @@ function renderDiagnosis(){
         <div class="diag-glyph">${esc(q.display)}</div>
         <div class="diag-prompt">${esc(q.prompt)}</div>
         ${direct
-          ?`<div class="diag-direct"><input id="diagnosisDirectInput" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(placeholder)}" value="${inputValue}" ${q.locked?"disabled":""} onkeydown="if(event.key==='Enter'){event.preventDefault();answerDiagnosisDirect()}"><button class="btn primary" ${q.locked?"disabled":""} onclick="answerDiagnosisDirect()">확인</button></div>`
+          ?`<div class="diag-direct"><input id="diagnosisDirectInput" type="text" inputmode="text" enterkeyhint="done" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(placeholder)}" value="${inputValue}" ${q.locked?"disabled":""} onkeydown="if(event.key==='Enter'){event.preventDefault();answerDiagnosisDirect()}"><button class="btn primary" ${q.locked?"disabled":""} onclick="answerDiagnosisDirect()">확인</button></div>`
           :`<div class="diag-choices">${q.choices.map(function(c,i){
             const cls=q.locked?(norm(c)===norm(q.answer)?"correct":(i===q.chosen?"wrong":"")):"";
             return `<button class="diag-choice ${cls}" ${q.locked?"disabled":""} onclick="answerDiagnosis(${i})">${esc(c)}</button>`;
