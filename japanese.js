@@ -184,7 +184,7 @@ function jpReadingPillsHtml(item,data,kind){
   return h;
 }
 async function loadJapaneseData(){
-  if(jpJoyo.length&&jpHyogai.length&&jpWords.length)return true;
+  if(jpJoyo.length&&jpHyogai.length&&jpWords.length&&jpMextReadings.length)return true;
   if(jpDataPromise)return jpDataPromise;
   jpDataLoading=true;jpDataError="";
   jpDataPromise=(async function(){
@@ -292,11 +292,13 @@ function setJapaneseSet(s){
   jpState.set=s==="hyogai"?"hyogai":"joyo";
   jpState.grade="all";jpState.query="";jpState.savedOnly=false;jpState.limit=120;jpState.atlasLimit=160;
   jpState.wordTier="all";jpState.wordRound=0;
+  jpState.readingInitial="all";jpState.readingSelected="";jpState.readingQuery="";jpState.readingRemote=[];jpState.readingRemoteError="";
   renderJapanese();
 }
 function setJapaneseView(v){
   jpState.view=["home","practice","atlas","word","reading"].includes(v)?v:"home";
   jpState.query="";jpState.savedOnly=false;jpState.limit=120;jpState.atlasLimit=160;
+  if(jpState.view!=="reading"){jpState.readingSelected="";jpState.readingRemote=[];jpState.readingRemoteError=""}
   renderJapanese();
 }
 function jpOpenSavedAtlas(){
