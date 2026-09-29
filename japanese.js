@@ -3,6 +3,7 @@ let jpJoyo=[];
 let jpHyogai=[];
 let jpWords=[];
 let jpDataLoading=false;
+let jpDataPromise=null;
 let jpDataError="";
 let jpHideTimer=null;
 let jpItemMap=new Map();
@@ -87,29 +88,34 @@ function jpBuildItemMap(){
 }
 async function loadJapaneseData(){
   if(jpJoyo.length&&jpHyogai.length&&jpWords.length)return true;
-  if(jpDataLoading)return false;
+  if(jpDataPromise)return jpDataPromise;
   jpDataLoading=true;jpDataError="";
-  try{
-    const pair=await Promise.all([
-      fetch("./data/japanese/joyo.tsv",{cache:"no-store"}),
-      fetch("./data/japanese/hyogai.txt",{cache:"no-store"}),
-      fetch("./data/japanese/words.json",{cache:"no-store"})
-    ]);
-    if(!pair[0].ok||!pair[1].ok||!pair[2].ok)throw Error("HTTP "+pair.map(function(r){return r.status}).join("/"));
-    jpJoyo=parseJoyoData(await pair[0].text());
-    const joyoSet=new Set(jpJoyo.map(function(x){return x.char}));
-    jpHyogai=parseHyogaiData(await pair[1].text(),joyoSet);
-    const wordData=await pair[2].json();
-    jpWords=Array.isArray(wordData)?wordData:(wordData.items||[]);
-    jpBuildItemMap();
-    if(jpJoyo.length!==2136||jpHyogai.length<800||jpWords.length<100)throw Error("일본 한자 데이터 수가 비정상입니다.");
-    return true;
-  }catch(e){
-    jpDataError=String((e&&e.message)||e);
-    return false;
-  }finally{
-    jpDataLoading=false;
-  }
+  jpDataPromise=(async function(){
+    try{
+      const pair=await Promise.all([
+        fetch("./data/japanese/joyo.tsv",{cache:"no-store"}),
+        fetch("./data/japanese/hyogai.txt",{cache:"no-store"}),
+        fetch("./data/japanese/words.json",{cache:"no-store"})
+      ]);
+      if(!pair[0].ok||!pair[1].ok||!pair[2].ok)throw Error("HTTP "+pair.map(function(r){return r.status}).join("/"));
+      const joyo=parseJoyoData(await pair[0].text());
+      const joyoSet=new Set(joyo.map(function(x){return x.char}));
+      const hyogai=parseHyogaiData(await pair[1].text(),joyoSet);
+      const wordData=await pair[2].json();
+      const words=Array.isArray(wordData)?wordData:(wordData.items||[]);
+      if(joyo.length!==2136||hyogai.length<800||words.length<100)throw Error("일본 한자 데이터 수가 비정상입니다.");
+      jpJoyo=joyo;jpHyogai=hyogai;jpWords=words;
+      jpBuildItemMap();
+      return true;
+    }catch(e){
+      jpDataError=String((e&&e.message)||e);
+      return false;
+    }finally{
+      jpDataLoading=false;
+    }
+  })();
+  try{return await jpDataPromise}
+  finally{jpDataPromise=null}
 }
 function jpCurrentPool(){
   let rows=jpState.set==="joyo"?jpJoyo:jpHyogai;
@@ -757,3 +763,7 @@ async function openJapaneseAtlasDetail(ch){
     [on,kun].forEach(function(x){if(x){x.className="";x.textContent="온라인 읽기 정보 없음"}});
   }
 }
+
+
+// Warm local Japanese assets after the module is ready so the 日本 tab opens immediately.
+setTimeout(function(){loadJapaneseData().catch(function(){});if(typeof mode!=="undefined"&&mode==="jp")renderJapanese()},0);
