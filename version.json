@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.19.26-20260929",
+  "webBuild": "2.19.27-20260929",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.19.27",
+      "title": "장식 한자 반응형 잘림 수정",
+      "items": [
+        "홈 히어로의 漢 워터마크가 화면 비율에 따라 아래쪽이 잘려 보이던 문제 수정",
+        "일반 히어로·한자력 카드·급수진단의 漢/級 장식도 같은 반응형 규칙으로 통일",
+        "폰·폴드·태블릿·PC·초광폭 화면별로 장식 글자의 크기와 위치를 따로 보정",
+        "장식 글자는 카드 안에 완전히 들어오도록 음수 bottom 위치를 제거하고 clamp 기반으로 조정",
+        "본문·레벨 배지·버튼은 장식보다 항상 위 레이어에 표시되도록 z-index 구조 정리",
+        "Fold/태블릿 가로모드에서는 장식 글자가 한자력 배지와 겹치지 않도록 별도 위치 보정"
+      ]
+    },
     {
       "version": "2.19.26",
       "title": "급수진단 한자 직접입력 제거",
