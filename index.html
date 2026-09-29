@@ -5957,6 +5957,28 @@ function buildPassageMap(problemLines){
   }
   return map;
 }
+function fillHanmunPassageGaps(passageMap,ranges){
+  const map=Object.assign({},passageMap||{});
+  for(const rg of (ranges||[])){
+    if(!rg||rg.type!=="hanmun")continue;
+    const a=+rg.a||0,b=+rg.b||0;
+    if(!a||!b||b<a)continue;
+    const known=[];
+    for(let n=a;n<=b;n++)if(map[n])known.push(n);
+    if(!known.length)continue;
+    for(let n=a;n<=b;n++){
+      if(map[n])continue;
+      let prev=0,next=0;
+      for(const k of known){
+        if(k<n)prev=k;
+        else if(k>n){next=k;break}
+      }
+      const pick=prev&&next?((n-prev)<=(next-n)?prev:next):(prev||next);
+      if(pick&&map[pick])map[n]=map[pick];
+    }
+  }
+  return map;
+}
 function shouldShowBigHanja(q){
   if(!q?.hanja||normalizeChoices(q).length)return false;
   return new Set(["sound","meaning","meaningSound","radical","strokes","sameSound","multiReading","abbreviation"]).has(q.type);
@@ -6004,7 +6026,7 @@ function isGenericExamPrompt(q){
 function problemizeFlatPdf(level,round,flat,answerStart,answers){
   const problemLines=flat.slice(0,answerStart);
   const ranges=headerRangesFromFlat(flat,answerStart);
-  const passageMap=buildPassageMap(problemLines);
+  const passageMap=fillHanmunPassageGaps(buildPassageMap(problemLines),ranges);
   const nums=Object.keys(answers).map(Number).filter(Boolean);
 
   for(const x of problemLines){
