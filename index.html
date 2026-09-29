@@ -9908,7 +9908,11 @@ function atlasPdfJapaneseHtml(c,r){
   h+='<div class="atlas-pdf-jp-kind"><span class="kind-label">音読み</span><div class="atlas-pdf-reading normal">'+(on.length?on.map(function(x){return '<span>'+esc(x)+'</span>'}).join(""):'<span class="atlas-pdf-empty">—</span>')+'</div>'+(onx.length?'<div class="atlas-pdf-reading extra">'+onx.map(function(x){return '<span>'+esc(x)+'</span>'}).join("")+'</div>':'')+'</div>';
   h+='<div class="atlas-pdf-jp-kind"><span class="kind-label">訓読み</span><div class="atlas-pdf-reading normal">'+(kun.length?kun.map(function(x){return '<span>'+esc(x)+'</span>'}).join(""):'<span class="atlas-pdf-empty">—</span>')+'</div>'+(kunx.length?'<div class="atlas-pdf-reading extra">'+kunx.map(function(x){return '<span>'+esc(x)+'</span>'}).join("")+'</div>':'')+'</div>';
   let variant=null;
-  try{if(typeof jpShinjitaiInfo==="function")variant=jpShinjitaiInfo(c.hanja)}catch{}
+  if(r.shin&&r.kyu&&r.shin!==r.kyu){
+    variant={traditional:r.kyu,shinjitai:r.shin};
+  }else{
+    try{if(typeof jpShinjitaiInfo==="function")variant=jpShinjitaiInfo(c.hanja)}catch{}
+  }
   if(variant){
     h+='<div class="atlas-pdf-shinjitai"><span>新字体</span><b>'+esc(variant.shinjitai)+'</b>'+(variant.traditional&&variant.traditional!==variant.shinjitai?'<small>旧字体 '+esc(variant.traditional)+'</small>':'')+'</div>';
   }
