@@ -1,0 +1,274 @@
+#!/usr/bin/env python3
+# Build DOKI's PDF-style phonetic-component atlas for every Korean graded Hanja.
+# Sources:
+# - DOKI data/hanja.csv: Korean grade / official Korean reading metadata.
+# - Make Me a Hanzi dictionary.txt: decomposition + etymology + explicit phonetic/semantic components.
+# - BabelStone IDS.TXT: structural fallback for characters not covered by Make Me a Hanzi.
+# - KANJIDIC2: Japanese on/kun readings for both Joyo and non-Joyo characters.
+from __future__ import annotations
+
+import csv, gzip, io, json, re, unicodedata, urllib.request
+import xml.etree.ElementTree as ET
+from collections import defaultdict
+from pathlib import Path
+
+ROOT=Path(__file__).resolve().parents[1]
+HANJA=ROOT/"data"/"hanja.csv"
+OUT=ROOT/"data"/"hanja-structure.json"
+
+MMH_URL="https://raw.githubusercontent.com/skishore/makemeahanzi/master/dictionary.txt"
+IDS_URL="https://www.babelstone.co.uk/CJK/IDS.TXT"
+KANJIDIC_URL="https://www.edrdg.org/pub/Nihongo/kanjidic2.xml.gz"
+
+UA="DOKI-Hanja/2.20 phonetic-atlas-builder"
+IDC_RE=re.compile(r"[⿰-⿿〾㇯]")
+HAN_RE=re.compile(r"[\u2e80-\u2fff\u3400-\u9fff\uf900-\ufaff\U00020000-\U000323af]")
+
+RADICAL_EQ={
+    "人":{"人","亻"},"水":{"水","氵","氺"},"心":{"心","忄","⺗"},"手":{"手","扌","龵"},
+    "火":{"火","灬"},"言":{"言","訁","讠"},"糸":{"糸","糹","纟"},"金":{"金","釒","钅"},
+    "食":{"食","飠","饣"},"犬":{"犬","犭"},"衣":{"衣","衤"},"示":{"示","礻"},
+    "阜":{"阜","阝"},"邑":{"邑","阝"},"玉":{"玉","王"},"肉":{"肉","⺼"},
+    "艸":{"艸","艹","䒑"},"辵":{"辵","辶","⻌"},"刀":{"刀","刂"},"攴":{"攴","攵"},
+    "爪":{"爪","爫"},"竹":{"竹","⺮"},"老":{"老","耂"},"网":{"网","罒","⺳"},
+    "足":{"足","𧾷"},"邑":{"邑","阝"},"阜":{"阜","阝"},"月":{"月"},
+}
+
+INDICATIVE=set("一二三上下本末刃中寸甘亦朱旦立凹凸")
+LOAN=set("我自來来萬万北西東东其焉莫")
+DERIVATIVE=set("老考")
+DISPUTED=set("影淚泪幕盲盟犯欲友修座差笛堤怨")
+
+def fetch(url:str)->bytes:
+    req=urllib.request.Request(url,headers={"User-Agent":UA})
+    with urllib.request.urlopen(req,timeout=90) as r:
+        return r.read()
+
+def load_hanja():
+    out=[]
+    with HANJA.open(encoding="utf-8-sig",newline="") as f:
+        for row in csv.DictReader(f):
+            ch=(row.get("hanja") or "").strip()
+            if not ch: continue
+            sounds=[]
+            main=(row.get("main_sound") or "").strip()
+            if main:sounds.append(main)
+            try:
+                m=json.loads((row.get("meaning") or "").replace("'","\""))
+                for group in m:
+                    if isinstance(group,list) and len(group)>1:
+                        vals=group[1] if isinstance(group[1],list) else [group[1]]
+                        sounds.extend(str(x).strip() for x in vals if str(x).strip())
+            except Exception:
+                pass
+            out.append({
+                "c":ch,"sound":main,"sounds":list(dict.fromkeys(sounds)),
+                "level":(row.get("level") or "").strip(),
+                "radical":(row.get("radical") or "").strip(),
+                "strokes":int(row.get("total_strokes") or row.get("strokes") or 0),
+            })
+    return out
+
+def load_mmh():
+    mp={}
+    text=fetch(MMH_URL).decode("utf-8")
+    for line in text.splitlines():
+        try:
+            x=json.loads(line)
+            ch=x.get("character")
+            if ch:mp[ch]=x
+        except Exception:
+            pass
+    return mp
+
+def load_ids():
+    mp={}
+    text=fetch(IDS_URL).decode("utf-8-sig",errors="replace")
+    for line in text.splitlines():
+        if not line or line.startswith("#"):continue
+        p=line.split("\t")
+        if len(p)<3:continue
+        ch=p[1]
+        seq=""
+        for field in p[2:]:
+            m=re.match(r"\^(.+?)\$",field)
+            if m:
+                seq=m.group(1);break
+        if seq:mp[ch]=seq
+    return mp
+
+def load_kanjidic(wanted):
+    result={}
+    raw=fetch(KANJIDIC_URL)
+    root=ET.fromstring(gzip.decompress(raw))
+    wanted=set(wanted)
+    for node in root.findall("character"):
+        lit=node.findtext("literal") or ""
+        if lit not in wanted:continue
+        on=[];kun=[]
+        rm=node.find("reading_meaning")
+        if rm is not None:
+            for rg in rm.findall("rmgroup"):
+                for r in rg.findall("reading"):
+                    t=r.attrib.get("r_type")
+                    v=(r.text or "").strip()
+                    if not v:continue
+                    if t=="ja_on":on.append(v)
+                    elif t=="ja_kun":kun.append(v)
+        result[lit]={"on":list(dict.fromkeys(on)),"kun":list(dict.fromkeys(kun))}
+    return result
+
+def norm_char(ch):
+    n=unicodedata.normalize("NFKC",ch)
+    return n if len(n)==1 else ch
+
+def ids_parts(ids):
+    if not ids:return []
+    s=IDC_RE.sub("",ids)
+    s=re.sub(r"\{\d+\}","",s)
+    return [x for x in s if HAN_RE.match(x)]
+
+def radical_forms(rad):
+    if not rad:return set()
+    for base,forms in RADICAL_EQ.items():
+        if rad==base or rad in forms:return set(forms)|{base}
+    return {rad}
+
+def hangul_parts(s):
+    if not s:return None
+    ch=s[0]
+    cp=ord(ch)
+    if not 0xAC00<=cp<=0xD7A3:return None
+    n=cp-0xAC00
+    return (n//588,(n%588)//28,n%28)
+
+def sound_score(a,b):
+    if not a or not b:return 0
+    if a==b:return 100
+    pa,pb=hangul_parts(a),hangul_parts(b)
+    if not pa or not pb:return 0
+    score=0
+    if pa[0]==pb[0]:score+=16
+    if pa[1]==pb[1]:score+=28
+    if pa[2]==pb[2]:score+=6
+    # historically related initials often move within these groups.
+    near=[{0,15,16},{2,3,12},{5,6},{7,8,17},{9,10,11},{1,4}]
+    if any(pa[0] in g and pb[0] in g for g in near):score+=8
+    return score
+
+def pinyin_base(v):
+    # enough for candidate tie-breaking; accents are stripped.
+    v=unicodedata.normalize("NFD",v or "")
+    return "".join(ch for ch in v.lower() if ch.isalpha() and not unicodedata.combining(ch))
+
+def candidate_score(target,cand,meta,mmh):
+    score=0
+    for a in target.get("sounds") or [target.get("sound")]:
+        for b in (meta.get(cand,{}).get("sounds") or []):
+            score=max(score,sound_score(a,b))
+    te=mmh.get(target["c"]) or mmh.get(norm_char(target["c"])) or {}
+    ce=mmh.get(cand) or {}
+    tp=[pinyin_base(x) for x in te.get("pinyin",[])]
+    cp=[pinyin_base(x) for x in ce.get("pinyin",[])]
+    if set(tp)&set(cp):score+=22
+    elif tp and cp and any(a[:1]==b[:1] for a in tp for b in cp):score+=4
+    return score
+
+def formation_for(ch,etype,phonetic,parts):
+    if ch in DISPUTED:return "이견"
+    if ch in DERIVATIVE:return "전주"
+    if ch in LOAN:return "가차"
+    if ch in INDICATIVE:return "지사"
+    if etype=="pictographic":return "상형"
+    if etype=="pictophonetic" or (phonetic and phonetic!=ch):return "형성"
+    if etype=="ideographic":return "회의"
+    if len(parts)>=2:return "회의"
+    return "상형·지사"
+
+def main():
+    rows=load_hanja()
+    meta={x["c"]:x for x in rows}
+    # NFKC aliases let compatibility ideographs inherit structural data.
+    for x in rows:
+        n=norm_char(x["c"])
+        if n not in meta:meta[n]=x
+    mmh=load_mmh()
+    ids=load_ids()
+    jp=load_kanjidic([x["c"] for x in rows])
+
+    records={}
+    for x in rows:
+        ch=x["c"];base=norm_char(ch)
+        e=mmh.get(ch) or mmh.get(base) or {}
+        et=(e.get("etymology") or {})
+        decomp=e.get("decomposition") or ids.get(ch) or ids.get(base) or ""
+        semantic=et.get("semantic") or x.get("radical") or ""
+        phon=et.get("phonetic") or ""
+        source="mmh" if phon else ""
+        confidence="확정" if phon else ""
+        parts=ids_parts(decomp)
+
+        # Exclude the semantic/radical side then score the remaining structural pieces.
+        if not phon:
+            banned=radical_forms(x.get("radical"))|radical_forms(semantic)
+            cands=[]
+            for p in parts:
+                if p==ch or p in banned or p in "一丨丶丿乀乁亅":continue
+                if p not in cands:cands.append(p)
+            ranked=sorted(((candidate_score(x,p,meta,mmh),p) for p in cands),reverse=True)
+            if ranked and ranked[0][0]>=28:
+                phon=ranked[0][1];source="ids";confidence="추정"
+
+        # PDF-style atlas has no unclassified hole: non-phonetic primitives become
+        # their own head, clearly labelled as an independent/root form.
+        if not phon:
+            phon=ch;source="self";confidence="독립"
+
+        rec={
+            "p":phon,"s":semantic,"f":formation_for(ch,et.get("type"),phon,parts),
+            "q":confidence,"src":source,
+        }
+        if decomp:rec["d"]=decomp
+        j=jp.get(ch) or jp.get(base)
+        if j:
+            if j["on"]:rec["on"]=j["on"]
+            if j["kun"]:rec["kun"]=j["kun"]
+        records[ch]=rec
+
+    # A phonetic component can itself have a phonetic component, e.g. 京 → 景 → 憬.
+    def chain(ch):
+        out=[];seen={ch};cur=ch
+        for _ in range(5):
+            r=records.get(cur)
+            if not r:break
+            p=r.get("p")
+            if not p or p==cur or p in seen:break
+            out.append(p);seen.add(p);cur=p
+        return list(reversed(out))
+    for ch,r in records.items():
+        c=chain(ch)
+        if c:r["chain"]=c
+
+    payload={
+        "version":2,
+        "format":"pdf-phonetic-atlas",
+        "records":records,
+        "stats":{
+            "total":len(rows),
+            "explicit":sum(1 for r in records.values() if r["q"]=="확정"),
+            "inferred":sum(1 for r in records.values() if r["q"]=="추정"),
+            "independent":sum(1 for r in records.values() if r["q"]=="독립"),
+            "jpReadings":sum(1 for r in records.values() if r.get("on") or r.get("kun")),
+        },
+        "sources":{
+            "korean":"DOKI data/hanja.csv (한국어문회 급수/훈음 데이터)",
+            "structure":"Make Me a Hanzi + BabelStone IDS structural fallback",
+            "japanese":"KANJIDIC2 Japanese readings",
+        }
+    }
+    OUT.write_text(json.dumps(payload,ensure_ascii=False,separators=(",",":")),encoding="utf-8")
+    print(json.dumps(payload["stats"],ensure_ascii=False))
+    print("wrote",OUT,OUT.stat().st_size,"bytes")
+
+if __name__=="__main__":
+    main()
