@@ -3063,6 +3063,25 @@ body>.app2-update{z-index:1930!important}
   .handwriting-feedback-main b{font-size:11px}
   .handwriting-feedback-main small{font-size:7px}
 }
+
+/* DRILL SAVE / RESUME · 2.19.19 */
+.drill-resume-card{
+  border-color:rgba(88,217,183,.28)!important;
+  background:
+    radial-gradient(circle at 90% 10%,rgba(83,220,185,.12),transparent 34%),
+    linear-gradient(145deg,rgba(24,43,68,.96),rgba(14,27,48,.98))!important;
+}
+.drill-resume-count{display:flex;align-items:baseline;gap:6px;margin-top:6px}
+.drill-resume-count b{font-size:26px;line-height:1;color:#fff}
+.drill-resume-count span{font-size:11px;color:#93a8c8;font-weight:800}
+.drill-resume-progress{height:8px;margin-top:10px;border-radius:999px;overflow:hidden;background:#09152b}
+.drill-resume-progress i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#6f6cff,#58d9bc)}
+.drill-settings-btn{min-width:116px!important;font-size:11px!important;white-space:nowrap}
+@media(max-width:619px){
+  .drill-settings-btn{min-width:96px!important;padding:0 8px!important;font-size:10px!important}
+  .drill-resume-card{padding:12px!important}
+  .drill-resume-count b{font-size:22px}
+}
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.19.13">
 </head>
@@ -3235,6 +3254,7 @@ const RAW_URL="https://raw.githubusercontent.com/rycont/hanja-grade-dataset/main
 
 let chars=[], examItems=[], session=[], current=0, sessionScore={ok:0,no:0}, mode="practice";
 let examState={questions:[],index:0,answers:[],checked:[],score:0,round:null,level:null};
+const DRILL_PROGRESS_KEY="hanjaDrillProgressV1";
 let drillState={list:[],index:0,mode:"meaningSound",order:"alpha",grade:"8급",checked:false};
 let remoteExamState={round:null,url:null,pdf:null,questions:{},answers:{},types:{},pages:{},index:1,user:{},checked:{},score:0,loaded:false};
 let freshSpecialUrls={};
@@ -3626,7 +3646,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.18-20260929";
+const APP_BUILD="2.19.19-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -4021,6 +4041,15 @@ function initPWA(){
 function init(){
   applyHanjaFontMode(hanjaFontMode);
   syncDrillViewport();
+  if(!window.__dokiDrillProgressBound){
+    window.__dokiDrillProgressBound=true;
+    window.addEventListener("pagehide",function(){
+      if(document.body.classList.contains("drill-active"))saveDrillProgress(true);
+    },{passive:true});
+    document.addEventListener("visibilitychange",function(){
+      if(document.visibilityState==="hidden"&&document.body.classList.contains("drill-active"))saveDrillProgress(true);
+    },{passive:true});
+  }
   window.addEventListener("pageshow",syncDrillViewport,{passive:true});
   window.addEventListener("resize",syncDrillViewport,{passive:true});
   window.addEventListener("orientationchange",function(){
@@ -4791,6 +4820,7 @@ function resetSessionProgress(){
   session=[];current=0;sessionScore={ok:0,no:0};
   examState={questions:[],index:0,answers:[],checked:[],score:0,round:null,level:null};
   drillState={list:[],index:0,mode:"meaningSound",order:"alpha",grade:$("#level")?.value||"8급",checked:false};
+  try{localStorage.removeItem(DRILL_PROGRESS_KEY)}catch(e){}
   remoteExamState={round:null,url:null,pdf:null,questions:{},answers:{},types:{},pages:{},index:1,user:{},checked:{},score:0,loaded:false};
   atlasRevealSet.clear();
   diagnosisState={mode:"quick",phase:"intro",low:0,high:14,best:-1,stageGrade:null,stageQuestions:[],stageIndex:0,stageCorrect:0,stageRows:[],answers:[],tested:[],retest:false,totalAnswered:0};
@@ -7086,6 +7116,77 @@ function syncDrillViewport(){
   if(h>0)document.documentElement.style.setProperty("--drill-vh",h+"px");
   if(w>0)document.documentElement.style.setProperty("--drill-vw",w+"px");
 }
+function loadDrillProgress(){
+  const p=storageJson(DRILL_PROGRESS_KEY,{});
+  if(!p||!p.grade||!Array.isArray(p.list)||!p.list.length)return null;
+  if(!GRADE_ORDER.includes(p.grade))return null;
+  const map=new Map(exactGradeChars(p.grade).map(function(c){return [c.hanja,c]}));
+  const list=p.list.map(function(ch){return map.get(ch)}).filter(Boolean);
+  if(!list.length)return null;
+  const index=Math.max(0,Math.min(list.length-1,+p.index||0));
+  return {
+    version:+p.version||1,grade:p.grade,
+    mode:p.mode==="write"?"write":"meaningSound",
+    order:p.order==="random"?"random":"alpha",
+    index:index,list:list,savedAt:+p.savedAt||0,
+    checked:!!p.checked
+  };
+}
+function saveDrillProgress(quiet){
+  const st=drillState;
+  if(!st||!Array.isArray(st.list)||!st.list.length)return false;
+  const payload={
+    version:1,grade:st.grade,mode:st.mode,order:st.order,
+    index:Math.max(0,Math.min(st.list.length-1,+st.index||0)),
+    list:st.list.map(function(c){return c&&c.hanja}).filter(Boolean),
+    checked:!!st.checked,savedAt:Date.now()
+  };
+  const ok=storageSet(DRILL_PROGRESS_KEY,JSON.stringify(payload));
+  if(!quiet)toast(ok?"공부 진행도를 저장했습니다.":"진행도를 저장하지 못했습니다. 저장공간을 확인해 주세요.");
+  return ok;
+}
+function clearDrillProgress(){
+  try{localStorage.removeItem(DRILL_PROGRESS_KEY)}catch(e){}
+  renderDrill();
+  toast("저장된 급수별 진행도를 지웠습니다.");
+}
+function resumeDrillProgress(){
+  const p=loadDrillProgress();
+  if(!p){toast("이어갈 저장 기록이 없습니다.");renderDrill();return}
+  drillState={
+    list:p.list,index:p.index,mode:p.mode,order:p.order,grade:p.grade,
+    checked:false
+  };
+  renderDrillCard();
+  toast(p.grade+" "+(p.mode==="write"?"손글씨":"훈음")+" · "+(p.index+1)+"번부터 이어서 시작");
+}
+function saveAndExitDrill(){
+  const ok=saveDrillProgress(true);
+  renderDrill();
+  toast(ok?"진행도를 저장하고 나왔습니다.":"설정으로 나왔습니다 · 진행도 저장은 실패했습니다.");
+}
+function drillProgressMarkup(p){
+  if(!p)return "";
+  const total=p.list.length,pos=Math.min(total,p.index+1);
+  const pct=total?Math.round(pos/total*100):0;
+  const modeLabel=p.mode==="write"?"훈음 → 손글씨":"한자 → 훈음";
+  let when="";
+  if(p.savedAt){
+    try{when=new Date(p.savedAt).toLocaleString("ko-KR",{month:"numeric",day:"numeric",hour:"2-digit",minute:"2-digit"})}catch(e){}
+  }
+  return `<section class="app-section drill-resume-card">
+    <div class="app-section-head">
+      <div><div class="app-section-title">저장된 공부 진행도</div><div class="app-section-sub">${esc(p.grade)} · ${esc(modeLabel)} · ${p.order==="random"?"랜덤":"가나다순"}${when?" · "+esc(when):""}</div></div>
+      <span class="badge good">${pct}%</span>
+    </div>
+    <div class="drill-resume-count"><b>${pos.toLocaleString()}</b><span>/ ${total.toLocaleString()}자</span></div>
+    <div class="drill-resume-progress"><i style="width:${pct}%"></i></div>
+    <div class="actions">
+      <button class="btn primary" id="resumeDrill">이어서 공부하기</button>
+      <button class="btn" id="clearDrillProgress">저장 기록 지우기</button>
+    </div>
+  </section>`;
+}
 function renderDrill(){
   document.body.classList.remove("drill-active");
   if(window._drillViewportFit){window.visualViewport?.removeEventListener("resize",window._drillViewportFit);window._drillViewportFit=null}
@@ -7094,7 +7195,9 @@ function renderDrill(){
   const mode2=drillState.mode||"meaningSound";
   const order=drillState.order||"alpha";
   const count=exactGradeChars(grade).length;
+  const saved=loadDrillProgress();
   $("#drill").innerHTML=`<div class="app-screen drill-setup-screen">
+    ${drillProgressMarkup(saved)}
     <section class="app-section">
       <div class="app-section-head">
         <div><div class="app-section-title">급수별 집중 연습</div><div class="app-section-sub">${esc(grade)} 배정한자 ${count.toLocaleString()}자 · 한국어문회 훈음 기준</div></div>
@@ -7114,20 +7217,24 @@ function renderDrill(){
           <button data-value="random" class="${order==="random"?"active":""}">랜덤</button>
         </div></div>
       </div>
-      <button class="btn primary app-start" id="startDrill" style="margin-top:14px">연습 시작 · ${count.toLocaleString()}자</button>
+      <button class="btn primary app-start" id="startDrill" style="margin-top:14px">${saved?"새로 시작":"연습 시작"} · ${count.toLocaleString()}자</button>
     </section>
   </div>`;
   $$("#drillGradeChips .grade-chip").forEach(btn=>btn.onclick=()=>{drillState.grade=btn.dataset.grade;renderDrill()});
   $$("#drillModeSeg button").forEach(btn=>btn.onclick=()=>{drillState.mode=btn.dataset.value;renderDrill()});
   $$("#drillOrderSeg button").forEach(btn=>btn.onclick=()=>{drillState.order=btn.dataset.value;renderDrill()});
   $("#startDrill").onclick=startDrill;
+  const resume=$("#resumeDrill");if(resume)resume.onclick=resumeDrillProgress;
+  const clearSaved=$("#clearDrillProgress");if(clearSaved)clearSaved.onclick=clearDrillProgress;
 }
 function startDrill(){
   drillState.grade=$("#drillGrade")?.value||drillState.grade||"8급";drillState.mode=$("#drillMode")?.value||drillState.mode||"meaningSound";drillState.order=$("#drillOrder")?.value||drillState.order||"alpha";
   let list=exactGradeChars(drillState.grade);
   list=drillState.order==="alpha"?koSortChars(list):shuffle([...list]);
   if(!list.length){toast("해당 급수 데이터가 없습니다");return}
-  drillState.list=list;drillState.index=0;drillState.checked=false;renderDrillCard();
+  drillState.list=list;drillState.index=0;drillState.checked=false;
+  saveDrillProgress(true);
+  renderDrillCard();
 }
 function drillQuestion(c){
   const forms=officialMeaningSoundForms(c);
@@ -7157,7 +7264,7 @@ function renderDrillCard(){
       </div>
       <div class="drill-top-actions">
         ${isWrite?"":`<button class="btn drill-icon-btn" id="prevDrill" ${st.index===0?"disabled":""} aria-label="이전">‹</button><button class="btn drill-icon-btn" id="nextDrill" aria-label="다음">›</button>`}
-        <button class="btn drill-icon-btn drill-settings-btn" id="exitDrill">설정</button>
+        <button class="btn drill-icon-btn drill-settings-btn" id="exitDrill">저장하고 나가기</button>
       </div>
     </div>
 
@@ -7208,13 +7315,14 @@ function renderDrillCard(){
     `}
   </div>`;
 
-  $("#exitDrill").onclick=()=>renderDrill();
+  $("#exitDrill").onclick=saveAndExitDrill;
   $("#prevDrill").onclick=()=>{
-    if(st.index>0){st.index--;st.checked=false;renderDrillCard()}
+    if(st.index>0){st.index--;st.checked=false;saveDrillProgress(true);renderDrillCard()}
   };
   $("#nextDrill").onclick=()=>{
     st.index=st.index===st.list.length-1?0:st.index+1;
     st.checked=false;
+    saveDrillProgress(true);
     renderDrillCard();
   };
 
@@ -7266,6 +7374,7 @@ function showDrillResult(c,q,ok,revealOnly,val=""){
     stats[k][ok?"ok":"no"]++;stats[k].last=Date.now();
     if(!ok){wrong[k]=wrong[k]||{count:0,streak:0,type:drillState.mode==="write"?"write":"meaningSound",hanja:c.hanja,level:c.level,prompt:q.prompt,answer:q.answer,answerDisplay:officialAnswerDisplay(q)};wrong[k].count++;wrong[k].last=Date.now()}
     saveProgress();
+    saveDrillProgress(true);
   }
 }
 
@@ -7445,6 +7554,7 @@ function recordDrillHandwriting(c,q,ok){
     wrong[k].count++;wrong[k].streak=0;wrong[k].last=Date.now();
   }
   saveProgress();
+  saveDrillProgress(true);
 }
 
 
