@@ -685,7 +685,14 @@ body.drill-active .app2-update{display:none!important}
   background:radial-gradient(circle at 88% 20%,rgba(82,226,190,.22),transparent 28%),linear-gradient(135deg,#5e69ff 0%,#7b58ee 52%,#283c73 100%);
   box-shadow:0 22px 54px rgba(39,43,114,.34)
 }
-.app-hero::after{content:"漢";position:absolute;right:16px;bottom:-50px;font:900 190px/1 serif;color:rgba(255,255,255,.09);pointer-events:none}
+.app-hero::after{
+  content:"漢";position:absolute;z-index:0;
+  right:clamp(14px,3vw,38px);bottom:clamp(10px,2vw,22px);
+  font-family:var(--hanja-font,"Noto Serif CJK KR","Batang",serif);
+  font-size:clamp(104px,13vw,176px);font-weight:900;line-height:.9;
+  color:rgba(255,255,255,.065);pointer-events:none;user-select:none;white-space:nowrap
+}
+.app-hero>*{position:relative;z-index:1}
 .app-hero-kicker{font-size:11px;font-weight:900;letter-spacing:.12em;color:#dce4ff}
 .app-hero h2{margin:8px 0 7px;font-size:clamp(26px,6vw,42px);line-height:1.06}
 .app-hero p{margin:0;max-width:560px;color:#e4eaff;line-height:1.55;font-size:14px}
@@ -1095,7 +1102,7 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
     padding:16px;
     border-radius:20px;
   }
-  .app-hero::after{font-size:150px;right:4px;bottom:-43px}
+  .app-hero::after{font-size:clamp(86px,29vw,118px);right:8px;bottom:8px}
   .app-hero h2{font-size:25px;margin:7px 0 5px}
   .app-hero p{font-size:12px;line-height:1.42;max-width:82%}
   .app-hero-actions{margin-top:13px;gap:6px}
@@ -1228,13 +1235,15 @@ button:active,.btn:active,.grade-chip:active,.round-btn:active{transform:scale(.
     linear-gradient(145deg,rgba(38,54,91,.94),rgba(17,27,50,.96));
   box-shadow:0 16px 42px rgba(0,7,24,.22);
 }
+.power-card{isolation:isolate}
 .power-card::after{
   content:"漢";
-  position:absolute;
-  right:8px;bottom:-32px;
-  font:900 120px/1 serif;
-  color:rgba(255,255,255,.045);
-  pointer-events:none;
+  position:absolute;z-index:0;
+  right:clamp(8px,2vw,18px);bottom:clamp(7px,1.4vw,14px);
+  font-family:var(--hanja-font,"Noto Serif CJK KR","Batang",serif);
+  font-size:clamp(76px,9vw,112px);font-weight:900;line-height:.9;
+  color:rgba(255,255,255,.04);
+  pointer-events:none;user-select:none;white-space:nowrap;
 }
 .power-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;position:relative;z-index:1}
 .power-eyebrow{font-size:10px;letter-spacing:.12em;font-weight:900;color:#8fa9d5}
@@ -2248,10 +2257,16 @@ html[data-hanja-font="serif"]{
     radial-gradient(circle at 12% 90%,rgba(72,215,180,.13),transparent 28%),
     linear-gradient(145deg,rgba(31,45,77,.96),rgba(15,25,47,.98));
 }
+.diag-hero{isolation:isolate}
 .diag-hero::after{
-  content:"級";position:absolute;right:8px;bottom:-44px;
-  color:rgba(255,255,255,.045);font:900 150px/1 serif;pointer-events:none;
+  content:"級";position:absolute;z-index:0;
+  right:clamp(10px,2.5vw,26px);bottom:clamp(8px,1.6vw,16px);
+  color:rgba(255,255,255,.04);
+  font-family:var(--hanja-font,"Noto Serif CJK KR","Batang",serif);
+  font-size:clamp(92px,11vw,138px);font-weight:900;line-height:.9;
+  pointer-events:none;user-select:none;white-space:nowrap;
 }
+.diag-hero>*{position:relative;z-index:1}
 .diag-kicker{font-size:9px;font-weight:900;letter-spacing:.12em;color:#95a9ce}
 .diag-title{margin-top:6px;font-size:28px;font-weight:950;letter-spacing:-.045em}
 .diag-desc{margin-top:6px;max-width:560px;color:#a4b5d0;font-size:11px;line-height:1.55}
@@ -2560,7 +2575,15 @@ body>.app2-update{z-index:1930!important}
     linear-gradient(135deg,#4652bb 0%,#6555cf 47%,#1b345e 100%);
   box-shadow:0 18px 46px rgba(12,16,64,.25)
 }
-.home-welcome::after{content:"漢";position:absolute;right:90px;bottom:-58px;font:900 180px/1 serif;color:rgba(255,255,255,.055);pointer-events:none}
+.home-welcome{isolation:isolate}
+.home-welcome::after{
+  content:"漢";position:absolute;z-index:0;
+  right:clamp(104px,10vw,160px);bottom:clamp(10px,1.8vw,20px);
+  font-family:var(--hanja-font,"Noto Serif CJK KR","Batang",serif);
+  font-size:clamp(108px,11vw,176px);font-weight:900;line-height:.9;
+  color:rgba(255,255,255,.05);pointer-events:none;user-select:none;white-space:nowrap
+}
+.home-welcome>*{position:relative;z-index:1}
 .home-date-label,.hub-eyebrow{font-size:10px;font-weight:950;letter-spacing:.14em;color:#dfe5ff}
 .home-welcome h2,.hub-title-card h2{margin:6px 0 5px;font-size:clamp(25px,4.5vw,36px);letter-spacing:-.045em}
 .home-welcome p,.hub-title-card p{margin:0;color:#d5def2;font-size:12px;line-height:1.48;max-width:650px}
@@ -2675,7 +2698,7 @@ body>.app2-update{z-index:1930!important}
 }
 @media(max-width:600px){
   .home-welcome{min-height:128px;padding:14px 14px 14px 15px;border-radius:20px;gap:9px}
-  .home-welcome::after{right:60px;font-size:140px;bottom:-45px}.home-welcome h2{font-size:23px}.home-welcome p{font-size:10px;max-width:96%}
+  .home-welcome::after{right:clamp(60px,18vw,82px);font-size:clamp(82px,25vw,112px);bottom:7px}.home-welcome h2{font-size:23px}.home-welcome p{font-size:10px;max-width:96%}
   .home-level-orb{width:72px;height:72px;border-radius:21px}.home-level-orb b{font-size:21px}.home-level-orb small{font-size:8px}
   .home-primary-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.home-primary-card{min-height:88px;padding:10px;border-radius:16px;gap:6px}.home-primary-icon{width:32px;height:32px;border-radius:10px;font-size:17px}.home-primary-card b{font-size:13px}.home-primary-card small{font-size:9px}
   .home-freq-card,.freq-spotlight{grid-template-columns:1fr;padding:12px;border-radius:18px;gap:9px}.home-freq-main b,.freq-spotlight-copy b{font-size:16px}.home-freq-buttons{grid-template-columns:1fr 1fr}
@@ -3340,6 +3363,57 @@ body>.app2-update{z-index:1930!important}
     box-shadow:0 14px 30px rgba(0,6,22,.18)
   }
 }
+
+/* RESPONSIVE DECORATIVE HANJA · 2.19.27
+   Keep decorative 漢/級 fully inside cards on phone, Fold, tablet and desktop. */
+.app-hero,.home-welcome,.power-card,.diag-hero{
+  isolation:isolate;
+  overflow:hidden;
+}
+.app-hero::after,.home-welcome::after,.power-card::after,.diag-hero::after{
+  transform:none!important;
+  max-width:42%;
+  max-height:86%;
+  text-rendering:optimizeLegibility;
+}
+@media(max-width:380px){
+  .app-hero::after{right:6px;bottom:7px;font-size:82px}
+  .home-welcome::after{right:54px;bottom:7px;font-size:78px}
+  .power-card::after{right:7px;bottom:7px;font-size:70px}
+  .diag-hero::after{right:7px;bottom:7px;font-size:78px}
+}
+@media(min-width:381px) and (max-width:600px){
+  .app-hero::after{right:9px;bottom:8px;font-size:clamp(88px,27vw,116px)}
+  .home-welcome::after{right:clamp(64px,18vw,86px);bottom:8px;font-size:clamp(88px,24vw,110px)}
+  .power-card::after{right:9px;bottom:8px;font-size:clamp(72px,21vw,96px)}
+  .diag-hero::after{right:9px;bottom:8px;font-size:clamp(80px,23vw,104px)}
+}
+@media(min-width:601px) and (max-width:1099px){
+  .app-hero::after{right:18px;bottom:12px;font-size:clamp(118px,15vw,158px)}
+  .home-welcome::after{right:clamp(100px,13vw,138px);bottom:12px;font-size:clamp(116px,14vw,154px)}
+  .power-card::after{right:12px;bottom:10px;font-size:clamp(82px,10vw,108px)}
+  .diag-hero::after{right:13px;bottom:10px;font-size:clamp(96px,12vw,126px)}
+}
+@media(min-width:1100px){
+  .app-hero::after{right:28px;bottom:16px;font-size:164px}
+  .home-welcome::after{right:clamp(122px,9vw,168px);bottom:16px;font-size:164px}
+  .power-card::after{right:14px;bottom:12px;font-size:108px}
+  .diag-hero::after{right:18px;bottom:12px;font-size:132px}
+}
+/* Very wide desktop cards should not make the watermark huge or drift below the card. */
+@media(min-width:1500px){
+  .app-hero::after{font-size:172px;right:34px}
+  .home-welcome::after{font-size:170px;right:150px}
+}
+/* Fold / tablet landscape: keep ornament clear of the level badge. */
+@media(min-width:600px) and (max-width:1100px) and (orientation:landscape){
+  .home-welcome::after{right:118px;bottom:10px;font-size:130px}
+}
+/* Main content always stays above decorative characters. */
+.app-hero>*,
+.home-welcome>*,
+.power-card>*,
+.diag-hero>*{position:relative;z-index:1}
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.19.13">
 </head>
@@ -4003,7 +4077,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.19.26-20260929";
+const APP_BUILD="2.19.27-20260929";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
