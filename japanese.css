@@ -267,15 +267,19 @@ body.drill-active #jp{height:100%;min-height:0}
 .jp-home-next span{display:block;color:#918cff;font-size:8px;font-weight:950;letter-spacing:.12em}.jp-home-next b{display:block;margin-top:3px;font-size:14px}.jp-home-next small{display:block;margin-top:3px;color:#8fa2c1;font-size:9px}
 .jp-home-next button{min-height:39px;padding:6px 11px;border:0;border-radius:12px;background:linear-gradient(135deg,#655df0,#7f5cec);color:#fff;font-size:10px;font-weight:900;white-space:nowrap}
 
-/* Fold unfolded: Japanese hub becomes a stable dashboard */
+/* Fold unfolded / iPad: Japanese hub becomes a stable dashboard */
 @media(min-width:700px){
-  .jp-screen:has(.jp-home-main){grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);align-items:start}
-  .jp-screen:has(.jp-home-main)>.jp-home-hero{grid-column:1 / -1}
-  .jp-screen:has(.jp-home-main)>.jp-home-main{grid-column:1;grid-row:2 / span 2}
+  .jp-screen:has(.jp-home-main){
+    grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);
+    grid-template-rows:auto auto auto auto auto;
+    align-items:start
+  }
+  .jp-screen:has(.jp-home-main)>.jp-home-hero{grid-column:1 / -1;grid-row:1}
+  .jp-screen:has(.jp-home-main)>.jp-home-main{grid-column:1;grid-row:2 / span 3}
   .jp-screen:has(.jp-home-main)>.jp-home-progress-card{grid-column:2;grid-row:2}
-  .jp-screen:has(.jp-home-main)>.jp-grade-launch,
-  .jp-screen:has(.jp-home-main)>.jp-hyogai-spot{grid-column:2;grid-row:3}
-  .jp-screen:has(.jp-home-main)>.jp-home-next{grid-column:1 / -1}
+  .jp-screen:has(.jp-home-main)>.jp-grade-launch{grid-column:2;grid-row:3}
+  .jp-screen:has(.jp-home-main)>.jp-hyogai-spot{grid-column:2;grid-row:4}
+  .jp-screen:has(.jp-home-main)>.jp-home-next{grid-column:1 / -1;grid-row:5}
   .jp-screen:has(.jp-home-main)>.app-section:last-child{grid-column:1 / -1}
 }
 
@@ -334,4 +338,45 @@ body.drill-active #jp{height:100%;min-height:0}
 }
 @media(pointer:coarse){
   .jp-set-seg button,.jp-view-seg button,.jp-home-action,.jp-home-search,.jp-filter-chip,.jp-word-round-chip{min-height:44px}
+}
+
+
+/* iPad / desktop usability pass · 2.19.13 */
+@media(min-width:700px) and (pointer:coarse){
+  .jp-home-action,.jp-home-grade-grid button,.jp-home-next button,
+  .jp-set-seg button,.jp-view-seg button,.jp-filter-chip,.jp-saved-toggle{
+    min-height:48px
+  }
+  .jp-home-grade-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .jp-home-status{min-height:176px}
+  .jp-card,.jp-atlas-card{min-height:104px}
+}
+@media(min-width:700px) and (orientation:landscape){
+  .jp-screen:has(.jp-home-main){
+    grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);
+  }
+  .jp-home-hero{min-height:150px;padding-top:17px;padding-bottom:15px}
+  .jp-home-main{grid-template-columns:minmax(180px,.68fr) minmax(0,1.32fr)}
+  .jp-home-status{min-height:152px;padding:13px}
+  .jp-home-ring{width:86px;height:86px}
+  .jp-home-grade-grid{grid-template-columns:repeat(7,minmax(0,1fr))}
+  .jp-word-stage{
+    grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr);
+    gap:8px
+  }
+  .jp-word-question{padding-top:26px}
+}
+@media(min-width:1180px){
+  .jp-screen:has(.jp-home-main){
+    grid-template-columns:minmax(0,1.28fr) minmax(340px,.72fr)
+  }
+  .jp-home-main{grid-template-columns:minmax(240px,.72fr) minmax(0,1.28fr)}
+  .jp-home-grade-grid{grid-template-columns:repeat(7,minmax(0,1fr))}
+}
+@supports(padding:max(0px)){
+  .jp-atlas-sheet{
+    padding-left:max(12px,env(safe-area-inset-left));
+    padding-right:max(12px,env(safe-area-inset-right));
+    padding-bottom:max(18px,env(safe-area-inset-bottom))
+  }
 }
