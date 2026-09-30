@@ -836,13 +836,16 @@ function jpWordRecord(word,ok){
 }
 function jpWordBoardSpec(count){
   const n=Math.max(1,+count||1);
-  const vw=(window.visualViewport&&window.visualViewport.width)||window.innerWidth||800;
+  const vv=window.visualViewport;
+  const vw=(vv&&vv.width)||window.innerWidth||800;
+  const vh=(vv&&vv.height)||window.innerHeight||600;
+  const landscape=vw>vh;
   let cols=1,rows=1;
   if(n===2){cols=2;rows=1}
-  else if(n===3){cols=vw>=720?3:2;rows=vw>=720?1:2}
-  else if(n===4){cols=vw>=820?4:2;rows=vw>=820?1:2}
-  else if(n<=6){cols=3;rows=Math.ceil(n/3)}
-  else{cols=4;rows=Math.ceil(n/4)}
+  else if(n===3){cols=landscape&&vw>=760?3:2;rows=Math.ceil(n/cols)}
+  else if(n===4){cols=landscape&&vw>=900?4:2;rows=Math.ceil(n/cols)}
+  else if(n<=6){cols=landscape?3:2;rows=Math.ceil(n/cols)}
+  else{cols=landscape?4:3;rows=Math.ceil(n/cols)}
   return {count:n,cols:cols,rows:rows,cell:480,width:cols*480,height:rows*480};
 }
 function jpClearWordCanvases(){
