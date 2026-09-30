@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.24.0-20260930",
+  "webBuild": "2.25.0-20260930",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.25.0",
+      "title": "iPad 일본 단어쓰기 화면 재균형",
+      "items": [
+        "가로모드 문제 영역 높이와 글자 크기를 줄여 상단 문장이 과하게 떠 보이던 현상 수정",
+        "쓰기판 내부 글자 칸 사이 경계선을 제거하고 각 칸의 십자 가이드와 번호만 남겨 연속된 하나의 쓰기면처럼 정리",
+        "쓰기판 폭을 iPad 화면에 맞게 제한해 지나치게 큰 흰 박스 두 개처럼 보이던 비율 개선",
+        "쓰기판을 감싸던 큰 어두운 카드의 테두리·그림자·불필요한 하단 빈 공간 제거",
+        "이전/다음과 지우기/정답/채점 버튼을 쓰기판 폭에 맞춰 정렬",
+        "세로모드에서 4글자 이상 단어가 한 줄로 지나치게 작게 배치되지 않도록 방향에 따라 2~3열로 자동 조정"
+      ]
+    },
     {
       "version": "2.24.0",
       "title": "iPad 일본 단어쓰기 정렬 · 그림판 경계 수정 · 태블릿 UI 점검",
