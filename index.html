@@ -4267,6 +4267,178 @@ body.global-search-open .global-search-sheet{
   .answer-row input,.answer-row .btn{min-height:50px}
 }
 
+
+/* IPAD/TABLET REGRESSION REPAIR · 2.23.0
+   Tablets are not miniature desktops: stack atlas regions and stop grid-row stretching. */
+@media(min-width:700px) and (pointer:coarse){
+  /* Atlas: toolbar -> summary -> results, always full width on iPad/tablet */
+  #atlas .atlas-shell{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto auto auto!important;
+    grid-auto-flow:row!important;
+    gap:10px!important;
+    align-items:start!important;
+    align-content:start!important;
+    width:100%!important;
+  }
+  #atlas .atlas-toolbar{
+    grid-column:1!important;
+    grid-row:1!important;
+    position:relative!important;
+    top:auto!important;
+    width:100%!important;
+    max-height:none!important;
+    overflow:visible!important;
+    align-self:start!important;
+    padding:12px!important;
+  }
+  #atlas .atlas-summary{
+    grid-column:1!important;
+    grid-row:2!important;
+    width:100%!important;
+    min-height:0!important;
+    height:auto!important;
+    align-self:start!important;
+    align-items:stretch!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:7px!important;
+  }
+  #atlas .atlas-summary>div{
+    min-height:64px!important;
+    height:auto!important;
+    padding:9px 11px!important;
+    display:flex!important;
+    flex-direction:column;
+    justify-content:center;
+  }
+  #atlas .atlas-summary b{font-size:18px!important}
+  #atlas .atlas-summary span{font-size:9px!important}
+  #atlas #atlasResults{
+    grid-column:1!important;
+    grid-row:3!important;
+    width:100%!important;
+    min-width:0!important;
+    min-height:0!important;
+    align-self:start!important;
+  }
+
+  /* compact tablet toolbar so results are visible without wasting the screen */
+  #atlas .atlas-toolbar-top{
+    align-items:center!important;
+  }
+  #atlas .atlas-sub{
+    max-width:720px;
+    font-size:9px!important;
+    line-height:1.35!important;
+  }
+  #atlas .atlas-quick-row{
+    grid-template-columns:repeat(7,minmax(0,1fr))!important;
+    gap:5px!important;
+    margin-top:8px!important;
+  }
+  #atlas .atlas-quick-row button{
+    min-height:48px!important;
+    padding:5px 4px!important;
+    border-radius:12px!important;
+  }
+  #atlas .atlas-quick-row button b{font-size:15px!important}
+  #atlas .atlas-quick-row button span{font-size:8px!important}
+  #atlas .atlas-grade-row{
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    margin-top:7px!important;
+    padding-bottom:4px!important;
+  }
+  #atlas .atlas-grade-row .grade-chip{
+    flex:0 0 auto;
+    min-width:58px!important;
+    min-height:38px!important;
+  }
+  #atlas .atlas-search-wrap{
+    margin-top:5px!important;
+    min-height:40px!important;
+  }
+  #atlas .atlas-search-wrap .atlas-search{min-height:40px!important;height:40px!important}
+  #atlas .atlas-settings-v2{margin-top:6px!important}
+  #atlas .atlas-settings-v2 summary{min-height:38px!important;padding:8px 10px!important}
+  #atlas .atlas-progress{
+    min-height:0!important;
+    margin-top:6px!important;
+    padding:7px 9px!important;
+    font-size:8px!important;
+    line-height:1.35!important;
+  }
+
+  /* result density sized for a tablet, not desktop */
+  #atlas .atlas-grid{
+    grid-template-columns:repeat(auto-fill,minmax(126px,1fr))!important;
+    gap:7px!important;
+  }
+  #atlas .atlas-card{
+    min-height:140px!important;
+    padding:11px 8px 9px!important;
+  }
+  #atlas .atlas-hanja{
+    font-size:46px!important;
+    min-height:52px!important;
+  }
+  #atlas .atlas-hun{font-size:11px!important}
+  #atlas .atlas-compact-grid{
+    grid-template-columns:repeat(7,minmax(0,1fr))!important;
+  }
+  #atlas .atlas-compact-cell{
+    min-height:108px!important;
+    padding:10px 5px 8px!important;
+  }
+  #atlas .atlas-compact-hanja{
+    font-size:34px!important;
+    min-height:43px!important;
+  }
+}
+
+/* iPad landscape gets an even tighter atlas header. */
+@media(min-width:700px) and (pointer:coarse) and (orientation:landscape){
+  #atlas .atlas-toolbar{
+    padding:9px 11px!important;
+  }
+  #atlas .atlas-toolbar-top .atlas-title{font-size:20px!important}
+  #atlas .atlas-toolbar-top .atlas-sub{display:none!important}
+  #atlas .atlas-quick-row{margin-top:6px!important}
+  #atlas .atlas-quick-row button{min-height:43px!important}
+  #atlas .atlas-grade-row{margin-top:5px!important}
+  #atlas .atlas-summary>div{min-height:56px!important;padding:7px 10px!important}
+  #atlas .atlas-summary b{font-size:17px!important}
+}
+
+/* Tablet portrait: keep wide cards/tables inside the viewport */
+@media(min-width:700px) and (pointer:coarse) and (orientation:portrait){
+  #atlas .atlas-summary{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  #atlas .atlas-compact-grid{
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  }
+  #atlas .atlas-grid{
+    grid-template-columns:repeat(auto-fill,minmax(132px,1fr))!important;
+  }
+  #atlas .atlas-table-wrap{
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+  }
+}
+
+/* Defensive tablet rule: auto-placement must never stretch small widgets into tall columns. */
+@media(min-width:700px) and (pointer:coarse){
+  .atlas-summary,.home-stats-row,.study-status-strip,.kpis,.jp-metrics{
+    align-content:start!important;
+  }
+  .atlas-summary>*,.home-stats-row>*,.study-status-strip>*,.kpis>*,.jp-metrics>*{
+    align-self:stretch;
+    height:auto;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.7">
 </head>
@@ -5182,7 +5354,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.22.0-20260930";
+const APP_BUILD="2.23.0-20260930";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
