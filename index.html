@@ -3816,6 +3816,313 @@ body.global-search-open .global-search-sheet{
   }
 }
 
+
+/* HANJA LAB LAYOUT SYSTEM · 2.21.0
+   One alignment language for tablet / iPad / desktop. */
+@media(min-width:700px){
+  :root{
+    --hl-gap:16px;
+    --hl-gap-sm:10px;
+    --hl-radius:22px;
+    --hl-workspace:1380px;
+    --hl-reading:1040px;
+  }
+
+  body:not(.drill-active) .tabpage{
+    width:min(100%,var(--hl-workspace));
+    max-width:var(--hl-workspace);
+    margin-inline:auto;
+  }
+  body:not(.drill-active) .app-screen{
+    width:100%;
+    max-width:100%;
+    margin-inline:auto;
+    gap:var(--hl-gap)!important;
+    align-items:start;
+  }
+  body:not(.drill-active) .app-screen>*,
+  body:not(.drill-active) .app-section>*,
+  body:not(.drill-active) .card>*{
+    min-width:0;
+  }
+
+  /* shared card rhythm */
+  body:not(.drill-active) .app-section,
+  body:not(.drill-active) .card,
+  .hub-title-card,
+  .home-welcome,
+  .home-freq-card,
+  .freq-spotlight,
+  .diag-hero,
+  .diag-stage{
+    border-radius:var(--hl-radius)!important;
+  }
+  .app-section{padding:20px!important}
+  .app-section-head{
+    min-height:0!important;
+    margin-bottom:14px!important;
+    align-items:flex-start!important;
+  }
+  .app-section-title{font-size:19px!important;line-height:1.18}
+  .app-section-sub{font-size:11px!important;line-height:1.5;margin-top:4px}
+  .label{margin:12px 0 6px!important}
+  .actions{gap:10px!important}
+  .actions .btn,.app-start{min-height:48px}
+  .app-form-grid{gap:12px!important}
+  .segment{gap:5px}
+  .toolbar{
+    display:grid!important;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:10px!important;
+    align-items:end;
+  }
+  .toolbar>div{min-width:0!important}
+  .kpis{gap:10px}
+  .kpi{padding:13px 14px;border-radius:16px}
+  .table-wrap{border-radius:16px}
+
+  /* HOME — strict 12-column alignment */
+  .home-v2{
+    display:grid!important;
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+    grid-auto-flow:row;
+    gap:var(--hl-gap)!important;
+    align-items:stretch!important;
+  }
+  .home-v2 .home-welcome{
+    grid-column:1 / span 8!important;
+    grid-row:auto!important;
+    min-height:170px!important;
+    padding:24px!important;
+  }
+  .home-v2 .home-resume{
+    grid-column:9 / -1!important;
+    grid-row:auto!important;
+    min-height:170px;
+    align-self:stretch!important;
+    padding:20px;
+    border-radius:var(--hl-radius);
+  }
+  .home-v2:not(:has(.home-resume)) .home-welcome{grid-column:1 / -1!important}
+  .home-v2 .home-start-section{
+    grid-column:1 / span 8!important;
+    grid-row:auto!important;
+    gap:10px;
+  }
+  .home-v2 .home-freq-card{
+    grid-column:9 / -1!important;
+    grid-row:auto!important;
+    align-self:stretch;
+    min-height:100%;
+    grid-template-columns:1fr!important;
+    align-content:center;
+    gap:14px;
+  }
+  .home-v2 .home-shortcuts{
+    grid-column:1 / -1!important;
+    grid-row:auto!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+  .home-v2 .home-stats-row{
+    grid-column:1 / -1!important;
+    grid-row:auto!important;
+    gap:10px!important;
+  }
+  .home-primary-grid{gap:10px!important}
+  .home-primary-card{min-height:122px!important;padding:16px!important}
+  .home-shortcut{
+    min-height:92px!important;
+    padding:12px 13px!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    gap:11px!important;
+  }
+  .home-shortcut-copy{margin-top:0!important}
+  .home-shortcut-copy b{font-size:13px!important}
+  .home-shortcut-copy small{font-size:9px!important}
+
+  /* STUDY HUB — 8/4 workspace with matching baselines */
+  .study-hub-screen{
+    display:grid!important;
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+    gap:var(--hl-gap)!important;
+    align-items:stretch!important;
+  }
+  .study-hub-screen .hub-title-card{
+    grid-column:1 / -1!important;
+    grid-row:auto!important;
+    min-height:132px;
+    padding:22px 24px!important;
+  }
+  .study-hub-screen .study-main-section{
+    grid-column:1 / span 8!important;
+    grid-row:2 / span 2!important;
+    align-self:stretch;
+  }
+  .study-hub-screen .freq-spotlight{
+    grid-column:9 / -1!important;
+    grid-row:2!important;
+    grid-template-columns:1fr!important;
+    align-content:center;
+    gap:12px;
+    padding:18px!important;
+  }
+  .study-hub-screen .freq-spotlight-actions{
+    grid-template-columns:1fr!important;
+    min-width:0!important;
+    gap:7px!important;
+  }
+  .study-hub-screen>.app-section:not(.study-main-section){
+    grid-column:9 / -1!important;
+    grid-row:3!important;
+    align-self:stretch;
+  }
+  .study-hub-screen .study-status-strip{
+    grid-column:1 / -1!important;
+    grid-row:4!important;
+    gap:10px!important;
+  }
+  .study-main-grid{gap:10px!important}
+  .study-tile{min-height:104px!important;padding:15px!important}
+  .study-link-grid{grid-template-columns:1fr!important;gap:8px!important}
+  .study-link{min-height:62px!important}
+
+  /* setup / exam / diagnosis use readable centered widths */
+  .exam-screen,.drill-setup-screen{width:min(100%,1120px)!important;margin-inline:auto!important}
+  .exam-screen>.app-section,.drill-setup-screen>.app-section{padding:22px 24px!important}
+  .drill-setup-screen .drill-resume-card{width:100%}
+  .remote-exam-list{
+    grid-template-columns:repeat(auto-fill,minmax(88px,1fr))!important;
+    gap:8px!important;
+  }
+  .round-btn{min-height:50px!important}
+  .diag-shell{
+    width:min(100%,1000px)!important;
+    margin-inline:auto;
+    gap:14px!important;
+  }
+  .diag-hero{padding:24px!important}
+  .diag-title{font-size:32px!important}
+  .diag-desc{font-size:12px!important;max-width:680px}
+  .diag-mode-grid{gap:10px!important}
+  .diag-mode{padding:15px!important;min-height:86px}
+  .diag-stage{padding:16px!important}
+  .diag-question{
+    width:min(100%,820px);
+    margin-inline:auto;
+    padding:24px!important;
+  }
+  .diag-choice-grid{
+    width:min(100%,820px);
+    margin-inline:auto;
+    gap:9px!important;
+  }
+  .diag-choice{min-height:56px!important}
+
+  /* current practice / exam session */
+  .practice-session,.exam-session{
+    width:min(100%,1120px)!important;
+    margin-inline:auto;
+    gap:12px!important;
+  }
+  .practice-session>.card.hero{
+    grid-template-columns:minmax(0,1fr) minmax(180px,280px)!important;
+    gap:24px!important;
+    align-items:center;
+    padding:24px!important;
+  }
+  .practice-session .prompt{font-size:clamp(23px,2.5vw,32px)!important}
+  .practice-session .answer-row{max-width:760px}
+  .exam-session>.card{padding:22px!important}
+  .exam-session .choice-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+  .exam-session .choice-btn{min-height:58px!important}
+
+  /* more / settings — stable 4/8 master-detail layout */
+  .more-screen{
+    display:grid!important;
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+    gap:var(--hl-gap)!important;
+    align-items:start!important;
+  }
+  .more-screen>.app-stats-hero{
+    grid-column:1 / span 4!important;
+    grid-row:1 / span 3!important;
+    position:sticky!important;
+    top:calc(var(--appbar-h) + 18px)!important;
+  }
+  .more-screen>.app-section{grid-column:5 / -1!important}
+  .more-screen>.app-section:nth-of-type(1){grid-row:1!important}
+  .more-screen>.app-section:nth-of-type(2){grid-row:2!important}
+  .more-screen>.app-section:nth-of-type(3){grid-row:3!important}
+  .app-list{gap:8px!important}
+  .app-list-row{min-height:70px!important}
+  .reset-row{gap:16px!important;align-items:center}
+
+  /* atlas — one fixed filter rail + one clean result canvas */
+  #atlas .atlas-shell{
+    grid-template-columns:310px minmax(0,1fr)!important;
+    gap:var(--hl-gap)!important;
+  }
+  #atlas .atlas-toolbar{
+    border-radius:var(--hl-radius)!important;
+    padding:16px!important;
+  }
+  #atlas .atlas-summary{gap:10px!important}
+  #atlas .atlas-grid{gap:10px!important}
+  #atlas .atlas-card{border-radius:18px!important}
+  #atlas .atlas-compact-grid{border-radius:18px;overflow:hidden}
+  #atlas .atlas-table{font-size:12px}
+  #atlas .atlas-table th,#atlas .atlas-table td{padding:11px 10px!important}
+
+  /* long-form utility screens */
+  .guide-screen,.report-screen{
+    width:min(100%,var(--hl-reading));
+    margin-inline:auto;
+  }
+}
+
+/* desktop gets a little more breathing room, not a different design language */
+@media(min-width:1100px){
+  body:not(.drill-active) .app{padding-right:34px!important}
+  .home-v2 .home-welcome{min-height:184px!important}
+  .home-primary-card{min-height:126px!important}
+  .study-hub-screen .hub-title-card{min-height:138px}
+  .app-section{padding:22px!important}
+}
+
+/* tablet portrait: keep the same order but avoid tiny side columns */
+@media(min-width:700px) and (max-width:899px) and (orientation:portrait){
+  .home-v2 .home-welcome,
+  .home-v2 .home-resume,
+  .home-v2 .home-start-section,
+  .home-v2 .home-freq-card,
+  .home-v2 .home-shortcuts,
+  .home-v2 .home-stats-row{
+    grid-column:1 / -1!important;
+  }
+  .home-v2 .home-resume{min-height:78px}
+  .home-v2 .home-freq-card{grid-template-columns:minmax(0,1fr) auto!important}
+  .study-hub-screen .study-main-section,
+  .study-hub-screen .freq-spotlight,
+  .study-hub-screen>.app-section:not(.study-main-section),
+  .study-hub-screen .study-status-strip{
+    grid-column:1 / -1!important;
+    grid-row:auto!important;
+  }
+  .study-hub-screen .freq-spotlight{
+    grid-template-columns:minmax(0,1fr) minmax(220px,.72fr)!important;
+  }
+  .study-hub-screen .freq-spotlight-actions{grid-template-columns:1fr!important}
+  .more-screen>.app-stats-hero,
+  .more-screen>.app-section{
+    grid-column:1 / -1!important;
+    grid-row:auto!important;
+    position:static!important;
+  }
+  #atlas .atlas-shell{grid-template-columns:260px minmax(0,1fr)!important}
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.7">
 </head>
@@ -4731,7 +5038,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.20.8-20260930";
+const APP_BUILD="2.21.0-20260930";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
