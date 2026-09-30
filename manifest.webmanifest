@@ -1,6 +1,6 @@
 {
-  "name": "DOKI 漢字 — 한국어문회 한자 트레이너",
-  "short_name": "DOKI 漢字",
+  "name": "Hanja Lab — 한국어문회 한자 트레이너",
+  "short_name": "Hanja Lab",
   "description": "한국어문회 8급부터 특급까지 연습·기출·손글씨 학습",
   "start_url": "./?pwa=1",
   "scope": "./",
