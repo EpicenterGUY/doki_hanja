@@ -82,5 +82,26 @@
     "logo": "linear-gradient(145deg,#ff5b73,#8d72ff)",
     "glow": "#ff6c85",
     "button": "linear-gradient(135deg,#ff586f,#8b70ff)"
+  },
+  {
+    "id": "couplecalendar",
+    "name": "우리, 오늘",
+    "mark": "♥",
+    "status": "개발 중",
+    "description": "둘의 일정과 기념일을 함께 정리하고, 누구의 일정인지 구분해 한눈에 보는 커플 캘린더.",
+    "tags": [
+      "커플",
+      "캘린더",
+      "일정",
+      "PWA"
+    ],
+    "live": "https://epicenterguy.github.io/nihongo-master/couple-calendar/",
+    "repo": "https://github.com/EpicenterGUY/nihongo-master/tree/main/couple-calendar",
+    "version": "v0.10.0",
+    "versionUrl": "/nihongo-master/couple-calendar/version.json",
+    "versionType": "couplecalendar",
+    "logo": "linear-gradient(145deg,#ef7fa1,#9a82d6)",
+    "glow": "#ef8fac",
+    "button": "linear-gradient(135deg,#d9688c,#9478ca)"
   }
 ]
