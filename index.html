@@ -6677,7 +6677,7 @@ function renderReport(){
         '<label class="report-upload"><input id="reportFiles" type="file" accept=".pdf,.txt,.json,.zip,.csv,.xlsx,.xls,.doc,.docx,.hwp,.hwpx,.html,.js,.css,image/*" multiple onchange="renderReportFiles()"><span class="report-upload-icon">📎</span><span><strong>파일 첨부</strong><small>PDF · 문서 · ZIP · 데이터 파일 등</small></span></label>'+
       '</div>'+
       '<div id="reportFileList" class="report-file-list"></div>'+
-      '<div class="report-meta-box">자동 첨부: DOKI build '+esc(APP_BUILD)+' · 현재 화면 '+esc(mode)+' · '+esc(navigator.userAgent)+'<br>첨부 제한: 최대 '+c.maxFiles+'개 · 파일당 '+reportBytes(c.maxFileBytes)+' · 전체 '+reportBytes(c.maxTotalBytes)+'</div>'+
+      '<div class="report-meta-box">자동 첨부: Hanja Lab build '+esc(APP_BUILD)+' · 현재 화면 '+esc(mode)+' · '+esc(navigator.userAgent)+'<br>첨부 제한: 최대 '+c.maxFiles+'개 · 파일당 '+reportBytes(c.maxFileBytes)+' · 전체 '+reportBytes(c.maxTotalBytes)+'</div>'+
       '<div class="report-actions"><button class="btn primary" id="reportSubmitBtn" type="submit" '+(ready?'':'disabled')+'>'+(ready?'오류 신고 보내기':'신고 서버 연결 필요')+'</button></div>'+
       '<div id="reportSubmitStatus" class="report-status">'+(ready?'전송된 신고는 공개 게시판에 올라가지 않습니다.':'개발자용 비공개 수신함을 연결하면 사진·파일까지 안전하게 전송됩니다.')+'</div>'+
     '</form></div>';
