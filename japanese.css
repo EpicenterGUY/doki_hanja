@@ -964,3 +964,203 @@ body.drill-active #jp{height:100%;min-height:0}
   background:rgba(210,77,88,.07);
   border-color:rgba(222,92,102,.15);
 }
+
+
+/* HANJA LAB JAPANESE UI ALIGNMENT · 2.22.0 */
+@media(min-width:700px){
+  .jp-screen{
+    width:100%;
+    max-width:1380px;
+    margin-inline:auto;
+    gap:16px!important;
+    align-items:start;
+  }
+  .jp-screen>*{min-width:0}
+  .jp-hero,.jp-home-hero,.jp-sub-hero,
+  .jp-home-status,.jp-home-progress-card,.jp-home-next,
+  .jp-grade-launch,.jp-hyogai-spot,.jp-screen>.app-section{
+    border-radius:22px!important;
+  }
+
+  /* Japanese home: same 12-column rhythm as the Korean side */
+  .jp-screen:has(.jp-home-main){
+    display:grid!important;
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+    gap:16px!important;
+  }
+  .jp-screen:has(.jp-home-main)>.jp-home-hero{
+    grid-column:1 / -1!important;
+    grid-row:auto!important;
+    min-height:170px!important;
+    padding:22px 24px!important;
+  }
+  .jp-screen:has(.jp-home-main)>.jp-home-main{
+    grid-column:1 / span 8!important;
+    grid-row:auto!important;
+    display:grid!important;
+    grid-template-columns:minmax(220px,.72fr) minmax(0,1.28fr)!important;
+    gap:10px!important;
+    align-items:stretch;
+  }
+  .jp-home-status{height:100%;min-height:180px!important}
+  .jp-home-actions{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+    align-items:stretch;
+  }
+  .jp-home-action{
+    min-height:86px!important;
+    height:100%;
+    padding:12px!important;
+  }
+  .jp-screen:has(.jp-home-main)>.jp-home-progress-card{
+    grid-column:9 / -1!important;
+    grid-row:auto!important;
+    min-height:180px;
+    align-self:stretch;
+    padding:18px!important;
+  }
+  .jp-screen:has(.jp-home-main)>.jp-grade-launch,
+  .jp-screen:has(.jp-home-main)>.jp-hyogai-spot{
+    grid-column:1 / span 8!important;
+    grid-row:auto!important;
+    align-self:stretch;
+  }
+  .jp-screen:has(.jp-home-main)>.jp-home-next{
+    grid-column:9 / -1!important;
+    grid-row:auto!important;
+    align-self:stretch;
+    min-height:100px;
+  }
+  .jp-screen:has(.jp-home-main)>.jp-home-search{
+    grid-column:9 / -1!important;
+    grid-row:auto!important;
+    min-height:52px;
+    align-self:start;
+  }
+  .jp-screen:has(.jp-home-main)>.app-section:last-child{
+    grid-column:1 / -1!important;
+  }
+
+  .jp-home-progress-grid{gap:8px!important}
+  .jp-home-progress-grid>div{
+    min-height:62px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .jp-home-grade-grid{gap:8px!important}
+  .jp-home-grade-grid button{min-height:58px!important}
+
+  /* Japanese lists and filters line up to one grid */
+  .jp-metrics{gap:9px!important}
+  .jp-metric{padding:13px!important;border-radius:16px!important}
+  .jp-search-row{gap:9px!important}
+  .jp-filter-row{gap:7px!important}
+  .jp-grid,.jp-atlas-grid{gap:9px!important}
+  .jp-card,.jp-atlas-card{border-radius:17px!important}
+  .jp-practice-grid{gap:10px!important}
+}
+
+/* iPad landscape Japanese writing: prompt becomes a thin header, board gets the screen */
+@media(min-width:700px) and (orientation:landscape) and (pointer:coarse){
+  .jp-word-stage{
+    grid-template-columns:1fr!important;
+    grid-template-rows:70px minmax(0,1fr)!important;
+    gap:5px!important;
+    min-height:0!important;
+  }
+  .jp-word-question{
+    width:100%!important;
+    height:70px!important;
+    min-height:70px!important;
+    padding:7px 14px!important;
+    border-radius:14px!important;
+    display:grid!important;
+    grid-template-columns:auto minmax(0,1fr) auto!important;
+    grid-template-rows:auto auto!important;
+    column-gap:14px!important;
+    row-gap:1px!important;
+    text-align:left!important;
+    justify-content:stretch!important;
+    align-content:center!important;
+    align-items:center!important;
+  }
+  .jp-word-reading{
+    grid-column:1!important;
+    grid-row:1 / span 2!important;
+    font-size:clamp(24px,3vw,36px)!important;
+    white-space:nowrap;
+  }
+  .jp-word-meaning-toggle{
+    position:static!important;
+    grid-column:3!important;
+    grid-row:1!important;
+    justify-self:end;
+  }
+  .jp-word-meaning-panel{
+    grid-column:2!important;
+    grid-row:1 / span 2!important;
+    align-items:flex-start!important;
+    justify-self:start;
+    min-width:0;
+  }
+  .jp-word-example{
+    font-size:clamp(14px,1.8vw,20px)!important;
+    line-height:1.25!important;
+    text-align:left!important;
+  }
+  .jp-word-translation{
+    font-size:9px!important;
+    text-align:left!important;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    max-width:100%;
+  }
+  .jp-word-meaning{font-size:9px!important}
+  .jp-word-canvas-pane{
+    width:min(100%,980px)!important;
+    height:100%!important;
+    justify-self:center!important;
+    padding:5px!important;
+    gap:4px!important;
+    grid-template-rows:minmax(0,1fr) auto 44px 42px!important;
+    border-radius:16px!important;
+  }
+  .jp-word-board{
+    height:100%!important;
+    width:auto!important;
+    max-width:100%!important;
+    max-height:100%!important;
+    justify-self:center!important;
+    align-self:stretch!important;
+    border-radius:14px!important;
+  }
+  .jp-word-nav .btn{
+    min-height:44px!important;
+    height:44px!important;
+    font-size:12px!important;
+  }
+  .jp-word-controls .btn{
+    min-height:42px!important;
+    height:42px!important;
+    font-size:11px!important;
+  }
+  .jp-word-feedback{
+    max-height:38px!important;
+    padding:4px 7px!important;
+  }
+}
+
+@media(min-width:700px) and (max-width:899px) and (orientation:portrait){
+  .jp-screen:has(.jp-home-main)>.jp-home-main,
+  .jp-screen:has(.jp-home-main)>.jp-home-progress-card,
+  .jp-screen:has(.jp-home-main)>.jp-grade-launch,
+  .jp-screen:has(.jp-home-main)>.jp-hyogai-spot,
+  .jp-screen:has(.jp-home-main)>.jp-home-next,
+  .jp-screen:has(.jp-home-main)>.jp-home-search{
+    grid-column:1 / -1!important;
+  }
+}
+
