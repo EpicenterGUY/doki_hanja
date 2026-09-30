@@ -6,12 +6,12 @@
 <meta name="theme-color" content="#6677ff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="한자 트레이너">
+<meta name="apple-mobile-web-app-title" content="Hanja Lab">
 <meta name="format-detection" content="telephone=no">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="./icon.svg">
-<title>어문회 한자 올인원 트레이너</title>
+<title>Hanja Lab — 한국어문회 한자 올인원</title>
 <style>
 :root{
   --bg:#0f1115; --panel:#171a21; --panel2:#1f2430; --line:#303746;
@@ -3692,6 +3692,130 @@ body.global-search-open .global-search-sheet{
   .global-search-sheet.open{transform:none!important}
   .atlas-compare-searchbox{min-height:42px}
 }
+
+/* TABLET / DESKTOP ALIGNMENT · 2.20.8
+   Keep the study flow vertical on larger screens:
+   clue/reading at the top, handwriting canvas centered below, controls aligned last. */
+@media(min-width:700px){
+  body.drill-active .app{
+    padding:
+      7px
+      max(12px,env(safe-area-inset-right))
+      max(7px,env(safe-area-inset-bottom))
+      max(12px,env(safe-area-inset-left))!important;
+  }
+  .drill-session-shell{
+    width:min(100%,1180px);
+    margin:0 auto;
+    gap:9px;
+  }
+  .drill-stage.write-stage{
+    width:100%;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto minmax(0,1fr)!important;
+    gap:9px!important;
+    justify-items:center;
+  }
+  .drill-question-pane{
+    width:min(100%,980px);
+    min-height:0!important;
+    max-height:none!important;
+    padding:11px 22px!important;
+    gap:4px!important;
+    justify-content:center!important;
+    align-items:center!important;
+    text-align:center;
+  }
+  .drill-question-pane .meta{
+    justify-content:center;
+    margin:0!important;
+  }
+  .drill-question-pane .prompt{
+    width:100%;
+    text-align:center;
+    font-size:clamp(15px,1.55vw,20px)!important;
+    line-height:1.25!important;
+    color:#b8c8df;
+  }
+  .drill-question-pane .drill-official{
+    text-align:center;
+  }
+  .drill-clue{
+    width:100%;
+    min-height:0!important;
+    justify-content:center;
+    text-align:center;
+    font-size:clamp(36px,4.15vw,58px)!important;
+    line-height:1.04!important;
+  }
+  .drill-tip{
+    width:100%;
+    text-align:center;
+    font-size:12px;
+    line-height:1.35;
+  }
+  #drillFeedback{
+    width:min(760px,100%);
+    text-align:center;
+  }
+  .drill-canvas-pane{
+    width:min(100%,760px);
+    height:100%;
+    min-height:0;
+    justify-self:center;
+    padding:8px!important;
+    gap:6px!important;
+    grid-template-rows:minmax(0,1fr) 52px 46px!important;
+  }
+  .drill-canvas-wrap{
+    width:min(100%,calc(var(--drill-vh,100dvh) - 285px),680px)!important;
+    height:auto!important;
+    max-width:100%!important;
+    max-height:100%!important;
+    aspect-ratio:1/1!important;
+    justify-self:center;
+    align-self:center;
+  }
+  .drill-bottom-nav,.drill-write-controls{
+    width:100%;
+    min-width:0;
+  }
+  .drill-bottom-nav .btn,.drill-write-controls .btn{
+    min-width:0;
+  }
+}
+
+/* Tablet workspace: consistent gutters, card spacing and visual rhythm. */
+@media(min-width:700px) and (max-width:1099px){
+  body:not(.drill-active) .app{
+    width:100%;
+    max-width:1060px;
+    padding-left:22px;
+    padding-right:22px;
+  }
+  body:not(.drill-active) .tabpage{
+    width:100%;
+    max-width:100%;
+    margin-inline:auto;
+  }
+  .app-screen{gap:15px}
+  .app-section{padding:19px}
+  .app-section-head{align-items:center}
+  .home-v2,.study-hub-screen,.more-screen{align-items:start}
+  .app-action-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .app-list-row{min-height:72px}
+}
+
+/* Wide desktop: keep reading width controlled instead of stretching isolated cards. */
+@media(min-width:1100px){
+  body:not(.drill-active) .app-screen{
+    margin-inline:auto;
+  }
+  .drill-session-top{
+    width:100%;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.7">
 </head>
@@ -3701,7 +3825,7 @@ body.global-search-open .global-search-sheet{
     <div class="app2-brand">
       <img class="app2-logo" src="./icon.svg" alt="">
       <div class="app2-titlewrap">
-        <span class="app2-kicker">DOKI 漢字 · APP 2.0</span>
+        <span class="app2-kicker">HANJA LAB · APP 2.0</span>
         <strong class="app2-title" id="app2Title">홈</strong>
       </div>
     </div>
@@ -4607,7 +4731,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.20.7-20260929";
+const APP_BUILD="2.20.8-20260930";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -4657,7 +4781,7 @@ function syncAppChrome(id=mode){
   const title=$("#app2Title");
   if(title)title.textContent=meta.title;
   const kicker=document.querySelector(".app2-kicker");
-  if(kicker)kicker.textContent="DOKI 漢字 · "+meta.kicker;
+  if(kicker)kicker.textContent="HANJA LAB · "+meta.kicker;
   const dockId=["exam","drill","write","freq","wrong","diagnosis","guide"].includes(id)?"study":
                ["data","report"].includes(id)?"more":id;
   $$("#app2Dock .app2-nav").forEach(b=>b.classList.toggle("active",b.dataset.appTab===dockId));
@@ -4960,7 +5084,7 @@ async function openUpdateCenter(){
     return '<div class="update-log-item"><b>'+esc(x.version||"")+' · '+esc(x.title||"업데이트")+'</b><small>'+items.map(esc).join(" · ")+'</small></div>';
   }).join("") || '<div class="remote-status">업데이트 로그가 없습니다.</div>';
   body.innerHTML=
-    '<div class="update-hero"><b>DOKI 漢字</b><small>'+(native?'Android 앱':'웹앱/PWA')+' 업데이트</small>'+
+    '<div class="update-hero"><b>HANJA LAB</b><small>'+(native?'Android 앱':'웹앱/PWA')+' 업데이트</small>'+
     '<div class="update-version-row"><span>웹 '+esc(APP_BUILD)+'</span><span>앱 '+esc(nativeVer)+'</span></div></div>'+
     '<div class="update-actions"><button class="btn primary" id="forceWebUpdate">웹 최신판 적용</button>'+
     (native?'<button class="btn good" id="apkUpdateBtn">APK 업데이트</button>':'<a class="btn" href="'+esc(info.apkUrl||"#")+'" target="_blank" rel="noopener">APK 받기</a>')+
@@ -5036,7 +5160,7 @@ function initPWA(){
     deferredInstallPrompt=null;
     const btn=$("#installAppBtn");
     if(btn)btn.hidden=true;
-    toast("DOKI 漢字가 설치되었습니다.");
+    toast("HANJA LAB가 설치되었습니다.");
   });
 
   if(!("serviceWorker" in navigator))return;
@@ -6084,7 +6208,7 @@ function renderReport(){
   const sec=$("#report");if(!sec)return;
   const c=getReportConfig(),ready=reportBackendReady();
   sec.innerHTML='<div class="app-screen report-shell">'+
-    '<div class="report-card"><div class="report-intro"><div class="report-intro-icon">!</div><div><b>DOKI 漢字 오류 신고</b><p>재현 방법과 화면을 같이 보내면 수정하기 쉽습니다. 앱 버전·브라우저·현재 화면 정보는 자동으로 함께 전송합니다.</p>'+
+    '<div class="report-card"><div class="report-intro"><div class="report-intro-icon">!</div><div><b>HANJA LAB 오류 신고</b><p>재현 방법과 화면을 같이 보내면 수정하기 쉽습니다. 앱 버전·브라우저·현재 화면 정보는 자동으로 함께 전송합니다.</p>'+
     '<span class="report-private-badge '+(ready?'':'offline')+'">'+(ready?'🔒 신고 내용은 공개되지 않으며 개발자 계정만 조회':'⚠ 보안 수신함 연결 전 · 현재 전송 비활성')+'</span></div></div></div>'+
     '<form class="report-card report-form" id="bugReportForm" onsubmit="submitBugReport(event)">'+
       '<div class="report-grid">'+
@@ -6224,7 +6348,7 @@ function renderPracticeWelcome(){
   const canResume=session.length>0&&current<session.length;
   let h="";
   h+="<div class='app-screen home-v2'>";
-  h+="<section class='home-welcome'><div class='home-welcome-copy'><span class='home-date-label'>DOKI 漢字</span><h2>"+esc(target)+" 학습을 이어가요.</h2><p>자주 쓰는 기능은 홈에서 바로 시작하고, 나머지는 ‘학습’과 ‘도감’에서 찾을 수 있습니다.</p></div><div class='home-level-orb'><span>한자력</span><b>Lv."+p.level+"</b><small>"+esc(p.title)+"</small></div></section>";
+  h+="<section class='home-welcome'><div class='home-welcome-copy'><span class='home-date-label'>HANJA LAB</span><h2>"+esc(target)+" 학습을 이어가요.</h2><p>자주 쓰는 기능은 홈에서 바로 시작하고, 나머지는 ‘학습’과 ‘도감’에서 찾을 수 있습니다.</p></div><div class='home-level-orb'><span>한자력</span><b>Lv."+p.level+"</b><small>"+esc(p.title)+"</small></div></section>";
   if(canResume)h+="<button class='home-resume' onclick='renderQuestion()'><span><b>이어서 풀기</b><small>혼합 연습 "+(current+1)+"/"+session.length+" · 정답 "+sessionScore.ok+"</small></span><strong>계속 →</strong></button>";
   h+="<section class='home-start-section'><div class='home-section-label'><b>바로 시작</b><span>가장 자주 쓰는 기능</span></div><div class='home-primary-grid'>";
   h+="<button class='home-primary-card violet' onclick='startPractice(false)'><span class='home-primary-icon'>練</span><span><b>혼합 연습</b><small>"+esc(target)+" · 현재 설정으로 바로 풀기</small></span></button>";
