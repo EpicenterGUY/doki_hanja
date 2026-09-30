@@ -4439,6 +4439,169 @@ body.global-search-open .global-search-sheet{
   }
 }
 
+
+/* TABLET UI CONSISTENCY AUDIT · 2.24.0 */
+@media(min-width:700px) and (pointer:coarse){
+  body:not(.drill-active) .app{
+    box-sizing:border-box;
+    width:100%!important;
+    max-width:none!important;
+    padding-left:max(16px,env(safe-area-inset-left))!important;
+    padding-right:max(16px,env(safe-area-inset-right))!important;
+  }
+  body:not(.drill-active) .tabpage,
+  body:not(.drill-active) .app-screen{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box;
+  }
+  body:not(.drill-active) .app-screen{
+    align-content:start!important;
+  }
+  .app-section,
+  .card,
+  .hub-title-card,
+  .home-welcome,
+  .home-freq-card,
+  .freq-spotlight{
+    box-sizing:border-box;
+    min-width:0;
+  }
+  .app-section-head{
+    width:100%;
+    min-width:0;
+    gap:10px!important;
+    flex-wrap:wrap;
+  }
+  .app-section-head>div:first-child{
+    flex:1 1 260px;
+    min-width:0;
+  }
+  .app-section-head>.badge,
+  .app-section-head>.btn,
+  .app-section-head>button{
+    flex:0 0 auto;
+  }
+  .app-form-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .segment button{
+    min-height:44px!important;
+    height:auto!important;
+  }
+  .grade-scroller{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .grade-scroller::-webkit-scrollbar{display:none}
+  .grade-scroller .grade-chip{
+    flex:0 0 auto!important;
+    min-height:42px!important;
+  }
+  .actions{
+    display:grid!important;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    align-items:stretch!important;
+  }
+  .actions .btn{
+    width:100%;
+    min-width:0!important;
+  }
+  .table-wrap,
+  .atlas-table-wrap{
+    max-width:100%;
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  /* avoid desktop-width islands on tablets */
+  .exam-screen,
+  .drill-setup-screen,
+  .diag-shell,
+  .guide-screen,
+  .report-screen{
+    width:100%!important;
+    max-width:100%!important;
+    margin-inline:auto!important;
+  }
+  .exam-screen>.app-section,
+  .drill-setup-screen>.app-section{
+    width:100%;
+  }
+  .diag-question,
+  .diag-choice-grid{
+    width:min(100%,860px)!important;
+  }
+
+  /* cards should not inherit accidental tall parent rows */
+  .home-v2>*,
+  .study-hub-screen>*,
+  .more-screen>*{
+    min-height:0;
+  }
+  .home-stats-row>span,
+  .study-status-strip>span,
+  .kpi{
+    height:auto!important;
+  }
+
+  /* tappable rows align consistently */
+  .app-list-row,
+  .reset-row,
+  .study-link,
+  .study-tile{
+    box-sizing:border-box;
+  }
+  .app-list-row{
+    padding-inline:14px!important;
+  }
+}
+
+/* iPad landscape: use width efficiently without turning the layout into desktop sidebars */
+@media(min-width:900px) and (pointer:coarse) and (orientation:landscape){
+  .exam-screen,
+  .drill-setup-screen,
+  .diag-shell{
+    max-width:1180px!important;
+  }
+  .more-screen{
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+    gap:14px!important;
+  }
+  .more-screen>.app-stats-hero{
+    grid-column:1 / span 5!important;
+  }
+  .more-screen>.app-section{
+    grid-column:6 / -1!important;
+  }
+  .study-hub-screen,
+  .home-v2{
+    gap:14px!important;
+  }
+}
+
+/* iPad portrait: form rows and management rows must not squeeze */
+@media(min-width:700px) and (pointer:coarse) and (orientation:portrait){
+  .app-form-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .reset-row{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    align-items:center!important;
+  }
+  .diag-mode-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .choice-grid,
+  .exam-session .choice-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.7">
 </head>
@@ -5354,7 +5517,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.23.0-20260930";
+const APP_BUILD="2.24.0-20260930";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
