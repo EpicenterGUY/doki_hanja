@@ -461,7 +461,7 @@ function jpAtlasGroupedHtml(all){
 function jpHeroHtml(){
   const home=jpState.view==="home";
   return "<section class='jp-hero "+(home?"jp-home-hero":"jp-sub-hero")+"'>"+
-    "<div class='jp-kicker'>DOKI 漢字 · JAPANESE LAB</div><div class='jp-hero-line'><div><h2>"+(home?"日本漢字":(jpState.view==="practice"?"글자 쓰기":jpState.view==="word"?"단어 쓰기":jpState.view==="reading"?"음독·훈독별":"일본 한자 도감"))+"</h2>"+
+    "<div class='jp-kicker'>HANJA LAB · JAPANESE</div><div class='jp-hero-line'><div><h2>"+(home?"日本漢字":(jpState.view==="practice"?"글자 쓰기":jpState.view==="word"?"단어 쓰기":jpState.view==="reading"?"음독·훈독별":"일본 한자 도감"))+"</h2>"+
     "<p>"+(home?"상용·표외 한자를 찾고, 보고, 직접 쓰는 일본 한자 전용 학습 공간입니다.":(jpState.set==="joyo"?"常用漢字 2,136자":"表外漢字 핵심 "+jpHyogai.length.toLocaleString()+"자")+" · "+(jpState.view==="practice"?"손글씨 형태 연습":jpState.view==="word"?"예문 기반 단어쓰기":jpState.view==="reading"?"읽기별 한자 탐색":"읽기·훈음·연관 단어 탐색"))+"</p></div>"+
     (home?"":"<button class='jp-home-back' data-jp-view='home'>⌂ 홈</button>")+"</div>"+
     "<div class='jp-set-seg'><button class='"+(jpState.set==="joyo"?"active":"")+"' data-jp-set='joyo'>常用漢字<small>2,136자</small></button>"+
@@ -606,7 +606,7 @@ function jpReadingHomeHtml(){
     if(!jpState.readingSelected)h+="<div class='jp-mode-note'>읽기를 누르면 바로 그 아래에 해당 한자가 펼쳐집니다. 같은 읽기를 한 번 더 누르면 닫힙니다.</div>";
   }else{
     h+="<div class='jp-reading-remote-box'><div class='jp-search-row'><input id='jpReadingInput' value='"+esc(jpState.readingQuery)+"' placeholder='"+(kind==="on"?"예: コウ / こう":"예: みる / たべる")+"'><button class='btn primary' id='jpReadingLookup'>읽기 검색</button></div>";
-    h+="<div class='jp-mode-note'>표외한자는 공식 상용 음훈표 대상이 아니므로 읽기 검색 결과를 KANJIDIC 기반 KanjiAPI에서 가져와 DOKI 표외 목록과 교차검증합니다.</div>";
+    h+="<div class='jp-mode-note'>표외한자는 공식 상용 음훈표 대상이 아니므로 읽기 검색 결과를 KANJIDIC 기반 KanjiAPI에서 가져와 Hanja Lab 표외 목록과 교차검증합니다.</div>";
     if(jpState.readingRemoteLoading)h+="<div class='jp-empty'>읽기 검색 중…</div>";
     else if(jpState.readingRemoteError)h+="<div class='jp-empty'>"+esc(jpState.readingRemoteError)+"</div>";
     else if(jpState.readingQuery&&jpState.readingRemote.length)h+="<div class='jp-reading-selected'><div class='jp-reading-selected-head'><b>"+esc(jpState.readingQuery)+"</b><span>"+jpState.readingRemote.length+"자</span></div><div class='jp-atlas-grid'>"+jpCardsHtml(jpState.readingRemote,true)+"</div></div>";
@@ -659,7 +659,7 @@ async function renderJapanese(){
   const all=jpCurrentPool();
   let body=jpState.view==="home"?jpHomeHtml():(jpState.view==="atlas"?jpAtlasHomeHtml(all):(jpState.view==="word"?jpWordHomeHtml():(jpState.view==="reading"?jpReadingHomeHtml():jpPracticeHomeHtml(all))));
   el.innerHTML="<div class='jp-screen'>"+jpHeroHtml()+(jpState.view==="home"?"":jpMetricsHtml())+body+
-    "<section class='app-section'><details class='compact-settings'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字는 현행 2,136자 목록과 문부과학성 「音訓の小・中・高等学校段階別割り振り表」의 공식 음훈을 함께 사용합니다. 表外漢字는 표외한자자체표의 기본자를 바탕으로 현행 상용한자와 겹치는 글자를 제외해 구성합니다. 표외한자자체표는 인쇄문자 기준이므로 손글씨 자동채점은 형태 연습용 참고 판정입니다. 단어 쓰기는 DOKI의 예문 학습 데이터로 별도 구성됩니다.</div></details></section></div>";
+    "<section class='app-section'><details class='compact-settings'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字는 현행 2,136자 목록과 문부과학성 「音訓の小・中・高等学校段階別割り振り表」의 공식 음훈을 함께 사용합니다. 表外漢字는 표외한자자체표의 기본자를 바탕으로 현행 상용한자와 겹치는 글자를 제외해 구성합니다. 표외한자자체표는 인쇄문자 기준이므로 손글씨 자동채점은 형태 연습용 참고 판정입니다. 단어 쓰기는 Hanja Lab의 예문 학습 데이터로 별도 구성됩니다.</div></details></section></div>";
   bindJapaneseHome();
 }
 function bindJapaneseHome(){
