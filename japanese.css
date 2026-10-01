@@ -3084,3 +3084,90 @@ html body.drill-active #jp .jp-word-controls{
     align-self:start!important;
   }
 }
+
+
+/* ===== JAPANESE RESPONSIVE CLEANUP · 2.36.0 ===== */
+
+/* Result text should expand naturally instead of showing a tiny inner scrollbar. */
+html body.drill-active #jp .jp-word-feedback{
+  width:100%!important;
+  max-width:1080px!important;
+  min-height:0!important;
+  max-height:none!important;
+  height:auto!important;
+  margin:0 auto!important;
+  padding:5px 8px!important;
+  overflow:visible!important;
+  white-space:normal!important;
+}
+html body.drill-active #jp .jp-word-feedback:empty{
+  display:none!important;
+  padding:0!important;
+}
+html body.drill-active #jp .jp-word-feedback-line,
+html body.drill-active #jp .jp-word-feedback-scores{
+  min-width:0!important;
+  max-width:100%!important;
+  flex-wrap:wrap!important;
+  justify-content:center!important;
+}
+
+/* iPad/tablet compact learning index: still compact, but readable. */
+@media(min-width:700px){
+  html body.drill-active #jp .study-index.compact .study-index-item b{
+    font-size:9px!important;
+    line-height:1!important;
+  }
+  html body.drill-active #jp .study-index.compact .study-index-item span{
+    width:18px!important;min-width:18px!important;height:18px!important;
+    font-size:10px!important;
+  }
+}
+
+/* Long example/meaning text stays centered and wraps before it can collide with the toggle. */
+html body.drill-active #jp .jp-word-prompt-main,
+html body.drill-active #jp .jp-word-example,
+html body.drill-active #jp .jp-word-meaning-panel{
+  min-width:0!important;
+}
+@media(max-width:699px){
+  html body.drill-active #jp .jp-word-question,
+  html body.drill-active #jp .jp-word-question.meaning-open{
+    padding-left:10px!important;
+    padding-right:64px!important;
+  }
+  html body.drill-active #jp .jp-word-prompt-main{
+    max-width:100%!important;
+  }
+  html body.drill-active #jp .jp-word-example{
+    text-align:center!important;
+    word-break:keep-all!important;
+    overflow-wrap:anywhere!important;
+  }
+}
+
+/* Fold cover / very narrow phone: keep navigation and grading buttons legible. */
+@media(max-width:390px){
+  html body.drill-active #jp .jp-word-nav,
+  html body.drill-active #jp .jp-word-controls{
+    gap:4px!important;
+  }
+  html body.drill-active #jp .jp-word-nav .btn{
+    font-size:10px!important;
+    padding-inline:5px!important;
+  }
+  html body.drill-active #jp .jp-word-controls .btn{
+    font-size:10px!important;
+    padding-inline:4px!important;
+  }
+}
+
+/* 601–759px fold/tablet transition: keep a single centered work column. */
+@media(min-width:601px) and (max-width:759px){
+  html body.drill-active #jp .jp-word-session-shell,
+  html body.drill-active #jp .jp-word-stage,
+  html body.drill-active #jp .jp-word-canvas-pane{
+    width:100%!important;
+    max-width:100%!important;
+  }
+}
