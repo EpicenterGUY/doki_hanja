@@ -6468,8 +6468,54 @@ html.is-ipad body.drill-active #drill .drill-question-pane #drillFeedback:empty{
     line-height:1!important;
   }
 }
+
+/* ===== 2.38.0 · MODAL / SHEET UI HARDENING ===== */
+body.practice-sheet-open,
+body.update-sheet-open,
+body.global-search-open,
+body.atlas-detail-open{
+  overflow:hidden!important;
+}
+
+/* Older high-specificity rules forced the global finder to full-screen height.
+   Keep it content-sized while still letting results scroll on small screens/keyboard open. */
+body.global-search-open .global-search-sheet{
+  bottom:auto!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:calc(100dvh - max(66px,calc(env(safe-area-inset-top) + 60px)) - 12px)!important;
+  overflow:hidden!important;
+}
+body.global-search-open .global-search-results{
+  min-height:0!important;
+  max-height:calc(100dvh - 270px)!important;
+  overflow:auto!important;
+  overscroll-behavior:contain!important;
+}
+
+/* Atlas detail behaves like a true modal: no background scroll, safe viewport height. */
+body.atlas-detail-open .atlas-detail-sheet{
+  overscroll-behavior:contain!important;
+  max-height:min(84dvh,820px)!important;
+}
+@media(max-width:600px){
+  body.atlas-detail-open .atlas-detail-sheet{
+    width:100%!important;
+    max-height:calc(100dvh - max(10px,env(safe-area-inset-top)))!important;
+  }
+  .atlas-detail-kpis{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+/* Update log stays responsive even with long release notes. */
+.update-log-item,
+.update-log-item small{
+  min-width:0!important;
+  overflow-wrap:anywhere!important;
+}
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.37.0">
+<link rel="stylesheet" href="./japanese.css?v=2.38.0">
 </head>
 <body>
 <div class="app">
@@ -7383,7 +7429,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.37.0-20261001";
+const APP_BUILD="2.38.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -7410,14 +7456,24 @@ function ensurePracticeSettingsPortal(){
   if(sheet.parentElement!==document.body)document.body.appendChild(sheet);
   return sheet;
 }
+function syncAppBackdrop(){
+  const open=!!(
+    $("#practiceSettingsPanel")?.classList.contains("sheet-open") ||
+    $("#updateSheet")?.classList.contains("open") ||
+    $("#globalSearchSheet")?.classList.contains("open")
+  );
+  $("#app2Backdrop")?.classList.toggle("open",open);
+}
 function closePracticeSheet(){
   const sheet=ensurePracticeSettingsPortal();
   sheet?.classList.remove("sheet-open");
   document.body.classList.remove("practice-sheet-open");
-  $("#app2Backdrop")?.classList.remove("open");
+  syncAppBackdrop();
 }
 function openPracticeSheet(){
   if(mode!=="practice")return;
+  closeGlobalSearch();
+  closeUpdateCenter();
   const sheet=ensurePracticeSettingsPortal();
   if(!sheet)return;
   sheet.hidden=false;
@@ -7426,7 +7482,7 @@ function openPracticeSheet(){
   // cannot leave the fixed sheet in its off-canvas transform state.
   void sheet.offsetHeight;
   sheet.classList.add("sheet-open");
-  $("#app2Backdrop")?.classList.add("open");
+  syncAppBackdrop();
 }
 function syncAppChrome(id=mode){
   const meta=APP_TAB_META[id]||APP_TAB_META.practice;
@@ -7452,7 +7508,8 @@ function androidShellVersion(){
 
 function closeUpdateCenter(){
   $("#updateSheet")?.classList.remove("open");
-  $("#app2Backdrop")?.classList.remove("open");
+  document.body.classList.remove("update-sheet-open");
+  syncAppBackdrop();
 }
 
 const GLOBAL_FEATURES=[
@@ -7574,7 +7631,7 @@ function openGlobalSearch(prefill){
   sheet.hidden=false;
   sheet.setAttribute("aria-hidden","false");
   sheet.classList.add("open");
-  $("#app2Backdrop")?.classList.add("open");
+  syncAppBackdrop();
   input.value=String(prefill||"");
   try{renderGlobalSearchResults(input.value)}
   catch(err){
@@ -7596,9 +7653,7 @@ function closeGlobalSearch(){
   const sheet=$("#globalSearchSheet");
   if(sheet){sheet.classList.remove("open");sheet.setAttribute("aria-hidden","true")}
   document.body.classList.remove("global-search-open");
-  const updateOpen=$("#updateSheet")?.classList.contains("open");
-  const practiceOpen=$("#practiceSettingsPanel")?.classList.contains("sheet-open");
-  if(!updateOpen&&!practiceOpen)$("#app2Backdrop")?.classList.remove("open");
+  syncAppBackdrop();
 }
 
 async function fetchVersionInfo(){
@@ -7721,20 +7776,25 @@ function startApkUpdate(url){
 }
 
 async function openUpdateCenter(){
+  closePracticeSheet();
+  closeGlobalSearch();
   const sheet=$("#updateSheet");
   const body=$("#updateCenterBody");
   if(!sheet||!body)return;
   sheet.classList.add("open");
-  $("#app2Backdrop")?.classList.add("open");
+  document.body.classList.add("update-sheet-open");
+  syncAppBackdrop();
   body.innerHTML='<div class="remote-status">최신 버전 확인 중…</div>';
   const info=await fetchVersionInfo();
   const logs=Array.isArray(info.changelog)?info.changelog:[];
   const native=isAndroidShell();
   const nativeVer=native?androidShellVersion():"브라우저/PWA";
-  const logHtml=logs.map(x=>{
+  const visibleLogs=logs.slice(0,20);
+  const logHtml=(visibleLogs.map(x=>{
     const items=Array.isArray(x.items)?x.items:[];
     return '<div class="update-log-item"><b>'+esc(x.version||"")+' · '+esc(x.title||"업데이트")+'</b><small>'+items.map(esc).join(" · ")+'</small></div>';
-  }).join("") || '<div class="remote-status">업데이트 로그가 없습니다.</div>';
+  }).join("") || '<div class="remote-status">업데이트 로그가 없습니다.</div>')+
+  (logs.length>visibleLogs.length?'<div class="remote-status">최신 20개만 표시 중 · 이전 '+(logs.length-visibleLogs.length)+'개 로그는 생략했습니다.</div>':'');
   body.innerHTML=
     '<div class="update-hero"><b>HANJA LAB</b><small>'+(native?'Android 앱':'웹앱/PWA')+' 업데이트</small>'+
     '<div class="update-version-row"><span>웹 '+esc(APP_BUILD)+'</span><span>앱 '+esc(nativeVer)+'</span></div></div>'+
@@ -7753,6 +7813,16 @@ function bindAppShell(){
   const searchClose=$("#closeGlobalSearch");if(searchClose)searchClose.onclick=closeGlobalSearch;
   const closeUpdateBtn=$("#closeUpdateCenter");if(closeUpdateBtn)closeUpdateBtn.onclick=closeUpdateCenter;
   const backdrop=$("#app2Backdrop");if(backdrop)backdrop.onclick=function(){closePracticeSheet();closeUpdateCenter();closeGlobalSearch()};
+  if(!window.__hanjaLabEscapeBound){
+    window.__hanjaLabEscapeBound=true;
+    document.addEventListener("keydown",function(e){
+      if(e.key!=="Escape")return;
+      if($("#atlasDetailSheet")?.classList.contains("open")){closeAtlasDetail();return}
+      if($("#globalSearchSheet")?.classList.contains("open")){closeGlobalSearch();return}
+      if($("#updateSheet")?.classList.contains("open")){closeUpdateCenter();return}
+      if($("#practiceSettingsPanel")?.classList.contains("sheet-open")){closePracticeSheet()}
+    });
+  }
 
   const dock=$("#app2Dock");
   if(dock){
@@ -12672,6 +12742,7 @@ function ensureAtlasDetailElements(){
 function closeAtlasDetail(){
   $("#atlasDetailBackdrop")?.classList.remove("open");
   $("#atlasDetailSheet")?.classList.remove("open");
+  document.body.classList.remove("atlas-detail-open");
 }
 function atlasPeriodLabel(){
   if(atlasState.period==="all")return "전체 회차";
@@ -12688,6 +12759,7 @@ function openAtlasItemDetail(key){
   const knownIdiomMeaning=row.type==="idiom"?(meaningIndex.get(row.primary)||""):"";
   if(row.type==="hanmun"){
     ui.sh.innerHTML=atlasHanmunDetailHtml(row,tr);
+    document.body.classList.add("atlas-detail-open");
     requestAnimationFrame(function(){ui.bd.classList.add("open");ui.sh.classList.add("open")});
     return;
   }
@@ -12700,6 +12772,7 @@ function openAtlasItemDetail(key){
     '<div class="atlas-detail-section"><h4>어문회 기출 용례</h4><div class="atlas-usage-list">'+(examples.length?examples.map(function(ex){return '<div class="atlas-usage"><div class="atlas-usage-top"><b>제'+ex.round+'회 '+(ex.no?ex.no+'번':'')+'</b><span>'+esc(ex.formatLabel||row.formatLabel||TYPES[row.type]||row.type)+'</span></div><p>'+esc(ex.text)+'</p>'+(ex.answer?'<p><b>정답</b> · '+esc(ex.answer)+'</p>':'')+'</div>'}).join(""):'<div class="atlas-usage"><p>저장된 기출 문맥이 없습니다. 전체 집계를 실행하면 원문에서 용례를 모읍니다.</p></div>')+'</div></div>'+
     dictionaryFallbackMarkup(row.primary)+
     '<div class="atlas-detail-note">빈출 순위는 선택한 기간의 실제 내장 기출 문항을 기준으로 계산합니다. 용례는 한국어문회 기출/지정어를 우선하고, 부족한 항목은 국립국어원 사전 확인 링크를 제공합니다.</div>';
+  document.body.classList.add("atlas-detail-open");
   requestAnimationFrame(function(){
     ui.bd.classList.add("open");ui.sh.classList.add("open");
     hydrateAtlasDictionaryUsage(row.primary);
@@ -13632,6 +13705,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.37.0"></script>
+<script src="./japanese.js?v=2.38.0"></script>
 </body>
 </html>
