@@ -1,9 +1,24 @@
 {
-  "webBuild": "2.31.0-20261001",
+  "webBuild": "2.32.0-20261001",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.32.0",
+      "title": "iPad 전용 UI/필기 좌표 재설계 · 일본 단어 히라가나 힌트 · 성부 수정",
+      "items": [
+        "iPad를 별도 기기 클래스로 감지해 이번 레이아웃·필기 수정이 갤럭시·아이폰 모바일 UI에 적용되지 않도록 분리",
+        "iPad Safari 필기 좌표는 offsetX/Y를 사용하지 않고 현재 canvas의 실제 화면 위치(getBoundingClientRect)와 clientX/Y로 직접 환산하도록 변경",
+        "iPad 한자쓰기·자유쓰기 펜 굵기를 화면 기준 약 7.2px로 조정하고 다른 휴대폰의 기존 굵기는 유지",
+        "일본 단어쓰기는 iPad에서 보이는 canvas 자체가 Pencil 입력을 직접 받도록 바꿔 wrapper와 canvas의 좌표 불일치 제거",
+        "일본 단어 문장 빈칸에 정답 한자의 히라가나 읽기를 직접 넣고 파란색+밑줄로 강조해 어느 부분을 한자로 써야 하는지 표시",
+        "iPad 기록·설정 화면의 좁은 sticky 한자력 사이드바를 제거하고 한자력·숙련도·관리·초기화를 한 열 전체폭으로 정렬",
+        "iPad 도감 성부표를 2~3열 카드형으로 압축해 세로로 과도하게 늘어나던 행과 빈 공간을 줄임",
+        "iPad 세로·가로 한자쓰기의 문제문·훈음·캔버스 중심축과 최대폭을 다시 고정하고 하단 도크에 내용이 가리지 않도록 여백 확보",
+        "假·蝦·鰕를 모두 叚 성부 계열로 묶도록 구조 데이터를 수정하고 假·鰕를 형성자로 바로잡음"
+      ]
+    },
     {
       "version": "2.31.0",
       "title": "폰 색인 높이 · iPad 필기 좌표 · 회전 UI · 전체 찾기 수정",
