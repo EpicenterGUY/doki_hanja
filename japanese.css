@@ -3171,3 +3171,47 @@ html body.drill-active #jp .jp-word-meaning-panel{
     max-width:100%!important;
   }
 }
+
+
+/* ===== PHONE TWO-CHAR BOARD ENLARGEMENT · 2.37.0 =====
+   Two-character words use a 1×2 backing grid on portrait phones. Keep each cell square
+   and use the otherwise-empty lower screen area instead of a shallow 2×1 strip.
+*/
+@media(max-width:699px) and (orientation:portrait){
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-1.jp-word-rows-2{
+    width:100%!important;
+    max-width:100%!important;
+    align-content:start!important;
+    justify-items:center!important;
+    grid-template-rows:auto auto 44px 40px!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-1.jp-word-rows-2 .jp-word-board{
+    width:min(90vw,32dvh,360px)!important;
+    max-width:100%!important;
+    height:auto!important;
+    max-height:none!important;
+    aspect-ratio:1 / 2!important;
+    margin:0 auto!important;
+    justify-self:center!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-1.jp-word-rows-2 .jp-word-board canvas,
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-1.jp-word-rows-2 .jp-word-board-guides,
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-1.jp-word-rows-2 .jp-word-answer{
+    width:100%!important;
+    height:100%!important;
+  }
+}
+
+/* Phone sentence and board keep the same center axis after the taller board change. */
+@media(max-width:699px){
+  html body.drill-active #jp .jp-word-stage{
+    justify-items:center!important;
+  }
+  html body.drill-active #jp .jp-word-question{
+    width:100%!important;
+    margin-inline:auto!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane{
+    margin-inline:auto!important;
+  }
+}
