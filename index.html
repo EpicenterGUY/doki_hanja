@@ -8238,7 +8238,7 @@ function startPractice(random10){
 function latestDiagnosis(){return diagnosisHistory&&diagnosisHistory.length?diagnosisHistory[0]:null}
 function diagnosisModeQuestionCount(){return diagnosisState.mode==="precise"?7:5}
 function diagnosisRetestCount(){return diagnosisState.mode==="precise"?4:3}
-function diagnosisVerificationCount(){return diagnosisState.mode==="precise"?3:2}
+function diagnosisVerificationCount(){return diagnosisState.mode==="precise"?4:3}
 function diagnosisCleanMeaning(text){
   return String(text||"")
     .replace(/[（(][^）)]*[\u3400-\u9fff\uf900-\ufaff][^）)]*[）)]/g," ")
@@ -8376,13 +8376,9 @@ function makeDiagnosisQuestion(grade,seq,stageUsed,opts){
     prompt="이 한자의 한국어문회 훈음은?";
     display=c.hanja;answer=diagnosisMeaningSoundForms(c).canonical;
   }
-  // 급수진단에서 한자를 직접 타이핑하게 하지 않는다.
-  // 한자 찾기(write) 유형은 빠른/정밀/경계검증 모두 객관식으로만 출제한다.
-  const direct=kind!=="write"&&(
-    !!opts.forceDirect||
-    (!!diagnosisState.retest&&seq%2===0)||
-    (diagnosisState.mode==="precise"&&!diagnosisState.retest&&seq%4===3)
-  );
+  // 급수진단은 전 유형 선택형으로만 출제한다.
+  // 모바일 키보드 개입과 직접입력 난이도 편차를 없애고, 유사 발음·유사 훈음 선지로 변별한다.
+  const direct=false;
   const accept=diagnosisAcceptedAnswers(c,kind);
   let choices=[];
   if(!direct){
@@ -8416,8 +8412,8 @@ function buildDiagnosisVerificationQuestions(baseGrade){
   const baseIdx=Math.max(0,gradeIndex(baseGrade));
   const harder=GRADE_ORDER[Math.min(GRADE_ORDER.length-1,baseIdx+1)];
   const per=diagnosisVerificationCount();
-  const base=buildDiagnosisQuestions(baseGrade,per,{forceDirect:true,stageKind:"verify"});
-  const up=harder&&harder!==baseGrade?buildDiagnosisQuestions(harder,per,{forceDirect:true,stageKind:"verify"}):[];
+  const base=buildDiagnosisQuestions(baseGrade,per,{stageKind:"verify"});
+  const up=harder&&harder!==baseGrade?buildDiagnosisQuestions(harder,per,{stageKind:"verify"}):[];
   const out=[];
   for(let i=0;i<Math.max(base.length,up.length);i++){
     if(base[i])out.push(base[i]);
@@ -8448,13 +8444,12 @@ function diagnosisConfidence(rows,answers,verification){
   if(!rows.length&&!answers.length)return "낮음";
   const margins=rows.map(function(r){return Math.abs((r.pct||0)-65)});
   const avg=margins.length?margins.reduce(function(a,b){return a+b},0)/margins.length:0;
-  const direct=answers.filter(function(a){return a.direct}).length;
   const unknown=answers.filter(function(a){return a.unknown}).length;
   let score=0;
   if(rows.length>=3)score++;
   if(rows.length>=4)score++;
   if(avg>=18)score++;
-  if(direct>=4)score++;
+  if(answers.length>=18)score++;
   if(verification)score++;
   if(answers.length&&unknown/answers.length>.25)score--;
   if(answers.length<12)score--;
@@ -8585,7 +8580,7 @@ function finishDiagnosisVerification(){
   diagnosisState.verifiedGrade=verified;
   diagnosisState.verification={
     baseGrade:base,basePct:basePct,harderGrade:harder,harderPct:harderPct,
-    directQuestions:rows.length
+    questions:rows.length
   };
   finishDiagnosis();
 }
@@ -8693,13 +8688,13 @@ function diagnosisResultMarkup(r){
   const tested=(r.tested||[]).slice().sort(function(a,b){return gradeIndex(a.grade)-gradeIndex(b.grade)});
   const v=r.verification||null;
   const verificationHtml=v?`<div class="diag-verify-box">
-    <div><b>경계 직접입력 검증</b><span>${esc(v.baseGrade||"")} ${v.basePct==null?"—":v.basePct+"%"}${v.harderGrade?" · "+esc(v.harderGrade)+" "+(v.harderPct==null?"—":v.harderPct+"%"):""}</span></div>
-    <small>객관식 탐색 뒤 직접입력으로 급수 경계를 한 번 더 확인했습니다.</small>
+    <div><b>경계 선택형 검증</b><span>${esc(v.baseGrade||"")} ${v.basePct==null?"—":v.basePct+"%"}${v.harderGrade?" · "+esc(v.harderGrade)+" "+(v.harderPct==null?"—":v.harderPct+"%"):""}</span></div>
+    <small>유사 발음·유사 훈음 선지를 사용해 급수 경계를 한 번 더 확인했습니다.</small>
   </div>`:"";
   return `<div class="diag-result">
     <div class="diag-kicker">DIAGNOSIS RESULT</div>
     <div class="diag-result-grade">${esc(r.grade)}</div>
-    <div class="diag-result-label">권장 학습 급수 · 적응형 탐색 + 경계 직접입력 검증</div>
+    <div class="diag-result-label">권장 학습 급수 · 적응형 탐색 + 경계 선택형 검증</div>
     <span class="diag-confidence">신뢰도 ${esc(r.confidence)}</span>
     <div class="diag-breakdown">
       ${tested.map(function(x){return `<div class="diag-grade-row"><b>${esc(x.grade)}</b><div class="diag-grade-track"><i style="width:${Math.max(0,Math.min(100,x.pct||0))}%"></i></div><span>${x.pct||0}%</span></div>`}).join("")}
@@ -8747,8 +8742,8 @@ function renderDiagnosis(){
       ?Math.min(100,90+Math.round((completed/Math.max(1,totalStage))*10))
       :Math.min(88,Math.round((diagnosisState.tested.length*22)+(completed/Math.max(1,totalStage))*20));
     const stageTitle=verifying?"경계 정밀검증":(retesting?esc(q.grade)+" 경계 재검사":esc(q.grade)+" 진단 중");
-    const modeLabel=verifying?"직접입력":(diagnosisState.mode==="precise"?"정밀":"빠른");
-    const direct=q.inputMode==="direct"&&q.type!=="write";
+    const modeLabel=verifying?"선택형 검증":(diagnosisState.mode==="precise"?"정밀":"빠른");
+    const direct=false;
     if(q.type==="write"&&q.inputMode==="direct"){
       q.inputMode="choice";
       if(!Array.isArray(q.choices)||q.choices.length<2){
@@ -8766,17 +8761,16 @@ function renderDiagnosis(){
         <div class="diag-range-label">${esc(diagnosisRangeLabel())}</div>
       </div>
       <div class="diag-question ${direct?"direct":""}">
-        <div class="diag-qtype">${esc(diagnosisTypeLabel(q.type))}${direct?" · 직접입력":""}</div>
+        <div class="diag-qtype">${esc(diagnosisTypeLabel(q.type))}</div>
         <div class="diag-glyph ${q.type==="write"?"textual":""}">${esc(q.display)}</div>
         <div class="diag-prompt">${esc(q.prompt)}</div>
-        ${direct
-          ?`<div class="diag-direct"><input id="diagnosisDirectInput" type="text" inputmode="text" enterkeyhint="done" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${esc(placeholder)}" value="${inputValue}" ${q.locked?"disabled":""} onkeydown="if(event.key==='Enter'){event.preventDefault();answerDiagnosisDirect()}"><button class="btn primary" ${q.locked?"disabled":""} onclick="answerDiagnosisDirect()">확인</button></div>`
-          :`<div class="diag-choices">${q.choices.map(function(c,i){
-            const cls=q.locked?(norm(c)===norm(q.answer)?"correct":(i===q.chosen?"wrong":"")):"";
-            return `<button class="diag-choice ${cls}" ${q.locked?"disabled":""} onclick="answerDiagnosis(${i})">${esc(c)}</button>`;
-          }).join("")}</div>`}
+        <div class="diag-choices">${q.choices.map(function(c,i){
+          const acceptedNorms=new Set((q.accept&&q.accept.length?q.accept:[q.answer]).map(function(x){return norm(x)}));
+          const cls=q.locked?(acceptedNorms.has(norm(c))?"correct":(i===q.chosen?"wrong":"")):"";
+          return `<button class="diag-choice ${cls}" ${q.locked?"disabled":""} onclick="answerDiagnosis(${i})">${esc(c)}</button>`;
+        }).join("")}</div>
         ${!q.locked?`<button class="btn diag-unknown" onclick="answerDiagnosisUnknown()">모르겠음</button>`:""}
-        <div class="diag-feedback" aria-live="polite">${q.locked?(q.unknown?"모르겠음 · 정답 "+esc(q.answer):(q.correct?"정답 · "+esc(q.answer):"정답은 "+esc(q.answer))):(direct?"직접 입력하면 찍기 영향을 줄여 더 정확하게 판정합니다.":"정답을 선택하거나 ‘모르겠음’을 눌러 주세요.")}</div>
+        <div class="diag-feedback" aria-live="polite">${q.locked?(q.unknown?"모르겠음 · 정답 "+esc(q.answer):(q.correct?"정답 · "+esc(q.answer):"정답은 "+esc(q.answer)):"비슷한 발음·훈음 선지를 비교해서 고르거나 ‘모르겠음’을 눌러 주세요."}</div>
         ${q.locked?`<button class="btn primary diag-next" onclick="advanceDiagnosisQuestion()">다음 문제 →</button>`:""}
       </div>
       <div class="diag-stage"><div class="soft">지금까지 판정: ${diagnosisState.tested.length?diagnosisState.tested.map(function(x){return x.grade+" "+x.pct+"%"}).join(" · "):"탐색 시작"}${verifying?" · 마지막 경계 확인 중":""}</div></div>
@@ -8789,7 +8783,7 @@ function renderDiagnosis(){
     <section class="diag-hero">
       <div class="diag-kicker">ADAPTIVE GRADE CHECK</div>
       <div class="diag-title">내 한자 급수는 어디쯤?</div>
-      <div class="diag-desc">객관식 적응형 탐색으로 범위를 빠르게 좁힙니다. 한자 찾기는 항상 선택형으로만 출제하고, 독음·훈음만 일부 직접입력으로 경계를 다시 확인합니다.</div>
+      <div class="diag-desc">모든 문제를 선택형으로 진행합니다. 비슷한 발음·훈음 선지를 섞어 찍기보다 정확히 구별하도록 하고, 마지막에 인접 급수 경계를 한 번 더 검증합니다.</div>
       <div class="diag-mode-grid">
         <button class="diag-mode ${diagnosisState.mode==="quick"?"active":""}" onclick="diagnosisState.mode='quick';renderDiagnosis()"><b>빠른 진단</b><small>약 18~30문항 · 한자 입력 없음</small></button>
         <button class="diag-mode ${diagnosisState.mode==="precise"?"active":""}" onclick="diagnosisState.mode='precise';renderDiagnosis()"><b>정밀 진단</b><small>약 24~40문항 · 한자 입력 없이 정밀검증</small></button>
@@ -8800,11 +8794,11 @@ function renderDiagnosis(){
       </div>
     </section>
     <section class="app-section">
-      <div class="app-section-head"><div><div class="app-section-title">진단 방식</div><div class="app-section-sub">찍기 영향을 줄이고 급수 경계를 직접입력으로 한 번 더 확인합니다.</div></div></div>
+      <div class="app-section-head"><div><div class="app-section-title">진단 방식</div><div class="app-section-sub">입력형 없이 유사 선지와 ‘모르겠음’ 응답으로 급수 경계를 확인합니다.</div></div></div>
       <div class="app-metrics">
         <div class="app-metric"><b>15단계</b><span>8급~특급 적응형</span></div>
         <div class="app-metric"><b>3종</b><span>훈음·독음·한자</span></div>
-        <div class="app-metric"><b>선택+한글입력</b><span>한자 직접입력 없음</span></div>
+        <div class="app-metric"><b>전부 선택형</b><span>키보드 입력 없음</span></div>
         <div class="app-metric"><b>모르겠음</b><span>찍기 영향 감소</span></div>
       </div>
     </section>
