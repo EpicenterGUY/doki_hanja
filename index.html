@@ -5652,6 +5652,465 @@ html.is-ipad #drillCanvas{
   }
 }
 
+
+/* ===== FINAL DEVICE MATRIX · 2.33.0 =====
+   Final authority for phone / tablet / desktop layout.
+   Legacy blocks above remain for compatibility, but these rules win.
+*/
+*,*::before,*::after{box-sizing:border-box}
+.app-screen,.app-screen>*,
+.tabpage,.card,.app-section,
+.home-v2,.study-hub-screen,.more-screen,
+.exam-session,.practice-session,.diag-shell,
+#atlas .atlas-shell,#atlas #atlasResults{
+  min-width:0!important;
+}
+img,canvas,svg{max-width:100%}
+
+/* shared readable page widths */
+body:not(.drill-active) .tabpage{
+  margin-inline:auto!important;
+}
+body:not(.drill-active) .app-screen{
+  width:100%!important;
+  max-width:100%!important;
+  margin-inline:auto!important;
+}
+.app-section,.card,.power-card{
+  max-width:100%!important;
+}
+.app-list-text,.app-list-main,.reset-row>span{
+  min-width:0!important;
+}
+.app-list-text b,.app-list-text small,
+.app-section-title,.app-section-sub,
+.reset-row b,.reset-row small{
+  overflow-wrap:anywhere;
+}
+
+/* Hanja active session: one stable structure on every device. */
+body.drill-active #drill .drill-session-shell{
+  width:100%!important;
+  max-width:1180px!important;
+  height:100%!important;
+  min-height:0!important;
+  margin-inline:auto!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto 38px minmax(0,1fr)!important;
+  gap:6px!important;
+  overflow:hidden!important;
+}
+body.drill-active #drill .drill-stage{
+  min-width:0!important;
+  min-height:0!important;
+  width:100%!important;
+  height:100%!important;
+  overflow:hidden!important;
+}
+body.drill-active #drill .drill-stage.write-stage{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
+  gap:6px!important;
+}
+body.drill-active #drill .drill-question-pane{
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:none!important;
+  margin:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+  overflow:hidden!important;
+}
+body.drill-active #drill .drill-question-pane .meta{
+  justify-content:center!important;
+}
+body.drill-active #drill .drill-question-pane .prompt,
+body.drill-active #drill .drill-question-pane .drill-clue,
+body.drill-active #drill .drill-question-pane .drill-tip,
+body.drill-active #drill .drill-question-pane .drill-official{
+  width:100%!important;
+  max-width:980px!important;
+  margin-inline:auto!important;
+  text-align:center!important;
+}
+body.drill-active #drill .drill-canvas-pane{
+  width:min(100%,860px)!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:100%!important;
+  margin-inline:auto!important;
+  padding:6px!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:minmax(0,1fr) 48px 44px!important;
+  gap:5px!important;
+  overflow:hidden!important;
+}
+body.drill-active #drill .drill-canvas-wrap{
+  position:relative!important;
+  width:auto!important;
+  height:100%!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  aspect-ratio:1/1!important;
+  margin:auto!important;
+  justify-self:center!important;
+  align-self:center!important;
+}
+body.drill-active #drill .drill-canvas-wrap canvas{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  margin:0!important;
+  transform:none!important;
+}
+body.drill-active #drill .drill-bottom-nav,
+body.drill-active #drill .drill-write-controls{
+  width:100%!important;
+  min-width:0!important;
+  display:grid!important;
+  gap:6px!important;
+}
+body.drill-active #drill .drill-bottom-nav{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+body.drill-active #drill .drill-write-controls{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+}
+body.drill-active #drill .drill-bottom-nav .btn{
+  height:48px!important;min-height:48px!important;min-width:0!important
+}
+body.drill-active #drill .drill-write-controls .btn{
+  height:44px!important;min-height:44px!important;min-width:0!important
+}
+
+/* PHONE — Galaxy / iPhone / compact cover displays */
+@media(max-width:699px){
+  :root{--hl-phone-pad:8px}
+  body:not(.drill-active) .app{
+    width:100%!important;
+    max-width:none!important;
+    padding-left:var(--hl-phone-pad)!important;
+    padding-right:var(--hl-phone-pad)!important;
+    padding-bottom:calc(var(--dock-h) + 22px + env(safe-area-inset-bottom))!important;
+  }
+  body:not(.drill-active) .tabpage{width:100%!important;max-width:100%!important}
+  .app-screen{gap:9px!important}
+  .app-section{padding:12px!important}
+  .home-v2,.study-hub-screen,.more-screen{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:9px!important;
+  }
+  .home-v2>*,
+  .study-hub-screen>*,
+  .more-screen>*{
+    grid-column:1!important;
+    grid-row:auto!important;
+    position:static!important;
+    width:100%!important;
+    max-width:100%!important;
+  }
+  .home-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .app-action-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .power-mini-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .more-screen>.power-card,
+  .more-screen>.app-stats-hero{position:static!important;top:auto!important}
+  .reset-row{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    gap:8px!important;
+    align-items:center!important;
+  }
+  #atlas .atlas-shell{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:9px!important;
+  }
+  #atlas .atlas-toolbar{
+    position:static!important;
+    width:100%!important;
+  }
+  .global-search-sheet{
+    left:50%!important;
+    right:auto!important;
+    width:calc(100% - 10px)!important;
+    max-width:none!important;
+    transform:translate(-50%,0)!important;
+  }
+
+  body.drill-active #drill .drill-session-shell{
+    grid-template-rows:auto 38px minmax(0,1fr)!important;
+    gap:5px!important;
+  }
+  body.drill-active #drill .drill-stage.write-stage{
+    grid-template-rows:94px minmax(0,1fr)!important;
+    gap:5px!important;
+  }
+  body.drill-active #drill .drill-question-pane{
+    height:94px!important;
+    min-height:94px!important;
+    max-height:94px!important;
+    padding:7px 10px!important;
+    gap:3px!important;
+  }
+  body.drill-active #drill .drill-question-pane .meta,
+  body.drill-active #drill .drill-question-pane .drill-official,
+  body.drill-active #drill .drill-question-pane .drill-tip{
+    display:none!important;
+  }
+  body.drill-active #drill .drill-question-pane .prompt{
+    font-size:14px!important;
+    line-height:1.18!important;
+  }
+  body.drill-active #drill .drill-question-pane .drill-clue{
+    font-size:34px!important;
+    line-height:1!important;
+  }
+  body.drill-active #drill .drill-canvas-pane{
+    width:100%!important;
+    padding:5px!important;
+    grid-template-rows:minmax(0,1fr) 44px 42px!important;
+    gap:4px!important;
+  }
+  body.drill-active #drill .drill-bottom-nav .btn{height:44px!important;min-height:44px!important}
+  body.drill-active #drill .drill-write-controls .btn{
+    height:42px!important;min-height:42px!important;font-size:11px!important;padding:4px 3px!important
+  }
+}
+
+/* TABLET / unfolded fold / iPad / Android tablet */
+@media(min-width:700px) and (pointer:coarse){
+  body:not(.drill-active) .app{
+    width:100%!important;
+    max-width:1220px!important;
+    padding-left:16px!important;
+    padding-right:16px!important;
+    padding-bottom:calc(var(--dock-h) + 36px + env(safe-area-inset-bottom))!important;
+  }
+  body:not(.drill-active) .tabpage{
+    width:100%!important;
+    max-width:1160px!important;
+  }
+  .app-screen{gap:13px!important}
+  .app-section{padding:17px!important}
+
+  /* settings/records stay one readable column on touch tablets */
+  .more-screen{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-auto-flow:row!important;
+    gap:13px!important;
+  }
+  .more-screen>.power-card,
+  .more-screen>.app-stats-hero,
+  .more-screen>.app-section{
+    grid-column:1!important;
+    grid-row:auto!important;
+    position:static!important;
+    top:auto!important;
+    width:100%!important;
+    max-width:100%!important;
+  }
+  .more-screen .power-mini-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  }
+  .reset-row{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) auto!important;
+    align-items:center!important;
+    gap:12px!important;
+  }
+
+  body.drill-active #drill .drill-canvas-pane{
+    width:min(100%,820px)!important;
+  }
+}
+
+/* tablet portrait */
+@media(min-width:700px) and (pointer:coarse) and (orientation:portrait){
+  .home-v2,.study-hub-screen{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .home-v2>*,
+  .study-hub-screen>*{
+    grid-column:1!important;
+    grid-row:auto!important;
+  }
+  #atlas .atlas-shell{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:12px!important;
+  }
+  #atlas .atlas-toolbar{
+    position:static!important;
+  }
+  body.drill-active #drill .drill-stage.write-stage{
+    grid-template-rows:126px minmax(0,1fr)!important;
+    gap:7px!important;
+  }
+  body.drill-active #drill .drill-question-pane{
+    height:126px!important;
+    min-height:126px!important;
+    max-height:126px!important;
+    padding:10px 14px!important;
+    gap:4px!important;
+  }
+  body.drill-active #drill .drill-question-pane .prompt{
+    font-size:17px!important;
+    line-height:1.22!important;
+  }
+  body.drill-active #drill .drill-question-pane .drill-clue{
+    font-size:44px!important;
+    line-height:1!important;
+  }
+}
+
+/* tablet landscape */
+@media(min-width:700px) and (pointer:coarse) and (orientation:landscape){
+  .home-v2{
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  }
+  .home-v2 .home-welcome,
+  .home-v2 .home-start-section{grid-column:1 / span 8!important}
+  .home-v2 .home-resume,
+  .home-v2 .home-freq-card{grid-column:9 / -1!important}
+  .home-v2 .home-shortcuts,
+  .home-v2 .home-stats-row{grid-column:1 / -1!important}
+
+  #atlas .atlas-shell{
+    display:grid!important;
+    grid-template-columns:260px minmax(0,1fr)!important;
+    gap:13px!important;
+  }
+  #atlas .atlas-toolbar{
+    position:sticky!important;
+    top:calc(var(--appbar-h) + 10px)!important;
+    align-self:start!important;
+  }
+
+  body.drill-active #drill .drill-stage.write-stage{
+    grid-template-rows:78px minmax(0,1fr)!important;
+    gap:6px!important;
+  }
+  body.drill-active #drill .drill-question-pane{
+    height:78px!important;
+    min-height:78px!important;
+    max-height:78px!important;
+    padding:6px 14px!important;
+    gap:2px!important;
+  }
+  body.drill-active #drill .drill-question-pane .meta,
+  body.drill-active #drill .drill-question-pane .drill-official,
+  body.drill-active #drill .drill-question-pane .drill-tip,
+  body.drill-active #drill .drill-question-pane #drillFeedback{
+    display:none!important;
+  }
+  body.drill-active #drill .drill-question-pane .prompt{
+    font-size:15px!important;
+    line-height:1.15!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  body.drill-active #drill .drill-question-pane .drill-clue{
+    font-size:36px!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+}
+
+/* desktop / laptop */
+@media(min-width:900px) and (pointer:fine){
+  body:not(.drill-active) .tabpage{
+    width:min(100%,1440px)!important;
+    max-width:1440px!important;
+    margin-inline:auto!important;
+  }
+  .app-screen{gap:16px!important}
+  .more-screen{
+    display:grid!important;
+    grid-template-columns:minmax(280px,360px) minmax(0,1fr)!important;
+    gap:16px!important;
+    align-items:start!important;
+  }
+  .more-screen>.power-card,
+  .more-screen>.app-stats-hero{
+    grid-column:1!important;
+    grid-row:1 / span 3!important;
+    position:sticky!important;
+    top:96px!important;
+  }
+  .more-screen>.app-section{
+    grid-column:2!important;
+    grid-row:auto!important;
+  }
+  #atlas .atlas-shell{
+    grid-template-columns:300px minmax(0,1fr)!important;
+    gap:16px!important;
+  }
+  #atlas .atlas-toolbar{
+    position:sticky!important;
+    top:96px!important;
+    align-self:start!important;
+  }
+
+  body.drill-active #drill .drill-session-shell{
+    max-width:1240px!important;
+  }
+  body.drill-active #drill .drill-stage.write-stage{
+    grid-template-rows:86px minmax(0,1fr)!important;
+  }
+  body.drill-active #drill .drill-question-pane{
+    height:86px!important;
+    min-height:86px!important;
+    max-height:86px!important;
+  }
+  body.drill-active #drill .drill-canvas-pane{
+    width:min(100%,900px)!important;
+  }
+}
+
+/* short landscape phones/tablets should never hide the bottom controls */
+@media(max-height:520px) and (orientation:landscape){
+  body.drill-active #drill .drill-session-shell{
+    grid-template-rows:40px 34px minmax(0,1fr)!important;
+    gap:4px!important;
+  }
+  body.drill-active #drill .study-index.compact{
+    height:34px!important;min-height:34px!important;max-height:34px!important;
+  }
+  body.drill-active #drill .drill-stage.write-stage{
+    grid-template-columns:220px minmax(0,1fr)!important;
+    grid-template-rows:minmax(0,1fr)!important;
+  }
+  body.drill-active #drill .drill-question-pane{
+    width:220px!important;
+    height:100%!important;
+    min-height:0!important;
+    max-height:none!important;
+  }
+  body.drill-active #drill .drill-canvas-pane{
+    height:100%!important;
+    grid-template-rows:minmax(0,1fr) 38px 36px!important;
+  }
+  body.drill-active #drill .drill-bottom-nav .btn{height:38px!important;min-height:38px!important}
+  body.drill-active #drill .drill-write-controls .btn{height:36px!important;min-height:36px!important}
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.7">
 </head>
@@ -6567,7 +7026,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.32.0-20261001";
+const APP_BUILD="2.33.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
