@@ -5418,6 +5418,240 @@ body.drill-active .study-index.compact .study-index-item b,
   }
 }
 
+
+/* IPAD-ONLY UI RESET · 2.32.0
+   Scoped by JS-added html.is-ipad so Galaxy/iPhone layouts are not changed. */
+html.is-ipad body:not(.drill-active) .app{
+  max-width:none!important;
+  width:100%!important;
+  padding-left:18px!important;
+  padding-right:18px!important;
+  padding-bottom:calc(var(--dock-h) + 44px + env(safe-area-inset-bottom))!important;
+}
+html.is-ipad body:not(.drill-active) .tabpage,
+html.is-ipad body:not(.drill-active) .app-screen{
+  width:100%!important;
+  max-width:100%!important;
+  margin-inline:auto!important;
+}
+
+/* Records/settings: remove the broken sticky narrow sidebar on iPad. */
+html.is-ipad .more-screen{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-auto-flow:row!important;
+  gap:14px!important;
+}
+html.is-ipad .more-screen>.power-card,
+html.is-ipad .more-screen>.app-stats-hero,
+html.is-ipad .more-screen>.app-section{
+  grid-column:1!important;
+  grid-row:auto!important;
+  position:static!important;
+  top:auto!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+}
+html.is-ipad .more-screen>.power-card{
+  padding:18px!important;
+}
+html.is-ipad .more-screen .power-mini-grid{
+  grid-template-columns:repeat(4,minmax(0,1fr))!important;
+}
+html.is-ipad .more-screen .app-section{
+  padding:18px!important;
+}
+html.is-ipad .reset-row{
+  min-width:0!important;
+}
+
+/* Atlas phonetic table: tablet-readable cards instead of ultra-tall sparse rows. */
+html.is-ipad #atlas .atlas-pdf-group{
+  display:block!important;
+  width:100%!important;
+}
+html.is-ipad #atlas .atlas-pdf-columns{
+  display:none!important;
+}
+html.is-ipad #atlas .atlas-pdf-base{
+  border-right:0!important;
+  border-bottom:1px solid rgba(132,161,210,.13)!important;
+  display:grid!important;
+  grid-template-columns:auto minmax(0,1fr)!important;
+  column-gap:12px!important;
+  align-items:center!important;
+  padding:10px 12px!important;
+}
+html.is-ipad #atlas .atlas-pdf-base button{
+  display:grid!important;
+  grid-template-columns:auto minmax(0,1fr)!important;
+  column-gap:12px!important;
+  align-items:center!important;
+}
+html.is-ipad #atlas .atlas-pdf-base strong{
+  grid-row:1 / span 2!important;
+  font-size:44px!important;
+}
+html.is-ipad #atlas .atlas-pdf-row{
+  display:grid!important;
+  grid-template-columns:76px minmax(0,1fr) minmax(0,.9fr)!important;
+  grid-template-areas:
+    "char kr jp"
+    "char ex note"!important;
+  padding:8px!important;
+  min-height:0!important;
+}
+html.is-ipad #atlas .atlas-pdf-char{grid-area:char!important}
+html.is-ipad #atlas .atlas-pdf-kr{grid-area:kr!important}
+html.is-ipad #atlas .atlas-pdf-example{grid-area:ex!important}
+html.is-ipad #atlas .atlas-pdf-jp{grid-area:jp!important}
+html.is-ipad #atlas .atlas-pdf-note-cell{grid-area:note!important}
+html.is-ipad #atlas .atlas-pdf-row>div{
+  padding:7px 8px!important;
+  border-right:0!important;
+  min-height:0!important;
+}
+html.is-ipad #atlas .atlas-pdf-char{
+  border-right:1px solid rgba(132,161,210,.1)!important;
+  align-items:center!important;
+}
+html.is-ipad #atlas .atlas-pdf-row>div:not(.atlas-pdf-char)::before{
+  content:attr(data-label)!important;
+  display:block!important;
+  margin-bottom:3px!important;
+  color:#607a9e!important;
+  font-size:6px!important;
+  font-weight:900!important;
+}
+html.is-ipad #atlas .atlas-pdf-example,
+html.is-ipad #atlas .atlas-pdf-note-cell{
+  border-top:1px dashed rgba(132,161,210,.08)!important;
+}
+
+/* Active Hanja writing: one stable centered geometry in both orientations. */
+html.is-ipad body.drill-active .drill-session-shell{
+  width:min(100%,1180px)!important;
+  max-width:1180px!important;
+  margin-inline:auto!important;
+  grid-template-rows:auto 38px minmax(0,1fr)!important;
+}
+html.is-ipad .drill-stage.write-stage{
+  grid-template-columns:minmax(0,1fr)!important;
+  justify-items:center!important;
+}
+html.is-ipad .drill-question-pane{
+  width:100%!important;
+  text-align:center!important;
+  align-items:center!important;
+  justify-items:center!important;
+}
+html.is-ipad .drill-question-pane .prompt,
+html.is-ipad .drill-question-pane .drill-clue,
+html.is-ipad .drill-question-pane .drill-tip{
+  width:100%!important;
+  margin-inline:auto!important;
+  text-align:center!important;
+}
+html.is-ipad .drill-canvas-pane{
+  width:min(100%,820px)!important;
+  margin-inline:auto!important;
+}
+html.is-ipad .drill-canvas-wrap{
+  width:min(100%,700px)!important;
+  height:auto!important;
+  aspect-ratio:1/1!important;
+  margin-inline:auto!important;
+}
+html.is-ipad #drillCanvas{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  transform:none!important;
+  inset:auto!important;
+}
+
+/* Portrait iPad: keep text and canvas compact enough that controls remain visible. */
+@media(orientation:portrait){
+  html.is-ipad .drill-stage.write-stage{
+    grid-template-rows:auto auto!important;
+    align-content:start!important;
+    gap:8px!important;
+  }
+  html.is-ipad .drill-question-pane{
+    min-height:120px!important;
+    max-height:156px!important;
+    padding:10px 14px!important;
+  }
+  html.is-ipad .drill-canvas-pane{
+    height:auto!important;
+    align-self:start!important;
+  }
+  html.is-ipad .drill-canvas-wrap{
+    width:min(100%,680px)!important;
+  }
+  html.is-ipad #atlas .atlas-pdf-row{
+    grid-template-columns:68px minmax(0,1fr)!important;
+    grid-template-areas:
+      "char kr"
+      "char jp"
+      "char ex"
+      "char note"!important;
+  }
+  html.is-ipad .more-screen .power-mini-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+}
+
+/* Landscape iPad: question stays centered, canvas gets remaining height. */
+@media(orientation:landscape){
+  html.is-ipad .drill-stage.write-stage{
+    grid-template-rows:78px minmax(0,1fr)!important;
+    gap:6px!important;
+  }
+  html.is-ipad .drill-question-pane{
+    height:78px!important;
+    min-height:78px!important;
+    max-height:78px!important;
+    padding:6px 14px!important;
+    display:grid!important;
+    place-items:center!important;
+    align-content:center!important;
+  }
+  html.is-ipad .drill-question-pane .meta,
+  html.is-ipad .drill-question-pane .drill-official,
+  html.is-ipad .drill-question-pane .drill-tip,
+  html.is-ipad .drill-question-pane #drillFeedback{
+    display:none!important;
+  }
+  html.is-ipad .drill-question-pane .prompt{
+    font-size:15px!important;
+    line-height:1.15!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  html.is-ipad .drill-question-pane .drill-clue{
+    font-size:36px!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  html.is-ipad .drill-canvas-pane{
+    height:100%!important;
+    min-height:0!important;
+  }
+  html.is-ipad .drill-canvas-wrap{
+    width:auto!important;
+    height:100%!important;
+    max-width:700px!important;
+    max-height:100%!important;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.7">
 </head>
@@ -6333,7 +6567,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.31.0-20261001";
+const APP_BUILD="2.32.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -6791,6 +7025,10 @@ function initPWA(){
 }
 
 function init(){
+  const ua=String(navigator.userAgent||"");
+  const isIPad=/iPad/i.test(ua)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+  document.documentElement.classList.toggle("is-ipad",!!isIPad);
+  document.documentElement.classList.toggle("is-desktop",!isIPad&&matchMedia("(pointer:fine)").matches&&innerWidth>=900);
   applyHanjaFontMode(hanjaFontMode);
   syncDrillViewport();
   if(!window.__dokiDrillProgressBound){
@@ -10575,7 +10813,13 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
     const src=source(e);
     const rw=Math.max(1,r.width),rh=Math.max(1,r.height);
     let cssX,cssY;
-    if(e===src && e.target===surface && Number.isFinite(e.offsetX) && Number.isFinite(e.offsetY)){
+    const ipad=document.documentElement.classList.contains("is-ipad");
+    if(ipad){
+      // iPadOS Safari: offsetX/Y can become stale after rotation or pointer capture.
+      // clientX/Y and getBoundingClientRect() share the same viewport coordinate space.
+      cssX=src.clientX-r.left;
+      cssY=src.clientY-r.top;
+    }else if(e===src && e.target===surface && Number.isFinite(e.offsetX) && Number.isFinite(e.offsetY)){
       cssX=e.offsetX;cssY=e.offsetY;
     }else{
       cssX=src.clientX-r.left;cssY=src.clientY-r.top;
@@ -10660,6 +10904,7 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
 function setupAnyCanvas(sel){
   const c=$(sel),ctx=c.getContext("2d");
   clearAnyCanvas(sel);c._strokeCount=0;
+  if(document.documentElement.classList.contains("is-ipad"))c._brushCssPx=7.2;
   bindCanvasDrawing(c,ctx,()=>{c._strokeCount=(c._strokeCount||0)+1});
 }
 function clearAnyCanvas(sel){
@@ -10724,6 +10969,7 @@ function recordWrite(c,ok){
 function setupCanvas(){
   const c=$("#writeCanvas"),ctx=c.getContext("2d");
   clearCanvas();c._strokeCount=0;
+  if(document.documentElement.classList.contains("is-ipad"))c._brushCssPx=7.2;
   bindCanvasDrawing(c,ctx,()=>{c._strokeCount=(c._strokeCount||0)+1});
 }
 function clearCanvas(){
@@ -11923,8 +12169,15 @@ function atlasAllSounds(c){
 function atlasPhoneticGuideFor(ch){
   return HANJA_PHONETIC_GUIDE.filter(function(g){return g.base===ch||g.members.includes(ch)});
 }
+const ATLAS_STRUCTURE_OVERRIDES={
+  "假":{p:"叚",s:"人",f:"형성",q:"확정",src:"manual",d:"⿰亻叚",chain:["叚"]},
+  "鰕":{p:"叚",s:"魚",f:"형성",q:"확정",src:"manual",d:"⿰魚叚",chain:["叚"]}
+};
 function atlasStructureRecord(ch){
-  return hanjaStructure&&hanjaStructure.records?hanjaStructure.records[ch]||null:null;
+  const base=hanjaStructure&&hanjaStructure.records?hanjaStructure.records[ch]||null:null;
+  const over=ATLAS_STRUCTURE_OVERRIDES[ch];
+  if(!over)return base;
+  return Object.assign({},base||{},over);
 }
 function atlasPdfUsageExamples(c){
   const out=[];
