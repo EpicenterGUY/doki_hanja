@@ -245,8 +245,8 @@ def main():
         e=mmh.get(ch) or mmh.get(base) or {}
         et=(e.get("etymology") or {})
         decomp=e.get("decomposition") or ids.get(ch) or ids.get(base) or ""
-        semantic=et.get("semantic") or x.get("radical") or ""
-        phon=et.get("phonetic") or ""
+        semantic=str(et.get("semantic") or x.get("radical") or "").strip()
+        phon=str(et.get("phonetic") or "").strip()
         source="mmh" if phon else ""
         confidence="확정" if phon else ""
         parts=ids_parts(decomp)
