@@ -7068,7 +7068,8 @@ const HANJA_PHONETIC_GUIDE=[
   {base:"古",members:"古固辜枯姑故苦胡祜痼錮",hint:"고·호 계열"},
   {base:"工",members:"工空鞏恐貢攻功江缸肛訌虹項紅",hint:"공·강·항·홍 계열"},
   {base:"共",members:"共拱供恭哄巷洪港",hint:"공·홍·항 계열"},
-  {base:"果",members:"果顆菓課裸過渦蝸禍",hint:"과·라·와·화 계열"},
+  {base:"果",members:"果顆菓課裸",hint:"과·라 계열"},
+  {base:"咼",members:"咼過渦蝸禍",hint:"과·와·화 계열"},
   {base:"官",members:"官棺琯館管",hint:"관 계열"},
   {base:"舌",members:"舌括刮活話闊",hint:"설·괄·활·화 계열"},
   {base:"交",members:"交咬皎蛟狡絞郊較校效",hint:"교·효 계열"},
@@ -7096,8 +7097,10 @@ const HANJA_PHONETIC_GUIDE=[
   {base:"召",members:"召紹沼昭詔貂超招照",hint:"소·조·초 계열"},
   {base:"叔",members:"叔戚督菽淑寂",hint:"숙·척·독·적 계열"},
   {base:"蜀",members:"蜀獨屬燭觸濁囑",hint:"촉·독·속·탁 계열"},
-  {base:"同",members:"同胴桐銅洞筒桶",hint:"동·통 계열"},
-  {base:"平",members:"平秤萍坪評稱",hint:"평·칭 계열"},
+  {base:"同",members:"同胴桐銅洞筒",hint:"동·통 계열"},
+  {base:"甬",members:"甬桶痛通踊勇湧",hint:"용·통 계열"},
+  {base:"平",members:"平秤萍坪評",hint:"평 계열"},
+  {base:"爯",members:"爯稱",hint:"칭 계열"},
   {base:"包",members:"包疱庖袍泡咆鮑抱飽胞砲",hint:"포 계열"},
   {base:"兄",members:"兄況",hint:"형·황 계열"},
   {base:"奐",members:"奐喚煥換",hint:"환 계열"},
@@ -8447,16 +8450,14 @@ function diagnosisTypeStats(answers){
   const m=new Map();
   for(const a of answers||[]){
     const t=a.type||"meaningSound";
-    const x=m.get(t)||{type:t,ok:0,n:0,direct:0,directOk:0,unknown:0};
+    const x=m.get(t)||{type:t,ok:0,n:0,unknown:0};
     x.n++;if(a.correct)x.ok++;
-    if(a.direct){x.direct++;if(a.correct)x.directOk++}
     if(a.unknown)x.unknown++;
     m.set(t,x);
   }
   return [...m.values()].map(function(x){
     return {
       type:x.type,pct:x.n?Math.round(x.ok/x.n*100):0,n:x.n,
-      direct:x.direct,directPct:x.direct?Math.round(x.directOk/x.direct*100):null,
       unknown:x.unknown
     };
   });
@@ -8560,7 +8561,7 @@ function recordDiagnosisAnswer(q,chosen,ok,meta){
   const responseMs=q.shownAt?Math.max(0,Math.round(performance.now()-q.shownAt)):null;
   diagnosisState.answers.push({
     grade:q.grade,type:q.type,hanja:q.hanja,correct:!!ok,answer:q.answer,chosen:chosen,
-    direct:q.inputMode==="direct",unknown:!!meta.unknown,stageKind:q.stageKind||diagnosisState.stageKind,
+    unknown:!!meta.unknown,stageKind:q.stageKind||diagnosisState.stageKind,
     responseMs:responseMs
   });
   renderDiagnosis();
@@ -8573,18 +8574,10 @@ function answerDiagnosis(choiceIndex){
   const accepted=(q.accept&&q.accept.length?q.accept:[q.answer]).some(function(x){return norm(x)===norm(chosen)});
   recordDiagnosisAnswer(q,chosen,accepted,{choiceIndex:choiceIndex});
 }
-function answerDiagnosisDirect(){
-  if(diagnosisState.phase!=="test")return;
-  const q=diagnosisState.stageQuestions[diagnosisState.stageIndex];if(!q||q.locked||q.inputMode!=="direct")return;
-  const inp=$("#diagnosisDirectInput"),chosen=String(inp&&inp.value||"").trim();
-  if(!chosen){toast("답을 입력하거나 ‘모르겠음’을 눌러 주세요.");return}
-  const accepted=(q.accept&&q.accept.length?q.accept:[q.answer]).some(function(x){return norm(x)===norm(chosen)});
-  recordDiagnosisAnswer(q,chosen,accepted,{direct:true});
-}
 function answerDiagnosisUnknown(){
   if(diagnosisState.phase!=="test")return;
   const q=diagnosisState.stageQuestions[diagnosisState.stageIndex];if(!q||q.locked)return;
-  recordDiagnosisAnswer(q,"모르겠음",false,{unknown:true,direct:q.inputMode==="direct"});
+  recordDiagnosisAnswer(q,"모르겠음",false,{unknown:true});
 }
 function finishDiagnosisVerification(){
   const rows=diagnosisState.answers.filter(function(a){return a.stageKind==="verify"});
@@ -8637,14 +8630,11 @@ function finishDiagnosis(){
   const weak=typeStats.slice(0,3);
   const ok=diagnosisState.answers.filter(function(x){return x.correct}).length;
   const total=diagnosisState.answers.length;
-  const directRows=diagnosisState.answers.filter(function(x){return x.direct});
   const unknownCount=diagnosisState.answers.filter(function(x){return x.unknown}).length;
   const result={
     id:Date.now(),date:new Date().toISOString(),mode:diagnosisState.mode,grade:recommended,
     confidence:diagnosisConfidence(diagnosisState.tested,diagnosisState.answers,diagnosisState.verification),
     accuracy:total?Math.round(ok/total*100):0,total:total,
-    directCount:directRows.length,
-    directAccuracy:directRows.length?Math.round(directRows.filter(function(x){return x.correct}).length/directRows.length*100):null,
     unknownCount:unknownCount,
     tested:diagnosisState.tested.slice(),typeStats:typeStats,weakTypes:weak,
     verification:diagnosisState.verification
@@ -8724,13 +8714,12 @@ function diagnosisResultMarkup(r){
     ${verificationHtml}
     <div class="diag-type-breakdown">
       ${typeStats.length?typeStats.map(function(x){
-        const extra=[x.direct?("직접 "+x.direct+"문제"+(x.directPct==null?"":" · "+x.directPct+"%")):"",x.unknown?("모르겠음 "+x.unknown):""].filter(Boolean).join(" · ");
+        const extra=[x.unknown?("모르겠음 "+x.unknown):""].filter(Boolean).join(" · ");
         return `<div class="diag-type-row"><div><b>${esc(diagnosisTypeLabel(x.type))}</b><small>${x.n||0}문제${extra?" · "+esc(extra):""}</small></div><div class="diag-type-track"><i style="width:${Math.max(0,Math.min(100,x.pct||0))}%"></i></div><strong>${x.pct||0}%</strong></div>`;
       }).join(""):`<div class="soft">유형별 데이터가 없습니다.</div>`}
     </div>
     <div class="official-answer" style="margin-top:12px">
       전체 정답률 <b>${r.accuracy}%</b> · ${r.total}문항
-      ${r.directCount?` · 직접입력 <b>${r.directAccuracy==null?"—":r.directAccuracy+"%"}</b> (${r.directCount}문제)`:""}
       ${r.unknownCount?` · 모르겠음 <b>${r.unknownCount}</b>회`:""}
       ${weak.length?`<br>우선 복습 · ${weak.map(function(x){return esc(diagnosisTypeLabel(x.type))+" "+(x.pct||0)+"%"}).join(" · ")}`:""}
     </div>
@@ -13078,7 +13067,19 @@ const ATLAS_STRUCTURE_OVERRIDES={
   "瑕":{p:"叚",s:"王",f:"형성",q:"확정",src:"manual",d:"⿰王叚",chain:["叚"]},
   "遐":{p:"叚",s:"辶",f:"형성",q:"확정",src:"manual",d:"⿺辶叚",chain:["叚"]},
   "霞":{p:"叚",s:"雨",f:"형성",q:"확정",src:"manual",d:"⿱雨叚",chain:["叚"]},
-  "葭":{p:"叚",s:"艹",f:"형성",q:"확정",src:"manual",d:"⿱艹叚",chain:["叚"]}
+  "葭":{p:"叚",s:"艹",f:"형성",q:"확정",src:"manual",d:"⿱艹叚",chain:["叚"]},
+  "偈":{p:"曷",s:"人",f:"형성",q:"확정",src:"manual",d:"⿰亻曷",chain:["曷"]},
+  "鍼":{p:"咸",s:"金",f:"형성",q:"확정",src:"manual",d:"⿰釒咸",chain:["咸"]},
+  "話":{p:"舌",s:"言",f:"형성",q:"확정",src:"manual",d:"⿰言舌",chain:["舌"]},
+  "揮":{p:"軍",s:"手",f:"형성",q:"확정",src:"manual",d:"⿰扌軍",chain:["軍"]},
+  "禪":{p:"單",s:"示",f:"형성",q:"확정",src:"manual",d:"⿰礻單",chain:["單"]},
+  "團":{p:"專",s:"囗",f:"형성",q:"확정",src:"manual",d:"⿴囗專",chain:["專"]},
+  "待":{p:"寺",s:"彳",f:"형성",q:"확정",src:"manual",d:"⿰彳寺",chain:["寺"]},
+  "緖":{p:"者",s:"糸",f:"형성",q:"확정",src:"manual",d:"⿰糹⿻者丶",chain:["者"]},
+  "渦":{p:"咼",s:"水",f:"형성",q:"확정",src:"manual",d:"⿰氵咼",chain:["咼"]},
+  "濁":{p:"蜀",s:"水",f:"형성",q:"확정",src:"manual",d:"⿰氵蜀",chain:["蜀"]},
+  "秤":{p:"平",s:"禾",f:"형성",q:"확정",src:"manual",d:"⿰禾平",chain:["平"]},
+  "況":{p:"兄",s:"水",f:"형성",q:"확정",src:"manual",d:"⿰氵兄",chain:["兄"]}
 };
 function atlasStructureRecord(ch){
   const base=hanjaStructure&&hanjaStructure.records?hanjaStructure.records[ch]||null:null;
