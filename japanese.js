@@ -856,10 +856,14 @@ function jpClearWordCanvases(){
   const fb=$("#jpWordFeedback");if(fb){fb.className="feedback jp-word-feedback";fb.innerHTML=""}
 }
 function jpSetupUnifiedWordCanvas(spec){
-  const c=$("#jpWordCanvas");if(!c)return;
+  const c=$("#jpWordCanvas"),board=c?.closest(".jp-word-board");if(!c||!board)return;
   c.width=spec.width;c.height=spec.height;c._jpWordSpec=spec;c._strokeCount=0;
   jpClearWordCanvases();
-  bindCanvasDrawing(c,c.getContext("2d"),function(){c._strokeCount=(c._strokeCount||0)+1});
+  // iPad Safari: use the whole visible board as the hit surface.
+  // This keeps Pencil/touch input valid across every character region, including the right half.
+  c.style.pointerEvents="none";
+  board.style.touchAction="none";
+  bindCanvasDrawing(c,c.getContext("2d"),function(){c._strokeCount=(c._strokeCount||0)+1},board);
 }
 function jpWordRegionCanvas(source,index,spec){
   if(!source||!spec)return null;
