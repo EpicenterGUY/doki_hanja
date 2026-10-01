@@ -6111,8 +6111,42 @@ body.drill-active #drill .drill-write-controls .btn{
   body.drill-active #drill .drill-write-controls .btn{height:36px!important;min-height:36px!important}
 }
 
+
+/* ===== 2.34.0 · OFFICIAL BADGE + HANDWRITING LAYOUT HOTFIX ===== */
+body.drill-active #drill .drill-question-pane{position:relative!important}
+body.drill-active #drill .drill-official{
+  display:inline-flex!important;
+  width:max-content!important;
+  max-width:calc(100% - 20px)!important;
+  min-width:0!important;
+  flex:0 0 auto!important;
+  align-self:center!important;
+  justify-self:center!important;
+  justify-content:center!important;
+  margin:0 auto!important;
+  padding:4px 8px!important;
+  border-radius:999px!important;
+  line-height:1.1!important;
+  white-space:nowrap!important;
+}
+@media(min-width:700px) and (orientation:landscape){
+  body.drill-active #drill .drill-question-pane .drill-official{
+    display:inline-flex!important;
+    position:absolute!important;
+    left:8px!important;
+    top:6px!important;
+    width:auto!important;
+    max-width:128px!important;
+    margin:0!important;
+    padding:3px 6px!important;
+    font-size:8px!important;
+    line-height:1.05!important;
+    white-space:nowrap!important;
+    z-index:6!important;
+  }
+}
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.33.0">
+<link rel="stylesheet" href="./japanese.css?v=2.34.0">
 </head>
 <body>
 <div class="app">
@@ -6933,7 +6967,7 @@ function loadCharCSV(text){
 }
 async function loadHanjaStructure(){
   try{
-    const r=await fetchWithTimeout("./data/hanja-structure.json",{cache:"force-cache"},7000);
+    const r=await fetchWithTimeout("./data/hanja-structure.json?v=2.34.0",{cache:"no-store"},7000);
     if(!r.ok)return false;
     const d=await r.json();
     if(!d||!d.records||Object.keys(d.records).length<5000)return false;
@@ -7026,7 +7060,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.33.0-20261001";
+const APP_BUILD="2.34.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -11271,18 +11305,11 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
     const r=surface.getBoundingClientRect();
     const src=source(e);
     const rw=Math.max(1,r.width),rh=Math.max(1,r.height);
-    let cssX,cssY;
-    const ipad=document.documentElement.classList.contains("is-ipad");
-    if(ipad){
-      // iPadOS Safari: offsetX/Y can become stale after rotation or pointer capture.
-      // clientX/Y and getBoundingClientRect() share the same viewport coordinate space.
-      cssX=src.clientX-r.left;
-      cssY=src.clientY-r.top;
-    }else if(e===src && e.target===surface && Number.isFinite(e.offsetX) && Number.isFinite(e.offsetY)){
-      cssX=e.offsetX;cssY=e.offsetY;
-    }else{
-      cssX=src.clientX-r.left;cssY=src.clientY-r.top;
-    }
+    // offsetX/Y는 Safari/회전/포인터 캡처에서 이전 레이아웃 기준으로 남을 수 있다.
+    // 모든 기기에서 client 좌표와 현재 실제 표시 rect만 사용해 입력점과 필기점을 1:1로 맞춘다.
+    let cssX=Number(src?.clientX)-r.left;
+    let cssY=Number(src?.clientY)-r.top;
+    if(!Number.isFinite(cssX)||!Number.isFinite(cssY))return last||[0,0];
     cssX=Math.max(0,Math.min(rw,cssX));
     cssY=Math.max(0,Math.min(rh,cssY));
     return [cssX*c.width/rw,cssY*c.height/rh];
@@ -12629,8 +12656,15 @@ function atlasPhoneticGuideFor(ch){
   return HANJA_PHONETIC_GUIDE.filter(function(g){return g.base===ch||g.members.includes(ch)});
 }
 const ATLAS_STRUCTURE_OVERRIDES={
+  // 叚 계열은 구조 데이터가 오래 캐시되어도 절대 갈라지지 않도록 런타임에서 한 번 더 고정한다.
   "假":{p:"叚",s:"人",f:"형성",q:"확정",src:"manual",d:"⿰亻叚",chain:["叚"]},
-  "鰕":{p:"叚",s:"魚",f:"형성",q:"확정",src:"manual",d:"⿰魚叚",chain:["叚"]}
+  "蝦":{p:"叚",s:"虫",f:"형성",q:"확정",src:"manual",d:"⿰虫叚",chain:["叚"]},
+  "鰕":{p:"叚",s:"魚",f:"형성",q:"확정",src:"manual",d:"⿰魚叚",chain:["叚"]},
+  "暇":{p:"叚",s:"日",f:"형성",q:"확정",src:"manual",d:"⿰日叚",chain:["叚"]},
+  "瑕":{p:"叚",s:"王",f:"형성",q:"확정",src:"manual",d:"⿰王叚",chain:["叚"]},
+  "遐":{p:"叚",s:"辶",f:"형성",q:"확정",src:"manual",d:"⿺辶叚",chain:["叚"]},
+  "霞":{p:"叚",s:"雨",f:"형성",q:"확정",src:"manual",d:"⿱雨叚",chain:["叚"]},
+  "葭":{p:"叚",s:"艹",f:"형성",q:"확정",src:"manual",d:"⿱艹叚",chain:["叚"]}
 };
 function atlasStructureRecord(ch){
   const base=hanjaStructure&&hanjaStructure.records?hanjaStructure.records[ch]||null:null;
@@ -13271,6 +13305,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.33.0"></script>
+<script src="./japanese.js?v=2.34.0"></script>
 </body>
 </html>
