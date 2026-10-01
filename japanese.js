@@ -789,7 +789,15 @@ function renderJapanesePracticeCard(){
   const pct=Math.round((st.index+1)/st.list.length*100),saved=!!jpUnknown[jpKey(item)];
   syncDrillViewport();document.body.classList.add("drill-active");
   if(window._drillViewportFit)window.visualViewport&&window.visualViewport.removeEventListener("resize",window._drillViewportFit);
-  window._drillViewportFit=function(){syncDrillViewport()};
+  window._drillViewportFit=function(){
+    syncDrillViewport();
+    const canvas=$("#jpWordCanvas");
+    if(!canvas||!canvas._jpWordSpec||canvas._strokeCount)return;
+    const next=jpWordBoardSpec(chars.length),cur=canvas._jpWordSpec;
+    if(next.cols!==cur.cols||next.rows!==cur.rows){
+      renderJapaneseWordCard();
+    }
+  };
   window.visualViewport&&window.visualViewport.addEventListener("resize",window._drillViewportFit,{passive:true});
 
   let h="";
@@ -840,8 +848,11 @@ function jpWordBoardSpec(count){
   const vw=(vv&&vv.width)||window.innerWidth||800;
   const vh=(vv&&vv.height)||window.innerHeight||600;
   const landscape=vw>vh;
+  const compactPortrait=!landscape&&vw<700;
   let cols=1,rows=1;
-  if(n===2){cols=2;rows=1}
+  // 2글자 단어는 폰 세로에서 2열 한 줄로 두면 쓰기칸 높이가 지나치게 낮다.
+  // 폰 세로에선 1열 2행으로 쌓아 각 글자에 정사각형 쓰기칸을 확보한다.
+  if(n===2){cols=compactPortrait?1:2;rows=compactPortrait?2:1}
   else if(n===3){cols=landscape&&vw>=760?3:2;rows=Math.ceil(n/cols)}
   else if(n===4){cols=landscape&&vw>=900?4:2;rows=Math.ceil(n/cols)}
   else if(n<=6){cols=landscape?3:2;rows=Math.ceil(n/cols)}
