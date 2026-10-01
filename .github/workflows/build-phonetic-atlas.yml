@@ -44,6 +44,13 @@ jobs:
           assert len(d.get("records",{}))==s["total"], (len(d.get("records",{})),s)
           assert s.get("explicit",0)+s.get("inferred",0)+s.get("independent",0)==s["total"], s
           assert s.get("jpReadings",0)>=2500, s
+          bad=[]
+          for ch,r in d.get("records",{}).items():
+              for k in ("p","s"):
+                  v=str((r or {}).get(k,""))
+                  if v!=v.strip() or "\\n" in v or "\\r" in v or "\\t" in v:
+                      bad.append((ch,k,repr(v)))
+          assert not bad, bad[:20]
           print("VALID",s)
           PY
 
