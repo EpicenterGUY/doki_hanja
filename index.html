@@ -6514,6 +6514,17 @@ body.atlas-detail-open .atlas-detail-sheet{
   min-width:0!important;
   overflow-wrap:anywhere!important;
 }
+
+/* Study index: active destination should never be off-screen on phone/Fold. */
+@media(max-width:900px){
+  .study-index-track{
+    scroll-snap-type:x proximity!important;
+    scroll-padding-inline:8px!important;
+  }
+  .study-index-item{
+    scroll-snap-align:center!important;
+  }
+}
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.38.0">
 </head>
@@ -7999,6 +8010,15 @@ function openStudyIndexTarget(key){
   if(key==="jpword"){openJapaneseWordHub();return}
   if(key==="wrong"){openUtility("wrong");return}
 }
+function syncStudyIndexActive(root){
+  const scope=root||document;
+  scope.querySelectorAll(".study-index-track").forEach(function(track){
+    const active=track.querySelector(".study-index-item.active");
+    if(!active||track.scrollWidth<=track.clientWidth+2)return;
+    const left=Math.max(0,active.offsetLeft-(track.clientWidth-active.offsetWidth)/2);
+    if(Math.abs(track.scrollLeft-left)>3)track.scrollTo({left:left,behavior:"auto"});
+  });
+}
 function studyIndexMarkup(active,compact){
   const items=[
     ["study","目","전체 학습"],
@@ -8010,6 +8030,7 @@ function studyIndexMarkup(active,compact){
     ["jpword","日","일본 쓰기"],
     ["wrong","復","복습"]
   ];
+  setTimeout(function(){syncStudyIndexActive(document)},0);
   return '<nav class="study-index '+(compact?'compact':'')+'" aria-label="학습 색인">'+
     (compact?'':'<div class="study-index-label"><b>학습 색인</b><small>원하는 공부로 바로 이동</small></div>')+
     '<div class="study-index-track">'+items.map(function(x){
@@ -8032,8 +8053,9 @@ function switchTab(id){
   if(grid)grid.classList.toggle("no-sidebar",true);
   if(settings){
     settings.hidden=!showSettings;
-    if(!showSettings){settings.classList.remove("sheet-open");document.body.classList.remove("practice-sheet-open")}
+    if(!showSettings)closePracticeSheet();
   }
+  if(id!=="atlas"&&typeof closeAtlasDetail==="function")closeAtlasDetail();
 
   if(id==="practice")renderPracticeWelcome();
   if(id==="study")renderStudyHub();
