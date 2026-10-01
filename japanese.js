@@ -861,17 +861,12 @@ function jpSetupUnifiedWordCanvas(spec){
   const ipad=document.documentElement.classList.contains("is-ipad");
   c._brushCssPx=ipad?7.2:6.0;
   jpClearWordCanvases();
+  // 보이는 canvas 자체가 모든 기기에서 입력을 직접 받게 한다.
+  // wrapper를 hit surface로 쓰면 회전/리사이즈 뒤 board와 canvas rect가 달라져 필기가 옆으로 밀릴 수 있다.
   board.style.touchAction="none";
-  if(ipad){
-    // iPadOS: bind directly to the visible canvas so the hit box and drawing box are identical.
-    c.style.pointerEvents="auto";
-    c.style.touchAction="none";
-    bindCanvasDrawing(c,c.getContext("2d"),function(){c._strokeCount=(c._strokeCount||0)+1},c);
-  }else{
-    // Preserve the existing Galaxy/iPhone behavior.
-    c.style.pointerEvents="none";
-    bindCanvasDrawing(c,c.getContext("2d"),function(){c._strokeCount=(c._strokeCount||0)+1},board);
-  }
+  c.style.pointerEvents="auto";
+  c.style.touchAction="none";
+  bindCanvasDrawing(c,c.getContext("2d"),function(){c._strokeCount=(c._strokeCount||0)+1},c);
 }
 function jpWordRegionCanvas(source,index,spec){
   if(!source||!spec)return null;
@@ -938,7 +933,11 @@ function jpSetWordMeaningHidden(hidden){
   jpState.wordHideMeaning=!!hidden;
   try{localStorage.setItem("jpWordHideMeaningV1",jpState.wordHideMeaning?"1":"0")}catch{}
   const panel=$("#jpWordMeaningPanel"),b=$("#jpWordMeaningToggle");
+  const question=document.querySelector(".jp-word-question");
+  const shell=document.querySelector(".jp-word-session-shell");
   if(panel)panel.hidden=jpState.wordHideMeaning;
+  if(question)question.classList.toggle("meaning-open",!jpState.wordHideMeaning);
+  if(shell)shell.classList.toggle("meaning-open",!jpState.wordHideMeaning);
   if(b){
     b.textContent=jpState.wordHideMeaning?"뜻 보기":"뜻 가리기";
     b.classList.toggle("active",!jpState.wordHideMeaning);
@@ -1013,8 +1012,8 @@ function renderJapaneseWordCard(){
   window._drillViewportFit=function(){syncDrillViewport()};
   window.visualViewport&&window.visualViewport.addEventListener("resize",window._drillViewportFit,{passive:true});
 
-  let h="<div class='drill-session-shell jp-word-session-shell'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+(jpState.wordRound+1)+"회차</span><span class='drill-status-pill'>"+(jpState.wordIndex+1)+"/"+jpState.wordList.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpWordExit'>목록</button></div></div>"+(typeof studyIndexMarkup==="function"?studyIndexMarkup("jpword",true):"");
-  h+="<div class='jp-word-stage'><section class='jp-word-question'><button class='jp-word-meaning-toggle "+(jpState.wordHideMeaning?"":"active")+"' id='jpWordMeaningToggle' aria-expanded='"+String(!jpState.wordHideMeaning)+"'>"+(jpState.wordHideMeaning?"뜻 보기":"뜻 가리기")+"</button><div class='jp-word-prompt-main'><div class='jp-word-example'>"+sentenceHtml+"</div></div><div class='jp-word-meaning-panel' id='jpWordMeaningPanel' "+(jpState.wordHideMeaning?"hidden":"")+"><div class='jp-word-meaning'>"+esc(w.meaning)+"</div><div class='jp-word-translation'>"+esc(w.translation)+"</div></div></section>";
+  let h="<div class='drill-session-shell jp-word-session-shell "+(jpState.wordHideMeaning?"":"meaning-open")+"'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+(jpState.wordRound+1)+"회차</span><span class='drill-status-pill'>"+(jpState.wordIndex+1)+"/"+jpState.wordList.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpWordExit'>목록</button></div></div>"+(typeof studyIndexMarkup==="function"?studyIndexMarkup("jpword",true):"");
+  h+="<div class='jp-word-stage'><section class='jp-word-question "+(jpState.wordHideMeaning?"":"meaning-open")+"'><button class='jp-word-meaning-toggle "+(jpState.wordHideMeaning?"":"active")+"' id='jpWordMeaningToggle' aria-expanded='"+String(!jpState.wordHideMeaning)+"'>"+(jpState.wordHideMeaning?"뜻 보기":"뜻 가리기")+"</button><div class='jp-word-prompt-main'><div class='jp-word-example'>"+sentenceHtml+"</div></div><div class='jp-word-meaning-panel' id='jpWordMeaningPanel' "+(jpState.wordHideMeaning?"hidden":"")+"><div class='jp-word-meaning'>"+esc(w.meaning)+"</div><div class='jp-word-translation'>"+esc(w.translation)+"</div></div></section>";
   h+="<section class='jp-word-canvas-pane jp-word-cols-"+spec.cols+" jp-word-rows-"+spec.rows+"' style='--word-cols:"+spec.cols+";--word-rows:"+spec.rows+"'><div class='jp-word-board'><canvas id='jpWordCanvas' aria-label='"+esc(w.word)+" 손글씨 입력'></canvas><div class='jp-word-board-guides' aria-hidden='true'>"+jpWordGuideHtml(chars,spec)+"</div><div class='jp-word-answer' hidden>"+jpWordAnswerGridHtml(chars,spec)+"</div></div><div id='jpWordFeedback' class='feedback jp-word-feedback'></div><div class='jp-word-nav'><button class='btn' id='jpWordPrev' "+(jpState.wordIndex===0?"disabled":"")+">← 이전 단어</button><button class='btn' id='jpWordNext'>"+(jpState.wordIndex===jpState.wordList.length-1?"회차 완료 →":"다음 단어 →")+"</button></div><div class='jp-word-controls'><button class='btn' id='jpWordClear'>지우기</button><button class='btn' id='jpWordReveal'>정답 보기</button><button class='btn primary' id='jpWordCheck'>채점</button></div></section></div></div>";
   $("#jp").innerHTML=h;
   jpSetupUnifiedWordCanvas(spec);
