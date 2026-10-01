@@ -858,7 +858,7 @@ function jpClearWordCanvases(){
 function jpSetupUnifiedWordCanvas(spec){
   const c=$("#jpWordCanvas"),board=c?.closest(".jp-word-board");if(!c||!board)return;
   c.width=spec.width;c.height=spec.height;c._jpWordSpec=spec;c._strokeCount=0;
-  c._brushCssPx=4.2;
+  c._brushCssPx=6.0;
   jpClearWordCanvases();
   // iPad Safari: use the whole visible board as the hit surface.
   // This keeps Pencil/touch input valid across every character region, including the right half.
