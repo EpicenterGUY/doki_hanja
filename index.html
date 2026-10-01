@@ -6345,8 +6345,131 @@ html body.drill-active #drill .drill-question-pane{
     width:100%!important;
   }
 }
+
+/* ===== 2.37.0 · IPAD QUESTION TEXT VISIBILITY =====
+   Old tablet rules used fixed-height strips and hid metadata. On iPad the question card
+   now grows with its contents, so portrait text cannot clip and landscape text cannot vanish.
+*/
+html.is-ipad body.drill-active #drill .drill-stage.write-stage{
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
+  gap:6px!important;
+}
+html.is-ipad body.drill-active #drill .drill-question-pane{
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  min-width:0!important;
+  margin:0 auto!important;
+  padding:8px 14px!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto auto auto auto!important;
+  align-items:center!important;
+  align-content:center!important;
+  justify-items:center!important;
+  gap:3px!important;
+  overflow:visible!important;
+}
+html.is-ipad body.drill-active #drill .drill-question-meta-row{
+  display:flex!important;
+  width:100%!important;
+  min-width:0!important;
+  align-items:center!important;
+  justify-content:center!important;
+  flex-wrap:wrap!important;
+  gap:4px!important;
+  margin:0 auto!important;
+}
+html.is-ipad body.drill-active #drill .drill-question-meta-row .meta{
+  display:flex!important;
+  width:auto!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+  margin:0!important;
+}
+html.is-ipad body.drill-active #drill .drill-official{
+  display:inline-flex!important;
+  position:static!important;
+  inset:auto!important;
+  width:max-content!important;
+  max-width:100%!important;
+  height:auto!important;
+  margin:0!important;
+  padding:3px 7px!important;
+  border-radius:999px!important;
+  font-size:8.5px!important;
+  line-height:1.05!important;
+  white-space:nowrap!important;
+  overflow:visible!important;
+  transform:none!important;
+}
+html.is-ipad body.drill-active #drill .drill-question-pane .prompt{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:0 auto!important;
+  text-align:center!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  word-break:keep-all!important;
+}
+html.is-ipad body.drill-active #drill .drill-question-pane .drill-clue{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:0 auto!important;
+  text-align:center!important;
+  white-space:normal!important;
+  overflow:visible!important;
+  text-overflow:clip!important;
+  word-break:keep-all!important;
+}
+html.is-ipad body.drill-active #drill .drill-question-pane .drill-tip{
+  display:none!important;
+}
+html.is-ipad body.drill-active #drill .drill-question-pane #drillFeedback{
+  display:block!important;
+  width:auto!important;
+  max-width:100%!important;
+  margin:0 auto!important;
+  text-align:center!important;
+}
+html.is-ipad body.drill-active #drill .drill-question-pane #drillFeedback:empty{
+  display:none!important;
+}
+@media(orientation:portrait){
+  html.is-ipad body.drill-active #drill .drill-question-pane{
+    min-height:138px!important;
+  }
+  html.is-ipad body.drill-active #drill .drill-question-pane .prompt{
+    font-size:16px!important;
+    line-height:1.2!important;
+  }
+  html.is-ipad body.drill-active #drill .drill-question-pane .drill-clue{
+    font-size:42px!important;
+    line-height:1.02!important;
+  }
+}
+@media(orientation:landscape){
+  html.is-ipad body.drill-active #drill .drill-question-pane{
+    min-height:110px!important;
+    padding-top:6px!important;
+    padding-bottom:6px!important;
+  }
+  html.is-ipad body.drill-active #drill .drill-question-pane .prompt{
+    font-size:14px!important;
+    line-height:1.15!important;
+  }
+  html.is-ipad body.drill-active #drill .drill-question-pane .drill-clue{
+    font-size:34px!important;
+    line-height:1!important;
+  }
+}
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.36.0">
+<link rel="stylesheet" href="./japanese.css?v=2.37.0">
 </head>
 <body>
 <div class="app">
@@ -7260,7 +7383,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.36.0-20261001";
+const APP_BUILD="2.37.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -13509,6 +13632,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.36.0"></script>
+<script src="./japanese.js?v=2.37.0"></script>
 </body>
 </html>
