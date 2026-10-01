@@ -5677,7 +5677,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.27.0-20261001";
+const APP_BUILD="2.28.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -9890,7 +9890,8 @@ function recordDrillHandwriting(c,q,ok){
 }
 
 
-function bindCanvasDrawing(c,ctx,onStrokeStart){
+function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
+  const surface=hitSurface||c;
   let drawing=false,last=null,activePointerId=null,activePointerType="";
   let penPreferredUntil=0;
   const PALM_CONTACT_PX=54;
@@ -9912,9 +9913,12 @@ function bindCanvasDrawing(c,ctx,onStrokeStart){
   };
   const eventId=e=>e.pointerId!==undefined?e.pointerId:"legacy";
   const pos=e=>{
-    const r=c.getBoundingClientRect();
+    const r=surface.getBoundingClientRect();
     const src=source(e);
-    return [(src.clientX-r.left)*c.width/r.width,(src.clientY-r.top)*c.height/r.height];
+    const rw=Math.max(1,r.width),rh=Math.max(1,r.height);
+    const x=Math.max(0,Math.min(c.width,(src.clientX-r.left)*c.width/rw));
+    const y=Math.max(0,Math.min(c.height,(src.clientY-r.top)*c.height/rh));
+    return [x,y];
   };
   const suppress=e=>{if(e?.cancelable)e.preventDefault()};
   const shouldIgnoreDown=e=>{
@@ -9941,7 +9945,7 @@ function bindCanvasDrawing(c,ctx,onStrokeStart){
     c.dataset.inputSource=activePointerType;
     if(onStrokeStart)onStrokeStart();
     last=pos(e);
-    try{if(e.pointerId!==undefined&&c.setPointerCapture)c.setPointerCapture(e.pointerId)}catch{}
+    try{if(e.pointerId!==undefined&&surface.setPointerCapture)surface.setPointerCapture(e.pointerId)}catch{}
   };
   const move=e=>{
     if(!drawing||eventId(e)!==activePointerId)return;
@@ -9960,22 +9964,22 @@ function bindCanvasDrawing(c,ctx,onStrokeStart){
     drawing=false;last=null;activePointerId=null;activePointerType="";
   };
 
-  c.style.touchAction="none";
-  c.addEventListener("contextmenu",e=>e.preventDefault());
-  c.addEventListener("selectstart",e=>e.preventDefault());
+  surface.style.touchAction="none";
+  surface.addEventListener("contextmenu",e=>e.preventDefault());
+  surface.addEventListener("selectstart",e=>e.preventDefault());
 
   if(window.PointerEvent){
-    c.addEventListener("pointerdown",down,{passive:false});
-    c.addEventListener("pointermove",move,{passive:false});
-    c.addEventListener("pointerup",up,{passive:false});
-    c.addEventListener("pointercancel",up,{passive:false});
-    c.addEventListener("lostpointercapture",up,{passive:false});
+    surface.addEventListener("pointerdown",down,{passive:false});
+    surface.addEventListener("pointermove",move,{passive:false});
+    surface.addEventListener("pointerup",up,{passive:false});
+    surface.addEventListener("pointercancel",up,{passive:false});
+    surface.addEventListener("lostpointercapture",up,{passive:false});
   }else{
-    c.addEventListener("touchstart",down,{passive:false});
-    c.addEventListener("touchmove",move,{passive:false});
-    c.addEventListener("touchend",up,{passive:false});
-    c.addEventListener("touchcancel",up,{passive:false});
-    c.addEventListener("mousedown",down);
+    surface.addEventListener("touchstart",down,{passive:false});
+    surface.addEventListener("touchmove",move,{passive:false});
+    surface.addEventListener("touchend",up,{passive:false});
+    surface.addEventListener("touchcancel",up,{passive:false});
+    surface.addEventListener("mousedown",down);
     window.addEventListener("mousemove",move);
     window.addEventListener("mouseup",up);
   }
