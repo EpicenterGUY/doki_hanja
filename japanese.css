@@ -1879,3 +1879,104 @@ body.drill-active #jp{height:100%;min-height:0}
   }
 }
 
+
+
+/* JAPANESE TABLET / DESKTOP WORKSPACE V2 · 2.30.0 */
+@media(min-width:700px){
+  .jp-screen{
+    width:100%!important;
+    max-width:1280px!important;
+    margin-inline:auto!important;
+    box-sizing:border-box;
+  }
+  .jp-screen>*{min-width:0;box-sizing:border-box}
+
+  /* non-home study pages use one readable center column */
+  .jp-screen:not(:has(.jp-home-main)):not(:has(.jp-atlas-shell)){
+    max-width:1080px!important;
+  }
+  .jp-screen:not(:has(.jp-home-main))>.app-section,
+  .jp-screen:not(:has(.jp-home-main))>.jp-sub-hero,
+  .jp-screen:not(:has(.jp-home-main))>.jp-hero{
+    width:100%!important;
+    margin-inline:auto!important;
+  }
+
+  .jp-practice-grid,
+  .jp-search-row,
+  .jp-filter-row,
+  .jp-word-count{
+    width:100%!important;
+    box-sizing:border-box;
+  }
+
+  /* Japanese word hub */
+  .jp-word-tier,
+  .jp-word-round-head,
+  .jp-word-rounds,
+  .jp-word-preview-list,
+  .jp-mode-note{
+    width:100%!important;
+    box-sizing:border-box;
+  }
+  .jp-word-count{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:10px!important;
+  }
+  .jp-word-preview-list{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:9px!important;
+  }
+
+  /* Active Japanese writing follows the same centered work frame. */
+  .jp-word-session-shell{
+    width:min(100%,1180px)!important;
+    max-width:1180px!important;
+    margin-inline:auto!important;
+  }
+  .jp-word-stage{
+    width:100%!important;
+    max-width:100%!important;
+    margin-inline:auto!important;
+  }
+  .jp-word-question{
+    width:100%!important;
+    box-sizing:border-box!important;
+  }
+  .jp-word-canvas-pane{
+    margin-inline:auto!important;
+  }
+
+  /* Atlas on desktop is allowed to use the full workspace, but never overflow it. */
+  .jp-atlas-shell,
+  .jp-atlas-grid,
+  .jp-atlas-table-wrap{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box;
+  }
+  .jp-atlas-table-wrap{
+    overflow-x:auto!important;
+    -webkit-overflow-scrolling:touch;
+  }
+}
+
+@media(min-width:700px) and (orientation:portrait){
+  .jp-word-count{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .jp-word-preview-list{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .jp-practice-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+}
+
+@media(min-width:1200px) and (pointer:fine){
+  .jp-screen:not(:has(.jp-home-main)):not(:has(.jp-atlas-shell)){
+    max-width:1120px!important;
+  }
+}
+
