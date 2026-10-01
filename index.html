@@ -5677,7 +5677,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.28.0-20261001";
+const APP_BUILD="2.29.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -9954,7 +9954,15 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
     suppress(e);
     if(type==="pen"){penPreferredUntil=clock()+PEN_GUARD_MS;window.__dokiPencilSession=true;}
     const p=pos(e);
-    ctx.strokeStyle="#111";ctx.lineWidth=14;ctx.lineCap="round";ctx.lineJoin="round";
+    const rect=surface.getBoundingClientRect();
+    const sx=c.width/Math.max(1,rect.width),sy=c.height/Math.max(1,rect.height);
+    const displayScale=(sx+sy)/2;
+    // Keep handwriting visually consistent when the board is resized or the iPad rotates.
+    // c._brushCssPx is expressed in on-screen CSS pixels, not canvas backing pixels.
+    const brushCss=Math.max(2.8,Math.min(7,Number(c._brushCssPx)||4.6));
+    ctx.strokeStyle="#111";
+    ctx.lineWidth=brushCss*displayScale;
+    ctx.lineCap="round";ctx.lineJoin="round";
     ctx.beginPath();ctx.moveTo(...last);ctx.lineTo(...p);ctx.stroke();last=p;
   };
   const up=e=>{
