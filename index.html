@@ -8751,8 +8751,6 @@ function renderDiagnosis(){
         shuffle(q.choices);
       }
     }
-    const placeholder=q.type==="sound"?"독음을 직접 입력":"훈음을 직접 입력";
-    const inputValue=q.locked?esc(q.userAnswer||""):"";
     el.innerHTML=`<div class="diag-shell">
       ${studyIndexMarkup("diagnosis",true)}
       <div class="diag-stage">
@@ -8770,7 +8768,7 @@ function renderDiagnosis(){
           return `<button class="diag-choice ${cls}" ${q.locked?"disabled":""} onclick="answerDiagnosis(${i})">${esc(c)}</button>`;
         }).join("")}</div>
         ${!q.locked?`<button class="btn diag-unknown" onclick="answerDiagnosisUnknown()">모르겠음</button>`:""}
-        <div class="diag-feedback" aria-live="polite">${q.locked?(q.unknown?"모르겠음 · 정답 "+esc(q.answer):(q.correct?"정답 · "+esc(q.answer):"정답은 "+esc(q.answer)):"비슷한 발음·훈음 선지를 비교해서 고르거나 ‘모르겠음’을 눌러 주세요."}</div>
+        <div class="diag-feedback" aria-live="polite">${q.locked?(q.unknown?"모르겠음 · 정답 "+esc(q.answer):(q.correct?"정답 · "+esc(q.answer):"정답은 "+esc(q.answer))):"비슷한 발음·훈음 선지를 비교해서 고르거나 ‘모르겠음’을 눌러 주세요."}</div>
         ${q.locked?`<button class="btn primary diag-next" onclick="advanceDiagnosisQuestion()">다음 문제 →</button>`:""}
       </div>
       <div class="diag-stage"><div class="soft">지금까지 판정: ${diagnosisState.tested.length?diagnosisState.tested.map(function(x){return x.grade+" "+x.pct+"%"}).join(" · "):"탐색 시작"}${verifying?" · 마지막 경계 확인 중":""}</div></div>
