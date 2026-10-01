@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "count": 1173,
   "items": [
     {
@@ -7675,7 +7675,7 @@
       "reading": "がいねん",
       "meaning": "개념",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '개념'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '개념'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -7730,7 +7730,7 @@
       "reading": "ろんし",
       "meaning": "논지",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '논지'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '논지'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -7741,7 +7741,7 @@
       "reading": "ろんり",
       "meaning": "논리",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '논리'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '논리'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -7796,7 +7796,7 @@
       "reading": "すいしん",
       "meaning": "추진",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '추진'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '추진'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -7807,7 +7807,7 @@
       "reading": "そうてい",
       "meaning": "상정·예상",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '상정·예상'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '상정·예상'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -7862,7 +7862,7 @@
       "reading": "かんてん",
       "meaning": "관점",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '관점'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '관점'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -7873,7 +7873,7 @@
       "reading": "してん",
       "meaning": "시점·관점",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '시점·관점'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '시점·관점'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -7928,7 +7928,7 @@
       "reading": "ていぎ",
       "meaning": "정의",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '정의'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '정의'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -7939,7 +7939,7 @@
       "reading": "めいだい",
       "meaning": "명제",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '명제'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '명제'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -7994,7 +7994,7 @@
       "reading": "てきせい",
       "meaning": "적정",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '적정'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '적정'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8005,7 +8005,7 @@
       "reading": "てきおう",
       "meaning": "적응",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '적응'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '적응'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8060,7 +8060,7 @@
       "reading": "しょち",
       "meaning": "처치·조치",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '처치·조치'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '처치·조치'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8071,7 +8071,7 @@
       "reading": "そち",
       "meaning": "조치",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '조치'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '조치'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8126,7 +8126,7 @@
       "reading": "がくもん",
       "meaning": "학문",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '학문'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '학문'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8137,7 +8137,7 @@
       "reading": "せんこう",
       "meaning": "전공",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '전공'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '전공'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8192,7 +8192,7 @@
       "reading": "きかく",
       "meaning": "기획",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '기획'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '기획'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8203,7 +8203,7 @@
       "reading": "きと",
       "meaning": "기도·기획 의도",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '기도·기획 의도'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '기도·기획 의도'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8258,7 +8258,7 @@
       "reading": "しじ",
       "meaning": "지시",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '지시'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '지시'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8269,7 +8269,7 @@
       "reading": "してい",
       "meaning": "지정",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '지정'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '지정'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8324,7 +8324,7 @@
       "reading": "ひょうしき",
       "meaning": "표식·표지",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '표식·표지'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '표식·표지'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8335,7 +8335,7 @@
       "reading": "ひょうほん",
       "meaning": "표본",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '표본'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '표본'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8390,7 +8390,7 @@
       "reading": "かくしん",
       "meaning": "핵심",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '핵심'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '핵심'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8401,7 +8401,7 @@
       "reading": "こんかん",
       "meaning": "근간",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '근간'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '근간'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8456,7 +8456,7 @@
       "reading": "じっせき",
       "meaning": "실적",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '실적'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '실적'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8467,7 +8467,7 @@
       "reading": "じっしょう",
       "meaning": "실증",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '실증'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '실증'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8522,7 +8522,7 @@
       "reading": "むこう",
       "meaning": "무효",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '무효'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '무효'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8533,7 +8533,7 @@
       "reading": "こうりつ",
       "meaning": "효율",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '효율'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '효율'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8588,7 +8588,7 @@
       "reading": "きんゆう",
       "meaning": "금융",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '금융'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '금융'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8599,7 +8599,7 @@
       "reading": "じゅよう",
       "meaning": "수요",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '수요'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '수요'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8654,7 +8654,7 @@
       "reading": "しほん",
       "meaning": "자본",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '자본'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '자본'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8665,7 +8665,7 @@
       "reading": "しきん",
       "meaning": "자금",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '자금'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '자금'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8720,7 +8720,7 @@
       "reading": "こよう",
       "meaning": "고용",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '고용'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '고용'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8731,7 +8731,7 @@
       "reading": "ろうどう",
       "meaning": "노동",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '노동'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '노동'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8786,7 +8786,7 @@
       "reading": "ほうしゅう",
       "meaning": "보수·보상",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '보수·보상'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '보수·보상'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8797,7 +8797,7 @@
       "reading": "しゅうえき",
       "meaning": "수익",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '수익'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '수익'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8852,7 +8852,7 @@
       "reading": "のうぜい",
       "meaning": "납세",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '납세'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '납세'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8863,7 +8863,7 @@
       "reading": "かわせ",
       "meaning": "환율·환",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '환율·환'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '환율·환'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8918,7 +8918,7 @@
       "reading": "ゆうし",
       "meaning": "융자",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '융자'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '융자'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8929,7 +8929,7 @@
       "reading": "きょうそう",
       "meaning": "경쟁",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '경쟁'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '경쟁'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8984,7 +8984,7 @@
       "reading": "かんぜい",
       "meaning": "관세",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '관세'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '관세'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -8995,7 +8995,7 @@
       "reading": "ぶっか",
       "meaning": "물가",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '물가'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '물가'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9050,7 +9050,7 @@
       "reading": "せいけん",
       "meaning": "정권",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '정권'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '정권'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9061,7 +9061,7 @@
       "reading": "せいきょく",
       "meaning": "정국",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '정국'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '정국'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9116,7 +9116,7 @@
       "reading": "きそ",
       "meaning": "기소",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '기소'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '기소'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9127,7 +9127,7 @@
       "reading": "べんご",
       "meaning": "변호",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '변호'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '변호'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9182,7 +9182,7 @@
       "reading": "しょぶん",
       "meaning": "처분",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '처분'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '처분'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9193,7 +9193,7 @@
       "reading": "しょばつ",
       "meaning": "처벌",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '처벌'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '처벌'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9248,7 +9248,7 @@
       "reading": "しょうにん",
       "meaning": "증인",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '증인'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '증인'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9259,7 +9259,7 @@
       "reading": "きょうてい",
       "meaning": "협정",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '협정'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '협정'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9314,7 +9314,7 @@
       "reading": "ほしょう",
       "meaning": "보상",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '보상'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '보상'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9325,7 +9325,7 @@
       "reading": "ばいしょう",
       "meaning": "배상",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '배상'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '배상'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9380,7 +9380,7 @@
       "reading": "げんきゅう",
       "meaning": "언급",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '언급'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '언급'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9391,7 +9391,7 @@
       "reading": "げんめい",
       "meaning": "언명",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '언명'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '언명'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9446,7 +9446,7 @@
       "reading": "ひひょう",
       "meaning": "비평",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '비평'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '비평'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9457,7 +9457,7 @@
       "reading": "ひょうばん",
       "meaning": "평판",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '평판'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '평판'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9512,7 +9512,7 @@
       "reading": "かいせつ",
       "meaning": "해설",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '해설'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '해설'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9523,7 +9523,7 @@
       "reading": "ひょうめい",
       "meaning": "표명",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '표명'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '표명'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9578,7 +9578,7 @@
       "reading": "いしき",
       "meaning": "의식",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '의식'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '의식'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9589,7 +9589,7 @@
       "reading": "むいしき",
       "meaning": "무의식",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '무의식'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '무의식'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9644,7 +9644,7 @@
       "reading": "かんせい",
       "meaning": "감성",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '감성'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '감성'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9655,7 +9655,7 @@
       "reading": "りせい",
       "meaning": "이성",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '이성'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '이성'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9710,7 +9710,7 @@
       "reading": "かんねん",
       "meaning": "관념",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '관념'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '관념'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9721,7 +9721,7 @@
       "reading": "こていかんねん",
       "meaning": "고정관념",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '고정관념'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '고정관념'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9776,7 +9776,7 @@
       "reading": "ゆうりょ",
       "meaning": "우려",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '우려'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '우려'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9787,7 +9787,7 @@
       "reading": "はいりょ",
       "meaning": "배려",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '배려'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '배려'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9842,7 +9842,7 @@
       "reading": "そんちょう",
       "meaning": "존중",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '존중'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '존중'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9853,7 +9853,7 @@
       "reading": "ぎねん",
       "meaning": "의심",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '의심'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '의심'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9908,7 +9908,7 @@
       "reading": "そくしん",
       "meaning": "촉진",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '촉진'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '촉진'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9919,7 +9919,7 @@
       "reading": "よくせい",
       "meaning": "억제",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '억제'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '억제'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9974,7 +9974,7 @@
       "reading": "じゅんかん",
       "meaning": "순환",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '순환'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '순환'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -9985,7 +9985,7 @@
       "reading": "へんどう",
       "meaning": "변동",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '변동'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '변동'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10040,7 +10040,7 @@
       "reading": "かいてい",
       "meaning": "개정·개정판",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '개정·개정판'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '개정·개정판'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10051,7 +10051,7 @@
       "reading": "てんかん",
       "meaning": "전환",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '전환'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '전환'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10106,7 +10106,7 @@
       "reading": "ぞうげん",
       "meaning": "증감",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '증감'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '증감'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10117,7 +10117,7 @@
       "reading": "かこう",
       "meaning": "하강",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '하강'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '하강'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10172,7 +10172,7 @@
       "reading": "しんしゅつ",
       "meaning": "진출",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '진출'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '진출'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10183,7 +10183,7 @@
       "reading": "はっせい",
       "meaning": "발생",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '발생'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '발생'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10238,7 +10238,7 @@
       "reading": "はっかく",
       "meaning": "발각",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '발각'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '발각'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10249,7 +10249,7 @@
       "reading": "しょうめつ",
       "meaning": "소멸",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '소멸'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '소멸'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10304,7 +10304,7 @@
       "reading": "てっかい",
       "meaning": "철회",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '철회'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '철회'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10315,7 +10315,7 @@
       "reading": "てっぱい",
       "meaning": "철폐",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '철폐'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '철폐'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10370,7 +10370,7 @@
       "reading": "そうご",
       "meaning": "상호",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '상호'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '상호'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10381,7 +10381,7 @@
       "reading": "そうかん",
       "meaning": "상관",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '상관'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '상관'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10436,7 +10436,7 @@
       "reading": "どうき",
       "meaning": "동기",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '동기'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '동기'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10447,7 +10447,7 @@
       "reading": "きいん",
       "meaning": "기인",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '기인'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '기인'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10502,7 +10502,7 @@
       "reading": "きょうせい",
       "meaning": "공생",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '공생'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '공생'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10513,7 +10513,7 @@
       "reading": "れんけい",
       "meaning": "연계",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '연계'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '연계'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10568,7 +10568,7 @@
       "reading": "ぶんり",
       "meaning": "분리",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '분리'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '분리'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10579,7 +10579,7 @@
       "reading": "ぶんれつ",
       "meaning": "분열",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '분열'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '분열'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10634,7 +10634,7 @@
       "reading": "ぶんたん",
       "meaning": "분담",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '분담'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '분담'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10645,7 +10645,7 @@
       "reading": "かいにゅう",
       "meaning": "개입",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '개입'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '개입'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10700,7 +10700,7 @@
       "reading": "しょうれい",
       "meaning": "장려",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '장려'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '장려'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10711,7 +10711,7 @@
       "reading": "げきれい",
       "meaning": "격려",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '격려'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '격려'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10766,7 +10766,7 @@
       "reading": "すいこう",
       "meaning": "수행",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '수행'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '수행'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10777,7 +10777,7 @@
       "reading": "りこう",
       "meaning": "이행·이행함",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '이행·이행함'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '이행·이행함'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10832,7 +10832,7 @@
       "reading": "ほぜん",
       "meaning": "보전",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '보전'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '보전'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10843,7 +10843,7 @@
       "reading": "ほかん",
       "meaning": "보관",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '보관'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '보관'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10898,7 +10898,7 @@
       "reading": "かくりつ",
       "meaning": "확률",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '확률'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '확률'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10909,7 +10909,7 @@
       "reading": "かくじつ",
       "meaning": "확실",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '확실'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '확실'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10964,7 +10964,7 @@
       "reading": "よそく",
       "meaning": "예측",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '예측'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '예측'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -10975,7 +10975,7 @@
       "reading": "よけん",
       "meaning": "예견",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '예견'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '예견'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11030,7 +11030,7 @@
       "reading": "いでん",
       "meaning": "유전",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '유전'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '유전'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11041,7 +11041,7 @@
       "reading": "いでんし",
       "meaning": "유전자",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '유전자'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '유전자'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11096,7 +11096,7 @@
       "reading": "おんだんか",
       "meaning": "온난화",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '온난화'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '온난화'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11107,7 +11107,7 @@
       "reading": "きしょう",
       "meaning": "기상",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '기상'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '기상'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11162,7 +11162,7 @@
       "reading": "すうりょう",
       "meaning": "수량",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '수량'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '수량'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11173,7 +11173,7 @@
       "reading": "へんすう",
       "meaning": "변수",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '변수'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '변수'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11228,7 +11228,7 @@
       "reading": "ごさ",
       "meaning": "오차",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '오차'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '오차'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11239,7 +11239,7 @@
       "reading": "せいど",
       "meaning": "정밀도·정확도",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '정밀도·정확도'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '정밀도·정확도'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11294,7 +11294,7 @@
       "reading": "しゅうはすう",
       "meaning": "주파수",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '주파수'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '주파수'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11305,7 +11305,7 @@
       "reading": "はちょう",
       "meaning": "파장",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '파장'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '파장'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11360,7 +11360,7 @@
       "reading": "かいろ",
       "meaning": "회로",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '회로'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '회로'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11371,7 +11371,7 @@
       "reading": "きこう",
       "meaning": "기구·구조",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '기구·구조'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '기구·구조'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11426,7 +11426,7 @@
       "reading": "うんよう",
       "meaning": "운용",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '운용'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '운용'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11437,7 +11437,7 @@
       "reading": "ほしゅ",
       "meaning": "보수·유지관리",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '보수·유지관리'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '보수·유지관리'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11492,7 +11492,7 @@
       "reading": "きょうざい",
       "meaning": "교재",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '교재'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '교재'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11503,7 +11503,7 @@
       "reading": "こうし",
       "meaning": "강사",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '강사'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '강사'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11558,7 +11558,7 @@
       "reading": "しゅうりょう",
       "meaning": "수료",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '수료'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '수료'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11569,7 +11569,7 @@
       "reading": "ざいがく",
       "meaning": "재학",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '재학'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '재학'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11624,7 +11624,7 @@
       "reading": "くんれん",
       "meaning": "훈련",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '훈련'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '훈련'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11635,7 +11635,7 @@
       "reading": "えんしゅう",
       "meaning": "연습·연습문제",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '연습·연습문제'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '연습·연습문제'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11690,7 +11690,7 @@
       "reading": "しかく",
       "meaning": "자격",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '자격'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '자격'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11701,7 +11701,7 @@
       "reading": "せんこう",
       "meaning": "전형·선고",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '전형·선고'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '전형·선고'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11756,7 +11756,7 @@
       "reading": "ちょさくけん",
       "meaning": "저작권",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '저작권'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '저작권'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11767,7 +11767,7 @@
       "reading": "そうごう",
       "meaning": "종합",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '종합'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '종합'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11822,7 +11822,7 @@
       "reading": "ほうかつ",
       "meaning": "포괄",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '포괄'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '포괄'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11833,7 +11833,7 @@
       "reading": "がいかつ",
       "meaning": "개괄",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '개괄'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '개괄'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11888,7 +11888,7 @@
       "reading": "もさく",
       "meaning": "모색",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '모색'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '모색'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11899,7 +11899,7 @@
       "reading": "もぎ",
       "meaning": "모의",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '모의'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '모의'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11954,7 +11954,7 @@
       "reading": "せいこう",
       "meaning": "정교",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '정교'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '정교'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -11965,7 +11965,7 @@
       "reading": "せいさん",
       "meaning": "정산",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '정산'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '정산'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12020,7 +12020,7 @@
       "reading": "かんべん",
       "meaning": "간편",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '간편'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '간편'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12031,7 +12031,7 @@
       "reading": "めいかく",
       "meaning": "명확",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '명확'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '명확'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12086,7 +12086,7 @@
       "reading": "ちょめい",
       "meaning": "저명",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '저명'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '저명'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12097,7 +12097,7 @@
       "reading": "こゆう",
       "meaning": "고유",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '고유'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '고유'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12152,7 +12152,7 @@
       "reading": "たようせい",
       "meaning": "다양성",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '다양성'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '다양성'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12163,7 +12163,7 @@
       "reading": "そうたい",
       "meaning": "상대",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '상대'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '상대'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12218,7 +12218,7 @@
       "reading": "きゃっかんせい",
       "meaning": "객관성",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '객관성'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '객관성'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12229,7 +12229,7 @@
       "reading": "しゅたい",
       "meaning": "주체",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '주체'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '주체'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12284,7 +12284,7 @@
       "reading": "ぐたいか",
       "meaning": "구체화",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '구체화'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '구체화'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12295,7 +12295,7 @@
       "reading": "めいぶんか",
       "meaning": "명문화",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '명문화'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '명문화'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12350,7 +12350,7 @@
       "reading": "せいせい",
       "meaning": "생성",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '생성'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '생성'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12361,7 +12361,7 @@
       "reading": "そうぞう",
       "meaning": "창조",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '창조'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '창조'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12416,7 +12416,7 @@
       "reading": "はいび",
       "meaning": "배치·배비",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '배치·배비'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '배치·배비'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12427,7 +12427,7 @@
       "reading": "はいちがえ",
       "meaning": "배치 전환",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '배치 전환'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '배치 전환'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12482,7 +12482,7 @@
       "reading": "そしきか",
       "meaning": "조직화",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '조직화'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '조직화'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12493,7 +12493,7 @@
       "reading": "へんせい",
       "meaning": "편성",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '편성'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '편성'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12548,7 +12548,7 @@
       "reading": "さいはつ",
       "meaning": "재발",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '재발'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '재발'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12559,7 +12559,7 @@
       "reading": "さいかい",
       "meaning": "재개",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '재개'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '재개'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12614,7 +12614,7 @@
       "reading": "ふっかつ",
       "meaning": "부활",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '부활'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '부활'을 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12625,7 +12625,7 @@
       "reading": "ぎゃくてん",
       "meaning": "역전",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '역전'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '역전'이 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12680,7 +12680,7 @@
       "reading": "けいい",
       "meaning": "경위",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '경위'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '경위'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12691,7 +12691,7 @@
       "reading": "けいか",
       "meaning": "경과",
       "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '경과'이(가) 중요한 개념으로 다뤄지고 있습니다.",
+      "translation": "자료에서는 '경과'가 중요한 개념으로 다뤄지고 있습니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
@@ -12746,7 +12746,7 @@
       "reading": "けいえいしゃ",
       "meaning": "경영자",
       "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '경영자'을(를) 이해하는 것이 중요합니다.",
+      "translation": "이 분야에서는 '경영자'를 이해하는 것이 중요합니다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded"
