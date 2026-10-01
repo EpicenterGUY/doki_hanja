@@ -4602,6 +4602,144 @@ body.global-search-open .global-search-sheet{
   }
 }
 
+
+/* STUDY INDEX · 2.26.0 */
+.study-index{
+  width:100%;
+  min-width:0;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  gap:10px;
+  align-items:center;
+  padding:8px 10px;
+  box-sizing:border-box;
+  border:1px solid rgba(139,166,218,.18);
+  border-radius:16px;
+  background:rgba(13,24,45,.72);
+  box-shadow:0 8px 22px rgba(0,5,18,.10);
+}
+.study-index-label{
+  min-width:86px;
+  padding-right:10px;
+  border-right:1px solid rgba(139,166,218,.13);
+}
+.study-index-label b{display:block;font-size:10px;color:#eef4ff}
+.study-index-label small{display:block;margin-top:2px;font-size:7px;color:#8097ba;white-space:nowrap}
+.study-index-track{
+  min-width:0;
+  display:grid;
+  grid-template-columns:repeat(8,minmax(0,1fr));
+  gap:5px;
+}
+.study-index-item{
+  min-width:0;
+  min-height:42px;
+  padding:5px 6px;
+  border:1px solid rgba(139,166,218,.14);
+  border-radius:11px;
+  background:rgba(20,34,59,.58);
+  color:#aabbd4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  font-family:inherit;
+  cursor:pointer;
+}
+.study-index-item span{
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  min-width:22px;
+  height:22px;
+  border-radius:7px;
+  background:rgba(110,106,255,.10);
+  color:#a8a6ff;
+  font-family:var(--hanja-font);
+  font-size:12px;
+  font-weight:900;
+}
+.study-index-item b{
+  min-width:0;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font-size:9px;
+  font-weight:900;
+}
+.study-index-item.active{
+  border-color:rgba(117,110,255,.55);
+  background:linear-gradient(145deg,rgba(104,92,235,.22),rgba(55,81,136,.22));
+  color:#f4f6ff;
+  box-shadow:inset 0 0 0 1px rgba(132,125,255,.09);
+}
+.study-index-item.active span{
+  background:#6d65eb;
+  color:#fff;
+}
+.study-index.compact{
+  grid-template-columns:minmax(0,1fr);
+  padding:5px 6px;
+  border-radius:13px;
+  box-shadow:none;
+}
+.study-index.compact .study-index-track{gap:4px}
+.study-index.compact .study-index-item{
+  min-height:34px;
+  padding:3px 5px;
+  border-radius:9px;
+}
+.study-index.compact .study-index-item span{
+  min-width:18px;height:18px;font-size:10px;border-radius:6px
+}
+.study-index.compact .study-index-item b{font-size:8px}
+
+.study-hub-screen>.study-index{
+  grid-column:1 / -1!important;
+}
+#atlas>.study-index{
+  margin-bottom:10px;
+}
+.practice-session>.study-index,
+.diag-shell>.study-index{
+  margin-bottom:4px;
+}
+
+@media(max-width:900px){
+  .study-index{
+    grid-template-columns:minmax(0,1fr);
+    gap:6px;
+  }
+  .study-index-label{
+    display:flex;
+    align-items:baseline;
+    gap:7px;
+    padding:0;
+    border:0;
+  }
+  .study-index-label small{margin:0}
+  .study-index-track{
+    display:flex;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:1px;
+  }
+  .study-index-track::-webkit-scrollbar{display:none}
+  .study-index-item{
+    flex:0 0 auto;
+    min-width:82px;
+  }
+}
+@media(max-width:600px){
+  .study-index{padding:6px 7px;border-radius:13px}
+  .study-index-label small{display:none}
+  .study-index-item{min-width:68px;min-height:36px;padding:4px}
+  .study-index-item span{min-width:19px;height:19px;font-size:10px}
+  .study-index-item b{font-size:8px}
+  .study-index.compact .study-index-item{min-width:58px}
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.7">
 </head>
@@ -5517,7 +5655,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.25.0-20260930";
+const APP_BUILD="2.26.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -6047,6 +6185,34 @@ function openJapaneseTab(){
       if(el)el.innerHTML="<div class='app-screen'><section class='app-section'><div class='prompt'>日本漢字 모듈을 불러오지 못했습니다.</div><button class='btn primary' onclick='location.reload()' style='margin-top:12px'>새로고침</button></section></div>";
     }
   },100);
+}
+
+function openStudyIndexTarget(key){
+  if(key==="study"){switchTab("study");return}
+  if(key==="mix"){switchTab("practice");startPractice(false);return}
+  if(key==="drill"){switchTab("drill");return}
+  if(key==="exam"){switchTab("exam");return}
+  if(key==="diagnosis"){openUtility("diagnosis");return}
+  if(key==="atlas"){switchTab("atlas");return}
+  if(key==="jpword"){openJapaneseWordHub();return}
+  if(key==="wrong"){openUtility("wrong");return}
+}
+function studyIndexMarkup(active,compact){
+  const items=[
+    ["study","目","전체 학습"],
+    ["mix","練","혼합"],
+    ["drill","書","쓰기 공부"],
+    ["exam","試","기출"],
+    ["diagnosis","級","급수진단"],
+    ["atlas","冊","도감"],
+    ["jpword","日","일본 쓰기"],
+    ["wrong","復","복습"]
+  ];
+  return '<nav class="study-index '+(compact?'compact':'')+'" aria-label="학습 색인">'+
+    (compact?'':'<div class="study-index-label"><b>학습 색인</b><small>원하는 공부로 바로 이동</small></div>')+
+    '<div class="study-index-track">'+items.map(function(x){
+      return '<button type="button" class="study-index-item '+(active===x[0]?'active':'')+'" onclick="openStudyIndexTarget(\''+x[0]+'\')"><span>'+x[1]+'</span><b>'+x[2]+'</b></button>';
+    }).join('')+'</div></nav>';
 }
 
 function switchTab(id){
@@ -6762,7 +6928,7 @@ function renderDiagnosis(){
   const el=$("#diagnosis");if(!el)return;
   if(diagnosisState.phase==="result"&&diagnosisState.result){
     el.innerHTML=`<div class="diag-shell">
-      <button class="btn ghost" onclick="switchTab('study')">← 학습</button>
+      ${studyIndexMarkup("diagnosis")}
       ${diagnosisResultMarkup(diagnosisState.result)}
     </div>`;
     return;
@@ -6791,6 +6957,7 @@ function renderDiagnosis(){
     const placeholder=q.type==="sound"?"독음을 직접 입력":"훈음을 직접 입력";
     const inputValue=q.locked?esc(q.userAnswer||""):"";
     el.innerHTML=`<div class="diag-shell">
+      ${studyIndexMarkup("diagnosis",true)}
       <div class="diag-stage">
         <div class="diag-stage-head"><b>${stageTitle}</b><span>${modeLabel} · ${q.locked?diagnosisState.totalAnswered:diagnosisState.totalAnswered+1}번째 문제</span></div>
         <div class="diag-progress"><i style="width:${overall}%"></i></div>
@@ -6816,7 +6983,7 @@ function renderDiagnosis(){
   }
   const last=latestDiagnosis();
   el.innerHTML=`<div class="diag-shell">
-    <button class="btn ghost" onclick="switchTab('study')">← 학습</button>
+    ${studyIndexMarkup("diagnosis")}
     <section class="diag-hero">
       <div class="diag-kicker">ADAPTIVE GRADE CHECK</div>
       <div class="diag-title">내 한자 급수는 어디쯤?</div>
@@ -7103,7 +7270,7 @@ function renderStudyHub(){
   const unknownCount=Object.keys(unknownHanja||{}).length;
   const freqRows=examItems.filter(function(x){return x.round}).length;
   let h="";
-  h+="<div class='app-screen study-hub-screen'>";
+  h+="<div class='app-screen study-hub-screen'>"+studyIndexMarkup("study");
   h+="<section class='hub-title-card'><div><span class='hub-eyebrow'>LEARN</span><h2>무엇을 공부할까요?</h2><p>문제 풀기, 쓰기, 기출, 복습을 목적별로 모았습니다.</p></div><button class='hub-settings-btn' onclick=\"switchTab('practice');openPracticeSheet()\">연습 설정</button></section>";
   h+="<section class='app-section study-main-section'><div class='app-section-head'><div><div class='app-section-title'>자주 쓰는 학습</div><div class='app-section-sub'>가장 많이 찾는 기능을 위에 고정했습니다.</div></div></div><div class='study-main-grid'>";
   h+="<button class='study-tile primary' onclick='startPractice(false)'><span class='study-tile-icon'>練</span><span><b>혼합 연습</b><small>훈음 · 독음 · 부수 · 획수 등을 섞어서</small></span></button>";
@@ -7160,6 +7327,7 @@ function renderQuestion(){
   const fc=freqCount(q.hanja),[fl,cl]=freqLabel(fc,maxF);
   $("#practice").innerHTML=`
     <div class="practice-session">
+    ${studyIndexMarkup("mix",true)}
     <div class="kpis">
       <div class="kpi"><b>${current+1}/${session.length}</b><span>진행</span></div>
       <div class="kpi"><b>${sessionScore.ok}</b><span>정답</span></div>
@@ -7614,6 +7782,7 @@ function renderExam(){
   const level=examArchiveLevel||"특급";
   const local=isLocalContentMode();
   $("#exam").innerHTML=`<div class="app-screen exam-screen">
+    ${studyIndexMarkup("exam")}
     <section class="app-section">
       <div class="app-section-head">
         <div><div class="app-section-title">기출 실전</div><div class="app-section-sub">급수를 고른 뒤 원하는 회차를 누르면 바로 시작합니다.</div></div>
@@ -9336,6 +9505,7 @@ function renderDrill(){
   const count=exactGradeChars(grade).length;
   const saved=loadDrillProgress();
   $("#drill").innerHTML=`<div class="app-screen drill-setup-screen">
+    ${studyIndexMarkup("drill")}
     ${drillProgressMarkup(saved)}
     <section class="app-section">
       <div class="app-section-head">
@@ -9406,6 +9576,7 @@ function renderDrillCard(){
         <button class="btn drill-icon-btn drill-settings-btn" id="exitDrill">저장하고 나가기</button>
       </div>
     </div>
+    ${studyIndexMarkup("drill",true)}
 
     ${isWrite?`
       <div class="drill-stage write-stage">
@@ -11466,7 +11637,7 @@ function renderAtlas(){
             quick==="weak"?"오답이 있거나 누적 정답률이 낮은 글자만 모아 보기":
             "한국어문회 배정한자 · 훈음 · 장단음 · 부수 · 획수";
 
-  let h='<div class="atlas-shell"><section class="atlas-toolbar">';
+  let h=studyIndexMarkup("atlas")+'<div class="atlas-shell"><section class="atlas-toolbar">';
   h+='<div class="atlas-toolbar-top atlas-top-v2"><div><div class="atlas-title">'+title+'</div><div class="atlas-sub">'+sub+'</div></div><button class="atlas-global-find" onclick="openGlobalSearch(\'\')">⌕ 전체 찾기</button></div>';
   h+='<div class="atlas-quick-row">';
   h+='<button class="'+(quick==="all"?"active":"")+'" data-atlas-quick="all"><b>冊</b><span>전체</span></button>';
