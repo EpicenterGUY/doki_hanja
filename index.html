@@ -4762,6 +4762,426 @@ body.global-search-open .global-search-sheet{
   }
 }
 
+
+/* HANJA LAB TABLET / DESKTOP WORKSPACE V2 · 2.30.0
+   One central work axis for all learning screens. */
+@media(min-width:700px){
+  :root{
+    --hl-page-max:1280px;
+    --hl-session-max:1080px;
+    --hl-core-max:760px;
+    --hl-control-h:50px;
+  }
+
+  body:not(.drill-active) .tabpage{
+    width:min(100%,var(--hl-page-max))!important;
+    max-width:var(--hl-page-max)!important;
+    margin-inline:auto!important;
+  }
+  body:not(.drill-active) .app-screen{
+    width:100%!important;
+    max-width:100%!important;
+    margin-inline:auto!important;
+  }
+
+  /* active learning sessions share one centered frame */
+  .exam-session,
+  .practice-session,
+  .diag-shell{
+    width:min(100%,var(--hl-session-max))!important;
+    max-width:var(--hl-session-max)!important;
+    margin-inline:auto!important;
+    box-sizing:border-box;
+  }
+  .exam-session,
+  .practice-session{
+    display:grid!important;
+    gap:10px!important;
+    align-content:start!important;
+  }
+  .exam-session>.study-index,
+  .practice-session>.study-index,
+  .diag-shell>.study-index{
+    width:100%!important;
+    margin:0!important;
+  }
+
+  /* equal KPI rhythm */
+  .exam-session>.kpis,
+  .practice-session>.kpis{
+    width:100%!important;
+    display:grid!important;
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+    gap:8px!important;
+    margin:0!important;
+  }
+  .exam-session>.kpis .kpi,
+  .practice-session>.kpis .kpi{
+    min-height:70px!important;
+    height:auto!important;
+    padding:10px 13px!important;
+    display:flex!important;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .exam-session>.progress,
+  .practice-session>.progress{
+    width:100%!important;
+    margin:0!important;
+  }
+
+  /* EXAM: prompt, glyph, answer and navigation on the same center line */
+  .exam-session>.card{
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+    padding:20px 22px!important;
+    box-sizing:border-box;
+    display:grid!important;
+    justify-items:center!important;
+    align-content:start!important;
+    gap:10px!important;
+  }
+  .exam-session>.card>.meta{
+    width:min(100%,var(--hl-core-max))!important;
+    justify-content:center!important;
+    text-align:center!important;
+  }
+  .exam-session>.card>.soft,
+  .exam-session>.card>.prompt{
+    width:min(100%,var(--hl-core-max))!important;
+    margin:0!important;
+    text-align:center!important;
+  }
+  .exam-session>.card>.soft{
+    font-size:11px!important;
+    line-height:1.4!important;
+  }
+  .exam-session>.card>.prompt{
+    margin-top:3px!important;
+    font-size:clamp(22px,2.3vw,31px)!important;
+    line-height:1.3!important;
+  }
+  .exam-session>.card>.big-hanja{
+    width:100%!important;
+    margin:4px 0 8px!important;
+    text-align:center!important;
+    font-size:clamp(82px,10vw,138px)!important;
+    line-height:1!important;
+  }
+  .exam-session>.card>.source-text,
+  .exam-session>.card>.exam-passage{
+    width:min(100%,820px)!important;
+    margin-inline:auto!important;
+  }
+  .exam-session .answer-row,
+  .remote-exam-session .remote-question>.answer-row{
+    width:min(100%,520px)!important;
+    margin:4px auto 0!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 96px!important;
+    gap:9px!important;
+    align-items:stretch!important;
+  }
+  .exam-session .answer-row input,
+  .remote-exam-session .remote-question>.answer-row input{
+    width:100%!important;
+    min-width:0!important;
+    min-height:var(--hl-control-h)!important;
+    height:var(--hl-control-h)!important;
+    box-sizing:border-box!important;
+  }
+  .exam-session .answer-row .btn,
+  .remote-exam-session .remote-question>.answer-row .btn{
+    width:96px!important;
+    min-width:96px!important;
+    min-height:var(--hl-control-h)!important;
+    height:var(--hl-control-h)!important;
+  }
+  .exam-session #examFeedback,
+  .remote-exam-session #remoteFeedback{
+    width:min(100%,var(--hl-core-max))!important;
+    margin-inline:auto!important;
+    text-align:center!important;
+  }
+  .exam-session>.card>.compact-settings,
+  .remote-exam-session .remote-question>.compact-settings{
+    width:min(100%,var(--hl-core-max))!important;
+    margin:0 auto!important;
+  }
+  .exam-session>.card>.actions,
+  .remote-exam-session .remote-question>.actions{
+    width:min(100%,var(--hl-core-max))!important;
+    margin:0 auto!important;
+    display:grid!important;
+    grid-template-columns:1fr 1fr!important;
+    gap:9px!important;
+  }
+  .exam-session>.card>.actions .btn,
+  .remote-exam-session .remote-question>.actions .btn{
+    min-height:48px!important;
+  }
+  .exam-session .choice-grid{
+    width:min(100%,var(--hl-core-max))!important;
+    margin-inline:auto!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:9px!important;
+  }
+  .exam-session .choice-btn{
+    min-height:58px!important;
+  }
+
+  /* Remote/PDF exam: keep the actual question centered even if PDF tools exist above it */
+  .remote-exam-session>.card{
+    display:block!important;
+    padding:16px!important;
+  }
+  .remote-exam-session>.card>.toolbar{
+    width:100%!important;
+    margin-bottom:12px!important;
+  }
+  .remote-exam-session .pdf-frame{
+    width:100%!important;
+    max-height:360px!important;
+    border-radius:14px!important;
+  }
+  .remote-exam-session .remote-question{
+    width:100%!important;
+    margin:12px auto 0!important;
+    padding:18px 16px!important;
+    box-sizing:border-box;
+    display:grid!important;
+    justify-items:center!important;
+    gap:10px!important;
+    text-align:center!important;
+  }
+  .remote-exam-session .remote-question>.meta{
+    justify-content:center!important;
+  }
+  .remote-exam-session .remote-question>.q-snippet{
+    width:min(100%,var(--hl-core-max))!important;
+    margin:0 auto!important;
+    text-align:center!important;
+    font-size:clamp(19px,2vw,27px)!important;
+    line-height:1.35!important;
+  }
+  .remote-exam-session .remote-question>.canvas-tools{
+    width:min(100%,520px)!important;
+    margin-inline:auto!important;
+    justify-content:center!important;
+  }
+  .remote-exam-session .remote-nav{
+    width:min(100%,var(--hl-core-max))!important;
+    margin-inline:auto!important;
+  }
+
+  /* Mixed practice is now a true centered stack */
+  .practice-session>.card.hero.practice-question-card{
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+    padding:22px!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    justify-items:center!important;
+    align-content:start!important;
+    gap:11px!important;
+    text-align:center!important;
+  }
+  .practice-question-card>.meta{
+    justify-content:center!important;
+  }
+  .practice-question-card>.prompt{
+    width:min(100%,var(--hl-core-max))!important;
+    margin:0!important;
+    font-size:clamp(21px,2.2vw,30px)!important;
+    line-height:1.3!important;
+    text-align:center!important;
+  }
+  .practice-question-card>.practice-note{
+    width:min(100%,var(--hl-core-max))!important;
+    text-align:center!important;
+  }
+  .practice-question-card>.big-hanja{
+    width:100%!important;
+    margin:3px 0!important;
+    font-size:clamp(86px,11vw,148px)!important;
+    line-height:1!important;
+    text-align:center!important;
+  }
+  .practice-question-card>.answer-row{
+    width:min(100%,520px)!important;
+    margin:2px auto 0!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 96px!important;
+    gap:9px!important;
+  }
+  .practice-question-card>.answer-row input,
+  .practice-question-card>.answer-row .btn{
+    min-height:var(--hl-control-h)!important;
+    height:var(--hl-control-h)!important;
+  }
+  .practice-question-card>#feedback{
+    width:min(100%,var(--hl-core-max))!important;
+    margin:0 auto!important;
+  }
+
+  /* Diagnosis: everything centered inside the same readable core */
+  .diag-shell{
+    gap:10px!important;
+  }
+  .diag-stage,
+  .diag-question,
+  .diag-hero{
+    width:100%!important;
+    max-width:100%!important;
+    box-sizing:border-box;
+  }
+  .diag-question{
+    display:grid!important;
+    justify-items:center!important;
+    text-align:center!important;
+    padding:22px!important;
+  }
+  .diag-glyph,
+  .diag-prompt,
+  .diag-feedback,
+  .diag-direct,
+  .diag-choices,
+  .diag-choice-grid{
+    width:min(100%,var(--hl-core-max))!important;
+    margin-inline:auto!important;
+  }
+  .diag-direct{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 96px!important;
+    gap:9px!important;
+  }
+  .diag-direct input,
+  .diag-direct .btn{
+    min-height:var(--hl-control-h)!important;
+    height:var(--hl-control-h)!important;
+  }
+  .diag-choices{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:9px!important;
+  }
+  .diag-choice{
+    min-height:56px!important;
+  }
+  .diag-unknown,
+  .diag-next{
+    width:min(100%,520px)!important;
+    min-height:48px!important;
+  }
+
+  /* Drill active session now explicitly has top / index / stage rows */
+  .drill-session-shell{
+    grid-template-rows:auto auto minmax(0,1fr)!important;
+    width:min(100%,1180px)!important;
+    max-width:1180px!important;
+    margin-inline:auto!important;
+  }
+  .drill-typing-pane{
+    display:grid!important;
+    place-items:center!important;
+  }
+  .drill-typing-inner{
+    width:min(100%,var(--hl-core-max))!important;
+    justify-items:center!important;
+    text-align:center!important;
+  }
+  .drill-typing-inner>.meta{
+    justify-content:center!important;
+  }
+  .drill-typing-inner>.prompt{
+    width:100%!important;
+    text-align:center!important;
+  }
+  .drill-typing-inner>.answer-row{
+    width:min(100%,520px)!important;
+    margin-inline:auto!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 96px!important;
+    gap:9px!important;
+  }
+  .drill-typing-inner>.answer-row input,
+  .drill-typing-inner>.answer-row .btn{
+    min-height:var(--hl-control-h)!important;
+    height:var(--hl-control-h)!important;
+  }
+
+  /* setup / utility pages */
+  .exam-screen,
+  .drill-setup-screen,
+  .guide-screen,
+  .report-screen{
+    width:min(100%,var(--hl-session-max))!important;
+    max-width:var(--hl-session-max)!important;
+    margin-inline:auto!important;
+  }
+  .exam-screen>.app-section,
+  .drill-setup-screen>.app-section{
+    width:100%!important;
+    box-sizing:border-box;
+  }
+
+  /* Atlas and settings keep a stable desktop/tablet width and never float off-axis */
+  #atlas>.study-index,
+  #atlas>.atlas-shell,
+  .more-screen{
+    width:100%!important;
+    max-width:100%!important;
+    margin-inline:auto!important;
+  }
+  .more-screen>.app-section,
+  .more-screen>.app-stats-hero{
+    box-sizing:border-box;
+  }
+}
+
+/* iPad portrait: central single-column interaction, no squeezed two-column controls. */
+@media(min-width:700px) and (orientation:portrait){
+  .exam-session,
+  .practice-session,
+  .diag-shell{
+    width:100%!important;
+  }
+  .exam-session>.kpis,
+  .practice-session>.kpis{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .exam-session .choice-grid,
+  .diag-choices{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .remote-exam-session .pdf-frame{
+    max-height:280px!important;
+  }
+  .exam-session>.card,
+  .practice-session>.card.hero.practice-question-card,
+  .diag-question{
+    padding:18px 16px!important;
+  }
+}
+
+/* Wide PC: use more whitespace around the centered work core, not wider inputs. */
+@media(min-width:1200px) and (pointer:fine){
+  .exam-session,
+  .practice-session,
+  .diag-shell{
+    max-width:1120px!important;
+  }
+  .exam-session>.card,
+  .practice-session>.card.hero.practice-question-card{
+    padding:28px 34px!important;
+  }
+  .remote-exam-session .pdf-frame{
+    max-height:430px!important;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.7">
 </head>
@@ -5677,7 +6097,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.29.0-20261001";
+const APP_BUILD="2.30.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -7357,21 +7777,19 @@ function renderQuestion(){
       <div class="kpi"><b>${current?Math.round(sessionScore.ok/current*100):0}%</b><span>정답률</span></div>
     </div>
     <div class="progress"><div style="width:${(current/session.length)*100}%"></div></div>
-    <div class="card hero">
-      <div>
-        <div class="meta">
-          <span class="badge">${esc(q.level)}</span><span class="badge">${esc(TYPES[q.type]||q.type)}</span>
-          <span class="badge ${cl}">${esc(fl)}</span>${q.source==="generated"?`<span class="badge source-badge">어문회 훈음</span>`:""}
-        </div>
-        <div class="prompt" style="margin-top:14px">${esc(q.prompt)}</div>
-        ${q.note?`<div class="sub">${esc(q.note)}</div>`:""}
-        <div class="answer-row">
-          <input id="answer" autocomplete="off" autocapitalize="off" placeholder="정답 입력">
-          <button class="btn primary" id="submitAns">채점</button>
-        </div>
-        <div id="feedback" class="feedback"></div>
+    <div class="card hero practice-question-card">
+      <div class="meta">
+        <span class="badge">${esc(q.level)}</span><span class="badge">${esc(TYPES[q.type]||q.type)}</span>
+        <span class="badge ${cl}">${esc(fl)}</span>${q.source==="generated"?`<span class="badge source-badge">어문회 훈음</span>`:""}
       </div>
+      <div class="prompt">${esc(q.prompt)}</div>
+      ${q.note?`<div class="sub practice-note">${esc(q.note)}</div>`:""}
       <div class="big-hanja">${esc(q.display||q.hanja||"漢")}</div>
+      <div class="answer-row">
+        <input id="answer" autocomplete="off" autocapitalize="off" placeholder="정답 입력">
+        <button class="btn primary" id="submitAns">채점</button>
+      </div>
+      <div id="feedback" class="feedback"></div>
     </div>
     </div>`;
   $("#answer").focus();
@@ -9052,7 +9470,9 @@ function renderRemoteQuestion(){
   const st=remoteExamState,n=st.index,ans=st.answers[n]||"",type=st.types[n]||"other",snippet=st.questions[n]||"";
   const hasH=answerHasHanja(ans) && !["sound","meaningSound","definition","longSound"].includes(type);
   const currentPage=st.pages[n]||"?";
-  $("#exam").innerHTML=`<div class="kpis">
+  $("#exam").innerHTML=`<div class="exam-session remote-exam-session">
+  ${studyIndexMarkup("exam",true)}
+  <div class="kpis">
     <div class="kpi"><b>제${st.round}회</b><span>특급 원문</span></div>
     <div class="kpi"><b>${n}/200</b><span>문제 번호</span></div>
     <div class="kpi"><b>${st.score}</b><span>정답</span></div>
@@ -9074,6 +9494,7 @@ function renderRemoteQuestion(){
       <div class="actions"><button class="btn" id="remotePrev" ${n===1?"disabled":""}>이전</button><button class="btn primary" id="remoteNext">${n===200?"결과":"다음"}</button></div>
       <div class="remote-nav">${Array.from({length:200},(_,i)=>i+1).map(i=>`<button data-rq="${i}" class="${i===n?"current":""} ${st.checked[i]?"done":""}">${i}</button>`).join("")}</div>
     </div>
+  </div>
   </div>`;
   {
     const b=$("#remoteCheckText");if(b)b.onclick=()=>checkRemoteText(n,ans);
@@ -9178,6 +9599,7 @@ function renderExamQuestion(){
   const choices=normalizeChoices(q), no=q.no||q.number||st.index+1;
   const answerGuide=choices.length?"선택지를 눌러 바로 채점하세요.":"정답을 아래 입력칸에 직접 타이핑하세요. Enter로도 채점됩니다.";
   $("#exam").innerHTML=`<div class="exam-session">
+  ${studyIndexMarkup("exam",true)}
   <div class="kpis">
     <div class="kpi"><b>제${st.round}회</b><span>${esc(st.level)}</span></div>
     <div class="kpi"><b>${st.index+1}/${st.questions.length}</b><span>현재 문항</span></div>
