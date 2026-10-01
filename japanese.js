@@ -789,15 +789,7 @@ function renderJapanesePracticeCard(){
   const pct=Math.round((st.index+1)/st.list.length*100),saved=!!jpUnknown[jpKey(item)];
   syncDrillViewport();document.body.classList.add("drill-active");
   if(window._drillViewportFit)window.visualViewport&&window.visualViewport.removeEventListener("resize",window._drillViewportFit);
-  window._drillViewportFit=function(){
-    syncDrillViewport();
-    const canvas=$("#jpWordCanvas");
-    if(!canvas||!canvas._jpWordSpec||canvas._strokeCount)return;
-    const next=jpWordBoardSpec(chars.length),cur=canvas._jpWordSpec;
-    if(next.cols!==cur.cols||next.rows!==cur.rows){
-      renderJapaneseWordCard();
-    }
-  };
+  window._drillViewportFit=function(){syncDrillViewport()};
   window.visualViewport&&window.visualViewport.addEventListener("resize",window._drillViewportFit,{passive:true});
 
   let h="";
@@ -1020,7 +1012,15 @@ function renderJapaneseWordCard(){
   const reading=jpHiraganaReading(w.reading),sentenceHtml=jpWordSentenceMarkup(w);
   syncDrillViewport();document.body.classList.add("drill-active");
   if(window._drillViewportFit)window.visualViewport&&window.visualViewport.removeEventListener("resize",window._drillViewportFit);
-  window._drillViewportFit=function(){syncDrillViewport()};
+  window._drillViewportFit=function(){
+    syncDrillViewport();
+    const canvas=$("#jpWordCanvas");
+    if(!canvas||!canvas._jpWordSpec||canvas._strokeCount)return;
+    const next=jpWordBoardSpec(chars.length),cur=canvas._jpWordSpec;
+    if(next.cols!==cur.cols||next.rows!==cur.rows){
+      renderJapaneseWordCard();
+    }
+  };
   window.visualViewport&&window.visualViewport.addEventListener("resize",window._drillViewportFit,{passive:true});
 
   let h="<div class='drill-session-shell jp-word-session-shell "+(jpState.wordHideMeaning?"":"meaning-open")+"'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+(jpState.wordRound+1)+"회차</span><span class='drill-status-pill'>"+(jpState.wordIndex+1)+"/"+jpState.wordList.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpWordExit'>목록</button></div></div>"+(typeof studyIndexMarkup==="function"?studyIndexMarkup("jpword",true):"");
