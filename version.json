@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.26.0-20261001",
+  "webBuild": "2.27.0-20261001",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.27.0",
+      "title": "iPad 단어쓰기 중앙 경계선 · 색인 여백 수정",
+      "items": [
+        "일본 단어쓰기 진행 화면을 상단 상태바 / 축약 학습 색인 / 문제 영역의 3행 구조로 고정해 세로모드에서 생기던 거대한 빈 공간 제거",
+        "쓰기판 글자 셀의 기본·활성·빈칸 테두리와 outline을 전역에서 완전히 제거해 중앙 경계선이 다시 나타나는 현상 차단",
+        "정답 오버레이 셀 경계도 제거해 정답 보기 상태에서도 중앙선이 생기지 않도록 수정",
+        "쓰기판 전체는 하나의 외곽선만 유지해 하나의 연속된 필기면처럼 보이도록 통일",
+        "진행 중 학습 색인을 30px 높이의 얇은 바 형태로 고정해 iPad 가로·세로에서 공간 낭비 최소화"
+      ]
+    },
     {
       "version": "2.26.0",
       "title": "학습 색인 추가",
