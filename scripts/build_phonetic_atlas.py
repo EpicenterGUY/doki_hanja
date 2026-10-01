@@ -41,6 +41,19 @@ LOAN=set("我自來来萬万北西東东其焉莫")
 DERIVATIVE=set("老考")
 DISPUTED=set("影淚泪幕盲盟犯欲友修座差笛堤怨")
 
+# High-confidence families that must stay grouped even when an upstream decomposition source
+# changes or omits the phonetic tag. Keep these as structural corrections, not sound guesses.
+PHONETIC_OVERRIDES={
+    "假":{"p":"叚","s":"人","f":"형성","q":"확정","src":"manual","d":"⿰亻叚"},
+    "蝦":{"p":"叚","s":"虫","f":"형성","q":"확정","src":"manual","d":"⿰虫叚"},
+    "鰕":{"p":"叚","s":"魚","f":"형성","q":"확정","src":"manual","d":"⿰魚叚"},
+    "暇":{"p":"叚","s":"日","f":"형성","q":"확정","src":"manual","d":"⿰日叚"},
+    "瑕":{"p":"叚","s":"王","f":"형성","q":"확정","src":"manual","d":"⿰王叚"},
+    "遐":{"p":"叚","s":"辶","f":"형성","q":"확정","src":"manual","d":"⿺辶叚"},
+    "霞":{"p":"叚","s":"雨","f":"형성","q":"확정","src":"manual","d":"⿱雨叚"},
+    "葭":{"p":"叚","s":"艹","f":"형성","q":"확정","src":"manual","d":"⿱艹叚"},
+}
+
 def fetch(url:str)->bytes:
     req=urllib.request.Request(url,headers={"User-Agent":UA})
     with urllib.request.urlopen(req,timeout=90) as r:
@@ -277,6 +290,12 @@ def main():
             if j["kun"]:rec["kunx"]=j["kun"]
         records[ch]=rec
 
+    # Apply audited structural corrections after all automatic inference so rebuilds cannot
+    # split a known family such as 假·蝦·鰕 into separate phonetic heads.
+    for ch,over in PHONETIC_OVERRIDES.items():
+        if ch in records:
+            records[ch].update(over)
+
     # A phonetic component can itself have a phonetic component, e.g. 京 → 景 → 憬.
     def chain(ch):
         out=[];seen={ch};cur=ch
@@ -292,7 +311,7 @@ def main():
         if c:r["chain"]=c
 
     payload={
-        "version":2,
+        "version":5,
         "format":"pdf-phonetic-atlas",
         "records":records,
         "stats":{
