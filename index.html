@@ -4740,6 +4740,28 @@ body.global-search-open .global-search-sheet{
   .study-index.compact .study-index-item{min-width:58px}
 }
 
+
+/* STUDY INDEX GRID PLACEMENT · 2.26.0 */
+@media(min-width:700px){
+  .study-hub-screen>.study-index{grid-column:1 / -1!important;grid-row:1!important}
+  .study-hub-screen .hub-title-card{grid-column:1 / -1!important;grid-row:2!important}
+  .study-hub-screen .study-main-section{grid-column:1 / span 8!important;grid-row:3 / span 2!important}
+  .study-hub-screen .freq-spotlight{grid-column:9 / -1!important;grid-row:3!important}
+  .study-hub-screen>.app-section:not(.study-main-section){grid-column:9 / -1!important;grid-row:4!important}
+  .study-hub-screen .study-status-strip{grid-column:1 / -1!important;grid-row:5!important}
+}
+@media(min-width:700px) and (max-width:899px) and (orientation:portrait){
+  .study-hub-screen>.study-index,
+  .study-hub-screen .hub-title-card,
+  .study-hub-screen .study-main-section,
+  .study-hub-screen .freq-spotlight,
+  .study-hub-screen>.app-section:not(.study-main-section),
+  .study-hub-screen .study-status-strip{
+    grid-column:1 / -1!important;
+    grid-row:auto!important;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.7">
 </head>
