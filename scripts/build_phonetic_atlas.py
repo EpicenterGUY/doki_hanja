@@ -64,6 +64,11 @@ PHONETIC_OVERRIDES={
     "濁":{"p":"蜀","s":"水","f":"형성","q":"확정","src":"manual","d":"⿰氵蜀"},
     "秤":{"p":"平","s":"禾","f":"형성","q":"확정","src":"manual","d":"⿰禾平"},
     "況":{"p":"兄","s":"水","f":"형성","q":"확정","src":"manual","d":"⿰氵兄"},
+    "靄":{"p":"謁","s":"雨","f":"형성","q":"확정","src":"manual","d":"⿱雨謁"},
+    "鞏":{"p":"巩","s":"革","f":"형성","q":"확정","src":"manual","d":"⿱巩革"},
+    "顆":{"p":"果","s":"頁","f":"형성","q":"확정","src":"manual","d":"⿰果頁"},
+    "屬":{"p":"蜀","s":"尸","f":"형성","q":"확정","src":"manual","d":"⿸尸⿱氺蜀"},
+    "稱":{"p":"爯","s":"禾","f":"형성","q":"확정","src":"manual","d":"⿰禾爯"},
 }
 
 def fetch(url:str)->bytes:
@@ -323,7 +328,7 @@ def main():
         if c:r["chain"]=c
 
     payload={
-        "version":5,
+        "version":6,
         "format":"pdf-phonetic-atlas",
         "records":records,
         "stats":{
