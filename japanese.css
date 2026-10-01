@@ -1769,3 +1769,113 @@ body.drill-active #jp{height:100%;min-height:0}
   }
 }
 
+
+
+/* IPAD ROTATION + PENCIL POLISH · 2.29.0 */
+.jp-word-session-shell,
+.jp-word-session-shell *{
+  -webkit-user-select:none!important;
+  user-select:none!important;
+  -webkit-touch-callout:none!important;
+}
+.jp-word-session-shell .jp-word-board{
+  touch-action:none!important;
+  overscroll-behavior:contain;
+}
+.jp-word-session-shell .jp-word-board-guides,
+.jp-word-session-shell .jp-word-answer{
+  pointer-events:none!important;
+}
+
+/* Center the prompt against the whole question bar, not the remaining space beside buttons. */
+@media(min-width:700px){
+  .jp-word-session-shell .jp-word-question{
+    position:relative!important;
+    display:block!important;
+    box-sizing:border-box!important;
+    text-align:center!important;
+    overflow:hidden!important;
+  }
+  .jp-word-session-shell .jp-word-prompt-main{
+    position:absolute!important;
+    left:50%!important;
+    top:50%!important;
+    transform:translate(-50%,-50%)!important;
+    width:auto!important;
+    max-width:calc(100% - 190px)!important;
+    min-width:0!important;
+    margin:0!important;
+    padding:0!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:10px!important;
+    text-align:center!important;
+    z-index:1;
+  }
+  .jp-word-session-shell .jp-word-reading,
+  .jp-word-session-shell .jp-word-example{
+    margin:0!important;
+    text-align:center!important;
+  }
+  .jp-word-session-shell .jp-word-meaning-toggle{
+    position:absolute!important;
+    right:10px!important;
+    top:50%!important;
+    transform:translateY(-50%)!important;
+    z-index:3!important;
+  }
+}
+
+/* Landscape: keep the Japanese prompt on one centered line after rotation. */
+@media(min-width:700px) and (orientation:landscape){
+  .jp-word-session-shell .jp-word-question{
+    height:60px!important;
+    min-height:60px!important;
+    max-height:60px!important;
+    padding:0!important;
+  }
+  .jp-word-session-shell .jp-word-prompt-main{
+    max-width:calc(100% - 210px)!important;
+    flex-wrap:nowrap!important;
+    white-space:nowrap!important;
+  }
+  .jp-word-session-shell .jp-word-reading{
+    flex:0 0 auto!important;
+    font-size:clamp(26px,2.7vw,35px)!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+  }
+  .jp-word-session-shell .jp-word-example{
+    min-width:0!important;
+    max-width:100%!important;
+    font-size:clamp(15px,1.75vw,21px)!important;
+    line-height:1.15!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+}
+
+/* Portrait: center as a group and allow a controlled wrap only when needed. */
+@media(min-width:700px) and (orientation:portrait){
+  .jp-word-session-shell .jp-word-question{
+    min-height:92px!important;
+    max-height:118px!important;
+    padding:0!important;
+  }
+  .jp-word-session-shell .jp-word-prompt-main{
+    max-width:calc(100% - 170px)!important;
+    flex-wrap:wrap!important;
+    gap:5px 9px!important;
+  }
+  .jp-word-session-shell .jp-word-reading{
+    font-size:clamp(27px,4.6vw,38px)!important;
+    line-height:1!important;
+  }
+  .jp-word-session-shell .jp-word-example{
+    font-size:clamp(15px,2.45vw,20px)!important;
+    line-height:1.2!important;
+  }
+}
+
