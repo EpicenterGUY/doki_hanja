@@ -5182,6 +5182,242 @@ body.global-search-open .global-search-sheet{
   }
 }
 
+
+/* RESPONSIVE ORIENTATION + INPUT REPAIR · 2.31.0 */
+
+/* Active learning index must always be a slim toolbar, especially on phones. */
+body.drill-active .study-index.compact,
+.jp-word-session-shell>.study-index.compact{
+  height:38px!important;
+  min-height:38px!important;
+  max-height:38px!important;
+  padding:3px 4px!important;
+  margin:0!important;
+  overflow:hidden!important;
+  align-self:start!important;
+  box-sizing:border-box!important;
+  border-radius:11px!important;
+}
+body.drill-active .study-index.compact .study-index-track,
+.jp-word-session-shell>.study-index.compact .study-index-track{
+  height:30px!important;
+  min-height:30px!important;
+  max-height:30px!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:4px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scrollbar-width:none!important;
+}
+body.drill-active .study-index.compact .study-index-track::-webkit-scrollbar,
+.jp-word-session-shell>.study-index.compact .study-index-track::-webkit-scrollbar{display:none!important}
+body.drill-active .study-index.compact .study-index-item,
+.jp-word-session-shell>.study-index.compact .study-index-item{
+  flex:0 0 auto!important;
+  width:auto!important;
+  min-width:66px!important;
+  height:28px!important;
+  min-height:28px!important;
+  max-height:28px!important;
+  padding:2px 6px!important;
+  gap:4px!important;
+  border-radius:8px!important;
+}
+body.drill-active .study-index.compact .study-index-item span,
+.jp-word-session-shell>.study-index.compact .study-index-item span{
+  min-width:16px!important;width:16px!important;height:16px!important;font-size:9px!important
+}
+body.drill-active .study-index.compact .study-index-item b,
+.jp-word-session-shell>.study-index.compact .study-index-item b{font-size:7.5px!important}
+
+/* Phone: no giant dead band between status and question. */
+@media(max-width:699px){
+  .drill-session-shell,
+  .jp-word-session-shell{
+    grid-template-rows:auto 38px minmax(0,1fr)!important;
+    align-content:stretch!important;
+    gap:5px!important;
+  }
+  body.drill-active .study-index.compact .study-index-item,
+  .jp-word-session-shell>.study-index.compact .study-index-item{
+    min-width:60px!important;
+  }
+  .drill-stage,
+  .jp-word-stage{
+    min-height:0!important;
+    align-self:stretch!important;
+  }
+}
+
+/* Hanja handwriting question area: same centered hierarchy in portrait and landscape. */
+@media(min-width:700px){
+  .drill-stage.write-stage{
+    grid-template-columns:minmax(0,1fr)!important;
+    justify-items:center!important;
+  }
+  .drill-question-pane{
+    width:100%!important;
+    max-width:1180px!important;
+    box-sizing:border-box!important;
+    text-align:center!important;
+    align-items:center!important;
+    justify-items:center!important;
+    overflow:hidden!important;
+  }
+  .drill-question-pane .meta{justify-content:center!important}
+  .drill-question-pane .prompt,
+  .drill-question-pane .drill-clue,
+  .drill-question-pane .drill-tip,
+  .drill-question-pane .drill-official{
+    width:100%!important;
+    max-width:960px!important;
+    margin-inline:auto!important;
+    text-align:center!important;
+  }
+}
+
+/* iPad / tablet landscape: compact top question strip, but never clip text. */
+@media(min-width:700px) and (orientation:landscape){
+  body.drill-active .drill-session-shell{
+    grid-template-rows:auto 38px minmax(0,1fr)!important;
+    gap:5px!important;
+  }
+  .drill-stage.write-stage{
+    grid-template-rows:82px minmax(0,1fr)!important;
+    gap:6px!important;
+  }
+  .drill-question-pane{
+    height:82px!important;
+    min-height:82px!important;
+    max-height:82px!important;
+    padding:7px 14px!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto auto!important;
+    place-items:center!important;
+    align-content:center!important;
+    gap:2px!important;
+  }
+  .drill-question-pane .meta,
+  .drill-question-pane .drill-official,
+  .drill-question-pane .drill-tip,
+  .drill-question-pane #drillFeedback{
+    display:none!important;
+  }
+  .drill-question-pane .prompt{
+    display:block!important;
+    font-size:clamp(12px,1.25vw,16px)!important;
+    line-height:1.18!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    color:#aebed7!important;
+  }
+  .drill-question-pane .drill-clue{
+    display:block!important;
+    font-size:clamp(27px,3vw,39px)!important;
+    line-height:1.02!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+    color:#fff!important;
+  }
+  .drill-canvas-pane{
+    min-height:0!important;
+    align-self:stretch!important;
+  }
+  .drill-canvas-wrap{
+    margin-inline:auto!important;
+  }
+}
+
+/* Tablet portrait keeps the exact same centered order, only taller. */
+@media(min-width:700px) and (orientation:portrait){
+  body.drill-active .drill-session-shell{
+    grid-template-rows:auto 38px minmax(0,1fr)!important;
+  }
+  .drill-stage.write-stage{
+    grid-template-rows:auto minmax(0,1fr)!important;
+  }
+  .drill-question-pane{
+    min-height:132px!important;
+    max-height:170px!important;
+    padding:12px 16px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    gap:4px!important;
+  }
+  .drill-question-pane .prompt{
+    font-size:clamp(14px,2vw,18px)!important;
+    line-height:1.25!important;
+  }
+  .drill-question-pane .drill-clue{
+    font-size:clamp(32px,5vw,46px)!important;
+    line-height:1.05!important;
+  }
+  .drill-question-pane .drill-tip{
+    font-size:10px!important;
+    line-height:1.25!important;
+  }
+}
+
+/* Global finder: content-sized panel, no huge empty lower half. */
+.global-search-sheet{
+  height:auto!important;
+  min-height:0!important;
+  max-height:min(82dvh,720px)!important;
+  overflow:hidden!important;
+  display:flex!important;
+  flex-direction:column!important;
+}
+.global-search-head,
+.global-search-box,
+.global-search-quick{flex:0 0 auto!important}
+.global-search-results{
+  flex:0 1 auto!important;
+  min-height:0!important;
+  max-height:min(58dvh,520px)!important;
+  overflow:auto!important;
+  overscroll-behavior:contain;
+  padding-bottom:2px;
+}
+@media(min-width:700px){
+  .global-search-sheet{
+    width:min(760px,calc(100% - 32px))!important;
+    padding:13px!important;
+    border-radius:22px!important;
+  }
+  .global-search-quick{
+    justify-content:flex-start!important;
+  }
+}
+@media(max-width:699px){
+  .global-search-sheet{
+    top:max(58px,calc(env(safe-area-inset-top) + 54px))!important;
+    width:calc(100% - 10px)!important;
+    max-height:calc(100dvh - 118px)!important;
+    padding:9px!important;
+    border-radius:18px!important;
+  }
+  .global-search-results{max-height:calc(100dvh - 270px)!important}
+}
+
+/* Prevent orientation-specific text clipping in session cards. */
+@media(min-width:700px){
+  .exam-session .prompt,
+  .practice-question-card>.prompt,
+  .diag-prompt,
+  .drill-typing-inner>.prompt{
+    overflow:visible!important;
+    text-overflow:clip!important;
+    white-space:normal!important;
+    word-break:keep-all!important;
+    overflow-wrap:anywhere!important;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.20.7">
 </head>
@@ -6097,7 +6333,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.30.0-20261001";
+const APP_BUILD="2.31.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -10338,9 +10574,15 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
     const r=surface.getBoundingClientRect();
     const src=source(e);
     const rw=Math.max(1,r.width),rh=Math.max(1,r.height);
-    const x=Math.max(0,Math.min(c.width,(src.clientX-r.left)*c.width/rw));
-    const y=Math.max(0,Math.min(c.height,(src.clientY-r.top)*c.height/rh));
-    return [x,y];
+    let cssX,cssY;
+    if(e===src && e.target===surface && Number.isFinite(e.offsetX) && Number.isFinite(e.offsetY)){
+      cssX=e.offsetX;cssY=e.offsetY;
+    }else{
+      cssX=src.clientX-r.left;cssY=src.clientY-r.top;
+    }
+    cssX=Math.max(0,Math.min(rw,cssX));
+    cssY=Math.max(0,Math.min(rh,cssY));
+    return [cssX*c.width/rw,cssY*c.height/rh];
   };
   const suppress=e=>{if(e?.cancelable)e.preventDefault()};
   const shouldIgnoreDown=e=>{
@@ -10381,7 +10623,7 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
     const displayScale=(sx+sy)/2;
     // Keep handwriting visually consistent when the board is resized or the iPad rotates.
     // c._brushCssPx is expressed in on-screen CSS pixels, not canvas backing pixels.
-    const brushCss=Math.max(2.8,Math.min(7,Number(c._brushCssPx)||4.6));
+    const brushCss=Math.max(3.5,Math.min(9,Number(c._brushCssPx)||6.2));
     ctx.strokeStyle="#111";
     ctx.lineWidth=brushCss*displayScale;
     ctx.lineCap="round";ctx.lineJoin="round";
