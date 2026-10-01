@@ -1,9 +1,23 @@
 {
-  "webBuild": "2.30.0-20261001",
+  "webBuild": "2.31.0-20261001",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.31.0",
+      "title": "폰 색인 높이 · iPad 필기 좌표 · 회전 UI · 전체 찾기 수정",
+      "items": [
+        "폰 쓰기/훈음 학습에서 학습 색인이 큰 빈 박스로 늘어나던 문제를 38px 고정 슬림바로 변경",
+        "iPad Safari에서 회전 후 Apple Pencil 필기가 실제 터치 위치와 다른 곳에 그려지던 문제를 offset 좌표 우선 방식으로 수정",
+        "손글씨 기본 굵기를 화면 기준 약 6.2px로 다시 두껍게 조정하고 일본 단어쓰기도 약 6px로 통일",
+        "iPad 가로 한자쓰기의 문제문·훈음을 중앙정렬하고 잘리던 메타/설명 요소를 압축해 세로·가로 구조를 통일",
+        "iPad 세로 한자쓰기에서도 같은 정보 순서를 유지하도록 질문 영역 높이와 정렬 규칙 통일",
+        "전체 찾기 패널을 내용 높이에 맞게 바꾸고 검색 결과 영역만 스크롤하도록 수정해 패드에서 큰 빈 공간 제거",
+        "세로/가로 전환 시 기출·혼합·진단 문장이 잘리거나 한 줄 폭을 넘는 현상을 완화",
+        "일본 단어쓰기에서도 회전 시 문장 중앙정렬·캔버스 위치·학습 색인 높이를 동일한 규칙으로 고정"
+      ]
+    },
     {
       "version": "2.30.0",
       "title": "iPad·PC 학습 UI 전면 재배치",
