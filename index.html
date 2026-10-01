@@ -8785,8 +8785,8 @@ function renderDiagnosis(){
       <div class="diag-title">내 한자 급수는 어디쯤?</div>
       <div class="diag-desc">모든 문제를 선택형으로 진행합니다. 비슷한 발음·훈음 선지를 섞어 찍기보다 정확히 구별하도록 하고, 마지막에 인접 급수 경계를 한 번 더 검증합니다.</div>
       <div class="diag-mode-grid">
-        <button class="diag-mode ${diagnosisState.mode==="quick"?"active":""}" onclick="diagnosisState.mode='quick';renderDiagnosis()"><b>빠른 진단</b><small>약 18~30문항 · 한자 입력 없음</small></button>
-        <button class="diag-mode ${diagnosisState.mode==="precise"?"active":""}" onclick="diagnosisState.mode='precise';renderDiagnosis()"><b>정밀 진단</b><small>약 24~40문항 · 한자 입력 없이 정밀검증</small></button>
+        <button class="diag-mode ${diagnosisState.mode==="quick"?"active":""}" onclick="diagnosisState.mode='quick';renderDiagnosis()"><b>빠른 진단</b><small>약 18~30문항 · 키보드 입력 없음</small></button>
+        <button class="diag-mode ${diagnosisState.mode==="precise"?"active":""}" onclick="diagnosisState.mode='precise';renderDiagnosis()"><b>정밀 진단</b><small>약 24~40문항 · 전부 선택형 정밀검증</small></button>
       </div>
       <div class="diag-actions">
         <button class="btn primary" onclick="startDiagnosis('${diagnosisState.mode}')">진단 시작</button>
