@@ -3215,3 +3215,33 @@ html body.drill-active #jp .jp-word-meaning-panel{
     margin-inline:auto!important;
   }
 }
+
+
+/* ===== PHONE QUESTION TRUE CENTER · 2.37.0 =====
+   Reserve the same width on both sides as the meaning button so the sentence stays
+   centered on the device, not merely centered inside a left-shifted content box.
+*/
+@media(max-width:699px){
+  html body.drill-active #jp .jp-word-question,
+  html body.drill-active #jp .jp-word-question.meaning-open{
+    padding-left:58px!important;
+    padding-right:58px!important;
+  }
+  html body.drill-active #jp .jp-word-prompt-main,
+  html body.drill-active #jp .jp-word-example{
+    width:100%!important;
+    max-width:100%!important;
+    margin-inline:auto!important;
+    text-align:center!important;
+  }
+}
+@media(max-width:360px){
+  html body.drill-active #jp .jp-word-question,
+  html body.drill-active #jp .jp-word-question.meaning-open{
+    padding-left:52px!important;
+    padding-right:52px!important;
+  }
+  html body.drill-active #jp .jp-word-example{
+    font-size:14px!important;
+  }
+}
