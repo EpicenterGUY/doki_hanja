@@ -1980,3 +1980,95 @@ body.drill-active #jp{height:100%;min-height:0}
   }
 }
 
+
+
+/* JAPANESE ORIENTATION CONSISTENCY · 2.31.0 */
+.jp-word-session-shell{
+  grid-template-rows:auto 38px minmax(0,1fr)!important;
+  gap:5px!important;
+}
+.jp-word-session-shell>.study-index.compact{
+  height:38px!important;
+  min-height:38px!important;
+  max-height:38px!important;
+  overflow:hidden!important;
+}
+.jp-word-session-shell .jp-word-question{
+  box-sizing:border-box!important;
+  text-align:center!important;
+}
+.jp-word-session-shell .jp-word-prompt-main{
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  text-align:center!important;
+  justify-content:center!important;
+}
+.jp-word-session-shell .jp-word-reading,
+.jp-word-session-shell .jp-word-example{
+  text-align:center!important;
+  justify-content:center!important;
+}
+.jp-word-session-shell .jp-word-board{
+  touch-action:none!important;
+}
+.jp-word-session-shell .jp-word-board canvas{
+  width:100%!important;
+  height:100%!important;
+  inset:0!important;
+  transform:none!important;
+  object-fit:fill!important;
+}
+
+@media(min-width:700px) and (orientation:landscape){
+  .jp-word-stage{
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:64px minmax(0,1fr)!important;
+    gap:6px!important;
+  }
+  .jp-word-question{
+    height:64px!important;
+    min-height:64px!important;
+    max-height:64px!important;
+    padding:0!important;
+    overflow:hidden!important;
+  }
+  .jp-word-prompt-main{
+    max-width:calc(100% - 190px)!important;
+    flex-wrap:nowrap!important;
+    white-space:nowrap!important;
+  }
+  .jp-word-reading{
+    font-size:clamp(25px,2.7vw,34px)!important;
+    white-space:nowrap!important;
+  }
+  .jp-word-example{
+    font-size:clamp(14px,1.7vw,20px)!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  .jp-word-canvas-pane{
+    min-height:0!important;
+    height:100%!important;
+    align-self:stretch!important;
+  }
+}
+@media(min-width:700px) and (orientation:portrait){
+  .jp-word-stage{
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto minmax(0,1fr)!important;
+    gap:7px!important;
+  }
+  .jp-word-question{
+    min-height:94px!important;
+    max-height:124px!important;
+    padding:0 86px 0 14px!important;
+    overflow:hidden!important;
+  }
+  .jp-word-prompt-main{
+    max-width:calc(100% - 170px)!important;
+    flex-wrap:wrap!important;
+  }
+}
+
