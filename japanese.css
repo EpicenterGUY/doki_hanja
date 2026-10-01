@@ -1650,3 +1650,122 @@ body.drill-active #jp{height:100%;min-height:0}
   }
 }
 
+
+
+/* IPAD WORD SESSION HARD FIX · 2.27.0
+   1) active session has 3 explicit rows (top / compact index / stage)
+   2) character cells never draw their own borders; only the outer board has a border */
+.jp-word-session-shell{
+  grid-template-rows:auto auto minmax(0,1fr)!important;
+  align-content:stretch!important;
+}
+.jp-word-session-shell>.study-index.compact{
+  align-self:start!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  padding:4px 5px!important;
+}
+.jp-word-session-shell>.study-index.compact .study-index-track{
+  min-height:0!important;
+  height:auto!important;
+  align-items:center!important;
+}
+.jp-word-session-shell>.study-index.compact .study-index-item{
+  min-height:30px!important;
+  height:30px!important;
+  padding:2px 5px!important;
+}
+.jp-word-session-shell>.study-index.compact .study-index-item span{
+  min-width:17px!important;
+  height:17px!important;
+  font-size:9px!important;
+}
+.jp-word-session-shell>.study-index.compact .study-index-item b{
+  font-size:7px!important;
+}
+
+/* Never allow a seam between writing cells. */
+.jp-word-board-guides{
+  gap:0!important;
+  background:transparent!important;
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+.jp-word-guide,
+.jp-word-guide.active,
+.jp-word-guide.empty,
+.jp-word-guide:not(.last-col),
+.jp-word-guide:not(.last-row){
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+.jp-word-guide.active{
+  background:transparent!important;
+}
+.jp-word-answer-cell{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+}
+
+/* The board itself is one surface. */
+.jp-word-board{
+  border:1px solid rgba(134,169,220,.58)!important;
+  box-shadow:0 8px 24px rgba(0,5,18,.14)!important;
+  background:#fff!important;
+}
+.jp-word-board canvas{
+  border:0!important;
+  outline:0!important;
+  box-shadow:none!important;
+  background:#fff!important;
+}
+
+/* Active tablet session: no giant empty band around the index. */
+@media(min-width:700px){
+  .jp-word-session-shell{
+    gap:6px!important;
+  }
+  .jp-word-session-shell>.study-index.compact{
+    width:100%!important;
+    max-width:100%!important;
+  }
+  .jp-word-session-shell>.study-index.compact .study-index-track{
+    display:grid!important;
+    grid-template-columns:repeat(8,minmax(0,1fr))!important;
+    overflow:visible!important;
+    gap:4px!important;
+  }
+  .jp-word-session-shell>.study-index.compact .study-index-item{
+    min-width:0!important;
+  }
+}
+
+@media(min-width:700px) and (orientation:portrait){
+  .jp-word-session-shell{
+    grid-template-rows:auto auto auto!important;
+    align-content:start!important;
+  }
+  .jp-word-stage{
+    min-height:0!important;
+    height:auto!important;
+    align-self:start!important;
+  }
+  .jp-word-canvas-pane{
+    height:auto!important;
+    align-self:start!important;
+  }
+}
+
+@media(min-width:700px) and (orientation:landscape){
+  .jp-word-session-shell{
+    grid-template-rows:auto auto minmax(0,1fr)!important;
+  }
+  .jp-word-stage{
+    min-height:0!important;
+  }
+}
+
