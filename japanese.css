@@ -2072,3 +2072,158 @@ body.drill-active #jp{height:100%;min-height:0}
   }
 }
 
+
+
+/* WORD TARGET READING + IPAD-ONLY POLISH · 2.32.0 */
+.jp-word-target-reading{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:2.6em;
+  margin:0 .16em;
+  padding:0 .12em .08em;
+  color:#8fd7ff;
+  font-weight:950;
+  line-height:1.05;
+  border-bottom:2px solid #7f79ff;
+  background:linear-gradient(180deg,transparent 58%,rgba(109,101,235,.18) 58%);
+  text-shadow:0 0 14px rgba(93,180,255,.18);
+  white-space:nowrap;
+}
+.jp-word-target-reading::after{
+  content:"";
+  width:0;
+}
+
+/* Only iPad gets the following layout/input geometry changes. */
+html.is-ipad .jp-word-session-shell{
+  width:min(100%,1180px)!important;
+  max-width:1180px!important;
+  margin-inline:auto!important;
+  grid-template-rows:auto 38px minmax(0,1fr)!important;
+  gap:6px!important;
+}
+html.is-ipad .jp-word-stage{
+  width:100%!important;
+  max-width:100%!important;
+  margin-inline:auto!important;
+  grid-template-columns:minmax(0,1fr)!important;
+}
+html.is-ipad .jp-word-question{
+  width:100%!important;
+  box-sizing:border-box!important;
+  text-align:center!important;
+  overflow:hidden!important;
+}
+html.is-ipad .jp-word-prompt-main{
+  position:absolute!important;
+  left:50%!important;
+  top:50%!important;
+  transform:translate(-50%,-50%)!important;
+  width:auto!important;
+  max-width:calc(100% - 170px)!important;
+  margin:0!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  text-align:center!important;
+}
+html.is-ipad .jp-word-example{
+  margin:0!important;
+  width:auto!important;
+  max-width:100%!important;
+  text-align:center!important;
+  font-size:clamp(17px,2vw,24px)!important;
+  line-height:1.3!important;
+  white-space:normal!important;
+}
+html.is-ipad .jp-word-meaning-toggle{
+  position:absolute!important;
+  right:10px!important;
+  top:50%!important;
+  transform:translateY(-50%)!important;
+  z-index:4!important;
+}
+html.is-ipad .jp-word-canvas-pane{
+  width:min(100%,980px)!important;
+  margin-inline:auto!important;
+  min-height:0!important;
+}
+html.is-ipad .jp-word-board{
+  position:relative!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  aspect-ratio:var(--word-cols) / var(--word-rows)!important;
+  margin-inline:auto!important;
+}
+html.is-ipad .jp-word-board canvas{
+  position:absolute!important;
+  inset:0!important;
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  transform:none!important;
+  border:0!important;
+  border-radius:inherit!important;
+  z-index:2!important;
+}
+html.is-ipad .jp-word-board-guides{
+  position:absolute!important;
+  inset:0!important;
+  z-index:3!important;
+  pointer-events:none!important;
+}
+html.is-ipad .jp-word-answer{
+  z-index:4!important;
+  pointer-events:none!important;
+}
+
+@media(orientation:portrait){
+  html.is-ipad .jp-word-stage{
+    grid-template-rows:94px auto!important;
+    align-content:start!important;
+    gap:7px!important;
+  }
+  html.is-ipad .jp-word-question{
+    height:94px!important;
+    min-height:94px!important;
+    max-height:94px!important;
+  }
+  html.is-ipad .jp-word-canvas-pane{
+    width:min(100%,760px)!important;
+    height:auto!important;
+    align-self:start!important;
+  }
+  html.is-ipad .jp-word-example{
+    font-size:clamp(17px,2.4vw,22px)!important;
+  }
+}
+@media(orientation:landscape){
+  html.is-ipad .jp-word-stage{
+    grid-template-rows:66px minmax(0,1fr)!important;
+    gap:6px!important;
+  }
+  html.is-ipad .jp-word-question{
+    height:66px!important;
+    min-height:66px!important;
+    max-height:66px!important;
+  }
+  html.is-ipad .jp-word-prompt-main{
+    max-width:calc(100% - 190px)!important;
+  }
+  html.is-ipad .jp-word-example{
+    font-size:clamp(15px,1.65vw,20px)!important;
+    white-space:nowrap!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+  html.is-ipad .jp-word-canvas-pane{
+    width:min(100%,1020px)!important;
+    height:100%!important;
+    align-self:stretch!important;
+  }
+}
+
