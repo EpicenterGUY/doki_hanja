@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.25.0-20260930",
+  "webBuild": "2.26.0-20261001",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.26.0",
+      "title": "학습 색인 추가",
+      "items": [
+        "전체 학습·혼합·쓰기 공부·기출·급수진단·도감·일본 쓰기·복습을 한 줄 학습 색인으로 추가",
+        "현재 보고 있는 공부 종류를 색인에서 강조 표시",
+        "색인 항목을 누르면 해당 학습 화면으로 바로 이동",
+        "혼합연습·한자쓰기·급수진단·일본 단어쓰기 진행 화면에는 공간을 덜 차지하는 축약 색인 표시",
+        "iPad·PC에서는 한 줄 전체 색인, 작은 화면에서는 가로 스크롤 색인으로 표시",
+        "학습 허브 그리드가 새 색인 때문에 겹치지 않도록 태블릿·PC 배치 순서 재조정"
+      ]
+    },
     {
       "version": "2.25.0",
       "title": "iPad 일본 단어쓰기 화면 재균형",
