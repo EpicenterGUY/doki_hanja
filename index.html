@@ -6264,8 +6264,89 @@ html body.drill-active #drill .drill-canvas-wrap{
     height:100%!important;
   }
 }
+
+/* ===== 2.36.0 · RESPONSIVE CLEANUP PASS ===== */
+
+/* Handwriting feedback must never float on top of the prompt/clue. */
+html body.drill-active #drill #drillFeedback.handwriting-feedback{
+  position:static!important;
+  left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;
+  width:auto!important;
+  max-width:100%!important;
+  max-height:none!important;
+  margin:1px auto 0!important;
+  padding:4px 7px!important;
+  align-self:center!important;
+  flex:0 0 auto!important;
+  backdrop-filter:none!important;
+  box-shadow:none!important;
+}
+html body.drill-active #drill .drill-stage.write-stage{
+  grid-template-rows:auto minmax(0,1fr)!important;
+}
+html body.drill-active #drill .drill-question-pane{
+  height:auto!important;
+  max-height:none!important;
+  overflow:visible!important;
+}
+@media(max-width:699px){
+  html body.drill-active #drill .drill-question-pane{min-height:108px!important}
+}
+@media(min-width:700px) and (orientation:portrait){
+  html body.drill-active #drill .drill-question-pane{min-height:132px!important}
+}
+@media(min-width:700px) and (orientation:landscape){
+  html body.drill-active #drill .drill-question-pane{min-height:88px!important}
+}
+
+/* Tablet learning index was too tiny even though there is enough room. */
+@media(min-width:700px){
+  html body.drill-active .study-index.compact .study-index-item b,
+  html .jp-word-session-shell>.study-index.compact .study-index-item b{
+    font-size:9px!important;
+    line-height:1!important;
+  }
+  html body.drill-active .study-index.compact .study-index-item span,
+  html .jp-word-session-shell>.study-index.compact .study-index-item span{
+    width:18px!important;min-width:18px!important;height:18px!important;
+    font-size:10px!important;
+  }
+}
+
+/* Narrow phones / folded covers: preserve all status and exit controls without clipping. */
+@media(max-width:390px){
+  html body.drill-active #drill .drill-session-top{
+    gap:3px!important;
+    padding-inline:4px!important;
+  }
+  html body.drill-active #drill .drill-status-row{gap:3px!important}
+  html body.drill-active #drill .drill-status-pill{
+    padding:5px 6px!important;
+    font-size:10px!important;
+  }
+  html body.drill-active #drill .drill-settings-btn{
+    min-width:82px!important;
+    padding-inline:6px!important;
+    font-size:9px!important;
+  }
+}
+
+/* The three study/action grids should shrink instead of causing horizontal overflow. */
+.home-freq-card,.freq-spotlight,.freq-spotlight-actions,
+.study-main-grid,.study-link-grid,.home-shortcuts,.home-primary-grid{
+  min-width:0!important;
+}
+@media(min-width:601px) and (max-width:759px){
+  .home-freq-card,.freq-spotlight{
+    grid-template-columns:minmax(0,1fr)!important;
+  }
+  .freq-spotlight-actions,.home-freq-buttons{
+    min-width:0!important;
+    width:100%!important;
+  }
+}
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.35.0">
+<link rel="stylesheet" href="./japanese.css?v=2.36.0">
 </head>
 <body>
 <div class="app">
@@ -7179,7 +7260,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.35.0-20261001";
+const APP_BUILD="2.36.0-20261001";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -13428,6 +13509,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.35.0"></script>
+<script src="./japanese.js?v=2.36.0"></script>
 </body>
 </html>
