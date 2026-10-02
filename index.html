@@ -6684,6 +6684,94 @@ body.atlas-detail-open .atlas-detail-sheet{
     scroll-snap-align:center!important;
   }
 }
+
+
+/* ===== HANDWRITING TOOLBAR / CONTROL COLLISION GUARD · 2.41.0 ===== */
+body.drill-active .drill-status-row{
+  flex:1 1 auto!important;
+  min-width:0!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  scrollbar-width:none;
+}
+body.drill-active .drill-status-row::-webkit-scrollbar{display:none}
+body.drill-active .drill-top-actions{
+  flex:0 0 auto!important;
+  position:relative!important;
+  z-index:8!important;
+}
+body.drill-active .drill-canvas-pane>.pen-toolbar{
+  position:relative!important;
+  inset:auto!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  flex-wrap:nowrap!important;
+  margin:0!important;
+}
+body.drill-active .drill-canvas-pane:has(>.pen-toolbar){
+  display:grid!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+body.drill-active #drill .drill-canvas-pane:has(>.pen-toolbar){
+  grid-template-rows:minmax(0,1fr) auto auto!important;
+}
+body.drill-active #jp .drill-canvas-pane:has(>.pen-toolbar){
+  grid-template-rows:minmax(0,1fr) auto auto auto!important;
+}
+body.drill-active .pen-toolbar .pen-tool,
+body.drill-active .pen-toolbar .pen-undo,
+body.drill-active .pen-toolbar .pen-toolbar-current{
+  flex:0 0 auto!important;
+  white-space:nowrap!important;
+}
+@media(min-width:700px) and (pointer:coarse) and (orientation:landscape){
+  body.drill-active #drill .drill-stage.write-stage{
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  body.drill-active #drill .drill-canvas-pane:has(>.pen-toolbar){
+    grid-template-rows:minmax(0,1fr) 36px 42px!important;
+    gap:4px!important;
+    padding:5px!important;
+  }
+  body.drill-active #drill .drill-canvas-pane>.pen-toolbar{
+    height:36px!important;
+    min-height:36px!important;
+    max-height:36px!important;
+    padding:3px 4px!important;
+  }
+  body.drill-active #drill .drill-write-controls,
+  body.drill-active #drill .drill-write-controls .btn{
+    height:42px!important;
+    min-height:42px!important;
+  }
+  body.drill-active #jp .drill-canvas-pane:has(>.pen-toolbar){
+    grid-template-rows:minmax(0,1fr) 36px 42px 42px!important;
+    gap:4px!important;
+    padding:5px!important;
+  }
+  body.drill-active #jp .drill-canvas-pane>.pen-toolbar{
+    height:36px!important;
+    min-height:36px!important;
+    max-height:36px!important;
+    padding:3px 4px!important;
+  }
+}
+@media(max-width:699px){
+  body.drill-active .pen-toolbar .pen-tool,
+  body.drill-active .pen-toolbar .pen-undo,
+  body.drill-active .pen-toolbar .pen-toolbar-current{
+    min-height:30px!important;
+    height:30px!important;
+    padding:4px 7px!important;
+    font-size:9px!important;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.41.0">
 </head>
