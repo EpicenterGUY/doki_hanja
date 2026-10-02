@@ -6826,6 +6826,81 @@ html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner{
   }
 }
 
+
+/* ===== 2.44.4 · IPAD ATLAS FULL-WIDTH AUTHORITY =====
+   Final iPad override: older tablet landscape rules mixed a 2-column shell with
+   summary/results still pinned to column 1, squeezing the whole atlas into the left rail. */
+html.is-ipad body:not(.drill-active) #atlas.tabpage{
+  width:100%!important;
+  max-width:100%!important;
+  margin-inline:auto!important;
+}
+html.is-ipad body:not(.drill-active) #atlas .atlas-shell{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto auto auto!important;
+  grid-auto-flow:row!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  gap:10px!important;
+  align-items:start!important;
+  align-content:start!important;
+}
+html.is-ipad body:not(.drill-active) #atlas .atlas-toolbar{
+  grid-column:1!important;
+  grid-row:1!important;
+  position:static!important;
+  top:auto!important;
+  left:auto!important;
+  right:auto!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+  align-self:start!important;
+}
+html.is-ipad body:not(.drill-active) #atlas .atlas-summary{
+  grid-column:1!important;
+  grid-row:2!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  align-self:start!important;
+}
+html.is-ipad body:not(.drill-active) #atlas #atlasResults{
+  grid-column:1!important;
+  grid-row:3!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  align-self:start!important;
+}
+html.is-ipad body:not(.drill-active) #atlas #atlasResults>*{
+  max-width:100%!important;
+  min-width:0!important;
+}
+@media(orientation:landscape){
+  html.is-ipad body:not(.drill-active) #atlas .atlas-toolbar{
+    padding:12px 14px!important;
+  }
+  html.is-ipad body:not(.drill-active) #atlas .atlas-controls{
+    grid-template-columns:repeat(4,minmax(0,1fr))!important;
+  }
+  html.is-ipad body:not(.drill-active) #atlas .atlas-grade-row,
+  html.is-ipad body:not(.drill-active) #atlas .atlas-type-row,
+  html.is-ipad body:not(.drill-active) #atlas .atlas-period-row{
+    max-width:100%!important;
+  }
+  html.is-ipad body:not(.drill-active) #atlas .atlas-grid{
+    grid-template-columns:repeat(auto-fill,minmax(118px,1fr))!important;
+  }
+  html.is-ipad body:not(.drill-active) #atlas .atlas-compact-grid{
+    grid-template-columns:repeat(auto-fill,minmax(98px,1fr))!important;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.44.2">
 
@@ -7813,7 +7888,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.44.3-20261003";
+const APP_BUILD="2.44.4-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
