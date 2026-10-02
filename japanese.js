@@ -816,7 +816,7 @@ function renderJapanesePracticeCard(){
   window.visualViewport&&window.visualViewport.addEventListener("resize",window._drillViewportFit,{passive:true});
 
   let h="";
-  h+="<div class='drill-session-shell'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+(item.set==="joyo"?"常用":"表外")+"</span><span class='drill-status-pill'>"+(st.index+1)+"/"+st.list.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpExit'>목록</button></div></div>";
+  h+="<div class='drill-session-shell'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+(item.set==="joyo"?"常用":"表外")+"</span><span class='drill-status-pill'>"+(st.index+1)+"/"+st.list.length+"</span><span class='drill-status-pill'>"+pct+"%</span><span class='drill-status-pill pen-current-label'>"+(typeof handwritingPenLabel==="function"?handwritingPenLabel():"젤펜")+"</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpExit'>목록</button></div></div>";
   h+="<div class='drill-stage write-stage'><section class='drill-question-pane jp-practice-question'><div class='prompt'>"+(st.mode==="memory"?"모양을 외운 뒤 직접 써보세요.":"보면서 천천히 따라 써보세요.")+"</div>";
   h+="<div class='jp-memory-target' id='jpMemoryTarget' lang='ja'>"+esc(item.char)+"</div><div class='jp-memory-sub' id='jpMemoryHint'>"+(st.mode==="memory"?"2초 동안 글자 모양을 기억하세요":"정답을 보면서 형태를 익히세요")+"</div>"+jpMetaPillsHtml(item);
   if(st.mode==="memory")h+="<button class='btn jp-memory-again' id='jpShowAgain' style='visibility:hidden'>2초 다시 보기</button>";
@@ -866,13 +866,15 @@ function jpWordBoardSpec(count){
   const vh=(vv&&vv.height)||window.innerHeight||600;
   const landscape=vw>vh;
   const compactPortrait=!landscape&&vw<700;
+  const tabletPortrait=!landscape&&vw>=700;
   let cols=1,rows=1;
-  // 2글자 단어는 폰 세로에서 2열 한 줄로 두면 쓰기칸 높이가 지나치게 낮다.
-  // 폰 세로에선 1열 2행으로 쌓아 각 글자에 정사각형 쓰기칸을 확보한다.
+  // Phone portrait keeps large stacked cells for 2 characters.
+  // Tablet portrait can comfortably fit 3 square-ish cells in one row; this also removes
+  // the unused fourth cell that previously appeared for 3-character words such as 醍醐味.
   if(n===2){cols=compactPortrait?1:2;rows=compactPortrait?2:1}
-  else if(n===3){cols=landscape&&vw>=760?3:2;rows=Math.ceil(n/cols)}
+  else if(n===3){cols=(landscape||tabletPortrait)?3:2;rows=Math.ceil(n/cols)}
   else if(n===4){cols=landscape&&vw>=900?4:2;rows=Math.ceil(n/cols)}
-  else if(n<=6){cols=landscape?3:2;rows=Math.ceil(n/cols)}
+  else if(n<=6){cols=(landscape||tabletPortrait)?3:2;rows=Math.ceil(n/cols)}
   else{cols=landscape?4:3;rows=Math.ceil(n/cols)}
   return {count:n,cols:cols,rows:rows,cell:480,width:cols*480,height:rows*480};
 }
@@ -1048,7 +1050,7 @@ function renderJapaneseWordCard(){
   };
   window.visualViewport&&window.visualViewport.addEventListener("resize",window._drillViewportFit,{passive:true});
 
-  let h="<div class='drill-session-shell jp-word-session-shell "+(jpState.wordHideMeaning?"":"meaning-open")+"'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+jpWordStageLabel(jpWordSchoolStage(w))+"</span><span class='drill-status-pill'>"+(jpState.wordRound+1)+"회차</span><span class='drill-status-pill'>"+(jpState.wordIndex+1)+"/"+jpState.wordList.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpWordExit'>목록</button></div></div>"+(typeof studyIndexMarkup==="function"?studyIndexMarkup("jpword",true):"");
+  let h="<div class='drill-session-shell jp-word-session-shell "+(jpState.wordHideMeaning?"":"meaning-open")+"'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+jpWordStageLabel(jpWordSchoolStage(w))+"</span><span class='drill-status-pill'>"+(jpState.wordRound+1)+"회차</span><span class='drill-status-pill'>"+(jpState.wordIndex+1)+"/"+jpState.wordList.length+"</span><span class='drill-status-pill'>"+pct+"%</span><span class='drill-status-pill pen-current-label'>"+(typeof handwritingPenLabel==="function"?handwritingPenLabel():"젤펜")+"</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpWordExit'>목록</button></div></div>"+(typeof studyIndexMarkup==="function"?studyIndexMarkup("jpword",true):"");
   h+="<div class='jp-word-stage'><section class='jp-word-question "+(jpState.wordHideMeaning?"":"meaning-open")+"'><button class='jp-word-meaning-toggle "+(jpState.wordHideMeaning?"":"active")+"' id='jpWordMeaningToggle' aria-expanded='"+String(!jpState.wordHideMeaning)+"'>"+(jpState.wordHideMeaning?"뜻 보기":"뜻 가리기")+"</button><div class='jp-word-prompt-main'><div class='jp-word-example'>"+sentenceHtml+"</div></div><div class='jp-word-meaning-panel' id='jpWordMeaningPanel' "+(jpState.wordHideMeaning?"hidden":"")+"><div class='jp-word-meaning'>"+esc(w.meaning)+"</div><div class='jp-word-translation'>"+esc(w.translation)+"</div></div></section>";
   h+="<section class='jp-word-canvas-pane jp-word-cols-"+spec.cols+" jp-word-rows-"+spec.rows+"' style='--word-cols:"+spec.cols+";--word-rows:"+spec.rows+"'><div class='jp-word-board'><canvas id='jpWordCanvas' aria-label='"+esc(w.word)+" 손글씨 입력'></canvas><div class='jp-word-board-guides' aria-hidden='true'>"+jpWordGuideHtml(chars,spec)+"</div><div class='jp-word-answer' hidden>"+jpWordAnswerGridHtml(chars,spec)+"</div></div>"+(typeof handwritingPenToolbarMarkup==="function"?handwritingPenToolbarMarkup():"")+"<div id='jpWordFeedback' class='feedback jp-word-feedback'></div><div class='jp-word-nav'><button class='btn' id='jpWordPrev' "+(jpState.wordIndex===0?"disabled":"")+">← 이전 단어</button><button class='btn' id='jpWordNext'>"+(jpState.wordIndex===jpState.wordList.length-1?"회차 완료 →":"다음 단어 →")+"</button></div><div class='jp-word-controls'><button class='btn' id='jpWordClear'>지우기</button><button class='btn' id='jpWordReveal'>정답 보기</button><button class='btn primary' id='jpWordCheck'>채점</button></div></section></div></div>";
   $("#jp").innerHTML=h;
