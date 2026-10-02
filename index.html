@@ -6952,6 +6952,7 @@ const SPECIAL_FREQ_TYPE_ORDER=["sound","wordWrite","meaningSound","radical","abb
 const RAW_URL="https://raw.githubusercontent.com/rycont/hanja-grade-dataset/main/hanja.csv";
 
 let chars=[], koreanExtra=[], examItems=[], session=[], current=0, sessionScore={ok:0,no:0}, mode="practice";
+let koreanWordFrequency={byWord:{},byWordHanja:{},listedFallback:Infinity,maxSourceRank:0};
 let hanjaStructure={version:0,records:{},stats:{}};
 let examState={questions:[],index:0,answers:[],checked:[],score:0,round:null,level:null};
 const DRILL_PROGRESS_KEY="hanjaDrillProgressV1";
@@ -7651,7 +7652,26 @@ async function loadKoreanExtra(){
     koreanExtra=[];
     return false;
   }
-}async function autoLoad(){
+}
+async function loadKoreanWordFrequency(){
+  try{
+    const r=await fetchWithTimeout("./data/korean-word-frequency.json?v=2.43.8",{cache:"force-cache"},7000);
+    if(!r.ok)return false;
+    const d=await r.json();
+    if(!d||!d.byWord||typeof d.byWord!=="object")return false;
+    koreanWordFrequency={
+      byWord:d.byWord||{},
+      byWordHanja:d.byWordHanja||{},
+      listedFallback:Number(d.listedFallback)||Infinity,
+      maxSourceRank:Number(d.maxSourceRank)||0
+    };
+    return Object.keys(koreanWordFrequency.byWord).length>1000;
+  }catch{
+    koreanWordFrequency={byWord:{},byWordHanja:{},listedFallback:Infinity,maxSourceRank:0};
+    return false;
+  }
+}
+async function autoLoad(){
   let fullDataLoaded=false;
 
   // 배포본에 포함된 데이터가 항상 1순위다. 늦게 도착한 외부 요청이 학습 화면을 다시 그리는 레이스를 막는다.
@@ -7684,6 +7704,7 @@ async function loadKoreanExtra(){
   }
   await loadHanjaStructure();
   await loadKoreanExtra();
+  await loadKoreanWordFrequency();
   init();
 
   // 내장/캐시 전체 데이터가 없을 때만 외부 원본을 복구 경로로 사용한다.
@@ -7737,7 +7758,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.43.7-20261003";
+const APP_BUILD="2.43.8-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -13351,6 +13372,39 @@ function atlasDictHanja(word){
 function atlasDictEntryKey(x){
   return atlasDictHeadword(x&&x.word)+"|"+atlasDictHanja(x&&x.word);
 }
+function atlasDictUsageRank(x){
+  const head=atlasDictHeadword(x&&x.word),hanja=atlasDictHanja(x&&x.word);
+  if(!head)return Infinity;
+  const exact=koreanWordFrequency.byWordHanja&&koreanWordFrequency.byWordHanja[head+"|"+hanja];
+  if(Number.isFinite(+exact)&&+exact>0)return +exact;
+  const loose=koreanWordFrequency.byWord&&koreanWordFrequency.byWord[head];
+  if(Number.isFinite(+loose)&&+loose>0)return +loose;
+  return Infinity;
+}
+function atlasDictUsageFallbackScore(x){
+  const head=atlasDictHeadword(x&&x.word);
+  const meaning=String(x&&x.meaning||"");
+  const source=String(x&&x.source||"");
+  let score=0;
+  if(/(하다|되다|시키다)$/.test(head))score+=30;
+  score+=Math.max(0,head.length-2)*5;
+  if(source.includes("우리말샘"))score+=8;
+  if(/(옛말|방언|북한어|고어|전문어|한의학|불교|역사|민속|문헌)/.test(meaning))score+=18;
+  return score;
+}
+function atlasDictSortRows(rows){
+  return [...(rows||[])].sort(function(a,b){
+    const ar=atlasDictUsageRank(a),br=atlasDictUsageRank(b);
+    const ak=Number.isFinite(ar),bk=Number.isFinite(br);
+    if(ak!==bk)return ak?-1:1;
+    if(ak&&ar!==br)return ar-br;
+    const af=atlasDictUsageFallbackScore(a),bf=atlasDictUsageFallbackScore(b);
+    if(af!==bf)return af-bf;
+    const ah=atlasDictHeadword(a&&a.word),bh=atlasDictHeadword(b&&b.word);
+    if(ah.length!==bh.length)return ah.length-bh.length;
+    return ah.localeCompare(bh,"ko");
+  });
+}
 function atlasDictUniqueRows(rows,term){
   const byKey=new Map(),order=[];
   for(const raw of rows||[]){
@@ -13393,12 +13447,12 @@ function atlasDictCachedRows(term){
 }
 function atlasDictSaveRows(term,rows){
   try{
-    const rich=(rows||[]).filter(function(x){return String(x&&x.meaning||"").trim()}).slice(0,12);
+    const rich=atlasDictSortRows(rows).filter(function(x){return String(x&&x.meaning||"").trim()}).slice(0,12);
     if(rich.length)storageSet(ATLAS_DICT_CACHE_PREFIX+term,JSON.stringify({at:Date.now(),rows:rich}));
   }catch(e){}
 }
 function atlasDictRowsMarkup(rows){
-  return (rows||[]).filter(function(x){return String(x&&x.meaning||"").trim()}).map(function(x){
+  return atlasDictSortRows(rows).filter(function(x){return String(x&&x.meaning||"").trim()}).map(function(x){
     const meaning=String(x.meaning||"").trim();
     return '<div class="atlas-usage"><div class="atlas-usage-top"><b>'+esc(x.word)+'</b><span>'+esc(x.source||"국립국어원 사전")+'</span></div><p>'+esc(meaning)+'</p>'+(x.example?'<p><b>예문</b> · '+esc(x.example)+'</p>':'')+'</div>';
   }).join("");
@@ -13426,9 +13480,9 @@ function dictionaryFallbackMarkup(term){
   if(!term)return "";
   const seed=atlasDictSeedMarkup(term);
   const single=extractHanjaChars(term).length===1;
-  return '<div class="atlas-detail-section"><h4>사전 용례</h4>'+
+  return '<div class="atlas-detail-section"><h4>사전 용례 · 자주 쓰는 순</h4>'+
     '<div class="atlas-usage-list" id="atlasDictPreview">'+(seed||'<div class="atlas-usage"><p>'+(single?'한자 표기가 확인된 사전 단어·예문을 불러오는 중…':'해당 한자어를 표준국어대사전에서 추가 확인할 수 있습니다.')+'</p></div>')+'</div>'+
-    '<div class="atlas-detail-note">한자 표기가 확인되는 항목만 표시하고, 같은 표제어·한자 조합은 한 번만 보여줍니다. 기출 문맥이 부족하면 표준국어대사전 기반 단어·예문으로 보완합니다.</div>'+
+    '<div class="atlas-detail-note">국립국어원 한국어 학습용 어휘 순위를 우선 적용하고, 순위가 없는 고급·급수외 표제어는 기본형·표준사전·짧은 일반어를 먼저 보여줍니다. 같은 표제어·한자 조합은 한 번만 표시합니다.</div>'+
     '<div class="diag-actions" style="margin-top:8px"><a class="btn" href="'+esc(dictionaryLookupUrl(term))+'" target="_blank" rel="noopener">표준국어대사전에서 보기</a></div></div>';
 }
 async function hydrateAtlasDictionaryUsage(term){
@@ -13463,7 +13517,7 @@ async function hydrateAtlasDictionaryUsage(term){
       }
     }
     pushCur();
-    const merged=atlasDictUniqueRows(rows.concat(seedRows),term).slice(0,8);
+    const merged=atlasDictSortRows(atlasDictUniqueRows(rows.concat(seedRows),term)).slice(0,8);
     const rich=merged.filter(function(x){return String(x&&x.meaning||"").trim()});
     if(rich.length){
       atlasDictSaveRows(term,rich);
