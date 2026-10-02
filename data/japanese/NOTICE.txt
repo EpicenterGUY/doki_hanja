@@ -1,26 +1,34 @@
-DOKI 漢字 — Japanese kanji inventory data
+HANJA LAB — Japanese kanji / vocabulary data notice
 
-Bundled files:
-- joyo.tsv: Jōyō kanji inventory (2,136 characters), school grade, radical, stroke count, old form.
-- hyogai.txt: 1,022-character Hyōgai print-standard inventory. The app filters this against the current Jōyō inventory at runtime; the current non-Jōyō core set is 875 base characters.
+Bundled kanji files
+===================
 
-Source repository:
-https://github.com/xiaolanchong/kanji_dashboard
+1) joyo.tsv
+- Jōyō kanji inventory: 2,136 characters.
+- Includes school grade, radical, stroke count and old-form information.
 
-Source files:
-- data/joyo.txt
-- data/hyogai.txt
+2) hyogai.txt + hyogai-meta.json
+- The original core is derived from the 2000 Hyōgai Kanji Jitai-hyō (表外漢字字体表) inventory supplied by:
+  https://github.com/xiaolanchong/kanji_dashboard
+  Source files: data/joyo.txt, data/hyogai.txt
+  That repository declares ISC license in package.json.
+- The 2000 table predates the 2010 Jōyō revision. Hanja Lab removes current Jōyō characters from the core.
+- Parenthesized characters in the original hyogai source are alternate/simplified glyph forms and remain metadata rather than separate base study characters.
+- Hanja Lab additionally exposes non-Jōyō characters in the JIS X 0208 Level 1 and Level 2 repertoires as separate expansion groups.
+- IMPORTANT: JIS Level 1 / Level 2 are character-encoding classifications. They are not official usage recommendations, school grades, or frequency rankings.
+- Current study-base counts:
+  · core: 875
+  · JIS Level 1 extra: 382
+  · JIS Level 2 extra: 2,985
+  · total base study characters: 4,242
+  · total unique non-Jōyō glyphs including retained variants: 4,261
 
-The source repository declares ISC license in package.json.
-The inventory categories correspond to Japan's 2010 Jōyō kanji table and the 2000 Hyōgai Kanji Jitai-hyō (表外漢字字体表).
+The official Japanese government reference for the core concept is the Agency for Cultural Affairs (文化庁) 表外漢字字体表.
 
-Notes:
-- Parenthesized characters in hyogai.txt are alternate/simplified glyph forms and are kept as metadata, not counted as separate base study characters.
-- The 2000 Hyōgai table predates the 2010 Jōyō revision, so DOKI removes any base character that is in the current Jōyō set before presenting the current 表外 core collection.
-
-
-Additional bundled reading data:
-- mext-onkun-2017.json: official Jōyō kanji on/kun readings and school-stage allocation extracted from Japan MEXT's "音訓の小・中・高等学校段階別割り振り表（平成29年3月）".
+Additional bundled reading data
+===============================
+- mext-onkun-2017.json: official Jōyō kanji on/kun readings and school-stage allocation extracted from Japan MEXT's
+  "音訓の小・中・高等学校段階別割り振り表（平成29年3月）".
 
 Source repository:
 https://github.com/make1s/diglabo-kanji-data
@@ -29,4 +37,15 @@ Source file:
 - data/mext-onkun-2017.json
 
 That repository states CC BY-SA 4.0 for the dataset and includes the original MEXT source metadata inside the JSON.
-DOKI preserves the source metadata and uses this file only to distinguish readings listed in the official Jōyō table from additional KANJIDIC readings.
+Hanja Lab preserves the source metadata and uses this file to distinguish readings listed in the official Jōyō table from additional readings.
+
+Vocabulary expansion
+====================
+- words.json contains Hanja Lab's Korean learning meanings/examples plus expanded Japanese vocabulary.
+- Part of the 2026-10-02 Hyōgai expansion cross-references the Jonathan Waller JLPT vocabulary lists as distributed with JMdict sequence IDs by:
+  https://github.com/stephenmk/yomitan-jlpt-vocab
+  and mirrored/consumed by:
+  https://github.com/coolmule0/JLPT-N5-N1-Japanese-Vocabulary-Anki
+- The source documentation states CC BY-SA 4.0 for the JLPT list data.
+- Hanja Lab stores its own Korean glosses and learning sentences; it does not expose the English Waller definitions in the UI.
+- JLPT labels are study-list metadata, not an official JLPT vocabulary specification published by the Japan Foundation/Japan Educational Exchanges and Services.
