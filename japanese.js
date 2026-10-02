@@ -77,6 +77,24 @@ function jpSetLabel(s){return s==="joyo"?"常用漢字":"表外漢字"}
 function jpGradeLabel(g){return g==="S"?"中高":("小"+g)}
 function jpKey(item){return (item.set||jpState.set)+"|"+item.char}
 function jpWordKey(item){return "word|"+item.word}
+
+function jpWordSchoolStage(w){
+  if(!w)return "senior";
+  if(w.schoolStage)return w.schoolStage;
+  if(w.set==="hyogai"||w.tier==="hyogai")return "hyogai";
+  if(w.tier==="basic")return "elementary";
+  if(w.tier==="intermediate")return "junior";
+  return "senior";
+}
+function jpWordStageLabel(stage){
+  return stage==="elementary"?"초등":stage==="junior"?"중등":stage==="senior"?"고등":"표외";
+}
+function jpWordStageCounts(rows){
+  const out={elementary:0,junior:0,senior:0,hyogai:0};
+  (rows||[]).forEach(function(w){const k=jpWordSchoolStage(w);if(k in out)out[k]++});
+  return out;
+}
+
 function saveJpProgress(){
   const ok1=storageSet("jpHanjaStatsV1",JSON.stringify(jpStats));
   const ok2=storageSet("jpHanjaUnknownV1",JSON.stringify(jpUnknown));
@@ -284,7 +302,9 @@ function jpCurrentPool(){
 }
 function jpCurrentWords(){
   let rows=jpWords.filter(function(w){return w.set===jpState.set});
-  if(jpState.set==="joyo"&&jpState.wordTier!=="all")rows=rows.filter(function(w){return w.tier===jpState.wordTier});
+  if(jpState.wordTier!=="all"){
+    rows=rows.filter(function(w){return jpWordSchoolStage(w)===jpState.wordTier});
+  }
   return rows;
 }
 function jpWordRoundInfo(rows){
@@ -617,11 +637,14 @@ function jpReadingHomeHtml(){
   return h;
 }
 function jpWordHomeHtml(){
+  const baseRows=jpWords.filter(function(w){return w.set===jpState.set}),stageCounts=jpWordStageCounts(baseRows);
   const rows=jpCurrentWords(),info=jpWordRoundInfo(rows),roundRows=info.rows,wp=jpWordProfile();
   const sample=roundRows.slice(0,8);
-  const tiers=jpState.set==="joyo"?[["all","전체"],["basic","기초"],["intermediate","중급"],["advanced","고급"]]:[["all","표외 단어"]];
-  let h=(typeof studyIndexMarkup==="function"?studyIndexMarkup("jpword"):"")+"<section class='app-section'><div class='app-section-head'><div><div class='app-section-title'>단어식 한자쓰기</div><div class='app-section-sub'>전체 단어를 회차로 나눠 조금씩 끝내고, 원하는 회차만 다시 연습할 수 있습니다.</div></div><span class='badge good'>"+rows.length.toLocaleString()+"단어</span></div>";
-  h+="<div class='jp-word-tier' id='jpWordTier'>"+tiers.map(function(t){return "<button class='jp-filter-chip "+(jpState.wordTier===t[0]?"active":"")+"' data-tier='"+t[0]+"'>"+t[1]+"</button>"}).join("")+"</div>";
+  const tiers=jpState.set==="joyo"?
+    [["all","전체",baseRows.length],["elementary","초등",stageCounts.elementary],["junior","중등",stageCounts.junior],["senior","고등",stageCounts.senior]]:
+    [["all","표외 전체",baseRows.length]];
+  let h=(typeof studyIndexMarkup==="function"?studyIndexMarkup("jpword"):"")+"<section class='app-section'><div class='app-section-head'><div><div class='app-section-title'>단어식 한자쓰기</div><div class='app-section-sub'>초등 · 중등 · 고등 · 표외 단어를 회차별로 직접 써서 익힙니다.</div></div><span class='badge good'>"+rows.length.toLocaleString()+"단어</span></div>";
+  h+="<div class='jp-word-tier' id='jpWordTier'>"+tiers.map(function(t){return "<button class='jp-filter-chip "+(jpState.wordTier===t[0]?"active":"")+"' data-tier='"+t[0]+"'>"+t[1]+" <small>"+Number(t[2]||0).toLocaleString()+"</small></button>"}).join("")+"</div>";
   h+="<div class='jp-word-count'><label class='jp-field'><span>회차당 문제</span><select id='jpWordCount'><option value='10' "+(jpState.wordCount===10?"selected":"")+">10단어</option><option value='20' "+(jpState.wordCount===20?"selected":"")+">20단어</option><option value='30' "+(jpState.wordCount===30?"selected":"")+">30단어</option><option value='50' "+(jpState.wordCount===50?"selected":"")+">50단어</option></select></label>";
   h+="<label class='jp-field'><span>회차 안 순서</span><select id='jpWordOrder'><option value='random' "+(jpState.wordOrder==="random"?"selected":"")+">랜덤</option><option value='source' "+(jpState.wordOrder==="source"?"selected":"")+">목록순</option></select></label></div>";
   h+="<div class='jp-word-round-head'><b>"+(jpState.wordRound+1)+"회차</b><span>"+(info.start+1)+"~"+info.end+" / "+rows.length+"단어</span></div>";
@@ -659,7 +682,7 @@ async function renderJapanese(){
   const all=jpCurrentPool();
   let body=jpState.view==="home"?jpHomeHtml():(jpState.view==="atlas"?jpAtlasHomeHtml(all):(jpState.view==="word"?jpWordHomeHtml():(jpState.view==="reading"?jpReadingHomeHtml():jpPracticeHomeHtml(all))));
   el.innerHTML="<div class='jp-screen'>"+jpHeroHtml()+(jpState.view==="home"?"":jpMetricsHtml())+body+
-    "<section class='app-section'><details class='compact-settings'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字는 현행 2,136자 목록과 문부과학성 「音訓の小・中・高等学校段階別割り振り表」의 공식 음훈을 함께 사용합니다. 表外漢字는 표외한자자체표의 기본자를 바탕으로 현행 상용한자와 겹치는 글자를 제외해 구성합니다. 표외한자자체표는 인쇄문자 기준이므로 손글씨 자동채점은 형태 연습용 참고 판정입니다. 단어 쓰기는 Hanja Lab의 예문 학습 데이터로 별도 구성됩니다.</div></details></section></div>";
+    "<section class='app-section'><details class='compact-settings'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字는 현행 2,136자 목록과 문부과학성 「音訓の小・中・高等学校段階別割り振り表」의 공식 음훈을 함께 사용합니다. 表外漢字는 표외한자자체표의 기본자를 바탕으로 현행 상용한자와 겹치는 글자를 제외해 구성합니다. 표외한자자체표는 인쇄문자 기준이므로 손글씨 자동채점은 형태 연습용 참고 판정입니다. 단어 쓰기의 초등·중등·고등 표시는 한자 배정과 학습 난도를 바탕으로 한 Hanja Lab 학습 분류이며, 문부과학성의 공식 단어 배당표를 뜻하지 않습니다.</div></details></section></div>";
   bindJapaneseHome();
 }
 function bindJapaneseHome(){
@@ -799,11 +822,13 @@ function renderJapanesePracticeCard(){
   if(st.mode==="memory")h+="<button class='btn jp-memory-again' id='jpShowAgain' style='visibility:hidden'>2초 다시 보기</button>";
   h+="<div id='jpFeedback' class='feedback'></div></section>";
   h+="<section class='drill-canvas-pane'><div class='drill-canvas-wrap'><canvas id='jpCanvas' width='600' height='600'></canvas><div id='jpAnswerPeek' class='drill-answer-overlay jp-answer-overlay' lang='ja' hidden>"+esc(item.char)+"</div></div>";
+  h+=(typeof handwritingPenToolbarMarkup==="function"?handwritingPenToolbarMarkup():"");
   h+="<div class='drill-bottom-nav'><button class='btn' id='jpPrev' "+(st.index===0?"disabled":"")+">← 이전 한자</button><button class='btn' id='jpNext'>"+(st.index===st.list.length-1?"처음으로":"다음 한자 →")+"</button></div>";
   h+="<div class='drill-write-controls'><button class='btn' id='jpClear'>지우기</button><button class='btn' id='jpReveal'>정답 보기</button><button class='btn "+(saved?"saved":"")+"' id='jpUnknownBtn'>"+(saved?"★ 저장됨":"☆ 모름 저장")+"</button><button class='btn primary' id='jpCheck'>채점</button></div></section></div></div>";
   $("#jp").innerHTML=h;
 
   setupAnyCanvas("#jpCanvas");
+  if(typeof bindHandwritingPenToolbar==="function")bindHandwritingPenToolbar($("#jp"));
   $("#jpExit").onclick=exitJapanesePractice;
   $("#jpPrev").onclick=function(){if(st.index>0){st.index--;st.checked=false;renderJapanesePracticeCard()}};
   $("#jpNext").onclick=function(){st.index=st.index===st.list.length-1?0:st.index+1;st.checked=false;renderJapanesePracticeCard()};
@@ -1023,11 +1048,12 @@ function renderJapaneseWordCard(){
   };
   window.visualViewport&&window.visualViewport.addEventListener("resize",window._drillViewportFit,{passive:true});
 
-  let h="<div class='drill-session-shell jp-word-session-shell "+(jpState.wordHideMeaning?"":"meaning-open")+"'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+(jpState.wordRound+1)+"회차</span><span class='drill-status-pill'>"+(jpState.wordIndex+1)+"/"+jpState.wordList.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpWordExit'>목록</button></div></div>"+(typeof studyIndexMarkup==="function"?studyIndexMarkup("jpword",true):"");
+  let h="<div class='drill-session-shell jp-word-session-shell "+(jpState.wordHideMeaning?"":"meaning-open")+"'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+jpWordStageLabel(jpWordSchoolStage(w))+"</span><span class='drill-status-pill'>"+(jpState.wordRound+1)+"회차</span><span class='drill-status-pill'>"+(jpState.wordIndex+1)+"/"+jpState.wordList.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpWordExit'>목록</button></div></div>"+(typeof studyIndexMarkup==="function"?studyIndexMarkup("jpword",true):"");
   h+="<div class='jp-word-stage'><section class='jp-word-question "+(jpState.wordHideMeaning?"":"meaning-open")+"'><button class='jp-word-meaning-toggle "+(jpState.wordHideMeaning?"":"active")+"' id='jpWordMeaningToggle' aria-expanded='"+String(!jpState.wordHideMeaning)+"'>"+(jpState.wordHideMeaning?"뜻 보기":"뜻 가리기")+"</button><div class='jp-word-prompt-main'><div class='jp-word-example'>"+sentenceHtml+"</div></div><div class='jp-word-meaning-panel' id='jpWordMeaningPanel' "+(jpState.wordHideMeaning?"hidden":"")+"><div class='jp-word-meaning'>"+esc(w.meaning)+"</div><div class='jp-word-translation'>"+esc(w.translation)+"</div></div></section>";
-  h+="<section class='jp-word-canvas-pane jp-word-cols-"+spec.cols+" jp-word-rows-"+spec.rows+"' style='--word-cols:"+spec.cols+";--word-rows:"+spec.rows+"'><div class='jp-word-board'><canvas id='jpWordCanvas' aria-label='"+esc(w.word)+" 손글씨 입력'></canvas><div class='jp-word-board-guides' aria-hidden='true'>"+jpWordGuideHtml(chars,spec)+"</div><div class='jp-word-answer' hidden>"+jpWordAnswerGridHtml(chars,spec)+"</div></div><div id='jpWordFeedback' class='feedback jp-word-feedback'></div><div class='jp-word-nav'><button class='btn' id='jpWordPrev' "+(jpState.wordIndex===0?"disabled":"")+">← 이전 단어</button><button class='btn' id='jpWordNext'>"+(jpState.wordIndex===jpState.wordList.length-1?"회차 완료 →":"다음 단어 →")+"</button></div><div class='jp-word-controls'><button class='btn' id='jpWordClear'>지우기</button><button class='btn' id='jpWordReveal'>정답 보기</button><button class='btn primary' id='jpWordCheck'>채점</button></div></section></div></div>";
+  h+="<section class='jp-word-canvas-pane jp-word-cols-"+spec.cols+" jp-word-rows-"+spec.rows+"' style='--word-cols:"+spec.cols+";--word-rows:"+spec.rows+"'><div class='jp-word-board'><canvas id='jpWordCanvas' aria-label='"+esc(w.word)+" 손글씨 입력'></canvas><div class='jp-word-board-guides' aria-hidden='true'>"+jpWordGuideHtml(chars,spec)+"</div><div class='jp-word-answer' hidden>"+jpWordAnswerGridHtml(chars,spec)+"</div></div>"+(typeof handwritingPenToolbarMarkup==="function"?handwritingPenToolbarMarkup():"")+"<div id='jpWordFeedback' class='feedback jp-word-feedback'></div><div class='jp-word-nav'><button class='btn' id='jpWordPrev' "+(jpState.wordIndex===0?"disabled":"")+">← 이전 단어</button><button class='btn' id='jpWordNext'>"+(jpState.wordIndex===jpState.wordList.length-1?"회차 완료 →":"다음 단어 →")+"</button></div><div class='jp-word-controls'><button class='btn' id='jpWordClear'>지우기</button><button class='btn' id='jpWordReveal'>정답 보기</button><button class='btn primary' id='jpWordCheck'>채점</button></div></section></div></div>";
   $("#jp").innerHTML=h;
   jpSetupUnifiedWordCanvas(spec);
+  if(typeof bindHandwritingPenToolbar==="function")bindHandwritingPenToolbar($("#jp"));
   $("#jpWordExit").onclick=exitJapanesePractice;
   $("#jpWordPrev").onclick=function(){if(jpState.wordIndex>0){jpState.wordIndex--;jpState.wordChecked=false;renderJapaneseWordCard()}};
   $("#jpWordNext").onclick=function(){
