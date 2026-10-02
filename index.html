@@ -7827,11 +7827,11 @@ function globalSearchFeatureMatches(q){
 function globalSearchKorean(q){
   const n=norm(q);if(!n)return[];
   const out=[];
-  for(const ch of chars||[]){
+  for(const ch of (chars||[]).concat(koreanExtra||[])){
     const forms=officialMeaningSoundForms(ch).canonical||"";
-    const hay=norm(ch.hanja+" "+forms+" "+(ch.sound||"")+" "+(ch.radical||"")+" "+(ch.level||""));
+    const hay=norm(ch.hanja+" "+forms+" "+(ch.sound||"")+" "+((ch.sounds||[]).join(" "))+" "+(ch.radical||"")+" "+(ch.level||""));
     if(hay.includes(n)){
-      out.push({char:ch.hanja,level:ch.level,meaning:forms,radical:ch.radical||"",total:+ch.total||0});
+      out.push({char:ch.hanja,level:ch.level,meaning:forms,radical:ch.radical||"",total:+ch.total||0,extra:!!ch._extra});
       if(out.length>=16)break;
     }
   }
@@ -7858,7 +7858,7 @@ function renderGlobalSearchResults(q){
   }
   if(kr.length){
     h+="<section class='global-result-group'><div class='global-result-title'>한국 한자</div><div class='global-hanja-grid'>";
-    h+=kr.map(function(x){return "<button class='global-hanja-result' data-global-hanja='"+encodeURIComponent(x.level+"|"+x.char)+"'><strong>"+esc(x.char)+"</strong><span><b>"+esc(x.meaning||"훈음 없음")+"</b><small>"+esc(x.level)+" · "+esc(x.radical||"-")+"부 · "+x.total+"획</small></span></button>"}).join("");
+    h+=kr.map(function(x){return "<button class='global-hanja-result' data-global-hanja='"+encodeURIComponent(x.level+"|"+x.char)+"'><strong>"+esc(x.char)+"</strong><span><b>"+esc(x.meaning||(x.extra?"한국 독음 없음":"훈음 없음"))+"</b><small>"+(x.extra?"급수외 · Unicode Unihan":esc(x.level)+" · "+esc(x.radical||"-")+"부 · "+x.total+"획")+"</small></span></button>"}).join("");
     h+="</div></section>";
   }
   if(jw.length){
