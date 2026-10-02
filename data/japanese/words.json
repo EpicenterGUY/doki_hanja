@@ -20067,14 +20067,14 @@
       "word": "同義",
       "reading": "どうぎ",
       "meaning": "동의",
-      "sentence": "二つの表現がほぼ同義か辞書で確認した。",
-      "translation": "두 표현이 거의 동의인지 사전에서 확인했다.",
+      "sentence": "この二つの表現は文脈によってほぼ同義に使われる。",
+      "translation": "이 두 표현은 문맥에 따라 거의 같은 뜻으로 쓰인다.",
       "tier": "advanced",
       "set": "joyo",
       "schoolStage": "senior",
       "source": "doki-school-expanded-20261002",
       "id": 1556,
-      "exampleSource": "hanjalab-curated-20261002"
+      "exampleSource": "hanjalab-curated-20261002-usage-audit"
     },
     {
       "word": "反義",
@@ -23421,14 +23421,14 @@
       "word": "膠原病",
       "reading": "こうげんびょう",
       "meaning": "교원병",
-      "sentence": "医学用語集で膠原病という語を確認した。",
-      "translation": "의학 용어집에서 교원병이라는 용어를 확인했다.",
+      "sentence": "膠原病の治療では症状や病型に応じた管理が必要になる。",
+      "translation": "교원병 치료에서는 증상과 병형에 맞춘 관리가 필요하다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "source": "doki-hyogai-expanded-20261002",
       "id": 1814,
-      "exampleSource": "hanjalab-curated-20261002"
+      "exampleSource": "hanjalab-curated-20261002-usage-audit"
     },
     {
       "word": "膿瘍",
@@ -23746,14 +23746,14 @@
       "word": "疥癬",
       "reading": "かいせん",
       "meaning": "옴",
-      "sentence": "疥癬という皮膚疾患について医学用語集で調べた。",
-      "translation": "옴이라는 피부 질환에 대해 의학 용어집에서 조사했다.",
+      "sentence": "疥癬は強いかゆみを伴うことがある皮膚疾患だ。",
+      "translation": "옴은 심한 가려움을 동반할 수 있는 피부 질환이다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "source": "doki-hyogai-expanded-20261002",
       "id": 1839,
-      "exampleSource": "hanjalab-curated-20261002"
+      "exampleSource": "hanjalab-curated-20261002-usage-audit"
     },
     {
       "word": "白癬",
@@ -25869,13 +25869,13 @@
       "word": "癲癇",
       "reading": "てんかん",
       "meaning": "간질",
-      "sentence": "癲癇という病名の現在の表記について医学辞典で調べた。",
-      "translation": "간질이라는 병명의 현재 표기에 대해 의학사전에서 찾아봤다.",
+      "sentence": "癲癇の発作にはさまざまな型がある。",
+      "translation": "간질 발작에는 여러 유형이 있다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "source": "doki-hyogai-domain-20261002",
-      "exampleSource": "hanjalab-curated-20261002"
+      "exampleSource": "hanjalab-curated-20261002-usage-audit"
     },
     {
       "id": 2003,
@@ -25908,13 +25908,13 @@
       "word": "嚢腫",
       "reading": "のうしゅ",
       "meaning": "낭종",
-      "sentence": "嚢腫という医学用語を資料で確認した。",
-      "translation": "낭종이라는 의학 용어를 자료에서 확인했다.",
+      "sentence": "検査で卵巣に小さな嚢腫が見つかった。",
+      "translation": "검사에서 난소에 작은 낭종이 발견되었다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "source": "doki-hyogai-domain-20261002",
-      "exampleSource": "hanjalab-curated-20261002"
+      "exampleSource": "hanjalab-curated-20261002-usage-audit"
     },
     {
       "id": 2006,
@@ -29053,14 +29053,14 @@
       "word": "腱鞘炎",
       "reading": "けんしょうえん",
       "meaning": "건초염",
-      "sentence": "腱鞘炎という語をスポーツ医学の資料で確認した。",
-      "translation": "건초염이라는 용어를 스포츠의학 자료에서 확인했다.",
+      "sentence": "手首を使い過ぎて腱鞘炎になった。",
+      "translation": "손목을 지나치게 사용해 건초염이 생겼다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "hyogaiStage": "practical",
       "source": "doki-hyogai-stage-expanded-20261002",
-      "exampleSource": "hanjalab-curated-20261002"
+      "exampleSource": "hanjalab-curated-20261002-usage-audit"
     },
     {
       "id": 2233,
@@ -29403,14 +29403,14 @@
       "word": "疝痛",
       "reading": "せんつう",
       "meaning": "산통",
-      "sentence": "疝痛という痛みの表現を医学辞典で調べた。",
-      "translation": "산통이라는 통증 표현을 의학사전에서 찾아봤다.",
+      "sentence": "患者は突然の激しい疝痛を訴えた。",
+      "translation": "환자는 갑작스러운 심한 산통을 호소했다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "hyogaiStage": "advanced",
       "source": "doki-hyogai-stage-expanded-20261002",
-      "exampleSource": "hanjalab-curated-20261002"
+      "exampleSource": "hanjalab-curated-20261002-usage-audit"
     },
     {
       "id": 2258,
