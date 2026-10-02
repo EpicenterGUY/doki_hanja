@@ -3337,3 +3337,205 @@ html body.drill-active #jp .jp-word-feedback:empty{
     height:100%!important;
   }
 }
+
+
+/* ===== WORD WRITING LAYOUT FINAL AUTHORITY · 2.41.0 =====
+   Board, pen tools, feedback, navigation and grading controls always occupy separate rows.
+   Landscape tablets shrink only the writing board; controls stay fully visible.
+*/
+html body.drill-active #jp .jp-word-canvas-pane{
+  display:grid!important;
+  grid-template-areas:
+    "board"
+    "pen"
+    "feedback"
+    "nav"
+    "controls"!important;
+  grid-template-rows:minmax(0,1fr) auto auto auto auto!important;
+  align-content:stretch!important;
+  align-items:stretch!important;
+  justify-items:center!important;
+  gap:5px!important;
+  min-height:0!important;
+  overflow:hidden!important;
+}
+html body.drill-active #jp .jp-word-board{
+  grid-area:board!important;
+  min-height:0!important;
+}
+html body.drill-active #jp .jp-word-canvas-pane>.pen-toolbar{
+  grid-area:pen!important;
+  position:relative!important;
+  inset:auto!important;
+  z-index:2!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:5px!important;
+  overflow-x:auto!important;
+  overflow-y:hidden!important;
+  flex-wrap:nowrap!important;
+}
+html body.drill-active #jp .jp-word-feedback{grid-area:feedback!important}
+html body.drill-active #jp .jp-word-nav{
+  grid-area:nav!important;
+  position:relative!important;
+  inset:auto!important;
+  z-index:1!important;
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+}
+html body.drill-active #jp .jp-word-controls{
+  grid-area:controls!important;
+  position:relative!important;
+  inset:auto!important;
+  z-index:1!important;
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+}
+html body.drill-active #jp .jp-word-nav,
+html body.drill-active #jp .jp-word-controls{
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  gap:6px!important;
+}
+html body.drill-active #jp .jp-word-nav .btn,
+html body.drill-active #jp .jp-word-controls .btn{
+  min-width:0!important;
+  width:100%!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+}
+html body.drill-active #jp .jp-word-feedback:empty{
+  display:none!important;
+}
+
+/* Coarse-pointer landscape is the failure case shown on iPad:
+   reserve fixed control rows, then let only the board consume the remaining height. */
+@media(min-width:700px) and (pointer:coarse) and (orientation:landscape){
+  html body.drill-active #jp .jp-word-session-shell{
+    height:100%!important;
+    min-height:0!important;
+    overflow:hidden!important;
+    grid-template-rows:auto 34px minmax(0,1fr)!important;
+    gap:4px!important;
+  }
+  html body.drill-active #jp .jp-word-session-shell>.study-index.compact{
+    height:34px!important;
+    min-height:34px!important;
+    max-height:34px!important;
+    overflow:hidden!important;
+  }
+  html body.drill-active #jp .jp-word-session-shell>.study-index.compact .study-index-item{
+    height:27px!important;
+    min-height:27px!important;
+  }
+  html body.drill-active #jp .jp-word-stage{
+    min-height:0!important;
+    height:100%!important;
+    grid-template-rows:58px minmax(0,1fr)!important;
+    gap:4px!important;
+    overflow:hidden!important;
+  }
+  html body.drill-active #jp .jp-word-question,
+  html body.drill-active #jp .jp-word-question.meaning-open{
+    height:58px!important;
+    min-height:58px!important;
+    max-height:58px!important;
+    padding:5px 78px!important;
+    overflow:hidden!important;
+  }
+  html body.drill-active #jp .jp-word-question.meaning-open{
+    height:74px!important;
+    min-height:74px!important;
+    max-height:74px!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane{
+    width:min(100%,900px)!important;
+    height:100%!important;
+    min-height:0!important;
+    max-height:100%!important;
+    align-self:stretch!important;
+    grid-template-rows:minmax(0,1fr) 36px auto 42px 40px!important;
+    gap:4px!important;
+    padding:4px!important;
+    overflow:hidden!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane>.pen-toolbar{
+    height:36px!important;
+    min-height:36px!important;
+    max-height:36px!important;
+    padding:3px 4px!important;
+    align-items:center!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane>.pen-toolbar .pen-tool,
+  html body.drill-active #jp .jp-word-canvas-pane>.pen-toolbar .pen-undo,
+  html body.drill-active #jp .jp-word-canvas-pane>.pen-toolbar .pen-toolbar-current{
+    min-height:28px!important;
+    height:28px!important;
+    padding:3px 7px!important;
+    font-size:9px!important;
+  }
+  html body.drill-active #jp .jp-word-board{
+    height:100%!important;
+    width:auto!important;
+    max-width:100%!important;
+    max-height:100%!important;
+    align-self:center!important;
+    justify-self:center!important;
+    aspect-ratio:var(--word-cols) / var(--word-rows)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-1 .jp-word-board{
+    max-width:min(100%,360px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-2.jp-word-rows-1 .jp-word-board{
+    max-width:min(100%,700px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-3.jp-word-rows-1 .jp-word-board{
+    max-width:min(100%,810px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-4.jp-word-rows-1 .jp-word-board{
+    max-width:min(100%,880px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-rows-2 .jp-word-board{
+    max-width:min(100%,610px)!important;
+  }
+  html body.drill-active #jp .jp-word-nav,
+  html body.drill-active #jp .jp-word-nav .btn{
+    height:42px!important;
+    min-height:42px!important;
+  }
+  html body.drill-active #jp .jp-word-controls,
+  html body.drill-active #jp .jp-word-controls .btn{
+    height:40px!important;
+    min-height:40px!important;
+  }
+}
+
+/* Portrait tablet remains generous but keeps the toolbar and buttons in normal flow. */
+@media(min-width:700px) and (pointer:coarse) and (orientation:portrait){
+  html body.drill-active #jp .jp-word-canvas-pane{
+    grid-template-rows:auto auto auto 44px 42px!important;
+    overflow:visible!important;
+  }
+}
+
+/* Narrow phones/fold: no horizontal button spill or overlay. */
+@media(max-width:699px){
+  html body.drill-active #jp .jp-word-canvas-pane{
+    grid-template-rows:auto auto auto 42px 40px!important;
+    overflow:visible!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane>.pen-toolbar{
+    max-width:100%!important;
+  }
+  html body.drill-active #jp .jp-word-nav .btn,
+  html body.drill-active #jp .jp-word-controls .btn{
+    font-size:10px!important;
+    padding-inline:4px!important;
+  }
+}
