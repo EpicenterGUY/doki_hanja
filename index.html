@@ -8181,6 +8181,7 @@ function showAppUpdate(build){
   appUpdateReady=true;
   const target=String(build||pendingWebBuild||"").trim();
   if(target){
+    pendingWebBuild=target;
     try{
       if(localStorage.getItem(WEB_UPDATE_PROMPT_KEY)===target)return;
       localStorage.setItem(WEB_UPDATE_PROMPT_KEY,target);
