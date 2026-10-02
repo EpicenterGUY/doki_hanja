@@ -8177,7 +8177,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.44.10-20261003";
+const APP_BUILD="2.45.0-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -8706,8 +8706,8 @@ function init(){
   window.addEventListener("resize",syncDrillViewport,{passive:true});
   window.addEventListener("orientationchange",function(){
     syncDrillViewport();
-    setTimeout(syncDrillViewport,120);
-    setTimeout(syncDrillViewport,420);
+    setTimeout(function(){syncDrillViewport();refreshSquareHandwritingCanvases()},120);
+    setTimeout(function(){syncDrillViewport();refreshSquareHandwritingCanvases()},420);
   },{passive:true});
   if(!window.__dokiKeyboardViewportBound){
     window.__dokiKeyboardViewportBound=true;
@@ -12762,6 +12762,9 @@ function undoCanvasStroke(target){
 }
 function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
   const surface=hitSurface||c;
+  if(!c||!surface)return;
+  if(surface._dokiCanvasDrawingOwner===c)return;
+  surface._dokiCanvasDrawingOwner=c;
   setCanvasHandwritingPen(c,c._penPreset||handwritingPenPreset);
   if(!Array.isArray(c._strokeHistory))c._strokeHistory=[];
   let drawing=false,last=null,activePointerId=null,activePointerType="",activeStroke=null;
@@ -12809,7 +12812,7 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
   };
   const down=e=>{
     if(shouldIgnoreDown(e)){suppress(e);return}
-    suppress(e);drawing=true;activePointerId=eventId(e);activePointerType=inputType(e);
+    suppress(e);drawing=true;activePointerId=eventId(e);activePointerType=inputType(e);c._jpActivePointerId=activePointerId;
     if(activePointerType==="pen"){penPreferredUntil=clock()+PEN_GUARD_MS;window.__dokiPencilSession=true}
     c.dataset.inputSource=activePointerType;
     if(onStrokeStart)onStrokeStart();
@@ -12834,7 +12837,7 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
       if(c._strokeHistory.length>180)c._strokeHistory.shift();
     }
     c._strokeCount=c._strokeHistory.length;
-    drawing=false;last=null;activeStroke=null;activePointerId=null;activePointerType="";
+    drawing=false;last=null;activeStroke=null;activePointerId=null;activePointerType="";c._jpActivePointerId=null;
   };
   surface.style.touchAction="none";
   surface.addEventListener("contextmenu",e=>e.preventDefault());
@@ -12855,7 +12858,9 @@ function drawGuidedCanvasBase(c){
   x.strokeStyle="#ddd";x.lineWidth=2;x.setLineDash([10,10]);x.beginPath();x.moveTo(c.width/2,0);x.lineTo(c.width/2,c.height);x.moveTo(0,c.height/2);x.lineTo(c.width,c.height/2);x.stroke();x.setLineDash([]);x.restore();
 }
 function setupAnyCanvas(sel){
-  const c=$(sel),ctx=c.getContext("2d");
+  const c=$(sel);if(!c)return;
+  const ctx=c.getContext("2d");if(!ctx)return;
+  c.dataset.squareHandwriting="1";
   c._redrawBase=function(){drawGuidedCanvasBase(c)};
   clearAnyCanvas(sel);
   if(document.documentElement.classList.contains("is-ipad"))c._brushCssPx=7.2;
@@ -12863,6 +12868,16 @@ function setupAnyCanvas(sel){
 }
 function clearAnyCanvas(sel){
   const c=$(sel);if(!c)return;resetCanvasStrokeHistory(c);drawGuidedCanvasBase(c);
+}
+function refreshSquareHandwritingCanvases(root){
+  const scope=root&&root.querySelectorAll?root:document;
+  scope.querySelectorAll("canvas[data-square-handwriting='1']").forEach(function(c){
+    const wrap=c.closest(".drill-canvas-wrap")||c.parentElement;
+    if(!wrap)return;
+    const r=wrap.getBoundingClientRect();
+    if(!(r.width>2&&r.height>2))return;
+    c.style.width="100%";c.style.height="100%";
+  });
 }
 function downloadExamTemplate(){
   const csv="round,no,level,type,prompt,answer,hanja,note,choices,korean,sourceText\n30,1,3급,sound,「漢字」의 독음을 쓰시오.,한자,漢,예시 문항,,,\n30,2,3급,fill,다음 빈칸에 알맞은 한자를 고르시오.,學,學,예시 객관식,學|校|國|人,,\n30,3,3급,wordWrite,다음 한자어를 한자로 쓰시오.,學校,,한자어쓰기 예시,,학교,학생들이 학교에 갔다.\n";
