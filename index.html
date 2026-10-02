@@ -13383,9 +13383,20 @@ function atlasRelatedForChar(hanja){
 }
 function openAtlasCharDetail(key){
   const p=String(key).split("|"),grade=p[0],hanja=p.slice(1).join("|");
-  const c=chars.find(function(x){return x.level===grade&&x.hanja===hanja})||chars.find(function(x){return x.hanja===hanja});
+  const c=chars.find(function(x){return x.level===grade&&x.hanja===hanja})||chars.find(function(x){return x.hanja===hanja})||koreanExtra.find(function(x){return x.hanja===hanja});
   if(!c)return;
-  const f=officialMeaningSoundForms(c),tone=toneMarkerFor(c),study=atlasStudyStats(c),related=atlasRelatedForChar(hanja).slice(0,10),ui=ensureAtlasDetailElements();
+  const ui=ensureAtlasDetailElements();
+  if(c._extra){
+    const readings=(c.sounds&&c.sounds.length?c.sounds:[c.sound]).filter(Boolean);
+    ui.sh.innerHTML='<div class="atlas-detail-handle"></div><div class="atlas-detail-head"><div class="atlas-detail-title"><span class="atlas-detail-glyph">'+esc(c.hanja)+'</span><div class="atlas-detail-reading">'+esc(readings.join(" / "))+'</div><div class="atlas-detail-sub">급수외 · Unicode Unihan 한국 독음</div></div><button class="atlas-detail-close" onclick="closeAtlasDetail()">×</button></div>'+
+      '<div class="atlas-source-priority"><span>분류 · 한국어문회 급수외</span><span>독음 · Unicode Unihan kHangul</span></div>'+
+      '<div class="atlas-detail-section"><h4>한국 독음</h4><div class="atlas-related">'+readings.map(function(r){return "<span>"+esc(r)+"</span>"}).join("")+'</div></div>'+
+      dictionaryFallbackMarkup(c.hanja)+
+      '<div class="atlas-detail-note">이 글자는 한국어문회 8급~특급 배정한자 5,978자에는 포함되지 않아 별도 ‘급수외’ 학습 범위에 둡니다. 시험 급수·급수진단에는 섞이지 않습니다.</div>';
+    requestAnimationFrame(function(){ui.bd.classList.add("open");ui.sh.classList.add("open");hydrateAtlasDictionaryUsage(c.hanja)});
+    return;
+  }
+  const f=officialMeaningSoundForms(c),tone=toneMarkerFor(c),study=atlasStudyStats(c),related=atlasRelatedForChar(hanja).slice(0,10);
   const examples=[];
   related.forEach(function(r){(r.examples||[]).forEach(function(ex){if(examples.length<5&&!examples.some(function(x){return x.round===ex.round&&x.no===ex.no}))examples.push(ex)})});
   ui.sh.innerHTML='<div class="atlas-detail-handle"></div><div class="atlas-detail-head"><div class="atlas-detail-title"><span class="atlas-detail-glyph">'+esc(c.hanja)+'</span><div class="atlas-detail-reading">'+esc(f.canonical)+(tone?' <span class="atlas-tone">'+esc(tone)+'</span>':'')+'</div><div class="atlas-detail-sub">'+esc(c.level)+' · '+esc(c.radical||"-")+'부 · '+(+c.total||0)+'획 · 한국어문회 훈음</div></div><button class="atlas-detail-close" onclick="closeAtlasDetail()">×</button></div>'+
@@ -13849,6 +13860,11 @@ function atlasGridGroupedHtml(rows){
 }
 function atlasTableHtml(rows){
   if(!rows.length)return '<div class="atlas-empty">조건에 맞는 한자가 없습니다.</div>';
+  if(atlasState.extra){
+    return '<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>한자</th><th>한국 독음</th><th>분류</th><th>출처</th></tr></thead><tbody>'+
+      rows.map(function(x){const key=x.c.level+"|"+x.c.hanja;return '<tr onclick="toggleAtlasReveal(\''+esc(key)+'\')" style="cursor:pointer"><td class="hanja-cell">'+esc(x.c.hanja)+'</td><td>'+esc((x.c.sounds||[x.c.sound]).join(" / "))+'</td><td>급수외</td><td>Unicode Unihan</td></tr>'}).join("")+
+      '</tbody></table></div>';
+  }
   const groups=(atlasState.mode==="freq"||atlasState.sort==="freq")?[{initial:"",rows:rows}]:atlasGroupedRows(rows);
   let rank=0,h='<div class="atlas-initial-groups">';
   groups.forEach(function(g){
@@ -13946,6 +13962,21 @@ function toggleAtlasReveal(key){
   if(atlasRevealSet.has(key))atlasRevealSet.delete(key);
   else atlasRevealSet.add(key);
   renderAtlasResults();
+}
+function setAtlasGrade(v){
+  atlasState.extra=false;
+  setAtlasState("grade",v);
+}
+function setAtlasExtra(){
+  atlasState.extra=true;
+  atlasState.mode="grade";
+  atlasState.filter="all";
+  atlasState.scope="exact";
+  atlasState.query="";
+  atlasState.sort="alpha";
+  atlasState.mask="none";
+  atlasRevealSet.clear();
+  renderAtlas();
 }
 function setAtlasState(k,v){
   atlasState[k]=v;
