@@ -14701,24 +14701,26 @@
       "word": "再発",
       "reading": "さいはつ",
       "meaning": "재발",
-      "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '재발'을 이해하는 것이 중요합니다.",
+      "sentence": "同じ故障が再発しないよう原因を調べた。",
+      "translation": "같은 고장이 재발하지 않도록 원인을 조사했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1156,
       "word": "再開",
       "reading": "さいかい",
       "meaning": "재개",
-      "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '재개'가 중요한 개념으로 다뤄지고 있습니다.",
+      "sentence": "工事が終わり、図書館は来週から再開する。",
+      "translation": "공사가 끝나 도서관은 다음 주부터 다시 문을 연다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1157,
@@ -14738,60 +14740,65 @@
       "word": "再評価",
       "reading": "さいひょうか",
       "meaning": "재평가",
-      "sentence": "授業で「＿＿」という語の使い方を確認しました。",
-      "translation": "수업에서 '재평가'이라는 단어의 쓰임을 확인했습니다.",
+      "sentence": "古い作品が近年になって再評価されている。",
+      "translation": "오래된 작품이 최근 들어 재평가되고 있다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1159,
       "word": "再確認",
       "reading": "さいかくにん",
       "meaning": "재확인",
-      "sentence": "報告書には「＿＿」に関する説明が詳しく書かれています。",
-      "translation": "보고서에는 '재확인'에 관한 설명이 자세히 적혀 있습니다.",
+      "sentence": "送信前に宛先と添付ファイルを再確認した。",
+      "translation": "보내기 전에 수신처와 첨부파일을 다시 확인했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1160,
       "word": "復興",
       "reading": "ふっこう",
       "meaning": "부흥·복구",
-      "sentence": "新聞記事で「＿＿」という表現を見かけました。",
-      "translation": "신문 기사에서 '부흥·복구'이라는 표현을 보았습니다.",
+      "sentence": "地震で被害を受けた町の復興が進んでいる。",
+      "translation": "지진 피해를 입은 도시의 복구가 진행되고 있다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1161,
       "word": "復活",
       "reading": "ふっかつ",
       "meaning": "부활",
-      "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '부활'을 이해하는 것이 중요합니다.",
+      "sentence": "修理によって古い時計が見事に復活した。",
+      "translation": "수리를 통해 오래된 시계가 멋지게 되살아났다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1162,
       "word": "逆転",
       "reading": "ぎゃくてん",
       "meaning": "역전",
-      "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '역전'이 중요한 개념으로 다뤄지고 있습니다.",
+      "sentence": "試合終了直前に得点して逆転した。",
+      "translation": "경기 종료 직전에 득점해 역전했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1163,
@@ -14811,60 +14818,65 @@
       "word": "分岐",
       "reading": "ぶんき",
       "meaning": "분기",
-      "sentence": "授業で「＿＿」という語の使い方を確認しました。",
-      "translation": "수업에서 '분기'이라는 단어의 쓰임을 확인했습니다.",
+      "sentence": "この道は少し先で二方向に分岐する。",
+      "translation": "이 길은 조금 앞에서 두 방향으로 갈라진다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1165,
       "word": "岐路",
       "reading": "きろ",
       "meaning": "기로",
-      "sentence": "報告書には「＿＿」に関する説明が詳しく書かれています。",
-      "translation": "보고서에는 '기로'에 관한 설명이 자세히 적혀 있습니다.",
+      "sentence": "進学か就職か、人生の岐路に立っている。",
+      "translation": "진학할지 취업할지 인생의 기로에 서 있다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1166,
       "word": "過程",
       "reading": "かてい",
       "meaning": "과정",
-      "sentence": "新聞記事で「＿＿」という表現を見かけました。",
-      "translation": "신문 기사에서 '과정'이라는 표현을 보았습니다.",
+      "sentence": "作品が完成するまでの過程を写真で記録した。",
+      "translation": "작품이 완성되기까지의 과정을 사진으로 기록했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1167,
       "word": "経緯",
       "reading": "けいい",
       "meaning": "경위",
-      "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '경위'를 이해하는 것이 중요합니다.",
+      "sentence": "事故が起きた経緯を時系列で整理した。",
+      "translation": "사고가 일어난 경위를 시간순으로 정리했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1168,
       "word": "経過",
       "reading": "けいか",
       "meaning": "경과",
-      "sentence": "資料では「＿＿」が重要な概念として扱われています。",
-      "translation": "자료에서는 '경과'가 중요한 개념으로 다뤄지고 있습니다.",
+      "sentence": "手術後の経過は記録に詳しく残されている。",
+      "translation": "수술 후 경과는 기록에 자세히 남아 있다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1169,
@@ -14884,48 +14896,52 @@
       "word": "経由",
       "reading": "けいゆ",
       "meaning": "경유",
-      "sentence": "授業で「＿＿」という語の使い方を確認しました。",
-      "translation": "수업에서 '경유'이라는 단어의 쓰임을 확인했습니다.",
+      "sentence": "大阪を経由して目的地へ向かった。",
+      "translation": "오사카를 경유해 목적지로 향했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1171,
       "word": "経費",
       "reading": "けいひ",
       "meaning": "경비",
-      "sentence": "報告書には「＿＿」に関する説明が詳しく書かれています。",
-      "translation": "보고서에는 '경비'에 관한 설명이 자세히 적혀 있습니다.",
+      "sentence": "出張にかかった経費を会社に申請した。",
+      "translation": "출장에 든 경비를 회사에 신청했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1172,
       "word": "経歴",
       "reading": "けいれき",
       "meaning": "경력",
-      "sentence": "新聞記事で「＿＿」という表現を見かけました。",
-      "translation": "신문 기사에서 '경력'이라는 표현을 보았습니다.",
+      "sentence": "応募書類にこれまでの経歴を書いた。",
+      "translation": "지원 서류에 지금까지의 경력을 적었다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "id": 1173,
       "word": "経営者",
       "reading": "けいえいしゃ",
       "meaning": "경영자",
-      "sentence": "この分野では「＿＿」を理解することが重要です。",
-      "translation": "이 분야에서는 '경영자'를 이해하는 것이 중요합니다.",
+      "sentence": "経営者は従業員と今後の計画について話し合った。",
+      "translation": "경영자는 직원들과 향후 계획에 대해 논의했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
-      "schoolStage": "senior"
+      "schoolStage": "senior",
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "word": "青空",
@@ -18376,13 +18392,14 @@
       "word": "演繹",
       "reading": "えんえき",
       "meaning": "연역",
-      "sentence": "文章の中で「＿＿」という語を確認しました。",
-      "translation": "문장에서 '연역'이라는 표현을 확인했습니다.",
+      "sentence": "一般的な原理から結論を導く演繹の考え方を学んだ。",
+      "translation": "일반적인 원리에서 결론을 이끌어내는 연역의 사고방식을 배웠다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "source": "doki-school-expanded-20261002",
-      "id": 1439
+      "id": 1439,
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "word": "弁証",
@@ -20013,25 +20030,27 @@
       "word": "寓意",
       "reading": "ぐうい",
       "meaning": "우의",
-      "sentence": "文章の中で「＿＿」という語を確認しました。",
-      "translation": "문장에서 '우의'이라는 표현을 확인했습니다.",
+      "sentence": "この物語には権力への批判という寓意が込められている。",
+      "translation": "이 이야기에는 권력에 대한 비판이라는 우의가 담겨 있다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "source": "doki-school-expanded-20261002",
-      "id": 1565
+      "id": 1565,
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "word": "寓話",
       "reading": "ぐうわ",
       "meaning": "우화",
-      "sentence": "文章の中で「＿＿」という語を確認しました。",
-      "translation": "문장에서 '우화'이라는 표현을 확인했습니다.",
+      "sentence": "動物を主人公にした短い寓話を読んだ。",
+      "translation": "동물을 주인공으로 한 짧은 우화를 읽었다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "source": "doki-school-expanded-20261002",
-      "id": 1566
+      "id": 1566,
+      "exampleSource": "hanjalab-curated-20261002"
     },
     {
       "word": "風刺",
