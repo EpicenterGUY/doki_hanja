@@ -11540,7 +11540,7 @@ function closeDrillCharIndex(){
 }
 function filterDrillCharIndex(query){
   const q=norm(query||"");
-  $("#drillCharIndexGrid .drill-char-index-item").forEach(function(btn){
+  $$("#drillCharIndexGrid .drill-char-index-item").forEach(function(btn){
     const i=+btn.dataset.drillIndex,c=drillState.list[i],p=c?charPrimary(c):{meaning:"",sound:""};
     const hay=norm([c?.hanja,p.meaning,p.sound,officialMeaningSoundForms(c||{}).canonical].filter(Boolean).join(" "));
     btn.hidden=!!q&&!hay.includes(q);
@@ -11639,7 +11639,7 @@ function renderDrillCard(){
   if(closeIndex)closeIndex.onclick=closeDrillCharIndex;
   if(indexModal)indexModal.onclick=function(e){if(e.target===indexModal)closeDrillCharIndex()};
   if(indexSearch)indexSearch.oninput=function(){filterDrillCharIndex(indexSearch.value)};
-  $("#drillCharIndexGrid .drill-char-index-item").forEach(function(btn){
+  $$("#drillCharIndexGrid .drill-char-index-item").forEach(function(btn){
     btn.onclick=function(){jumpToDrillChar(btn.dataset.drillIndex)};
   });
   $("#prevDrill").onclick=()=>{
