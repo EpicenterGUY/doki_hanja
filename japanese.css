@@ -199,7 +199,7 @@ body.drill-active #jp{height:100%;min-height:0}
 .jp-sub-hero h2{font-size:24px;margin-top:3px}
 .jp-sub-hero p{font-size:10px}
 .jp-sub-hero .jp-set-seg{margin-top:9px}
-.jp-sub-nav{margin-top:6px}
+.jp-sub-nav{margin-top:6px;grid-template-columns:repeat(5,minmax(0,1fr))}
 .jp-sub-nav button{min-height:34px!important;font-size:10px!important}
 
 /* Japanese hub */
@@ -232,6 +232,7 @@ body.drill-active #jp{height:100%;min-height:0}
   font:900 20px/1 "Noto Serif CJK JP","Yu Mincho",serif;background:linear-gradient(135deg,#6a62f0,#885ce8)
 }
 .jp-home-action.word .jp-action-glyph{background:linear-gradient(135deg,#ec7aa4,#ff9cbd)}
+.jp-home-action.reading-quiz .jp-action-glyph{background:linear-gradient(135deg,#63a7ff,#77d6ff);color:#071b33}
 .jp-home-action.atlas .jp-action-glyph{background:linear-gradient(135deg,#3bc7a4,#68e1c4);color:#09261f}
 .jp-home-action.saved .jp-action-glyph{background:linear-gradient(135deg,#ffb84e,#ffd873);color:#392300;font-family:system-ui,sans-serif}
 .jp-home-action b{display:block;font-size:14px}.jp-home-action small{display:block;margin-top:3px;color:#8fa3c2;font-size:9px;line-height:1.35}
@@ -250,7 +251,7 @@ body.drill-active #jp{height:100%;min-height:0}
 .jp-home-progress-bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#6966ee,#77d8bc)}
 .jp-home-progress-card>small{display:block;margin-top:6px;color:#8297b8;font-size:8px}
 
-.jp-home-grade-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.jp-home-grade-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
 .jp-home-grade-grid button{
   min-width:0;min-height:64px;padding:7px 4px;border-radius:14px;border:1px solid rgba(139,166,218,.2);
   background:linear-gradient(145deg,#1d2e4e,#16243e);color:#fff
@@ -3640,4 +3641,51 @@ html body.drill-active #jp .jp-word-feedback:empty{
     top:5px!important;
     left:6px!important;
   }
+}
+
+
+/* JLPT word-reading quiz · 2.44.0 */
+.jp-reading-quiz-preview{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+.jp-reading-quiz-preview>div{
+  min-width:0;padding:11px 12px;border:1px solid rgba(139,166,218,.2);border-radius:15px;
+  background:linear-gradient(145deg,rgba(31,46,78,.88),rgba(16,25,45,.94));
+  display:grid;grid-template-columns:minmax(0,1fr) auto;gap:3px 8px;align-items:center
+}
+.jp-reading-quiz-preview b{font:700 23px/1.15 "Noto Serif CJK JP","Yu Mincho","Hiragino Mincho ProN",serif;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jp-reading-quiz-preview span{padding:3px 7px;border-radius:999px;background:#2b4168;color:#dce7ff;font-size:9px;font-weight:900}
+.jp-reading-quiz-preview small{grid-column:1/-1;color:#8fa4c6;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jp-reading-quiz-session{height:100%;min-height:0}
+.jp-reading-quiz-stage{min-height:0;height:100%;display:grid;grid-template-rows:minmax(0,1fr) auto;gap:8px}
+.jp-reading-quiz-card{
+  min-height:0;padding:clamp(18px,4vh,42px) clamp(16px,4vw,42px);border:1px solid #435c89;border-radius:22px;
+  background:radial-gradient(circle at 50% 20%,rgba(107,119,255,.16),transparent 42%),linear-gradient(145deg,rgba(29,43,75,.98),rgba(16,25,46,.98));
+  box-shadow:var(--shadow);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center
+}
+.jp-reading-quiz-card .prompt{font-size:12px;color:#aebdde}
+.jp-reading-quiz-word{margin:12px 0 5px;font:800 clamp(54px,11vw,96px)/1.05 var(--jp-atlas-font,"Noto Serif JP","Yu Mincho",serif);letter-spacing:.04em;color:#fff}
+.jp-reading-quiz-level{margin-bottom:15px;color:#8fa4c6;font-size:10px;font-weight:900}
+.jp-reading-quiz-input{
+  width:min(520px,100%);height:58px;border-radius:16px;border:1px solid #4d6796;background:#0f1d34;color:#fff;
+  font-size:23px;font-weight:850;text-align:center;letter-spacing:.03em;outline:none
+}
+.jp-reading-quiz-input:focus{border-color:#8b7cff;box-shadow:0 0 0 3px rgba(126,111,255,.14)}
+.jp-reading-quiz-check{width:min(520px,100%);min-height:46px;margin-top:8px}
+.jp-reading-quiz-feedback{width:min(620px,100%);margin-top:10px!important;text-align:left;line-height:1.45}
+.jp-reading-quiz-feedback p{margin:7px 0 2px;font-size:14px}
+.jp-reading-quiz-feedback small{display:block;color:#9fb1cf}
+.jp-reading-quiz-answer-meta{margin-top:3px;color:#b6c7e2;font-size:11px}
+.jp-reading-quiz-nav .btn{min-height:48px}
+
+@media(max-width:600px){
+  .jp-sub-nav{grid-template-columns:repeat(5,minmax(58px,1fr));overflow-x:auto;scrollbar-width:none}
+  .jp-sub-nav::-webkit-scrollbar{display:none}
+  .jp-sub-nav button{font-size:9px!important;padding:0 3px!important}
+  .jp-home-grade-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .jp-home-grade-grid button{min-height:56px}
+  .jp-reading-quiz-preview{grid-template-columns:1fr}
+  .jp-reading-quiz-card{padding:14px 10px;border-radius:17px}
+  .jp-reading-quiz-word{font-size:clamp(50px,18vw,78px);margin-top:8px}
+  .jp-reading-quiz-input{height:52px;font-size:21px}
+  .jp-reading-quiz-feedback{max-height:150px;overflow:auto;font-size:10px}
+  .jp-reading-quiz-feedback p{font-size:12px}
 }
