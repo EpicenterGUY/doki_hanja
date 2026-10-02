@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="theme-color" content="#6677ff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -6870,8 +6870,8 @@ html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-pane{
   min-height:0!important;
   max-height:100%!important;
   overflow:hidden!important;
-  padding:5px 10px 7px!important;
-  border-radius:14px!important;
+  padding:3px 8px 4px!important;
+  border-radius:12px!important;
   align-items:center!important;
 }
 html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner{
@@ -6890,14 +6890,14 @@ html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner>.meta{
 }
 html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner>.prompt{
   margin:0!important;
-  font-size:12px!important;
-  line-height:1.12!important;
+  font-size:10px!important;
+  line-height:1.05!important;
 }
 html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner .big-hanja{
-  margin:1px 0!important;
+  margin:0!important;
   min-height:0!important;
-  font-size:clamp(58px,10vw,96px)!important;
-  line-height:.94!important;
+  font-size:clamp(50px,8vw,74px)!important;
+  line-height:.9!important;
 }
 html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner>.answer-row{
   width:min(100%,520px)!important;
@@ -6926,19 +6926,20 @@ html.is-ipad.keyboard-open body.drill-active #drill #drillFeedback:empty{
 }
 html.is-ipad.keyboard-open body.drill-active #drill .drill-unknown-btn{
   width:min(100%,520px)!important;
-  height:32px!important;
-  min-height:32px!important;
-  margin-top:1px!important;
-  padding:3px 8px!important;
-  font-size:10px!important;
-  border-radius:9px!important;
+  height:28px!important;
+  min-height:28px!important;
+  margin-top:0!important;
+  padding:2px 7px!important;
+  font-size:9px!important;
+  border-radius:8px!important;
 }
 
 /* Hardware keyboard input assistant (한 / ↑ / ↓ / mic):
    do not relayout or shrink the question; only reserve a small bottom strip
    so the floating white assistant does not cover the drill UI. */
 html.is-ipad.keyboard-accessory body.drill-active .app{
-  padding-bottom:max(54px,calc(env(safe-area-inset-bottom) + 42px))!important;
+  padding-bottom:max(6px,env(safe-area-inset-bottom))!important;
+  background:#09101f!important;
 }
 html.is-ipad.keyboard-accessory body.drill-active #drill{
   min-height:0!important;
@@ -6950,9 +6951,11 @@ html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-pane{
   min-height:0!important;
   max-height:100%!important;
   overflow:hidden!important;
+  /* The card itself fills the old blue strip; only its contents stay above the assistant. */
+  padding-bottom:max(50px,calc(env(safe-area-inset-bottom) + 42px))!important;
 }
 html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-inner{
-  gap:12px!important;
+  gap:10px!important;
 }
 html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-inner .big-hanja{
   font-size:min(26vw,28vh)!important;
@@ -7031,6 +7034,14 @@ html.is-ipad body:not(.drill-active) #atlas #atlasResults>*{
   html.is-ipad body:not(.drill-active) #atlas .atlas-compact-grid{
     grid-template-columns:repeat(auto-fill,minmax(98px,1fr))!important;
   }
+}
+
+
+html.is-ipad body.drill-active,
+html.is-ipad body.drill-active .app,
+html.is-ipad body.drill-active .content,
+html.is-ipad body.drill-active #drill{
+  background:#09101f!important;
 }
 
 </style>
@@ -8020,7 +8031,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.44.6-20261003";
+const APP_BUILD="2.44.7-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -11868,17 +11879,35 @@ function syncDrillViewport(){
   const w=Math.round(vv?.width||layoutW||0);
   const top=Math.max(0,Math.round(vv?.offsetTop||0));
   const left=Math.max(0,Math.round(vv?.offsetLeft||0));
-  const occludedBottom=Math.max(0,layoutH-(h+top));
-  if(h>0)document.documentElement.style.setProperty("--drill-vh",h+"px");
-  if(w>0)document.documentElement.style.setProperty("--drill-vw",w+"px");
-  document.documentElement.style.setProperty("--drill-vtop",top+"px");
-  document.documentElement.style.setProperty("--drill-vleft",left+"px");
-  document.documentElement.style.setProperty("--drill-keyboard-inset",occludedBottom+"px");
 
   const ae=document.activeElement;
   const editing=!!(ae&&(ae.matches?.("input,textarea,[contenteditable='true']")));
   const ipad=document.documentElement.classList.contains("is-ipad");
-  const softKeyboard=editing&&occludedBottom>80;
+  const orientation=(matchMedia("(orientation: landscape)").matches?"landscape":"portrait");
+  const baselines=window.__dokiViewportBaselines||(window.__dokiViewportBaselines={portrait:0,landscape:0});
+
+  // Keep the largest unobstructed visual height seen for each orientation.
+  // iPadOS may shrink both innerHeight and visualViewport together when the software
+  // keyboard opens, so comparing the two *current* values alone cannot detect it.
+  if(!editing){
+    baselines[orientation]=Math.max(baselines[orientation]||0,h,layoutH);
+  }else if(!baselines[orientation]){
+    baselines[orientation]=Math.max(h,layoutH);
+  }
+  const baseline=Math.max(baselines[orientation]||0,h);
+  const currentOcclusion=Math.max(0,layoutH-(h+top));
+  const baselineLoss=Math.max(0,baseline-h);
+  const keyboardLoss=Math.max(currentOcclusion,baselineLoss);
+
+  if(h>0)document.documentElement.style.setProperty("--drill-vh",h+"px");
+  if(w>0)document.documentElement.style.setProperty("--drill-vw",w+"px");
+  document.documentElement.style.setProperty("--drill-vtop",top+"px");
+  document.documentElement.style.setProperty("--drill-vleft",left+"px");
+  document.documentElement.style.setProperty("--drill-keyboard-inset",keyboardLoss+"px");
+
+  // A full iPad software keyboard costs hundreds of px. The small hardware-keyboard
+  // assistant bar does not, so keep it as a separate state.
+  const softKeyboard=ipad&&editing&&keyboardLoss>120;
   const hardwareAccessory=ipad&&editing&&!softKeyboard;
   document.documentElement.classList.toggle("keyboard-focus",editing);
   document.documentElement.classList.toggle("keyboard-open",softKeyboard);
