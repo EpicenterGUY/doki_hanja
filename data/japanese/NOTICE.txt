@@ -73,3 +73,24 @@ Practical Hyogai default (Hanja Lab 2.43.2)
 - Users can expose them with the single "희귀 포함" filter.
 - This is a Hanja Lab study-priority rule, not an official Japanese government,
   JIS or JLPT classification.
+
+
+JLPT N5-N1 learning classification (Hanja Lab 2.44.0)
+=====================================================
+- Source: OpenJLPT by evanclan
+  https://github.com/evanclan/OpenJLPT
+- OpenJLPT normalizes and cross-checks the Jonathan Waller community JLPT lists.
+- License: CC BY-SA 4.0. Hanja Lab stores only the level metadata needed by
+  data/japanese/jlpt-levels.json and attributes the source here.
+- JLPT has not published an official fixed kanji/vocabulary list since 2010.
+  Therefore N5-N1 labels in Hanja Lab are learning approximations, not an
+  official allocation published by the Japan Foundation or JEES.
+- Joyo kanji: 2,136 characters are mapped to N5-N1. Four Joyo characters not
+  present in the upstream community kanji list (叱, 填, 剥, 頬) are placed in
+  the N1 learning bucket as a conservative Hanja Lab fallback.
+- Joyo vocabulary: 1,542 bundled words are classified. 1,060 match OpenJLPT
+  by exact word+reading, 8 use a unique word-form match, and 474 fall back to
+  the hardest JLPT level among the word's mapped kanji.
+- Hyogai practical 661 characters and rare/non-practical 3,581 characters keep
+  the existing Hanja Lab classification and are not folded into the Joyo JLPT
+  buckets.
