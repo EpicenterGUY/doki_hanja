@@ -6772,6 +6772,60 @@ body.drill-active .pen-toolbar .pen-toolbar-current{
   }
 }
 
+
+/* ===== 2.44.3 · IPAD TOP BAR + KEYBOARD VIEWPORT FIX =====
+   iPad only: prevent scrolled content from showing through/above the 学習 app bar,
+   and keep the focused typing drill clear of the iPad keyboard/input-assistant edge. */
+html.is-ipad body:not(.drill-active) .app2-bar{
+  left:0!important;
+  right:0!important;
+  transform:none!important;
+  width:100%!important;
+  max-width:none!important;
+  background:linear-gradient(180deg,#0b1426 0%,#0a1120 100%)!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  border-bottom-color:rgba(132,160,214,.28)!important;
+  box-shadow:0 8px 26px rgba(0,7,22,.34)!important;
+  isolation:isolate;
+}
+html.is-ipad body:not(.drill-active) .app2-bar::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:100%;
+  height:calc(env(safe-area-inset-top) + 2px);
+  background:#0b1426;
+  pointer-events:none;
+}
+html.is-ipad.keyboard-open body.drill-active .app{
+  padding-bottom:max(14px,env(safe-area-inset-bottom))!important;
+}
+html.is-ipad.keyboard-open body.drill-active #drill{
+  min-height:0!important;
+  padding-bottom:2px!important;
+}
+html.is-ipad.keyboard-open body.drill-active #drill .drill-stage.typing-stage{
+  min-height:0!important;
+  padding-bottom:5px!important;
+}
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-pane{
+  min-height:0!important;
+  max-height:100%!important;
+  overflow:hidden!important;
+  padding-bottom:max(16px,env(safe-area-inset-bottom))!important;
+}
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner{
+  min-height:0!important;
+  gap:9px!important;
+}
+@media(max-height:760px){
+  html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner .big-hanja{
+    font-size:min(22vw,22vh)!important;
+  }
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.44.2">
 
@@ -7759,7 +7813,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.44.2-20261003";
+const APP_BUILD="2.44.3-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -8291,6 +8345,20 @@ function init(){
     setTimeout(syncDrillViewport,120);
     setTimeout(syncDrillViewport,420);
   },{passive:true});
+  if(!window.__dokiKeyboardViewportBound){
+    window.__dokiKeyboardViewportBound=true;
+    const refitKeyboardViewport=function(){
+      syncDrillViewport();
+      setTimeout(syncDrillViewport,60);
+      setTimeout(syncDrillViewport,240);
+    };
+    document.addEventListener("focusin",refitKeyboardViewport,true);
+    document.addEventListener("focusout",refitKeyboardViewport,true);
+    if(window.visualViewport){
+      window.visualViewport.addEventListener("resize",syncDrillViewport,{passive:true});
+      window.visualViewport.addEventListener("scroll",syncDrillViewport,{passive:true});
+    }
+  }
   try{
     const oldKeys=[];
     for(let i=0;i<localStorage.length;i++){
@@ -11586,10 +11654,27 @@ function renderExamResult(){
 }
 
 function syncDrillViewport(){
-  const h=Math.round(window.visualViewport?.height||window.innerHeight||document.documentElement.clientHeight||0);
-  const w=Math.round(window.visualViewport?.width||window.innerWidth||document.documentElement.clientWidth||0);
+  const vv=window.visualViewport;
+  const layoutH=Math.round(window.innerHeight||document.documentElement.clientHeight||0);
+  const layoutW=Math.round(window.innerWidth||document.documentElement.clientWidth||0);
+  const h=Math.round(vv?.height||layoutH||0);
+  const w=Math.round(vv?.width||layoutW||0);
+  const top=Math.max(0,Math.round(vv?.offsetTop||0));
+  const left=Math.max(0,Math.round(vv?.offsetLeft||0));
+  const occludedBottom=Math.max(0,layoutH-(h+top));
   if(h>0)document.documentElement.style.setProperty("--drill-vh",h+"px");
   if(w>0)document.documentElement.style.setProperty("--drill-vw",w+"px");
+  document.documentElement.style.setProperty("--drill-vtop",top+"px");
+  document.documentElement.style.setProperty("--drill-vleft",left+"px");
+  document.documentElement.style.setProperty("--drill-keyboard-inset",occludedBottom+"px");
+
+  const ae=document.activeElement;
+  const editing=!!(ae&&(ae.matches?.("input,textarea,[contenteditable='true']")));
+  const ipad=document.documentElement.classList.contains("is-ipad");
+  document.documentElement.classList.toggle("keyboard-focus",editing);
+  // iPad의 하드웨어 키보드 입력 보조바는 visualViewport를 거의 줄이지 않는 경우가 있어
+  // 입력 포커스 자체도 안전영역 보정 신호로 사용한다.
+  document.documentElement.classList.toggle("keyboard-open",editing&&(ipad||occludedBottom>24));
 }
 function loadDrillProgress(){
   const p=storageJson(DRILL_PROGRESS_KEY,{});
