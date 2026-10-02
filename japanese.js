@@ -177,7 +177,8 @@ function saveJpProgress(){
   const ok1=storageSet("jpHanjaStatsV1",JSON.stringify(jpStats));
   const ok2=storageSet("jpHanjaUnknownV1",JSON.stringify(jpUnknown));
   const ok3=storageSet("jpWordStatsV1",JSON.stringify(jpWordStats));
-  if(!ok1||!ok2||!ok3)toast("日本漢字 학습기록을 저장하지 못했습니다. 브라우저 저장공간을 확인해 주세요.");
+  const ok4=storageSet("jpReadingQuizStatsV1",JSON.stringify(jpReadingQuizStats));
+  if(!ok1||!ok2||!ok3||!ok4)toast("日本漢字 학습기록을 저장하지 못했습니다. 브라우저 저장공간을 확인해 주세요.");
 }
 function saveJpApiCache(){
   storageSet("jpKanjiApiCacheV1",JSON.stringify(jpAtlasApiCache));
@@ -299,6 +300,7 @@ async function jpLookupRemoteReading(){
     const all=[].concat(data.main_kanji||[],data.name_kanji||[]);
     const set=new Set(all);
     let pool=jpState.set==="joyo"?jpJoyo:jpHyogai;
+    if(jpState.set==="joyo"&&jpState.jlpt!=="all")pool=pool.filter(function(x){return jpItemJlpt(x)===jpState.jlpt});
     if(jpState.set==="hyogai")pool=pool.filter(function(x){return !!x.hyogaiPractical});
     if(jpState.set==="rare")pool=pool.filter(function(x){return !x.hyogaiPractical});
     jpState.readingRemote=pool.filter(function(x){return set.has(x.char)});
@@ -635,12 +637,17 @@ function jpHeroHtml(){
   h+="<button class='jp-home-search' id='jpHomeSearch'>⌕ 일본 한자·단어 전체 찾기</button>";
   return h;
 }function jpMetricsHtml(){
-  const p=jpProfile(),wp=jpWordProfile(),hyCount=jpHyogaiTierCounts();
+  const p=jpProfile(),wp=jpWordProfile(),rp=jpReadingQuizProfile(),hyCount=jpHyogaiTierCounts();
   const setTotal=jpState.set==="joyo"?jpJoyo.length:jpState.set==="hyogai"?hyCount.practical:hyCount.rare;
   const label=jpState.set==="joyo"?"현재 상용 목록":jpState.set==="hyogai"?"표외 실용 목록":"희귀·비실용 목록";
+  const third=jpState.view==="word"
+    ?{n:wp.attempted,label:"단어 연습 · "+wp.accuracy+"%"}
+    :jpState.view==="wordreading"
+      ?{n:rp.attempted,label:"읽기 연습 · "+rp.accuracy+"%"}
+      :{n:p.saved,label:"모름 저장"};
   return "<div class='jp-metrics'><div class='jp-metric'><b>"+setTotal.toLocaleString()+"</b><span>"+label+"</span></div>"+
     "<div class='jp-metric'><b>"+p.attempted.toLocaleString()+"</b><span>글자 연습 · "+p.accuracy+"%</span></div>"+
-    "<div class='jp-metric'><b>"+(jpState.view==="word"?wp.attempted:p.saved).toLocaleString()+"</b><span>"+(jpState.view==="word"?("단어 연습 · "+wp.accuracy+"%"):"모름 저장")+"</span></div></div>";
+    "<div class='jp-metric'><b>"+third.n.toLocaleString()+"</b><span>"+third.label+"</span></div></div>";
 }function jpCommonFilterHtml(all,atlas){
   const sourceSub=jpState.set==="joyo"?
     "JLPT N5~N1 학습 기준으로 상용한자를 나눠 봅니다. 학교급은 카드·도감의 부가정보로 유지합니다.":
