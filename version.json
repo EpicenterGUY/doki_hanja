@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.44.1-20261003",
+  "webBuild": "2.44.2-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.2",
+      "title": "훈음 한글 입력 허용 · 자동 다음 문제",
+      "items": [
+        "가사(架娑) 가처럼 훈음 뜻 사이에 참고용 한자가 병기된 정답은 괄호 속 한자를 입력하지 않아도 정답으로 인정",
+        "공백을 생략한 가사가 같은 입력도 기존 정규화 규칙대로 정답 처리",
+        "급수별 한자→훈음 입력 문제는 채점 후 자동으로 다음 문제로 이동",
+        "정답은 약 0.65초, 오답은 정답 확인 시간을 위해 약 1.2초 뒤 이동",
+        "자동 이동 대기 중 이전·다음·저장하고 나가기를 누르면 예약 이동을 취소해 이중 이동 방지"
+      ]
+    },
     {
       "version": "2.44.1",
       "title": "JLPT 읽기 진척도 · 필터 마무리",
