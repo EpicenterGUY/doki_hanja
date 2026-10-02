@@ -1,5 +1,5 @@
-const CACHE="doki-hanja-app-v111-20261002";
-const CORE=["./","./index.html","./manifest.webmanifest","./version.json","./icon.svg","./icon-maskable.svg","./report-config.js","./japanese.css","./japanese.js","./data/japanese/joyo.tsv","./data/japanese/hyogai.txt","./data/japanese/NOTICE.txt","./data/japanese/words.json","./data/japanese/mext-onkun-2017.json","./data/hanja.csv","./data/hanja-structure.json","./data/hanja-structure-NOTICE.txt"];
+const CACHE="doki-hanja-app-v112-20261002";
+const CORE=["./","./index.html","./manifest.webmanifest","./version.json","./icon.svg","./icon-maskable.svg","./report-config.js","./japanese.css","./japanese.js","./data/japanese/joyo.tsv","./data/japanese/hyogai.txt","./data/japanese/hyogai-meta.json","./data/japanese/NOTICE.txt","./data/japanese/words.json","./data/japanese/mext-onkun-2017.json","./data/hanja.csv","./data/korean-extra.json","./data/KOREAN_EXTRA_NOTICE.txt","./data/hanja-structure.json","./data/hanja-structure-NOTICE.txt"];
 
 self.addEventListener("install",event=>{
   event.waitUntil(
