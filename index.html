@@ -7044,6 +7044,63 @@ html.is-ipad body.drill-active #drill{
   background:#09101f!important;
 }
 
+
+/* ===== 2.44.8 · IPAD KEYBOARD VIEWPORT FINAL AUTHORITY =====
+   Keep the drill pinned to the visible viewport, stop Safari focus auto-scroll,
+   add real prompt-to-kanji spacing, and remove the blue accessory backdrop. */
+html.is-ipad.keyboard-open,
+html.is-ipad.keyboard-accessory{
+  background:#09101f!important;
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+}
+html.is-ipad.keyboard-open body.drill-active{
+  position:fixed!important;
+  inset:0!important;
+  width:100%!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+  touch-action:none;
+}
+html.is-ipad.keyboard-open body.drill-active .app{
+  position:fixed!important;
+  top:var(--drill-vtop,0px)!important;
+  left:var(--drill-vleft,0px)!important;
+  width:var(--drill-vw,100vw)!important;
+  max-width:none!important;
+  height:var(--drill-vh,100dvh)!important;
+  min-height:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+}
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner>.prompt{
+  margin:0 0 10px!important;
+  padding:0!important;
+}
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner .big-hanja{
+  margin:0 0 5px!important;
+}
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-pane{
+  overscroll-behavior:none!important;
+  touch-action:none!important;
+}
+html.is-ipad.keyboard-open body.drill-active #drill input,
+html.is-ipad.keyboard-open body.drill-active #drill button{
+  touch-action:manipulation!important;
+}
+html.is-ipad.keyboard-accessory body.drill-active,
+html.is-ipad.keyboard-accessory body.drill-active .app,
+html.is-ipad.keyboard-accessory body.drill-active .content,
+html.is-ipad.keyboard-accessory body.drill-active #drill,
+html.is-ipad.keyboard-accessory body.drill-active #drill .drill-session-shell{
+  background:#09101f!important;
+}
+html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-pane{
+  box-shadow:0 0 0 100vmax #09101f!important;
+  clip-path:inset(-100vmax -100vmax -100vmax -100vmax);
+}
+
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.44.2">
 
@@ -8031,7 +8088,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.44.7-20261003";
+const APP_BUILD="2.44.8-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -8675,7 +8732,7 @@ function switchTab(id){
   const previousMode=mode;
   mode=id;
   syncAppChrome(id);
-  if(id!=="drill")document.body.classList.remove("drill-active");
+  if(id!=="drill"){document.body.classList.remove("drill-active");syncDrillThemeColor(false)}
   if(id!=="jp"&&typeof closeJapaneseAtlasDetail==="function")closeJapaneseAtlasDetail();
   document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));
   document.querySelectorAll(".tabpage").forEach(p=>p.hidden=p.id!==id);
@@ -11871,6 +11928,24 @@ function renderExamResult(){
   </div>`;
 }
 
+function syncDrillThemeColor(active){
+  const meta=document.querySelector('meta[name="theme-color"]');
+  if(!meta)return;
+  if(!meta.dataset.normalColor)meta.dataset.normalColor=meta.getAttribute("content")||"#6677ff";
+  meta.setAttribute("content",active?"#09101f":(meta.dataset.normalColor||"#6677ff"));
+  document.documentElement.style.backgroundColor=active?"#09101f":"";
+}
+function lockIpadDrillScroll(){
+  if(!document.documentElement.classList.contains("is-ipad"))return;
+  if(!document.documentElement.classList.contains("keyboard-open"))return;
+  if(!document.body.classList.contains("drill-active"))return;
+  const se=document.scrollingElement;
+  if(se){se.scrollTop=0;se.scrollLeft=0}
+  if(document.documentElement.scrollTop)document.documentElement.scrollTop=0;
+  if(document.body.scrollTop)document.body.scrollTop=0;
+  window.scrollTo(0,0);
+}
+
 function syncDrillViewport(){
   const vv=window.visualViewport;
   const layoutH=Math.round(window.innerHeight||document.documentElement.clientHeight||0);
@@ -11912,6 +11987,9 @@ function syncDrillViewport(){
   document.documentElement.classList.toggle("keyboard-focus",editing);
   document.documentElement.classList.toggle("keyboard-open",softKeyboard);
   document.documentElement.classList.toggle("keyboard-accessory",hardwareAccessory);
+  if(softKeyboard&&document.body.classList.contains("drill-active")){
+    requestAnimationFrame(lockIpadDrillScroll);
+  }
 }
 function loadDrillProgress(){
   const p=storageJson(DRILL_PROGRESS_KEY,{});
@@ -11987,6 +12065,7 @@ function drillProgressMarkup(p){
 }
 function renderDrill(){
   document.body.classList.remove("drill-active");
+  syncDrillThemeColor(false);
   if(window._drillViewportFit){window.visualViewport?.removeEventListener("resize",window._drillViewportFit);window._drillViewportFit=null}
   if(!$("#drill"))return;
   const grade=drillState.grade||"8급";
@@ -12111,6 +12190,8 @@ function renderDrillCard(){
   const pct=Math.round((st.index+1)/st.list.length*100);
   syncDrillViewport();
   document.body.classList.add("drill-active");
+  syncDrillThemeColor(true);
+  requestAnimationFrame(function(){window.scrollTo(0,0)});
   if(window._drillViewportFit)window.visualViewport?.removeEventListener("resize",window._drillViewportFit);
   window._drillViewportFit=()=>{syncDrillViewport()};
   window.visualViewport?.addEventListener("resize",window._drillViewportFit,{passive:true});
