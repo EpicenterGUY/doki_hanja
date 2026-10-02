@@ -7622,7 +7622,7 @@ async function loadHanjaStructure(){
     return true;
   }catch{return false}
 }
-async async function loadKoreanExtra(){
+async function loadKoreanExtra(){
   try{
     const r=await fetchWithTimeout("./data/korean-extra.json?v=2.43.6",{cache:"force-cache"},7000);
     if(!r.ok)return false;
