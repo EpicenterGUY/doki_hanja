@@ -948,13 +948,13 @@ function jpWordBoardSpec(count){
   const vw=(vv&&vv.width)||window.innerWidth||800;
   const vh=(vv&&vv.height)||window.innerHeight||600;
   const landscape=vw>vh;
-  const compactPortrait=!landscape&&vw<700;
   const tabletPortrait=!landscape&&vw>=700;
   let cols=1,rows=1;
-  // Phone portrait keeps large stacked cells for 2 characters.
+  // Two-character words stay horizontal on phones too. This keeps the word board compact
+  // in portrait mode and restores the familiar left-to-right writing layout.
   // Tablet portrait can comfortably fit 3 square-ish cells in one row; this also removes
   // the unused fourth cell that previously appeared for 3-character words such as 醍醐味.
-  if(n===2){cols=compactPortrait?1:2;rows=compactPortrait?2:1}
+  if(n===2){cols=2;rows=1}
   else if(n===3){cols=(landscape||tabletPortrait)?3:2;rows=Math.ceil(n/cols)}
   else if(n===4){cols=landscape&&vw>=900?4:2;rows=Math.ceil(n/cols)}
   else if(n<=6){cols=(landscape||tabletPortrait)?3:2;rows=Math.ceil(n/cols)}
