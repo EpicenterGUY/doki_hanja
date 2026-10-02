@@ -1,5 +1,5 @@
 {
-  "version": 10,
+  "version": 11,
   "count": 2284,
   "items": [
     {
@@ -13048,13 +13048,13 @@
       "word": "細胞",
       "reading": "さいぼう",
       "meaning": "세포",
-      "sentence": "顕微鏡で植物の細胞を観察した。",
-      "translation": "현미경으로 식물의 세포를 관찰했다.",
+      "sentence": "人体は無数の細胞から成り立っている。",
+      "translation": "인체는 무수한 세포로 이루어져 있다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
       "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
+      "exampleSource": "hanjalab-curated-20261002-dedup"
     },
     {
       "id": 1017,
@@ -24384,13 +24384,16 @@
       "word": "提燈",
       "reading": "ちょうちん",
       "meaning": "초롱",
-      "sentence": "祭りの夜、通りには赤い提燈が並んでいた。",
+      "sentence": "祭りの夜、通りには赤い提灯が並んでいた。",
       "translation": "축제날 밤 거리에는 붉은 초롱이 늘어서 있었다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "source": "doki-hyogai-domain-20261002",
-      "exampleSource": "hanjalab-curated-20261002"
+      "exampleSource": "hanjalab-curated-20261002-form-audit",
+      "preferredForm": "提灯",
+      "formType": "旧字体",
+      "formNoteKo": "현대 일본어에서는 보통 ‘提灯’으로 표기하며, ‘提燈’은 구자체 표기다."
     },
     {
       "id": 1889,
@@ -29638,14 +29641,17 @@
       "word": "行燈",
       "reading": "あんどん",
       "meaning": "안돈·등잔",
-      "sentence": "昔の宿場を再現した部屋に行燈が灯っていた。",
+      "sentence": "昔の宿場を再現した部屋に行灯が灯っていた。",
       "translation": "옛 역참을 재현한 방에 안돈 등불이 켜져 있었다.",
       "tier": "hyogai",
       "set": "hyogai",
       "schoolStage": "hyogai",
       "hyogaiStage": "deep",
       "source": "doki-hyogai-stage-expanded-20261002",
-      "exampleSource": "hanjalab-curated-20261002"
+      "exampleSource": "hanjalab-curated-20261002-form-audit",
+      "preferredForm": "行灯",
+      "formType": "旧字体",
+      "formNoteKo": "현대 일본어에서는 보통 ‘行灯’으로 표기하며, ‘行燈’은 구자체 표기다."
     },
     {
       "id": 2275,
