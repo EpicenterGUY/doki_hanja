@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.44.8-20261003",
+  "webBuild": "2.44.9-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.9",
+      "title": "iPad 상단 겹침 · Fold 펼침 한자 잘림 수정",
+      "items": [
+        "소프트웨어 키보드 감지를 iPad 전용에서 모든 기기 공통으로 변경",
+        "Galaxy Fold 펼침 상태에서도 키보드가 뜨면 급수별 훈음 입력 화면이 자동으로 압축 레이아웃을 사용",
+        "Fold 키보드 상태에서 큰 한자 크기를 최대 76px 수준으로 제한해 상단이 잘리는 문제 수정",
+        "iPad 키보드 상태에서는 fixed 학습 화면을 safe-area-top 아래에서 시작하도록 보정해 색인·이전·다음·저장 버튼과 상태바 겹침 방지",
+        "Android/Fold는 iPad식 fixed 위치 고정을 사용하지 않고 visual viewport 높이에만 맞춰 기존 스크롤/브라우저 동작과 충돌 방지"
+      ]
+    },
     {
       "version": "2.44.8",
       "title": "iPad 키보드 스크롤 잠금 · 하단 띠 제거 2차",
