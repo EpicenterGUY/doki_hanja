@@ -6774,6 +6774,15 @@ body.drill-active .pen-toolbar .pen-toolbar-current{
 
 </style>
 <link rel="stylesheet" href="./japanese.css?v=2.43.3">
+
+<style id="phone-portrait-decoration-fix">
+@media(max-width:600px) and (orientation:portrait){
+  .app-hero::after,.home-welcome::after,.power-card::after,.diag-hero::after{
+    display:none!important;
+    content:none!important;
+  }
+}
+</style>
 </head>
 <body>
 <div class="app">
@@ -7812,7 +7821,7 @@ const GLOBAL_FEATURES=[
   {action:"atlas",title:"한자 도감",desc:"훈음 · 장단음 · 부수 · 획수 검색",keys:"도감 한자 검색 훈음 부수 획수"},
   {action:"compare-atlas",title:"헷갈리는 한자",desc:"비슷한 모양 · 비슷한 뜻 · 실제 쓰임 비교",keys:"비슷 헷갈리는 유사 모양 뜻 쓰임 비교"},
   {action:"phonetic-atlas",title:"성부 학습표",desc:"PDF식 성부 · 확장한자 · 한국 훈음 · 일본 음훈",keys:"성부 소리 독음 형성자 pdf 확장한자 일본음독"},
-  {action:"jp",title:"日本漢字",desc:"常用漢字 · 表外漢字 학습",keys:"일본 일본한자 상용 표외 常用 表外"},
+  {action:"jp",title:"日本漢字",desc:"常用漢字 · 表外漢字 · 희귀/비실용 분리 학습",keys:"일본 일본한자 상용 표외 희귀 비실용 常用 表外"},
   {action:"jp-word",title:"일본 단어 쓰기",desc:"읽기와 예문을 보고 한자 단어 쓰기",keys:"일본 단어 예문 쓰기 日本"},
   {action:"record",title:"기록",desc:"한자력 · 유형별 숙련도 · 학습 기록",keys:"기록 통계 한자력 숙련도"},
   {action:"data",title:"데이터 관리",desc:"백업 · 가져오기 · 기출 데이터",keys:"데이터 백업 가져오기 내보내기"},
