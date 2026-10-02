@@ -1,84 +1,68 @@
 Korean extra-Hanja data notice
 
-Hanja Lab 2.43.1 changed data/korean-extra.json from a broad Unicode-reading
-inventory into a deliberately small practical study set.
+Hanja Lab 2.43.6 expands the Korean extra-Hanja collection from a narrow
+136-character practical subset to a dictionary-verified 1,075-character study set.
 
-Current inclusion rules
-=======================
-1) Exclude every character already represented by the Korean Language Society
-   (한국어문회) 8급~특급 dataset, including Unicode compatibility-equivalent forms.
-2) Exclude CJK Extension-A / compatibility-only glyphs and simplified/variant
-   forms when the regular Korean form is already represented.
-3) Require a Korean reading and Korean hun-eum gloss from the Korean name-Hanja
-   dataset collected by rutopio/Korean-Name-Hanja-Charset.
-4) Require presence in the Supreme Court-sourced Korean personal-name Hanja list.
-5) Remove very rare leftovers unless the character also appears in Hanja Lab's
-   practical Japanese kanji inventory (Joyo / Hyogai core + JIS1) or in actual
-   bundled Japanese vocabulary.
-6) Keep the result completely separate from 어문회 exams, grade diagnosis and
-   exam-frequency statistics.
+Inclusion rules
+===============
+1) Exclude characters already assigned by the Korean Language Society
+   (한국어문회) 8급~특급 dataset.
+2) Require a Korean hun-eum reading/gloss cross-reference.
+3) Require the character to occur in at least one actual Hanja-form headword
+   in the National Institute of Korean Language dictionary data:
+   - Standard Korean Language Dictionary (표준국어대사전), or
+   - Open Korean Dictionary (우리말샘), general vocabulary partition.
+4) Store up to 10 verified local headword/Hanja pairs per character so the
+   atlas can show real usage even when the optional online preview fails.
+5) Keep all extra-Hanja data completely separate from 어문회 exams, grade
+   diagnosis, and exam-frequency statistics.
 
-Result in 2.43.1
+Result in 2.43.6
 ================
-- Previous broad inventory: 2,837 characters
-- Current practical extra-Hanja set: 136 characters
-- Removed: 2,701 characters
-- Every retained character has Korean hun-eum data stored in the JSON.
+- Broad historical candidate inventory: 2,837 characters
+- Previous narrow practical set: 136 characters
+- Current dictionary-verified set: 1,075 characters
+- Added versus previous set: 939 characters
+- Every retained character has Korean hun-eum data and at least one
+  dictionary Hanja-form usage.
+- 饕/餮 are included with entries such as 饕餮(도철), 饕餮文(도철문),
+  and 饕餮무늬(도철무늬).
 
-Korean name-Hanja source
-========================
+Korean hun-eum source
+=====================
 - rutopio/Korean-Name-Hanja-Charset
   https://github.com/rutopio/Korean-Name-Hanja-Charset
-- data-gov.csv: collected from the Supreme Court of Korea family-registry
-  personal-name Hanja search.
-- data-naver.csv: Korean reading / hun-eum gloss cross-reference.
-- The repository declares an MIT license for the project. Upstream service data
-  remains attributable to its respective source.
+- data-naver.json is used as the hun-eum cross-reference.
+- The project repository declares the MIT license for its code/data package;
+  upstream service data remains attributable to its respective source.
 
-Unicode / variant reference
-===========================
-- Unicode Han Database (Unihan): https://www.unicode.org/reports/tr38/
-- dahlia/unihan-json 12.1.0 structured Unihan data is used only for
-  normalization/variant checks.
+Dictionary usage source
+=======================
+The local headword/Hanja mappings are derived from normalized snapshots in:
+- dahlia/gukhanmun
+  https://github.com/dahlia/gukhanmun
+- crates/gukhanmun-stdict/data/stdict.tsv
+- crates/gukhanmun-opendict/data/general.tsv
 
-UNICODE LICENSE V3
+Those snapshots are derived from National Institute of Korean Language data.
+According to dahlia/gukhanmun NOTICE.md:
+- Standard Korean Language Dictionary snapshot: 2026-06-06
+- Open Korean Dictionary snapshot: 2026-06-03
+- Data license: Creative Commons Attribution-ShareAlike 2.0 Korea
+  (CC BY-SA 2.0 KR)
 
-COPYRIGHT AND PERMISSION NOTICE
+The stored Hanja Lab usage records contain normalized headword/Hanja-form
+pairs and source labels. They do not invent dictionary definitions.
 
-Copyright © 2021-2026 Unicode, Inc.
+Grade source
+============
+- rycont/hanja-grade-dataset
+  https://github.com/rycont/hanja-grade-dataset
+- Used only to exclude 한국어문회-assigned characters from the extra set.
 
-NOTICE TO USER: Carefully read the following legal agreement. BY
-DOWNLOADING, INSTALLING, COPYING OR OTHERWISE USING DATA FILES, AND/OR
-SOFTWARE, YOU UNEQUIVOCALLY ACCEPT, AND AGREE TO BE BOUND BY, ALL OF THE
-TERMS AND CONDITIONS OF THIS AGREEMENT. IF YOU DO NOT AGREE, DO NOT
-DOWNLOAD, INSTALL, COPY, DISTRIBUTE OR USE THE DATA FILES OR SOFTWARE.
-
-Permission is hereby granted, free of charge, to any person obtaining a
-copy of data files and any associated documentation (the "Data Files") or
-software and any associated documentation (the "Software") to deal in
-the Data Files or Software without restriction, including without
-limitation the rights to use, copy, modify, merge, publish, distribute,
-and/or sell copies of the Data Files or Software, and to permit persons
-to whom the Data Files or Software are furnished to do so, provided that
-either (a) this copyright and permission notice appear with all copies of
-the Data Files or Software, or (b) this copyright and permission notice
-appear in associated Documentation.
-
-THE DATA FILES AND SOFTWARE ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
-KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT OF
-THIRD PARTY RIGHTS.
-
-IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS INCLUDED IN THIS NOTICE
-BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL INDIRECT OR CONSEQUENTIAL DAMAGES,
-OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS,
-WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
-ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THE DATA
-FILES OR SOFTWARE.
-
-Except as contained in this notice, the name of a copyright holder shall
-not be used in advertising or otherwise to promote the sale, use or other
-dealings in these Data Files or Software without prior written
-authorization of the copyright holder.
-
-SPDX-License-Identifier: Unicode-3.0
+Important
+=========
+"급수외" means outside the Korean Language Society grade-assigned set. It does
+not mean the character is recommended for everyday writing. Inclusion means
+that a Korean dictionary Hanja-form usage and Korean hun-eum could both be
+verified.
