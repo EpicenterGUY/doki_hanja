@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.44.3-20261003",
+  "webBuild": "2.44.4-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.4",
+      "title": "iPad 한자 도감 왼쪽 몰림 수정",
+      "items": [
+        "iPad 가로모드에서 도감이 260px짜리 왼쪽 열에만 몰리고 오른쪽이 비던 반응형 CSS 충돌 수정",
+        "iPad 도감은 필터 → 요약 → 결과를 전체 폭 1열 구조로 최종 강제",
+        "가로모드에서는 필터 컨트롤을 4열로 배치해 전체 폭을 활용하고 세로 공간 낭비 감소",
+        "한자 카드·표 모드 결과 그리드도 전체 폭에 맞춰 자동 확장",
+        "iPad 전용 최종 우선순위 규칙으로 기존 태블릿/데스크톱 CSS가 다시 덮어쓰지 못하도록 보강"
+      ]
+    },
     {
       "version": "2.44.3",
       "title": "iPad 키보드 하단 잘림 · 상단 학습바 비침 수정",
