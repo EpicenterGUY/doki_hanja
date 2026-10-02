@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.44.5-20261003",
+  "webBuild": "2.44.6-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.6",
+      "title": "iPad 화면 키보드 전용 압축 레이아웃",
+      "items": [
+        "iPad 화면 키보드가 실제로 열리면 급수 색인 띠를 숨겨 세로 공간 확보",
+        "상단 상태줄을 약 34px로 압축하고 비필수 상태표시를 숨겨 문제 영역을 넓힘",
+        "큰 한자 크기를 키보드 상태에서 58~96px 범위로 제한해 입력칸·채점 버튼이 키보드 위에 남도록 조정",
+        "입력칸·채점·피드백·모르는 한자 저장 버튼을 키보드 전용 소형 크기로 배치",
+        "키보드가 닫히면 기존 일반 레이아웃으로 즉시 복귀하며 물리 키보드 입력 보조바 처리와는 분리 유지"
+      ]
+    },
     {
       "version": "2.44.5",
       "title": "iPad 물리 키보드 입력 보조바 전용 보정",
