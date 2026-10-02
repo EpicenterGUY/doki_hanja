@@ -7615,15 +7615,16 @@ async function loadHanjaStructure(){
 }
 async function loadKoreanExtra(){
   try{
-    const r=await fetchWithTimeout("./data/korean-extra.json?v=2.43.0",{cache:"force-cache"},6000);
+    const r=await fetchWithTimeout("./data/korean-extra.json?v=2.43.1",{cache:"force-cache"},6000);
     if(!r.ok)return false;
     const d=await r.json(),rows=Array.isArray(d&&d.items)?d.items:[];
-    if(rows.length<1000)return false;
+    if(rows.length<50)return false;
     koreanExtra=rows.map(function(x){
       const sounds=[...new Set([...(x.sounds||[]),x.sound].filter(Boolean))];
-      return {hanja:String(x.hanja||""),sound:String(sounds[0]||""),sounds:sounds,level:"급수외",meanings:[{meanings:[],sounds:sounds}],radical:"",strokes:0,total:0,_extra:true,_source:"Unicode Unihan kHangul"};
-    }).filter(function(x){return x.hanja&&x.sound});
-    return koreanExtra.length>1000;
+      const groups=Array.isArray(x.meanings)?x.meanings.filter(function(g){return g&&Array.isArray(g.meanings)&&g.meanings.length}):[];
+      return {hanja:String(x.hanja||""),sound:String(sounds[0]||""),sounds:sounds,level:"급수외",meanings:groups,radical:"",strokes:0,total:0,_extra:true,_source:"실용 급수외 · 한국 인명용/사전 교차검증"};
+    }).filter(function(x){return x.hanja&&x.sound&&x.meanings.length});
+    return koreanExtra.length>=50;
   }catch{
     koreanExtra=[];
     return false;
@@ -13387,12 +13388,12 @@ function openAtlasCharDetail(key){
   if(!c)return;
   const ui=ensureAtlasDetailElements();
   if(c._extra){
-    const readings=(c.sounds&&c.sounds.length?c.sounds:[c.sound]).filter(Boolean);
-    ui.sh.innerHTML='<div class="atlas-detail-handle"></div><div class="atlas-detail-head"><div class="atlas-detail-title"><span class="atlas-detail-glyph">'+esc(c.hanja)+'</span><div class="atlas-detail-reading">'+esc(readings.join(" / "))+'</div><div class="atlas-detail-sub">급수외 · Unicode Unihan 한국 독음</div></div><button class="atlas-detail-close" onclick="closeAtlasDetail()">×</button></div>'+
-      '<div class="atlas-source-priority"><span>분류 · 한국어문회 급수외</span><span>독음 · Unicode Unihan kHangul</span></div>'+
-      '<div class="atlas-detail-section"><h4>한국 독음</h4><div class="atlas-related">'+readings.map(function(r){return "<span>"+esc(r)+"</span>"}).join("")+'</div></div>'+
+    const f=officialMeaningSoundForms(c),readings=(c.sounds&&c.sounds.length?c.sounds:[c.sound]).filter(Boolean);
+    ui.sh.innerHTML='<div class="atlas-detail-handle"></div><div class="atlas-detail-head"><div class="atlas-detail-title"><span class="atlas-detail-glyph">'+esc(c.hanja)+'</span><div class="atlas-detail-reading">'+esc(f.canonical)+'</div><div class="atlas-detail-sub">실용 급수외 · 한국 훈음 수록</div></div><button class="atlas-detail-close" onclick="closeAtlasDetail()">×</button></div>'+
+      '<div class="atlas-source-priority"><span>분류 · 한국어문회 급수외</span><span>훈음 · 한국 인명용/한자사전 교차검증</span></div>'+
+      '<div class="atlas-detail-section"><h4>한국 훈음</h4><div class="atlas-related">'+f.variants.filter(function(v){return v&&v!==f.canonical}).slice(0,12).map(function(v){return "<span>"+esc(v)+"</span>"}).join("")+(f.variants.length<=1?"<span>"+esc(f.canonical)+"</span>":"")+'</div></div>'+
       dictionaryFallbackMarkup(c.hanja)+
-      '<div class="atlas-detail-note">이 글자는 한국어문회 8급~특급 배정한자 5,978자에는 포함되지 않아 별도 ‘급수외’ 학습 범위에 둡니다. 시험 급수·급수진단에는 섞이지 않습니다.</div>';
+      '<div class="atlas-detail-note">어문회 배정한자의 유니코드·이체 중복과 지나치게 희귀한 글자는 제외했습니다. 이 범위는 일반 학습용이며 어문회 시험·급수진단에는 섞이지 않습니다.</div>';
     requestAnimationFrame(function(){ui.bd.classList.add("open");ui.sh.classList.add("open");hydrateAtlasDictionaryUsage(c.hanja)});
     return;
   }
@@ -13861,8 +13862,8 @@ function atlasGridGroupedHtml(rows){
 function atlasTableHtml(rows){
   if(!rows.length)return '<div class="atlas-empty">조건에 맞는 한자가 없습니다.</div>';
   if(atlasState.extra){
-    return '<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>한자</th><th>한국 독음</th><th>분류</th><th>출처</th></tr></thead><tbody>'+
-      rows.map(function(x){const key=x.c.level+"|"+x.c.hanja;return '<tr onclick="toggleAtlasReveal(\''+esc(key)+'\')" style="cursor:pointer"><td class="hanja-cell">'+esc(x.c.hanja)+'</td><td>'+esc((x.c.sounds||[x.c.sound]).join(" / "))+'</td><td>급수외</td><td>Unicode Unihan</td></tr>'}).join("")+
+    return '<div class="atlas-table-wrap"><table class="atlas-table"><thead><tr><th>한자</th><th>한국 훈음</th><th>분류</th><th>비고</th></tr></thead><tbody>'+
+      rows.map(function(x){const key=x.c.level+"|"+x.c.hanja;return '<tr onclick="toggleAtlasReveal(\''+esc(key)+'\')" style="cursor:pointer"><td class="hanja-cell">'+esc(x.c.hanja)+'</td><td>'+esc(x.canonical)+'</td><td>급수외</td><td>실용 선별</td></tr>'}).join("")+
       '</tbody></table></div>';
   }
   const groups=(atlasState.mode==="freq"||atlasState.sort==="freq")?[{initial:"",rows:rows}]:atlasGroupedRows(rows);
@@ -13999,7 +14000,7 @@ function renderAtlas(){
 
   const quick=atlasState.extra?"extra":atlasState.mode==="freq"?"freq":atlasState.mode==="compare"?"compare":atlasState.mode==="sound"?"sound":atlasState.mode==="formation"?"formation":(atlasState.filter||"all");
   const title=quick==="extra"?"급수외 한국한자":quick==="freq"?"빈출 도감":quick==="compare"?"헷갈리는 한자":quick==="sound"?"성부 학습표":quick==="formation"?"육서·자원":quick==="saved"?"저장한 한자":quick==="weak"?"약점 도감":"한자 도감";
-  const sub=quick==="extra"?"한국어문회 배정 급수와 분리한 한국 독음 학습 범위":
+  const sub=quick==="extra"?"한국어문회 급수 밖에서 실사용성이 확인된 글자만 남긴 한국 훈음 학습 범위":
             quick==="freq"?"기출에 실제로 나온 항목을 문제유형·기간별로 확인":
             quick==="compare"?"모양이 비슷하거나 뜻은 비슷하지만 쓰임이 다른 한자를 비교":
             quick==="sound"?"PDF식 성부 → 확장한자 → 훈음 → 일본 음훈 학습":
@@ -14021,7 +14022,7 @@ function renderAtlas(){
   h+='</div>';
 
   h+='<div class="grade-scroller atlas-grade-row">'+GRADE_ORDER.map(function(g){return '<button class="grade-chip '+(!atlasState.extra&&g===atlasState.grade?"active":"")+'" onclick="setAtlasGrade(\''+g+'\')">'+g+'</button>'}).join("")+'<button class="grade-chip '+(atlasState.extra?"active":"")+'" onclick="setAtlasExtra()">급수외</button></div>';
-  h+='<div class="atlas-search-wrap"><span>⌕</span><input class="atlas-search" id="atlasSearch" value="'+esc(atlasState.query)+'" placeholder="'+(atlasState.extra?"한자 · 한국 독음 검색":atlasState.mode==="compare"?"한자 · 뜻 · 쓰임 · 예시 단어 검색":atlasState.mode==="sound"?"성부 · 확장한자 · 훈음 · 일본 읽기 검색":atlasState.mode==="formation"?"한자 · 육서 · 자원 설명 검색":"한자 · 훈음 · 부수 · 급수 검색")+'"></div>';
+  h+='<div class="atlas-search-wrap"><span>⌕</span><input class="atlas-search" id="atlasSearch" value="'+esc(atlasState.query)+'" placeholder="'+(atlasState.extra?"한자 · 한국 훈음 검색":atlasState.mode==="compare"?"한자 · 뜻 · 쓰임 · 예시 단어 검색":atlasState.mode==="sound"?"성부 · 확장한자 · 훈음 · 일본 읽기 검색":atlasState.mode==="formation"?"한자 · 육서 · 자원 설명 검색":"한자 · 훈음 · 부수 · 급수 검색")+'"></div>';
 
   if(atlasState.mode==="freq"){
     const availableTypes=atlasAvailableFreqTypes();
@@ -14048,7 +14049,7 @@ function renderAtlas(){
   h+='<div class="atlas-actions atlas-actions-v2">'+(!atlasState.extra?'<button class="btn" id="atlasToneSync">장단음 자료 동기화</button>':'')+
     (atlasState.mode==="grade"&&!atlasState.extra?'<button class="btn" id="atlasSort">'+(atlasState.sort==="freq"?"가나다순으로":"빈출순으로")+'</button>':'')+
     '<button class="btn" id="atlasFont">글꼴 · '+fontLabel+'</button></div>';
-  h+=atlasState.extra?'<div class="atlas-tone-legend"><span>한국 독음: Unicode Unihan</span><span>시험 급수와 분리</span></div></div></details>':'<div class="atlas-tone-legend"><span><b class="atlas-tone">:</b> 장음</span><span><b class="atlas-tone">(:)</b> 장·단음 모두</span><span>훈음: 한국어문회</span></div></div></details>';
+  h+=atlasState.extra?'<div class="atlas-tone-legend"><span>훈음 수록 완료</span><span>희귀·중복 한자 제외</span><span>시험 급수와 분리</span></div></div></details>':'<div class="atlas-tone-legend"><span><b class="atlas-tone">:</b> 장음</span><span><b class="atlas-tone">(:)</b> 장·단음 모두</span><span>훈음: 한국어문회</span></div></div></details>';
 
   let st;
   if(atlasState.mode==="freq")st=freqCache?(atlasState.grade+' 집계 '+(freqCache.roundsProcessed||0)+'/'+(freqCache.totalRounds||0)+'회 · '+((freqCache.rows||[]).length)+'자'):'아직 빈출 집계가 없습니다. 위의 ‘빈출 데이터 갱신’을 눌러 주세요.';
@@ -14057,7 +14058,7 @@ function renderAtlas(){
   else if(quick==="formation")st='육서 분류는 확실한 자원만 단정하고, 이견이 있거나 검증 전인 글자는 따로 표시합니다.';
   else if(quick==="saved")st='저장한 모르는 한자 '+Object.keys(unknownHanja||{}).length+'자 · 현재 급수/범위 조건을 함께 적용합니다.';
   else if(quick==="weak")st='오답 및 누적 정답률 75% 미만 항목을 현재 급수/범위에서 모아 표시합니다.';
-  else if(quick==="extra")st='급수외 '+koreanExtra.length.toLocaleString()+'자 · 어문회 시험·급수진단과 분리된 일반 학습 범위입니다.';
+  else if(quick==="extra")st='실용 급수외 '+koreanExtra.length.toLocaleString()+'자 · 훈음 수록 · 희귀/이체/중복 정리 · 어문회 시험·급수진단과 분리.';
   else st=toneCache?('장단음 참고표 저장됨 · '+new Date(toneCache.at||Date.now()).toLocaleDateString()):'장단음 표시는 저장된 참고자료부터 표시합니다.';
   if(atlasState.mode==="freq"&&atlasState.grade==="특급"){
     const rounds=(bundledExamManifest&&bundledExamManifest.grades&&bundledExamManifest.grades["특급"]&&bundledExamManifest.grades["특급"].rounds)||[];
