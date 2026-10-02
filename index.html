@@ -147,6 +147,20 @@ canvas{background:#fff;border-radius:12px;width:100%;max-width:430px;aspect-rati
   border-radius:999px;background:rgba(111,94,232,.16);border:1px solid rgba(133,120,255,.38);
   color:#dcd8ff;font-size:10px;font-weight:900;white-space:nowrap
 }
+.pen-undo{
+  flex:0 0 auto;min-height:34px;padding:6px 10px;border:1px solid rgba(118,198,255,.34);
+  border-radius:9px;background:rgba(40,91,132,.22);color:#ccecff;font-size:11px;font-weight:900;white-space:nowrap
+}
+.pen-undo:active{transform:scale(.97)}
+body.drill-active .pen-toolbar{position:relative!important;inset:auto!important;z-index:5!important}
+body.drill-active .drill-canvas-pane:has(>.pen-toolbar){
+  grid-template-rows:minmax(0,1fr) auto auto!important;
+  overflow:hidden!important
+}
+body.drill-active #jp .drill-canvas-pane:has(>.pen-toolbar){
+  grid-template-rows:minmax(0,1fr) auto auto auto!important
+}
+
 @media(max-width:600px){.pen-toolbar{padding:5px;margin-top:6px}.pen-tool{min-height:31px;padding:5px 8px;font-size:10px}}
 
 .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
@@ -6671,7 +6685,7 @@ body.atlas-detail-open .atlas-detail-sheet{
   }
 }
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.40.1">
+<link rel="stylesheet" href="./japanese.css?v=2.41.0">
 </head>
 <body>
 <div class="app">
@@ -7596,7 +7610,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.40.1-20261002";
+const APP_BUILD="2.41.0-20261002";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -11908,14 +11922,14 @@ function recordDrillHandwriting(c,q,ok){
 
 
 const HANDWRITING_PEN_PRESETS={
-  ballpoint:{label:"볼펜",hint:"가늘고 선명",width:4.2,alpha:1,cap:"round",pressure:0,color:"#151922"},
-  gel:{label:"젤펜",hint:"기본",width:6.2,alpha:.98,cap:"round",pressure:.12,color:"#111111"},
-  fountain:{label:"만년필",hint:"필압·닙",width:5.4,alpha:.95,cap:"round",pressure:.78,color:"#111827",nib:true},
-  pencil:{label:"연필",hint:"흑연",width:4.7,alpha:.58,cap:"round",pressure:.32,color:"#4b5158",graphite:true},
-  mechanical:{label:"샤프",hint:"세필",width:3.25,alpha:.78,cap:"round",pressure:.18,color:"#3e444b"},
-  felt:{label:"사인펜",hint:"진하게",width:7.2,alpha:.92,cap:"round",pressure:.18,color:"#171717"},
-  brush:{label:"붓펜",hint:"강한 필압",width:8.0,alpha:.92,cap:"round",pressure:1.15,color:"#121212"},
-  marker:{label:"마커",hint:"넓고 옅게",width:10.8,alpha:.42,cap:"square",pressure:.1,color:"#24282d"}
+  ballpoint:{label:"볼펜",hint:"0.38mm",width:3.0,alpha:1,cap:"round",pressure:.04,color:"#101318",mode:"ballpoint"},
+  gel:{label:"젤펜",hint:"진한 잉크",width:5.8,alpha:.98,cap:"round",pressure:.10,color:"#080b12",mode:"gel"},
+  fountain:{label:"만년필",hint:"45° 닙",width:6.3,alpha:.96,cap:"round",pressure:.82,color:"#0b1830",mode:"fountain"},
+  pencil:{label:"연필",hint:"흑연 질감",width:4.6,alpha:.48,cap:"round",pressure:.38,color:"#555b61",mode:"pencil"},
+  mechanical:{label:"샤프",hint:"0.5mm",width:2.25,alpha:.78,cap:"round",pressure:.15,color:"#3e444a",mode:"mechanical"},
+  felt:{label:"사인펜",hint:"균일 굵기",width:8.0,alpha:.93,cap:"round",pressure:.08,color:"#101010",mode:"felt"},
+  brush:{label:"붓펜",hint:"강한 필압",width:10.2,alpha:.94,cap:"round",pressure:1.45,color:"#080808",mode:"brush"},
+  marker:{label:"마커",hint:"넓고 반투명",width:15.5,alpha:.31,cap:"square",pressure:.04,color:"#242a31",mode:"marker"}
 };
 let handwritingPenPreset=storageGet("hanjaPenPresetV1","gel");
 if(!HANDWRITING_PEN_PRESETS[handwritingPenPreset])handwritingPenPreset="gel";
@@ -11939,7 +11953,7 @@ function setHandwritingPen(key,scope){
   document.querySelectorAll(".pen-current-label").forEach(function(el){el.textContent=handwritingPenLabel(key)});
 }
 function handwritingPenToolbarMarkup(){
-  return '<div class="pen-toolbar" role="toolbar" aria-label="필기 도구"><span class="pen-current-label pen-toolbar-current">'+handwritingPenLabel()+'</span>'+Object.entries(HANDWRITING_PEN_PRESETS).map(function(entry){
+  return '<div class="pen-toolbar" role="toolbar" aria-label="필기 도구"><span class="pen-current-label pen-toolbar-current">'+handwritingPenLabel()+'</span><button type="button" class="pen-undo" aria-label="마지막 한 획 지우기">↶ 한 획 지우기</button>'+Object.entries(HANDWRITING_PEN_PRESETS).map(function(entry){
     const key=entry[0],p=entry[1],active=key===handwritingPenPreset;
     return '<button type="button" class="pen-tool '+(active?'active':'')+'" data-pen="'+key+'" aria-pressed="'+String(active)+'">'+p.label+'<small>'+p.hint+'</small></button>';
   }).join("")+'</div>';
@@ -11947,13 +11961,105 @@ function handwritingPenToolbarMarkup(){
 function bindHandwritingPenToolbar(root){
   const scope=root||document;
   scope.querySelectorAll(".pen-tool[data-pen]").forEach(function(b){b.onclick=function(){setHandwritingPen(b.dataset.pen,scope)}});
+  scope.querySelectorAll(".pen-undo").forEach(function(b){b.onclick=function(){
+    const canvas=scope.querySelector("canvas[data-handwriting-canvas='1']");
+    if(!canvas||!undoCanvasStroke(canvas))toast("지울 획이 없습니다");
+  }});
   scope.querySelectorAll("canvas[data-handwriting-canvas='1']").forEach(function(c){setCanvasHandwritingPen(c,handwritingPenPreset)});
 }
 
+function handwritingDisplayScale(c){
+  const r=c.getBoundingClientRect();
+  const sx=c.width/Math.max(1,r.width),sy=c.height/Math.max(1,r.height);
+  return (sx+sy)/2;
+}
+function handwritingPressure(v){
+  v=Number(v);
+  return Number.isFinite(v)&&v>0?Math.max(.05,Math.min(1,v)):.5;
+}
+function drawHandwritingSegment(c,ctx,a,b,presetKey,pressure){
+  const pen=handwritingPenConfig(presetKey),scale=handwritingDisplayScale(c);
+  const p=handwritingPressure(pressure);
+  const dx=b[0]-a[0],dy=b[1]-a[1],angle=Math.atan2(dy,dx);
+  let width=pen.width;
+  if(pen.mode==="fountain"){
+    const nib=.48+Math.abs(Math.sin(angle-Math.PI/4))*1.02;
+    width*=nib*(.72+p*.66);
+  }else if(pen.mode==="brush"){
+    width*=.28+p*1.55;
+  }else{
+    width*=Math.max(.7,1+(p-.5)*(pen.pressure||0));
+  }
+  width=Math.max(1.7,Math.min(19,width))*scale;
+
+  ctx.save();
+  ctx.lineJoin="round";ctx.lineCap=pen.cap||"round";
+
+  if(pen.mode==="pencil"){
+    // deterministic layered graphite: visibly lighter/rougher than ink pens and replay-safe
+    const jitter=Math.sin((a[0]+a[1]+b[0]*.7+b[1]*.3)*.031);
+    const offsets=[[-1.1,.55,.18],[.75,-.7,.16],[0,0,.34],[1.45,.3,.11]];
+    offsets.forEach(function(o,i){
+      ctx.strokeStyle=i===2?pen.color:"#697078";
+      ctx.globalAlpha=o[2]+p*.08;
+      ctx.lineWidth=Math.max(.75,width*(i===2?.55:.18));
+      ctx.beginPath();ctx.moveTo(a[0]+o[0]+jitter*.4,a[1]+o[1]);ctx.lineTo(b[0]+o[0]-jitter*.25,b[1]+o[1]);ctx.stroke();
+    });
+  }else if(pen.mode==="mechanical"){
+    ctx.strokeStyle=pen.color;ctx.globalAlpha=pen.alpha;
+    ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();
+    ctx.globalAlpha=.18;ctx.lineWidth=Math.max(.7,width*.28);
+    ctx.beginPath();ctx.moveTo(a[0]+.5,a[1]-.35);ctx.lineTo(b[0]+.5,b[1]-.35);ctx.stroke();
+  }else if(pen.mode==="marker"){
+    ctx.strokeStyle=pen.color;ctx.globalAlpha=pen.alpha;
+    ctx.lineWidth=width;ctx.lineCap="square";
+    ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();
+    ctx.globalAlpha=.09;ctx.lineWidth=width*1.18;
+    ctx.beginPath();ctx.moveTo(a[0],a[1]+.7*scale);ctx.lineTo(b[0],b[1]+.7*scale);ctx.stroke();
+  }else if(pen.mode==="fountain"){
+    ctx.strokeStyle=pen.color;ctx.globalAlpha=pen.alpha;
+    ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();
+    // subtle nib edge makes diagonal/horizontal strokes feel different even without pressure support
+    ctx.globalAlpha=.26;ctx.lineWidth=Math.max(.8,width*.18);
+    const ox=Math.cos(Math.PI/4)*1.5*scale,oy=Math.sin(Math.PI/4)*1.5*scale;
+    ctx.beginPath();ctx.moveTo(a[0]+ox,a[1]+oy);ctx.lineTo(b[0]+ox,b[1]+oy);ctx.stroke();
+  }else if(pen.mode==="brush"){
+    ctx.strokeStyle=pen.color;ctx.globalAlpha=pen.alpha;
+    ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();
+    ctx.globalAlpha=.18;ctx.lineWidth=Math.max(1,width*.45);
+    ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();
+  }else{
+    ctx.strokeStyle=pen.color||"#111";ctx.globalAlpha=pen.alpha;
+    ctx.lineWidth=width;ctx.beginPath();ctx.moveTo(...a);ctx.lineTo(...b);ctx.stroke();
+  }
+  ctx.restore();
+}
+function resetCanvasStrokeHistory(c){
+  if(!c)return;
+  c._strokeHistory=[];c._strokeCount=0;
+}
+function replayCanvasStrokes(c){
+  if(!c)return;
+  const ctx=c.getContext("2d");
+  if(typeof c._redrawBase==="function")c._redrawBase();
+  else{ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.fillStyle="#fff";ctx.fillRect(0,0,c.width,c.height);ctx.restore()}
+  (c._strokeHistory||[]).forEach(function(stroke){
+    const pts=stroke.points||[];
+    for(let i=1;i<pts.length;i++)drawHandwritingSegment(c,ctx,[pts[i-1].x,pts[i-1].y],[pts[i].x,pts[i].y],stroke.preset,pts[i].pressure);
+  });
+  c._strokeCount=(c._strokeHistory||[]).length;
+}
+function undoCanvasStroke(target){
+  const c=typeof target==="string"?$(target):target;
+  if(!c||!Array.isArray(c._strokeHistory)||!c._strokeHistory.length)return false;
+  c._strokeHistory.pop();replayCanvasStrokes(c);
+  return true;
+}
 function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
   const surface=hitSurface||c;
   setCanvasHandwritingPen(c,c._penPreset||handwritingPenPreset);
-  let drawing=false,last=null,activePointerId=null,activePointerType="";
+  if(!Array.isArray(c._strokeHistory))c._strokeHistory=[];
+  let drawing=false,last=null,activePointerId=null,activePointerType="",activeStroke=null;
   let penPreferredUntil=0;
   const PALM_CONTACT_PX=54;
   const PEN_GUARD_MS=1100;
@@ -11974,28 +12080,23 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
   };
   const eventId=e=>e.pointerId!==undefined?e.pointerId:"legacy";
   const pos=e=>{
-    const r=surface.getBoundingClientRect();
-    const src=source(e);
+    const r=surface.getBoundingClientRect(),src=source(e);
     const rw=Math.max(1,r.width),rh=Math.max(1,r.height);
-    // offsetX/Y는 Safari/회전/포인터 캡처에서 이전 레이아웃 기준으로 남을 수 있다.
-    // 모든 기기에서 client 좌표와 현재 실제 표시 rect만 사용해 입력점과 필기점을 1:1로 맞춘다.
-    let cssX=Number(src?.clientX)-r.left;
-    let cssY=Number(src?.clientY)-r.top;
+    let cssX=Number(src?.clientX)-r.left,cssY=Number(src?.clientY)-r.top;
     if(!Number.isFinite(cssX)||!Number.isFinite(cssY))return last||[0,0];
-    cssX=Math.max(0,Math.min(rw,cssX));
-    cssY=Math.max(0,Math.min(rh,cssY));
+    cssX=Math.max(0,Math.min(rw,cssX));cssY=Math.max(0,Math.min(rh,cssY));
     return [cssX*c.width/rw,cssY*c.height/rh];
+  };
+  const eventPressure=e=>{
+    const src=source(e);
+    const p=Number(e.pressure??src?.force);
+    return handwritingPressure(p);
   };
   const suppress=e=>{if(e?.cancelable)e.preventDefault()};
   const shouldIgnoreDown=e=>{
     const type=inputType(e),size=contactSize(e);
-    if(type==="pen"){
-      penPreferredUntil=clock()+PEN_GUARD_MS;
-      window.__dokiPencilSession=true;
-      return false;
-    }
+    if(type==="pen"){penPreferredUntil=clock()+PEN_GUARD_MS;window.__dokiPencilSession=true;return false}
     if(type==="touch"){
-      // iPad/iPhone: Apple Pencil이 감지된 직후의 손바닥 입력과 넓은 접촉면을 획으로 취급하지 않는다.
       if(window.__dokiPencilSession===true||clock()<penPreferredUntil||size>=PALM_CONTACT_PX||e.isPrimary===false)return true;
       if((e.touches?.length||0)>1)return true;
     }
@@ -12003,85 +12104,60 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
   };
   const down=e=>{
     if(shouldIgnoreDown(e)){suppress(e);return}
-    suppress(e);
-    drawing=true;
-    activePointerId=eventId(e);
-    activePointerType=inputType(e);
-    if(activePointerType==="pen"){penPreferredUntil=clock()+PEN_GUARD_MS;window.__dokiPencilSession=true;}
+    suppress(e);drawing=true;activePointerId=eventId(e);activePointerType=inputType(e);
+    if(activePointerType==="pen"){penPreferredUntil=clock()+PEN_GUARD_MS;window.__dokiPencilSession=true}
     c.dataset.inputSource=activePointerType;
     if(onStrokeStart)onStrokeStart();
     last=pos(e);
+    activeStroke={preset:c._penPreset||handwritingPenPreset||"gel",points:[{x:last[0],y:last[1],pressure:eventPressure(e)}]};
     try{if(e.pointerId!==undefined&&surface.setPointerCapture)surface.setPointerCapture(e.pointerId)}catch{}
   };
   const move=e=>{
     if(!drawing||eventId(e)!==activePointerId)return;
-    const type=inputType(e);
-    if(activePointerType==="pen"&&type!=="pen")return;
-    suppress(e);
-    if(type==="pen"){penPreferredUntil=clock()+PEN_GUARD_MS;window.__dokiPencilSession=true;}
-    const p=pos(e);
-    const rect=surface.getBoundingClientRect();
-    const sx=c.width/Math.max(1,rect.width),sy=c.height/Math.max(1,rect.height);
-    const displayScale=(sx+sy)/2;
-    const presetKey=c._penPreset||handwritingPenPreset||"gel",pen=handwritingPenConfig(presetKey);
-    const ipadBoost=document.documentElement.classList.contains("is-ipad")?1.14:1;
-    const rawPressure=Number(e.pressure);
-    const pressure=(Number.isFinite(rawPressure)&&rawPressure>0)?Math.max(.08,Math.min(1,rawPressure)):.5;
-    const pressureFactor=pen.pressure?Math.max(.52,1+(pressure-.5)*pen.pressure):1;
-    const legacyBase=Number(c._brushCssPx)||pen.width;
-    const baseCss=presetKey==="gel"?Math.max(pen.width,legacyBase):pen.width*ipadBoost;
-    const dx=p[0]-last[0],dy=p[1]-last[1],angle=Math.atan2(dy,dx);
-    const nibFactor=pen.nib?(.72+Math.abs(Math.sin(angle-Math.PI/4))*.52):1;
-    const brushCss=Math.max(2.2,Math.min(14.5,baseCss*pressureFactor*nibFactor));
-    ctx.save();
-    ctx.strokeStyle=pen.color||"#111";ctx.globalAlpha=pen.alpha;
-    ctx.lineWidth=brushCss*displayScale;ctx.lineCap=pen.cap||"round";ctx.lineJoin="round";
-    ctx.beginPath();ctx.moveTo(...last);ctx.lineTo(...p);ctx.stroke();
-    if(pen.graphite){
-      ctx.globalAlpha=Math.max(.12,pen.alpha*.24);
-      ctx.lineWidth=Math.max(1,brushCss*displayScale*.34);
-      ctx.beginPath();ctx.moveTo(last[0]+.8,last[1]-.45);ctx.lineTo(p[0]+.8,p[1]-.45);ctx.stroke();
-      ctx.beginPath();ctx.moveTo(last[0]-.65,last[1]+.55);ctx.lineTo(p[0]-.65,p[1]+.55);ctx.stroke();
-    }
-    ctx.restore();last=p;
+    const type=inputType(e);if(activePointerType==="pen"&&type!=="pen")return;
+    suppress(e);if(type==="pen"){penPreferredUntil=clock()+PEN_GUARD_MS;window.__dokiPencilSession=true}
+    const p=pos(e),pressure=eventPressure(e);
+    drawHandwritingSegment(c,ctx,last,p,activeStroke?.preset||c._penPreset||handwritingPenPreset,pressure);
+    if(activeStroke)activeStroke.points.push({x:p[0],y:p[1],pressure:pressure});
+    last=p;
   };
   const up=e=>{
     if(!drawing||eventId(e)!==activePointerId)return;
-    suppress(e);
-    if(activePointerType==="pen")penPreferredUntil=clock()+PEN_GUARD_MS;
-    drawing=false;last=null;activePointerId=null;activePointerType="";
+    suppress(e);if(activePointerType==="pen")penPreferredUntil=clock()+PEN_GUARD_MS;
+    if(activeStroke&&activeStroke.points.length>1){
+      c._strokeHistory.push(activeStroke);
+      if(c._strokeHistory.length>180)c._strokeHistory.shift();
+    }
+    c._strokeCount=c._strokeHistory.length;
+    drawing=false;last=null;activeStroke=null;activePointerId=null;activePointerType="";
   };
-
   surface.style.touchAction="none";
   surface.addEventListener("contextmenu",e=>e.preventDefault());
   surface.addEventListener("selectstart",e=>e.preventDefault());
-
   if(window.PointerEvent){
-    surface.addEventListener("pointerdown",down,{passive:false});
-    surface.addEventListener("pointermove",move,{passive:false});
-    surface.addEventListener("pointerup",up,{passive:false});
-    surface.addEventListener("pointercancel",up,{passive:false});
-    surface.addEventListener("lostpointercapture",up,{passive:false});
+    surface.addEventListener("pointerdown",down,{passive:false});surface.addEventListener("pointermove",move,{passive:false});
+    surface.addEventListener("pointerup",up,{passive:false});surface.addEventListener("pointercancel",up,{passive:false});surface.addEventListener("lostpointercapture",up,{passive:false});
   }else{
-    surface.addEventListener("touchstart",down,{passive:false});
-    surface.addEventListener("touchmove",move,{passive:false});
-    surface.addEventListener("touchend",up,{passive:false});
-    surface.addEventListener("touchcancel",up,{passive:false});
-    surface.addEventListener("mousedown",down);
-    window.addEventListener("mousemove",move);
-    window.addEventListener("mouseup",up);
+    surface.addEventListener("touchstart",down,{passive:false});surface.addEventListener("touchmove",move,{passive:false});
+    surface.addEventListener("touchend",up,{passive:false});surface.addEventListener("touchcancel",up,{passive:false});
+    surface.addEventListener("mousedown",down);window.addEventListener("mousemove",move);window.addEventListener("mouseup",up);
   }
 }
 
+function drawGuidedCanvasBase(c){
+  if(!c)return;const x=c.getContext("2d");
+  x.save();x.setTransform(1,0,0,1,0,0);x.globalAlpha=1;x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);
+  x.strokeStyle="#ddd";x.lineWidth=2;x.setLineDash([10,10]);x.beginPath();x.moveTo(c.width/2,0);x.lineTo(c.width/2,c.height);x.moveTo(0,c.height/2);x.lineTo(c.width,c.height/2);x.stroke();x.setLineDash([]);x.restore();
+}
 function setupAnyCanvas(sel){
   const c=$(sel),ctx=c.getContext("2d");
-  clearAnyCanvas(sel);c._strokeCount=0;
+  c._redrawBase=function(){drawGuidedCanvasBase(c)};
+  clearAnyCanvas(sel);
   if(document.documentElement.classList.contains("is-ipad"))c._brushCssPx=7.2;
-  bindCanvasDrawing(c,ctx,()=>{c._strokeCount=(c._strokeCount||0)+1});
+  bindCanvasDrawing(c,ctx,()=>{});
 }
 function clearAnyCanvas(sel){
-  const c=$(sel);if(!c)return;c._strokeCount=0;const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);
-  x.strokeStyle="#ddd";x.lineWidth=2;x.setLineDash([10,10]);x.beginPath();x.moveTo(c.width/2,0);x.lineTo(c.width/2,c.height);x.moveTo(0,c.height/2);x.lineTo(c.width,c.height/2);x.stroke();x.setLineDash([]);
+  const c=$(sel);if(!c)return;resetCanvasStrokeHistory(c);drawGuidedCanvasBase(c);
 }
 function downloadExamTemplate(){
   const csv="round,no,level,type,prompt,answer,hanja,note,choices,korean,sourceText\n30,1,3급,sound,「漢字」의 독음을 쓰시오.,한자,漢,예시 문항,,,\n30,2,3급,fill,다음 빈칸에 알맞은 한자를 고르시오.,學,學,예시 객관식,學|校|國|人,,\n30,3,3급,wordWrite,다음 한자어를 한자로 쓰시오.,學校,,한자어쓰기 예시,,학교,학생들이 학교에 갔다.\n";
@@ -12142,13 +12218,13 @@ function recordWrite(c,ok){
 }
 function setupCanvas(){
   const c=$("#writeCanvas"),ctx=c.getContext("2d");
-  clearCanvas();c._strokeCount=0;
+  c._redrawBase=function(){drawGuidedCanvasBase(c)};
+  clearCanvas();
   if(document.documentElement.classList.contains("is-ipad"))c._brushCssPx=7.2;
-  bindCanvasDrawing(c,ctx,()=>{c._strokeCount=(c._strokeCount||0)+1});
+  bindCanvasDrawing(c,ctx,()=>{});
 }
 function clearCanvas(){
-  const c=$("#writeCanvas");if(!c)return;c._strokeCount=0;const x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);
-  x.strokeStyle="#ddd";x.lineWidth=2;x.setLineDash([10,10]);x.beginPath();x.moveTo(c.width/2,0);x.lineTo(c.width/2,c.height);x.moveTo(0,c.height/2);x.lineTo(c.width,c.height/2);x.stroke();x.setLineDash([]);
+  const c=$("#writeCanvas");if(!c)return;resetCanvasStrokeHistory(c);drawGuidedCanvasBase(c);
 }
 
 const ATLAS_TONE_SEED_1={"呵":":","苛":":","駕":"(:)","澗":":","癎":"(:)","諫":":","揀":":","慷":":","愾":":","漑":":","凱":":","箇":"(:)","羹":":"};
@@ -14013,6 +14089,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.40.1"></script>
+<script src="./japanese.js?v=2.41.0"></script>
 </body>
 </html>
