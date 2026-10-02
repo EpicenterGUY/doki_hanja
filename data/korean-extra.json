@@ -1,0 +1,11565 @@
+{
+  "version": 1,
+  "generated": "2026-10-02",
+  "category": "한국어문회 급수외",
+  "description": "한국어문회 8급~특급 배정한자 5,978자에 포함되지 않으면서 Unicode Unihan kHangul에 한국 독음이 수록된 BMP 한자를 별도 학습용으로 정리한 목록입니다.",
+  "source": {
+    "dataset": "Unicode Unihan kHangul",
+    "processedVia": "dahlia/unihan-json 12.1.0",
+    "license": "Unicode-3.0"
+  },
+  "count": 2837,
+  "items": [
+    {
+      "hanja": "仮",
+      "sound": "가"
+    },
+    {
+      "hanja": "傢",
+      "sound": "가"
+    },
+    {
+      "hanja": "咖",
+      "sound": "가"
+    },
+    {
+      "hanja": "坷",
+      "sound": "가"
+    },
+    {
+      "hanja": "宊",
+      "sound": "가"
+    },
+    {
+      "hanja": "榎",
+      "sound": "가"
+    },
+    {
+      "hanja": "笳",
+      "sound": "가"
+    },
+    {
+      "hanja": "耞",
+      "sound": "가"
+    },
+    {
+      "hanja": "舸",
+      "sound": "가"
+    },
+    {
+      "hanja": "謌",
+      "sound": "가"
+    },
+    {
+      "hanja": "咯",
+      "sound": "각"
+    },
+    {
+      "hanja": "埆",
+      "sound": "각"
+    },
+    {
+      "hanja": "搉",
+      "sound": "각"
+    },
+    {
+      "hanja": "擱",
+      "sound": "각"
+    },
+    {
+      "hanja": "愨",
+      "sound": "각"
+    },
+    {
+      "hanja": "偘",
+      "sound": "간"
+    },
+    {
+      "hanja": "慳",
+      "sound": "간"
+    },
+    {
+      "hanja": "栞",
+      "sound": "간"
+    },
+    {
+      "hanja": "秆",
+      "sound": "간"
+    },
+    {
+      "hanja": "茛",
+      "sound": "간"
+    },
+    {
+      "hanja": "赶",
+      "sound": "간"
+    },
+    {
+      "hanja": "迀",
+      "sound": "간"
+    },
+    {
+      "hanja": "齦",
+      "sound": "간"
+    },
+    {
+      "hanja": "忓",
+      "sound": "간",
+      "sounds": [
+        "간",
+        "한"
+      ]
+    },
+    {
+      "hanja": "癇",
+      "sound": "간"
+    },
+    {
+      "hanja": "矸",
+      "sound": "간",
+      "sounds": [
+        "간",
+        "안"
+      ]
+    },
+    {
+      "hanja": "噶",
+      "sound": "갈"
+    },
+    {
+      "hanja": "楬",
+      "sound": "갈"
+    },
+    {
+      "hanja": "羯",
+      "sound": "갈"
+    },
+    {
+      "hanja": "蠍",
+      "sound": "갈"
+    },
+    {
+      "hanja": "鶡",
+      "sound": "갈"
+    },
+    {
+      "hanja": "坩",
+      "sound": "감"
+    },
+    {
+      "hanja": "埳",
+      "sound": "감"
+    },
+    {
+      "hanja": "嵁",
+      "sound": "감"
+    },
+    {
+      "hanja": "弇",
+      "sound": "감"
+    },
+    {
+      "hanja": "憨",
+      "sound": "감"
+    },
+    {
+      "hanja": "撼",
+      "sound": "감"
+    },
+    {
+      "hanja": "泔",
+      "sound": "감"
+    },
+    {
+      "hanja": "淦",
+      "sound": "감"
+    },
+    {
+      "hanja": "澉",
+      "sound": "감"
+    },
+    {
+      "hanja": "轗",
+      "sound": "감"
+    },
+    {
+      "hanja": "鹻",
+      "sound": "감"
+    },
+    {
+      "hanja": "玪",
+      "sound": "감",
+      "sounds": [
+        "감",
+        "림"
+      ]
+    },
+    {
+      "hanja": "韐",
+      "sound": "갑"
+    },
+    {
+      "hanja": "傋",
+      "sound": "강"
+    },
+    {
+      "hanja": "僵",
+      "sound": "강"
+    },
+    {
+      "hanja": "壃",
+      "sound": "강"
+    },
+    {
+      "hanja": "忼",
+      "sound": "강"
+    },
+    {
+      "hanja": "扛",
+      "sound": "강"
+    },
+    {
+      "hanja": "殭",
+      "sound": "강"
+    },
+    {
+      "hanja": "矼",
+      "sound": "강"
+    },
+    {
+      "hanja": "穅",
+      "sound": "강"
+    },
+    {
+      "hanja": "繈",
+      "sound": "강"
+    },
+    {
+      "hanja": "罡",
+      "sound": "강"
+    },
+    {
+      "hanja": "羗",
+      "sound": "강"
+    },
+    {
+      "hanja": "羫",
+      "sound": "강"
+    },
+    {
+      "hanja": "茳",
+      "sound": "강"
+    },
+    {
+      "hanja": "豇",
+      "sound": "강"
+    },
+    {
+      "hanja": "韁",
+      "sound": "강"
+    },
+    {
+      "hanja": "嫝",
+      "sound": "강"
+    },
+    {
+      "hanja": "玒",
+      "sound": "강"
+    },
+    {
+      "hanja": "跭",
+      "sound": "강"
+    },
+    {
+      "hanja": "鎠",
+      "sound": "강"
+    },
+    {
+      "hanja": "鏹",
+      "sound": "강"
+    },
+    {
+      "hanja": "顜",
+      "sound": "강"
+    },
+    {
+      "hanja": "剴",
+      "sound": "개"
+    },
+    {
+      "hanja": "匃",
+      "sound": "개"
+    },
+    {
+      "hanja": "揩",
+      "sound": "개"
+    },
+    {
+      "hanja": "磕",
+      "sound": "개"
+    },
+    {
+      "hanja": "闓",
+      "sound": "개"
+    },
+    {
+      "hanja": "豈",
+      "sound": "개"
+    },
+    {
+      "hanja": "更",
+      "sound": "갱"
+    },
+    {
+      "hanja": "呿",
+      "sound": "거"
+    },
+    {
+      "hanja": "昛",
+      "sound": "거"
+    },
+    {
+      "hanja": "胠",
+      "sound": "거"
+    },
+    {
+      "hanja": "腒",
+      "sound": "거"
+    },
+    {
+      "hanja": "苣",
+      "sound": "거"
+    },
+    {
+      "hanja": "蕖",
+      "sound": "거"
+    },
+    {
+      "hanja": "裾",
+      "sound": "거"
+    },
+    {
+      "hanja": "駏",
+      "sound": "거"
+    },
+    {
+      "hanja": "車",
+      "sound": "거",
+      "sounds": [
+        "거",
+        "차"
+      ]
+    },
+    {
+      "hanja": "揵",
+      "sound": "건"
+    },
+    {
+      "hanja": "犍",
+      "sound": "건"
+    },
+    {
+      "hanja": "睷",
+      "sound": "건"
+    },
+    {
+      "hanja": "謇",
+      "sound": "건"
+    },
+    {
+      "hanja": "鞬",
+      "sound": "건"
+    },
+    {
+      "hanja": "搴",
+      "sound": "건"
+    },
+    {
+      "hanja": "湕",
+      "sound": "건"
+    },
+    {
+      "hanja": "漧",
+      "sound": "건"
+    },
+    {
+      "hanja": "踺",
+      "sound": "건"
+    },
+    {
+      "hanja": "䢖",
+      "sound": "건",
+      "sounds": [
+        "건",
+        "율"
+      ]
+    },
+    {
+      "hanja": "乬",
+      "sound": "걸"
+    },
+    {
+      "hanja": "榤",
+      "sound": "걸"
+    },
+    {
+      "hanja": "撿",
+      "sound": "검"
+    },
+    {
+      "hanja": "芡",
+      "sound": "검"
+    },
+    {
+      "hanja": "刦",
+      "sound": "겁"
+    },
+    {
+      "hanja": "刧",
+      "sound": "겁"
+    },
+    {
+      "hanja": "挌",
+      "sound": "격"
+    },
+    {
+      "hanja": "毄",
+      "sound": "격"
+    },
+    {
+      "hanja": "闃",
+      "sound": "격"
+    },
+    {
+      "hanja": "骼",
+      "sound": "격"
+    },
+    {
+      "hanja": "樫",
+      "sound": "견"
+    },
+    {
+      "hanja": "筧",
+      "sound": "견"
+    },
+    {
+      "hanja": "縳",
+      "sound": "견"
+    },
+    {
+      "hanja": "羂",
+      "sound": "견"
+    },
+    {
+      "hanja": "鰹",
+      "sound": "견"
+    },
+    {
+      "hanja": "玦",
+      "sound": "결"
+    },
+    {
+      "hanja": "觖",
+      "sound": "결"
+    },
+    {
+      "hanja": "焆",
+      "sound": "결"
+    },
+    {
+      "hanja": "迼",
+      "sound": "결"
+    },
+    {
+      "hanja": "鍥",
+      "sound": "결"
+    },
+    {
+      "hanja": "㓗",
+      "sound": "결"
+    },
+    {
+      "hanja": "㛃",
+      "sound": "결"
+    },
+    {
+      "hanja": "傔",
+      "sound": "겸"
+    },
+    {
+      "hanja": "嗛",
+      "sound": "겸"
+    },
+    {
+      "hanja": "岒",
+      "sound": "겸"
+    },
+    {
+      "hanja": "拑",
+      "sound": "겸"
+    },
+    {
+      "hanja": "縑",
+      "sound": "겸"
+    },
+    {
+      "hanja": "黚",
+      "sound": "겸"
+    },
+    {
+      "hanja": "鼸",
+      "sound": "겸"
+    },
+    {
+      "hanja": "槏",
+      "sound": "겸"
+    },
+    {
+      "hanja": "剄",
+      "sound": "경"
+    },
+    {
+      "hanja": "哽",
+      "sound": "경"
+    },
+    {
+      "hanja": "憼",
+      "sound": "경"
+    },
+    {
+      "hanja": "扃",
+      "sound": "경"
+    },
+    {
+      "hanja": "畊",
+      "sound": "경"
+    },
+    {
+      "hanja": "竸",
+      "sound": "경"
+    },
+    {
+      "hanja": "綆",
+      "sound": "경"
+    },
+    {
+      "hanja": "顈",
+      "sound": "경"
+    },
+    {
+      "hanja": "謦",
+      "sound": "경"
+    },
+    {
+      "hanja": "鯁",
+      "sound": "경"
+    },
+    {
+      "hanja": "亰",
+      "sound": "경"
+    },
+    {
+      "hanja": "囧",
+      "sound": "경"
+    },
+    {
+      "hanja": "巠",
+      "sound": "경"
+    },
+    {
+      "hanja": "曔",
+      "sound": "경"
+    },
+    {
+      "hanja": "燛",
+      "sound": "경"
+    },
+    {
+      "hanja": "璄",
+      "sound": "경"
+    },
+    {
+      "hanja": "㯳",
+      "sound": "경"
+    },
+    {
+      "hanja": "堦",
+      "sound": "계"
+    },
+    {
+      "hanja": "瘈",
+      "sound": "계"
+    },
+    {
+      "hanja": "禊",
+      "sound": "계"
+    },
+    {
+      "hanja": "筓",
+      "sound": "계"
+    },
+    {
+      "hanja": "綮",
+      "sound": "계"
+    },
+    {
+      "hanja": "縘",
+      "sound": "계"
+    },
+    {
+      "hanja": "罽",
+      "sound": "계"
+    },
+    {
+      "hanja": "葪",
+      "sound": "계"
+    },
+    {
+      "hanja": "薊",
+      "sound": "계"
+    },
+    {
+      "hanja": "髻",
+      "sound": "계"
+    },
+    {
+      "hanja": "賈",
+      "sound": "고"
+    },
+    {
+      "hanja": "估",
+      "sound": "고"
+    },
+    {
+      "hanja": "凅",
+      "sound": "고"
+    },
+    {
+      "hanja": "塙",
+      "sound": "고"
+    },
+    {
+      "hanja": "槹",
+      "sound": "고"
+    },
+    {
+      "hanja": "牯",
+      "sound": "고"
+    },
+    {
+      "hanja": "皋",
+      "sound": "고"
+    },
+    {
+      "hanja": "稁",
+      "sound": "고"
+    },
+    {
+      "hanja": "箍",
+      "sound": "고"
+    },
+    {
+      "hanja": "篙",
+      "sound": "고"
+    },
+    {
+      "hanja": "糕",
+      "sound": "고"
+    },
+    {
+      "hanja": "翺",
+      "sound": "고"
+    },
+    {
+      "hanja": "胯",
+      "sound": "고"
+    },
+    {
+      "hanja": "詁",
+      "sound": "고"
+    },
+    {
+      "hanja": "郜",
+      "sound": "고"
+    },
+    {
+      "hanja": "鈷",
+      "sound": "고"
+    },
+    {
+      "hanja": "靠",
+      "sound": "고"
+    },
+    {
+      "hanja": "鴣",
+      "sound": "고"
+    },
+    {
+      "hanja": "鷱",
+      "sound": "고"
+    },
+    {
+      "hanja": "鼔",
+      "sound": "고"
+    },
+    {
+      "hanja": "嚳",
+      "sound": "곡"
+    },
+    {
+      "hanja": "槲",
+      "sound": "곡"
+    },
+    {
+      "hanja": "縠",
+      "sound": "곡"
+    },
+    {
+      "hanja": "堃",
+      "sound": "곤"
+    },
+    {
+      "hanja": "崐",
+      "sound": "곤"
+    },
+    {
+      "hanja": "悃",
+      "sound": "곤"
+    },
+    {
+      "hanja": "捆",
+      "sound": "곤"
+    },
+    {
+      "hanja": "衮",
+      "sound": "곤"
+    },
+    {
+      "hanja": "裍",
+      "sound": "곤"
+    },
+    {
+      "hanja": "褌",
+      "sound": "곤"
+    },
+    {
+      "hanja": "閫",
+      "sound": "곤"
+    },
+    {
+      "hanja": "鵾",
+      "sound": "곤"
+    },
+    {
+      "hanja": "鶤",
+      "sound": "곤"
+    },
+    {
+      "hanja": "齫",
+      "sound": "곤"
+    },
+    {
+      "hanja": "搰",
+      "sound": "골"
+    },
+    {
+      "hanja": "榾",
+      "sound": "골"
+    },
+    {
+      "hanja": "矻",
+      "sound": "골"
+    },
+    {
+      "hanja": "鶻",
+      "sound": "골"
+    },
+    {
+      "hanja": "滑",
+      "sound": "골"
+    },
+    {
+      "hanja": "倥",
+      "sound": "공"
+    },
+    {
+      "hanja": "崆",
+      "sound": "공"
+    },
+    {
+      "hanja": "栱",
+      "sound": "공"
+    },
+    {
+      "hanja": "槓",
+      "sound": "공"
+    },
+    {
+      "hanja": "箜",
+      "sound": "공"
+    },
+    {
+      "hanja": "蛩",
+      "sound": "공"
+    },
+    {
+      "hanja": "蛬",
+      "sound": "공"
+    },
+    {
+      "hanja": "贛",
+      "sound": "공"
+    },
+    {
+      "hanja": "跫",
+      "sound": "공"
+    },
+    {
+      "hanja": "釭",
+      "sound": "공"
+    },
+    {
+      "hanja": "龔",
+      "sound": "공"
+    },
+    {
+      "hanja": "串",
+      "sound": "곶",
+      "sounds": [
+        "곶",
+        "관"
+      ]
+    },
+    {
+      "hanja": "侉",
+      "sound": "과"
+    },
+    {
+      "hanja": "堝",
+      "sound": "과"
+    },
+    {
+      "hanja": "夥",
+      "sound": "과"
+    },
+    {
+      "hanja": "撾",
+      "sound": "과"
+    },
+    {
+      "hanja": "猓",
+      "sound": "과"
+    },
+    {
+      "hanja": "稞",
+      "sound": "과"
+    },
+    {
+      "hanja": "窠",
+      "sound": "과"
+    },
+    {
+      "hanja": "蝌",
+      "sound": "과"
+    },
+    {
+      "hanja": "踝",
+      "sound": "과"
+    },
+    {
+      "hanja": "銙",
+      "sound": "과"
+    },
+    {
+      "hanja": "騍",
+      "sound": "과"
+    },
+    {
+      "hanja": "椁",
+      "sound": "곽"
+    },
+    {
+      "hanja": "癨",
+      "sound": "곽"
+    },
+    {
+      "hanja": "涫",
+      "sound": "관"
+    },
+    {
+      "hanja": "爟",
+      "sound": "관"
+    },
+    {
+      "hanja": "窾",
+      "sound": "관"
+    },
+    {
+      "hanja": "筦",
+      "sound": "관"
+    },
+    {
+      "hanja": "輨",
+      "sound": "관"
+    },
+    {
+      "hanja": "鑵",
+      "sound": "관"
+    },
+    {
+      "hanja": "雚",
+      "sound": "관"
+    },
+    {
+      "hanja": "髖",
+      "sound": "관"
+    },
+    {
+      "hanja": "寛",
+      "sound": "관"
+    },
+    {
+      "hanja": "舘",
+      "sound": "관"
+    },
+    {
+      "hanja": "筈",
+      "sound": "괄"
+    },
+    {
+      "hanja": "髺",
+      "sound": "괄"
+    },
+    {
+      "hanja": "鴰",
+      "sound": "괄"
+    },
+    {
+      "hanja": "恇",
+      "sound": "광"
+    },
+    {
+      "hanja": "框",
+      "sound": "광"
+    },
+    {
+      "hanja": "爌",
+      "sound": "광"
+    },
+    {
+      "hanja": "獷",
+      "sound": "광"
+    },
+    {
+      "hanja": "磺",
+      "sound": "광"
+    },
+    {
+      "hanja": "絖",
+      "sound": "광"
+    },
+    {
+      "hanja": "茪",
+      "sound": "광"
+    },
+    {
+      "hanja": "誆",
+      "sound": "광"
+    },
+    {
+      "hanja": "広",
+      "sound": "광"
+    },
+    {
+      "hanja": "炛",
+      "sound": "광"
+    },
+    {
+      "hanja": "咼",
+      "sound": "괘"
+    },
+    {
+      "hanja": "挂",
+      "sound": "괘"
+    },
+    {
+      "hanja": "罣",
+      "sound": "괘"
+    },
+    {
+      "hanja": "詿",
+      "sound": "괘"
+    },
+    {
+      "hanja": "媿",
+      "sound": "괴"
+    },
+    {
+      "hanja": "廥",
+      "sound": "괴"
+    },
+    {
+      "hanja": "恠",
+      "sound": "괴"
+    },
+    {
+      "hanja": "璝",
+      "sound": "괴"
+    },
+    {
+      "hanja": "蒯",
+      "sound": "괴"
+    },
+    {
+      "hanja": "襘",
+      "sound": "괴"
+    },
+    {
+      "hanja": "馘",
+      "sound": "괵"
+    },
+    {
+      "hanja": "浤",
+      "sound": "굉"
+    },
+    {
+      "hanja": "訇",
+      "sound": "굉"
+    },
+    {
+      "hanja": "閎",
+      "sound": "굉"
+    },
+    {
+      "hanja": "嘄",
+      "sound": "교"
+    },
+    {
+      "hanja": "噭",
+      "sound": "교"
+    },
+    {
+      "hanja": "嚙",
+      "sound": "교"
+    },
+    {
+      "hanja": "憍",
+      "sound": "교"
+    },
+    {
+      "hanja": "撟",
+      "sound": "교"
+    },
+    {
+      "hanja": "晈",
+      "sound": "교"
+    },
+    {
+      "hanja": "暞",
+      "sound": "교"
+    },
+    {
+      "hanja": "榷",
+      "sound": "교"
+    },
+    {
+      "hanja": "窖",
+      "sound": "교"
+    },
+    {
+      "hanja": "趫",
+      "sound": "교"
+    },
+    {
+      "hanja": "鉸",
+      "sound": "교"
+    },
+    {
+      "hanja": "骹",
+      "sound": "교"
+    },
+    {
+      "hanja": "鵁",
+      "sound": "교"
+    },
+    {
+      "hanja": "齩",
+      "sound": "교"
+    },
+    {
+      "hanja": "教",
+      "sound": "교"
+    },
+    {
+      "hanja": "鄗",
+      "sound": "교",
+      "sounds": [
+        "교",
+        "호"
+      ]
+    },
+    {
+      "hanja": "耉",
+      "sound": "구"
+    },
+    {
+      "hanja": "佉",
+      "sound": "구"
+    },
+    {
+      "hanja": "佝",
+      "sound": "구"
+    },
+    {
+      "hanja": "傴",
+      "sound": "구"
+    },
+    {
+      "hanja": "冓",
+      "sound": "구"
+    },
+    {
+      "hanja": "匶",
+      "sound": "구"
+    },
+    {
+      "hanja": "厹",
+      "sound": "구"
+    },
+    {
+      "hanja": "叴",
+      "sound": "구"
+    },
+    {
+      "hanja": "坸",
+      "sound": "구"
+    },
+    {
+      "hanja": "岣",
+      "sound": "구"
+    },
+    {
+      "hanja": "戵",
+      "sound": "구"
+    },
+    {
+      "hanja": "摳",
+      "sound": "구"
+    },
+    {
+      "hanja": "昫",
+      "sound": "구"
+    },
+    {
+      "hanja": "榘",
+      "sound": "구"
+    },
+    {
+      "hanja": "甌",
+      "sound": "구"
+    },
+    {
+      "hanja": "痀",
+      "sound": "구"
+    },
+    {
+      "hanja": "癯",
+      "sound": "구"
+    },
+    {
+      "hanja": "窛",
+      "sound": "구"
+    },
+    {
+      "hanja": "篝",
+      "sound": "구"
+    },
+    {
+      "hanja": "胊",
+      "sound": "구"
+    },
+    {
+      "hanja": "蒟",
+      "sound": "구"
+    },
+    {
+      "hanja": "蚯",
+      "sound": "구"
+    },
+    {
+      "hanja": "詬",
+      "sound": "구"
+    },
+    {
+      "hanja": "釦",
+      "sound": "구"
+    },
+    {
+      "hanja": "韝",
+      "sound": "구"
+    },
+    {
+      "hanja": "韮",
+      "sound": "구"
+    },
+    {
+      "hanja": "颶",
+      "sound": "구"
+    },
+    {
+      "hanja": "駈",
+      "sound": "구"
+    },
+    {
+      "hanja": "鬮",
+      "sound": "구"
+    },
+    {
+      "hanja": "鷇",
+      "sound": "구"
+    },
+    {
+      "hanja": "鸜",
+      "sound": "구"
+    },
+    {
+      "hanja": "玽",
+      "sound": "구"
+    },
+    {
+      "hanja": "耇",
+      "sound": "구"
+    },
+    {
+      "hanja": "掬",
+      "sound": "국"
+    },
+    {
+      "hanja": "跼",
+      "sound": "국"
+    },
+    {
+      "hanja": "麯",
+      "sound": "국"
+    },
+    {
+      "hanja": "国",
+      "sound": "국"
+    },
+    {
+      "hanja": "捃",
+      "sound": "군"
+    },
+    {
+      "hanja": "桾",
+      "sound": "군"
+    },
+    {
+      "hanja": "皸",
+      "sound": "군"
+    },
+    {
+      "hanja": "倔",
+      "sound": "굴"
+    },
+    {
+      "hanja": "崛",
+      "sound": "굴"
+    },
+    {
+      "hanja": "淈",
+      "sound": "굴"
+    },
+    {
+      "hanja": "躳",
+      "sound": "궁"
+    },
+    {
+      "hanja": "勌",
+      "sound": "권"
+    },
+    {
+      "hanja": "惓",
+      "sound": "권"
+    },
+    {
+      "hanja": "蜷",
+      "sound": "권"
+    },
+    {
+      "hanja": "権",
+      "sound": "권"
+    },
+    {
+      "hanja": "佹",
+      "sound": "궤"
+    },
+    {
+      "hanja": "劂",
+      "sound": "궤"
+    },
+    {
+      "hanja": "憒",
+      "sound": "궤"
+    },
+    {
+      "hanja": "撅",
+      "sound": "궤"
+    },
+    {
+      "hanja": "樻",
+      "sound": "궤"
+    },
+    {
+      "hanja": "繢",
+      "sound": "궤"
+    },
+    {
+      "hanja": "闠",
+      "sound": "궤"
+    },
+    {
+      "hanja": "麂",
+      "sound": "궤"
+    },
+    {
+      "hanja": "句",
+      "sound": "귀"
+    },
+    {
+      "hanja": "龜",
+      "sound": "귀"
+    },
+    {
+      "hanja": "䤥",
+      "sound": "귀"
+    },
+    {
+      "hanja": "嫢",
+      "sound": "규"
+    },
+    {
+      "hanja": "嬀",
+      "sound": "규"
+    },
+    {
+      "hanja": "巋",
+      "sound": "규"
+    },
+    {
+      "hanja": "暌",
+      "sound": "규"
+    },
+    {
+      "hanja": "楏",
+      "sound": "규"
+    },
+    {
+      "hanja": "潙",
+      "sound": "규"
+    },
+    {
+      "hanja": "虬",
+      "sound": "규"
+    },
+    {
+      "hanja": "虯",
+      "sound": "규"
+    },
+    {
+      "hanja": "跬",
+      "sound": "규"
+    },
+    {
+      "hanja": "邽",
+      "sound": "규"
+    },
+    {
+      "hanja": "馗",
+      "sound": "규"
+    },
+    {
+      "hanja": "湀",
+      "sound": "규"
+    },
+    {
+      "hanja": "煃",
+      "sound": "규"
+    },
+    {
+      "hanja": "茥",
+      "sound": "규"
+    },
+    {
+      "hanja": "龜",
+      "sound": "균"
+    },
+    {
+      "hanja": "囷",
+      "sound": "균"
+    },
+    {
+      "hanja": "麏",
+      "sound": "균"
+    },
+    {
+      "hanja": "匀",
+      "sound": "균"
+    },
+    {
+      "hanja": "覠",
+      "sound": "균"
+    },
+    {
+      "hanja": "尅",
+      "sound": "극"
+    },
+    {
+      "hanja": "屐",
+      "sound": "극"
+    },
+    {
+      "hanja": "郄",
+      "sound": "극"
+    },
+    {
+      "hanja": "卺",
+      "sound": "근"
+    },
+    {
+      "hanja": "厪",
+      "sound": "근"
+    },
+    {
+      "hanja": "巹",
+      "sound": "근"
+    },
+    {
+      "hanja": "廑",
+      "sound": "근"
+    },
+    {
+      "hanja": "觔",
+      "sound": "근"
+    },
+    {
+      "hanja": "跟",
+      "sound": "근"
+    },
+    {
+      "hanja": "釿",
+      "sound": "근"
+    },
+    {
+      "hanja": "靳",
+      "sound": "근"
+    },
+    {
+      "hanja": "嫤",
+      "sound": "근"
+    },
+    {
+      "hanja": "契",
+      "sound": "글"
+    },
+    {
+      "hanja": "㔕",
+      "sound": "글"
+    },
+    {
+      "hanja": "唫",
+      "sound": "금"
+    },
+    {
+      "hanja": "噤",
+      "sound": "금"
+    },
+    {
+      "hanja": "嶔",
+      "sound": "금"
+    },
+    {
+      "hanja": "笒",
+      "sound": "금"
+    },
+    {
+      "hanja": "黅",
+      "sound": "금"
+    },
+    {
+      "hanja": "金",
+      "sound": "금",
+      "sounds": [
+        "금",
+        "김"
+      ]
+    },
+    {
+      "hanja": "圾",
+      "sound": "급"
+    },
+    {
+      "hanja": "皀",
+      "sound": "급"
+    },
+    {
+      "hanja": "礏",
+      "sound": "급"
+    },
+    {
+      "hanja": "笈",
+      "sound": "급"
+    },
+    {
+      "hanja": "芨",
+      "sound": "급"
+    },
+    {
+      "hanja": "殑",
+      "sound": "긍"
+    },
+    {
+      "hanja": "剞",
+      "sound": "기"
+    },
+    {
+      "hanja": "庋",
+      "sound": "기"
+    },
+    {
+      "hanja": "弃",
+      "sound": "기"
+    },
+    {
+      "hanja": "愭",
+      "sound": "기"
+    },
+    {
+      "hanja": "攲",
+      "sound": "기"
+    },
+    {
+      "hanja": "炁",
+      "sound": "기"
+    },
+    {
+      "hanja": "猉",
+      "sound": "기"
+    },
+    {
+      "hanja": "禨",
+      "sound": "기"
+    },
+    {
+      "hanja": "綥",
+      "sound": "기"
+    },
+    {
+      "hanja": "肵",
+      "sound": "기"
+    },
+    {
+      "hanja": "芪",
+      "sound": "기"
+    },
+    {
+      "hanja": "芰",
+      "sound": "기"
+    },
+    {
+      "hanja": "蘄",
+      "sound": "기"
+    },
+    {
+      "hanja": "虁",
+      "sound": "기"
+    },
+    {
+      "hanja": "蜝",
+      "sound": "기"
+    },
+    {
+      "hanja": "蟣",
+      "sound": "기"
+    },
+    {
+      "hanja": "覉",
+      "sound": "기"
+    },
+    {
+      "hanja": "覬",
+      "sound": "기"
+    },
+    {
+      "hanja": "隑",
+      "sound": "기"
+    },
+    {
+      "hanja": "鬐",
+      "sound": "기"
+    },
+    {
+      "hanja": "鰭",
+      "sound": "기"
+    },
+    {
+      "hanja": "黖",
+      "sound": "기"
+    },
+    {
+      "hanja": "忯",
+      "sound": "기",
+      "sounds": [
+        "기",
+        "지"
+      ]
+    },
+    {
+      "hanja": "榿",
+      "sound": "기"
+    },
+    {
+      "hanja": "稘",
+      "sound": "기"
+    },
+    {
+      "hanja": "㠌",
+      "sound": "기"
+    },
+    {
+      "hanja": "㼄",
+      "sound": "기"
+    },
+    {
+      "hanja": "蛣",
+      "sound": "길"
+    },
+    {
+      "hanja": "挐",
+      "sound": "나"
+    },
+    {
+      "hanja": "挪",
+      "sound": "나"
+    },
+    {
+      "hanja": "梛",
+      "sound": "나"
+    },
+    {
+      "hanja": "糥",
+      "sound": "나"
+    },
+    {
+      "hanja": "糯",
+      "sound": "나"
+    },
+    {
+      "hanja": "奈",
+      "sound": "나"
+    },
+    {
+      "hanja": "喇",
+      "sound": "나"
+    },
+    {
+      "hanja": "懶",
+      "sound": "나"
+    },
+    {
+      "hanja": "癩",
+      "sound": "나"
+    },
+    {
+      "hanja": "羅",
+      "sound": "나"
+    },
+    {
+      "hanja": "蘿",
+      "sound": "나"
+    },
+    {
+      "hanja": "螺",
+      "sound": "나"
+    },
+    {
+      "hanja": "裸",
+      "sound": "나"
+    },
+    {
+      "hanja": "邏",
+      "sound": "나"
+    },
+    {
+      "hanja": "䏧",
+      "sound": "나"
+    },
+    {
+      "hanja": "䛔",
+      "sound": "나"
+    },
+    {
+      "hanja": "洛",
+      "sound": "낙"
+    },
+    {
+      "hanja": "烙",
+      "sound": "낙"
+    },
+    {
+      "hanja": "珞",
+      "sound": "낙"
+    },
+    {
+      "hanja": "落",
+      "sound": "낙"
+    },
+    {
+      "hanja": "酪",
+      "sound": "낙"
+    },
+    {
+      "hanja": "駱",
+      "sound": "낙"
+    },
+    {
+      "hanja": "樂",
+      "sound": "낙",
+      "sounds": [
+        "낙",
+        "락",
+        "악",
+        "요"
+      ]
+    },
+    {
+      "hanja": "樂",
+      "sound": "낙"
+    },
+    {
+      "hanja": "偄",
+      "sound": "난"
+    },
+    {
+      "hanja": "煗",
+      "sound": "난"
+    },
+    {
+      "hanja": "餪",
+      "sound": "난"
+    },
+    {
+      "hanja": "亂",
+      "sound": "난"
+    },
+    {
+      "hanja": "卵",
+      "sound": "난"
+    },
+    {
+      "hanja": "欄",
+      "sound": "난"
+    },
+    {
+      "hanja": "爛",
+      "sound": "난"
+    },
+    {
+      "hanja": "蘭",
+      "sound": "난"
+    },
+    {
+      "hanja": "鸞",
+      "sound": "난"
+    },
+    {
+      "hanja": "愞",
+      "sound": "난"
+    },
+    {
+      "hanja": "喃",
+      "sound": "남"
+    },
+    {
+      "hanja": "柟",
+      "sound": "남"
+    },
+    {
+      "hanja": "嵐",
+      "sound": "남"
+    },
+    {
+      "hanja": "濫",
+      "sound": "남"
+    },
+    {
+      "hanja": "藍",
+      "sound": "남"
+    },
+    {
+      "hanja": "襤",
+      "sound": "남"
+    },
+    {
+      "hanja": "拉",
+      "sound": "납"
+    },
+    {
+      "hanja": "臘",
+      "sound": "납"
+    },
+    {
+      "hanja": "蠟",
+      "sound": "납"
+    },
+    {
+      "hanja": "廊",
+      "sound": "낭"
+    },
+    {
+      "hanja": "朗",
+      "sound": "낭"
+    },
+    {
+      "hanja": "浪",
+      "sound": "낭"
+    },
+    {
+      "hanja": "狼",
+      "sound": "낭"
+    },
+    {
+      "hanja": "郞",
+      "sound": "낭"
+    },
+    {
+      "hanja": "郎",
+      "sound": "낭"
+    },
+    {
+      "hanja": "匂",
+      "sound": "내"
+    },
+    {
+      "hanja": "奶",
+      "sound": "내"
+    },
+    {
+      "hanja": "嬭",
+      "sound": "내"
+    },
+    {
+      "hanja": "來",
+      "sound": "내"
+    },
+    {
+      "hanja": "冷",
+      "sound": "냉"
+    },
+    {
+      "hanja": "惄",
+      "sound": "녁"
+    },
+    {
+      "hanja": "碾",
+      "sound": "년"
+    },
+    {
+      "hanja": "惗",
+      "sound": "녑"
+    },
+    {
+      "hanja": "儜",
+      "sound": "녕"
+    },
+    {
+      "hanja": "嚀",
+      "sound": "녕"
+    },
+    {
+      "hanja": "濘",
+      "sound": "녕"
+    },
+    {
+      "hanja": "笯",
+      "sound": "노"
+    },
+    {
+      "hanja": "臑",
+      "sound": "노"
+    },
+    {
+      "hanja": "勞",
+      "sound": "노"
+    },
+    {
+      "hanja": "擄",
+      "sound": "노"
+    },
+    {
+      "hanja": "櫓",
+      "sound": "노"
+    },
+    {
+      "hanja": "爐",
+      "sound": "노"
+    },
+    {
+      "hanja": "盧",
+      "sound": "노"
+    },
+    {
+      "hanja": "老",
+      "sound": "노"
+    },
+    {
+      "hanja": "蘆",
+      "sound": "노"
+    },
+    {
+      "hanja": "虜",
+      "sound": "노"
+    },
+    {
+      "hanja": "路",
+      "sound": "노"
+    },
+    {
+      "hanja": "露",
+      "sound": "노"
+    },
+    {
+      "hanja": "魯",
+      "sound": "노"
+    },
+    {
+      "hanja": "鷺",
+      "sound": "노"
+    },
+    {
+      "hanja": "䛝",
+      "sound": "노"
+    },
+    {
+      "hanja": "碌",
+      "sound": "녹"
+    },
+    {
+      "hanja": "祿",
+      "sound": "녹"
+    },
+    {
+      "hanja": "綠",
+      "sound": "녹"
+    },
+    {
+      "hanja": "菉",
+      "sound": "녹"
+    },
+    {
+      "hanja": "錄",
+      "sound": "녹"
+    },
+    {
+      "hanja": "鹿",
+      "sound": "녹"
+    },
+    {
+      "hanja": "論",
+      "sound": "논"
+    },
+    {
+      "hanja": "儂",
+      "sound": "농"
+    },
+    {
+      "hanja": "噥",
+      "sound": "농"
+    },
+    {
+      "hanja": "醲",
+      "sound": "농"
+    },
+    {
+      "hanja": "壟",
+      "sound": "농"
+    },
+    {
+      "hanja": "弄",
+      "sound": "농"
+    },
+    {
+      "hanja": "籠",
+      "sound": "농"
+    },
+    {
+      "hanja": "聾",
+      "sound": "농"
+    },
+    {
+      "hanja": "牢",
+      "sound": "뇌"
+    },
+    {
+      "hanja": "磊",
+      "sound": "뇌"
+    },
+    {
+      "hanja": "賂",
+      "sound": "뇌"
+    },
+    {
+      "hanja": "雷",
+      "sound": "뇌"
+    },
+    {
+      "hanja": "嫋",
+      "sound": "뇨"
+    },
+    {
+      "hanja": "嬲",
+      "sound": "뇨"
+    },
+    {
+      "hanja": "淖",
+      "sound": "뇨"
+    },
+    {
+      "hanja": "磠",
+      "sound": "뇨"
+    },
+    {
+      "hanja": "裊",
+      "sound": "뇨"
+    },
+    {
+      "hanja": "鐃",
+      "sound": "뇨"
+    },
+    {
+      "hanja": "啂",
+      "sound": "누"
+    },
+    {
+      "hanja": "壘",
+      "sound": "누"
+    },
+    {
+      "hanja": "屢",
+      "sound": "누"
+    },
+    {
+      "hanja": "樓",
+      "sound": "누"
+    },
+    {
+      "hanja": "淚",
+      "sound": "누"
+    },
+    {
+      "hanja": "漏",
+      "sound": "누"
+    },
+    {
+      "hanja": "累",
+      "sound": "누"
+    },
+    {
+      "hanja": "縷",
+      "sound": "누"
+    },
+    {
+      "hanja": "陋",
+      "sound": "누"
+    },
+    {
+      "hanja": "吶",
+      "sound": "눌"
+    },
+    {
+      "hanja": "肭",
+      "sound": "눌"
+    },
+    {
+      "hanja": "靵",
+      "sound": "뉴"
+    },
+    {
+      "hanja": "衄",
+      "sound": "뉵"
+    },
+    {
+      "hanja": "勒",
+      "sound": "늑"
+    },
+    {
+      "hanja": "肋",
+      "sound": "늑"
+    },
+    {
+      "hanja": "凜",
+      "sound": "늠"
+    },
+    {
+      "hanja": "凌",
+      "sound": "능"
+    },
+    {
+      "hanja": "稜",
+      "sound": "능"
+    },
+    {
+      "hanja": "綾",
+      "sound": "능"
+    },
+    {
+      "hanja": "菱",
+      "sound": "능"
+    },
+    {
+      "hanja": "陵",
+      "sound": "능"
+    },
+    {
+      "hanja": "呢",
+      "sound": "니"
+    },
+    {
+      "hanja": "祢",
+      "sound": "니"
+    },
+    {
+      "hanja": "禰",
+      "sound": "니"
+    },
+    {
+      "hanja": "膩",
+      "sound": "니"
+    },
+    {
+      "hanja": "濔",
+      "sound": "니",
+      "sounds": [
+        "니",
+        "미"
+      ]
+    },
+    {
+      "hanja": "馜",
+      "sound": "니"
+    },
+    {
+      "hanja": "㦐",
+      "sound": "니"
+    },
+    {
+      "hanja": "暱",
+      "sound": "닐"
+    },
+    {
+      "hanja": "夛",
+      "sound": "다"
+    },
+    {
+      "hanja": "茤",
+      "sound": "다"
+    },
+    {
+      "hanja": "觰",
+      "sound": "다"
+    },
+    {
+      "hanja": "担",
+      "sound": "단"
+    },
+    {
+      "hanja": "椴",
+      "sound": "단"
+    },
+    {
+      "hanja": "耑",
+      "sound": "단"
+    },
+    {
+      "hanja": "胆",
+      "sound": "단"
+    },
+    {
+      "hanja": "腶",
+      "sound": "단"
+    },
+    {
+      "hanja": "蜑",
+      "sound": "단"
+    },
+    {
+      "hanja": "煓",
+      "sound": "단"
+    },
+    {
+      "hanja": "㫜",
+      "sound": "단"
+    },
+    {
+      "hanja": "妲",
+      "sound": "달"
+    },
+    {
+      "hanja": "靼",
+      "sound": "달"
+    },
+    {
+      "hanja": "韃",
+      "sound": "달"
+    },
+    {
+      "hanja": "儋",
+      "sound": "담"
+    },
+    {
+      "hanja": "啗",
+      "sound": "담"
+    },
+    {
+      "hanja": "噉",
+      "sound": "담"
+    },
+    {
+      "hanja": "墰",
+      "sound": "담"
+    },
+    {
+      "hanja": "壜",
+      "sound": "담"
+    },
+    {
+      "hanja": "毯",
+      "sound": "담"
+    },
+    {
+      "hanja": "禫",
+      "sound": "담"
+    },
+    {
+      "hanja": "罎",
+      "sound": "담"
+    },
+    {
+      "hanja": "薝",
+      "sound": "담"
+    },
+    {
+      "hanja": "郯",
+      "sound": "담"
+    },
+    {
+      "hanja": "黵",
+      "sound": "담"
+    },
+    {
+      "hanja": "倓",
+      "sound": "담"
+    },
+    {
+      "hanja": "啿",
+      "sound": "담"
+    },
+    {
+      "hanja": "埮",
+      "sound": "담"
+    },
+    {
+      "hanja": "党",
+      "sound": "당"
+    },
+    {
+      "hanja": "搪",
+      "sound": "당"
+    },
+    {
+      "hanja": "檔",
+      "sound": "당"
+    },
+    {
+      "hanja": "溏",
+      "sound": "당"
+    },
+    {
+      "hanja": "瑭",
+      "sound": "당"
+    },
+    {
+      "hanja": "璫",
+      "sound": "당"
+    },
+    {
+      "hanja": "瞠",
+      "sound": "당"
+    },
+    {
+      "hanja": "礑",
+      "sound": "당"
+    },
+    {
+      "hanja": "蟷",
+      "sound": "당"
+    },
+    {
+      "hanja": "襠",
+      "sound": "당"
+    },
+    {
+      "hanja": "讜",
+      "sound": "당"
+    },
+    {
+      "hanja": "餳",
+      "sound": "당"
+    },
+    {
+      "hanja": "餹",
+      "sound": "당"
+    },
+    {
+      "hanja": "儓",
+      "sound": "대"
+    },
+    {
+      "hanja": "旲",
+      "sound": "대"
+    },
+    {
+      "hanja": "汏",
+      "sound": "대"
+    },
+    {
+      "hanja": "碓",
+      "sound": "대"
+    },
+    {
+      "hanja": "鐓",
+      "sound": "대"
+    },
+    {
+      "hanja": "抬",
+      "sound": "대",
+      "sounds": [
+        "대",
+        "태"
+      ]
+    },
+    {
+      "hanja": "㬃",
+      "sound": "대"
+    },
+    {
+      "hanja": "㬣",
+      "sound": "대"
+    },
+    {
+      "hanja": "宅",
+      "sound": "댁",
+      "sounds": [
+        "댁",
+        "택"
+      ]
+    },
+    {
+      "hanja": "徳",
+      "sound": "덕"
+    },
+    {
+      "hanja": "壔",
+      "sound": "도"
+    },
+    {
+      "hanja": "弢",
+      "sound": "도"
+    },
+    {
+      "hanja": "掏",
+      "sound": "도"
+    },
+    {
+      "hanja": "搯",
+      "sound": "도"
+    },
+    {
+      "hanja": "涂",
+      "sound": "도"
+    },
+    {
+      "hanja": "菟",
+      "sound": "도"
+    },
+    {
+      "hanja": "酴",
+      "sound": "도"
+    },
+    {
+      "hanja": "鞀",
+      "sound": "도"
+    },
+    {
+      "hanja": "鞱",
+      "sound": "도"
+    },
+    {
+      "hanja": "饕",
+      "sound": "도"
+    },
+    {
+      "hanja": "夲",
+      "sound": "도"
+    },
+    {
+      "hanja": "祹",
+      "sound": "도"
+    },
+    {
+      "hanja": "鋾",
+      "sound": "도"
+    },
+    {
+      "hanja": "馟",
+      "sound": "도"
+    },
+    {
+      "hanja": "弴",
+      "sound": "돈"
+    },
+    {
+      "hanja": "潡",
+      "sound": "돈"
+    },
+    {
+      "hanja": "躉",
+      "sound": "돈"
+    },
+    {
+      "hanja": "咄",
+      "sound": "돌"
+    },
+    {
+      "hanja": "堗",
+      "sound": "돌"
+    },
+    {
+      "hanja": "哃",
+      "sound": "동"
+    },
+    {
+      "hanja": "垌",
+      "sound": "동"
+    },
+    {
+      "hanja": "峒",
+      "sound": "동"
+    },
+    {
+      "hanja": "朣",
+      "sound": "동"
+    },
+    {
+      "hanja": "橦",
+      "sound": "동"
+    },
+    {
+      "hanja": "涷",
+      "sound": "동"
+    },
+    {
+      "hanja": "艟",
+      "sound": "동"
+    },
+    {
+      "hanja": "苳",
+      "sound": "동"
+    },
+    {
+      "hanja": "茼",
+      "sound": "동"
+    },
+    {
+      "hanja": "蕫",
+      "sound": "동"
+    },
+    {
+      "hanja": "錬",
+      "sound": "동"
+    },
+    {
+      "hanja": "鮗",
+      "sound": "동"
+    },
+    {
+      "hanja": "勭",
+      "sound": "동"
+    },
+    {
+      "hanja": "曈",
+      "sound": "동"
+    },
+    {
+      "hanja": "讀",
+      "sound": "두"
+    },
+    {
+      "hanja": "抖",
+      "sound": "두"
+    },
+    {
+      "hanja": "肚",
+      "sound": "두"
+    },
+    {
+      "hanja": "脰",
+      "sound": "두"
+    },
+    {
+      "hanja": "蚪",
+      "sound": "두"
+    },
+    {
+      "hanja": "蠹",
+      "sound": "두"
+    },
+    {
+      "hanja": "陡",
+      "sound": "두"
+    },
+    {
+      "hanja": "阧",
+      "sound": "두"
+    },
+    {
+      "hanja": "窀",
+      "sound": "둔"
+    },
+    {
+      "hanja": "迍",
+      "sound": "둔"
+    },
+    {
+      "hanja": "乧",
+      "sound": "둘"
+    },
+    {
+      "hanja": "凳",
+      "sound": "등"
+    },
+    {
+      "hanja": "墱",
+      "sound": "등"
+    },
+    {
+      "hanja": "磴",
+      "sound": "등"
+    },
+    {
+      "hanja": "籐",
+      "sound": "등"
+    },
+    {
+      "hanja": "鐙",
+      "sound": "등"
+    },
+    {
+      "hanja": "拏",
+      "sound": "라"
+    },
+    {
+      "hanja": "倮",
+      "sound": "라"
+    },
+    {
+      "hanja": "囉",
+      "sound": "라"
+    },
+    {
+      "hanja": "曪",
+      "sound": "라"
+    },
+    {
+      "hanja": "瘰",
+      "sound": "라"
+    },
+    {
+      "hanja": "砢",
+      "sound": "라"
+    },
+    {
+      "hanja": "鑼",
+      "sound": "라"
+    },
+    {
+      "hanja": "騾",
+      "sound": "라"
+    },
+    {
+      "hanja": "驘",
+      "sound": "라"
+    },
+    {
+      "hanja": "儸",
+      "sound": "라"
+    },
+    {
+      "hanja": "剆",
+      "sound": "라"
+    },
+    {
+      "hanja": "摞",
+      "sound": "라"
+    },
+    {
+      "hanja": "蓏",
+      "sound": "라"
+    },
+    {
+      "hanja": "覶",
+      "sound": "라"
+    },
+    {
+      "hanja": "諾",
+      "sound": "락"
+    },
+    {
+      "hanja": "嗠",
+      "sound": "락"
+    },
+    {
+      "hanja": "犖",
+      "sound": "락"
+    },
+    {
+      "hanja": "丹",
+      "sound": "란"
+    },
+    {
+      "hanja": "嬾",
+      "sound": "란"
+    },
+    {
+      "hanja": "幱",
+      "sound": "란"
+    },
+    {
+      "hanja": "攔",
+      "sound": "란"
+    },
+    {
+      "hanja": "灓",
+      "sound": "란"
+    },
+    {
+      "hanja": "襴",
+      "sound": "란"
+    },
+    {
+      "hanja": "鑾",
+      "sound": "란"
+    },
+    {
+      "hanja": "埒",
+      "sound": "랄"
+    },
+    {
+      "hanja": "辢",
+      "sound": "랄"
+    },
+    {
+      "hanja": "婪",
+      "sound": "람"
+    },
+    {
+      "hanja": "惏",
+      "sound": "람"
+    },
+    {
+      "hanja": "漤",
+      "sound": "람"
+    },
+    {
+      "hanja": "灆",
+      "sound": "람"
+    },
+    {
+      "hanja": "爁",
+      "sound": "람"
+    },
+    {
+      "hanja": "璼",
+      "sound": "람"
+    },
+    {
+      "hanja": "㛦",
+      "sound": "람"
+    },
+    {
+      "hanja": "鑞",
+      "sound": "랍"
+    },
+    {
+      "hanja": "榔",
+      "sound": "랑"
+    },
+    {
+      "hanja": "硠",
+      "sound": "랑"
+    },
+    {
+      "hanja": "莨",
+      "sound": "랑"
+    },
+    {
+      "hanja": "蜋",
+      "sound": "랑"
+    },
+    {
+      "hanja": "閬",
+      "sound": "랑"
+    },
+    {
+      "hanja": "烺",
+      "sound": "랑"
+    },
+    {
+      "hanja": "郎",
+      "sound": "랑"
+    },
+    {
+      "hanja": "駺",
+      "sound": "랑",
+      "sounds": [
+        "랑",
+        "량"
+      ]
+    },
+    {
+      "hanja": "㢃",
+      "sound": "랑"
+    },
+    {
+      "hanja": "淶",
+      "sound": "래"
+    },
+    {
+      "hanja": "来",
+      "sound": "래"
+    },
+    {
+      "hanja": "畧",
+      "sound": "략"
+    },
+    {
+      "hanja": "喨",
+      "sound": "량"
+    },
+    {
+      "hanja": "悢",
+      "sound": "량"
+    },
+    {
+      "hanja": "椋",
+      "sound": "량",
+      "sounds": [
+        "량",
+        "양"
+      ]
+    },
+    {
+      "hanja": "踉",
+      "sound": "량"
+    },
+    {
+      "hanja": "魎",
+      "sound": "량"
+    },
+    {
+      "hanja": "俍",
+      "sound": "량"
+    },
+    {
+      "hanja": "儢",
+      "sound": "려"
+    },
+    {
+      "hanja": "唳",
+      "sound": "려"
+    },
+    {
+      "hanja": "梠",
+      "sound": "려"
+    },
+    {
+      "hanja": "癘",
+      "sound": "려"
+    },
+    {
+      "hanja": "糲",
+      "sound": "려"
+    },
+    {
+      "hanja": "臚",
+      "sound": "려"
+    },
+    {
+      "hanja": "邌",
+      "sound": "려"
+    },
+    {
+      "hanja": "鑢",
+      "sound": "려"
+    },
+    {
+      "hanja": "曞",
+      "sound": "려"
+    },
+    {
+      "hanja": "攊",
+      "sound": "력"
+    },
+    {
+      "hanja": "櫪",
+      "sound": "력"
+    },
+    {
+      "hanja": "癧",
+      "sound": "력"
+    },
+    {
+      "hanja": "轣",
+      "sound": "력"
+    },
+    {
+      "hanja": "楝",
+      "sound": "련"
+    },
+    {
+      "hanja": "湅",
+      "sound": "련"
+    },
+    {
+      "hanja": "臠",
+      "sound": "련"
+    },
+    {
+      "hanja": "鏈",
+      "sound": "련"
+    },
+    {
+      "hanja": "鰊",
+      "sound": "련"
+    },
+    {
+      "hanja": "鰱",
+      "sound": "련"
+    },
+    {
+      "hanja": "挒",
+      "sound": "렬"
+    },
+    {
+      "hanja": "捩",
+      "sound": "렬"
+    },
+    {
+      "hanja": "颲",
+      "sound": "렬"
+    },
+    {
+      "hanja": "奩",
+      "sound": "렴"
+    },
+    {
+      "hanja": "瀲",
+      "sound": "렴"
+    },
+    {
+      "hanja": "磏",
+      "sound": "렴"
+    },
+    {
+      "hanja": "躐",
+      "sound": "렵"
+    },
+    {
+      "hanja": "鬣",
+      "sound": "렵"
+    },
+    {
+      "hanja": "寧",
+      "sound": "령"
+    },
+    {
+      "hanja": "另",
+      "sound": "령"
+    },
+    {
+      "hanja": "呤",
+      "sound": "령"
+    },
+    {
+      "hanja": "岭",
+      "sound": "령"
+    },
+    {
+      "hanja": "欞",
+      "sound": "령"
+    },
+    {
+      "hanja": "泠",
+      "sound": "령"
+    },
+    {
+      "hanja": "秢",
+      "sound": "령"
+    },
+    {
+      "hanja": "軨",
+      "sound": "령"
+    },
+    {
+      "hanja": "鴒",
+      "sound": "령"
+    },
+    {
+      "hanja": "鹷",
+      "sound": "령"
+    },
+    {
+      "hanja": "澪",
+      "sound": "령"
+    },
+    {
+      "hanja": "隸",
+      "sound": "례"
+    },
+    {
+      "hanja": "礼",
+      "sound": "례"
+    },
+    {
+      "hanja": "怒",
+      "sound": "로"
+    },
+    {
+      "hanja": "滷",
+      "sound": "로"
+    },
+    {
+      "hanja": "玈",
+      "sound": "로"
+    },
+    {
+      "hanja": "癆",
+      "sound": "로"
+    },
+    {
+      "hanja": "窂",
+      "sound": "로"
+    },
+    {
+      "hanja": "艪",
+      "sound": "로"
+    },
+    {
+      "hanja": "艫",
+      "sound": "로"
+    },
+    {
+      "hanja": "轤",
+      "sound": "로"
+    },
+    {
+      "hanja": "鐪",
+      "sound": "로"
+    },
+    {
+      "hanja": "鑪",
+      "sound": "로"
+    },
+    {
+      "hanja": "顱",
+      "sound": "로"
+    },
+    {
+      "hanja": "髗",
+      "sound": "로"
+    },
+    {
+      "hanja": "鱸",
+      "sound": "로"
+    },
+    {
+      "hanja": "鸕",
+      "sound": "로"
+    },
+    {
+      "hanja": "嚧",
+      "sound": "로"
+    },
+    {
+      "hanja": "櫨",
+      "sound": "로"
+    },
+    {
+      "hanja": "澇",
+      "sound": "로"
+    },
+    {
+      "hanja": "璐",
+      "sound": "로"
+    },
+    {
+      "hanja": "瓐",
+      "sound": "로"
+    },
+    {
+      "hanja": "蕗",
+      "sound": "로"
+    },
+    {
+      "hanja": "圥",
+      "sound": "록"
+    },
+    {
+      "hanja": "淥",
+      "sound": "록"
+    },
+    {
+      "hanja": "漉",
+      "sound": "록"
+    },
+    {
+      "hanja": "簏",
+      "sound": "록"
+    },
+    {
+      "hanja": "轆",
+      "sound": "록"
+    },
+    {
+      "hanja": "騄",
+      "sound": "록"
+    },
+    {
+      "hanja": "鵦",
+      "sound": "록"
+    },
+    {
+      "hanja": "儱",
+      "sound": "롱"
+    },
+    {
+      "hanja": "攏",
+      "sound": "롱"
+    },
+    {
+      "hanja": "曨",
+      "sound": "롱"
+    },
+    {
+      "hanja": "礱",
+      "sound": "롱"
+    },
+    {
+      "hanja": "蘢",
+      "sound": "롱"
+    },
+    {
+      "hanja": "龎",
+      "sound": "롱"
+    },
+    {
+      "hanja": "攂",
+      "sound": "뢰"
+    },
+    {
+      "hanja": "礌",
+      "sound": "뢰"
+    },
+    {
+      "hanja": "礧",
+      "sound": "뢰"
+    },
+    {
+      "hanja": "籟",
+      "sound": "뢰"
+    },
+    {
+      "hanja": "纇",
+      "sound": "뢰"
+    },
+    {
+      "hanja": "蕾",
+      "sound": "뢰"
+    },
+    {
+      "hanja": "誄",
+      "sound": "뢰"
+    },
+    {
+      "hanja": "酹",
+      "sound": "뢰"
+    },
+    {
+      "hanja": "顂",
+      "sound": "뢰"
+    },
+    {
+      "hanja": "頼",
+      "sound": "뢰"
+    },
+    {
+      "hanja": "嘹",
+      "sound": "료"
+    },
+    {
+      "hanja": "嫽",
+      "sound": "료"
+    },
+    {
+      "hanja": "撩",
+      "sound": "료"
+    },
+    {
+      "hanja": "暸",
+      "sound": "료"
+    },
+    {
+      "hanja": "獠",
+      "sound": "료"
+    },
+    {
+      "hanja": "膋",
+      "sound": "료"
+    },
+    {
+      "hanja": "醪",
+      "sound": "료"
+    },
+    {
+      "hanja": "鐐",
+      "sound": "료"
+    },
+    {
+      "hanja": "飂",
+      "sound": "료"
+    },
+    {
+      "hanja": "飉",
+      "sound": "료"
+    },
+    {
+      "hanja": "龒",
+      "sound": "룡"
+    },
+    {
+      "hanja": "竜",
+      "sound": "룡"
+    },
+    {
+      "hanja": "僂",
+      "sound": "루"
+    },
+    {
+      "hanja": "嘍",
+      "sound": "루"
+    },
+    {
+      "hanja": "嶁",
+      "sound": "루"
+    },
+    {
+      "hanja": "慺",
+      "sound": "루"
+    },
+    {
+      "hanja": "耬",
+      "sound": "루"
+    },
+    {
+      "hanja": "螻",
+      "sound": "루"
+    },
+    {
+      "hanja": "髏",
+      "sound": "루"
+    },
+    {
+      "hanja": "熡",
+      "sound": "루"
+    },
+    {
+      "hanja": "橊",
+      "sound": "류"
+    },
+    {
+      "hanja": "縲",
+      "sound": "류"
+    },
+    {
+      "hanja": "遛",
+      "sound": "류"
+    },
+    {
+      "hanja": "鶹",
+      "sound": "류"
+    },
+    {
+      "hanja": "勠",
+      "sound": "륙"
+    },
+    {
+      "hanja": "掄",
+      "sound": "륜"
+    },
+    {
+      "hanja": "圇",
+      "sound": "륜"
+    },
+    {
+      "hanja": "崘",
+      "sound": "륜"
+    },
+    {
+      "hanja": "錀",
+      "sound": "륜"
+    },
+    {
+      "hanja": "嵂",
+      "sound": "률"
+    },
+    {
+      "hanja": "溧",
+      "sound": "률"
+    },
+    {
+      "hanja": "率",
+      "sound": "률",
+      "sounds": [
+        "률",
+        "솔",
+        "율"
+      ]
+    },
+    {
+      "hanja": "瑮",
+      "sound": "률"
+    },
+    {
+      "hanja": "癃",
+      "sound": "륭"
+    },
+    {
+      "hanja": "窿",
+      "sound": "륭"
+    },
+    {
+      "hanja": "泐",
+      "sound": "륵"
+    },
+    {
+      "hanja": "凛",
+      "sound": "름"
+    },
+    {
+      "hanja": "澟",
+      "sound": "름"
+    },
+    {
+      "hanja": "菻",
+      "sound": "름"
+    },
+    {
+      "hanja": "倰",
+      "sound": "릉"
+    },
+    {
+      "hanja": "蔆",
+      "sound": "릉"
+    },
+    {
+      "hanja": "剺",
+      "sound": "리"
+    },
+    {
+      "hanja": "哩",
+      "sound": "리"
+    },
+    {
+      "hanja": "嫠",
+      "sound": "리"
+    },
+    {
+      "hanja": "漓",
+      "sound": "리"
+    },
+    {
+      "hanja": "蜊",
+      "sound": "리"
+    },
+    {
+      "hanja": "螭",
+      "sound": "리"
+    },
+    {
+      "hanja": "貍",
+      "sound": "리"
+    },
+    {
+      "hanja": "邐",
+      "sound": "리"
+    },
+    {
+      "hanja": "魑",
+      "sound": "리"
+    },
+    {
+      "hanja": "黐",
+      "sound": "리"
+    },
+    {
+      "hanja": "異",
+      "sound": "리"
+    },
+    {
+      "hanja": "摛",
+      "sound": "리"
+    },
+    {
+      "hanja": "犂",
+      "sound": "리"
+    },
+    {
+      "hanja": "嶙",
+      "sound": "린"
+    },
+    {
+      "hanja": "悋",
+      "sound": "린"
+    },
+    {
+      "hanja": "獜",
+      "sound": "린"
+    },
+    {
+      "hanja": "磷",
+      "sound": "린"
+    },
+    {
+      "hanja": "粦",
+      "sound": "린"
+    },
+    {
+      "hanja": "繗",
+      "sound": "린"
+    },
+    {
+      "hanja": "躙",
+      "sound": "린"
+    },
+    {
+      "hanja": "轔",
+      "sound": "린"
+    },
+    {
+      "hanja": "鏻",
+      "sound": "린"
+    },
+    {
+      "hanja": "驎",
+      "sound": "린"
+    },
+    {
+      "hanja": "撛",
+      "sound": "린"
+    },
+    {
+      "hanja": "橉",
+      "sound": "린"
+    },
+    {
+      "hanja": "䗲",
+      "sound": "린"
+    },
+    {
+      "hanja": "痳",
+      "sound": "림"
+    },
+    {
+      "hanja": "晽",
+      "sound": "림"
+    },
+    {
+      "hanja": "棽",
+      "sound": "림",
+      "sounds": [
+        "림",
+        "침"
+      ]
+    },
+    {
+      "hanja": "碄",
+      "sound": "림"
+    },
+    {
+      "hanja": "岦",
+      "sound": "립"
+    },
+    {
+      "hanja": "劘",
+      "sound": "마"
+    },
+    {
+      "hanja": "媽",
+      "sound": "마"
+    },
+    {
+      "hanja": "螞",
+      "sound": "마"
+    },
+    {
+      "hanja": "蟇",
+      "sound": "마"
+    },
+    {
+      "hanja": "麽",
+      "sound": "마"
+    },
+    {
+      "hanja": "麿",
+      "sound": "마"
+    },
+    {
+      "hanja": "瞙",
+      "sound": "막"
+    },
+    {
+      "hanja": "鏌",
+      "sound": "막"
+    },
+    {
+      "hanja": "嫚",
+      "sound": "만"
+    },
+    {
+      "hanja": "幔",
+      "sound": "만"
+    },
+    {
+      "hanja": "縵",
+      "sound": "만"
+    },
+    {
+      "hanja": "謾",
+      "sound": "만"
+    },
+    {
+      "hanja": "蹣",
+      "sound": "만"
+    },
+    {
+      "hanja": "鏝",
+      "sound": "만"
+    },
+    {
+      "hanja": "鬘",
+      "sound": "만"
+    },
+    {
+      "hanja": "晚",
+      "sound": "만"
+    },
+    {
+      "hanja": "帕",
+      "sound": "말"
+    },
+    {
+      "hanja": "汒",
+      "sound": "망"
+    },
+    {
+      "hanja": "漭",
+      "sound": "망"
+    },
+    {
+      "hanja": "莾",
+      "sound": "망"
+    },
+    {
+      "hanja": "蟒",
+      "sound": "망"
+    },
+    {
+      "hanja": "魍",
+      "sound": "망"
+    },
+    {
+      "hanja": "朢",
+      "sound": "망"
+    },
+    {
+      "hanja": "楳",
+      "sound": "매"
+    },
+    {
+      "hanja": "玫",
+      "sound": "매"
+    },
+    {
+      "hanja": "眛",
+      "sound": "매"
+    },
+    {
+      "hanja": "莓",
+      "sound": "매"
+    },
+    {
+      "hanja": "酶",
+      "sound": "매"
+    },
+    {
+      "hanja": "霉",
+      "sound": "매"
+    },
+    {
+      "hanja": "脉",
+      "sound": "맥"
+    },
+    {
+      "hanja": "貃",
+      "sound": "맥"
+    },
+    {
+      "hanja": "貘",
+      "sound": "맥"
+    },
+    {
+      "hanja": "儚",
+      "sound": "맹"
+    },
+    {
+      "hanja": "甍",
+      "sound": "맹"
+    },
+    {
+      "hanja": "甿",
+      "sound": "맹"
+    },
+    {
+      "hanja": "虻",
+      "sound": "맹"
+    },
+    {
+      "hanja": "幎",
+      "sound": "멱"
+    },
+    {
+      "hanja": "糆",
+      "sound": "면"
+    },
+    {
+      "hanja": "緜",
+      "sound": "면"
+    },
+    {
+      "hanja": "衊",
+      "sound": "멸"
+    },
+    {
+      "hanja": "洺",
+      "sound": "명"
+    },
+    {
+      "hanja": "慏",
+      "sound": "명"
+    },
+    {
+      "hanja": "眀",
+      "sound": "명"
+    },
+    {
+      "hanja": "䳟",
+      "sound": "명"
+    },
+    {
+      "hanja": "侔",
+      "sound": "모"
+    },
+    {
+      "hanja": "姥",
+      "sound": "모"
+    },
+    {
+      "hanja": "媢",
+      "sound": "모"
+    },
+    {
+      "hanja": "嫫",
+      "sound": "모"
+    },
+    {
+      "hanja": "恈",
+      "sound": "모"
+    },
+    {
+      "hanja": "皃",
+      "sound": "모"
+    },
+    {
+      "hanja": "粍",
+      "sound": "모"
+    },
+    {
+      "hanja": "蝥",
+      "sound": "모"
+    },
+    {
+      "hanja": "鉾",
+      "sound": "모"
+    },
+    {
+      "hanja": "慔",
+      "sound": "모"
+    },
+    {
+      "hanja": "橅",
+      "sound": "모",
+      "sounds": [
+        "모",
+        "무"
+      ]
+    },
+    {
+      "hanja": "軞",
+      "sound": "모"
+    },
+    {
+      "hanja": "凩",
+      "sound": "목"
+    },
+    {
+      "hanja": "苜",
+      "sound": "목"
+    },
+    {
+      "hanja": "懞",
+      "sound": "몽"
+    },
+    {
+      "hanja": "曚",
+      "sound": "몽"
+    },
+    {
+      "hanja": "溕",
+      "sound": "몽"
+    },
+    {
+      "hanja": "瞢",
+      "sound": "몽"
+    },
+    {
+      "hanja": "艨",
+      "sound": "몽"
+    },
+    {
+      "hanja": "雺",
+      "sound": "몽"
+    },
+    {
+      "hanja": "鸏",
+      "sound": "몽"
+    },
+    {
+      "hanja": "淼",
+      "sound": "묘"
+    },
+    {
+      "hanja": "嘸",
+      "sound": "무"
+    },
+    {
+      "hanja": "騖",
+      "sound": "무"
+    },
+    {
+      "hanja": "嘿",
+      "sound": "묵"
+    },
+    {
+      "hanja": "匁",
+      "sound": "문"
+    },
+    {
+      "hanja": "悗",
+      "sound": "문"
+    },
+    {
+      "hanja": "懣",
+      "sound": "문"
+    },
+    {
+      "hanja": "抆",
+      "sound": "문"
+    },
+    {
+      "hanja": "娓",
+      "sound": "미"
+    },
+    {
+      "hanja": "媄",
+      "sound": "미"
+    },
+    {
+      "hanja": "媺",
+      "sound": "미"
+    },
+    {
+      "hanja": "弥",
+      "sound": "미"
+    },
+    {
+      "hanja": "獼",
+      "sound": "미"
+    },
+    {
+      "hanja": "縻",
+      "sound": "미"
+    },
+    {
+      "hanja": "苿",
+      "sound": "미"
+    },
+    {
+      "hanja": "蘼",
+      "sound": "미"
+    },
+    {
+      "hanja": "侎",
+      "sound": "미"
+    },
+    {
+      "hanja": "冞",
+      "sound": "미"
+    },
+    {
+      "hanja": "嵄",
+      "sound": "미"
+    },
+    {
+      "hanja": "洣",
+      "sound": "미"
+    },
+    {
+      "hanja": "煝",
+      "sound": "미"
+    },
+    {
+      "hanja": "瑂",
+      "sound": "미"
+    },
+    {
+      "hanja": "蘪",
+      "sound": "미"
+    },
+    {
+      "hanja": "躾",
+      "sound": "미"
+    },
+    {
+      "hanja": "㵟",
+      "sound": "미"
+    },
+    {
+      "hanja": "忟",
+      "sound": "민"
+    },
+    {
+      "hanja": "湣",
+      "sound": "민",
+      "sounds": [
+        "민",
+        "혼"
+      ]
+    },
+    {
+      "hanja": "緍",
+      "sound": "민"
+    },
+    {
+      "hanja": "罠",
+      "sound": "민"
+    },
+    {
+      "hanja": "苠",
+      "sound": "민"
+    },
+    {
+      "hanja": "閩",
+      "sound": "민"
+    },
+    {
+      "hanja": "鰵",
+      "sound": "민"
+    },
+    {
+      "hanja": "琘",
+      "sound": "민"
+    },
+    {
+      "hanja": "琝",
+      "sound": "민"
+    },
+    {
+      "hanja": "瑉",
+      "sound": "민"
+    },
+    {
+      "hanja": "盿",
+      "sound": "민"
+    },
+    {
+      "hanja": "砇",
+      "sound": "민"
+    },
+    {
+      "hanja": "脗",
+      "sound": "민"
+    },
+    {
+      "hanja": "鈱",
+      "sound": "민"
+    },
+    {
+      "hanja": "䃉",
+      "sound": "민"
+    },
+    {
+      "hanja": "䪸",
+      "sound": "민"
+    },
+    {
+      "hanja": "樒",
+      "sound": "밀"
+    },
+    {
+      "hanja": "滵",
+      "sound": "밀"
+    },
+    {
+      "hanja": "欂",
+      "sound": "박"
+    },
+    {
+      "hanja": "牔",
+      "sound": "박"
+    },
+    {
+      "hanja": "駮",
+      "sound": "박"
+    },
+    {
+      "hanja": "髆",
+      "sound": "박"
+    },
+    {
+      "hanja": "媻",
+      "sound": "반"
+    },
+    {
+      "hanja": "扳",
+      "sound": "반"
+    },
+    {
+      "hanja": "搫",
+      "sound": "반"
+    },
+    {
+      "hanja": "攽",
+      "sound": "반"
+    },
+    {
+      "hanja": "朌",
+      "sound": "반"
+    },
+    {
+      "hanja": "螌",
+      "sound": "반"
+    },
+    {
+      "hanja": "頖",
+      "sound": "반"
+    },
+    {
+      "hanja": "哱",
+      "sound": "발"
+    },
+    {
+      "hanja": "脖",
+      "sound": "발"
+    },
+    {
+      "hanja": "鈸",
+      "sound": "발"
+    },
+    {
+      "hanja": "鵓",
+      "sound": "발"
+    },
+    {
+      "hanja": "炦",
+      "sound": "발",
+      "sounds": [
+        "발",
+        "별"
+      ]
+    },
+    {
+      "hanja": "仿",
+      "sound": "방"
+    },
+    {
+      "hanja": "徬",
+      "sound": "방"
+    },
+    {
+      "hanja": "搒",
+      "sound": "방"
+    },
+    {
+      "hanja": "旊",
+      "sound": "방"
+    },
+    {
+      "hanja": "梆",
+      "sound": "방"
+    },
+    {
+      "hanja": "牓",
+      "sound": "방"
+    },
+    {
+      "hanja": "舽",
+      "sound": "방"
+    },
+    {
+      "hanja": "螃",
+      "sound": "방"
+    },
+    {
+      "hanja": "鎊",
+      "sound": "방"
+    },
+    {
+      "hanja": "髣",
+      "sound": "방"
+    },
+    {
+      "hanja": "坏",
+      "sound": "배"
+    },
+    {
+      "hanja": "坯",
+      "sound": "배"
+    },
+    {
+      "hanja": "扒",
+      "sound": "배"
+    },
+    {
+      "hanja": "琲",
+      "sound": "배"
+    },
+    {
+      "hanja": "蓓",
+      "sound": "배"
+    },
+    {
+      "hanja": "北",
+      "sound": "배"
+    },
+    {
+      "hanja": "䔒",
+      "sound": "배"
+    },
+    {
+      "hanja": "粨",
+      "sound": "백"
+    },
+    {
+      "hanja": "苩",
+      "sound": "백"
+    },
+    {
+      "hanja": "䞟",
+      "sound": "백"
+    },
+    {
+      "hanja": "磻",
+      "sound": "번"
+    },
+    {
+      "hanja": "繙",
+      "sound": "번"
+    },
+    {
+      "hanja": "膰",
+      "sound": "번"
+    },
+    {
+      "hanja": "橃",
+      "sound": "벌"
+    },
+    {
+      "hanja": "罸",
+      "sound": "벌"
+    },
+    {
+      "hanja": "笵",
+      "sound": "범"
+    },
+    {
+      "hanja": "訉",
+      "sound": "범"
+    },
+    {
+      "hanja": "颿",
+      "sound": "범"
+    },
+    {
+      "hanja": "渢",
+      "sound": "범"
+    },
+    {
+      "hanja": "滼",
+      "sound": "범"
+    },
+    {
+      "hanja": "釩",
+      "sound": "범"
+    },
+    {
+      "hanja": "擗",
+      "sound": "벽"
+    },
+    {
+      "hanja": "疈",
+      "sound": "벽"
+    },
+    {
+      "hanja": "襞",
+      "sound": "벽"
+    },
+    {
+      "hanja": "鷿",
+      "sound": "벽"
+    },
+    {
+      "hanja": "鼊",
+      "sound": "벽"
+    },
+    {
+      "hanja": "忭",
+      "sound": "변"
+    },
+    {
+      "hanja": "抃",
+      "sound": "변"
+    },
+    {
+      "hanja": "辮",
+      "sound": "변"
+    },
+    {
+      "hanja": "腁",
+      "sound": "변"
+    },
+    {
+      "hanja": "賆",
+      "sound": "변"
+    },
+    {
+      "hanja": "駢",
+      "sound": "변"
+    },
+    {
+      "hanja": "骿",
+      "sound": "변"
+    },
+    {
+      "hanja": "鴘",
+      "sound": "변"
+    },
+    {
+      "hanja": "便",
+      "sound": "변"
+    },
+    {
+      "hanja": "彆",
+      "sound": "별"
+    },
+    {
+      "hanja": "鷩",
+      "sound": "별"
+    },
+    {
+      "hanja": "莂",
+      "sound": "별"
+    },
+    {
+      "hanja": "襒",
+      "sound": "별"
+    },
+    {
+      "hanja": "㔡",
+      "sound": "별"
+    },
+    {
+      "hanja": "䭱",
+      "sound": "별"
+    },
+    {
+      "hanja": "並",
+      "sound": "병"
+    },
+    {
+      "hanja": "塀",
+      "sound": "병"
+    },
+    {
+      "hanja": "絣",
+      "sound": "병"
+    },
+    {
+      "hanja": "鈵",
+      "sound": "병"
+    },
+    {
+      "hanja": "鋲",
+      "sound": "병"
+    },
+    {
+      "hanja": "鉼",
+      "sound": "병"
+    },
+    {
+      "hanja": "并",
+      "sound": "병"
+    },
+    {
+      "hanja": "抦",
+      "sound": "병"
+    },
+    {
+      "hanja": "俌",
+      "sound": "보"
+    },
+    {
+      "hanja": "盙",
+      "sound": "보"
+    },
+    {
+      "hanja": "簠",
+      "sound": "보"
+    },
+    {
+      "hanja": "葆",
+      "sound": "보"
+    },
+    {
+      "hanja": "靌",
+      "sound": "보"
+    },
+    {
+      "hanja": "宝",
+      "sound": "보"
+    },
+    {
+      "hanja": "歩",
+      "sound": "보"
+    },
+    {
+      "hanja": "㻄",
+      "sound": "보"
+    },
+    {
+      "hanja": "䀯",
+      "sound": "보"
+    },
+    {
+      "hanja": "墣",
+      "sound": "복"
+    },
+    {
+      "hanja": "幞",
+      "sound": "복"
+    },
+    {
+      "hanja": "箙",
+      "sound": "복"
+    },
+    {
+      "hanja": "菔",
+      "sound": "복"
+    },
+    {
+      "hanja": "蝠",
+      "sound": "복"
+    },
+    {
+      "hanja": "蝮",
+      "sound": "복"
+    },
+    {
+      "hanja": "鵩",
+      "sound": "복"
+    },
+    {
+      "hanja": "夆",
+      "sound": "봉"
+    },
+    {
+      "hanja": "篷",
+      "sound": "봉"
+    },
+    {
+      "hanja": "綘",
+      "sound": "봉"
+    },
+    {
+      "hanja": "鴌",
+      "sound": "봉"
+    },
+    {
+      "hanja": "浲",
+      "sound": "봉"
+    },
+    {
+      "hanja": "漨",
+      "sound": "봉"
+    },
+    {
+      "hanja": "復",
+      "sound": "부"
+    },
+    {
+      "hanja": "不",
+      "sound": "부",
+      "sounds": [
+        "부",
+        "불"
+      ]
+    },
+    {
+      "hanja": "仆",
+      "sound": "부"
+    },
+    {
+      "hanja": "媍",
+      "sound": "부"
+    },
+    {
+      "hanja": "抔",
+      "sound": "부"
+    },
+    {
+      "hanja": "榑",
+      "sound": "부"
+    },
+    {
+      "hanja": "涪",
+      "sound": "부"
+    },
+    {
+      "hanja": "玞",
+      "sound": "부"
+    },
+    {
+      "hanja": "筟",
+      "sound": "부"
+    },
+    {
+      "hanja": "罘",
+      "sound": "부"
+    },
+    {
+      "hanja": "胕",
+      "sound": "부",
+      "sounds": [
+        "부",
+        "주"
+      ]
+    },
+    {
+      "hanja": "苻",
+      "sound": "부"
+    },
+    {
+      "hanja": "蔀",
+      "sound": "부"
+    },
+    {
+      "hanja": "蚨",
+      "sound": "부"
+    },
+    {
+      "hanja": "袝",
+      "sound": "부"
+    },
+    {
+      "hanja": "跗",
+      "sound": "부"
+    },
+    {
+      "hanja": "頫",
+      "sound": "부"
+    },
+    {
+      "hanja": "麩",
+      "sound": "부"
+    },
+    {
+      "hanja": "体",
+      "sound": "분"
+    },
+    {
+      "hanja": "坌",
+      "sound": "분"
+    },
+    {
+      "hanja": "帉",
+      "sound": "분"
+    },
+    {
+      "hanja": "棻",
+      "sound": "분"
+    },
+    {
+      "hanja": "氛",
+      "sound": "분"
+    },
+    {
+      "hanja": "湓",
+      "sound": "분"
+    },
+    {
+      "hanja": "犇",
+      "sound": "분"
+    },
+    {
+      "hanja": "畚",
+      "sound": "분"
+    },
+    {
+      "hanja": "砏",
+      "sound": "분"
+    },
+    {
+      "hanja": "笨",
+      "sound": "분"
+    },
+    {
+      "hanja": "肦",
+      "sound": "분"
+    },
+    {
+      "hanja": "膹",
+      "sound": "분"
+    },
+    {
+      "hanja": "轒",
+      "sound": "분"
+    },
+    {
+      "hanja": "黺",
+      "sound": "분"
+    },
+    {
+      "hanja": "鼢",
+      "sound": "분"
+    },
+    {
+      "hanja": "岪",
+      "sound": "불"
+    },
+    {
+      "hanja": "祓",
+      "sound": "불"
+    },
+    {
+      "hanja": "韍",
+      "sound": "불"
+    },
+    {
+      "hanja": "髴",
+      "sound": "불"
+    },
+    {
+      "hanja": "堋",
+      "sound": "붕"
+    },
+    {
+      "hanja": "漰",
+      "sound": "붕"
+    },
+    {
+      "hanja": "鬅",
+      "sound": "붕"
+    },
+    {
+      "hanja": "屁",
+      "sound": "비"
+    },
+    {
+      "hanja": "椑",
+      "sound": "비"
+    },
+    {
+      "hanja": "沘",
+      "sound": "비"
+    },
+    {
+      "hanja": "淝",
+      "sound": "비"
+    },
+    {
+      "hanja": "濞",
+      "sound": "비"
+    },
+    {
+      "hanja": "狉",
+      "sound": "비"
+    },
+    {
+      "hanja": "狒",
+      "sound": "비"
+    },
+    {
+      "hanja": "痞",
+      "sound": "비"
+    },
+    {
+      "hanja": "睥",
+      "sound": "비"
+    },
+    {
+      "hanja": "篦",
+      "sound": "비"
+    },
+    {
+      "hanja": "芘",
+      "sound": "비"
+    },
+    {
+      "hanja": "萆",
+      "sound": "비"
+    },
+    {
+      "hanja": "蓖",
+      "sound": "비"
+    },
+    {
+      "hanja": "蚍",
+      "sound": "비"
+    },
+    {
+      "hanja": "贔",
+      "sound": "비"
+    },
+    {
+      "hanja": "邳",
+      "sound": "비"
+    },
+    {
+      "hanja": "郫",
+      "sound": "비"
+    },
+    {
+      "hanja": "陴",
+      "sound": "비"
+    },
+    {
+      "hanja": "鞴",
+      "sound": "비"
+    },
+    {
+      "hanja": "騛",
+      "sound": "비"
+    },
+    {
+      "hanja": "髀",
+      "sound": "비"
+    },
+    {
+      "hanja": "鼙",
+      "sound": "비"
+    },
+    {
+      "hanja": "泌",
+      "sound": "비",
+      "sounds": [
+        "비",
+        "필"
+      ]
+    },
+    {
+      "hanja": "奜",
+      "sound": "비"
+    },
+    {
+      "hanja": "庀",
+      "sound": "비"
+    },
+    {
+      "hanja": "馡",
+      "sound": "비"
+    },
+    {
+      "hanja": "矉",
+      "sound": "빈"
+    },
+    {
+      "hanja": "臏",
+      "sound": "빈"
+    },
+    {
+      "hanja": "鑌",
+      "sound": "빈"
+    },
+    {
+      "hanja": "霦",
+      "sound": "빈"
+    },
+    {
+      "hanja": "顰",
+      "sound": "빈"
+    },
+    {
+      "hanja": "鬂",
+      "sound": "빈"
+    },
+    {
+      "hanja": "份",
+      "sound": "빈"
+    },
+    {
+      "hanja": "穦",
+      "sound": "빈"
+    },
+    {
+      "hanja": "馪",
+      "sound": "빈"
+    },
+    {
+      "hanja": "冰",
+      "sound": "빙"
+    },
+    {
+      "hanja": "凭",
+      "sound": "빙"
+    },
+    {
+      "hanja": "凴",
+      "sound": "빙"
+    },
+    {
+      "hanja": "娉",
+      "sound": "빙"
+    },
+    {
+      "hanja": "剚",
+      "sound": "사"
+    },
+    {
+      "hanja": "卸",
+      "sound": "사"
+    },
+    {
+      "hanja": "咋",
+      "sound": "사"
+    },
+    {
+      "hanja": "姒",
+      "sound": "사"
+    },
+    {
+      "hanja": "楂",
+      "sound": "사"
+    },
+    {
+      "hanja": "痧",
+      "sound": "사"
+    },
+    {
+      "hanja": "皶",
+      "sound": "사"
+    },
+    {
+      "hanja": "竢",
+      "sound": "사"
+    },
+    {
+      "hanja": "缷",
+      "sound": "사"
+    },
+    {
+      "hanja": "蜡",
+      "sound": "사"
+    },
+    {
+      "hanja": "覗",
+      "sound": "사"
+    },
+    {
+      "hanja": "駛",
+      "sound": "사"
+    },
+    {
+      "hanja": "魦",
+      "sound": "사"
+    },
+    {
+      "hanja": "鰤",
+      "sound": "사"
+    },
+    {
+      "hanja": "槊",
+      "sound": "삭"
+    },
+    {
+      "hanja": "爍",
+      "sound": "삭"
+    },
+    {
+      "hanja": "蒴",
+      "sound": "삭"
+    },
+    {
+      "hanja": "索",
+      "sound": "삭"
+    },
+    {
+      "hanja": "數",
+      "sound": "삭"
+    },
+    {
+      "hanja": "搠",
+      "sound": "삭"
+    },
+    {
+      "hanja": "剷",
+      "sound": "산"
+    },
+    {
+      "hanja": "姍",
+      "sound": "산"
+    },
+    {
+      "hanja": "孿",
+      "sound": "산"
+    },
+    {
+      "hanja": "橵",
+      "sound": "산"
+    },
+    {
+      "hanja": "澘",
+      "sound": "산"
+    },
+    {
+      "hanja": "狻",
+      "sound": "산"
+    },
+    {
+      "hanja": "繖",
+      "sound": "산"
+    },
+    {
+      "hanja": "訕",
+      "sound": "산"
+    },
+    {
+      "hanja": "鏟",
+      "sound": "산"
+    },
+    {
+      "hanja": "閊",
+      "sound": "산"
+    },
+    {
+      "hanja": "毿",
+      "sound": "산"
+    },
+    {
+      "hanja": "產",
+      "sound": "산"
+    },
+    {
+      "hanja": "祘",
+      "sound": "산"
+    },
+    {
+      "hanja": "㦃",
+      "sound": "산"
+    },
+    {
+      "hanja": "渗",
+      "sound": "삼"
+    },
+    {
+      "hanja": "糝",
+      "sound": "삼"
+    },
+    {
+      "hanja": "釤",
+      "sound": "삼"
+    },
+    {
+      "hanja": "鬖",
+      "sound": "삼"
+    },
+    {
+      "hanja": "參",
+      "sound": "삼"
+    },
+    {
+      "hanja": "卅",
+      "sound": "삽"
+    },
+    {
+      "hanja": "唼",
+      "sound": "삽"
+    },
+    {
+      "hanja": "翣",
+      "sound": "삽"
+    },
+    {
+      "hanja": "鍤",
+      "sound": "삽"
+    },
+    {
+      "hanja": "霅",
+      "sound": "삽"
+    },
+    {
+      "hanja": "霎",
+      "sound": "삽"
+    },
+    {
+      "hanja": "插",
+      "sound": "삽"
+    },
+    {
+      "hanja": "徜",
+      "sound": "상"
+    },
+    {
+      "hanja": "晌",
+      "sound": "상"
+    },
+    {
+      "hanja": "甞",
+      "sound": "상"
+    },
+    {
+      "hanja": "緗",
+      "sound": "상"
+    },
+    {
+      "hanja": "鎟",
+      "sound": "상"
+    },
+    {
+      "hanja": "鬺",
+      "sound": "상"
+    },
+    {
+      "hanja": "慡",
+      "sound": "상"
+    },
+    {
+      "hanja": "潒",
+      "sound": "상"
+    },
+    {
+      "hanja": "塞",
+      "sound": "새",
+      "sounds": [
+        "새",
+        "색"
+      ]
+    },
+    {
+      "hanja": "鰓",
+      "sound": "새"
+    },
+    {
+      "hanja": "槭",
+      "sound": "색"
+    },
+    {
+      "hanja": "濇",
+      "sound": "색"
+    },
+    {
+      "hanja": "瀒",
+      "sound": "색"
+    },
+    {
+      "hanja": "鉎",
+      "sound": "생"
+    },
+    {
+      "hanja": "省",
+      "sound": "생"
+    },
+    {
+      "hanja": "揟",
+      "sound": "서"
+    },
+    {
+      "hanja": "撕",
+      "sound": "서"
+    },
+    {
+      "hanja": "耡",
+      "sound": "서"
+    },
+    {
+      "hanja": "芧",
+      "sound": "서"
+    },
+    {
+      "hanja": "鉏",
+      "sound": "서"
+    },
+    {
+      "hanja": "偦",
+      "sound": "서"
+    },
+    {
+      "hanja": "叙",
+      "sound": "서"
+    },
+    {
+      "hanja": "悆",
+      "sound": "서",
+      "sounds": [
+        "서",
+        "여"
+      ]
+    },
+    {
+      "hanja": "敘",
+      "sound": "서"
+    },
+    {
+      "hanja": "稰",
+      "sound": "서"
+    },
+    {
+      "hanja": "縃",
+      "sound": "서"
+    },
+    {
+      "hanja": "遾",
+      "sound": "서"
+    },
+    {
+      "hanja": "㠘",
+      "sound": "서"
+    },
+    {
+      "hanja": "㣽",
+      "sound": "서"
+    },
+    {
+      "hanja": "㥠",
+      "sound": "서"
+    },
+    {
+      "hanja": "㷂",
+      "sound": "서"
+    },
+    {
+      "hanja": "晰",
+      "sound": "석"
+    },
+    {
+      "hanja": "矽",
+      "sound": "석"
+    },
+    {
+      "hanja": "蜥",
+      "sound": "석"
+    },
+    {
+      "hanja": "褯",
+      "sound": "석",
+      "sounds": [
+        "석",
+        "자"
+      ]
+    },
+    {
+      "hanja": "䄷",
+      "sound": "석"
+    },
+    {
+      "hanja": "嫙",
+      "sound": "선"
+    },
+    {
+      "hanja": "尟",
+      "sound": "선"
+    },
+    {
+      "hanja": "尠",
+      "sound": "선"
+    },
+    {
+      "hanja": "屳",
+      "sound": "선"
+    },
+    {
+      "hanja": "歚",
+      "sound": "선"
+    },
+    {
+      "hanja": "筅",
+      "sound": "선"
+    },
+    {
+      "hanja": "綫",
+      "sound": "선"
+    },
+    {
+      "hanja": "譔",
+      "sound": "선"
+    },
+    {
+      "hanja": "譱",
+      "sound": "선"
+    },
+    {
+      "hanja": "鏇",
+      "sound": "선"
+    },
+    {
+      "hanja": "騸",
+      "sound": "선"
+    },
+    {
+      "hanja": "鱓",
+      "sound": "선"
+    },
+    {
+      "hanja": "鱻",
+      "sound": "선"
+    },
+    {
+      "hanja": "㻽",
+      "sound": "선",
+      "sounds": [
+        "선",
+        "수"
+      ]
+    },
+    {
+      "hanja": "䁢",
+      "sound": "선"
+    },
+    {
+      "hanja": "媟",
+      "sound": "설"
+    },
+    {
+      "hanja": "揲",
+      "sound": "설"
+    },
+    {
+      "hanja": "爇",
+      "sound": "설"
+    },
+    {
+      "hanja": "碟",
+      "sound": "설"
+    },
+    {
+      "hanja": "稧",
+      "sound": "설"
+    },
+    {
+      "hanja": "禼",
+      "sound": "설"
+    },
+    {
+      "hanja": "蔎",
+      "sound": "설"
+    },
+    {
+      "hanja": "㨹",
+      "sound": "설"
+    },
+    {
+      "hanja": "孅",
+      "sound": "섬"
+    },
+    {
+      "hanja": "摻",
+      "sound": "섬"
+    },
+    {
+      "hanja": "睒",
+      "sound": "섬"
+    },
+    {
+      "hanja": "譫",
+      "sound": "섬"
+    },
+    {
+      "hanja": "銛",
+      "sound": "섬"
+    },
+    {
+      "hanja": "韱",
+      "sound": "섬"
+    },
+    {
+      "hanja": "囁",
+      "sound": "섭"
+    },
+    {
+      "hanja": "懾",
+      "sound": "섭"
+    },
+    {
+      "hanja": "灄",
+      "sound": "섭"
+    },
+    {
+      "hanja": "聶",
+      "sound": "섭"
+    },
+    {
+      "hanja": "躡",
+      "sound": "섭"
+    },
+    {
+      "hanja": "鑷",
+      "sound": "섭"
+    },
+    {
+      "hanja": "顳",
+      "sound": "섭"
+    },
+    {
+      "hanja": "葉",
+      "sound": "섭"
+    },
+    {
+      "hanja": "躞",
+      "sound": "섭"
+    },
+    {
+      "hanja": "㰔",
+      "sound": "섭"
+    },
+    {
+      "hanja": "晠",
+      "sound": "성"
+    },
+    {
+      "hanja": "胜",
+      "sound": "성",
+      "sounds": [
+        "성",
+        "정"
+      ]
+    },
+    {
+      "hanja": "貹",
+      "sound": "성"
+    },
+    {
+      "hanja": "說",
+      "sound": "세"
+    },
+    {
+      "hanja": "繐",
+      "sound": "세"
+    },
+    {
+      "hanja": "蛻",
+      "sound": "세"
+    },
+    {
+      "hanja": "忕",
+      "sound": "세"
+    },
+    {
+      "hanja": "涗",
+      "sound": "세"
+    },
+    {
+      "hanja": "銴",
+      "sound": "세"
+    },
+    {
+      "hanja": "佋",
+      "sound": "소"
+    },
+    {
+      "hanja": "俏",
+      "sound": "소",
+      "sounds": [
+        "소",
+        "초"
+      ]
+    },
+    {
+      "hanja": "卲",
+      "sound": "소"
+    },
+    {
+      "hanja": "嗉",
+      "sound": "소"
+    },
+    {
+      "hanja": "塐",
+      "sound": "소"
+    },
+    {
+      "hanja": "捎",
+      "sound": "소"
+    },
+    {
+      "hanja": "樔",
+      "sound": "소"
+    },
+    {
+      "hanja": "泝",
+      "sound": "소"
+    },
+    {
+      "hanja": "筱",
+      "sound": "소"
+    },
+    {
+      "hanja": "箾",
+      "sound": "소"
+    },
+    {
+      "hanja": "膆",
+      "sound": "소"
+    },
+    {
+      "hanja": "踈",
+      "sound": "소"
+    },
+    {
+      "hanja": "酥",
+      "sound": "소"
+    },
+    {
+      "hanja": "魈",
+      "sound": "소"
+    },
+    {
+      "hanja": "鮹",
+      "sound": "소"
+    },
+    {
+      "hanja": "鰺",
+      "sound": "소"
+    },
+    {
+      "hanja": "劭",
+      "sound": "소",
+      "sounds": [
+        "소",
+        "초"
+      ]
+    },
+    {
+      "hanja": "傃",
+      "sound": "소"
+    },
+    {
+      "hanja": "咲",
+      "sound": "소"
+    },
+    {
+      "hanja": "璅",
+      "sound": "소"
+    },
+    {
+      "hanja": "穌",
+      "sound": "소"
+    },
+    {
+      "hanja": "䘘",
+      "sound": "소",
+      "sounds": [
+        "소",
+        "어"
+      ]
+    },
+    {
+      "hanja": "䨭",
+      "sound": "소"
+    },
+    {
+      "hanja": "䴛",
+      "sound": "소"
+    },
+    {
+      "hanja": "洬",
+      "sound": "속"
+    },
+    {
+      "hanja": "遬",
+      "sound": "속"
+    },
+    {
+      "hanja": "窣",
+      "sound": "솔"
+    },
+    {
+      "hanja": "乺",
+      "sound": "솔"
+    },
+    {
+      "hanja": "䢦",
+      "sound": "솔"
+    },
+    {
+      "hanja": "柗",
+      "sound": "송"
+    },
+    {
+      "hanja": "鬆",
+      "sound": "송"
+    },
+    {
+      "hanja": "憽",
+      "sound": "송"
+    },
+    {
+      "hanja": "殺",
+      "sound": "쇄"
+    },
+    {
+      "hanja": "惢",
+      "sound": "쇄"
+    },
+    {
+      "hanja": "曬",
+      "sound": "쇄"
+    },
+    {
+      "hanja": "鎻",
+      "sound": "쇄"
+    },
+    {
+      "hanja": "晬",
+      "sound": "수"
+    },
+    {
+      "hanja": "泅",
+      "sound": "수"
+    },
+    {
+      "hanja": "溲",
+      "sound": "수"
+    },
+    {
+      "hanja": "祟",
+      "sound": "수"
+    },
+    {
+      "hanja": "籔",
+      "sound": "수"
+    },
+    {
+      "hanja": "脺",
+      "sound": "수"
+    },
+    {
+      "hanja": "膄",
+      "sound": "수"
+    },
+    {
+      "hanja": "膸",
+      "sound": "수"
+    },
+    {
+      "hanja": "陲",
+      "sound": "수"
+    },
+    {
+      "hanja": "颼",
+      "sound": "수"
+    },
+    {
+      "hanja": "饈",
+      "sound": "수"
+    },
+    {
+      "hanja": "寿",
+      "sound": "수"
+    },
+    {
+      "hanja": "汓",
+      "sound": "수"
+    },
+    {
+      "hanja": "瓍",
+      "sound": "수"
+    },
+    {
+      "hanja": "穂",
+      "sound": "수"
+    },
+    {
+      "hanja": "賥",
+      "sound": "수"
+    },
+    {
+      "hanja": "䳠",
+      "sound": "수"
+    },
+    {
+      "hanja": "倏",
+      "sound": "숙"
+    },
+    {
+      "hanja": "儵",
+      "sound": "숙"
+    },
+    {
+      "hanja": "婌",
+      "sound": "숙"
+    },
+    {
+      "hanja": "驌",
+      "sound": "숙"
+    },
+    {
+      "hanja": "鷫",
+      "sound": "숙"
+    },
+    {
+      "hanja": "侚",
+      "sound": "순"
+    },
+    {
+      "hanja": "狥",
+      "sound": "순"
+    },
+    {
+      "hanja": "盹",
+      "sound": "순"
+    },
+    {
+      "hanja": "眴",
+      "sound": "순"
+    },
+    {
+      "hanja": "紃",
+      "sound": "순"
+    },
+    {
+      "hanja": "駨",
+      "sound": "순"
+    },
+    {
+      "hanja": "鬊",
+      "sound": "순"
+    },
+    {
+      "hanja": "姰",
+      "sound": "순"
+    },
+    {
+      "hanja": "峋",
+      "sound": "순"
+    },
+    {
+      "hanja": "畃",
+      "sound": "순"
+    },
+    {
+      "hanja": "絉",
+      "sound": "술"
+    },
+    {
+      "hanja": "菘",
+      "sound": "숭"
+    },
+    {
+      "hanja": "倅",
+      "sound": "쉬"
+    },
+    {
+      "hanja": "淬",
+      "sound": "쉬"
+    },
+    {
+      "hanja": "焠",
+      "sound": "쉬"
+    },
+    {
+      "hanja": "虱",
+      "sound": "슬"
+    },
+    {
+      "hanja": "㻭",
+      "sound": "슬"
+    },
+    {
+      "hanja": "慴",
+      "sound": "습"
+    },
+    {
+      "hanja": "槢",
+      "sound": "습"
+    },
+    {
+      "hanja": "塍",
+      "sound": "승"
+    },
+    {
+      "hanja": "鬙",
+      "sound": "승"
+    },
+    {
+      "hanja": "榺",
+      "sound": "승"
+    },
+    {
+      "hanja": "氶",
+      "sound": "승"
+    },
+    {
+      "hanja": "阩",
+      "sound": "승"
+    },
+    {
+      "hanja": "陹",
+      "sound": "승"
+    },
+    {
+      "hanja": "㞼",
+      "sound": "승"
+    },
+    {
+      "hanja": "枾",
+      "sound": "시"
+    },
+    {
+      "hanja": "厮",
+      "sound": "시"
+    },
+    {
+      "hanja": "廝",
+      "sound": "시"
+    },
+    {
+      "hanja": "柹",
+      "sound": "시"
+    },
+    {
+      "hanja": "澌",
+      "sound": "시"
+    },
+    {
+      "hanja": "翤",
+      "sound": "시"
+    },
+    {
+      "hanja": "諰",
+      "sound": "시"
+    },
+    {
+      "hanja": "豉",
+      "sound": "시"
+    },
+    {
+      "hanja": "鍉",
+      "sound": "시"
+    },
+    {
+      "hanja": "顋",
+      "sound": "시"
+    },
+    {
+      "hanja": "媞",
+      "sound": "시",
+      "sounds": [
+        "시",
+        "제"
+      ]
+    },
+    {
+      "hanja": "弒",
+      "sound": "시"
+    },
+    {
+      "hanja": "愢",
+      "sound": "시"
+    },
+    {
+      "hanja": "毸",
+      "sound": "시"
+    },
+    {
+      "hanja": "沶",
+      "sound": "시"
+    },
+    {
+      "hanja": "漦",
+      "sound": "시"
+    },
+    {
+      "hanja": "眂",
+      "sound": "시"
+    },
+    {
+      "hanja": "絁",
+      "sound": "시"
+    },
+    {
+      "hanja": "喰",
+      "sound": "식"
+    },
+    {
+      "hanja": "媳",
+      "sound": "식"
+    },
+    {
+      "hanja": "噺",
+      "sound": "신"
+    },
+    {
+      "hanja": "囟",
+      "sound": "신"
+    },
+    {
+      "hanja": "姺",
+      "sound": "신"
+    },
+    {
+      "hanja": "汛",
+      "sound": "신"
+    },
+    {
+      "hanja": "脤",
+      "sound": "신"
+    },
+    {
+      "hanja": "頣",
+      "sound": "신"
+    },
+    {
+      "hanja": "辰",
+      "sound": "신"
+    },
+    {
+      "hanja": "飋",
+      "sound": "실"
+    },
+    {
+      "hanja": "実",
+      "sound": "실"
+    },
+    {
+      "hanja": "梣",
+      "sound": "심"
+    },
+    {
+      "hanja": "潯",
+      "sound": "심"
+    },
+    {
+      "hanja": "燖",
+      "sound": "심"
+    },
+    {
+      "hanja": "鐔",
+      "sound": "심"
+    },
+    {
+      "hanja": "鱏",
+      "sound": "심"
+    },
+    {
+      "hanja": "沈",
+      "sound": "심"
+    },
+    {
+      "hanja": "拾",
+      "sound": "십"
+    },
+    {
+      "hanja": "辻",
+      "sound": "십"
+    },
+    {
+      "hanja": "双",
+      "sound": "쌍"
+    },
+    {
+      "hanja": "丫",
+      "sound": "아"
+    },
+    {
+      "hanja": "哦",
+      "sound": "아"
+    },
+    {
+      "hanja": "娿",
+      "sound": "아"
+    },
+    {
+      "hanja": "婀",
+      "sound": "아"
+    },
+    {
+      "hanja": "峩",
+      "sound": "아"
+    },
+    {
+      "hanja": "疴",
+      "sound": "아"
+    },
+    {
+      "hanja": "砑",
+      "sound": "아"
+    },
+    {
+      "hanja": "笌",
+      "sound": "아"
+    },
+    {
+      "hanja": "錏",
+      "sound": "아"
+    },
+    {
+      "hanja": "鵞",
+      "sound": "아"
+    },
+    {
+      "hanja": "亜",
+      "sound": "아"
+    },
+    {
+      "hanja": "児",
+      "sound": "아"
+    },
+    {
+      "hanja": "啊",
+      "sound": "아"
+    },
+    {
+      "hanja": "妸",
+      "sound": "아"
+    },
+    {
+      "hanja": "妿",
+      "sound": "아"
+    },
+    {
+      "hanja": "婭",
+      "sound": "아"
+    },
+    {
+      "hanja": "枒",
+      "sound": "아"
+    },
+    {
+      "hanja": "椏",
+      "sound": "아"
+    },
+    {
+      "hanja": "皒",
+      "sound": "아"
+    },
+    {
+      "hanja": "硪",
+      "sound": "아"
+    },
+    {
+      "hanja": "偓",
+      "sound": "악"
+    },
+    {
+      "hanja": "卾",
+      "sound": "악"
+    },
+    {
+      "hanja": "喔",
+      "sound": "악"
+    },
+    {
+      "hanja": "噩",
+      "sound": "악"
+    },
+    {
+      "hanja": "腭",
+      "sound": "악"
+    },
+    {
+      "hanja": "萼",
+      "sound": "악"
+    },
+    {
+      "hanja": "覨",
+      "sound": "악"
+    },
+    {
+      "hanja": "諤",
+      "sound": "악"
+    },
+    {
+      "hanja": "鶚",
+      "sound": "악"
+    },
+    {
+      "hanja": "齶",
+      "sound": "악"
+    },
+    {
+      "hanja": "桉",
+      "sound": "안"
+    },
+    {
+      "hanja": "贋",
+      "sound": "안"
+    },
+    {
+      "hanja": "侒",
+      "sound": "안"
+    },
+    {
+      "hanja": "姲",
+      "sound": "안"
+    },
+    {
+      "hanja": "婩",
+      "sound": "안"
+    },
+    {
+      "hanja": "䭓",
+      "sound": "안",
+      "sounds": [
+        "안",
+        "온"
+      ]
+    },
+    {
+      "hanja": "嘎",
+      "sound": "알"
+    },
+    {
+      "hanja": "戞",
+      "sound": "알"
+    },
+    {
+      "hanja": "穵",
+      "sound": "알"
+    },
+    {
+      "hanja": "鴶",
+      "sound": "알"
+    },
+    {
+      "hanja": "啽",
+      "sound": "암"
+    },
+    {
+      "hanja": "媕",
+      "sound": "암"
+    },
+    {
+      "hanja": "嵓",
+      "sound": "암"
+    },
+    {
+      "hanja": "晻",
+      "sound": "암"
+    },
+    {
+      "hanja": "腤",
+      "sound": "암"
+    },
+    {
+      "hanja": "葊",
+      "sound": "암"
+    },
+    {
+      "hanja": "蓭",
+      "sound": "암"
+    },
+    {
+      "hanja": "諳",
+      "sound": "암"
+    },
+    {
+      "hanja": "頷",
+      "sound": "암"
+    },
+    {
+      "hanja": "馣",
+      "sound": "암"
+    },
+    {
+      "hanja": "坱",
+      "sound": "앙"
+    },
+    {
+      "hanja": "唉",
+      "sound": "애"
+    },
+    {
+      "hanja": "啀",
+      "sound": "애"
+    },
+    {
+      "hanja": "噯",
+      "sound": "애"
+    },
+    {
+      "hanja": "娭",
+      "sound": "애"
+    },
+    {
+      "hanja": "崕",
+      "sound": "애"
+    },
+    {
+      "hanja": "挨",
+      "sound": "애"
+    },
+    {
+      "hanja": "捱",
+      "sound": "애"
+    },
+    {
+      "hanja": "欸",
+      "sound": "애"
+    },
+    {
+      "hanja": "漄",
+      "sound": "애"
+    },
+    {
+      "hanja": "獃",
+      "sound": "애"
+    },
+    {
+      "hanja": "皚",
+      "sound": "애"
+    },
+    {
+      "hanja": "睚",
+      "sound": "애"
+    },
+    {
+      "hanja": "瞹",
+      "sound": "애"
+    },
+    {
+      "hanja": "磑",
+      "sound": "애"
+    },
+    {
+      "hanja": "薆",
+      "sound": "애"
+    },
+    {
+      "hanja": "靉",
+      "sound": "애"
+    },
+    {
+      "hanja": "騃",
+      "sound": "애"
+    },
+    {
+      "hanja": "㶼",
+      "sound": "애"
+    },
+    {
+      "hanja": "䝽",
+      "sound": "애"
+    },
+    {
+      "hanja": "呝",
+      "sound": "액"
+    },
+    {
+      "hanja": "搤",
+      "sound": "액"
+    },
+    {
+      "hanja": "嫈",
+      "sound": "앵"
+    },
+    {
+      "hanja": "罃",
+      "sound": "앵"
+    },
+    {
+      "hanja": "鷪",
+      "sound": "앵"
+    },
+    {
+      "hanja": "埜",
+      "sound": "야"
+    },
+    {
+      "hanja": "若",
+      "sound": "야"
+    },
+    {
+      "hanja": "捓",
+      "sound": "야"
+    },
+    {
+      "hanja": "掠",
+      "sound": "약"
+    },
+    {
+      "hanja": "略",
+      "sound": "약"
+    },
+    {
+      "hanja": "爚",
+      "sound": "약"
+    },
+    {
+      "hanja": "篛",
+      "sound": "약"
+    },
+    {
+      "hanja": "鑰",
+      "sound": "약"
+    },
+    {
+      "hanja": "鰯",
+      "sound": "약"
+    },
+    {
+      "hanja": "鶸",
+      "sound": "약"
+    },
+    {
+      "hanja": "龠",
+      "sound": "약"
+    },
+    {
+      "hanja": "亮",
+      "sound": "양"
+    },
+    {
+      "hanja": "兩",
+      "sound": "양"
+    },
+    {
+      "hanja": "凉",
+      "sound": "양"
+    },
+    {
+      "hanja": "梁",
+      "sound": "양"
+    },
+    {
+      "hanja": "糧",
+      "sound": "양"
+    },
+    {
+      "hanja": "良",
+      "sound": "양"
+    },
+    {
+      "hanja": "諒",
+      "sound": "양"
+    },
+    {
+      "hanja": "量",
+      "sound": "양"
+    },
+    {
+      "hanja": "徉",
+      "sound": "양"
+    },
+    {
+      "hanja": "烊",
+      "sound": "양"
+    },
+    {
+      "hanja": "眻",
+      "sound": "양"
+    },
+    {
+      "hanja": "蘘",
+      "sound": "양"
+    },
+    {
+      "hanja": "輰",
+      "sound": "양"
+    },
+    {
+      "hanja": "鑲",
+      "sound": "양"
+    },
+    {
+      "hanja": "驤",
+      "sound": "양"
+    },
+    {
+      "hanja": "淤",
+      "sound": "어"
+    },
+    {
+      "hanja": "唹",
+      "sound": "어"
+    },
+    {
+      "hanja": "繶",
+      "sound": "억"
+    },
+    {
+      "hanja": "傿",
+      "sound": "언"
+    },
+    {
+      "hanja": "匽",
+      "sound": "언"
+    },
+    {
+      "hanja": "嫣",
+      "sound": "언"
+    },
+    {
+      "hanja": "讞",
+      "sound": "언"
+    },
+    {
+      "hanja": "鄢",
+      "sound": "언"
+    },
+    {
+      "hanja": "鼴",
+      "sound": "언"
+    },
+    {
+      "hanja": "鼹",
+      "sound": "언"
+    },
+    {
+      "hanja": "彥",
+      "sound": "언"
+    },
+    {
+      "hanja": "乻",
+      "sound": "얼"
+    },
+    {
+      "hanja": "糱",
+      "sound": "얼"
+    },
+    {
+      "hanja": "糵",
+      "sound": "얼"
+    },
+    {
+      "hanja": "崦",
+      "sound": "엄"
+    },
+    {
+      "hanja": "广",
+      "sound": "엄"
+    },
+    {
+      "hanja": "曮",
+      "sound": "엄"
+    },
+    {
+      "hanja": "罨",
+      "sound": "엄"
+    },
+    {
+      "hanja": "醃",
+      "sound": "엄"
+    },
+    {
+      "hanja": "厳",
+      "sound": "엄"
+    },
+    {
+      "hanja": "龑",
+      "sound": "엄"
+    },
+    {
+      "hanja": "嶫",
+      "sound": "업"
+    },
+    {
+      "hanja": "鄴",
+      "sound": "업"
+    },
+    {
+      "hanja": "恚",
+      "sound": "에"
+    },
+    {
+      "hanja": "曀",
+      "sound": "에"
+    },
+    {
+      "hanja": "女",
+      "sound": "여"
+    },
+    {
+      "hanja": "勵",
+      "sound": "여"
+    },
+    {
+      "hanja": "呂",
+      "sound": "여"
+    },
+    {
+      "hanja": "廬",
+      "sound": "여"
+    },
+    {
+      "hanja": "旅",
+      "sound": "여"
+    },
+    {
+      "hanja": "濾",
+      "sound": "여"
+    },
+    {
+      "hanja": "礪",
+      "sound": "여"
+    },
+    {
+      "hanja": "閭",
+      "sound": "여"
+    },
+    {
+      "hanja": "驪",
+      "sound": "여"
+    },
+    {
+      "hanja": "麗",
+      "sound": "여"
+    },
+    {
+      "hanja": "黎",
+      "sound": "여"
+    },
+    {
+      "hanja": "舁",
+      "sound": "여"
+    },
+    {
+      "hanja": "妤",
+      "sound": "여"
+    },
+    {
+      "hanja": "力",
+      "sound": "역"
+    },
+    {
+      "hanja": "曆",
+      "sound": "역"
+    },
+    {
+      "hanja": "歷",
+      "sound": "역"
+    },
+    {
+      "hanja": "轢",
+      "sound": "역"
+    },
+    {
+      "hanja": "年",
+      "sound": "연"
+    },
+    {
+      "hanja": "撚",
+      "sound": "연"
+    },
+    {
+      "hanja": "秊",
+      "sound": "연"
+    },
+    {
+      "hanja": "憐",
+      "sound": "연"
+    },
+    {
+      "hanja": "戀",
+      "sound": "연"
+    },
+    {
+      "hanja": "漣",
+      "sound": "연"
+    },
+    {
+      "hanja": "煉",
+      "sound": "연"
+    },
+    {
+      "hanja": "璉",
+      "sound": "연"
+    },
+    {
+      "hanja": "練",
+      "sound": "연"
+    },
+    {
+      "hanja": "聯",
+      "sound": "연"
+    },
+    {
+      "hanja": "蓮",
+      "sound": "연"
+    },
+    {
+      "hanja": "輦",
+      "sound": "연"
+    },
+    {
+      "hanja": "連",
+      "sound": "연"
+    },
+    {
+      "hanja": "鍊",
+      "sound": "연"
+    },
+    {
+      "hanja": "囦",
+      "sound": "연"
+    },
+    {
+      "hanja": "埏",
+      "sound": "연"
+    },
+    {
+      "hanja": "嬿",
+      "sound": "연"
+    },
+    {
+      "hanja": "曣",
+      "sound": "연"
+    },
+    {
+      "hanja": "櫞",
+      "sound": "연"
+    },
+    {
+      "hanja": "渷",
+      "sound": "연"
+    },
+    {
+      "hanja": "臙",
+      "sound": "연"
+    },
+    {
+      "hanja": "莚",
+      "sound": "연"
+    },
+    {
+      "hanja": "蜵",
+      "sound": "연"
+    },
+    {
+      "hanja": "蠕",
+      "sound": "연"
+    },
+    {
+      "hanja": "讌",
+      "sound": "연"
+    },
+    {
+      "hanja": "鷰",
+      "sound": "연"
+    },
+    {
+      "hanja": "兖",
+      "sound": "연"
+    },
+    {
+      "hanja": "妍",
+      "sound": "연"
+    },
+    {
+      "hanja": "姢",
+      "sound": "연"
+    },
+    {
+      "hanja": "娫",
+      "sound": "연"
+    },
+    {
+      "hanja": "戭",
+      "sound": "연",
+      "sounds": [
+        "연",
+        "인"
+      ]
+    },
+    {
+      "hanja": "渊",
+      "sound": "연"
+    },
+    {
+      "hanja": "瑌",
+      "sound": "연"
+    },
+    {
+      "hanja": "瓀",
+      "sound": "연"
+    },
+    {
+      "hanja": "輭",
+      "sound": "연"
+    },
+    {
+      "hanja": "㜣",
+      "sound": "연"
+    },
+    {
+      "hanja": "䂩",
+      "sound": "연"
+    },
+    {
+      "hanja": "列",
+      "sound": "열"
+    },
+    {
+      "hanja": "劣",
+      "sound": "열"
+    },
+    {
+      "hanja": "烈",
+      "sound": "열"
+    },
+    {
+      "hanja": "裂",
+      "sound": "열"
+    },
+    {
+      "hanja": "說",
+      "sound": "열"
+    },
+    {
+      "hanja": "咽",
+      "sound": "열"
+    },
+    {
+      "hanja": "潱",
+      "sound": "열"
+    },
+    {
+      "hanja": "念",
+      "sound": "염"
+    },
+    {
+      "hanja": "捻",
+      "sound": "염"
+    },
+    {
+      "hanja": "廉",
+      "sound": "염"
+    },
+    {
+      "hanja": "殮",
+      "sound": "염"
+    },
+    {
+      "hanja": "簾",
+      "sound": "염"
+    },
+    {
+      "hanja": "塩",
+      "sound": "염"
+    },
+    {
+      "hanja": "懕",
+      "sound": "염"
+    },
+    {
+      "hanja": "扊",
+      "sound": "염"
+    },
+    {
+      "hanja": "檶",
+      "sound": "염"
+    },
+    {
+      "hanja": "灎",
+      "sound": "염"
+    },
+    {
+      "hanja": "灩",
+      "sound": "염"
+    },
+    {
+      "hanja": "釅",
+      "sound": "염"
+    },
+    {
+      "hanja": "魘",
+      "sound": "염"
+    },
+    {
+      "hanja": "黶",
+      "sound": "염"
+    },
+    {
+      "hanja": "獵",
+      "sound": "엽"
+    },
+    {
+      "hanja": "曅",
+      "sound": "엽"
+    },
+    {
+      "hanja": "熀",
+      "sound": "엽",
+      "sounds": [
+        "엽",
+        "황"
+      ]
+    },
+    {
+      "hanja": "靨",
+      "sound": "엽"
+    },
+    {
+      "hanja": "寧",
+      "sound": "영"
+    },
+    {
+      "hanja": "令",
+      "sound": "영"
+    },
+    {
+      "hanja": "囹",
+      "sound": "영"
+    },
+    {
+      "hanja": "嶺",
+      "sound": "영"
+    },
+    {
+      "hanja": "怜",
+      "sound": "영"
+    },
+    {
+      "hanja": "玲",
+      "sound": "영"
+    },
+    {
+      "hanja": "羚",
+      "sound": "영"
+    },
+    {
+      "hanja": "聆",
+      "sound": "영"
+    },
+    {
+      "hanja": "鈴",
+      "sound": "영"
+    },
+    {
+      "hanja": "零",
+      "sound": "영"
+    },
+    {
+      "hanja": "靈",
+      "sound": "영"
+    },
+    {
+      "hanja": "領",
+      "sound": "영"
+    },
+    {
+      "hanja": "浧",
+      "sound": "영"
+    },
+    {
+      "hanja": "濴",
+      "sound": "영"
+    },
+    {
+      "hanja": "癭",
+      "sound": "영"
+    },
+    {
+      "hanja": "碤",
+      "sound": "영"
+    },
+    {
+      "hanja": "蠑",
+      "sound": "영"
+    },
+    {
+      "hanja": "韺",
+      "sound": "영"
+    },
+    {
+      "hanja": "瑩",
+      "sound": "영"
+    },
+    {
+      "hanja": "朠",
+      "sound": "영"
+    },
+    {
+      "hanja": "栄",
+      "sound": "영"
+    },
+    {
+      "hanja": "栐",
+      "sound": "영"
+    },
+    {
+      "hanja": "荣",
+      "sound": "영"
+    },
+    {
+      "hanja": "䀴",
+      "sound": "영"
+    },
+    {
+      "hanja": "例",
+      "sound": "예"
+    },
+    {
+      "hanja": "禮",
+      "sound": "예"
+    },
+    {
+      "hanja": "醴",
+      "sound": "예"
+    },
+    {
+      "hanja": "隷",
+      "sound": "예"
+    },
+    {
+      "hanja": "隸",
+      "sound": "예"
+    },
+    {
+      "hanja": "囈",
+      "sound": "예"
+    },
+    {
+      "hanja": "嫛",
+      "sound": "예"
+    },
+    {
+      "hanja": "拽",
+      "sound": "예"
+    },
+    {
+      "hanja": "掜",
+      "sound": "예"
+    },
+    {
+      "hanja": "枘",
+      "sound": "예"
+    },
+    {
+      "hanja": "獩",
+      "sound": "예"
+    },
+    {
+      "hanja": "瞖",
+      "sound": "예"
+    },
+    {
+      "hanja": "繄",
+      "sound": "예"
+    },
+    {
+      "hanja": "苅",
+      "sound": "예"
+    },
+    {
+      "hanja": "蕋",
+      "sound": "예"
+    },
+    {
+      "hanja": "薉",
+      "sound": "예"
+    },
+    {
+      "hanja": "蜺",
+      "sound": "예"
+    },
+    {
+      "hanja": "鯢",
+      "sound": "예"
+    },
+    {
+      "hanja": "埶",
+      "sound": "예"
+    },
+    {
+      "hanja": "壡",
+      "sound": "예"
+    },
+    {
+      "hanja": "嫕",
+      "sound": "예"
+    },
+    {
+      "hanja": "帠",
+      "sound": "예"
+    },
+    {
+      "hanja": "淣",
+      "sound": "예"
+    },
+    {
+      "hanja": "玴",
+      "sound": "예"
+    },
+    {
+      "hanja": "瘱",
+      "sound": "예"
+    },
+    {
+      "hanja": "郳",
+      "sound": "예"
+    },
+    {
+      "hanja": "㙯",
+      "sound": "예"
+    },
+    {
+      "hanja": "䜭",
+      "sound": "예",
+      "sounds": [
+        "예",
+        "준"
+      ]
+    },
+    {
+      "hanja": "䢃",
+      "sound": "예"
+    },
+    {
+      "hanja": "惡",
+      "sound": "오"
+    },
+    {
+      "hanja": "仵",
+      "sound": "오"
+    },
+    {
+      "hanja": "俣",
+      "sound": "오"
+    },
+    {
+      "hanja": "唔",
+      "sound": "오"
+    },
+    {
+      "hanja": "嗷",
+      "sound": "오"
+    },
+    {
+      "hanja": "噁",
+      "sound": "오"
+    },
+    {
+      "hanja": "圬",
+      "sound": "오"
+    },
+    {
+      "hanja": "媪",
+      "sound": "오",
+      "sounds": [
+        "오",
+        "온"
+      ]
+    },
+    {
+      "hanja": "嫯",
+      "sound": "오"
+    },
+    {
+      "hanja": "慠",
+      "sound": "오"
+    },
+    {
+      "hanja": "捂",
+      "sound": "오"
+    },
+    {
+      "hanja": "窹",
+      "sound": "오"
+    },
+    {
+      "hanja": "聱",
+      "sound": "오"
+    },
+    {
+      "hanja": "茣",
+      "sound": "오"
+    },
+    {
+      "hanja": "襖",
+      "sound": "오"
+    },
+    {
+      "hanja": "謷",
+      "sound": "오"
+    },
+    {
+      "hanja": "迃",
+      "sound": "오"
+    },
+    {
+      "hanja": "迕",
+      "sound": "오"
+    },
+    {
+      "hanja": "遨",
+      "sound": "오"
+    },
+    {
+      "hanja": "鏊",
+      "sound": "오"
+    },
+    {
+      "hanja": "鏖",
+      "sound": "오"
+    },
+    {
+      "hanja": "驁",
+      "sound": "오"
+    },
+    {
+      "hanja": "鼯",
+      "sound": "오"
+    },
+    {
+      "hanja": "浯",
+      "sound": "오"
+    },
+    {
+      "hanja": "䫨",
+      "sound": "오"
+    },
+    {
+      "hanja": "氳",
+      "sound": "온"
+    },
+    {
+      "hanja": "熅",
+      "sound": "온"
+    },
+    {
+      "hanja": "薀",
+      "sound": "온"
+    },
+    {
+      "hanja": "轀",
+      "sound": "온"
+    },
+    {
+      "hanja": "饂",
+      "sound": "온"
+    },
+    {
+      "hanja": "鰮",
+      "sound": "온"
+    },
+    {
+      "hanja": "榲",
+      "sound": "온"
+    },
+    {
+      "hanja": "稳",
+      "sound": "온"
+    },
+    {
+      "hanja": "馧",
+      "sound": "온"
+    },
+    {
+      "hanja": "嗢",
+      "sound": "올"
+    },
+    {
+      "hanja": "膃",
+      "sound": "올"
+    },
+    {
+      "hanja": "喁",
+      "sound": "옹"
+    },
+    {
+      "hanja": "滃",
+      "sound": "옹"
+    },
+    {
+      "hanja": "癕",
+      "sound": "옹"
+    },
+    {
+      "hanja": "禺",
+      "sound": "옹"
+    },
+    {
+      "hanja": "罋",
+      "sound": "옹"
+    },
+    {
+      "hanja": "蓊",
+      "sound": "옹"
+    },
+    {
+      "hanja": "哇",
+      "sound": "와"
+    },
+    {
+      "hanja": "囮",
+      "sound": "와"
+    },
+    {
+      "hanja": "婐",
+      "sound": "와"
+    },
+    {
+      "hanja": "枙",
+      "sound": "와"
+    },
+    {
+      "hanja": "洼",
+      "sound": "와"
+    },
+    {
+      "hanja": "猧",
+      "sound": "와"
+    },
+    {
+      "hanja": "窊",
+      "sound": "와"
+    },
+    {
+      "hanja": "萵",
+      "sound": "와"
+    },
+    {
+      "hanja": "譌",
+      "sound": "와"
+    },
+    {
+      "hanja": "刓",
+      "sound": "완"
+    },
+    {
+      "hanja": "妧",
+      "sound": "완"
+    },
+    {
+      "hanja": "岏",
+      "sound": "완"
+    },
+    {
+      "hanja": "忨",
+      "sound": "완"
+    },
+    {
+      "hanja": "惋",
+      "sound": "완"
+    },
+    {
+      "hanja": "涴",
+      "sound": "완"
+    },
+    {
+      "hanja": "杬",
+      "sound": "완",
+      "sounds": [
+        "완",
+        "원"
+      ]
+    },
+    {
+      "hanja": "鋺",
+      "sound": "완",
+      "sounds": [
+        "완",
+        "원"
+      ]
+    },
+    {
+      "hanja": "抏",
+      "sound": "완"
+    },
+    {
+      "hanja": "尫",
+      "sound": "왕"
+    },
+    {
+      "hanja": "瀇",
+      "sound": "왕"
+    },
+    {
+      "hanja": "迬",
+      "sound": "왕"
+    },
+    {
+      "hanja": "媧",
+      "sound": "왜"
+    },
+    {
+      "hanja": "偎",
+      "sound": "외"
+    },
+    {
+      "hanja": "崴",
+      "sound": "외"
+    },
+    {
+      "hanja": "嵔",
+      "sound": "외"
+    },
+    {
+      "hanja": "渨",
+      "sound": "외"
+    },
+    {
+      "hanja": "煨",
+      "sound": "외"
+    },
+    {
+      "hanja": "碨",
+      "sound": "외"
+    },
+    {
+      "hanja": "磈",
+      "sound": "외"
+    },
+    {
+      "hanja": "聵",
+      "sound": "외"
+    },
+    {
+      "hanja": "隗",
+      "sound": "외"
+    },
+    {
+      "hanja": "尿",
+      "sound": "요"
+    },
+    {
+      "hanja": "了",
+      "sound": "요"
+    },
+    {
+      "hanja": "僚",
+      "sound": "요"
+    },
+    {
+      "hanja": "寮",
+      "sound": "요"
+    },
+    {
+      "hanja": "料",
+      "sound": "요"
+    },
+    {
+      "hanja": "燎",
+      "sound": "요"
+    },
+    {
+      "hanja": "療",
+      "sound": "요"
+    },
+    {
+      "hanja": "蓼",
+      "sound": "요"
+    },
+    {
+      "hanja": "遼",
+      "sound": "요"
+    },
+    {
+      "hanja": "樂",
+      "sound": "요"
+    },
+    {
+      "hanja": "偠",
+      "sound": "요"
+    },
+    {
+      "hanja": "坳",
+      "sound": "요"
+    },
+    {
+      "hanja": "墝",
+      "sound": "요"
+    },
+    {
+      "hanja": "嬈",
+      "sound": "요"
+    },
+    {
+      "hanja": "幺",
+      "sound": "요"
+    },
+    {
+      "hanja": "澆",
+      "sound": "요"
+    },
+    {
+      "hanja": "祅",
+      "sound": "요"
+    },
+    {
+      "hanja": "穾",
+      "sound": "요"
+    },
+    {
+      "hanja": "窅",
+      "sound": "요"
+    },
+    {
+      "hanja": "遶",
+      "sound": "요"
+    },
+    {
+      "hanja": "鷂",
+      "sound": "요"
+    },
+    {
+      "hanja": "暚",
+      "sound": "요"
+    },
+    {
+      "hanja": "溽",
+      "sound": "욕"
+    },
+    {
+      "hanja": "蓐",
+      "sound": "욕"
+    },
+    {
+      "hanja": "龍",
+      "sound": "용"
+    },
+    {
+      "hanja": "傛",
+      "sound": "용"
+    },
+    {
+      "hanja": "嵱",
+      "sound": "용"
+    },
+    {
+      "hanja": "慵",
+      "sound": "용"
+    },
+    {
+      "hanja": "憃",
+      "sound": "용"
+    },
+    {
+      "hanja": "槦",
+      "sound": "용"
+    },
+    {
+      "hanja": "硧",
+      "sound": "용"
+    },
+    {
+      "hanja": "舂",
+      "sound": "용"
+    },
+    {
+      "hanja": "蛹",
+      "sound": "용"
+    },
+    {
+      "hanja": "㦶",
+      "sound": "용"
+    },
+    {
+      "hanja": "亏",
+      "sound": "우"
+    },
+    {
+      "hanja": "亴",
+      "sound": "우"
+    },
+    {
+      "hanja": "偊",
+      "sound": "우"
+    },
+    {
+      "hanja": "庽",
+      "sound": "우"
+    },
+    {
+      "hanja": "杅",
+      "sound": "우"
+    },
+    {
+      "hanja": "疣",
+      "sound": "우"
+    },
+    {
+      "hanja": "竽",
+      "sound": "우"
+    },
+    {
+      "hanja": "謣",
+      "sound": "우"
+    },
+    {
+      "hanja": "鍝",
+      "sound": "우"
+    },
+    {
+      "hanja": "齲",
+      "sound": "우"
+    },
+    {
+      "hanja": "圩",
+      "sound": "우"
+    },
+    {
+      "hanja": "慪",
+      "sound": "우"
+    },
+    {
+      "hanja": "扜",
+      "sound": "우"
+    },
+    {
+      "hanja": "盓",
+      "sound": "우"
+    },
+    {
+      "hanja": "邘",
+      "sound": "우"
+    },
+    {
+      "hanja": "㥥",
+      "sound": "우"
+    },
+    {
+      "hanja": "㲾",
+      "sound": "우"
+    },
+    {
+      "hanja": "䨒",
+      "sound": "우"
+    },
+    {
+      "hanja": "惲",
+      "sound": "운"
+    },
+    {
+      "hanja": "紜",
+      "sound": "운"
+    },
+    {
+      "hanja": "霣",
+      "sound": "운"
+    },
+    {
+      "hanja": "韵",
+      "sound": "운"
+    },
+    {
+      "hanja": "暈",
+      "sound": "운"
+    },
+    {
+      "hanja": "夽",
+      "sound": "운"
+    },
+    {
+      "hanja": "賱",
+      "sound": "운"
+    },
+    {
+      "hanja": "鄖",
+      "sound": "운"
+    },
+    {
+      "hanja": "䆬",
+      "sound": "운"
+    },
+    {
+      "hanja": "䉙",
+      "sound": "운"
+    },
+    {
+      "hanja": "䫟",
+      "sound": "운",
+      "sounds": [
+        "운",
+        "혼"
+      ]
+    },
+    {
+      "hanja": "阮",
+      "sound": "원"
+    },
+    {
+      "hanja": "楥",
+      "sound": "원"
+    },
+    {
+      "hanja": "猨",
+      "sound": "원"
+    },
+    {
+      "hanja": "綩",
+      "sound": "원"
+    },
+    {
+      "hanja": "芫",
+      "sound": "원"
+    },
+    {
+      "hanja": "薗",
+      "sound": "원"
+    },
+    {
+      "hanja": "蜿",
+      "sound": "원"
+    },
+    {
+      "hanja": "謜",
+      "sound": "원"
+    },
+    {
+      "hanja": "鵷",
+      "sound": "원"
+    },
+    {
+      "hanja": "倇",
+      "sound": "원"
+    },
+    {
+      "hanja": "朊",
+      "sound": "원"
+    },
+    {
+      "hanja": "笎",
+      "sound": "원"
+    },
+    {
+      "hanja": "褑",
+      "sound": "원"
+    },
+    {
+      "hanja": "貟",
+      "sound": "원"
+    },
+    {
+      "hanja": "邍",
+      "sound": "원"
+    },
+    {
+      "hanja": "粤",
+      "sound": "월"
+    },
+    {
+      "hanja": "幃",
+      "sound": "위"
+    },
+    {
+      "hanja": "熨",
+      "sound": "위"
+    },
+    {
+      "hanja": "痿",
+      "sound": "위"
+    },
+    {
+      "hanja": "葳",
+      "sound": "위"
+    },
+    {
+      "hanja": "衞",
+      "sound": "위"
+    },
+    {
+      "hanja": "諉",
+      "sound": "위"
+    },
+    {
+      "hanja": "逶",
+      "sound": "위"
+    },
+    {
+      "hanja": "韙",
+      "sound": "위"
+    },
+    {
+      "hanja": "餧",
+      "sound": "위"
+    },
+    {
+      "hanja": "骪",
+      "sound": "위"
+    },
+    {
+      "hanja": "杻",
+      "sound": "유"
+    },
+    {
+      "hanja": "紐",
+      "sound": "유"
+    },
+    {
+      "hanja": "劉",
+      "sound": "유"
+    },
+    {
+      "hanja": "柳",
+      "sound": "유"
+    },
+    {
+      "hanja": "流",
+      "sound": "유"
+    },
+    {
+      "hanja": "溜",
+      "sound": "유"
+    },
+    {
+      "hanja": "琉",
+      "sound": "유"
+    },
+    {
+      "hanja": "留",
+      "sound": "유"
+    },
+    {
+      "hanja": "硫",
+      "sound": "유"
+    },
+    {
+      "hanja": "類",
+      "sound": "유"
+    },
+    {
+      "hanja": "冘",
+      "sound": "유"
+    },
+    {
+      "hanja": "壝",
+      "sound": "유"
+    },
+    {
+      "hanja": "斿",
+      "sound": "유"
+    },
+    {
+      "hanja": "泑",
+      "sound": "유"
+    },
+    {
+      "hanja": "瘉",
+      "sound": "유"
+    },
+    {
+      "hanja": "瘐",
+      "sound": "유"
+    },
+    {
+      "hanja": "窳",
+      "sound": "유"
+    },
+    {
+      "hanja": "糅",
+      "sound": "유"
+    },
+    {
+      "hanja": "腴",
+      "sound": "유"
+    },
+    {
+      "hanja": "蕕",
+      "sound": "유"
+    },
+    {
+      "hanja": "蕤",
+      "sound": "유"
+    },
+    {
+      "hanja": "蚰",
+      "sound": "유"
+    },
+    {
+      "hanja": "蚴",
+      "sound": "유"
+    },
+    {
+      "hanja": "褕",
+      "sound": "유"
+    },
+    {
+      "hanja": "讉",
+      "sound": "유"
+    },
+    {
+      "hanja": "逌",
+      "sound": "유"
+    },
+    {
+      "hanja": "鞣",
+      "sound": "유"
+    },
+    {
+      "hanja": "鼬",
+      "sound": "유"
+    },
+    {
+      "hanja": "俞",
+      "sound": "유"
+    },
+    {
+      "hanja": "姷",
+      "sound": "유"
+    },
+    {
+      "hanja": "婑",
+      "sound": "유"
+    },
+    {
+      "hanja": "湵",
+      "sound": "유"
+    },
+    {
+      "hanja": "琟",
+      "sound": "유"
+    },
+    {
+      "hanja": "瑈",
+      "sound": "유"
+    },
+    {
+      "hanja": "甤",
+      "sound": "유"
+    },
+    {
+      "hanja": "聈",
+      "sound": "유"
+    },
+    {
+      "hanja": "㴗",
+      "sound": "유"
+    },
+    {
+      "hanja": "六",
+      "sound": "육"
+    },
+    {
+      "hanja": "戮",
+      "sound": "육"
+    },
+    {
+      "hanja": "陸",
+      "sound": "육"
+    },
+    {
+      "hanja": "儥",
+      "sound": "육"
+    },
+    {
+      "hanja": "倫",
+      "sound": "윤"
+    },
+    {
+      "hanja": "崙",
+      "sound": "윤"
+    },
+    {
+      "hanja": "淪",
+      "sound": "윤"
+    },
+    {
+      "hanja": "輪",
+      "sound": "윤"
+    },
+    {
+      "hanja": "昀",
+      "sound": "윤"
+    },
+    {
+      "hanja": "鋆",
+      "sound": "윤"
+    },
+    {
+      "hanja": "橍",
+      "sound": "윤"
+    },
+    {
+      "hanja": "荺",
+      "sound": "윤"
+    },
+    {
+      "hanja": "閠",
+      "sound": "윤"
+    },
+    {
+      "hanja": "㣧",
+      "sound": "윤"
+    },
+    {
+      "hanja": "䦞",
+      "sound": "윤"
+    },
+    {
+      "hanja": "律",
+      "sound": "율"
+    },
+    {
+      "hanja": "慄",
+      "sound": "율"
+    },
+    {
+      "hanja": "栗",
+      "sound": "율"
+    },
+    {
+      "hanja": "率",
+      "sound": "율"
+    },
+    {
+      "hanja": "潏",
+      "sound": "율"
+    },
+    {
+      "hanja": "矞",
+      "sound": "율"
+    },
+    {
+      "hanja": "燏",
+      "sound": "율"
+    },
+    {
+      "hanja": "䫻",
+      "sound": "율"
+    },
+    {
+      "hanja": "隆",
+      "sound": "융"
+    },
+    {
+      "hanja": "狨",
+      "sound": "융"
+    },
+    {
+      "hanja": "听",
+      "sound": "은"
+    },
+    {
+      "hanja": "圁",
+      "sound": "은"
+    },
+    {
+      "hanja": "垽",
+      "sound": "은"
+    },
+    {
+      "hanja": "狺",
+      "sound": "은"
+    },
+    {
+      "hanja": "珢",
+      "sound": "은"
+    },
+    {
+      "hanja": "癮",
+      "sound": "은"
+    },
+    {
+      "hanja": "鄞",
+      "sound": "은"
+    },
+    {
+      "hanja": "齗",
+      "sound": "은"
+    },
+    {
+      "hanja": "訢",
+      "sound": "은",
+      "sounds": [
+        "은",
+        "흔"
+      ]
+    },
+    {
+      "hanja": "嶾",
+      "sound": "은"
+    },
+    {
+      "hanja": "檃",
+      "sound": "은"
+    },
+    {
+      "hanja": "泿",
+      "sound": "은"
+    },
+    {
+      "hanja": "濦",
+      "sound": "은"
+    },
+    {
+      "hanja": "蒑",
+      "sound": "은"
+    },
+    {
+      "hanja": "蒽",
+      "sound": "은"
+    },
+    {
+      "hanja": "蘟",
+      "sound": "은"
+    },
+    {
+      "hanja": "㒚",
+      "sound": "은"
+    },
+    {
+      "hanja": "鳦",
+      "sound": "을"
+    },
+    {
+      "hanja": "圪",
+      "sound": "을"
+    },
+    {
+      "hanja": "喑",
+      "sound": "음"
+    },
+    {
+      "hanja": "崟",
+      "sound": "음"
+    },
+    {
+      "hanja": "廕",
+      "sound": "음"
+    },
+    {
+      "hanja": "愔",
+      "sound": "음"
+    },
+    {
+      "hanja": "霪",
+      "sound": "음"
+    },
+    {
+      "hanja": "韾",
+      "sound": "음"
+    },
+    {
+      "hanja": "悒",
+      "sound": "읍"
+    },
+    {
+      "hanja": "儗",
+      "sound": "의"
+    },
+    {
+      "hanja": "凒",
+      "sound": "의"
+    },
+    {
+      "hanja": "欹",
+      "sound": "의"
+    },
+    {
+      "hanja": "漪",
+      "sound": "의"
+    },
+    {
+      "hanja": "礒",
+      "sound": "의"
+    },
+    {
+      "hanja": "螘",
+      "sound": "의"
+    },
+    {
+      "hanja": "㛄",
+      "sound": "의"
+    },
+    {
+      "hanja": "泥",
+      "sound": "이"
+    },
+    {
+      "hanja": "利",
+      "sound": "이"
+    },
+    {
+      "hanja": "吏",
+      "sound": "이"
+    },
+    {
+      "hanja": "履",
+      "sound": "이"
+    },
+    {
+      "hanja": "李",
+      "sound": "이"
+    },
+    {
+      "hanja": "梨",
+      "sound": "이"
+    },
+    {
+      "hanja": "理",
+      "sound": "이"
+    },
+    {
+      "hanja": "痢",
+      "sound": "이"
+    },
+    {
+      "hanja": "罹",
+      "sound": "이"
+    },
+    {
+      "hanja": "裏",
+      "sound": "이"
+    },
+    {
+      "hanja": "裡",
+      "sound": "이"
+    },
+    {
+      "hanja": "里",
+      "sound": "이"
+    },
+    {
+      "hanja": "離",
+      "sound": "이"
+    },
+    {
+      "hanja": "易",
+      "sound": "이"
+    },
+    {
+      "hanja": "咿",
+      "sound": "이"
+    },
+    {
+      "hanja": "坨",
+      "sound": "이",
+      "sounds": [
+        "이",
+        "타"
+      ]
+    },
+    {
+      "hanja": "尔",
+      "sound": "이"
+    },
+    {
+      "hanja": "栮",
+      "sound": "이"
+    },
+    {
+      "hanja": "珆",
+      "sound": "이",
+      "sounds": [
+        "이",
+        "태"
+      ]
+    },
+    {
+      "hanja": "詑",
+      "sound": "이",
+      "sounds": [
+        "이",
+        "타"
+      ]
+    },
+    {
+      "hanja": "隶",
+      "sound": "이"
+    },
+    {
+      "hanja": "佴",
+      "sound": "이"
+    },
+    {
+      "hanja": "媐",
+      "sound": "이"
+    },
+    {
+      "hanja": "巸",
+      "sound": "이"
+    },
+    {
+      "hanja": "廙",
+      "sound": "이"
+    },
+    {
+      "hanja": "羡",
+      "sound": "이"
+    },
+    {
+      "hanja": "鴯",
+      "sound": "이"
+    },
+    {
+      "hanja": "㛅",
+      "sound": "이"
+    },
+    {
+      "hanja": "䏪",
+      "sound": "이"
+    },
+    {
+      "hanja": "匿",
+      "sound": "익"
+    },
+    {
+      "hanja": "溺",
+      "sound": "익"
+    },
+    {
+      "hanja": "熤",
+      "sound": "익"
+    },
+    {
+      "hanja": "鷁",
+      "sound": "익"
+    },
+    {
+      "hanja": "吝",
+      "sound": "인"
+    },
+    {
+      "hanja": "燐",
+      "sound": "인"
+    },
+    {
+      "hanja": "璘",
+      "sound": "인"
+    },
+    {
+      "hanja": "藺",
+      "sound": "인"
+    },
+    {
+      "hanja": "隣",
+      "sound": "인"
+    },
+    {
+      "hanja": "鱗",
+      "sound": "인"
+    },
+    {
+      "hanja": "麟",
+      "sound": "인"
+    },
+    {
+      "hanja": "堙",
+      "sound": "인"
+    },
+    {
+      "hanja": "婣",
+      "sound": "인"
+    },
+    {
+      "hanja": "扨",
+      "sound": "인"
+    },
+    {
+      "hanja": "氤",
+      "sound": "인"
+    },
+    {
+      "hanja": "洇",
+      "sound": "인"
+    },
+    {
+      "hanja": "籾",
+      "sound": "인"
+    },
+    {
+      "hanja": "芢",
+      "sound": "인"
+    },
+    {
+      "hanja": "裀",
+      "sound": "인"
+    },
+    {
+      "hanja": "儿",
+      "sound": "인"
+    },
+    {
+      "hanja": "忈",
+      "sound": "인"
+    },
+    {
+      "hanja": "忎",
+      "sound": "인"
+    },
+    {
+      "hanja": "朄",
+      "sound": "인"
+    },
+    {
+      "hanja": "濥",
+      "sound": "인"
+    },
+    {
+      "hanja": "璌",
+      "sound": "인"
+    },
+    {
+      "hanja": "秵",
+      "sound": "인"
+    },
+    {
+      "hanja": "諲",
+      "sound": "인"
+    },
+    {
+      "hanja": "韌",
+      "sound": "인"
+    },
+    {
+      "hanja": "㲽",
+      "sound": "인"
+    },
+    {
+      "hanja": "軼",
+      "sound": "일"
+    },
+    {
+      "hanja": "劮",
+      "sound": "일"
+    },
+    {
+      "hanja": "林",
+      "sound": "임"
+    },
+    {
+      "hanja": "淋",
+      "sound": "임"
+    },
+    {
+      "hanja": "臨",
+      "sound": "임"
+    },
+    {
+      "hanja": "絍",
+      "sound": "임"
+    },
+    {
+      "hanja": "銋",
+      "sound": "임"
+    },
+    {
+      "hanja": "飪",
+      "sound": "임"
+    },
+    {
+      "hanja": "䚾",
+      "sound": "임"
+    },
+    {
+      "hanja": "䛘",
+      "sound": "임"
+    },
+    {
+      "hanja": "立",
+      "sound": "입"
+    },
+    {
+      "hanja": "笠",
+      "sound": "입"
+    },
+    {
+      "hanja": "粒",
+      "sound": "입"
+    },
+    {
+      "hanja": "廿",
+      "sound": "입"
+    },
+    {
+      "hanja": "媵",
+      "sound": "잉"
+    },
+    {
+      "hanja": "呰",
+      "sound": "자"
+    },
+    {
+      "hanja": "嬨",
+      "sound": "자"
+    },
+    {
+      "hanja": "孖",
+      "sound": "자"
+    },
+    {
+      "hanja": "牸",
+      "sound": "자"
+    },
+    {
+      "hanja": "眥",
+      "sound": "자"
+    },
+    {
+      "hanja": "眦",
+      "sound": "자"
+    },
+    {
+      "hanja": "茈",
+      "sound": "자"
+    },
+    {
+      "hanja": "莿",
+      "sound": "자"
+    },
+    {
+      "hanja": "虸",
+      "sound": "자"
+    },
+    {
+      "hanja": "觜",
+      "sound": "자"
+    },
+    {
+      "hanja": "頿",
+      "sound": "자"
+    },
+    {
+      "hanja": "髭",
+      "sound": "자"
+    },
+    {
+      "hanja": "鮓",
+      "sound": "자"
+    },
+    {
+      "hanja": "鶿",
+      "sound": "자"
+    },
+    {
+      "hanja": "鷓",
+      "sound": "자"
+    },
+    {
+      "hanja": "姊",
+      "sound": "자"
+    },
+    {
+      "hanja": "秄",
+      "sound": "자"
+    },
+    {
+      "hanja": "岝",
+      "sound": "작"
+    },
+    {
+      "hanja": "怍",
+      "sound": "작"
+    },
+    {
+      "hanja": "斱",
+      "sound": "작"
+    },
+    {
+      "hanja": "汋",
+      "sound": "작"
+    },
+    {
+      "hanja": "焯",
+      "sound": "작"
+    },
+    {
+      "hanja": "犳",
+      "sound": "작"
+    },
+    {
+      "hanja": "碏",
+      "sound": "작"
+    },
+    {
+      "hanja": "剗",
+      "sound": "잔"
+    },
+    {
+      "hanja": "戔",
+      "sound": "잔"
+    },
+    {
+      "hanja": "驏",
+      "sound": "잔"
+    },
+    {
+      "hanja": "涔",
+      "sound": "잠"
+    },
+    {
+      "hanja": "潜",
+      "sound": "잠"
+    },
+    {
+      "hanja": "濳",
+      "sound": "잠"
+    },
+    {
+      "hanja": "卡",
+      "sound": "잡"
+    },
+    {
+      "hanja": "囃",
+      "sound": "잡"
+    },
+    {
+      "hanja": "眨",
+      "sound": "잡"
+    },
+    {
+      "hanja": "磼",
+      "sound": "잡"
+    },
+    {
+      "hanja": "襍",
+      "sound": "잡"
+    },
+    {
+      "hanja": "狀",
+      "sound": "장"
+    },
+    {
+      "hanja": "奬",
+      "sound": "장"
+    },
+    {
+      "hanja": "傽",
+      "sound": "장"
+    },
+    {
+      "hanja": "妝",
+      "sound": "장"
+    },
+    {
+      "hanja": "嬙",
+      "sound": "장"
+    },
+    {
+      "hanja": "嶂",
+      "sound": "장"
+    },
+    {
+      "hanja": "廧",
+      "sound": "장"
+    },
+    {
+      "hanja": "瘴",
+      "sound": "장"
+    },
+    {
+      "hanja": "糚",
+      "sound": "장"
+    },
+    {
+      "hanja": "羘",
+      "sound": "장"
+    },
+    {
+      "hanja": "装",
+      "sound": "장"
+    },
+    {
+      "hanja": "賬",
+      "sound": "장"
+    },
+    {
+      "hanja": "鄣",
+      "sound": "장"
+    },
+    {
+      "hanja": "餦",
+      "sound": "장"
+    },
+    {
+      "hanja": "麞",
+      "sound": "장"
+    },
+    {
+      "hanja": "壮",
+      "sound": "장"
+    },
+    {
+      "hanja": "将",
+      "sound": "장"
+    },
+    {
+      "hanja": "夈",
+      "sound": "재"
+    },
+    {
+      "hanja": "崽",
+      "sound": "재"
+    },
+    {
+      "hanja": "扗",
+      "sound": "재"
+    },
+    {
+      "hanja": "榟",
+      "sound": "재"
+    },
+    {
+      "hanja": "捚",
+      "sound": "재"
+    },
+    {
+      "hanja": "溨",
+      "sound": "재"
+    },
+    {
+      "hanja": "賳",
+      "sound": "재"
+    },
+    {
+      "hanja": "崢",
+      "sound": "쟁"
+    },
+    {
+      "hanja": "猙",
+      "sound": "쟁"
+    },
+    {
+      "hanja": "琤",
+      "sound": "쟁"
+    },
+    {
+      "hanja": "鎗",
+      "sound": "쟁"
+    },
+    {
+      "hanja": "宁",
+      "sound": "저"
+    },
+    {
+      "hanja": "岨",
+      "sound": "저"
+    },
+    {
+      "hanja": "柢",
+      "sound": "저"
+    },
+    {
+      "hanja": "潴",
+      "sound": "저"
+    },
+    {
+      "hanja": "瀦",
+      "sound": "저"
+    },
+    {
+      "hanja": "牴",
+      "sound": "저"
+    },
+    {
+      "hanja": "蛆",
+      "sound": "저"
+    },
+    {
+      "hanja": "袛",
+      "sound": "저"
+    },
+    {
+      "hanja": "褚",
+      "sound": "저"
+    },
+    {
+      "hanja": "詆",
+      "sound": "저"
+    },
+    {
+      "hanja": "陼",
+      "sound": "저"
+    },
+    {
+      "hanja": "炙",
+      "sound": "적"
+    },
+    {
+      "hanja": "樀",
+      "sound": "적"
+    },
+    {
+      "hanja": "磧",
+      "sound": "적"
+    },
+    {
+      "hanja": "菂",
+      "sound": "적"
+    },
+    {
+      "hanja": "馰",
+      "sound": "적"
+    },
+    {
+      "hanja": "吮",
+      "sound": "전"
+    },
+    {
+      "hanja": "囀",
+      "sound": "전"
+    },
+    {
+      "hanja": "嫥",
+      "sound": "전"
+    },
+    {
+      "hanja": "屇",
+      "sound": "전"
+    },
+    {
+      "hanja": "揃",
+      "sound": "전"
+    },
+    {
+      "hanja": "栴",
+      "sound": "전"
+    },
+    {
+      "hanja": "槇",
+      "sound": "전",
+      "sounds": [
+        "전",
+        "진"
+      ]
+    },
+    {
+      "hanja": "湔",
+      "sound": "전"
+    },
+    {
+      "hanja": "澶",
+      "sound": "전"
+    },
+    {
+      "hanja": "牋",
+      "sound": "전"
+    },
+    {
+      "hanja": "甎",
+      "sound": "전"
+    },
+    {
+      "hanja": "畠",
+      "sound": "전"
+    },
+    {
+      "hanja": "痊",
+      "sound": "전"
+    },
+    {
+      "hanja": "癜",
+      "sound": "전"
+    },
+    {
+      "hanja": "磚",
+      "sound": "전"
+    },
+    {
+      "hanja": "籛",
+      "sound": "전"
+    },
+    {
+      "hanja": "羶",
+      "sound": "전"
+    },
+    {
+      "hanja": "膞",
+      "sound": "전"
+    },
+    {
+      "hanja": "躔",
+      "sound": "전"
+    },
+    {
+      "hanja": "輇",
+      "sound": "전"
+    },
+    {
+      "hanja": "鄽",
+      "sound": "전"
+    },
+    {
+      "hanja": "鋑",
+      "sound": "전"
+    },
+    {
+      "hanja": "錪",
+      "sound": "전"
+    },
+    {
+      "hanja": "靛",
+      "sound": "전"
+    },
+    {
+      "hanja": "餰",
+      "sound": "전"
+    },
+    {
+      "hanja": "鬋",
+      "sound": "전"
+    },
+    {
+      "hanja": "鸇",
+      "sound": "전"
+    },
+    {
+      "hanja": "岊",
+      "sound": "절"
+    },
+    {
+      "hanja": "窃",
+      "sound": "절"
+    },
+    {
+      "hanja": "絕",
+      "sound": "절"
+    },
+    {
+      "hanja": "佔",
+      "sound": "점"
+    },
+    {
+      "hanja": "笘",
+      "sound": "점"
+    },
+    {
+      "hanja": "苫",
+      "sound": "점"
+    },
+    {
+      "hanja": "蔪",
+      "sound": "점"
+    },
+    {
+      "hanja": "蛅",
+      "sound": "점"
+    },
+    {
+      "hanja": "颭",
+      "sound": "점"
+    },
+    {
+      "hanja": "黏",
+      "sound": "점"
+    },
+    {
+      "hanja": "奌",
+      "sound": "점"
+    },
+    {
+      "hanja": "椄",
+      "sound": "접"
+    },
+    {
+      "hanja": "楪",
+      "sound": "접"
+    },
+    {
+      "hanja": "蜨",
+      "sound": "접"
+    },
+    {
+      "hanja": "跕",
+      "sound": "접"
+    },
+    {
+      "hanja": "蹀",
+      "sound": "접"
+    },
+    {
+      "hanja": "鰈",
+      "sound": "접"
+    },
+    {
+      "hanja": "佂",
+      "sound": "정"
+    },
+    {
+      "hanja": "叮",
+      "sound": "정"
+    },
+    {
+      "hanja": "婧",
+      "sound": "정",
+      "sounds": [
+        "정",
+        "청"
+      ]
+    },
+    {
+      "hanja": "婷",
+      "sound": "정"
+    },
+    {
+      "hanja": "怔",
+      "sound": "정"
+    },
+    {
+      "hanja": "掟",
+      "sound": "정"
+    },
+    {
+      "hanja": "灯",
+      "sound": "정"
+    },
+    {
+      "hanja": "疔",
+      "sound": "정"
+    },
+    {
+      "hanja": "筳",
+      "sound": "정"
+    },
+    {
+      "hanja": "莛",
+      "sound": "정"
+    },
+    {
+      "hanja": "証",
+      "sound": "정"
+    },
+    {
+      "hanja": "遉",
+      "sound": "정"
+    },
+    {
+      "hanja": "侹",
+      "sound": "정"
+    },
+    {
+      "hanja": "埩",
+      "sound": "정"
+    },
+    {
+      "hanja": "妌",
+      "sound": "정"
+    },
+    {
+      "hanja": "朾",
+      "sound": "정"
+    },
+    {
+      "hanja": "眐",
+      "sound": "정"
+    },
+    {
+      "hanja": "靘",
+      "sound": "정"
+    },
+    {
+      "hanja": "静",
+      "sound": "정"
+    },
+    {
+      "hanja": "頲",
+      "sound": "정"
+    },
+    {
+      "hanja": "儕",
+      "sound": "제"
+    },
+    {
+      "hanja": "擠",
+      "sound": "제"
+    },
+    {
+      "hanja": "猘",
+      "sound": "제"
+    },
+    {
+      "hanja": "睇",
+      "sound": "제"
+    },
+    {
+      "hanja": "緹",
+      "sound": "제"
+    },
+    {
+      "hanja": "踶",
+      "sound": "제"
+    },
+    {
+      "hanja": "蹏",
+      "sound": "제"
+    },
+    {
+      "hanja": "鍗",
+      "sound": "제"
+    },
+    {
+      "hanja": "韲",
+      "sound": "제"
+    },
+    {
+      "hanja": "鮧",
+      "sound": "제"
+    },
+    {
+      "hanja": "鯷",
+      "sound": "제"
+    },
+    {
+      "hanja": "偙",
+      "sound": "제"
+    },
+    {
+      "hanja": "姼",
+      "sound": "제"
+    },
+    {
+      "hanja": "済",
+      "sound": "제"
+    },
+    {
+      "hanja": "傮",
+      "sound": "조"
+    },
+    {
+      "hanja": "刁",
+      "sound": "조"
+    },
+    {
+      "hanja": "厝",
+      "sound": "조"
+    },
+    {
+      "hanja": "嘈",
+      "sound": "조"
+    },
+    {
+      "hanja": "噪",
+      "sound": "조"
+    },
+    {
+      "hanja": "嬥",
+      "sound": "조"
+    },
+    {
+      "hanja": "找",
+      "sound": "조"
+    },
+    {
+      "hanja": "澡",
+      "sound": "조"
+    },
+    {
+      "hanja": "琱",
+      "sound": "조"
+    },
+    {
+      "hanja": "祧",
+      "sound": "조"
+    },
+    {
+      "hanja": "笊",
+      "sound": "조"
+    },
+    {
+      "hanja": "糙",
+      "sound": "조"
+    },
+    {
+      "hanja": "糶",
+      "sound": "조"
+    },
+    {
+      "hanja": "絩",
+      "sound": "조"
+    },
+    {
+      "hanja": "絛",
+      "sound": "조"
+    },
+    {
+      "hanja": "胙",
+      "sound": "조"
+    },
+    {
+      "hanja": "臊",
+      "sound": "조"
+    },
+    {
+      "hanja": "艚",
+      "sound": "조"
+    },
+    {
+      "hanja": "誂",
+      "sound": "조"
+    },
+    {
+      "hanja": "譟",
+      "sound": "조"
+    },
+    {
+      "hanja": "鈟",
+      "sound": "조"
+    },
+    {
+      "hanja": "銚",
+      "sound": "조"
+    },
+    {
+      "hanja": "鋽",
+      "sound": "조"
+    },
+    {
+      "hanja": "鯛",
+      "sound": "조"
+    },
+    {
+      "hanja": "鵰",
+      "sound": "조"
+    },
+    {
+      "hanja": "嶆",
+      "sound": "조"
+    },
+    {
+      "hanja": "瘯",
+      "sound": "족"
+    },
+    {
+      "hanja": "拵",
+      "sound": "존"
+    },
+    {
+      "hanja": "伀",
+      "sound": "종"
+    },
+    {
+      "hanja": "慒",
+      "sound": "종"
+    },
+    {
+      "hanja": "柊",
+      "sound": "종"
+    },
+    {
+      "hanja": "瘇",
+      "sound": "종"
+    },
+    {
+      "hanja": "粽",
+      "sound": "종"
+    },
+    {
+      "hanja": "剉",
+      "sound": "좌"
+    },
+    {
+      "hanja": "痤",
+      "sound": "좌"
+    },
+    {
+      "hanja": "莝",
+      "sound": "좌"
+    },
+    {
+      "hanja": "髽",
+      "sound": "좌"
+    },
+    {
+      "hanja": "丟",
+      "sound": "주"
+    },
+    {
+      "hanja": "儔",
+      "sound": "주"
+    },
+    {
+      "hanja": "尌",
+      "sound": "주"
+    },
+    {
+      "hanja": "拄",
+      "sound": "주"
+    },
+    {
+      "hanja": "硃",
+      "sound": "주"
+    },
+    {
+      "hanja": "籒",
+      "sound": "주"
+    },
+    {
+      "hanja": "肘",
+      "sound": "주"
+    },
+    {
+      "hanja": "腠",
+      "sound": "주"
+    },
+    {
+      "hanja": "蔟",
+      "sound": "주"
+    },
+    {
+      "hanja": "蛀",
+      "sound": "주"
+    },
+    {
+      "hanja": "詋",
+      "sound": "주"
+    },
+    {
+      "hanja": "賙",
+      "sound": "주"
+    },
+    {
+      "hanja": "趎",
+      "sound": "주"
+    },
+    {
+      "hanja": "鉒",
+      "sound": "주"
+    },
+    {
+      "hanja": "霌",
+      "sound": "주"
+    },
+    {
+      "hanja": "鼄",
+      "sound": "주"
+    },
+    {
+      "hanja": "晭",
+      "sound": "주"
+    },
+    {
+      "hanja": "椆",
+      "sound": "주"
+    },
+    {
+      "hanja": "珘",
+      "sound": "주"
+    },
+    {
+      "hanja": "皗",
+      "sound": "주"
+    },
+    {
+      "hanja": "紸",
+      "sound": "주"
+    },
+    {
+      "hanja": "絑",
+      "sound": "주"
+    },
+    {
+      "hanja": "逎",
+      "sound": "주"
+    },
+    {
+      "hanja": "㫶",
+      "sound": "주"
+    },
+    {
+      "hanja": "䎻",
+      "sound": "주"
+    },
+    {
+      "hanja": "䝬",
+      "sound": "주"
+    },
+    {
+      "hanja": "墫",
+      "sound": "준"
+    },
+    {
+      "hanja": "惷",
+      "sound": "준"
+    },
+    {
+      "hanja": "撙",
+      "sound": "준"
+    },
+    {
+      "hanja": "皴",
+      "sound": "준"
+    },
+    {
+      "hanja": "綧",
+      "sound": "준"
+    },
+    {
+      "hanja": "罇",
+      "sound": "준"
+    },
+    {
+      "hanja": "踆",
+      "sound": "준"
+    },
+    {
+      "hanja": "鐏",
+      "sound": "준"
+    },
+    {
+      "hanja": "餕",
+      "sound": "준"
+    },
+    {
+      "hanja": "鵔",
+      "sound": "준"
+    },
+    {
+      "hanja": "僔",
+      "sound": "준"
+    },
+    {
+      "hanja": "凖",
+      "sound": "준"
+    },
+    {
+      "hanja": "懏",
+      "sound": "준"
+    },
+    {
+      "hanja": "睃",
+      "sound": "준"
+    },
+    {
+      "hanja": "竴",
+      "sound": "준"
+    },
+    {
+      "hanja": "葰",
+      "sound": "준"
+    },
+    {
+      "hanja": "迿",
+      "sound": "준"
+    },
+    {
+      "hanja": "陖",
+      "sound": "준"
+    },
+    {
+      "hanja": "乼",
+      "sound": "줄"
+    },
+    {
+      "hanja": "眾",
+      "sound": "중"
+    },
+    {
+      "hanja": "即",
+      "sound": "즉"
+    },
+    {
+      "hanja": "喞",
+      "sound": "즉"
+    },
+    {
+      "hanja": "檝",
+      "sound": "즙"
+    },
+    {
+      "hanja": "蕺",
+      "sound": "즙"
+    },
+    {
+      "hanja": "嶒",
+      "sound": "증"
+    },
+    {
+      "hanja": "矰",
+      "sound": "증"
+    },
+    {
+      "hanja": "罾",
+      "sound": "증"
+    },
+    {
+      "hanja": "識",
+      "sound": "지"
+    },
+    {
+      "hanja": "墀",
+      "sound": "지"
+    },
+    {
+      "hanja": "扺",
+      "sound": "지"
+    },
+    {
+      "hanja": "榰",
+      "sound": "지"
+    },
+    {
+      "hanja": "泜",
+      "sound": "지"
+    },
+    {
+      "hanja": "痣",
+      "sound": "지"
+    },
+    {
+      "hanja": "秪",
+      "sound": "지"
+    },
+    {
+      "hanja": "舐",
+      "sound": "지"
+    },
+    {
+      "hanja": "躓",
+      "sound": "지"
+    },
+    {
+      "hanja": "軹",
+      "sound": "지"
+    },
+    {
+      "hanja": "阯",
+      "sound": "지"
+    },
+    {
+      "hanja": "鮨",
+      "sound": "지"
+    },
+    {
+      "hanja": "鷙",
+      "sound": "지"
+    },
+    {
+      "hanja": "劧",
+      "sound": "지"
+    },
+    {
+      "hanja": "厎",
+      "sound": "지"
+    },
+    {
+      "hanja": "吱",
+      "sound": "지"
+    },
+    {
+      "hanja": "坁",
+      "sound": "지"
+    },
+    {
+      "hanja": "搘",
+      "sound": "지"
+    },
+    {
+      "hanja": "汦",
+      "sound": "지"
+    },
+    {
+      "hanja": "洔",
+      "sound": "지"
+    },
+    {
+      "hanja": "觗",
+      "sound": "지"
+    },
+    {
+      "hanja": "馶",
+      "sound": "지"
+    },
+    {
+      "hanja": "禝",
+      "sound": "직"
+    },
+    {
+      "hanja": "侲",
+      "sound": "진"
+    },
+    {
+      "hanja": "儘",
+      "sound": "진"
+    },
+    {
+      "hanja": "珒",
+      "sound": "진"
+    },
+    {
+      "hanja": "稹",
+      "sound": "진"
+    },
+    {
+      "hanja": "螴",
+      "sound": "진"
+    },
+    {
+      "hanja": "趁",
+      "sound": "진"
+    },
+    {
+      "hanja": "鉁",
+      "sound": "진"
+    },
+    {
+      "hanja": "尽",
+      "sound": "진"
+    },
+    {
+      "hanja": "抮",
+      "sound": "진"
+    },
+    {
+      "hanja": "敒",
+      "sound": "진"
+    },
+    {
+      "hanja": "昣",
+      "sound": "진"
+    },
+    {
+      "hanja": "枃",
+      "sound": "진"
+    },
+    {
+      "hanja": "真",
+      "sound": "진"
+    },
+    {
+      "hanja": "眹",
+      "sound": "진"
+    },
+    {
+      "hanja": "靕",
+      "sound": "진"
+    },
+    {
+      "hanja": "䑐",
+      "sound": "진"
+    },
+    {
+      "hanja": "郅",
+      "sound": "질"
+    },
+    {
+      "hanja": "鑕",
+      "sound": "질"
+    },
+    {
+      "hanja": "鴆",
+      "sound": "짐"
+    },
+    {
+      "hanja": "什",
+      "sound": "집"
+    },
+    {
+      "hanja": "咠",
+      "sound": "집"
+    },
+    {
+      "hanja": "澂",
+      "sound": "징"
+    },
+    {
+      "hanja": "瀓",
+      "sound": "징"
+    },
+    {
+      "hanja": "癥",
+      "sound": "징"
+    },
+    {
+      "hanja": "瞪",
+      "sound": "징"
+    },
+    {
+      "hanja": "茶",
+      "sound": "차"
+    },
+    {
+      "hanja": "偖",
+      "sound": "차"
+    },
+    {
+      "hanja": "奓",
+      "sound": "차"
+    },
+    {
+      "hanja": "岔",
+      "sound": "차"
+    },
+    {
+      "hanja": "徣",
+      "sound": "차"
+    },
+    {
+      "hanja": "槎",
+      "sound": "차"
+    },
+    {
+      "hanja": "硨",
+      "sound": "차"
+    },
+    {
+      "hanja": "奲",
+      "sound": "차"
+    },
+    {
+      "hanja": "姹",
+      "sound": "차"
+    },
+    {
+      "hanja": "鹺",
+      "sound": "차"
+    },
+    {
+      "hanja": "戳",
+      "sound": "착"
+    },
+    {
+      "hanja": "擉",
+      "sound": "착"
+    },
+    {
+      "hanja": "儧",
+      "sound": "찬"
+    },
+    {
+      "hanja": "儹",
+      "sound": "찬"
+    },
+    {
+      "hanja": "劗",
+      "sound": "찬"
+    },
+    {
+      "hanja": "攢",
+      "sound": "찬"
+    },
+    {
+      "hanja": "欑",
+      "sound": "찬"
+    },
+    {
+      "hanja": "趲",
+      "sound": "찬"
+    },
+    {
+      "hanja": "讃",
+      "sound": "찬"
+    },
+    {
+      "hanja": "賛",
+      "sound": "찬"
+    },
+    {
+      "hanja": "㜺",
+      "sound": "찬"
+    },
+    {
+      "hanja": "拶",
+      "sound": "찰"
+    },
+    {
+      "hanja": "儳",
+      "sound": "참"
+    },
+    {
+      "hanja": "叅",
+      "sound": "참"
+    },
+    {
+      "hanja": "嶄",
+      "sound": "참"
+    },
+    {
+      "hanja": "巉",
+      "sound": "참"
+    },
+    {
+      "hanja": "慚",
+      "sound": "참"
+    },
+    {
+      "hanja": "攙",
+      "sound": "참"
+    },
+    {
+      "hanja": "槧",
+      "sound": "참"
+    },
+    {
+      "hanja": "欃",
+      "sound": "참"
+    },
+    {
+      "hanja": "鏨",
+      "sound": "참"
+    },
+    {
+      "hanja": "鑱",
+      "sound": "참"
+    },
+    {
+      "hanja": "饞",
+      "sound": "참"
+    },
+    {
+      "hanja": "驂",
+      "sound": "참"
+    },
+    {
+      "hanja": "黲",
+      "sound": "참"
+    },
+    {
+      "hanja": "倀",
+      "sound": "창"
+    },
+    {
+      "hanja": "傖",
+      "sound": "창"
+    },
+    {
+      "hanja": "凔",
+      "sound": "창"
+    },
+    {
+      "hanja": "刱",
+      "sound": "창"
+    },
+    {
+      "hanja": "惝",
+      "sound": "창"
+    },
+    {
+      "hanja": "戧",
+      "sound": "창"
+    },
+    {
+      "hanja": "椙",
+      "sound": "창"
+    },
+    {
+      "hanja": "氅",
+      "sound": "창"
+    },
+    {
+      "hanja": "窻",
+      "sound": "창"
+    },
+    {
+      "hanja": "鋹",
+      "sound": "창"
+    },
+    {
+      "hanja": "錆",
+      "sound": "창"
+    },
+    {
+      "hanja": "閶",
+      "sound": "창"
+    },
+    {
+      "hanja": "晿",
+      "sound": "창"
+    },
+    {
+      "hanja": "淌",
+      "sound": "창"
+    },
+    {
+      "hanja": "淐",
+      "sound": "창"
+    },
+    {
+      "hanja": "棌",
+      "sound": "채"
+    },
+    {
+      "hanja": "茝",
+      "sound": "채"
+    },
+    {
+      "hanja": "婇",
+      "sound": "채"
+    },
+    {
+      "hanja": "琗",
+      "sound": "채"
+    },
+    {
+      "hanja": "睬",
+      "sound": "채"
+    },
+    {
+      "hanja": "嘖",
+      "sound": "책"
+    },
+    {
+      "hanja": "幘",
+      "sound": "책"
+    },
+    {
+      "hanja": "磔",
+      "sound": "책"
+    },
+    {
+      "hanja": "笧",
+      "sound": "책"
+    },
+    {
+      "hanja": "蚱",
+      "sound": "책"
+    },
+    {
+      "hanja": "册",
+      "sound": "책"
+    },
+    {
+      "hanja": "淒",
+      "sound": "처"
+    },
+    {
+      "hanja": "褄",
+      "sound": "처"
+    },
+    {
+      "hanja": "覷",
+      "sound": "처"
+    },
+    {
+      "hanja": "郪",
+      "sound": "처"
+    },
+    {
+      "hanja": "刺",
+      "sound": "척"
+    },
+    {
+      "hanja": "呎",
+      "sound": "척"
+    },
+    {
+      "hanja": "塉",
+      "sound": "척"
+    },
+    {
+      "hanja": "捗",
+      "sound": "척"
+    },
+    {
+      "hanja": "摭",
+      "sound": "척"
+    },
+    {
+      "hanja": "蜴",
+      "sound": "척"
+    },
+    {
+      "hanja": "躑",
+      "sound": "척"
+    },
+    {
+      "hanja": "墌",
+      "sound": "척"
+    },
+    {
+      "hanja": "僢",
+      "sound": "천"
+    },
+    {
+      "hanja": "儃",
+      "sound": "천"
+    },
+    {
+      "hanja": "洊",
+      "sound": "천"
+    },
+    {
+      "hanja": "濺",
+      "sound": "천"
+    },
+    {
+      "hanja": "瓩",
+      "sound": "천"
+    },
+    {
+      "hanja": "祆",
+      "sound": "천"
+    },
+    {
+      "hanja": "粁",
+      "sound": "천"
+    },
+    {
+      "hanja": "臶",
+      "sound": "천"
+    },
+    {
+      "hanja": "芊",
+      "sound": "천"
+    },
+    {
+      "hanja": "茜",
+      "sound": "천"
+    },
+    {
+      "hanja": "荐",
+      "sound": "천"
+    },
+    {
+      "hanja": "蒨",
+      "sound": "천"
+    },
+    {
+      "hanja": "蕆",
+      "sound": "천"
+    },
+    {
+      "hanja": "蚕",
+      "sound": "천"
+    },
+    {
+      "hanja": "辿",
+      "sound": "천"
+    },
+    {
+      "hanja": "靝",
+      "sound": "천"
+    },
+    {
+      "hanja": "剟",
+      "sound": "철"
+    },
+    {
+      "hanja": "埑",
+      "sound": "철"
+    },
+    {
+      "hanja": "銕",
+      "sound": "철"
+    },
+    {
+      "hanja": "錣",
+      "sound": "철"
+    },
+    {
+      "hanja": "飻",
+      "sound": "철"
+    },
+    {
+      "hanja": "餮",
+      "sound": "철"
+    },
+    {
+      "hanja": "悊",
+      "sound": "철"
+    },
+    {
+      "hanja": "瞮",
+      "sound": "철"
+    },
+    {
+      "hanja": "鉄",
+      "sound": "철"
+    },
+    {
+      "hanja": "幨",
+      "sound": "첨"
+    },
+    {
+      "hanja": "惉",
+      "sound": "첨"
+    },
+    {
+      "hanja": "檐",
+      "sound": "첨"
+    },
+    {
+      "hanja": "櫼",
+      "sound": "첨"
+    },
+    {
+      "hanja": "瀸",
+      "sound": "첨"
+    },
+    {
+      "hanja": "簷",
+      "sound": "첨"
+    },
+    {
+      "hanja": "甜",
+      "sound": "첨"
+    },
+    {
+      "hanja": "倢",
+      "sound": "첩"
+    },
+    {
+      "hanja": "呫",
+      "sound": "첩"
+    },
+    {
+      "hanja": "喋",
+      "sound": "첩"
+    },
+    {
+      "hanja": "怗",
+      "sound": "첩"
+    },
+    {
+      "hanja": "褺",
+      "sound": "첩"
+    },
+    {
+      "hanja": "凊",
+      "sound": "청"
+    },
+    {
+      "hanja": "圊",
+      "sound": "청"
+    },
+    {
+      "hanja": "蜻",
+      "sound": "청"
+    },
+    {
+      "hanja": "鶄",
+      "sound": "청"
+    },
+    {
+      "hanja": "清",
+      "sound": "청"
+    },
+    {
+      "hanja": "青",
+      "sound": "청"
+    },
+    {
+      "hanja": "切",
+      "sound": "체"
+    },
+    {
+      "hanja": "嚏",
+      "sound": "체"
+    },
+    {
+      "hanja": "殢",
+      "sound": "체"
+    },
+    {
+      "hanja": "砌",
+      "sound": "체"
+    },
+    {
+      "hanja": "蒂",
+      "sound": "체"
+    },
+    {
+      "hanja": "蔕",
+      "sound": "체"
+    },
+    {
+      "hanja": "蕞",
+      "sound": "체"
+    },
+    {
+      "hanja": "軆",
+      "sound": "체"
+    },
+    {
+      "hanja": "靆",
+      "sound": "체"
+    },
+    {
+      "hanja": "髰",
+      "sound": "체"
+    },
+    {
+      "hanja": "玼",
+      "sound": "체"
+    },
+    {
+      "hanja": "偢",
+      "sound": "초"
+    },
+    {
+      "hanja": "僬",
+      "sound": "초"
+    },
+    {
+      "hanja": "噍",
+      "sound": "초"
+    },
+    {
+      "hanja": "嫶",
+      "sound": "초"
+    },
+    {
+      "hanja": "岧",
+      "sound": "초"
+    },
+    {
+      "hanja": "峭",
+      "sound": "초"
+    },
+    {
+      "hanja": "嶕",
+      "sound": "초"
+    },
+    {
+      "hanja": "怊",
+      "sound": "초"
+    },
+    {
+      "hanja": "愀",
+      "sound": "초"
+    },
+    {
+      "hanja": "杪",
+      "sound": "초"
+    },
+    {
+      "hanja": "燋",
+      "sound": "초"
+    },
+    {
+      "hanja": "綃",
+      "sound": "초"
+    },
+    {
+      "hanja": "耖",
+      "sound": "초"
+    },
+    {
+      "hanja": "趠",
+      "sound": "초"
+    },
+    {
+      "hanja": "軺",
+      "sound": "초"
+    },
+    {
+      "hanja": "迢",
+      "sound": "초"
+    },
+    {
+      "hanja": "鈔",
+      "sound": "초"
+    },
+    {
+      "hanja": "鍫",
+      "sound": "초"
+    },
+    {
+      "hanja": "鍬",
+      "sound": "초"
+    },
+    {
+      "hanja": "鞘",
+      "sound": "초"
+    },
+    {
+      "hanja": "顦",
+      "sound": "초"
+    },
+    {
+      "hanja": "髫",
+      "sound": "초"
+    },
+    {
+      "hanja": "鷦",
+      "sound": "초"
+    },
+    {
+      "hanja": "齠",
+      "sound": "초"
+    },
+    {
+      "hanja": "釥",
+      "sound": "초"
+    },
+    {
+      "hanja": "曯",
+      "sound": "촉"
+    },
+    {
+      "hanja": "爥",
+      "sound": "촉"
+    },
+    {
+      "hanja": "矚",
+      "sound": "촉"
+    },
+    {
+      "hanja": "薥",
+      "sound": "촉"
+    },
+    {
+      "hanja": "髑",
+      "sound": "촉"
+    },
+    {
+      "hanja": "吋",
+      "sound": "촌"
+    },
+    {
+      "hanja": "葱",
+      "sound": "총"
+    },
+    {
+      "hanja": "蓯",
+      "sound": "총"
+    },
+    {
+      "hanja": "鏦",
+      "sound": "총"
+    },
+    {
+      "hanja": "騘",
+      "sound": "총"
+    },
+    {
+      "hanja": "驄",
+      "sound": "총"
+    },
+    {
+      "hanja": "総",
+      "sound": "총"
+    },
+    {
+      "hanja": "聡",
+      "sound": "총"
+    },
+    {
+      "hanja": "榱",
+      "sound": "최"
+    },
+    {
+      "hanja": "漼",
+      "sound": "최"
+    },
+    {
+      "hanja": "璀",
+      "sound": "최"
+    },
+    {
+      "hanja": "磪",
+      "sound": "최"
+    },
+    {
+      "hanja": "縗",
+      "sound": "최"
+    },
+    {
+      "hanja": "脧",
+      "sound": "최"
+    },
+    {
+      "hanja": "僦",
+      "sound": "추"
+    },
+    {
+      "hanja": "啾",
+      "sound": "추"
+    },
+    {
+      "hanja": "娵",
+      "sound": "추"
+    },
+    {
+      "hanja": "帚",
+      "sound": "추"
+    },
+    {
+      "hanja": "惆",
+      "sound": "추"
+    },
+    {
+      "hanja": "捶",
+      "sound": "추"
+    },
+    {
+      "hanja": "揫",
+      "sound": "추"
+    },
+    {
+      "hanja": "搥",
+      "sound": "추"
+    },
+    {
+      "hanja": "龝",
+      "sound": "추"
+    },
+    {
+      "hanja": "箒",
+      "sound": "추"
+    },
+    {
+      "hanja": "箠",
+      "sound": "추"
+    },
+    {
+      "hanja": "簉",
+      "sound": "추"
+    },
+    {
+      "hanja": "縋",
+      "sound": "추"
+    },
+    {
+      "hanja": "蒭",
+      "sound": "추"
+    },
+    {
+      "hanja": "陬",
+      "sound": "추"
+    },
+    {
+      "hanja": "隹",
+      "sound": "추"
+    },
+    {
+      "hanja": "鞦",
+      "sound": "추"
+    },
+    {
+      "hanja": "鰌",
+      "sound": "추"
+    },
+    {
+      "hanja": "鶵",
+      "sound": "추"
+    },
+    {
+      "hanja": "麄",
+      "sound": "추"
+    },
+    {
+      "hanja": "舳",
+      "sound": "축"
+    },
+    {
+      "hanja": "豖",
+      "sound": "축"
+    },
+    {
+      "hanja": "鼀",
+      "sound": "축"
+    },
+    {
+      "hanja": "秫",
+      "sound": "출"
+    },
+    {
+      "hanja": "冲",
+      "sound": "충"
+    },
+    {
+      "hanja": "疩",
+      "sound": "췌"
+    },
+    {
+      "hanja": "顇",
+      "sound": "췌"
+    },
+    {
+      "hanja": "冣",
+      "sound": "취"
+    },
+    {
+      "hanja": "橇",
+      "sound": "취"
+    },
+    {
+      "hanja": "卮",
+      "sound": "치"
+    },
+    {
+      "hanja": "巵",
+      "sound": "치"
+    },
+    {
+      "hanja": "畤",
+      "sound": "치"
+    },
+    {
+      "hanja": "痓",
+      "sound": "치"
+    },
+    {
+      "hanja": "薙",
+      "sound": "치"
+    },
+    {
+      "hanja": "豸",
+      "sound": "치"
+    },
+    {
+      "hanja": "跱",
+      "sound": "치"
+    },
+    {
+      "hanja": "錙",
+      "sound": "치"
+    },
+    {
+      "hanja": "阤",
+      "sound": "치"
+    },
+    {
+      "hanja": "鯔",
+      "sound": "치"
+    },
+    {
+      "hanja": "鴙",
+      "sound": "치"
+    },
+    {
+      "hanja": "鵄",
+      "sound": "치"
+    },
+    {
+      "hanja": "敕",
+      "sound": "칙"
+    },
+    {
+      "hanja": "櫬",
+      "sound": "친"
+    },
+    {
+      "hanja": "藽",
+      "sound": "친"
+    },
+    {
+      "hanja": "襯",
+      "sound": "친"
+    },
+    {
+      "hanja": "齔",
+      "sound": "친"
+    },
+    {
+      "hanja": "寖",
+      "sound": "침"
+    },
+    {
+      "hanja": "椹",
+      "sound": "침"
+    },
+    {
+      "hanja": "沉",
+      "sound": "침"
+    },
+    {
+      "hanja": "郴",
+      "sound": "침"
+    },
+    {
+      "hanja": "鋟",
+      "sound": "침"
+    },
+    {
+      "hanja": "垞",
+      "sound": "타",
+      "sounds": [
+        "타",
+        "택"
+      ]
+    },
+    {
+      "hanja": "拕",
+      "sound": "타"
+    },
+    {
+      "hanja": "柁",
+      "sound": "타"
+    },
+    {
+      "hanja": "橢",
+      "sound": "타"
+    },
+    {
+      "hanja": "詫",
+      "sound": "타"
+    },
+    {
+      "hanja": "跎",
+      "sound": "타"
+    },
+    {
+      "hanja": "躱",
+      "sound": "타"
+    },
+    {
+      "hanja": "駞",
+      "sound": "타"
+    },
+    {
+      "hanja": "鴕",
+      "sound": "타"
+    },
+    {
+      "hanja": "度",
+      "sound": "탁"
+    },
+    {
+      "hanja": "拓",
+      "sound": "탁"
+    },
+    {
+      "hanja": "拆",
+      "sound": "탁"
+    },
+    {
+      "hanja": "沰",
+      "sound": "탁"
+    },
+    {
+      "hanja": "涿",
+      "sound": "탁"
+    },
+    {
+      "hanja": "矺",
+      "sound": "탁"
+    },
+    {
+      "hanja": "籜",
+      "sound": "탁"
+    },
+    {
+      "hanja": "踔",
+      "sound": "탁"
+    },
+    {
+      "hanja": "逴",
+      "sound": "탁"
+    },
+    {
+      "hanja": "槖",
+      "sound": "탁"
+    },
+    {
+      "hanja": "憻",
+      "sound": "탄"
+    },
+    {
+      "hanja": "攤",
+      "sound": "탄"
+    },
+    {
+      "hanja": "癱",
+      "sound": "탄"
+    },
+    {
+      "hanja": "暺",
+      "sound": "탄"
+    },
+    {
+      "hanja": "侻",
+      "sound": "탈"
+    },
+    {
+      "hanja": "忐",
+      "sound": "탐"
+    },
+    {
+      "hanja": "酖",
+      "sound": "탐"
+    },
+    {
+      "hanja": "傝",
+      "sound": "탑"
+    },
+    {
+      "hanja": "塌",
+      "sound": "탑"
+    },
+    {
+      "hanja": "搨",
+      "sound": "탑"
+    },
+    {
+      "hanja": "糖",
+      "sound": "탕"
+    },
+    {
+      "hanja": "燙",
+      "sound": "탕"
+    },
+    {
+      "hanja": "碭",
+      "sound": "탕"
+    },
+    {
+      "hanja": "蘯",
+      "sound": "탕"
+    },
+    {
+      "hanja": "埭",
+      "sound": "태"
+    },
+    {
+      "hanja": "娧",
+      "sound": "태"
+    },
+    {
+      "hanja": "孡",
+      "sound": "태"
+    },
+    {
+      "hanja": "駄",
+      "sound": "태"
+    },
+    {
+      "hanja": "駘",
+      "sound": "태"
+    },
+    {
+      "hanja": "鈦",
+      "sound": "태"
+    },
+    {
+      "hanja": "鮐",
+      "sound": "태"
+    },
+    {
+      "hanja": "牚",
+      "sound": "탱"
+    },
+    {
+      "hanja": "洞",
+      "sound": "통"
+    },
+    {
+      "hanja": "樋",
+      "sound": "통"
+    },
+    {
+      "hanja": "筩",
+      "sound": "통"
+    },
+    {
+      "hanja": "妒",
+      "sound": "투"
+    },
+    {
+      "hanja": "骰",
+      "sound": "투"
+    },
+    {
+      "hanja": "佟",
+      "sound": "퉁"
+    },
+    {
+      "hanja": "叵",
+      "sound": "파"
+    },
+    {
+      "hanja": "妑",
+      "sound": "파"
+    },
+    {
+      "hanja": "岥",
+      "sound": "파"
+    },
+    {
+      "hanja": "怕",
+      "sound": "파"
+    },
+    {
+      "hanja": "灞",
+      "sound": "파"
+    },
+    {
+      "hanja": "爸",
+      "sound": "파"
+    },
+    {
+      "hanja": "玻",
+      "sound": "파"
+    },
+    {
+      "hanja": "笆",
+      "sound": "파"
+    },
+    {
+      "hanja": "耙",
+      "sound": "파"
+    },
+    {
+      "hanja": "菠",
+      "sound": "파"
+    },
+    {
+      "hanja": "葩",
+      "sound": "파"
+    },
+    {
+      "hanja": "鄱",
+      "sound": "파"
+    },
+    {
+      "hanja": "汴",
+      "sound": "판"
+    },
+    {
+      "hanja": "朳",
+      "sound": "팔"
+    },
+    {
+      "hanja": "汃",
+      "sound": "팔"
+    },
+    {
+      "hanja": "珮",
+      "sound": "패"
+    },
+    {
+      "hanja": "霈",
+      "sound": "패"
+    },
+    {
+      "hanja": "砰",
+      "sound": "팽"
+    },
+    {
+      "hanja": "蟚",
+      "sound": "팽"
+    },
+    {
+      "hanja": "蟛",
+      "sound": "팽"
+    },
+    {
+      "hanja": "匾",
+      "sound": "편"
+    },
+    {
+      "hanja": "惼",
+      "sound": "편"
+    },
+    {
+      "hanja": "緶",
+      "sound": "편"
+    },
+    {
+      "hanja": "艑",
+      "sound": "편"
+    },
+    {
+      "hanja": "萹",
+      "sound": "편"
+    },
+    {
+      "hanja": "蝙",
+      "sound": "편"
+    },
+    {
+      "hanja": "砭",
+      "sound": "폄"
+    },
+    {
+      "hanja": "窆",
+      "sound": "폄"
+    },
+    {
+      "hanja": "怦",
+      "sound": "평"
+    },
+    {
+      "hanja": "抨",
+      "sound": "평"
+    },
+    {
+      "hanja": "泙",
+      "sound": "평"
+    },
+    {
+      "hanja": "蓱",
+      "sound": "평"
+    },
+    {
+      "hanja": "鮃",
+      "sound": "평"
+    },
+    {
+      "hanja": "狴",
+      "sound": "폐"
+    },
+    {
+      "hanja": "獘",
+      "sound": "폐"
+    },
+    {
+      "hanja": "癈",
+      "sound": "폐"
+    },
+    {
+      "hanja": "儤",
+      "sound": "포"
+    },
+    {
+      "hanja": "晡",
+      "sound": "포"
+    },
+    {
+      "hanja": "曓",
+      "sound": "포"
+    },
+    {
+      "hanja": "舖",
+      "sound": "포"
+    },
+    {
+      "hanja": "誧",
+      "sound": "포"
+    },
+    {
+      "hanja": "鉋",
+      "sound": "포"
+    },
+    {
+      "hanja": "鞄",
+      "sound": "포"
+    },
+    {
+      "hanja": "鯆",
+      "sound": "포"
+    },
+    {
+      "hanja": "暴",
+      "sound": "포"
+    },
+    {
+      "hanja": "拋",
+      "sound": "포"
+    },
+    {
+      "hanja": "輻",
+      "sound": "폭"
+    },
+    {
+      "hanja": "僄",
+      "sound": "표"
+    },
+    {
+      "hanja": "勡",
+      "sound": "표"
+    },
+    {
+      "hanja": "嫖",
+      "sound": "표"
+    },
+    {
+      "hanja": "熛",
+      "sound": "표"
+    },
+    {
+      "hanja": "縹",
+      "sound": "표"
+    },
+    {
+      "hanja": "裱",
+      "sound": "표"
+    },
+    {
+      "hanja": "鏢",
+      "sound": "표"
+    },
+    {
+      "hanja": "髟",
+      "sound": "표"
+    },
+    {
+      "hanja": "鰾",
+      "sound": "표"
+    },
+    {
+      "hanja": "䏇",
+      "sound": "표"
+    },
+    {
+      "hanja": "禀",
+      "sound": "품"
+    },
+    {
+      "hanja": "瘋",
+      "sound": "풍"
+    },
+    {
+      "hanja": "鞁",
+      "sound": "피"
+    },
+    {
+      "hanja": "髲",
+      "sound": "피"
+    },
+    {
+      "hanja": "腷",
+      "sound": "픽"
+    },
+    {
+      "hanja": "咇",
+      "sound": "필"
+    },
+    {
+      "hanja": "滭",
+      "sound": "필"
+    },
+    {
+      "hanja": "篳",
+      "sound": "필"
+    },
+    {
+      "hanja": "罼",
+      "sound": "필"
+    },
+    {
+      "hanja": "蓽",
+      "sound": "필"
+    },
+    {
+      "hanja": "蹕",
+      "sound": "필"
+    },
+    {
+      "hanja": "韠",
+      "sound": "필"
+    },
+    {
+      "hanja": "鵯",
+      "sound": "필"
+    },
+    {
+      "hanja": "㪤",
+      "sound": "필"
+    },
+    {
+      "hanja": "㳼",
+      "sound": "필"
+    },
+    {
+      "hanja": "嚇",
+      "sound": "하",
+      "sounds": [
+        "하",
+        "혁"
+      ]
+    },
+    {
+      "hanja": "岈",
+      "sound": "하"
+    },
+    {
+      "hanja": "懗",
+      "sound": "하"
+    },
+    {
+      "hanja": "煆",
+      "sound": "하"
+    },
+    {
+      "hanja": "瘕",
+      "sound": "하"
+    },
+    {
+      "hanja": "罅",
+      "sound": "하"
+    },
+    {
+      "hanja": "鍜",
+      "sound": "하"
+    },
+    {
+      "hanja": "抲",
+      "sound": "하"
+    },
+    {
+      "hanja": "碬",
+      "sound": "하"
+    },
+    {
+      "hanja": "蕸",
+      "sound": "하"
+    },
+    {
+      "hanja": "赮",
+      "sound": "하"
+    },
+    {
+      "hanja": "閜",
+      "sound": "하"
+    },
+    {
+      "hanja": "㗿",
+      "sound": "하"
+    },
+    {
+      "hanja": "㰤",
+      "sound": "하"
+    },
+    {
+      "hanja": "狢",
+      "sound": "학"
+    },
+    {
+      "hanja": "皬",
+      "sound": "학"
+    },
+    {
+      "hanja": "确",
+      "sound": "학"
+    },
+    {
+      "hanja": "郝",
+      "sound": "학"
+    },
+    {
+      "hanja": "鷽",
+      "sound": "학"
+    },
+    {
+      "hanja": "嗃",
+      "sound": "학"
+    },
+    {
+      "hanja": "学",
+      "sound": "학"
+    },
+    {
+      "hanja": "嫺",
+      "sound": "한"
+    },
+    {
+      "hanja": "嫻",
+      "sound": "한"
+    },
+    {
+      "hanja": "捍",
+      "sound": "한"
+    },
+    {
+      "hanja": "閈",
+      "sound": "한"
+    },
+    {
+      "hanja": "駻",
+      "sound": "한"
+    },
+    {
+      "hanja": "鷳",
+      "sound": "한"
+    },
+    {
+      "hanja": "鼾",
+      "sound": "한"
+    },
+    {
+      "hanja": "橌",
+      "sound": "한"
+    },
+    {
+      "hanja": "澖",
+      "sound": "한"
+    },
+    {
+      "hanja": "邗",
+      "sound": "한"
+    },
+    {
+      "hanja": "䦥",
+      "sound": "한"
+    },
+    {
+      "hanja": "瞎",
+      "sound": "할"
+    },
+    {
+      "hanja": "莟",
+      "sound": "함"
+    },
+    {
+      "hanja": "轞",
+      "sound": "함"
+    },
+    {
+      "hanja": "闞",
+      "sound": "함"
+    },
+    {
+      "hanja": "匌",
+      "sound": "합"
+    },
+    {
+      "hanja": "榼",
+      "sound": "합"
+    },
+    {
+      "hanja": "溘",
+      "sound": "합"
+    },
+    {
+      "hanja": "郃",
+      "sound": "합"
+    },
+    {
+      "hanja": "降",
+      "sound": "항"
+    },
+    {
+      "hanja": "夯",
+      "sound": "항"
+    },
+    {
+      "hanja": "恆",
+      "sound": "항"
+    },
+    {
+      "hanja": "炕",
+      "sound": "항"
+    },
+    {
+      "hanja": "缿",
+      "sound": "항"
+    },
+    {
+      "hanja": "行",
+      "sound": "항"
+    },
+    {
+      "hanja": "咍",
+      "sound": "해"
+    },
+    {
+      "hanja": "嶰",
+      "sound": "해"
+    },
+    {
+      "hanja": "廨",
+      "sound": "해"
+    },
+    {
+      "hanja": "欬",
+      "sound": "해"
+    },
+    {
+      "hanja": "獬",
+      "sound": "해"
+    },
+    {
+      "hanja": "瑎",
+      "sound": "해"
+    },
+    {
+      "hanja": "痎",
+      "sound": "해"
+    },
+    {
+      "hanja": "薤",
+      "sound": "해"
+    },
+    {
+      "hanja": "頦",
+      "sound": "해"
+    },
+    {
+      "hanja": "鮭",
+      "sound": "해"
+    },
+    {
+      "hanja": "晐",
+      "sound": "해"
+    },
+    {
+      "hanja": "澥",
+      "sound": "해"
+    },
+    {
+      "hanja": "祄",
+      "sound": "해"
+    },
+    {
+      "hanja": "翮",
+      "sound": "핵"
+    },
+    {
+      "hanja": "涬",
+      "sound": "행"
+    },
+    {
+      "hanja": "薌",
+      "sound": "향"
+    },
+    {
+      "hanja": "晑",
+      "sound": "향"
+    },
+    {
+      "hanja": "麘",
+      "sound": "향"
+    },
+    {
+      "hanja": "歔",
+      "sound": "허"
+    },
+    {
+      "hanja": "巚",
+      "sound": "헌"
+    },
+    {
+      "hanja": "幰",
+      "sound": "헌"
+    },
+    {
+      "hanja": "攇",
+      "sound": "헌"
+    },
+    {
+      "hanja": "昍",
+      "sound": "헌",
+      "sounds": [
+        "헌",
+        "훤"
+      ]
+    },
+    {
+      "hanja": "㦥",
+      "sound": "헌"
+    },
+    {
+      "hanja": "䡣",
+      "sound": "헌"
+    },
+    {
+      "hanja": "嶮",
+      "sound": "험"
+    },
+    {
+      "hanja": "弈",
+      "sound": "혁"
+    },
+    {
+      "hanja": "鬩",
+      "sound": "혁"
+    },
+    {
+      "hanja": "見",
+      "sound": "현"
+    },
+    {
+      "hanja": "琄",
+      "sound": "현"
+    },
+    {
+      "hanja": "痃",
+      "sound": "현"
+    },
+    {
+      "hanja": "県",
+      "sound": "현"
+    },
+    {
+      "hanja": "繯",
+      "sound": "현"
+    },
+    {
+      "hanja": "翾",
+      "sound": "현"
+    },
+    {
+      "hanja": "蜆",
+      "sound": "현"
+    },
+    {
+      "hanja": "誢",
+      "sound": "현"
+    },
+    {
+      "hanja": "鋗",
+      "sound": "현"
+    },
+    {
+      "hanja": "呟",
+      "sound": "현"
+    },
+    {
+      "hanja": "妶",
+      "sound": "현"
+    },
+    {
+      "hanja": "娊",
+      "sound": "현"
+    },
+    {
+      "hanja": "灦",
+      "sound": "현"
+    },
+    {
+      "hanja": "譞",
+      "sound": "현"
+    },
+    {
+      "hanja": "顕",
+      "sound": "현"
+    },
+    {
+      "hanja": "㢺",
+      "sound": "현"
+    },
+    {
+      "hanja": "㭹",
+      "sound": "현"
+    },
+    {
+      "hanja": "䧋",
+      "sound": "현"
+    },
+    {
+      "hanja": "趐",
+      "sound": "혈"
+    },
+    {
+      "hanja": "匧",
+      "sound": "협"
+    },
+    {
+      "hanja": "叶",
+      "sound": "협"
+    },
+    {
+      "hanja": "埉",
+      "sound": "협"
+    },
+    {
+      "hanja": "悏",
+      "sound": "협"
+    },
+    {
+      "hanja": "愜",
+      "sound": "협"
+    },
+    {
+      "hanja": "篋",
+      "sound": "협"
+    },
+    {
+      "hanja": "夐",
+      "sound": "형"
+    },
+    {
+      "hanja": "娙",
+      "sound": "형"
+    },
+    {
+      "hanja": "詗",
+      "sound": "형"
+    },
+    {
+      "hanja": "迥",
+      "sound": "형"
+    },
+    {
+      "hanja": "陘",
+      "sound": "형"
+    },
+    {
+      "hanja": "侀",
+      "sound": "형"
+    },
+    {
+      "hanja": "寭",
+      "sound": "혜"
+    },
+    {
+      "hanja": "槥",
+      "sound": "혜"
+    },
+    {
+      "hanja": "謑",
+      "sound": "혜"
+    },
+    {
+      "hanja": "譿",
+      "sound": "혜"
+    },
+    {
+      "hanja": "匸",
+      "sound": "혜"
+    },
+    {
+      "hanja": "恵",
+      "sound": "혜"
+    },
+    {
+      "hanja": "鏸",
+      "sound": "혜"
+    },
+    {
+      "hanja": "䚷",
+      "sound": "혜"
+    },
+    {
+      "hanja": "儫",
+      "sound": "호"
+    },
+    {
+      "hanja": "冱",
+      "sound": "호"
+    },
+    {
+      "hanja": "嘷",
+      "sound": "호"
+    },
+    {
+      "hanja": "嫭",
+      "sound": "호"
+    },
+    {
+      "hanja": "嫮",
+      "sound": "호"
+    },
+    {
+      "hanja": "沍",
+      "sound": "호"
+    },
+    {
+      "hanja": "滈",
+      "sound": "호"
+    },
+    {
+      "hanja": "滬",
+      "sound": "호"
+    },
+    {
+      "hanja": "犒",
+      "sound": "호"
+    },
+    {
+      "hanja": "猢",
+      "sound": "호"
+    },
+    {
+      "hanja": "皞",
+      "sound": "호"
+    },
+    {
+      "hanja": "箎",
+      "sound": "호"
+    },
+    {
+      "hanja": "聕",
+      "sound": "호"
+    },
+    {
+      "hanja": "醐",
+      "sound": "호"
+    },
+    {
+      "hanja": "餬",
+      "sound": "호"
+    },
+    {
+      "hanja": "鬍",
+      "sound": "호"
+    },
+    {
+      "hanja": "号",
+      "sound": "호"
+    },
+    {
+      "hanja": "婋",
+      "sound": "호",
+      "sounds": [
+        "호",
+        "효"
+      ]
+    },
+    {
+      "hanja": "熩",
+      "sound": "호"
+    },
+    {
+      "hanja": "瓳",
+      "sound": "호"
+    },
+    {
+      "hanja": "蔰",
+      "sound": "호"
+    },
+    {
+      "hanja": "圂",
+      "sound": "혼"
+    },
+    {
+      "hanja": "溷",
+      "sound": "혼"
+    },
+    {
+      "hanja": "焜",
+      "sound": "혼"
+    },
+    {
+      "hanja": "閽",
+      "sound": "혼"
+    },
+    {
+      "hanja": "俒",
+      "sound": "혼"
+    },
+    {
+      "hanja": "囫",
+      "sound": "홀"
+    },
+    {
+      "hanja": "晎",
+      "sound": "홍"
+    },
+    {
+      "hanja": "澒",
+      "sound": "홍"
+    },
+    {
+      "hanja": "篊",
+      "sound": "홍"
+    },
+    {
+      "hanja": "俰",
+      "sound": "화"
+    },
+    {
+      "hanja": "嘩",
+      "sound": "화"
+    },
+    {
+      "hanja": "婲",
+      "sound": "화"
+    },
+    {
+      "hanja": "驊",
+      "sound": "화"
+    },
+    {
+      "hanja": "龢",
+      "sound": "화"
+    },
+    {
+      "hanja": "澕",
+      "sound": "화"
+    },
+    {
+      "hanja": "廓",
+      "sound": "확"
+    },
+    {
+      "hanja": "矡",
+      "sound": "확"
+    },
+    {
+      "hanja": "礭",
+      "sound": "확"
+    },
+    {
+      "hanja": "鑊",
+      "sound": "확"
+    },
+    {
+      "hanja": "寰",
+      "sound": "환"
+    },
+    {
+      "hanja": "擐",
+      "sound": "환"
+    },
+    {
+      "hanja": "瓛",
+      "sound": "환"
+    },
+    {
+      "hanja": "皖",
+      "sound": "환"
+    },
+    {
+      "hanja": "絙",
+      "sound": "환"
+    },
+    {
+      "hanja": "轘",
+      "sound": "환"
+    },
+    {
+      "hanja": "鬟",
+      "sound": "환"
+    },
+    {
+      "hanja": "蛞",
+      "sound": "활"
+    },
+    {
+      "hanja": "怳",
+      "sound": "황"
+    },
+    {
+      "hanja": "瑝",
+      "sound": "황"
+    },
+    {
+      "hanja": "肓",
+      "sound": "황"
+    },
+    {
+      "hanja": "貺",
+      "sound": "황"
+    },
+    {
+      "hanja": "鎤",
+      "sound": "황"
+    },
+    {
+      "hanja": "楻",
+      "sound": "황"
+    },
+    {
+      "hanja": "佪",
+      "sound": "회"
+    },
+    {
+      "hanja": "栃",
+      "sound": "회"
+    },
+    {
+      "hanja": "滙",
+      "sound": "회"
+    },
+    {
+      "hanja": "盔",
+      "sound": "회"
+    },
+    {
+      "hanja": "詼",
+      "sound": "회"
+    },
+    {
+      "hanja": "迴",
+      "sound": "회"
+    },
+    {
+      "hanja": "鱠",
+      "sound": "회"
+    },
+    {
+      "hanja": "会",
+      "sound": "회"
+    },
+    {
+      "hanja": "絵",
+      "sound": "회"
+    },
+    {
+      "hanja": "嚄",
+      "sound": "획"
+    },
+    {
+      "hanja": "画",
+      "sound": "획"
+    },
+    {
+      "hanja": "澋",
+      "sound": "횡"
+    },
+    {
+      "hanja": "鈜",
+      "sound": "횡"
+    },
+    {
+      "hanja": "黌",
+      "sound": "횡"
+    },
+    {
+      "hanja": "崤",
+      "sound": "효"
+    },
+    {
+      "hanja": "皛",
+      "sound": "효"
+    },
+    {
+      "hanja": "餚",
+      "sound": "효"
+    },
+    {
+      "hanja": "庨",
+      "sound": "효"
+    },
+    {
+      "hanja": "歊",
+      "sound": "효"
+    },
+    {
+      "hanja": "洨",
+      "sound": "효"
+    },
+    {
+      "hanja": "窙",
+      "sound": "효"
+    },
+    {
+      "hanja": "謼",
+      "sound": "효"
+    },
+    {
+      "hanja": "吽",
+      "sound": "후"
+    },
+    {
+      "hanja": "喣",
+      "sound": "후"
+    },
+    {
+      "hanja": "垕",
+      "sound": "후"
+    },
+    {
+      "hanja": "堠",
+      "sound": "후"
+    },
+    {
+      "hanja": "涸",
+      "sound": "후"
+    },
+    {
+      "hanja": "猴",
+      "sound": "후"
+    },
+    {
+      "hanja": "篌",
+      "sound": "후"
+    },
+    {
+      "hanja": "譃",
+      "sound": "후"
+    },
+    {
+      "hanja": "姁",
+      "sound": "후"
+    },
+    {
+      "hanja": "㰭",
+      "sound": "후"
+    },
+    {
+      "hanja": "曛",
+      "sound": "훈"
+    },
+    {
+      "hanja": "爋",
+      "sound": "훈"
+    },
+    {
+      "hanja": "獯",
+      "sound": "훈"
+    },
+    {
+      "hanja": "葷",
+      "sound": "훈"
+    },
+    {
+      "hanja": "勲",
+      "sound": "훈"
+    },
+    {
+      "hanja": "薫",
+      "sound": "훈"
+    },
+    {
+      "hanja": "欻",
+      "sound": "훌"
+    },
+    {
+      "hanja": "烜",
+      "sound": "훤"
+    },
+    {
+      "hanja": "燬",
+      "sound": "훼"
+    },
+    {
+      "hanja": "芔",
+      "sound": "훼"
+    },
+    {
+      "hanja": "毀",
+      "sound": "훼"
+    },
+    {
+      "hanja": "撝",
+      "sound": "휘"
+    },
+    {
+      "hanja": "擕",
+      "sound": "휴"
+    },
+    {
+      "hanja": "隳",
+      "sound": "휴"
+    },
+    {
+      "hanja": "髹",
+      "sound": "휴"
+    },
+    {
+      "hanja": "鵂",
+      "sound": "휴"
+    },
+    {
+      "hanja": "庥",
+      "sound": "휴"
+    },
+    {
+      "hanja": "卹",
+      "sound": "휼"
+    },
+    {
+      "hanja": "恟",
+      "sound": "흉"
+    },
+    {
+      "hanja": "胷",
+      "sound": "흉"
+    },
+    {
+      "hanja": "很",
+      "sound": "흔"
+    },
+    {
+      "hanja": "掀",
+      "sound": "흔"
+    },
+    {
+      "hanja": "焮",
+      "sound": "흔"
+    },
+    {
+      "hanja": "惞",
+      "sound": "흔"
+    },
+    {
+      "hanja": "疙",
+      "sound": "흘"
+    },
+    {
+      "hanja": "廞",
+      "sound": "흠"
+    },
+    {
+      "hanja": "鑫",
+      "sound": "흠"
+    },
+    {
+      "hanja": "噏",
+      "sound": "흡"
+    },
+    {
+      "hanja": "歙",
+      "sound": "흡"
+    },
+    {
+      "hanja": "翖",
+      "sound": "흡"
+    },
+    {
+      "hanja": "熙",
+      "sound": "희"
+    },
+    {
+      "hanja": "唏",
+      "sound": "희"
+    },
+    {
+      "hanja": "悕",
+      "sound": "희"
+    },
+    {
+      "hanja": "暿",
+      "sound": "희"
+    },
+    {
+      "hanja": "欷",
+      "sound": "희"
+    },
+    {
+      "hanja": "燹",
+      "sound": "희"
+    },
+    {
+      "hanja": "俙",
+      "sound": "희"
+    },
+    {
+      "hanja": "姫",
+      "sound": "희"
+    },
+    {
+      "hanja": "烯",
+      "sound": "희"
+    },
+    {
+      "hanja": "熈",
+      "sound": "희"
+    },
+    {
+      "hanja": "譆",
+      "sound": "희"
+    },
+    {
+      "hanja": "㜯",
+      "sound": "희"
+    },
+    {
+      "hanja": "犵",
+      "sound": "힐"
+    },
+    {
+      "hanja": "纈",
+      "sound": "힐"
+    },
+    {
+      "hanja": "頡",
+      "sound": "힐"
+    },
+    {
+      "hanja": "黠",
+      "sound": "힐"
+    }
+  ]
+}
