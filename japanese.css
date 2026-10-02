@@ -3245,3 +3245,34 @@ html body.drill-active #jp .jp-word-meaning-panel{
     font-size:14px!important;
   }
 }
+
+
+/* Japanese word stage + pen toolbar polish · 2.40.0 */
+.jp-word-tier .jp-filter-chip small{
+  display:inline-block;
+  margin-left:4px;
+  padding:1px 5px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  color:inherit;
+  font-size:9px;
+  font-weight:800;
+  opacity:.8;
+}
+.jp-word-canvas-pane>.pen-toolbar,
+.drill-canvas-pane>.pen-toolbar{
+  width:min(100%,760px);
+  justify-self:center;
+  margin-inline:auto;
+}
+.jp-word-canvas-pane>.pen-toolbar{
+  margin-top:7px;
+  margin-bottom:2px;
+}
+@media(max-width:600px){
+  .jp-word-tier{display:flex;overflow-x:auto;gap:6px;scrollbar-width:none}
+  .jp-word-tier::-webkit-scrollbar{display:none}
+  .jp-word-tier .jp-filter-chip{flex:0 0 auto}
+  .jp-word-canvas-pane>.pen-toolbar,
+  .drill-canvas-pane>.pen-toolbar{width:100%}
+}
