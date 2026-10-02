@@ -3689,3 +3689,81 @@ html body.drill-active #jp .jp-word-feedback:empty{
   .jp-reading-quiz-feedback{max-height:150px;overflow:auto;font-size:10px}
   .jp-reading-quiz-feedback p{font-size:12px}
 }
+
+
+/* ===== 2.45.0 · JAPANESE HANDWRITING CANVAS FINAL AUTHORITY =====
+   Single-character boards must stay truly square on iPad/Fold/phone/desktop.
+   This prevents stretched guide lines, shifted pen coordinates and oversized white boards. */
+html body.drill-active #jp .drill-canvas-pane:has(#jpCanvas){
+  display:grid!important;
+  grid-template-areas:
+    "board"
+    "pen"
+    "nav"
+    "controls"!important;
+  grid-template-rows:minmax(0,1fr) auto auto auto!important;
+  min-width:0!important;
+  min-height:0!important;
+  overflow:hidden!important;
+  align-items:stretch!important;
+  align-content:stretch!important;
+}
+html body.drill-active #jp .drill-canvas-wrap:has(#jpCanvas){
+  grid-area:board!important;
+  position:relative!important;
+  width:min(100%,calc(var(--drill-vh,100dvh) - 205px),68vmin)!important;
+  height:auto!important;
+  max-width:100%!important;
+  max-height:100%!important;
+  aspect-ratio:1 / 1!important;
+  justify-self:center!important;
+  align-self:center!important;
+  overflow:hidden!important;
+  flex:none!important;
+}
+html body.drill-active #jp #jpCanvas{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  max-width:none!important;
+  max-height:none!important;
+  aspect-ratio:1 / 1!important;
+  object-fit:fill!important;
+  touch-action:none!important;
+  -webkit-user-select:none!important;
+  user-select:none!important;
+}
+html body.drill-active #jp .drill-canvas-wrap:has(#jpCanvas) .jp-answer-overlay{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+}
+html body.drill-active #jp .drill-canvas-pane:has(#jpCanvas)>.pen-toolbar{grid-area:pen!important}
+html body.drill-active #jp .drill-canvas-pane:has(#jpCanvas)>.drill-bottom-nav{grid-area:nav!important}
+html body.drill-active #jp .drill-canvas-pane:has(#jpCanvas)>.drill-write-controls{grid-area:controls!important}
+
+@media(max-width:699px){
+  html body.drill-active #jp .drill-canvas-wrap:has(#jpCanvas){
+    width:min(100%,calc(var(--drill-vh,100dvh) - 270px),86vw)!important;
+  }
+}
+@media(min-width:700px) and (orientation:landscape){
+  html body.drill-active #jp .drill-canvas-wrap:has(#jpCanvas){
+    width:min(100%,calc(var(--drill-vh,100dvh) - 190px),64vmin)!important;
+  }
+}
+
+/* Keep all Japanese controls above drawing overlays and reliably tappable. */
+html body.drill-active #jp button,
+html body.drill-active #jp select,
+html body.drill-active #jp input{
+  position:relative;
+  z-index:8;
+  pointer-events:auto!important;
+}
+html body.drill-active #jp .jp-word-board-guides,
+html body.drill-active #jp .jp-word-answer,
+html body.drill-active #jp .drill-answer-overlay{
+  pointer-events:none!important;
+}
