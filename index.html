@@ -6773,7 +6773,7 @@ body.drill-active .pen-toolbar .pen-toolbar-current{
 }
 
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.44.0">
+<link rel="stylesheet" href="./japanese.css?v=2.44.1">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -7758,7 +7758,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.44.0-20261003";
+const APP_BUILD="2.44.1-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -9195,6 +9195,14 @@ function resetMyLearningProgress(){
   localStorage.removeItem("hanjaWrongV2");
   localStorage.removeItem("hanjaUnknownV1");
   localStorage.removeItem("hanjaPowerSeenLevel");
+  localStorage.removeItem("jpHanjaStatsV1");
+  localStorage.removeItem("jpHanjaUnknownV1");
+  localStorage.removeItem("jpWordStatsV1");
+  localStorage.removeItem("jpReadingQuizStatsV1");
+  if(typeof jpStats!=="undefined")jpStats={};
+  if(typeof jpUnknown!=="undefined")jpUnknown={};
+  if(typeof jpWordStats!=="undefined")jpWordStats={};
+  if(typeof jpReadingQuizStats!=="undefined")jpReadingQuizStats={};
   atlasRevealSet.clear();
   renderPracticeWelcome();renderMore();renderWrong();renderAtlasResults();
   toast("나의 진척도를 초기화했습니다.");
@@ -14386,6 +14394,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.44.0"></script>
+<script src="./japanese.js?v=2.44.1"></script>
 </body>
 </html>
