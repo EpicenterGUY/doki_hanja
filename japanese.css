@@ -3607,3 +3607,37 @@ html body.drill-active #jp .jp-word-feedback:empty{
   .jp-set-seg button{min-height:42px!important;padding:4px 3px!important;font-size:10px!important;line-height:1.15!important}
   .jp-set-seg small{font-size:7px!important;margin-top:2px!important}
 }
+
+
+/* PHONE PORTRAIT TWO-CHAR HORIZONTAL BOARD · 2.43.9
+   Keep this narrowly scoped so tablet/desktop and longer-word layouts remain unchanged. */
+@media(max-width:699px) and (orientation:portrait){
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-2.jp-word-rows-1{
+    width:100%!important;
+    max-width:100%!important;
+    height:auto!important;
+    align-content:start!important;
+    overflow:visible!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-2.jp-word-rows-1 .jp-word-board{
+    width:100%!important;
+    max-width:100%!important;
+    height:auto!important;
+    max-height:none!important;
+    aspect-ratio:2 / 1!important;
+    align-self:start!important;
+    justify-self:center!important;
+    margin-inline:auto!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-2.jp-word-rows-1 .jp-word-board canvas,
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-2.jp-word-rows-1 .jp-word-board-guides,
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-2.jp-word-rows-1 .jp-word-answer{
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-2.jp-word-rows-1 .jp-word-guide>span{
+    top:5px!important;
+    left:6px!important;
+  }
+}
