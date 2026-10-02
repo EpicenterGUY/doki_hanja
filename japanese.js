@@ -672,7 +672,9 @@ function jpCloseReadingDetail(){
 function jpReadingHomeHtml(){
   const kind=jpState.readingKind==="kun"?"kun":"on";
   const title=kind==="on"?"음독":"훈독";
-  let h="<section class='app-section jp-reading-browser'><div class='app-section-head'><div><div class='app-section-title'>"+title+"별 한자</div><div class='app-section-sub'>"+(jpState.set==="joyo"?"문부과학성 상용한자 음훈표를 기준으로 묶습니다.":"표외한자는 KanjiAPI 전체 읽기 색인에서 검색해 현재 표외 목록만 보여줍니다.")+"</div></div><span class='badge good'>"+(jpState.set==="joyo"?"공식 상용표":"표외 검색")+"</span></div>";
+  const sourceDesc=jpState.set==="joyo"?"문부과학성 상용한자 음훈표를 기준으로 묶습니다.":jpState.set==="hyogai"?"표외 실용 661자 안에서 KanjiAPI 읽기 색인을 검색합니다.":"희귀·비실용 3,581자 안에서 KanjiAPI 읽기 색인을 검색합니다.";
+  const sourceBadge=jpState.set==="joyo"?"공식 상용표":jpState.set==="hyogai"?"표외 실용 검색":"희귀자 검색";
+  let h="<section class='app-section jp-reading-browser'><div class='app-section-head'><div><div class='app-section-title'>"+title+"별 한자</div><div class='app-section-sub'>"+sourceDesc+"</div></div><span class='badge good'>"+sourceBadge+"</span></div>";
   h+="<div class='jp-mode-seg jp-reading-kind'><button data-reading-kind='on' class='"+(kind==="on"?"active":"")+"'>音読み 음독</button><button data-reading-kind='kun' class='"+(kind==="kun"?"active":"")+"'>訓読み 훈독</button></div>";
   if(jpState.set==="joyo"){
     const initials=[["all","전체"],["あ","あ"],["か","か"],["さ","さ"],["た","た"],["な","な"],["は","は"],["ま","ま"],["や","や"],["ら","ら"],["わ","わ"]];
@@ -700,17 +702,16 @@ function jpReadingHomeHtml(){
     if(!jpState.readingSelected)h+="<div class='jp-mode-note'>읽기를 누르면 바로 그 아래에 해당 한자가 펼쳐집니다. 같은 읽기를 한 번 더 누르면 닫힙니다.</div>";
   }else{
     h+="<div class='jp-reading-remote-box'><div class='jp-search-row'><input id='jpReadingInput' value='"+esc(jpState.readingQuery)+"' placeholder='"+(kind==="on"?"예: コウ / こう":"예: みる / たべる")+"'><button class='btn primary' id='jpReadingLookup'>읽기 검색</button></div>";
-    h+="<div class='jp-mode-note'>표외한자는 공식 상용 음훈표 대상이 아니므로 읽기 검색 결과를 KANJIDIC 기반 KanjiAPI에서 가져와 Hanja Lab 표외 목록과 교차검증합니다.</div>";
-    if(jpState.readingRemoteLoading)h+="<div class='jp-empty'>읽기 검색 중…</div>";
+    h+="<div class='jp-mode-note'>"+(jpState.set==="rare"?"희귀·비실용 한자는 공식 상용 음훈표 대상이 아니므로 KANJIDIC 기반 읽기 정보에서 희귀 범위만 추려 표시합니다.":"표외한자는 공식 상용 음훈표 대상이 아니므로 KANJIDIC 기반 읽기 정보에서 실용 표외 범위만 추려 표시합니다.")+"</div>";
+    if(jpState.readingRemoteLoading)h+="<div class='jp-empty'>읽기 데이터를 확인하고 있습니다…</div>";
     else if(jpState.readingRemoteError)h+="<div class='jp-empty'>"+esc(jpState.readingRemoteError)+"</div>";
     else if(jpState.readingQuery&&jpState.readingRemote.length)h+="<div class='jp-reading-selected'><div class='jp-reading-selected-head'><b>"+esc(jpState.readingQuery)+"</b><span>"+jpState.readingRemote.length+"자</span></div><div class='jp-atlas-grid'>"+jpCardsHtml(jpState.readingRemote,true)+"</div></div>";
-    else if(jpState.readingQuery)h+="<div class='jp-empty'>현재 표외 목록에서 이 읽기와 연결된 한자가 없습니다.</div>";
+    else if(jpState.readingQuery)h+="<div class='jp-empty'>현재 "+(jpState.set==="rare"?"희귀·비실용":"표외 실용")+" 목록에서 이 읽기와 연결된 한자가 없습니다.</div>";
     h+="</div>";
   }
   h+="</section>";
   return h;
-}
-function jpWordHomeHtml(){
+}function jpWordHomeHtml(){
   const baseRows=jpWords.filter(function(w){return w.set===jpState.set}),stageCounts=jpWordStageCounts(baseRows);
   const rows=jpCurrentWords(),info=jpWordRoundInfo(rows),roundRows=info.rows,wp=jpWordProfile();
   const sample=roundRows.slice(0,8);
@@ -1213,7 +1214,7 @@ async function jpFetchKanjiApi(ch){
 }
 function jpAtlasLocalCells(item){
   const cells=[];
-  cells.push(["분류",item.set==="joyo"?"常用漢字":"表外漢字"]);
+  cells.push(["분류",item.set==="joyo"?"常用漢字":item.hyogaiPractical?"表外漢字 · 실용":"희귀·비실용"]);
   if(item.set==="joyo")cells.push(["배정",jpGradeLabel(item.grade)]);
   if(item.strokes)cells.push(["총획",item.strokes+"획"]);
   if(item.radical)cells.push(["부수",item.radical]);
@@ -1223,8 +1224,7 @@ function jpAtlasLocalCells(item){
   }
   if(item.variants&&item.variants.length)cells.push(["이체·간이자",item.variants.join(" · ")]);
   return cells.map(function(c){return "<div class='jp-atlas-cell'><span>"+esc(c[0])+"</span><b lang='ja'>"+esc(c[1])+"</b></div>"}).join("");
-}
-async function openJapaneseAtlasDetail(ch){
+}async function openJapaneseAtlasDetail(ch){
   closeJapaneseAtlasDetail();
   const item=jpFindItem(ch);if(!item)return;
   const words=jpRelatedWords(ch),saved=!!jpUnknown[jpKey(item)];
