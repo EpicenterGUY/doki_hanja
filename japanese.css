@@ -3276,3 +3276,64 @@ html body.drill-active #jp .jp-word-meaning-panel{
   .jp-word-canvas-pane>.pen-toolbar,
   .drill-canvas-pane>.pen-toolbar{width:100%}
 }
+
+
+/* ===== iPad word-writing board + pen-row repair · 2.40.1 =====
+   The pen toolbar adds a real row to the word-writing pane.
+   Keep the canvas aspect ratio identical to its backing grid so Pencil coordinates stay 1:1.
+*/
+html body.drill-active #jp .jp-word-canvas-pane{
+  grid-template-rows:minmax(0,1fr) auto auto 44px 42px!important;
+}
+html body.drill-active #jp .jp-word-canvas-pane>.pen-toolbar{
+  grid-row:auto!important;
+  min-width:0!important;
+  max-width:100%!important;
+  overflow-x:auto!important;
+}
+html body.drill-active #jp .jp-word-feedback:empty{
+  display:none!important;
+}
+@media(min-width:700px) and (pointer:coarse) and (orientation:portrait){
+  html body.drill-active #jp .jp-word-canvas-pane{
+    grid-template-rows:auto auto auto 44px 42px!important;
+    height:auto!important;
+    align-content:start!important;
+    overflow:visible!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-3.jp-word-rows-1{
+    width:min(100%,760px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-3.jp-word-rows-1 .jp-word-board{
+    width:100%!important;
+    height:auto!important;
+    min-height:0!important;
+    max-height:none!important;
+    aspect-ratio:3 / 1!important;
+    justify-self:center!important;
+    align-self:start!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-2.jp-word-rows-2{
+    width:min(100%,560px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-2.jp-word-rows-2 .jp-word-board{
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:1 / 1!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-3.jp-word-rows-2{
+    width:min(100%,720px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-3.jp-word-rows-2 .jp-word-board{
+    width:100%!important;
+    height:auto!important;
+    aspect-ratio:3 / 2!important;
+  }
+  html body.drill-active #jp .jp-word-board canvas,
+  html body.drill-active #jp .jp-word-board-guides,
+  html body.drill-active #jp .jp-word-answer{
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+  }
+}
