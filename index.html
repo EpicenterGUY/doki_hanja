@@ -6799,6 +6799,7 @@ html.is-ipad body:not(.drill-active) .app2-bar::before{
   background:#0b1426;
   pointer-events:none;
 }
+/* Full on-screen keyboard: viewport itself shrinks, so keep a compact safety inset. */
 html.is-ipad.keyboard-open body.drill-active .app{
   padding-bottom:max(14px,env(safe-area-inset-bottom))!important;
 }
@@ -6824,6 +6825,30 @@ html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner{
   html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner .big-hanja{
     font-size:min(22vw,22vh)!important;
   }
+}
+
+/* Hardware keyboard input assistant (한 / ↑ / ↓ / mic):
+   do not relayout or shrink the question; only reserve a small bottom strip
+   so the floating white assistant does not cover the drill UI. */
+html.is-ipad.keyboard-accessory body.drill-active .app{
+  padding-bottom:max(54px,calc(env(safe-area-inset-bottom) + 42px))!important;
+}
+html.is-ipad.keyboard-accessory body.drill-active #drill{
+  min-height:0!important;
+}
+html.is-ipad.keyboard-accessory body.drill-active #drill .drill-stage.typing-stage{
+  min-height:0!important;
+}
+html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-pane{
+  min-height:0!important;
+  max-height:100%!important;
+  overflow:hidden!important;
+}
+html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-inner{
+  gap:12px!important;
+}
+html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-inner .big-hanja{
+  font-size:min(26vw,28vh)!important;
 }
 
 
@@ -7888,7 +7913,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.44.4-20261003";
+const APP_BUILD="2.44.5-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -11746,10 +11771,11 @@ function syncDrillViewport(){
   const ae=document.activeElement;
   const editing=!!(ae&&(ae.matches?.("input,textarea,[contenteditable='true']")));
   const ipad=document.documentElement.classList.contains("is-ipad");
+  const softKeyboard=editing&&occludedBottom>80;
+  const hardwareAccessory=ipad&&editing&&!softKeyboard;
   document.documentElement.classList.toggle("keyboard-focus",editing);
-  // iPad의 하드웨어 키보드 입력 보조바는 visualViewport를 거의 줄이지 않는 경우가 있어
-  // 입력 포커스 자체도 안전영역 보정 신호로 사용한다.
-  document.documentElement.classList.toggle("keyboard-open",editing&&(ipad||occludedBottom>24));
+  document.documentElement.classList.toggle("keyboard-open",softKeyboard);
+  document.documentElement.classList.toggle("keyboard-accessory",hardwareAccessory);
 }
 function loadDrillProgress(){
   const p=storageJson(DRILL_PROGRESS_KEY,{});
