@@ -3593,3 +3593,17 @@ html body.drill-active #jp .jp-word-feedback:empty{
   .jp-word-form-note{font-size:10px;padding:6px 8px}
   .jp-word-variant-note{font-size:9px!important;margin-left:5px}
 }
+
+
+/* Japanese top-level kanji collections + phone portrait decoration fix · 2.43.4 */
+.jp-set-seg{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+.jp-set-seg button{min-width:0}
+.jp-set-seg button small{white-space:normal;line-height:1.2}
+.jp-sub-nav{grid-template-columns:repeat(auto-fit,minmax(64px,1fr))!important}
+.jp-rare-spot{border-color:rgba(147,163,184,.24)}
+@media(max-width:600px) and (orientation:portrait){
+  .jp-hero::after,.jp-home-hero::after,.jp-sub-hero::after{display:none!important;content:none!important}
+  .jp-set-seg{gap:3px!important;padding:3px!important}
+  .jp-set-seg button{min-height:42px!important;padding:4px 3px!important;font-size:10px!important;line-height:1.15!important}
+  .jp-set-seg small{font-size:7px!important;margin-top:2px!important}
+}
