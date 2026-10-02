@@ -1,0 +1,24 @@
+name: Validate Japanese words
+
+on:
+  push:
+    paths:
+      - "data/japanese/words.json"
+      - "scripts/validate_japanese_words.js"
+      - ".github/workflows/validate-japanese-words.yml"
+  pull_request:
+    paths:
+      - "data/japanese/words.json"
+      - "scripts/validate_japanese_words.js"
+      - ".github/workflows/validate-japanese-words.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate Japanese vocabulary examples
+        run: node scripts/validate_japanese_words.js
