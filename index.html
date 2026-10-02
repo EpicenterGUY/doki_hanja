@@ -7725,7 +7725,10 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.43.2-20261002";
+const APP_BUILD="2.43.5-20261003";
+const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
+const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
+let pendingWebBuild="";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -7980,7 +7983,7 @@ async function checkAndroidLiveUpdate(){
 
     const busy=document.body.classList.contains("drill-active") || mode==="exam";
     if(busy){
-      showAppUpdate();
+      showAppUpdate(remote);
       const bar=$("#app2Update");
       if(bar){
         bar.hidden=false;
@@ -8012,6 +8015,10 @@ function enableAndroidLiveUpdates(){
 async function applyWebUpdate(){
   const btn=$("#forceWebUpdate");
   if(btn){btn.disabled=true;btn.textContent="최신 웹앱 적용 중…"}
+  const target=String(pendingWebBuild||"").trim();
+  if(target){
+    try{localStorage.setItem(WEB_UPDATE_TARGET_KEY,target)}catch{}
+  }
   try{
     if("serviceWorker" in navigator){
       const regs=await navigator.serviceWorker.getRegistrations();
@@ -8028,7 +8035,7 @@ async function applyWebUpdate(){
     }
   }catch{}
   const u=new URL(location.href);
-  u.searchParams.set("build",APP_BUILD);
+  u.searchParams.set("build",target||APP_BUILD);
   u.searchParams.set("v",Date.now().toString(36));
   location.replace(u.toString());
 }
@@ -8039,15 +8046,28 @@ async function checkWebLiveUpdate(){
   webLiveUpdateBusy=true;
   try{
     const info=await fetchVersionInfo();
-    const remote=String(info&&info.webBuild||"");
-    if(!remote||remote===APP_BUILD)return;
+    const remote=String(info&&info.webBuild||"").trim();
     const bar=$("#app2Update");
-    if(bar){
+    if(!remote||remote===APP_BUILD){
+      pendingWebBuild="";
+      if(bar)bar.hidden=true;
+      try{
+        if(localStorage.getItem(WEB_UPDATE_TARGET_KEY)===APP_BUILD)localStorage.removeItem(WEB_UPDATE_TARGET_KEY);
+      }catch{}
+      return;
+    }
+    pendingWebBuild=remote;
+
+    let alreadyPrompted=false;
+    try{alreadyPrompted=localStorage.getItem(WEB_UPDATE_PROMPT_KEY)===remote}catch{}
+    if(!alreadyPrompted&&bar){
       bar.hidden=false;
       const b=bar.querySelector("b"),sm=bar.querySelector("small");
       if(b)b.textContent="새 웹 버전 "+remote;
-      if(sm)sm.textContent="눌러서 최신 버전을 바로 적용합니다.";
+      if(sm)sm.textContent="이 버전 알림은 한 번만 표시됩니다.";
+      try{localStorage.setItem(WEB_UPDATE_PROMPT_KEY,remote)}catch{}
     }
+
     if("serviceWorker" in navigator){
       const regs=await navigator.serviceWorker.getRegistrations();
       await Promise.all(regs.map(async function(r){
@@ -8157,8 +8177,15 @@ function bindAppShell(){
   syncAppChrome(mode);
 }
 
-function showAppUpdate(){
+function showAppUpdate(build){
   appUpdateReady=true;
+  const target=String(build||pendingWebBuild||"").trim();
+  if(target){
+    try{
+      if(localStorage.getItem(WEB_UPDATE_PROMPT_KEY)===target)return;
+      localStorage.setItem(WEB_UPDATE_PROMPT_KEY,target);
+    }catch{}
+  }
   const bar=$("#app2Update");
   if(bar)bar.hidden=false;
 }
