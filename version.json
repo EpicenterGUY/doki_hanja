@@ -1,9 +1,22 @@
 {
-  "webBuild": "2.43.9-20261003",
+  "webBuild": "2.44.0-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.0",
+      "title": "일본 한자 JLPT N5~N1 재분류 · 단어 읽기 입력",
+      "items": [
+        "일본 상용한자 메인 학습 분류를 小1~中高에서 JLPT N5~N1 학습 기준으로 변경하고 학교급은 도감 부가정보로 유지",
+        "상용한자 2,136자에 OpenJLPT 기반 N5~N1 레벨을 연결하고 기존 表外漢字 실용 661자·희귀/비실용 3,581자 구조는 그대로 유지",
+        "일본 단어쓰기도 상용 단어를 전체·N5·N4·N3·N2·N1로 분류하고 표외 단어는 기존 입문·실용·고급·심화 단계를 유지",
+        "JLPT 한자단어를 제시하고 히라가나 읽기를 직접 입력해 채점하는 ‘JLPT 단어 읽기’ 카테고리 추가",
+        "단어 읽기 채점 후 정답 읽기·한국어 뜻·예문·번역을 함께 표시하고 가타카나 입력도 동일 읽기로 정규화",
+        "JLPT가 공식 고정 한자·어휘 목록을 공개하지 않는 점과 OpenJLPT 기반 학습용 근사 분류임을 데이터 기준·NOTICE에 명시",
+        "PWA 캐시에 새 JLPT 레벨 데이터 파일을 포함하고 japanese.js/css 캐시 버전을 2.44.0으로 갱신"
+      ]
+    },
     {
       "version": "2.43.9",
       "title": "폰 세로 일본 단어 그림판 가로 복원 · 보수적 UI 안정화",
