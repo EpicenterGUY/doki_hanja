@@ -466,7 +466,7 @@ function setJapaneseSet(s){
   jpState.readingQuizLevel="all";jpState.readingQuizIndex=0; jpState.readingQuizList=[];
   jpState.readingInitial="all";jpState.readingSelected="";jpState.readingQuery="";jpState.readingRemote=[];jpState.readingRemoteError="";
   if(jpState.set==="rare"&&jpState.view==="word")jpState.view="atlas";
-  if(jpState.set!=="joyo"&&jpState.view==="wordreading")jpState.view=jpState.set==="hyogai"?"word":"atlas";
+  if(jpState.set==="rare"&&jpState.view==="wordreading")jpState.view="atlas";
   renderJapanese();
 }function setJapaneseView(v){
   jpState.view=["home","practice","atlas","word","wordreading","reading"].includes(v)?v:"home";
@@ -581,10 +581,10 @@ function jpHeroHtml(){
   const home=jpState.view==="home";
   const n=jpHyogaiTierCounts();
   const setDesc=jpState.set==="joyo"?"常用漢字 2,136자":jpState.set==="hyogai"?"表外漢字 실용 "+n.practical.toLocaleString()+"자":"희귀·비실용 "+n.rare.toLocaleString()+"자";
-  const subNav=home?"":("<div class='jp-view-seg jp-sub-nav'><button data-jp-view='practice' class='"+(jpState.view==="practice"?"active":"")+"'>書 글자</button>"+(jpState.set==="rare"?"":"<button data-jp-view='word' class='"+(jpState.view==="word"?"active":"")+"'>文 단어쓰기</button>")+(jpState.set==="joyo"?"<button data-jp-view='wordreading' class='"+(jpState.view==="wordreading"?"active":"")+"'>読 단어읽기</button>":"")+"<button data-jp-view='atlas' class='"+(jpState.view==="atlas"?"active":"")+"'>冊 도감</button><button data-jp-view='reading' class='"+(jpState.view==="reading"?"active":"")+"'>音 음훈</button></div>");
+  const subNav=home?"":("<div class='jp-view-seg jp-sub-nav'><button data-jp-view='practice' class='"+(jpState.view==="practice"?"active":"")+"'>書 글자</button>"+(jpState.set==="rare"?"":"<button data-jp-view='word' class='"+(jpState.view==="word"?"active":"")+"'>文 단어쓰기</button>")+(jpState.set!=="rare"?"<button data-jp-view='wordreading' class='"+(jpState.view==="wordreading"?"active":"")+"'>読 읽기</button>":"")+"<button data-jp-view='atlas' class='"+(jpState.view==="atlas"?"active":"")+"'>冊 도감</button><button data-jp-view='reading' class='"+(jpState.view==="reading"?"active":"")+"'>音 음훈</button></div>");
   return "<section class='jp-hero "+(home?"jp-home-hero":"jp-sub-hero")+"'>"+
-    "<div class='jp-kicker'>HANJA LAB · JAPANESE</div><div class='jp-hero-line'><div><h2>"+(home?"日本漢字":(jpState.view==="practice"?"글자 쓰기":jpState.view==="word"?"단어 쓰기":jpState.view==="wordreading"?"JLPT 단어 읽기":jpState.view==="reading"?"음독·훈독별":"일본 한자 도감"))+"</h2>"+
-    "<p>"+(home?"상용한자는 JLPT N5~N1 중심으로, 표외 실용·희귀/비실용은 기존 구조대로 분리해 학습합니다.":setDesc+" · "+(jpState.view==="practice"?"JLPT별 손글씨 형태 연습":jpState.view==="word"?"JLPT별 예문 기반 단어쓰기":jpState.view==="wordreading"?"한자어를 보고 히라가나 읽기 입력":jpState.view==="reading"?"읽기별 한자 탐색":"읽기·훈음·연관 단어 탐색"))+"</p></div>"+
+    "<div class='jp-kicker'>HANJA LAB · JAPANESE</div><div class='jp-hero-line'><div><h2>"+(home?"日本漢字":(jpState.view==="practice"?"글자 쓰기":jpState.view==="word"?"단어 쓰기":jpState.view==="wordreading"?(jpState.set==="hyogai"?"표외 한자 읽기":"JLPT 단어 읽기"):jpState.view==="reading"?"음독·훈독별":"일본 한자 도감"))+"</h2>"+
+    "<p>"+(home?"상용한자는 JLPT N5~N1 중심으로, 표외 실용·희귀/비실용은 기존 구조대로 분리해 학습합니다.":setDesc+" · "+(jpState.view==="practice"?"손글씨 형태 연습":jpState.view==="word"?"예문 기반 단어쓰기":jpState.view==="wordreading"?(jpState.set==="hyogai"?"표외한자가 들어간 실제 단어를 보고 히라가나 읽기 입력":"한자어를 보고 히라가나 읽기 입력"):jpState.view==="reading"?"읽기별 한자 탐색":"읽기·훈음·연관 단어 탐색"))+"</p></div>"+
     (home?"":"<button class='jp-home-back' data-jp-view='home'>⌂ 홈</button>")+"</div>"+
     "<div class='jp-set-seg'><button class='"+(jpState.set==="joyo"?"active":"")+"' data-jp-set='joyo'>常用漢字<small>2,136자</small></button>"+
     "<button class='"+(jpState.set==="hyogai"?"active":"")+"' data-jp-set='hyogai'>表外漢字<small>실용 "+n.practical.toLocaleString()+"자</small></button>"+
@@ -603,7 +603,7 @@ function jpHeroHtml(){
   h+="<div class='jp-home-actions'>";
   h+="<button class='jp-home-action write' data-jp-view='practice'><span class='jp-action-glyph'>書</span><span><b>글자 쓰기</b><small>"+(jpState.set==="joyo"?"JLPT N5~N1별 한자 손글씨 연습":"2초 암기 또는 보고 따라쓰기")+"</small></span><i>›</i></button>";
   if(jpState.set!=="rare")h+="<button class='jp-home-action word' data-jp-view='word'><span class='jp-action-glyph'>文</span><span><b>단어 쓰기</b><small>"+(jpState.set==="joyo"?"JLPT별 읽기·뜻·예문 기반 쓰기":"읽기·뜻·예문을 보고 직접 쓰기")+"</small></span><i>›</i></button>";
-  if(jpState.set==="joyo")h+="<button class='jp-home-action reading-quiz' data-jp-view='wordreading'><span class='jp-action-glyph'>読</span><span><b>JLPT 단어 읽기</b><small>한자어를 보고 히라가나 읽기 입력</small></span><i>›</i></button>";
+  if(jpState.set!=="rare")h+="<button class='jp-home-action reading-quiz' data-jp-view='wordreading'><span class='jp-action-glyph'>読</span><span><b>"+(jpState.set==="hyogai"?"표외 한자 읽기":"JLPT 단어 읽기")+"</b><small>"+(jpState.set==="hyogai"?"표외한자가 들어간 실제 단어 읽기":"한자어를 보고 히라가나 읽기 입력")+"</small></span><i>›</i></button>";
   h+="<button class='jp-home-action atlas' data-jp-view='atlas'><span class='jp-action-glyph'>冊</span><span><b>한자 도감</b><small>음독·훈독·한국어 훈음·연관어</small></span><i>›</i></button>";
   h+="<button class='jp-home-action reading' data-jp-view='reading'><span class='jp-action-glyph'>音</span><span><b>독음·훈독별</b><small>"+(jpState.set==="rare"?"희귀자 읽기 검색":"상용 공식 읽기 · 표외 읽기 검색")+"</small></span><i>›</i></button>";
   h+="<button class='jp-home-action saved' id='jpHomeSaved'><span class='jp-action-glyph'>★</span><span><b>저장한 한자</b><small>모르는 한자 "+saved+"자 다시 보기</small></span><i>›</i></button>";
@@ -807,49 +807,51 @@ function bindJapaneseHome(){
   const root=$(".jp-screen");
   if(root){
     root.onclick=function(e){
-      const setBtn=e.target.closest("[data-jp-set]");
+      const target=e.target&&e.target.closest?e.target:null;
+      if(!target)return;
+      const setBtn=target.closest("[data-jp-set]");
       if(setBtn&&root.contains(setBtn)){e.preventDefault();setJapaneseSet(setBtn.dataset.jpSet);return}
 
-      const viewBtn=e.target.closest("[data-jp-view]");
+      const viewBtn=target.closest("[data-jp-view]");
       if(viewBtn&&root.contains(viewBtn)){e.preventDefault();setJapaneseView(viewBtn.dataset.jpView);return}
 
-      const gradeBtn=e.target.closest("[data-jp-home-grade]");
+      const gradeBtn=target.closest("[data-jp-home-grade]");
       if(gradeBtn&&root.contains(gradeBtn)){e.preventDefault();jpOpenGradePractice(gradeBtn.dataset.jpHomeGrade);return}
 
-      const filterGradeBtn=e.target.closest("#jpGradeRow [data-grade]");
+      const filterGradeBtn=target.closest("#jpGradeRow [data-grade]");
       if(filterGradeBtn&&root.contains(filterGradeBtn)){e.preventDefault();setJapaneseGrade(filterGradeBtn.dataset.grade);return}
 
-      const hyogaiTierBtn=e.target.closest("[data-hyogai-tier]");
+      const hyogaiTierBtn=target.closest("[data-hyogai-tier]");
       if(hyogaiTierBtn&&root.contains(hyogaiTierBtn)){
         e.preventDefault();jpState.hyogaiTier=hyogaiTierBtn.dataset.hyogaiTier||"practical";
         jpState.limit=120;jpState.atlasLimit=160;renderJapanese();return;
       }
 
-      const charBtn=e.target.closest(".jp-card[data-jp-char]");
+      const charBtn=target.closest(".jp-card[data-jp-char]");
       if(charBtn&&root.contains(charBtn)){e.preventDefault();startJapanesePractice(charBtn.dataset.jpChar);return}
 
-      const atlasBtn=e.target.closest(".jp-atlas-card[data-jp-atlas]");
+      const atlasBtn=target.closest(".jp-atlas-card[data-jp-atlas]");
       if(atlasBtn&&root.contains(atlasBtn)){e.preventDefault();openJapaneseAtlasDetail(atlasBtn.dataset.jpAtlas);return}
 
-      const roundBtn=e.target.closest("#jpWordRounds [data-round]");
+      const roundBtn=target.closest("#jpWordRounds [data-round]");
       if(roundBtn&&root.contains(roundBtn)){e.preventDefault();jpSetWordRound(+roundBtn.dataset.round);return}
 
-      const atlasGroupBtn=e.target.closest("[data-jp-atlas-group]");
+      const atlasGroupBtn=target.closest("[data-jp-atlas-group]");
       if(atlasGroupBtn&&root.contains(atlasGroupBtn)){e.preventDefault();jpState.atlasGroup=atlasGroupBtn.dataset.jpAtlasGroup||"on";jpState.atlasInitial="all";renderJapanese();return}
 
-      const atlasInitialBtn=e.target.closest("[data-jp-atlas-initial]");
+      const atlasInitialBtn=target.closest("[data-jp-atlas-initial]");
       if(atlasInitialBtn&&root.contains(atlasInitialBtn)){e.preventDefault();jpState.atlasInitial=atlasInitialBtn.dataset.jpAtlasInitial||"all";renderJapanese();return}
 
-      const readingKindBtn=e.target.closest("[data-reading-kind]");
+      const readingKindBtn=target.closest("[data-reading-kind]");
       if(readingKindBtn&&root.contains(readingKindBtn)){e.preventDefault();jpState.readingKind=readingKindBtn.dataset.readingKind;jpState.readingSelected="";jpState.readingRemote=[];renderJapanese();return}
 
-      const readingInitialBtn=e.target.closest("[data-reading-initial]");
+      const readingInitialBtn=target.closest("[data-reading-initial]");
       if(readingInitialBtn&&root.contains(readingInitialBtn)){e.preventDefault();jpState.readingInitial=readingInitialBtn.dataset.readingInitial;jpState.readingSelected="";renderJapanese();return}
 
-      const readingCloseBtn=e.target.closest("[data-reading-close]");
+      const readingCloseBtn=target.closest("[data-reading-close]");
       if(readingCloseBtn&&root.contains(readingCloseBtn)){e.preventDefault();e.stopPropagation();jpCloseReadingDetail();return}
 
-      const readingSelectBtn=e.target.closest("[data-reading-select]");
+      const readingSelectBtn=target.closest("[data-reading-select]");
       if(readingSelectBtn&&root.contains(readingSelectBtn)){e.preventDefault();jpSelectReading(readingSelectBtn.dataset.readingSelect);return}
     };
   }
@@ -877,7 +879,7 @@ function bindJapaneseHome(){
   if($("#jpWordCount"))$("#jpWordCount").onchange=function(e){jpState.wordCount=+e.target.value;jpState.wordRound=0;renderJapanese()};
   if($("#jpWordOrder"))$("#jpWordOrder").onchange=function(e){jpState.wordOrder=e.target.value};
   if($("#jpWordStart"))$("#jpWordStart").onclick=startJapaneseWordPractice;
-  $("#jpReadingQuizTier [data-jlpt]").forEach(function(b){b.onclick=function(){jpState.readingQuizLevel=b.dataset.jlpt||"all";renderJapanese()}});
+  $("#jpReadingQuizTier [data-reading-quiz-tier]").forEach(function(b){b.onclick=function(){jpState.readingQuizLevel=b.dataset.readingQuizTier||"all";renderJapanese()}});
   if($("#jpReadingQuizCount"))$("#jpReadingQuizCount").onchange=function(e){jpState.readingQuizCount=+e.target.value};
   if($("#jpReadingQuizOrder"))$("#jpReadingQuizOrder").onchange=function(e){jpState.readingQuizOrder=e.target.value};
   if($("#jpReadingQuizStart"))$("#jpReadingQuizStart").onclick=startJapaneseReadingQuiz;
@@ -956,6 +958,8 @@ function renderJapanesePracticeCard(){
   $("#jp").innerHTML=h;
 
   setupAnyCanvas("#jpCanvas");
+  const jpSingleCanvas=$("#jpCanvas"),jpSingleWrap=jpSingleCanvas&&jpSingleCanvas.closest(".drill-canvas-wrap");
+  if(jpSingleCanvas&&jpSingleWrap)jpInstallCanvasGeometryGuard(jpSingleCanvas,jpSingleWrap);
   if(typeof bindHandwritingPenToolbar==="function")bindHandwritingPenToolbar($("#jp"));
   $("#jpExit").onclick=exitJapanesePractice;
   $("#jpPrev").onclick=function(){if(st.index>0){st.index--;st.checked=false;renderJapanesePracticeCard()}};
@@ -973,18 +977,45 @@ function renderJapanesePracticeCard(){
   if(st.mode==="memory")jpScheduleHide();
 }
 
-/* JLPT word-reading quiz */
+/* Japanese word-reading quiz · 常用 + 表外 */
 function jpReadingQuizKey(w){return "reading|"+jpJlptWordKey(w)}
+function jpReadingQuizSet(){return jpState.set==="hyogai"?"hyogai":"joyo"}
+function jpReadingQuizTier(w){
+  return jpReadingQuizSet()==="hyogai"?jpHyogaiWordStage(w):jpWordJlpt(w);
+}
+function jpReadingQuizTierLabel(v){
+  return jpReadingQuizSet()==="hyogai"?jpWordStageLabel(v):v;
+}
+function jpReadingQuizBaseRows(){
+  const set=jpReadingQuizSet();
+  return jpWords.filter(function(w){
+    if(w.set!==set)return false;
+    if(!String(w.word||"").trim()||!String(w.reading||"").trim())return false;
+    if(set==="hyogai"){
+      return [...String(w.word||"")].some(function(ch){
+        const item=jpItemMap.get(ch);
+        return item&&item.set==="hyogai"&&item.hyogaiPractical;
+      });
+    }
+    return true;
+  });
+}
 function jpReadingQuizPool(){
-  let rows=jpWords.filter(function(w){return w.set==="joyo"});
-  if(jpState.readingQuizLevel!=="all")rows=rows.filter(function(w){return jpWordJlpt(w)===jpState.readingQuizLevel});
+  let rows=jpReadingQuizBaseRows();
+  if(jpState.readingQuizLevel!=="all")rows=rows.filter(function(w){return jpReadingQuizTier(w)===jpState.readingQuizLevel});
   return rows;
 }
 function jpReadingQuizCounts(){
-  return jpJlptCounts(jpWords.filter(function(w){return w.set==="joyo"}),jpWordJlpt);
+  const out=jpReadingQuizSet()==="hyogai"
+    ?{entry:0,practical:0,advanced:0,deep:0}
+    :{N5:0,N4:0,N3:0,N2:0,N1:0};
+  jpReadingQuizBaseRows().forEach(function(w){
+    const k=jpReadingQuizTier(w);if(k in out)out[k]++;
+  });
+  return out;
 }
 function jpReadingQuizProfile(){
-  const rows=jpWords.filter(function(w){return w.set==="joyo"}),allowed=new Set(rows.map(jpReadingQuizKey));
+  const rows=jpReadingQuizBaseRows(),allowed=new Set(rows.map(jpReadingQuizKey));
   let attempted=0,ok=0,no=0;
   Object.keys(jpReadingQuizStats).forEach(function(k){
     if(!allowed.has(k))return;
@@ -994,33 +1025,40 @@ function jpReadingQuizProfile(){
   return {attempted:attempted,accuracy:ok+no?Math.round(ok/(ok+no)*100):0};
 }
 function jpReadingQuizHomeHtml(){
-  const rows=jpReadingQuizPool(),counts=jpReadingQuizCounts(),p=jpReadingQuizProfile();
-  const levels=[["all","전체",jpWords.filter(function(w){return w.set==="joyo"}).length],["N5","N5",counts.N5],["N4","N4",counts.N4],["N3","N3",counts.N3],["N2","N2",counts.N2],["N1","N1",counts.N1]];
+  const set=jpReadingQuizSet(),rows=jpReadingQuizPool(),counts=jpReadingQuizCounts(),p=jpReadingQuizProfile();
+  const baseCount=jpReadingQuizBaseRows().length;
+  const levels=set==="hyogai"
+    ?[["all","전체",baseCount],["entry","입문",counts.entry],["practical","실용",counts.practical],["advanced","고급",counts.advanced],["deep","심화",counts.deep]]
+    :[["all","전체",baseCount],["N5","N5",counts.N5],["N4","N4",counts.N4],["N3","N3",counts.N3],["N2","N2",counts.N2],["N1","N1",counts.N1]];
   const count=Math.max(1,+jpState.readingQuizCount||20),startCount=Math.min(count,rows.length);
   const sample=rows.slice(0,8);
-  let h="<section class='app-section jp-reading-quiz-home'><div class='app-section-head'><div><div class='app-section-title'>JLPT 한자단어 읽기</div><div class='app-section-sub'>한자어를 보고 읽는 법을 히라가나로 직접 입력합니다.</div></div><span class='badge good'>"+rows.length.toLocaleString()+"단어</span></div>";
-  h+="<div class='jp-word-tier' id='jpReadingQuizTier'>"+levels.map(function(t){return "<button class='jp-filter-chip "+(jpState.readingQuizLevel===t[0]?"active":"")+"' data-jlpt='"+t[0]+"'>"+t[1]+" <small>"+Number(t[2]||0).toLocaleString()+"</small></button>"}).join("")+"</div>";
+  const title=set==="hyogai"?"표외 한자 읽기":"JLPT 한자단어 읽기";
+  const sub=set==="hyogai"
+    ?"표외한자는 단독 읽기가 여러 개인 경우가 많아 실제 단어 안에서 읽는 법을 입력합니다."
+    :"한자어를 보고 읽는 법을 히라가나로 직접 입력합니다.";
+  let h="<section class='app-section jp-reading-quiz-home'><div class='app-section-head'><div><div class='app-section-title'>"+title+"</div><div class='app-section-sub'>"+sub+"</div></div><span class='badge good'>"+rows.length.toLocaleString()+"단어</span></div>";
+  h+="<div class='jp-word-tier' id='jpReadingQuizTier'>"+levels.map(function(t){return "<button type='button' class='jp-filter-chip "+(jpState.readingQuizLevel===t[0]?"active":"")+"' data-reading-quiz-tier='"+t[0]+"'>"+t[1]+" <small>"+Number(t[2]||0).toLocaleString()+"</small></button>"}).join("")+"</div>";
   h+="<div class='jp-word-count'><label class='jp-field'><span>문제 수</span><select id='jpReadingQuizCount'><option value='10' "+(jpState.readingQuizCount===10?"selected":"")+">10문제</option><option value='20' "+(jpState.readingQuizCount===20?"selected":"")+">20문제</option><option value='50' "+(jpState.readingQuizCount===50?"selected":"")+">50문제</option><option value='100' "+(jpState.readingQuizCount===100?"selected":"")+">100문제</option></select></label>";
   h+="<label class='jp-field'><span>순서</span><select id='jpReadingQuizOrder'><option value='random' "+(jpState.readingQuizOrder==="random"?"selected":"")+">랜덤</option><option value='source' "+(jpState.readingQuizOrder==="source"?"selected":"")+">목록순</option></select></label></div>";
   h+="<div class='jp-mode-note'>문제에는 한자 표기만 먼저 보여 주고, 채점 뒤에 정답 읽기·한국어 뜻·예문을 확인합니다. 가타카나로 입력해도 같은 읽기면 정답으로 처리합니다.</div>";
-  h+="<button class='btn primary app-start' id='jpReadingQuizStart' style='width:100%;margin-top:10px' "+(rows.length?"":"disabled")+">읽기 연습 시작 · "+startCount+"문제</button></section>";
-  h+="<section class='app-section'><div class='app-section-head'><div><div class='app-section-title'>범위 미리보기</div><div class='app-section-sub'>현재 "+(jpState.readingQuizLevel==="all"?"전체 JLPT":jpState.readingQuizLevel)+" 단어</div></div><span class='badge'>누적 "+p.attempted+"단어 · "+p.accuracy+"%</span></div>";
-  if(sample.length)h+="<div class='jp-reading-quiz-preview'>"+sample.map(function(w){return "<div><b lang='ja'>"+esc(jpWordDisplayForm(w))+"</b><span>"+jpWordJlpt(w)+"</span><small>"+esc(w.meaning)+"</small></div>"}).join("")+"</div>";
+  h+="<button type='button' class='btn primary app-start' id='jpReadingQuizStart' style='width:100%;margin-top:10px' "+(rows.length?"":"disabled")+">읽기 연습 시작 · "+startCount+"문제</button></section>";
+  h+="<section class='app-section'><div class='app-section-head'><div><div class='app-section-title'>범위 미리보기</div><div class='app-section-sub'>현재 "+(jpState.readingQuizLevel==="all"?(set==="hyogai"?"표외 전체":"전체 JLPT"):jpReadingQuizTierLabel(jpState.readingQuizLevel))+" 단어</div></div><span class='badge'>누적 "+p.attempted+"단어 · "+p.accuracy+"%</span></div>";
+  if(sample.length)h+="<div class='jp-reading-quiz-preview'>"+sample.map(function(w){return "<div><b lang='ja'>"+esc(jpWordDisplayForm(w))+"</b><span>"+esc(jpReadingQuizTierLabel(jpReadingQuizTier(w)))+"</span><small>"+esc(w.meaning)+"</small></div>"}).join("")+"</div>";
   else h+="<div class='jp-empty'>이 범위의 단어가 없습니다.</div>";
   h+="</section>";
   return h;
 }
 function startJapaneseReadingQuiz(){
   let rows=jpReadingQuizPool().slice();
-  if(!rows.length){toast("이 JLPT 범위의 단어가 없습니다");return}
+  if(!rows.length){toast(jpReadingQuizSet()==="hyogai"?"이 표외 범위의 읽기 단어가 없습니다":"이 JLPT 범위의 단어가 없습니다");return}
   if(jpState.readingQuizOrder==="random")rows=shuffle(rows);
   rows=rows.slice(0,Math.max(1,+jpState.readingQuizCount||20));
   jpState.readingQuizList=rows;jpState.readingQuizIndex=0;jpState.readingQuizChecked=false;
   renderJapaneseReadingQuizCard();
 }
 function jpReadingQuizRecord(w,ok){
-  const k=jpReadingQuizKey(w),s=jpReadingQuizStats[k]||(jpReadingQuizStats[k]={ok:0,no:0,last:0,level:jpWordJlpt(w)});
-  s[ok?"ok":"no"]++;s.last=Date.now();
+  const k=jpReadingQuizKey(w),s=jpReadingQuizStats[k]||(jpReadingQuizStats[k]={ok:0,no:0,last:0,set:w.set||jpReadingQuizSet(),level:jpReadingQuizTier(w)});
+  s[ok?"ok":"no"]++;s.last=Date.now();s.set=w.set||jpReadingQuizSet();s.level=jpReadingQuizTier(w);
   storageSet("jpReadingQuizStatsV1",JSON.stringify(jpReadingQuizStats));
 }
 function jpReadingQuizNormalize(v){return jpKanaFold(String(v||"").trim()).replace(/\s+/g,"")}
@@ -1032,7 +1070,7 @@ function jpCheckReadingQuiz(){
   const ok=typed===answer;
   jpState.readingQuizChecked=true;jpReadingQuizRecord(w,ok);
   fb.className="feedback jp-reading-quiz-feedback "+(ok?"ok":"no");
-  fb.innerHTML="<div><b>"+(ok?"정답":"다시 확인")+"</b> · 정답 <strong lang='ja'>"+esc(jpHiraganaReading(w.reading))+"</strong></div><div class='jp-reading-quiz-answer-meta'>"+esc(w.meaning)+" · "+jpWordJlpt(w)+"</div>"+(jpWordHasRealExample(w)?"<p lang='ja'>"+esc(w.sentence)+"</p><small>"+esc(w.translation||"")+"</small>":"");
+  fb.innerHTML="<div><b>"+(ok?"정답":"다시 확인")+"</b> · 정답 <strong lang='ja'>"+esc(jpHiraganaReading(w.reading))+"</strong></div><div class='jp-reading-quiz-answer-meta'>"+esc(w.meaning)+" · "+esc(jpReadingQuizTierLabel(jpReadingQuizTier(w)))+"</div>"+(jpWordHasRealExample(w)?"<p lang='ja'>"+esc(w.sentence)+"</p><small>"+esc(w.translation||"")+"</small>":"");
   input.setAttribute("aria-invalid",ok?"false":"true");
 }
 function renderJapaneseReadingQuizCard(){
@@ -1040,9 +1078,9 @@ function renderJapaneseReadingQuizCard(){
   if(!w){exitJapanesePractice();return}
   const pct=Math.round((jpState.readingQuizIndex+1)/jpState.readingQuizList.length*100);
   document.body.classList.add("drill-active");syncDrillViewport();
-  let h="<div class='drill-session-shell jp-reading-quiz-session'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+jpWordJlpt(w)+"</span><span class='drill-status-pill'>"+(jpState.readingQuizIndex+1)+"/"+jpState.readingQuizList.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button class='btn drill-icon-btn drill-settings-btn' id='jpReadingQuizExit'>목록</button></div></div>";
-  h+="<div class='jp-reading-quiz-stage'><section class='jp-reading-quiz-card'><div class='prompt'>이 한자어의 읽는 법을 입력하세요.</div><div class='jp-reading-quiz-word' lang='ja'>"+esc(jpWordDisplayForm(w))+"</div><div class='jp-reading-quiz-level'>"+jpWordJlpt(w)+" 학습 기준</div><input id='jpReadingQuizInput' class='jp-reading-quiz-input' lang='ja' inputmode='text' autocomplete='off' autocapitalize='off' spellcheck='false' placeholder='ひらがな로 입력'><button class='btn primary jp-reading-quiz-check' id='jpReadingQuizCheck'>채점</button><div id='jpReadingQuizFeedback' class='feedback jp-reading-quiz-feedback'></div></section>";
-  h+="<div class='jp-word-nav jp-reading-quiz-nav'><button class='btn' id='jpReadingQuizPrev' "+(jpState.readingQuizIndex===0?"disabled":"")+">← 이전</button><button class='btn' id='jpReadingQuizNext'>"+(jpState.readingQuizIndex===jpState.readingQuizList.length-1?"연습 완료 →":"다음 →")+"</button></div></div></div>";
+  let h="<div class='drill-session-shell jp-reading-quiz-session'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+esc(jpReadingQuizTierLabel(jpReadingQuizTier(w)))+"</span><span class='drill-status-pill'>"+(jpState.readingQuizIndex+1)+"/"+jpState.readingQuizList.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button type='button' class='btn drill-icon-btn drill-settings-btn' id='jpReadingQuizExit'>목록</button></div></div>";
+  h+="<div class='jp-reading-quiz-stage'><section class='jp-reading-quiz-card'><div class='prompt'>"+(jpReadingQuizSet()==="hyogai"?"이 표외한자 단어의 읽는 법을 입력하세요.":"이 한자어의 읽는 법을 입력하세요.")+"</div><div class='jp-reading-quiz-word' lang='ja'>"+esc(jpWordDisplayForm(w))+"</div><div class='jp-reading-quiz-level'>"+esc(jpReadingQuizTierLabel(jpReadingQuizTier(w)))+(jpReadingQuizSet()==="hyogai"?" 표외 학습":" 학습 기준")+"</div><input id='jpReadingQuizInput' class='jp-reading-quiz-input' lang='ja' inputmode='text' autocomplete='off' autocapitalize='off' spellcheck='false' placeholder='ひらがな로 입력'><button type='button' class='btn primary jp-reading-quiz-check' id='jpReadingQuizCheck'>채점</button><div id='jpReadingQuizFeedback' class='feedback jp-reading-quiz-feedback'></div></section>";
+  h+="<div class='jp-word-nav jp-reading-quiz-nav'><button type='button' class='btn' id='jpReadingQuizPrev' "+(jpState.readingQuizIndex===0?"disabled":"")+">← 이전</button><button type='button' class='btn' id='jpReadingQuizNext'>"+(jpState.readingQuizIndex===jpState.readingQuizList.length-1?"연습 완료 →":"다음 →")+"</button></div></div></div>";
   $("#jp").innerHTML=h;
   $("#jpReadingQuizExit").onclick=exitJapanesePractice;
   $("#jpReadingQuizPrev").onclick=function(){if(jpState.readingQuizIndex>0){jpState.readingQuizIndex--;jpState.readingQuizChecked=false;renderJapaneseReadingQuizCard()}};
@@ -1088,6 +1126,25 @@ function jpWordBoardSpec(count){
   else{cols=landscape?4:3;rows=Math.ceil(n/cols)}
   return {count:n,cols:cols,rows:rows,cell:480,width:cols*480,height:rows*480};
 }
+function jpInstallCanvasGeometryGuard(canvas,host){
+  if(!canvas)return;
+  const root=host||canvas.parentElement;
+  if(!root)return;
+  if(canvas._jpGeometryObserver){try{canvas._jpGeometryObserver.disconnect()}catch{}}
+  const refresh=function(){
+    const r=root.getBoundingClientRect();
+    if(!(r.width>2&&r.height>2))return;
+    canvas.dataset.layoutWidth=String(Math.round(r.width));
+    canvas.dataset.layoutHeight=String(Math.round(r.height));
+    // A resize must never leave stale pointer capture or a half-finished stroke.
+    try{if(canvas.hasPointerCapture&&canvas._jpActivePointerId!=null&&canvas.hasPointerCapture(canvas._jpActivePointerId))canvas.releasePointerCapture(canvas._jpActivePointerId)}catch{}
+  };
+  refresh();
+  if(typeof ResizeObserver!=="undefined"){
+    const ro=new ResizeObserver(function(){requestAnimationFrame(refresh)});
+    ro.observe(root);canvas._jpGeometryObserver=ro;
+  }
+}
 function jpPaintWordCanvasBase(c){
   if(!c)return;
   const x=c.getContext("2d");
@@ -1112,6 +1169,7 @@ function jpSetupUnifiedWordCanvas(spec){
   c.style.pointerEvents="auto";
   c.style.touchAction="none";
   bindCanvasDrawing(c,c.getContext("2d"),function(){},c);
+  jpInstallCanvasGeometryGuard(c,board);
 }
 function jpWordRegionCanvas(source,index,spec){
   if(!source||!spec)return null;
