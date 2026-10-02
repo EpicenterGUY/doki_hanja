@@ -7191,7 +7191,7 @@ html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-pane{
 }
 
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.44.2">
+<link rel="stylesheet" href="./japanese.css?v=2.45.0">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -12079,6 +12079,9 @@ function syncDrillViewport(){
   if(softKeyboard&&document.body.classList.contains("drill-active")){
     requestAnimationFrame(lockIpadDrillScroll);
   }
+  if(document.body.classList.contains("drill-active")){
+    requestAnimationFrame(function(){refreshSquareHandwritingCanvases()});
+  }
 }
 function loadDrillProgress(){
   const p=storageJson(DRILL_PROGRESS_KEY,{});
@@ -14930,6 +14933,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.44.2"></script>
+<script src="./japanese.js?v=2.45.0"></script>
 </body>
 </html>
