@@ -879,7 +879,7 @@ function bindJapaneseHome(){
   if($("#jpWordCount"))$("#jpWordCount").onchange=function(e){jpState.wordCount=+e.target.value;jpState.wordRound=0;renderJapanese()};
   if($("#jpWordOrder"))$("#jpWordOrder").onchange=function(e){jpState.wordOrder=e.target.value};
   if($("#jpWordStart"))$("#jpWordStart").onclick=startJapaneseWordPractice;
-  $("#jpReadingQuizTier [data-reading-quiz-tier]").forEach(function(b){b.onclick=function(){jpState.readingQuizLevel=b.dataset.readingQuizTier||"all";renderJapanese()}});
+  $$("#jpReadingQuizTier [data-reading-quiz-tier]").forEach(function(b){b.onclick=function(){jpState.readingQuizLevel=b.dataset.readingQuizTier||"all";renderJapanese()}});
   if($("#jpReadingQuizCount"))$("#jpReadingQuizCount").onchange=function(e){jpState.readingQuizCount=+e.target.value};
   if($("#jpReadingQuizOrder"))$("#jpReadingQuizOrder").onchange=function(e){jpState.readingQuizOrder=e.target.value};
   if($("#jpReadingQuizStart"))$("#jpReadingQuizStart").onclick=startJapaneseReadingQuiz;
