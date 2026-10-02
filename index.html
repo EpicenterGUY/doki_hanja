@@ -6942,7 +6942,7 @@ const GENERATED_TYPES=new Set(["sound","meaning","meaningSound","write","radical
 const SPECIAL_FREQ_TYPE_ORDER=["sound","wordWrite","meaningSound","radical","abbreviation","longSound","synonym","antonym","homonym","idiom","definition","hanmun","sameSound","multiReading"];
 const RAW_URL="https://raw.githubusercontent.com/rycont/hanja-grade-dataset/main/hanja.csv";
 
-let chars=[], examItems=[], session=[], current=0, sessionScore={ok:0,no:0}, mode="practice";
+let chars=[], koreanExtra=[], examItems=[], session=[], current=0, sessionScore={ok:0,no:0}, mode="practice";
 let hanjaStructure={version:0,records:{},stats:{}};
 let examState={questions:[],index:0,answers:[],checked:[],score:0,round:null,level:null};
 const DRILL_PROGRESS_KEY="hanjaDrillProgressV1";
@@ -7407,7 +7407,7 @@ const ATLAS_AREA_PREF_DEFAULTS={
   formation:{scope:"cumulative",mask:"none",view:"compact"}
 };
 let atlasAreaPrefs=storageJson("atlasAreaPrefsV1",{})||{};
-let atlasState={mode:"grade",filter:"all",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"compact",query:"",freqType:"all",period:"all",formationType:"all",phoneticLimit:80,compareKind:"all"};
+let atlasState={mode:"grade",filter:"all",grade:"1급",scope:"exact",mask:"none",sort:"alpha",view:"compact",query:"",freqType:"all",period:"all",formationType:"all",phoneticLimit:80,compareKind:"all",extra:false};
 function atlasQuickKeyFromState(){
   if(atlasState.mode==="freq")return "freq";
   if(atlasState.mode==="compare")return "compare";
@@ -7613,6 +7613,22 @@ async function loadHanjaStructure(){
     return true;
   }catch{return false}
 }
+async function loadKoreanExtra(){
+  try{
+    const r=await fetchWithTimeout("./data/korean-extra.json?v=2.43.0",{cache:"force-cache"},6000);
+    if(!r.ok)return false;
+    const d=await r.json(),rows=Array.isArray(d&&d.items)?d.items:[];
+    if(rows.length<1000)return false;
+    koreanExtra=rows.map(function(x){
+      const sounds=[...new Set([...(x.sounds||[]),x.sound].filter(Boolean))];
+      return {hanja:String(x.hanja||""),sound:String(sounds[0]||""),sounds:sounds,level:"급수외",meanings:[{meanings:[],sounds:sounds}],radical:"",strokes:0,total:0,_extra:true,_source:"Unicode Unihan kHangul"};
+    }).filter(function(x){return x.hanja&&x.sound});
+    return koreanExtra.length>1000;
+  }catch{
+    koreanExtra=[];
+    return false;
+  }
+}
 async function autoLoad(){
   let fullDataLoaded=false;
 
@@ -7645,6 +7661,7 @@ async function autoLoad(){
     $("#dataBadge").textContent=`오프라인 기본 ${chars.length}자`;
   }
   await loadHanjaStructure();
+  await loadKoreanExtra();
   init();
 
   // 내장/캐시 전체 데이터가 없을 때만 외부 원본을 복구 경로로 사용한다.
@@ -13452,18 +13469,18 @@ function atlasWeakHanjaSet(){
   return set;
 }
 function atlasCharacterPool(){
-  let pool=atlasState.scope==="exact"?exactGradeChars(atlasState.grade):chars.filter(function(c){return gradeAllowed(c.level,atlasState.grade)});
+  let pool=atlasState.extra?koreanExtra.slice():(atlasState.scope==="exact"?exactGradeChars(atlasState.grade):chars.filter(function(c){return gradeAllowed(c.level,atlasState.grade)}));
   if(atlasState.filter==="saved")pool=pool.filter(function(c){return unknownHanjaSaved(c)});
   if(atlasState.filter==="weak"){
     const weak=atlasWeakHanjaSet();
     pool=pool.filter(function(c){return weak.has(c.hanja)});
   }
   const q=norm(atlasState.query);
-  if(q)pool=pool.filter(function(c){const f=officialMeaningSoundForms(c).canonical;return norm(c.hanja).includes(q)||norm(f).includes(q)||norm(c.radical).includes(q)||norm(c.level).includes(q)});
+  if(q)pool=pool.filter(function(c){const f=officialMeaningSoundForms(c).canonical;return norm(c.hanja).includes(q)||norm(f).includes(q)||norm(c.radical).includes(q)||norm(c.level).includes(q)||norm((c.sounds||[]).join(" ")).includes(q)});
   return pool;
 }
 function atlasCharByGlyph(ch){
-  return (chars||[]).find(function(c){return c&&c.hanja===ch})||null;
+  return (chars||[]).find(function(c){return c&&c.hanja===ch})||(koreanExtra||[]).find(function(c){return c&&c.hanja===ch})||null;
 }
 function atlasCompareSelectedSet(){
   const pool=atlasState.scope==="exact"?exactGradeChars(atlasState.grade):chars.filter(function(c){return gradeAllowed(c.level,atlasState.grade)});
@@ -13718,6 +13735,7 @@ function atlasFormationHtml(){
     }).join("")+'</div>':'<div class="atlas-empty">이 조건의 자원 분류가 없습니다.</div>');
 }
 function setAtlasQuickView(v){
+  atlasState.extra=false;
   const previous=atlasQuickKeyFromState();
   saveAtlasAreaPref(previous);
   atlasState.query="";
@@ -13742,14 +13760,14 @@ function atlasStudyStats(c){
   const n=ok+no;return {ok:ok,no:no,n:n,pct:n?Math.round(ok/n*100):0};
 }
 function atlasRows(){
-  const freq=currentAtlasFreqMap(atlasState.grade,atlasState.scope);
+  const freq=atlasState.extra?new Map():currentAtlasFreqMap(atlasState.grade,atlasState.scope);
   let rows=atlasCharacterPool().map(function(c){
     const f=freq.get(c.hanja),study=atlasStudyStats(c),ft=atlasState.freqType||"all";
     const typeSet=f&&ft!=="all"&&f.typeRounds&&f.typeRounds[ft]?f.typeRounds[ft]:null;
     const count=f?(ft==="all"?f.count:+(f.typeCounts&&f.typeCounts[ft]||0)):0;
     const rounds=f?(ft==="all"?f.rounds.size:(typeSet?typeSet.size:0)):0;
     const roundList=f?(ft==="all"?[...f.rounds].sort(function(a,b){return a-b}):(typeSet?[...typeSet].sort(function(a,b){return a-b}):[])):[];
-    return {c:c,canonical:officialMeaningSoundForms(c).canonical,tone:toneMarkerFor(c),count:count,rounds:rounds,roundList:roundList,types:f?[...f.types]:[],study:study};
+    return {c:c,canonical:officialMeaningSoundForms(c).canonical,tone:atlasState.extra?"":toneMarkerFor(c),count:count,rounds:rounds,roundList:roundList,types:f?[...f.types]:[],study:study};
   });
   if(atlasState.mode==="freq")rows=rows.filter(function(x){return x.count>0||x.rounds>0});
   if(atlasState.sort==="freq"||atlasState.mode==="freq")rows.sort(function(a,b){return b.count-a.count||b.rounds-a.rounds||String(a.c.sound).localeCompare(String(b.c.sound),"ko-KR")||String(a.c.hanja).localeCompare(String(b.c.hanja),"ko-KR")});
@@ -13797,7 +13815,7 @@ function atlasCardHtml(x,i){
   if(atlasState.mode==="freq")h+='<span class="atlas-rank">#'+(i+1)+'</span><span class="atlas-freq">'+x.rounds+'회차 · '+x.count+'문항</span>';
   h+='<div class="atlas-hanja '+atlasMaskedClass("hanja",key)+'">'+esc(x.c.hanja)+'</div>';
   h+='<div class="atlas-hun '+atlasMaskedClass("meaning",key)+'">'+esc(x.canonical)+(x.tone?'<span class="atlas-tone">'+esc(x.tone)+'</span>':'')+'</div>';
-  h+='<div class="atlas-meta"><span>'+esc(x.c.level)+'</span><span>'+esc(x.c.radical||"")+'부</span><span>'+(+x.c.total||0)+'획</span>'+(x.study.n?'<span>내 숙련 '+x.study.pct+'%</span>':'')+'</div>';
+  h+='<div class="atlas-meta">'+(x.c._extra?'<span>급수외</span><span>한국 독음</span>':('<span>'+esc(x.c.level)+'</span><span>'+esc(x.c.radical||"")+'부</span><span>'+(+x.c.total||0)+'획</span>'))+(x.study.n?'<span>내 숙련 '+x.study.pct+'%</span>':'')+'</div>';
   if(atlasState.mask!=="none"){
     const label=atlasState.mask==="meaning"?(hidden?"훈음 보기":"훈음 숨기기"):(hidden?"한자 보기":"한자 숨기기");
     h+='<span class="atlas-mask-tip mask-'+esc(atlasState.mask)+'">'+label+'</span>';
