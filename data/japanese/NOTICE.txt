@@ -49,3 +49,11 @@ Vocabulary expansion
 - The source documentation states CC BY-SA 4.0 for the JLPT list data.
 - Hanja Lab stores its own Korean glosses and learning sentences; it does not expose the English Waller definitions in the UI.
 - JLPT labels are study-list metadata, not an official JLPT vocabulary specification published by the Japan Foundation/Japan Educational Exchanges and Services.
+
+
+Staged Hyogai vocabulary (Hanja Lab)
+====================================
+- As of Hanja Lab 2.43.0, the bundled Hyogai vocabulary contains 742 unique words.
+- The word-writing UI groups them into four Hanja Lab study stages: 입문 (entry), 실용 (practical), 고급 (advanced), 심화 (deep).
+- These four stages are learning buckets, not an official Japanese government, JIS, or JLPT usage ranking.
+- Explicitly curated 2.43.0 additions carry hyogaiStage metadata; older entries are mapped at runtime using available JLPT metadata and the character's Hanja Lab Hyogai group.
