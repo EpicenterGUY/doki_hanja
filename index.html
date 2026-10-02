@@ -6802,30 +6802,30 @@ html.is-ipad body:not(.drill-active) .app2-bar::before{
 /* Full on-screen keyboard: switch to a dedicated compact drill layout.
    visualViewport already ends at the keyboard, so do not waste that reduced height on
    the normal index strip / large status row / large kanji geometry. */
-html.keyboard-open body.drill-active{
+html.is-ipad.keyboard-open body.drill-active{
   padding-bottom:0!important;
 }
-html.keyboard-open body.drill-active .app{
+html.is-ipad.keyboard-open body.drill-active .app{
   height:var(--drill-vh,100dvh)!important;
   min-height:0!important;
   padding:3px max(6px,env(safe-area-inset-right)) 3px max(6px,env(safe-area-inset-left))!important;
 }
-html.keyboard-open body.drill-active #drill{
+html.is-ipad.keyboard-open body.drill-active #drill{
   height:100%!important;
   min-height:0!important;
   padding:0!important;
 }
-html.keyboard-open body.drill-active #drill .drill-session-shell{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-session-shell{
   height:100%!important;
   min-height:0!important;
   grid-template-rows:34px minmax(0,1fr)!important;
   gap:4px!important;
   overflow:hidden!important;
 }
-html.keyboard-open body.drill-active #drill .study-index.compact{
+html.is-ipad.keyboard-open body.drill-active #drill .study-index.compact{
   display:none!important;
 }
-html.keyboard-open body.drill-active #drill .drill-session-top{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-session-top{
   height:34px!important;
   min-height:34px!important;
   max-height:34px!important;
@@ -6833,22 +6833,22 @@ html.keyboard-open body.drill-active #drill .drill-session-top{
   border-radius:11px!important;
   gap:4px!important;
 }
-html.keyboard-open body.drill-active #drill .drill-status-row{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-status-row{
   gap:3px!important;
 }
-html.keyboard-open body.drill-active #drill .drill-status-pill{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-status-pill{
   padding:3px 6px!important;
   font-size:9px!important;
   line-height:1!important;
 }
-html.keyboard-open body.drill-active #drill .drill-status-pill.hide-folded{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-status-pill.hide-folded{
   display:none!important;
 }
-html.keyboard-open body.drill-active #drill .drill-top-actions{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-top-actions{
   gap:3px!important;
 }
-html.keyboard-open body.drill-active #drill .drill-icon-btn,
-html.keyboard-open body.drill-active #drill .drill-settings-btn{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-icon-btn,
+html.is-ipad.keyboard-open body.drill-active #drill .drill-settings-btn{
   height:28px!important;
   min-height:28px!important;
   min-width:34px!important;
@@ -6856,16 +6856,16 @@ html.keyboard-open body.drill-active #drill .drill-settings-btn{
   border-radius:9px!important;
   font-size:10px!important;
 }
-html.keyboard-open body.drill-active #drill .drill-settings-btn{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-settings-btn{
   min-width:74px!important;
 }
-html.keyboard-open body.drill-active #drill .drill-stage.typing-stage{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-stage.typing-stage{
   height:100%!important;
   min-height:0!important;
   padding:0!important;
   overflow:hidden!important;
 }
-html.keyboard-open body.drill-active #drill .drill-typing-pane{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-pane{
   height:100%!important;
   min-height:0!important;
   max-height:100%!important;
@@ -6874,7 +6874,7 @@ html.keyboard-open body.drill-active #drill .drill-typing-pane{
   border-radius:12px!important;
   align-items:center!important;
 }
-html.keyboard-open body.drill-active #drill .drill-typing-inner{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner{
   width:min(620px,100%)!important;
   height:auto!important;
   min-height:0!important;
@@ -6884,35 +6884,35 @@ html.keyboard-open body.drill-active #drill .drill-typing-inner{
   justify-items:center!important;
   overflow:hidden!important;
 }
-html.keyboard-open body.drill-active #drill .drill-typing-inner .drill-question-meta-row,
-html.keyboard-open body.drill-active #drill .drill-typing-inner>.meta{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner .drill-question-meta-row,
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner>.meta{
   display:none!important;
 }
-html.keyboard-open body.drill-active #drill .drill-typing-inner>.prompt{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner>.prompt{
   margin:0!important;
   font-size:10px!important;
   line-height:1.05!important;
 }
-html.keyboard-open body.drill-active #drill .drill-typing-inner .big-hanja{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner .big-hanja{
   margin:0!important;
   min-height:0!important;
   font-size:clamp(50px,8vw,74px)!important;
   line-height:.9!important;
 }
-html.keyboard-open body.drill-active #drill .drill-typing-inner>.answer-row{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner>.answer-row{
   width:min(100%,520px)!important;
   margin:1px auto 0!important;
   grid-template-columns:minmax(0,1fr) 82px!important;
   gap:5px!important;
 }
-html.keyboard-open body.drill-active #drill .drill-typing-inner>.answer-row input,
-html.keyboard-open body.drill-active #drill .drill-typing-inner>.answer-row .btn{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner>.answer-row input,
+html.is-ipad.keyboard-open body.drill-active #drill .drill-typing-inner>.answer-row .btn{
   height:38px!important;
   min-height:38px!important;
   max-height:38px!important;
   padding-block:4px!important;
 }
-html.keyboard-open body.drill-active #drill #drillFeedback{
+html.is-ipad.keyboard-open body.drill-active #drill #drillFeedback{
   width:min(100%,520px)!important;
   max-height:42px!important;
   overflow:auto!important;
@@ -6921,10 +6921,10 @@ html.keyboard-open body.drill-active #drill #drillFeedback{
   font-size:9px!important;
   line-height:1.15!important;
 }
-html.keyboard-open body.drill-active #drill #drillFeedback:empty{
+html.is-ipad.keyboard-open body.drill-active #drill #drillFeedback:empty{
   display:none!important;
 }
-html.keyboard-open body.drill-active #drill .drill-unknown-btn{
+html.is-ipad.keyboard-open body.drill-active #drill .drill-unknown-btn{
   width:min(100%,520px)!important;
   height:28px!important;
   min-height:28px!important;
@@ -7102,40 +7102,91 @@ html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-pane{
 }
 
 
-/* ===== 2.44.9 · UNIVERSAL SOFTWARE KEYBOARD FIT ===== */
-html.keyboard-open body.drill-active{
-  overflow:hidden!important;
-  overscroll-behavior:none!important;
-}
-html.keyboard-open body.drill-active .app{
-  min-height:0!important;
-  max-height:var(--drill-vh,100dvh)!important;
-}
-html.keyboard-open body.drill-active #drill .drill-stage.typing-stage,
-html.keyboard-open body.drill-active #drill .drill-typing-pane,
-html.keyboard-open body.drill-active #drill .drill-typing-inner{
-  min-height:0!important;
-  overflow:hidden!important;
-}
-html.keyboard-open body.drill-active #drill .drill-typing-inner .big-hanja{
-  max-height:none!important;
-  font-size:clamp(48px,min(8vw,14vh),76px)!important;
-  line-height:.92!important;
-}
-html.keyboard-open body.drill-active #drill .drill-typing-inner>.prompt{
-  margin-bottom:9px!important;
-}
-html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-session-shell{
-  height:var(--drill-vh,100dvh)!important;
-  max-height:var(--drill-vh,100dvh)!important;
-}
-html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-pane{
-  padding-top:4px!important;
-  padding-bottom:4px!important;
-}
-@media(min-width:700px){
+/* ===== 2.44.10 · FOLD UNFOLDED KEYBOARD FIT ONLY =====
+   Narrow/folded phones keep their existing UI exactly. Only wide Android/Fold/tablet
+   layouts receive the keyboard-time compression needed to prevent the large hanja clipping. */
+@media(min-width:600px){
+  html:not(.is-ipad).keyboard-open body.drill-active{
+    overflow:hidden!important;
+    overscroll-behavior:none!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active .app{
+    min-height:0!important;
+    max-height:var(--drill-vh,100dvh)!important;
+    padding:4px 6px!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill{
+    height:var(--drill-vh,100dvh)!important;
+    min-height:0!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-session-shell{
+    height:var(--drill-vh,100dvh)!important;
+    max-height:var(--drill-vh,100dvh)!important;
+    min-height:0!important;
+    grid-template-rows:38px minmax(0,1fr)!important;
+    gap:4px!important;
+    overflow:hidden!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .study-index.compact{
+    display:none!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-session-top{
+    min-height:38px!important;
+    height:38px!important;
+    max-height:38px!important;
+    padding:3px 6px!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-stage.typing-stage,
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-pane,
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-inner{
+    min-height:0!important;
+    overflow:hidden!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-pane{
+    height:100%!important;
+    max-height:100%!important;
+    padding:4px 8px!important;
+  }
   html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-inner{
     width:min(680px,100%)!important;
+    max-height:100%!important;
+    gap:5px!important;
+    align-content:center!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-inner .drill-question-meta-row,
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-inner>.meta{
+    display:none!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-inner>.prompt{
+    margin:0 0 8px!important;
+    font-size:12px!important;
+    line-height:1.1!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-inner .big-hanja{
+    margin:0 0 4px!important;
+    min-height:0!important;
+    max-height:none!important;
+    font-size:clamp(54px,min(9vw,15vh),82px)!important;
+    line-height:.94!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-inner>.answer-row{
+    width:min(100%,560px)!important;
+    margin:0 auto!important;
+  }
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-unknown-btn{
+    width:min(100%,560px)!important;
+  }
+}
+
+
+@media(max-width:599px){
+  html:not(.is-ipad).keyboard-open body.drill-active .app,
+  html:not(.is-ipad).keyboard-open body.drill-active #drill,
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-session-shell,
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-stage.typing-stage,
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-pane,
+  html:not(.is-ipad).keyboard-open body.drill-active #drill .drill-typing-inner{
+    /* Intentionally no keyboard-specific geometry on folded/narrow Android. */
   }
 }
 
@@ -8126,7 +8177,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.44.9-20261003";
+const APP_BUILD="2.44.10-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
