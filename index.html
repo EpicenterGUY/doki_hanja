@@ -6773,7 +6773,7 @@ body.drill-active .pen-toolbar .pen-toolbar-current{
 }
 
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.44.1">
+<link rel="stylesheet" href="./japanese.css?v=2.44.2">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -7759,7 +7759,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.44.1-20261003";
+const APP_BUILD="2.44.2-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -11636,6 +11636,7 @@ function resumeDrillProgress(){
   toast(p.grade+" "+(p.mode==="write"?"손글씨":"훈음")+" · "+(p.index+1)+"번부터 이어서 시작");
 }
 function saveAndExitDrill(){
+  clearTimeout(drillAutoAdvanceTimer);drillAutoAdvanceTimer=null;
   const ok=saveDrillProgress(true);
   renderDrill();
   toast(ok?"진행도를 저장하고 나왔습니다.":"설정으로 나왔습니다 · 진행도 저장은 실패했습니다.");
@@ -14422,6 +14423,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.44.1"></script>
+<script src="./japanese.js?v=2.44.2"></script>
 </body>
 </html>
