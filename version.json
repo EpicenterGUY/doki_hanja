@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.44.6-20261003",
+  "webBuild": "2.44.7-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.7",
+      "title": "iPad 키보드 판정 재작성 · 파란 하단 띠 제거",
+      "items": [
+        "iPadOS가 화면 키보드 표시 시 innerHeight와 visualViewport를 함께 줄이는 경우를 대비해 방향별 평상시 viewport 높이를 기준값으로 저장",
+        "현재 높이끼리 비교하던 기존 판정을 제거하고 평상시 높이 대비 120px 이상 감소하면 실제 화면 키보드로 판정",
+        "화면 키보드가 열리면 색인 띠 숨김·상단 상태줄 압축·한자 최대 74px·입력/채점/저장 버튼 소형화로 남은 화면에 맞춤",
+        "물리 키보드의 한/↑/↓/마이크 입력 보조바 상태는 앱 전체 하단 패딩을 제거하고 입력 카드 내부에만 여유를 줘 파란 띠가 생기지 않도록 수정",
+        "iPad 학습 세션 배경을 단색으로 통일해 safe-area나 남는 영역이 별도 띠처럼 보이지 않도록 보강"
+      ]
+    },
     {
       "version": "2.44.6",
       "title": "iPad 화면 키보드 전용 압축 레이아웃",
