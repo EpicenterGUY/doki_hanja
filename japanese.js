@@ -81,7 +81,7 @@ function jpKey(item){return (item.set||jpState.set)+"|"+item.char}
 function jpWordKey(item){return "word|"+item.word}
 
 function jpHyogaiGroupLabel(group){
-  return group==="core"?"핵심":group==="jis1"?"실용 확장":"확장";
+  return group==="core"?"핵심":group==="jis1"?"JIS1 확장":"JIS2 확장";
 }
 function jpHyogaiTierCounts(){
   const c=jpHyogaiMeta&&jpHyogaiMeta.counts||{};
@@ -574,7 +574,7 @@ function jpCommonFilterHtml(all,atlas){
   let tierHtml="";
   if(jpState.set==="hyogai"){
     const n=jpHyogaiTierCounts(),tier=jpState.hyogaiTier||"practical";
-    const rows=[["core","핵심",n.core],["practical","실용 확장",n.practical],["extended","확장",n.extended],["all","전체",n.all]];
+    const rows=[["core","핵심",n.core],["practical","JIS1 포함",n.practical],["extended","JIS2 확장",n.extended],["all","전체",n.all]];
     tierHtml="<div class='jp-filter-row jp-hyogai-tier'>"+rows.map(function(x){return "<button class='jp-filter-chip "+(tier===x[0]?"active":"")+"' data-hyogai-tier='"+x[0]+"'>"+x[1]+" <small>"+x[2].toLocaleString()+"</small></button>"}).join("")+"</div>";
   }
   return "<section class='app-section'><div class='app-section-head'><div><div class='app-section-title'>"+(atlas?"도감 범위":"연습 범위")+"</div><div class='app-section-sub'>"+sourceSub+"</div></div><span class='badge'>"+all.length.toLocaleString()+"자</span></div>"+
