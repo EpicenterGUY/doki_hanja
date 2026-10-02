@@ -13947,7 +13947,12 @@ function renderAtlasResults(){
   }
   const rows=atlasRows(),longN=rows.filter(function(x){return x.tone===":"}).length,mixedN=rows.filter(function(x){return x.tone==="(:)"}).length;
   const freqN=rows.filter(function(x){return x.rounds>0}).length,mastered=rows.filter(function(x){return x.study.n>=3&&x.study.pct>=75}).length;
-  sum.innerHTML='<div><b>'+rows.length.toLocaleString()+'</b><span>표시 한자</span></div><div><b>'+freqN.toLocaleString()+'</b><span>기출 출현</span></div><div><b>'+(longN+mixedN)+'</b><span>장단음 표시</span></div><div><b>'+mastered+'</b><span>내 숙련</span></div>';
+  if(atlasState.extra){
+    const multi=rows.filter(function(x){return (x.c.sounds||[]).length>1}).length;
+    sum.innerHTML='<div><b>'+rows.length.toLocaleString()+'</b><span>급수외 한자</span></div><div><b>'+multi.toLocaleString()+'</b><span>복수 독음</span></div><div><b>'+mastered+'</b><span>내 숙련</span></div><div><b>분리</b><span>시험 범위</span></div>';
+  }else{
+    sum.innerHTML='<div><b>'+rows.length.toLocaleString()+'</b><span>표시 한자</span></div><div><b>'+freqN.toLocaleString()+'</b><span>기출 출현</span></div><div><b>'+(longN+mixedN)+'</b><span>장단음 표시</span></div><div><b>'+mastered+'</b><span>내 숙련</span></div>';
+  }
   if(!rows.length){out.innerHTML='<div class="atlas-empty">조건에 맞는 한자가 없습니다.</div>';return}
   const grouped=atlasState.sort!=="freq";
   const nav=grouped?atlasInitialNavHtml(rows):"";
