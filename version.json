@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.44.4-20261003",
+  "webBuild": "2.44.5-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.5",
+      "title": "iPad 물리 키보드 입력 보조바 전용 보정",
+      "items": [
+        "iPad에서 입력 포커스만으로 일반 키보드 열림 상태로 처리하던 로직 수정",
+        "화면 키보드는 visualViewport 하단 가림이 80px 초과일 때만 keyboard-open으로 판정",
+        "물리 키보드 연결 시 표시되는 한/↑/↓/마이크 흰색 입력 보조바는 keyboard-accessory로 별도 분리",
+        "입력 보조바 상태에서는 한자 크기·중앙 배치를 줄이지 않고 하단에 약 54px 안전 여백만 확보",
+        "실제 화면 키보드가 뜰 때의 기존 축소/하단 안전영역 보정은 그대로 유지"
+      ]
+    },
     {
       "version": "2.44.4",
       "title": "iPad 한자 도감 왼쪽 몰림 수정",
