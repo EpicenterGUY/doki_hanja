@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.38.0-20261002",
+  "webBuild": "2.39.0-20261002",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.39.0",
+      "title": "급수별 읽기·쓰기 한자 색인 바로가기",
+      "items": [
+        "급수별 한자공부의 읽기(한자→훈음)와 쓰기(훈음→손글씨) 진행 화면에 현재 급수 한자 색인 버튼 추가",
+        "색인의 한자를 누르면 현재 학습 목록 안의 해당 한자 문제 위치로 즉시 이동",
+        "랜덤 순서로 공부 중이어도 색인은 가나다순으로 보여 주되 실제 랜덤 목록의 정확한 위치로 점프",
+        "현재 보고 있는 한자를 색인에서 강조하고, 색인을 열면 해당 항목이 자동으로 중앙 근처에 보이도록 이동",
+        "한자·훈음 검색을 지원하고 Fold·휴대폰에서는 바텀시트, iPad·PC에서는 중앙 모달로 표시"
+      ]
+    },
     {
       "version": "2.38.0",
       "title": "모달 UI 안정화 · 급수진단 선택형 정리 · 성부 전수감사",
