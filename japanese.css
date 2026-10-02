@@ -3539,3 +3539,36 @@ html body.drill-active #jp .jp-word-feedback:empty{
     padding-inline:4px!important;
   }
 }
+
+
+/* HYOGAI EXPANSION FILTER · 2.42.0 */
+.jp-hyogai-tier{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:9px;
+}
+.jp-hyogai-tier .jp-filter-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+}
+.jp-hyogai-tier .jp-filter-chip small{
+  padding:1px 5px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  color:inherit;
+  font-size:9px;
+  font-weight:850;
+  opacity:.82;
+}
+@media(max-width:600px){
+  .jp-hyogai-tier{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -webkit-overflow-scrolling:touch;
+  }
+  .jp-hyogai-tier::-webkit-scrollbar{display:none}
+  .jp-hyogai-tier .jp-filter-chip{flex:0 0 auto}
+}
