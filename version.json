@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.44.7-20261003",
+  "webBuild": "2.44.8-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.8",
+      "title": "iPad 키보드 스크롤 잠금 · 하단 띠 제거 2차",
+      "items": [
+        "화면 키보드가 열린 동안 학습 페이지를 현재 visual viewport에 fixed로 고정해 iPadOS 입력 포커스 자동 스크롤을 차단",
+        "visualViewport scroll/resize 때 문서 scrollTop을 0으로 되돌려 빈 화면만 보이는 상태 방지",
+        "키보드 상태에서 ‘훈음을 적으세요’ 안내문과 한자 사이에 별도 10px 간격 추가",
+        "급수별 학습 진입 중 theme-color를 #09101f로 바꾸고 종료 시 원래 색으로 복원",
+        "물리 키보드 입력 보조바 주변 배경도 학습 세션과 같은 색으로 강제해 파란 띠 노출 방지",
+        "기존 화면 키보드/물리 키보드 보조바 분리 판정은 유지"
+      ]
+    },
     {
       "version": "2.44.7",
       "title": "iPad 키보드 판정 재작성 · 파란 하단 띠 제거",
