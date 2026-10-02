@@ -57,3 +57,19 @@ Staged Hyogai vocabulary (Hanja Lab)
 - The word-writing UI groups them into four Hanja Lab study stages: 입문 (entry), 실용 (practical), 고급 (advanced), 심화 (deep).
 - These four stages are learning buckets, not an official Japanese government, JIS, or JLPT usage ranking.
 - Explicitly curated 2.43.0 additions carry hyogaiStage metadata; older entries are mapped at runtime using available JLPT metadata and the character's Hanja Lab Hyogai group.
+
+
+Practical Hyogai default (Hanja Lab 2.43.2)
+===========================================
+- The full non-Joyo inventory remains 4,242 base characters for reference/search.
+- Default Hyogai character study is now limited to 661 characters that actually
+  occur in the 742 bundled Hyogai vocabulary/example entries.
+- Breakdown of the 661 practical characters:
+  · core: 379
+  · JIS Level 1 extra: 85
+  · JIS Level 2 extra: 197
+- The remaining 3,581 characters are retained as reference data but are hidden
+  from the default writing/atlas/reading-search pool.
+- Users can expose them with the single "희귀 포함" filter.
+- This is a Hanja Lab study-priority rule, not an official Japanese government,
+  JIS or JLPT classification.
