@@ -14,7 +14,11 @@ function forms(w){
   return [...new Set([norm(w.preferredForm),norm(w.word)].filter(Boolean))];
 }
 function badFallback(s){
-  return /文章の中で.*読み方と意味/u.test(s)||/[＿_]{2,}/u.test(s);
+  return /文章の中で.*読み方と意味/u.test(s)||
+    /[＿_]{2,}/u.test(s)||
+    /という語を.*(?:確認|調べ)/u.test(s)||
+    /用語集で.*(?:確認|調べ)/u.test(s)||
+    /(?:辞書|辞典|資料)で.*(?:語|表記).*確認/u.test(s);
 }
 
 for(const w of items){
