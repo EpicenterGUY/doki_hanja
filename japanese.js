@@ -436,6 +436,7 @@ function setJapaneseSet(s){
   renderJapanese();
 }function setJapaneseView(v){
   jpState.view=["home","practice","atlas","word","reading"].includes(v)?v:"home";
+  if(jpState.set==="rare"&&jpState.view==="word")jpState.view="atlas";
   jpState.query="";jpState.savedOnly=false;jpState.limit=120;jpState.atlasLimit=160;
   if(jpState.view!=="reading"){jpState.readingSelected="";jpState.readingRemote=[];jpState.readingRemoteError=""}
   renderJapanese();
