@@ -6957,6 +6957,7 @@ let hanjaStructure={version:0,records:{},stats:{}};
 let examState={questions:[],index:0,answers:[],checked:[],score:0,round:null,level:null};
 const DRILL_PROGRESS_KEY="hanjaDrillProgressV1";
 let drillState={list:[],index:0,mode:"meaningSound",order:"alpha",grade:"8급",checked:false};
+let drillAutoAdvanceTimer=null;
 let remoteExamState={round:null,url:null,pdf:null,questions:{},answers:{},types:{},pages:{},index:1,user:{},checked:{},score:0,loaded:false};
 let freshSpecialUrls={};
 const SPECIAL_CACHE_PREFIX="hanjaSpecialQuizV7_";
@@ -9526,6 +9527,14 @@ function flexibleAnswerVariants(a){
   const out=new Set([norm(a)]);
   a.split(/[\/／,，]/).map(x=>x.trim()).filter(Boolean).forEach(x=>out.add(norm(x)));
 
+  // 훈음 자료에는 "가사(架娑) 가"처럼 한글 뜻 사이에 한자 표기가 참고용으로 병기된 경우가 있다.
+  // 사용자가 괄호 속 한자를 다시 입력할 필요가 없도록 한자-only 괄호 표기를 제거한 형태도 정답으로 인정한다.
+  const noHanjaParen=a
+    .replace(/[\(（]\s*[\u3400-\u9fff\uf900-\ufaff]+\s*[\)）]/g," ")
+    .replace(/\s+/g," ")
+    .trim();
+  if(noHanjaParen&&noHanjaParen!==a)out.add(norm(noHanjaParen));
+
   const circled={"①":"1","②":"2","③":"3","④":"4","⑤":"5","⑥":"6","⑦":"7","⑧":"8","⑨":"9","⑩":"10"};
   const cm=a.match(/^([①②③④⑤⑥⑦⑧⑨⑩])\s*(.*)$/);
   if(cm){out.add(circled[cm[1]]);out.add(norm(cm[1]));if(cm[2])out.add(norm(cm[2]))}
@@ -11773,6 +11782,7 @@ function jumpToDrillChar(index){
 }
 
 function renderDrillCard(){
+  clearTimeout(drillAutoAdvanceTimer);drillAutoAdvanceTimer=null;
   const st=drillState,c=st.list[st.index],q=drillQuestion(c);
   const isWrite=st.mode==="write";
   const pct=Math.round((st.index+1)/st.list.length*100);
@@ -11862,9 +11872,11 @@ function renderDrillCard(){
     btn.onclick=function(){jumpToDrillChar(btn.dataset.drillIndex)};
   });
   $("#prevDrill").onclick=()=>{
+    clearTimeout(drillAutoAdvanceTimer);drillAutoAdvanceTimer=null;
     if(st.index>0){st.index--;st.checked=false;saveDrillProgress(true);renderDrillCard()}
   };
   $("#nextDrill").onclick=()=>{
+    clearTimeout(drillAutoAdvanceTimer);drillAutoAdvanceTimer=null;
     st.index=st.index===st.list.length-1?0:st.index+1;
     st.checked=false;
     saveDrillProgress(true);
@@ -11905,6 +11917,9 @@ function checkDrill(c,q){
   const input=$("#drillAnswer");
   const val=input?.value||"";
   if(!val.trim()){toast("답을 입력하세요");return}
+  if(input?.disabled)return;
+  input.disabled=true;
+  const checkBtn=$("#checkDrill");if(checkBtn)checkBtn.disabled=true;
   drillState.checked=true;
   showDrillResult(c,q,drillCorrect(q,val),false,val);
 }
@@ -11921,6 +11936,19 @@ function showDrillResult(c,q,ok,revealOnly,val=""){
     if(!ok){wrong[k]=wrong[k]||{count:0,streak:0,type:drillState.mode==="write"?"write":"meaningSound",hanja:c.hanja,level:c.level,prompt:q.prompt,answer:q.answer,answerDisplay:officialAnswerDisplay(q)};wrong[k].count++;wrong[k].last=Date.now()}
     saveProgress();
     saveDrillProgress(true);
+
+    // 입력형 급수별 연습은 채점 결과를 잠깐 보여준 뒤 자동으로 다음 문제로 이동한다.
+    // 오답은 정답을 읽을 시간을 조금 더 준다.
+    clearTimeout(drillAutoAdvanceTimer);
+    drillAutoAdvanceTimer=setTimeout(function(){
+      if(typeof mode!=="undefined"&&mode!=="drill")return;
+      const st=drillState;
+      if(!st||!Array.isArray(st.list)||!st.list.length)return;
+      st.index=st.index===st.list.length-1?0:st.index+1;
+      st.checked=false;
+      saveDrillProgress(true);
+      renderDrillCard();
+    },ok?650:1200);
   }
 }
 
