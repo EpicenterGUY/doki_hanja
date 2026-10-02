@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.43.4-20261003",
+  "webBuild": "2.43.5-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.43.5",
+      "title": "업데이트 배너 반복 노출 수정",
+      "items": [
+        "index.html 내부 APP_BUILD가 2.43.2에 고정되어 최신 version.json과 계속 불일치하던 문제 수정",
+        "같은 웹 빌드의 업데이트 알림은 기기에서 한 번만 표시하도록 버전별 표시 기록 추가",
+        "업데이트 적용 시 하드코딩된 현재 빌드가 아니라 서버에서 확인한 실제 원격 빌드를 대상으로 새로고침",
+        "현재 APP_BUILD와 원격 webBuild가 같아지면 업데이트 배너를 즉시 숨기고 적용 대기 상태를 정리",
+        "주기 확인과 앱 복귀 시 같은 업데이트 배너가 반복해서 다시 나타나는 현상 방지"
+      ]
+    },
     {
       "version": "2.43.4",
       "title": "일본 한자 3분류 · 폰 세로 장식 漢 제거",
