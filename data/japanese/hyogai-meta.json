@@ -9,7 +9,8 @@
     "jis1Extra": 382,
     "jis2Extra": 2985,
     "practical": 1257,
-    "total": 4261
+    "total": 4242,
+    "uniqueGlyphs": 4261
   },
   "sources": {
     "core": "文化庁『表外漢字字体表』由来の既存Hanja Lab表外集合を、現行常用漢字との重複を除いて維持",
