@@ -1,0 +1,26 @@
+name: Validate Korean extra Hanja
+
+on:
+  push:
+    paths:
+      - "data/korean-extra.json"
+      - "data/hanja.csv"
+      - "scripts/validate_korean_extra.js"
+      - ".github/workflows/validate-korean-extra.yml"
+  pull_request:
+    paths:
+      - "data/korean-extra.json"
+      - "data/hanja.csv"
+      - "scripts/validate_korean_extra.js"
+      - ".github/workflows/validate-korean-extra.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate Korean extra Hanja
+        run: node scripts/validate_korean_extra.js
