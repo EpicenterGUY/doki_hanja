@@ -7624,7 +7624,7 @@ async function loadHanjaStructure(){
 }
 async function loadKoreanExtra(){
   try{
-    const r=await fetchWithTimeout("./data/korean-extra.json?v=2.43.6",{cache:"force-cache"},7000);
+    const r=await fetchWithTimeout("./data/korean-extra.json?v=2.43.7",{cache:"force-cache"},7000);
     if(!r.ok)return false;
     const d=await r.json(),rows=Array.isArray(d&&d.items)?d.items:[];
     if(rows.length<500)return false;
@@ -7737,7 +7737,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.43.6-20261003";
+const APP_BUILD="2.43.7-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -13352,25 +13352,55 @@ function atlasDictEntryKey(x){
   return atlasDictHeadword(x&&x.word)+"|"+atlasDictHanja(x&&x.word);
 }
 function atlasDictUniqueRows(rows,term){
-  const seen=new Set(),out=[];
-  for(const x of rows||[]){
+  const byKey=new Map(),order=[];
+  for(const raw of rows||[]){
+    const x=raw&&typeof raw==="object"?raw:null;
     const hanja=atlasDictHanja(x&&x.word);
-    if(!hanja||!hanja.includes(term))continue;
+    if(!x||!hanja||!hanja.includes(term))continue;
     const key=atlasDictEntryKey(x);
-    if(!key||seen.has(key))continue;
-    seen.add(key);out.push(x);
+    if(!key)continue;
+    const next={
+      word:String(x.word||"").trim(),
+      meaning:String(x.meaning||x.definition||x.gloss||"").trim(),
+      example:String(x.example||x.sample||"").trim(),
+      source:String(x.source||"국립국어원 사전").trim()
+    };
+    if(!byKey.has(key)){
+      byKey.set(key,next);order.push(key);continue;
+    }
+    const prev=byKey.get(key);
+    if(!prev.meaning&&next.meaning)prev.meaning=next.meaning;
+    if(!prev.example&&next.example)prev.example=next.example;
+    if((!prev.source||prev.source==="국립국어원 사전")&&next.source)prev.source=next.source;
+    if(next.meaning&&next.meaning.length>prev.meaning.length)prev.meaning=next.meaning;
+    if(next.example&&next.example.length>prev.example.length)prev.example=next.example;
   }
-  return out;
+  return order.map(function(key){return byKey.get(key)});
 }
 function atlasDictWordLabel(head,hanja){
   const suffix=["시키다","되다","하다"].find(function(s){return head.endsWith(s)})||"";
   return head+"("+hanja+suffix+")";
 }
+const ATLAS_DICT_CACHE_PREFIX="hanjaLabAtlasDictV2:";
+function atlasDictCachedRows(term){
+  try{
+    const raw=storageGet(ATLAS_DICT_CACHE_PREFIX+term,"");
+    if(!raw)return [];
+    const parsed=JSON.parse(raw);
+    if(!parsed||!Array.isArray(parsed.rows))return [];
+    return parsed.rows;
+  }catch{return []}
+}
+function atlasDictSaveRows(term,rows){
+  try{
+    const rich=(rows||[]).filter(function(x){return String(x&&x.meaning||"").trim()}).slice(0,12);
+    if(rich.length)storageSet(ATLAS_DICT_CACHE_PREFIX+term,JSON.stringify({at:Date.now(),rows:rich}));
+  }catch(e){}
+}
 function atlasDictRowsMarkup(rows){
-  return (rows||[]).map(function(x){
+  return (rows||[]).filter(function(x){return String(x&&x.meaning||"").trim()}).map(function(x){
     const meaning=String(x.meaning||"").trim();
-    const desc=meaning||"국립국어원 사전에서 이 한자 표기가 확인된 표제어입니다.";
-    return '<div class="atlas-usage"><div class="atlas-usage-top"><b>'+esc(x.word)+'</b><span>'+esc(x.source||"국립국어원 사전")+'</span></div><p>'+esc(desc)+'</p>'+(x.example?'<p><b>예문</b> · '+esc(x.example)+'</p>':'')+'</div>';
+    return '<div class="atlas-usage"><div class="atlas-usage-top"><b>'+esc(x.word)+'</b><span>'+esc(x.source||"국립국어원 사전")+'</span></div><p>'+esc(meaning)+'</p>'+(x.example?'<p><b>예문</b> · '+esc(x.example)+'</p>':'')+'</div>';
   }).join("");
 }function atlasDictExtraRows(term){
   const row=(koreanExtra||[]).find(function(x){return x.hanja===term});
@@ -13381,14 +13411,14 @@ function atlasDictRowsMarkup(rows){
     if(!head||!hanja)return null;
     return {
       word:head+"("+hanja+")",
-      meaning:"",
-      example:"",
+      meaning:String(u&& (u.meaning||u.definition||u.gloss) ||"").trim(),
+      example:String(u&& (u.example||u.sample) ||"").trim(),
       source:String(u.source||"국립국어원 사전")
     };
   }).filter(Boolean);
 }
 function atlasDictSeedRows(term){
-  return atlasDictUniqueRows([...(ATLAS_DICT_SEED[term]||[]),...atlasDictExtraRows(term)],term);
+  return atlasDictUniqueRows([...(ATLAS_DICT_SEED[term]||[]),...atlasDictCachedRows(term),...atlasDictExtraRows(term)],term);
 }function atlasDictSeedMarkup(term){
   return atlasDictRowsMarkup(atlasDictSeedRows(term));
 }
@@ -13433,12 +13463,16 @@ async function hydrateAtlasDictionaryUsage(term){
       }
     }
     pushCur();
-    const merged=atlasDictUniqueRows(seedRows.concat(rows),term).slice(0,8);
-    if(merged.length)box.innerHTML=atlasDictRowsMarkup(merged);
-    else box.innerHTML='<div class="atlas-usage"><p>한자 표기가 확인된 자동 사전 용례가 없습니다. 아래 표준국어대사전 버튼에서 확인할 수 있습니다.</p></div>';
+    const merged=atlasDictUniqueRows(rows.concat(seedRows),term).slice(0,8);
+    const rich=merged.filter(function(x){return String(x&&x.meaning||"").trim()});
+    if(rich.length){
+      atlasDictSaveRows(term,rich);
+      box.innerHTML=atlasDictRowsMarkup(rich);
+    }else box.innerHTML='<div class="atlas-usage"><p>확인된 표제어의 사전 뜻을 불러오지 못했습니다. 아래 표준국어대사전 버튼에서 확인할 수 있습니다.</p></div>';
   }catch(e){
-    if(seedRows.length)box.innerHTML=atlasDictRowsMarkup(seedRows);
-    else box.innerHTML='<div class="atlas-usage"><p>사전 미리보기를 불러오지 못했습니다. 아래 표준국어대사전 버튼에서 확인할 수 있습니다.</p></div>';
+    const richSeed=seedRows.filter(function(x){return String(x&&x.meaning||"").trim()});
+    if(richSeed.length)box.innerHTML=atlasDictRowsMarkup(richSeed);
+    else box.innerHTML='<div class="atlas-usage"><p>사전 뜻을 불러오지 못했습니다. 아래 표준국어대사전 버튼에서 확인할 수 있습니다.</p></div>';
   }
 }
 function atlasRelatedForChar(hanja){
