@@ -1,14 +1,45 @@
 Korean extra-Hanja data notice
 
-data/korean-extra.json is derived from the Unicode Han Database (Unihan)
-kHangul property, using the structured JSON published by dahlia/unihan-json
-release 12.1.0. Hanja Lab removes characters already assigned to Korean
-Language Society (한국어문회) grades in data/hanja.csv and stores only the
-remaining Korean-reading entries as a separate non-grade study category.
+Hanja Lab 2.43.1 changed data/korean-extra.json from a broad Unicode-reading
+inventory into a deliberately small practical study set.
 
-Source:
+Current inclusion rules
+=======================
+1) Exclude every character already represented by the Korean Language Society
+   (한국어문회) 8급~특급 dataset, including Unicode compatibility-equivalent forms.
+2) Exclude CJK Extension-A / compatibility-only glyphs and simplified/variant
+   forms when the regular Korean form is already represented.
+3) Require a Korean reading and Korean hun-eum gloss from the Korean name-Hanja
+   dataset collected by rutopio/Korean-Name-Hanja-Charset.
+4) Require presence in the Supreme Court-sourced Korean personal-name Hanja list.
+5) Remove very rare leftovers unless the character also appears in Hanja Lab's
+   practical Japanese kanji inventory (Joyo / Hyogai core + JIS1) or in actual
+   bundled Japanese vocabulary.
+6) Keep the result completely separate from 어문회 exams, grade diagnosis and
+   exam-frequency statistics.
+
+Result in 2.43.1
+================
+- Previous broad inventory: 2,837 characters
+- Current practical extra-Hanja set: 136 characters
+- Removed: 2,701 characters
+- Every retained character has Korean hun-eum data stored in the JSON.
+
+Korean name-Hanja source
+========================
+- rutopio/Korean-Name-Hanja-Charset
+  https://github.com/rutopio/Korean-Name-Hanja-Charset
+- data-gov.csv: collected from the Supreme Court of Korea family-registry
+  personal-name Hanja search.
+- data-naver.csv: Korean reading / hun-eum gloss cross-reference.
+- The repository declares an MIT license for the project. Upstream service data
+  remains attributable to its respective source.
+
+Unicode / variant reference
+===========================
 - Unicode Han Database (Unihan): https://www.unicode.org/reports/tr38/
-- dahlia/unihan-json: https://github.com/dahlia/unihan-json
+- dahlia/unihan-json 12.1.0 structured Unihan data is used only for
+  normalization/variant checks.
 
 UNICODE LICENSE V3
 
