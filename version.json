@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.44.2-20261003",
+  "webBuild": "2.44.3-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.3",
+      "title": "iPad 키보드 하단 잘림 · 상단 학습바 비침 수정",
+      "items": [
+        "iPad에서 입력 포커스와 visualViewport 변화를 함께 감지해 하드웨어 키보드 입력 보조바가 떠도 하단 안전 여백을 확보",
+        "급수별 한자→훈음 입력 화면의 맨 아래 테두리와 컨트롤이 키보드 보조바에 걸리지 않도록 iPad 전용 하단 패딩 보정",
+        "세로 높이가 짧아지는 키보드 입력 상태에서는 큰 한자 크기를 소폭 줄여 입력칸과 하단 UI가 화면 안에 유지되도록 조정",
+        "상단 ‘학습’ 앱바를 iPad에서 완전 불투명 배경으로 변경해 스크롤된 카드와 글자가 뒤로 비쳐 보이지 않도록 수정",
+        "상단 safe-area까지 같은 배경으로 덮어 상태바와 앱바 사이로 스크롤 콘텐츠가 노출되는 현상 차단",
+        "iPad 외 Galaxy Fold·휴대폰·PC의 기존 레이아웃은 변경하지 않음"
+      ]
+    },
     {
       "version": "2.44.2",
       "title": "훈음 한글 입력 허용 · 자동 다음 문제",
