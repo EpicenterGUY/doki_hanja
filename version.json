@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.44.9-20261003",
+  "webBuild": "2.44.10-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.10",
+      "title": "Fold 접힘 UI 원복 · 펼침만 키보드 보정",
+      "items": [
+        "2.44.9에서 Android 전체에 적용했던 키보드 압축 레이아웃을 되돌려 Fold 접힘/일반 좁은 휴대폰 UI를 기존 상태로 복원",
+        "비-iPad Android는 화면 폭 600px 이상일 때만 키보드 전용 압축 레이아웃 적용",
+        "Galaxy Fold 펼침 상태에서는 키보드가 뜰 때 큰 한자·상단 영역만 축소해 한자 잘림 방지",
+        "Fold 접힘 상태에서는 키보드가 떠도 기존 휴대폰용 배치·크기·상단 UI를 변경하지 않음",
+        "iPad safe-area 및 키보드 보정은 기존대로 유지"
+      ]
+    },
     {
       "version": "2.44.9",
       "title": "iPad 상단 겹침 · Fold 펼침 한자 잘림 수정",
