@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.44.0-20261003",
+  "webBuild": "2.44.1-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.44.1",
+      "title": "JLPT 읽기 진척도 · 필터 마무리",
+      "items": [
+        "JLPT 단어 읽기 화면의 누적 연습 수와 정답률을 일본 학습 상단 지표에 연결",
+        "음독·훈독 온라인 읽기 검색도 현재 선택한 N5~N1 범위를 그대로 따르도록 통일",
+        "나의 진척도 전체 삭제 시 일본 글자·단어쓰기·JLPT 단어읽기 기록과 모르는 한자 저장도 함께 초기화",
+        "JLPT 단어 읽기 기록을 일본 학습 공통 저장 루틴에 포함해 저장 일관성 보강"
+      ]
+    },
     {
       "version": "2.44.0",
       "title": "일본 한자 JLPT N5~N1 재분류 · 단어 읽기 입력",
