@@ -4741,6 +4741,132 @@ body.global-search-open .global-search-sheet{
 }
 
 
+
+/* DRILL CHARACTER INDEX · 2.39.0 */
+.drill-char-index-modal[hidden]{display:none!important}
+.drill-char-index-modal{
+  position:fixed;
+  inset:0;
+  z-index:380;
+  display:grid;
+  place-items:center;
+  padding:calc(14px + env(safe-area-inset-top)) calc(14px + env(safe-area-inset-right)) calc(14px + env(safe-area-inset-bottom)) calc(14px + env(safe-area-inset-left));
+  background:rgba(4,8,18,.72);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.drill-char-index-sheet{
+  width:min(760px,100%);
+  max-height:min(82dvh,760px);
+  min-height:0;
+  display:grid;
+  grid-template-rows:auto auto minmax(0,1fr);
+  overflow:hidden;
+  border:1px solid rgba(139,166,218,.25);
+  border-radius:20px;
+  background:#101827;
+  box-shadow:0 26px 80px rgba(0,0,0,.48);
+}
+.drill-char-index-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 15px 10px;
+}
+.drill-char-index-title b{display:block;font-size:16px;color:#f4f7ff}
+.drill-char-index-title small{display:block;margin-top:3px;color:#8ea2c1;font-size:11px}
+.drill-char-index-close{
+  width:38px;height:38px;flex:0 0 38px;
+  border:1px solid rgba(139,166,218,.18);
+  border-radius:11px;
+  background:#172338;color:#dfe7f5;
+  font-size:22px;line-height:1;
+}
+.drill-char-index-search{padding:0 15px 11px}
+.drill-char-index-search input{
+  width:100%;
+  min-height:44px;
+  border-radius:12px;
+  background:#0c1422;
+  border-color:rgba(139,166,218,.2);
+}
+.drill-char-index-grid{
+  min-height:0;
+  overflow:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(86px,1fr));
+  align-content:start;
+  gap:7px;
+  padding:0 15px 16px;
+}
+.drill-char-index-item{
+  min-width:0;
+  min-height:72px;
+  padding:8px 5px;
+  border:1px solid rgba(139,166,218,.14);
+  border-radius:12px;
+  background:#151f31;
+  color:#e7edf7;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:3px;
+  cursor:pointer;
+}
+.drill-char-index-item>span{
+  font-family:var(--hanja-font);
+  font-size:28px;
+  line-height:1;
+  font-weight:800;
+}
+.drill-char-index-item>small{
+  max-width:100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  color:#92a5c3;
+  font-size:9px;
+}
+.drill-char-index-item.active{
+  border-color:#8277ff;
+  background:linear-gradient(145deg,rgba(112,96,242,.30),rgba(40,64,110,.36));
+  box-shadow:inset 0 0 0 1px rgba(163,153,255,.18);
+}
+.drill-char-index-item.active>small{color:#d8d4ff}
+.drill-char-index-item[hidden]{display:none!important}
+.drill-index-open{
+  min-width:58px!important;
+  white-space:nowrap;
+}
+@media(max-width:600px){
+  .drill-char-index-modal{
+    place-items:end center;
+    padding:env(safe-area-inset-top) 0 0;
+  }
+  .drill-char-index-sheet{
+    width:100%;
+    max-height:min(84dvh,720px);
+    border-radius:20px 20px 0 0;
+    border-bottom:0;
+  }
+  .drill-char-index-grid{
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:6px;
+    padding-inline:10px;
+    padding-bottom:calc(14px + env(safe-area-inset-bottom));
+  }
+  .drill-char-index-head{padding-inline:12px}
+  .drill-char-index-search{padding-inline:12px}
+  .drill-char-index-item{min-height:66px}
+  .drill-char-index-item>span{font-size:26px}
+}
+@media(max-width:360px){
+  .drill-char-index-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
 /* STUDY INDEX GRID PLACEMENT · 2.26.0 */
 @media(min-width:700px){
   .study-hub-screen>.study-index{grid-column:1 / -1!important;grid-row:1!important}
@@ -7451,7 +7577,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.38.0-20261002";
+const APP_BUILD="2.39.0-20261002";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -11368,6 +11494,67 @@ function drillQuestion(c){
   const sp=safeClue(c);
   return {prompt:`「${sp.meaning} ${sp.sound}」에 해당하는 한자를 쓰세요.`,display:`${sp.meaning} ${sp.sound}`,answer:c.hanja,canonicalAnswer:c.hanja,note:`한국어문회 훈음 ${forms.canonical} · ${c.level} · ${c.total}획`};
 }
+
+function drillCharacterIndexEntries(st){
+  return (st.list||[]).map(function(c,index){return {c,index}}).sort(function(a,b){
+    const pa=charPrimary(a.c),pb=charPrimary(b.c);
+    return String(pa.sound||"").localeCompare(String(pb.sound||""),"ko-KR") ||
+      String(pa.meaning||"").localeCompare(String(pb.meaning||""),"ko-KR") ||
+      String(a.c.hanja||"").localeCompare(String(b.c.hanja||""),"ko-KR");
+  });
+}
+function drillCharacterIndexMarkup(st){
+  const modeLabel=st.mode==="write"?"쓰기":"읽기";
+  const entries=drillCharacterIndexEntries(st);
+  return `<div class="drill-char-index-modal" id="drillCharIndexModal" hidden>
+    <section class="drill-char-index-sheet" role="dialog" aria-modal="true" aria-labelledby="drillCharIndexTitle">
+      <div class="drill-char-index-head">
+        <div class="drill-char-index-title"><b id="drillCharIndexTitle">${esc(st.grade)} ${modeLabel} 색인</b><small>한자를 누르면 그 문제로 바로 이동합니다 · 가나다순 색인</small></div>
+        <button type="button" class="drill-char-index-close" id="closeDrillIndex" aria-label="색인 닫기">×</button>
+      </div>
+      <div class="drill-char-index-search"><input id="drillCharIndexSearch" type="search" autocomplete="off" inputmode="search" placeholder="한자 · 훈음 검색"></div>
+      <div class="drill-char-index-grid" id="drillCharIndexGrid">
+        ${entries.map(function(x){
+          const p=charPrimary(x.c),label=[p.meaning,p.sound].filter(Boolean).join(" ");
+          return `<button type="button" class="drill-char-index-item ${x.index===st.index?"active":""}" data-drill-index="${x.index}" aria-label="${esc(x.c.hanja)} ${esc(label)}로 이동"><span>${esc(x.c.hanja)}</span><small>${esc(label)}</small></button>`;
+        }).join("")}
+      </div>
+    </section>
+  </div>`;
+}
+function openDrillCharIndex(){
+  const modal=$("#drillCharIndexModal");
+  if(!modal)return;
+  modal.hidden=false;
+  const input=$("#drillCharIndexSearch");
+  if(input){input.value="";filterDrillCharIndex("")}
+  requestAnimationFrame(function(){
+    const active=$("#drillCharIndexGrid .drill-char-index-item.active");
+    if(active)active.scrollIntoView({block:"center",inline:"nearest",behavior:"auto"});
+    if(input&&window.matchMedia("(min-width:700px)").matches)input.focus();
+  });
+}
+function closeDrillCharIndex(){
+  const modal=$("#drillCharIndexModal");
+  if(modal)modal.hidden=true;
+}
+function filterDrillCharIndex(query){
+  const q=norm(query||"");
+  $("#drillCharIndexGrid .drill-char-index-item").forEach(function(btn){
+    const i=+btn.dataset.drillIndex,c=drillState.list[i],p=c?charPrimary(c):{meaning:"",sound:""};
+    const hay=norm([c?.hanja,p.meaning,p.sound,officialMeaningSoundForms(c||{}).canonical].filter(Boolean).join(" "));
+    btn.hidden=!!q&&!hay.includes(q);
+  });
+}
+function jumpToDrillChar(index){
+  const st=drillState,i=+index;
+  if(!st||!Array.isArray(st.list)||!st.list[i])return;
+  st.index=i;
+  st.checked=false;
+  saveDrillProgress(true);
+  renderDrillCard();
+}
+
 function renderDrillCard(){
   const st=drillState,c=st.list[st.index],q=drillQuestion(c);
   const isWrite=st.mode==="write";
@@ -11387,11 +11574,13 @@ function renderDrillCard(){
         <span class="drill-status-pill">${pct}%</span>
       </div>
       <div class="drill-top-actions">
+        <button class="btn drill-icon-btn drill-index-open" id="openDrillIndex" aria-label="현재 급수 한자 색인 열기">색인</button>
         ${isWrite?"":`<button class="btn drill-icon-btn" id="prevDrill" ${st.index===0?"disabled":""} aria-label="이전">‹</button><button class="btn drill-icon-btn" id="nextDrill" aria-label="다음">›</button>`}
         <button class="btn drill-icon-btn drill-settings-btn" id="exitDrill">저장하고 나가기</button>
       </div>
     </div>
     ${studyIndexMarkup("drill",true)}
+    ${drillCharacterIndexMarkup(st)}
 
     ${isWrite?`
       <div class="drill-stage write-stage">
@@ -11445,6 +11634,14 @@ function renderDrillCard(){
   </div>`;
 
   $("#exitDrill").onclick=saveAndExitDrill;
+  const openIndex=$("#openDrillIndex"),closeIndex=$("#closeDrillIndex"),indexModal=$("#drillCharIndexModal"),indexSearch=$("#drillCharIndexSearch");
+  if(openIndex)openIndex.onclick=openDrillCharIndex;
+  if(closeIndex)closeIndex.onclick=closeDrillCharIndex;
+  if(indexModal)indexModal.onclick=function(e){if(e.target===indexModal)closeDrillCharIndex()};
+  if(indexSearch)indexSearch.oninput=function(){filterDrillCharIndex(indexSearch.value)};
+  $("#drillCharIndexGrid .drill-char-index-item").forEach(function(btn){
+    btn.onclick=function(){jumpToDrillChar(btn.dataset.drillIndex)};
+  });
   $("#prevDrill").onclick=()=>{
     if(st.index>0){st.index--;st.checked=false;saveDrillProgress(true);renderDrillCard()}
   };
