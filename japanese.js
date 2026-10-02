@@ -1,6 +1,7 @@
 
 let jpJoyo=[];
 let jpHyogai=[];
+let jpHyogaiMeta={core:"",jis1Extra:"",jis2Extra:"",counts:{core:0,jis1Extra:0,jis2Extra:0,practical:0,total:0}};
 let jpWords=[];
 let jpMextReadings=[];
 let jpMextMap=new Map();
@@ -15,6 +16,7 @@ let jpState={
   view:"home",
   set:"joyo",
   grade:"all",
+  hyogaiTier:"practical",
   query:"",
   savedOnly:false,
   limit:120,
@@ -77,6 +79,28 @@ function jpSetLabel(s){return s==="joyo"?"常用漢字":"表外漢字"}
 function jpGradeLabel(g){return g==="S"?"中高":("小"+g)}
 function jpKey(item){return (item.set||jpState.set)+"|"+item.char}
 function jpWordKey(item){return "word|"+item.word}
+
+function jpHyogaiGroupLabel(group){
+  return group==="core"?"핵심":group==="jis1"?"실용 확장":"확장";
+}
+function jpHyogaiTierCounts(){
+  const c=jpHyogaiMeta&&jpHyogaiMeta.counts||{};
+  return {
+    core:+c.core||jpHyogai.filter(function(x){return x.hyogaiGroup==="core"}).length,
+    practical:+c.practical||jpHyogai.filter(function(x){return x.hyogaiGroup==="core"||x.hyogaiGroup==="jis1"}).length,
+    extended:+c.jis2Extra||jpHyogai.filter(function(x){return x.hyogaiGroup==="jis2"}).length,
+    all:+c.total||jpHyogai.length
+  };
+}
+function jpApplyHyogaiGroups(rows,meta){
+  const core=new Set([...(meta&&meta.core||"")]);
+  const j1=new Set([...(meta&&meta.jis1Extra||"")]);
+  const j2=new Set([...(meta&&meta.jis2Extra||"")]);
+  rows.forEach(function(x){
+    x.hyogaiGroup=core.has(x.char)?"core":j1.has(x.char)?"jis1":j2.has(x.char)?"jis2":"jis2";
+  });
+  return rows;
+}
 
 function jpWordSchoolStage(w){
   if(!w)return "senior";
@@ -259,17 +283,20 @@ async function loadJapaneseData(){
         fetch("./data/japanese/joyo.tsv",{cache:"no-store"}),
         fetch("./data/japanese/hyogai.txt",{cache:"no-store"}),
         fetch("./data/japanese/words.json",{cache:"no-store"}),
-        fetch("./data/japanese/mext-onkun-2017.json",{cache:"no-store"})
+        fetch("./data/japanese/mext-onkun-2017.json",{cache:"no-store"}),
+        fetch("./data/japanese/hyogai-meta.json",{cache:"no-store"})
       ]);
-      if(!pair[0].ok||!pair[1].ok||!pair[2].ok||!pair[3].ok)throw Error("HTTP "+pair.map(function(r){return r.status}).join("/"));
+      if(pair.some(function(r){return !r.ok}))throw Error("HTTP "+pair.map(function(r){return r.status}).join("/"));
       const joyo=parseJoyoData(await pair[0].text());
       const joyoSet=new Set(joyo.map(function(x){return x.char}));
       const hyogai=parseHyogaiData(await pair[1].text(),joyoSet);
       const wordData=await pair[2].json();
       const words=Array.isArray(wordData)?wordData:(wordData.items||[]);
       const mextData=await pair[3].json();
-      if(joyo.length!==2136||hyogai.length<800||words.length<100||(mextData.entries||[]).length<2100)throw Error("일본 한자 데이터 수가 비정상입니다.");
-      jpJoyo=joyo;jpHyogai=hyogai;jpWords=words;
+      const hyogaiMeta=await pair[4].json();
+      jpApplyHyogaiGroups(hyogai,hyogaiMeta);
+      if(joyo.length!==2136||hyogai.length<4000||words.length<2000||(mextData.entries||[]).length<2100)throw Error("일본 한자 데이터 수가 비정상입니다.");
+      jpJoyo=joyo;jpHyogai=hyogai;jpWords=words;jpHyogaiMeta=hyogaiMeta;
       jpBuildItemMap();jpBuildMextIndex(mextData);
       return true;
     }catch(e){
@@ -285,6 +312,12 @@ async function loadJapaneseData(){
 function jpCurrentPool(){
   let rows=jpState.set==="joyo"?jpJoyo:jpHyogai;
   if(jpState.set==="joyo"&&jpState.grade!=="all")rows=rows.filter(function(x){return x.grade===jpState.grade});
+  if(jpState.set==="hyogai"){
+    const tier=jpState.hyogaiTier||"practical";
+    if(tier==="core")rows=rows.filter(function(x){return x.hyogaiGroup==="core"});
+    else if(tier==="practical")rows=rows.filter(function(x){return x.hyogaiGroup==="core"||x.hyogaiGroup==="jis1"});
+    else if(tier==="extended")rows=rows.filter(function(x){return x.hyogaiGroup==="jis2"});
+  }
   if(jpState.savedOnly)rows=rows.filter(function(x){return !!jpUnknown[jpKey(x)]});
   const q=String(jpState.query||"").trim();
   if(q){
@@ -348,7 +381,8 @@ function jpCardMeta(x){
     const old=x.old?(" · 旧 "+x.old):"";
     return jpGradeLabel(x.grade)+" · "+x.strokes+"획 · "+(x.radical||"—")+old;
   }
-  return x.variants&&x.variants.length?("표외 · 이체 "+x.variants.join("·")):"표외 핵심";
+  const label="표외 "+jpHyogaiGroupLabel(x.hyogaiGroup);
+  return x.variants&&x.variants.length?(label+" · 이체 "+x.variants.join("·")):label;
 }
 function jpMetaPillsHtml(x){
   const a=[];
@@ -358,14 +392,14 @@ function jpMetaPillsHtml(x){
     if(x.radical)a.push("부수 "+x.radical);
     if(x.old)a.push("旧字体 "+x.old);
   }else{
-    a.push("表外");
+    a.push("表外 · "+jpHyogaiGroupLabel(x.hyogaiGroup));
     if(x.variants&&x.variants.length)a.push("이체 "+x.variants.join("·"));
   }
   return "<div class='jp-meta-pills'>"+a.map(function(v){return "<span class='jp-meta-pill'>"+esc(v)+"</span>"}).join("")+"</div>";
 }
 function setJapaneseSet(s){
   jpState.set=s==="hyogai"?"hyogai":"joyo";
-  jpState.grade="all";jpState.query="";jpState.savedOnly=false;jpState.limit=120;jpState.atlasLimit=160;
+  jpState.grade="all";jpState.hyogaiTier=jpState.set==="hyogai"?"practical":"all";jpState.query="";jpState.savedOnly=false;jpState.limit=120;jpState.atlasLimit=160;
   jpState.atlasGroup=jpState.set==="joyo"?"on":"list";jpState.atlasInitial="all";
   jpState.wordTier="all";jpState.wordRound=0;
   jpState.readingInitial="all";jpState.readingSelected="";jpState.readingQuery="";jpState.readingRemote=[];jpState.readingRemoteError="";
@@ -482,7 +516,7 @@ function jpHeroHtml(){
   const home=jpState.view==="home";
   return "<section class='jp-hero "+(home?"jp-home-hero":"jp-sub-hero")+"'>"+
     "<div class='jp-kicker'>HANJA LAB · JAPANESE</div><div class='jp-hero-line'><div><h2>"+(home?"日本漢字":(jpState.view==="practice"?"글자 쓰기":jpState.view==="word"?"단어 쓰기":jpState.view==="reading"?"음독·훈독별":"일본 한자 도감"))+"</h2>"+
-    "<p>"+(home?"상용·표외 한자를 찾고, 보고, 직접 쓰는 일본 한자 전용 학습 공간입니다.":(jpState.set==="joyo"?"常用漢字 2,136자":"表外漢字 핵심 "+jpHyogai.length.toLocaleString()+"자")+" · "+(jpState.view==="practice"?"손글씨 형태 연습":jpState.view==="word"?"예문 기반 단어쓰기":jpState.view==="reading"?"읽기별 한자 탐색":"읽기·훈음·연관 단어 탐색"))+"</p></div>"+
+    "<p>"+(home?"상용·표외 한자를 찾고, 보고, 직접 쓰는 일본 한자 전용 학습 공간입니다.":(jpState.set==="joyo"?"常用漢字 2,136자":"表外漢字 전체 "+jpHyogai.length.toLocaleString()+"자")+" · "+(jpState.view==="practice"?"손글씨 형태 연습":jpState.view==="word"?"예문 기반 단어쓰기":jpState.view==="reading"?"읽기별 한자 탐색":"읽기·훈음·연관 단어 탐색"))+"</p></div>"+
     (home?"":"<button class='jp-home-back' data-jp-view='home'>⌂ 홈</button>")+"</div>"+
     "<div class='jp-set-seg'><button class='"+(jpState.set==="joyo"?"active":"")+"' data-jp-set='joyo'>常用漢字<small>2,136자</small></button>"+
     "<button class='"+(jpState.set==="hyogai"?"active":"")+"' data-jp-set='hyogai'>表外漢字<small>"+jpHyogai.length.toLocaleString()+"자</small></button></div>"+
@@ -529,17 +563,23 @@ function jpHomeHtml(){
 }
 function jpMetricsHtml(){
   const p=jpProfile(),wp=jpWordProfile(),setTotal=jpState.set==="joyo"?jpJoyo.length:jpHyogai.length;
-  return "<div class='jp-metrics'><div class='jp-metric'><b>"+setTotal.toLocaleString()+"</b><span>"+(jpState.set==="joyo"?"현재 상용 목록":"현재 표외 핵심")+"</span></div>"+
+  return "<div class='jp-metrics'><div class='jp-metric'><b>"+setTotal.toLocaleString()+"</b><span>"+(jpState.set==="joyo"?"현재 상용 목록":"표외 전체 기본자")+"</span></div>"+
     "<div class='jp-metric'><b>"+p.attempted.toLocaleString()+"</b><span>글자 연습 · "+p.accuracy+"%</span></div>"+
     "<div class='jp-metric'><b>"+(jpState.view==="word"?wp.attempted:p.saved).toLocaleString()+"</b><span>"+(jpState.view==="word"?("단어 연습 · "+wp.accuracy+"%"):"모름 저장")+"</span></div></div>";
 }
 function jpCommonFilterHtml(all,atlas){
   const sourceSub=jpState.set==="joyo"?
     "학년별 배정과 중·고교 상용한자를 나눠 볼 수 있습니다.":
-    "표외한자자체표의 기본자를 현행 상용한자와 중복되지 않게 정리했습니다.";
+    "문화청 표외한자자체표 기반 핵심과 JIS X 0208 제1·2수준의 비상용 글자를 분리해 탐색합니다.";
+  let tierHtml="";
+  if(jpState.set==="hyogai"){
+    const n=jpHyogaiTierCounts(),tier=jpState.hyogaiTier||"practical";
+    const rows=[["core","핵심",n.core],["practical","실용 확장",n.practical],["extended","확장",n.extended],["all","전체",n.all]];
+    tierHtml="<div class='jp-filter-row jp-hyogai-tier'>"+rows.map(function(x){return "<button class='jp-filter-chip "+(tier===x[0]?"active":"")+"' data-hyogai-tier='"+x[0]+"'>"+x[1]+" <small>"+x[2].toLocaleString()+"</small></button>"}).join("")+"</div>";
+  }
   return "<section class='app-section'><div class='app-section-head'><div><div class='app-section-title'>"+(atlas?"도감 범위":"연습 범위")+"</div><div class='app-section-sub'>"+sourceSub+"</div></div><span class='badge'>"+all.length.toLocaleString()+"자</span></div>"+
-    (jpState.set==="joyo"?"<div class='jp-filter-row' id='jpGradeRow'>"+jpGradeChipsHtml()+"</div>":"")+
-    "<div class='jp-search-row'><input id='jpSearch' type='text' value='"+esc(jpState.query)+"' placeholder='"+(jpState.set==="joyo"?"한자 · 구자체 · 부수 검색":"한자 · 이체자 검색")+"'><button class='btn jp-saved-toggle "+(jpState.savedOnly?"primary":"")+"' id='jpSavedOnly'>★ 저장만</button></div></section>";
+    (jpState.set==="joyo"?"<div class='jp-filter-row' id='jpGradeRow'>"+jpGradeChipsHtml()+"</div>":tierHtml)+
+    "<div class='jp-search-row'><input id='jpSearch' type='text' value='"+esc(jpState.query)+"' placeholder='"+(jpState.set==="joyo"?"한자 · 구자체 · 부수 검색":"한자 · 이체자 · 읽기 검색")+"'><button class='btn jp-saved-toggle "+(jpState.savedOnly?"primary":"")+"' id='jpSavedOnly'>★ 저장만</button></div></section>";
 }
 function jpPracticeHomeHtml(all){
   const shown=all.slice(0,jpState.limit);
@@ -682,7 +722,7 @@ async function renderJapanese(){
   const all=jpCurrentPool();
   let body=jpState.view==="home"?jpHomeHtml():(jpState.view==="atlas"?jpAtlasHomeHtml(all):(jpState.view==="word"?jpWordHomeHtml():(jpState.view==="reading"?jpReadingHomeHtml():jpPracticeHomeHtml(all))));
   el.innerHTML="<div class='jp-screen'>"+jpHeroHtml()+(jpState.view==="home"?"":jpMetricsHtml())+body+
-    "<section class='app-section'><details class='compact-settings'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字는 현행 2,136자 목록과 문부과학성 「音訓の小・中・高等学校段階別割り振り表」의 공식 음훈을 함께 사용합니다. 表外漢字는 표외한자자체표의 기본자를 바탕으로 현행 상용한자와 겹치는 글자를 제외해 구성합니다. 표외한자자체표는 인쇄문자 기준이므로 손글씨 자동채점은 형태 연습용 참고 판정입니다. 단어 쓰기의 초등·중등·고등 표시는 한자 배정과 학습 난도를 바탕으로 한 Hanja Lab 학습 분류이며, 문부과학성의 공식 단어 배당표를 뜻하지 않습니다.</div></details></section></div>";
+    "<section class='app-section'><details class='compact-settings'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字는 현행 2,136자 목록과 문부과학성 「音訓の小・中・高等学校段階別割り振り表」의 공식 음훈을 함께 사용합니다. 表外漢字의 핵심은 문화청 「表外漢字字体表」에서 출발해 현행 상용한자와의 중복을 제거한 기본자 집합이며, 실용 확장·확장 범위는 JIS X 0208 제1·2수준에서 현행 상용한자와 기존 핵심을 제외해 추가했습니다. JIS 수위는 문자 코드상의 분류이지 사용 권고도나 학습 우선순위를 뜻하지 않습니다. 표외 글자의 손글씨 자동채점은 형태 연습용 참고 판정입니다. 단어 쓰기의 초등·중등·고등 표시는 Hanja Lab 학습 분류이며 문부과학성의 공식 단어 배당표를 뜻하지 않습니다.</div></details></section></div>";
   bindJapaneseHome();
 }
 function bindJapaneseHome(){
@@ -700,6 +740,12 @@ function bindJapaneseHome(){
 
       const filterGradeBtn=e.target.closest("#jpGradeRow [data-grade]");
       if(filterGradeBtn&&root.contains(filterGradeBtn)){e.preventDefault();setJapaneseGrade(filterGradeBtn.dataset.grade);return}
+
+      const hyogaiTierBtn=e.target.closest("[data-hyogai-tier]");
+      if(hyogaiTierBtn&&root.contains(hyogaiTierBtn)){
+        e.preventDefault();jpState.hyogaiTier=hyogaiTierBtn.dataset.hyogaiTier||"practical";
+        jpState.limit=120;jpState.atlasLimit=160;renderJapanese();return;
+      }
 
       const charBtn=e.target.closest(".jp-card[data-jp-char]");
       if(charBtn&&root.contains(charBtn)){e.preventDefault();startJapanesePractice(charBtn.dataset.jpChar);return}
