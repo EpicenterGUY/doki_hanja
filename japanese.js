@@ -878,25 +878,30 @@ function jpWordBoardSpec(count){
   else{cols=landscape?4:3;rows=Math.ceil(n/cols)}
   return {count:n,cols:cols,rows:rows,cell:480,width:cols*480,height:rows*480};
 }
+function jpPaintWordCanvasBase(c){
+  if(!c)return;
+  const x=c.getContext("2d");
+  x.save();x.setTransform(1,0,0,1,0,0);x.globalAlpha=1;x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.restore();
+}
 function jpClearWordCanvases(){
   const c=$("#jpWordCanvas");if(!c)return;
-  c._strokeCount=0;
-  const x=c.getContext("2d");
-  x.save();x.setTransform(1,0,0,1,0,0);x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.restore();
+  if(typeof resetCanvasStrokeHistory==="function")resetCanvasStrokeHistory(c);
+  else{c._strokeHistory=[];c._strokeCount=0}
+  jpPaintWordCanvasBase(c);
   const fb=$("#jpWordFeedback");if(fb){fb.className="feedback jp-word-feedback";fb.innerHTML=""}
 }
 function jpSetupUnifiedWordCanvas(spec){
   const c=$("#jpWordCanvas"),board=c?.closest(".jp-word-board");if(!c||!board)return;
-  c.width=spec.width;c.height=spec.height;c._jpWordSpec=spec;c._strokeCount=0;
+  c.width=spec.width;c.height=spec.height;c._jpWordSpec=spec;
+  c._redrawBase=function(){jpPaintWordCanvasBase(c)};
   const ipad=document.documentElement.classList.contains("is-ipad");
   c._brushCssPx=ipad?7.2:6.0;
   jpClearWordCanvases();
-  // 보이는 canvas 자체가 모든 기기에서 입력을 직접 받게 한다.
-  // wrapper를 hit surface로 쓰면 회전/리사이즈 뒤 board와 canvas rect가 달라져 필기가 옆으로 밀릴 수 있다.
+  // canvas rect and backing coordinates stay 1:1 even after iPad rotation.
   board.style.touchAction="none";
   c.style.pointerEvents="auto";
   c.style.touchAction="none";
-  bindCanvasDrawing(c,c.getContext("2d"),function(){c._strokeCount=(c._strokeCount||0)+1},c);
+  bindCanvasDrawing(c,c.getContext("2d"),function(){},c);
 }
 function jpWordRegionCanvas(source,index,spec){
   if(!source||!spec)return null;
@@ -1042,7 +1047,7 @@ function renderJapaneseWordCard(){
   window._drillViewportFit=function(){
     syncDrillViewport();
     const canvas=$("#jpWordCanvas");
-    if(!canvas||!canvas._jpWordSpec||canvas._strokeCount)return;
+    if(!canvas||!canvas._jpWordSpec||(canvas._strokeHistory&&canvas._strokeHistory.length))return;
     const next=jpWordBoardSpec(chars.length),cur=canvas._jpWordSpec;
     if(next.cols!==cur.cols||next.rows!==cur.rows){
       renderJapaneseWordCard();
