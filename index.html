@@ -142,6 +142,11 @@ canvas{background:#fff;border-radius:12px;width:100%;max-width:430px;aspect-rati
 }
 .pen-tool.active{border-color:#8578ff;background:linear-gradient(135deg,#5c55cf,#6f5ee8);color:#fff;box-shadow:0 5px 16px rgba(67,55,177,.24)}
 .pen-tool small{font-size:9px;opacity:.7;margin-left:3px}
+.pen-toolbar-current{
+  flex:0 0 auto;min-height:30px;display:inline-flex;align-items:center;padding:0 9px;
+  border-radius:999px;background:rgba(111,94,232,.16);border:1px solid rgba(133,120,255,.38);
+  color:#dcd8ff;font-size:10px;font-weight:900;white-space:nowrap
+}
 @media(max-width:600px){.pen-toolbar{padding:5px;margin-top:6px}.pen-tool{min-height:31px;padding:5px 8px;font-size:10px}}
 
 .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:12px}
@@ -6666,7 +6671,7 @@ body.atlas-detail-open .atlas-detail-sheet{
   }
 }
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.40.0">
+<link rel="stylesheet" href="./japanese.css?v=2.40.1">
 </head>
 <body>
 <div class="app">
@@ -7591,7 +7596,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.40.0-20261002";
+const APP_BUILD="2.40.1-20261002";
 const APP_TAB_META={
   practice:{title:"홈",kicker:"오늘의 학습"},
   study:{title:"학습",kicker:"연습 · 기출 · 복습"},
@@ -11586,6 +11591,7 @@ function renderDrillCard(){
         <span class="drill-status-pill">${st.index+1}/${st.list.length}</span>
         <span class="drill-status-pill hide-folded">${st.order==="alpha"?"가나다순":"랜덤"}</span>
         <span class="drill-status-pill">${pct}%</span>
+        ${isWrite?'<span class="drill-status-pill pen-current-label">'+esc(handwritingPenLabel())+'</span>':""}
       </div>
       <div class="drill-top-actions">
         <button class="btn drill-icon-btn drill-index-open" id="openDrillIndex" aria-label="현재 급수 한자 색인 열기">색인</button>
@@ -11902,18 +11908,19 @@ function recordDrillHandwriting(c,q,ok){
 
 
 const HANDWRITING_PEN_PRESETS={
-  ballpoint:{label:"볼펜",hint:"가늘고 선명",width:4.2,alpha:1,cap:"round",pressure:0},
-  gel:{label:"젤펜",hint:"기본",width:6.2,alpha:.98,cap:"round",pressure:.12},
-  fountain:{label:"만년필",hint:"압력",width:5.4,alpha:.94,cap:"round",pressure:.72},
-  pencil:{label:"연필",hint:"부드럽게",width:4.7,alpha:.62,cap:"round",pressure:.28},
-  mechanical:{label:"샤프",hint:"세필",width:3.25,alpha:.82,cap:"round",pressure:.18},
-  felt:{label:"사인펜",hint:"진하게",width:7.2,alpha:.92,cap:"round",pressure:.18},
-  brush:{label:"붓펜",hint:"압력",width:8.0,alpha:.9,cap:"round",pressure:1.05},
-  marker:{label:"마커",hint:"굵게",width:10.8,alpha:.48,cap:"square",pressure:.1}
+  ballpoint:{label:"볼펜",hint:"가늘고 선명",width:4.2,alpha:1,cap:"round",pressure:0,color:"#151922"},
+  gel:{label:"젤펜",hint:"기본",width:6.2,alpha:.98,cap:"round",pressure:.12,color:"#111111"},
+  fountain:{label:"만년필",hint:"필압·닙",width:5.4,alpha:.95,cap:"round",pressure:.78,color:"#111827",nib:true},
+  pencil:{label:"연필",hint:"흑연",width:4.7,alpha:.58,cap:"round",pressure:.32,color:"#4b5158",graphite:true},
+  mechanical:{label:"샤프",hint:"세필",width:3.25,alpha:.78,cap:"round",pressure:.18,color:"#3e444b"},
+  felt:{label:"사인펜",hint:"진하게",width:7.2,alpha:.92,cap:"round",pressure:.18,color:"#171717"},
+  brush:{label:"붓펜",hint:"강한 필압",width:8.0,alpha:.92,cap:"round",pressure:1.15,color:"#121212"},
+  marker:{label:"마커",hint:"넓고 옅게",width:10.8,alpha:.42,cap:"square",pressure:.1,color:"#24282d"}
 };
 let handwritingPenPreset=storageGet("hanjaPenPresetV1","gel");
 if(!HANDWRITING_PEN_PRESETS[handwritingPenPreset])handwritingPenPreset="gel";
 function handwritingPenConfig(key){return HANDWRITING_PEN_PRESETS[key]||HANDWRITING_PEN_PRESETS.gel}
+function handwritingPenLabel(key){return handwritingPenConfig(key||handwritingPenPreset).label}
 function setCanvasHandwritingPen(canvas,key){
   if(!canvas)return;
   const next=HANDWRITING_PEN_PRESETS[key]?key:"gel";
@@ -11929,9 +11936,10 @@ function setHandwritingPen(key,scope){
     b.classList.toggle("active",b.dataset.pen===key);
     b.setAttribute("aria-pressed",String(b.dataset.pen===key));
   });
+  document.querySelectorAll(".pen-current-label").forEach(function(el){el.textContent=handwritingPenLabel(key)});
 }
 function handwritingPenToolbarMarkup(){
-  return '<div class="pen-toolbar" role="toolbar" aria-label="필기 도구">'+Object.entries(HANDWRITING_PEN_PRESETS).map(function(entry){
+  return '<div class="pen-toolbar" role="toolbar" aria-label="필기 도구"><span class="pen-current-label pen-toolbar-current">'+handwritingPenLabel()+'</span>'+Object.entries(HANDWRITING_PEN_PRESETS).map(function(entry){
     const key=entry[0],p=entry[1],active=key===handwritingPenPreset;
     return '<button type="button" class="pen-tool '+(active?'active':'')+'" data-pen="'+key+'" aria-pressed="'+String(active)+'">'+p.label+'<small>'+p.hint+'</small></button>';
   }).join("")+'</div>';
@@ -12019,14 +12027,23 @@ function bindCanvasDrawing(c,ctx,onStrokeStart,hitSurface){
     const ipadBoost=document.documentElement.classList.contains("is-ipad")?1.14:1;
     const rawPressure=Number(e.pressure);
     const pressure=(Number.isFinite(rawPressure)&&rawPressure>0)?Math.max(.08,Math.min(1,rawPressure)):.5;
-    const pressureFactor=pen.pressure?Math.max(.55,1+(pressure-.5)*pen.pressure):1;
+    const pressureFactor=pen.pressure?Math.max(.52,1+(pressure-.5)*pen.pressure):1;
     const legacyBase=Number(c._brushCssPx)||pen.width;
     const baseCss=presetKey==="gel"?Math.max(pen.width,legacyBase):pen.width*ipadBoost;
-    const brushCss=Math.max(2.4,Math.min(13.5,baseCss*pressureFactor));
+    const dx=p[0]-last[0],dy=p[1]-last[1],angle=Math.atan2(dy,dx);
+    const nibFactor=pen.nib?(.72+Math.abs(Math.sin(angle-Math.PI/4))*.52):1;
+    const brushCss=Math.max(2.2,Math.min(14.5,baseCss*pressureFactor*nibFactor));
     ctx.save();
-    ctx.strokeStyle="#111";ctx.globalAlpha=pen.alpha;
+    ctx.strokeStyle=pen.color||"#111";ctx.globalAlpha=pen.alpha;
     ctx.lineWidth=brushCss*displayScale;ctx.lineCap=pen.cap||"round";ctx.lineJoin="round";
-    ctx.beginPath();ctx.moveTo(...last);ctx.lineTo(...p);ctx.stroke();ctx.restore();last=p;
+    ctx.beginPath();ctx.moveTo(...last);ctx.lineTo(...p);ctx.stroke();
+    if(pen.graphite){
+      ctx.globalAlpha=Math.max(.12,pen.alpha*.24);
+      ctx.lineWidth=Math.max(1,brushCss*displayScale*.34);
+      ctx.beginPath();ctx.moveTo(last[0]+.8,last[1]-.45);ctx.lineTo(p[0]+.8,p[1]-.45);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(last[0]-.65,last[1]+.55);ctx.lineTo(p[0]-.65,p[1]+.55);ctx.stroke();
+    }
+    ctx.restore();last=p;
   };
   const up=e=>{
     if(!drawing||eventId(e)!==activePointerId)return;
@@ -13996,6 +14013,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.40.0"></script>
+<script src="./japanese.js?v=2.40.1"></script>
 </body>
 </html>
