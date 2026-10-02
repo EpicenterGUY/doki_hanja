@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.43.6-20261003",
+  "webBuild": "2.43.7-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.43.7",
+      "title": "사전 용례 뜻 표시 전면 보강",
+      "items": [
+        "도감 사전 용례에서 급수·준특급·특급·급수외 여부와 관계없이 표제어 뜻이 확인된 항목만 표시",
+        "급수외 로컬 표제어가 빈 뜻으로 먼저 잡혀 온라인 사전의 실제 뜻을 덮어쓰던 중복 병합 오류 수정",
+        "같은 표제어·한자 조합이 중복될 때 뜻·예문이 더 풍부한 항목을 우선 병합",
+        "급수외 데이터에 meaning/definition/gloss/example 필드가 있으면 즉시 사용하도록 호환",
+        "온라인에서 한 번 확인한 사전 뜻·예문은 기기 로컬 캐시에 저장해 다음 상세 열기부터 바로 표시",
+        "뜻이 없는 항목에 ‘한자 표기가 확인된 표제어’ 같은 공통 문구를 대신 표시하지 않도록 제거"
+      ]
+    },
     {
       "version": "2.43.6",
       "title": "급수외 한자 1,075자 · 국립국어원 사전 용례 연결",
