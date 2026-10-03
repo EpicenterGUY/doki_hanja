@@ -417,7 +417,7 @@ async function jpLookupRemoteReading(){
   return h;
 }
 async function loadJapaneseData(){
-  if(jpJoyo.length&&jpHyogai.length&&jpWords.length&&jpMextReadings.length)return true;
+  if(jpJoyo.length&&jpHyogai.length&&jpWords.length&&jpMextReadings.length&&Object.keys(jpKanjidicReadings||{}).length>6000)return true;
   if(jpDataPromise)return jpDataPromise;
   jpDataLoading=true;jpDataError="";
   jpDataPromise=(async function(){
@@ -1567,15 +1567,17 @@ function jpAtlasLocalCells(item){
   if($("#jpAtlasDetailFont"))$("#jpAtlasDetailFont").onchange=function(e){setJapaneseAtlasFont(e.target.value)};
   $("#jpAtlasSave").onclick=function(){toggleJpUnknown(item)};
   $("#jpAtlasPractice").onclick=function(){closeJapaneseAtlasDetail();jpState.view="practice";startJapanesePractice(ch)};
-  const data=await jpFetchKanjiApi(ch);
-  if(!document.getElementById("jpAtlasSheet"))return;
   const on=$("#jpAtlasOn"),kun=$("#jpAtlasKun"),meaning=$("#jpAtlasMeaning");
   const ko=jpKoreanHanjaMeaning(item);
   if(meaning)meaning.textContent=ko||"한국어 훈음 데이터 없음";
-  if(on){on.className="";on.innerHTML=jpReadingPillsHtml(item,data,"on")}
-  if(kun){kun.className="";kun.innerHTML=jpReadingPillsHtml(item,data,"kun")}
-  if(!data&&item.set==="hyogai"){
-    [on,kun].forEach(function(x){if(x&&!x.textContent.trim())x.textContent="온라인 읽기 정보 없음"});
+  // Bundled KANJIDIC2 is immediate; the live API only enriches/refreshes it.
+  if(on){on.className="";on.innerHTML=jpReadingPillsHtml(item,null,"on")}
+  if(kun){kun.className="";kun.innerHTML=jpReadingPillsHtml(item,null,"kun")}
+  const data=await jpFetchKanjiApi(ch);
+  if(!document.getElementById("jpAtlasSheet"))return;
+  if(data){
+    if(on)on.innerHTML=jpReadingPillsHtml(item,data,"on");
+    if(kun)kun.innerHTML=jpReadingPillsHtml(item,data,"kun");
   }
 }
 
