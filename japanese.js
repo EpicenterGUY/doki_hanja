@@ -1089,12 +1089,14 @@ function jpCheckReadingQuiz(){
   fb.className="feedback jp-reading-quiz-feedback "+(ok?"ok":"no");
   fb.innerHTML="<div><b>"+(ok?"정답":"다시 확인")+"</b> · 정답 <strong lang='ja'>"+esc(jpHiraganaReading(w.reading))+"</strong></div><div class='jp-reading-quiz-answer-meta'>"+esc(w.meaning)+" · "+esc(jpReadingQuizTierLabel(jpReadingQuizTier(w)))+"</div>"+(jpWordHasRealExample(w)?"<p lang='ja'>"+esc(w.sentence)+"</p><small>"+esc(w.translation||"")+"</small>":"");
   input.setAttribute("aria-invalid",ok?"false":"true");
-  if(ok){
-    input.readOnly=true;
-    const btn=$("#jpReadingQuizCheck");
-    if(btn){btn.disabled=true;btn.textContent="정답 ✓"}
-    jpReadingAdvanceTimer=setTimeout(jpAdvanceReadingQuiz,160);
+  input.readOnly=true;
+  const btn=$("#jpReadingQuizCheck");
+  if(btn){
+    btn.disabled=true;
+    btn.textContent=ok?"채점 완료 ✓":"채점 완료";
   }
+  const next=$("#jpReadingQuizNext");
+  if(next)next.classList.add("primary");
 }
 function renderJapaneseReadingQuizCard(){
   clearTimeout(jpReadingAdvanceTimer);jpReadingAdvanceTimer=null;
@@ -1103,18 +1105,24 @@ function renderJapaneseReadingQuizCard(){
   const pct=Math.round((jpState.readingQuizIndex+1)/jpState.readingQuizList.length*100);
   document.body.classList.add("drill-active");syncDrillViewport();
   let h="<div class='drill-session-shell jp-reading-quiz-session'><div class='drill-session-top'><div class='drill-status-row'><span class='drill-status-pill accent'>"+esc(jpReadingQuizTierLabel(jpReadingQuizTier(w)))+"</span><span class='drill-status-pill'>"+(jpState.readingQuizIndex+1)+"/"+jpState.readingQuizList.length+"</span><span class='drill-status-pill'>"+pct+"%</span></div><div class='drill-top-actions'><button type='button' class='btn drill-icon-btn drill-settings-btn' id='jpReadingQuizExit'>목록</button></div></div>";
-  h+="<div class='jp-reading-quiz-stage'><section class='jp-reading-quiz-card'><div class='prompt'>"+(jpReadingQuizSet()==="hyogai"?"이 표외한자 단어의 읽는 법을 입력하세요.":"이 한자어의 읽는 법을 입력하세요.")+"</div><div class='jp-reading-quiz-word' lang='ja'>"+esc(jpWordDisplayForm(w))+"</div><div class='jp-reading-quiz-level'>"+esc(jpReadingQuizTierLabel(jpReadingQuizTier(w)))+(jpReadingQuizSet()==="hyogai"?" 표외 학습":" 학습 기준")+"</div><input id='jpReadingQuizInput' class='jp-reading-quiz-input' lang='ja' inputmode='text' autocomplete='off' autocapitalize='off' spellcheck='false' placeholder='ひらがな로 입력' enterkeyhint='done'><button type='button' class='btn primary jp-reading-quiz-check' id='jpReadingQuizCheck'>채점</button><div id='jpReadingQuizFeedback' class='feedback jp-reading-quiz-feedback'></div></section>";
-  h+="<div class='jp-word-nav jp-reading-quiz-nav'><button type='button' class='btn' id='jpReadingQuizPrev' "+(jpState.readingQuizIndex===0?"disabled":"")+">← 이전</button><button type='button' class='btn' id='jpReadingQuizNext'>"+(jpState.readingQuizIndex===jpState.readingQuizList.length-1?"연습 완료 →":"다음 →")+"</button></div></div></div>";
+  h+="<div class='jp-reading-quiz-stage'><section class='jp-reading-quiz-card'><div class='prompt'>"+(jpReadingQuizSet()==="hyogai"?"이 표외한자 단어의 읽는 법을 입력하세요.":"이 한자어의 읽는 법을 입력하세요.")+"</div><div class='jp-reading-quiz-word' lang='ja'>"+esc(jpWordDisplayForm(w))+"</div><div class='jp-reading-quiz-level'>"+esc(jpReadingQuizTierLabel(jpReadingQuizTier(w)))+(jpReadingQuizSet()==="hyogai"?" 표외 학습":" 학습 기준")+"</div><input id='jpReadingQuizInput' class='jp-reading-quiz-input' lang='ja' inputmode='text' autocomplete='off' autocapitalize='off' spellcheck='false' placeholder='ひらがな로 입력' enterkeyhint='next'><button type='button' class='btn primary jp-reading-quiz-check' id='jpReadingQuizCheck'>채점</button><div id='jpReadingQuizFeedback' class='feedback jp-reading-quiz-feedback'></div></section>";
+  h+="<div class='jp-reading-quiz-nav'><button type='button' class='btn' id='jpReadingQuizPrev' "+(jpState.readingQuizIndex===0?"disabled":"")+">← 이전</button><button type='button' class='btn' id='jpReadingQuizNext'>"+(jpState.readingQuizIndex===jpState.readingQuizList.length-1?"연습 완료 →":"다음 →")+"</button></div></div></div>";
   $("#jp").innerHTML=h;
   $("#jpReadingQuizExit").onclick=exitJapanesePractice;
   $("#jpReadingQuizPrev").onclick=function(){
     clearTimeout(jpReadingAdvanceTimer);jpReadingAdvanceTimer=null;
     if(jpState.readingQuizIndex>0){jpState.readingQuizIndex--;jpState.readingQuizChecked=false;renderJapaneseReadingQuizCard()}
   };
-  $("#jpReadingQuizNext").onclick=jpAdvanceReadingQuiz;
+  $("#jpReadingQuizNext").onclick=function(){
+    clearTimeout(jpReadingAdvanceTimer);jpReadingAdvanceTimer=null;
+    jpAdvanceReadingQuiz();
+  };
   $("#jpReadingQuizCheck").onclick=jpCheckReadingQuiz;
   $("#jpReadingQuizInput").onkeydown=function(e){
-    if(e.key==="Enter"&&!e.isComposing&&e.keyCode!==229){e.preventDefault();jpCheckReadingQuiz()}
+    if(e.key!=="Enter"||e.isComposing||e.keyCode===229)return;
+    e.preventDefault();
+    if(jpState.readingQuizChecked)jpAdvanceReadingQuiz();
+    else jpCheckReadingQuiz();
   };
   requestAnimationFrame(function(){
     const x=$("#jpReadingQuizInput");
