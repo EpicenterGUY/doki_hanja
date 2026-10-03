@@ -1,9 +1,22 @@
 {
-  "webBuild": "2.45.0-20261003",
+  "webBuild": "2.45.1-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.45.1",
+      "title": "폰·iPad 읽기 화면 높이/키보드/입력 지연 수정",
+      "items": [
+        "일본 한자 읽기 연습이 #jp 높이를 상속하지 못해 화면 상단에만 몰리고 아래가 크게 비던 문제를 폰·iPad 공통으로 수정",
+        "세로·가로모드 모두 읽기 카드가 남은 화면을 채우고 이전/다음 버튼이 하단에 안정적으로 배치되도록 레이아웃 재구성",
+        "소프트웨어 키보드가 뜨면 실제 visual viewport 높이에 맞춰 한자·입력칸·채점·하단 이동 버튼을 자동 압축",
+        "iPad 물리 키보드 입력 보조바가 있을 때 하단 이동 버튼이 가려지지 않도록 별도 안전 여백 추가",
+        "정답 입력 후 채점하면 약 0.16초 뒤 자동으로 다음 문제로 이동하고 마지막 문제에서는 바로 연습 종료",
+        "IME 조합 중 Enter 오작동을 막고 preventScroll 포커스를 사용해 모바일 입력 시 화면 튐을 완화",
+        "읽기 문제처럼 캔버스가 없는 화면에서는 viewport 변화 때 손글씨 캔버스 재계산을 생략해 불필요한 렉을 줄임"
+      ]
+    },
     {
       "version": "2.45.0",
       "title": "표외 한자 읽기 · 일본 그림판/버튼 안정화",
