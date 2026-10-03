@@ -548,6 +548,12 @@ body.drill-active #jp{height:100%;min-height:0}
   border-radius:17px;
   background:linear-gradient(145deg,rgba(18,31,55,.72),rgba(10,20,38,.72));
 }
+@supports (content-visibility:auto){
+  .jp-atlas-reading-section{
+    content-visibility:auto;
+    contain-intrinsic-size:auto 220px;
+  }
+}
 .jp-atlas-reading-head{
   display:flex;
   align-items:center;
