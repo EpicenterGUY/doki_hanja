@@ -255,7 +255,7 @@ body.drill-active .app{width:100%;max-width:none;height:100%;margin:0;padding:7p
 body.drill-active .grid,body.drill-active .grid.no-sidebar{display:block;height:100%}
 body.drill-active .sidebar{display:none!important}
 body.drill-active .content{height:100%;min-height:0;padding:0;border:0;background:transparent;box-shadow:none}
-body.drill-active #drill{height:100%;min-height:0}
+body.drill-active #drill,body.drill-active #jp{height:100%;min-height:0}
 
 .drill-session-shell{height:100%;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr);gap:8px}
 .drill-session-top{min-height:48px;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 8px;border:1px solid #455f8d;border-radius:16px;background:linear-gradient(135deg,rgba(35,51,86,.97),rgba(23,34,61,.97));box-shadow:var(--shadow)}
@@ -7191,7 +7191,7 @@ html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-pane{
 }
 
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.45.0">
+<link rel="stylesheet" href="./japanese.css?v=2.45.1">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -8177,7 +8177,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.45.0-20261003";
+const APP_BUILD="2.45.1-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -12079,7 +12079,7 @@ function syncDrillViewport(){
   if(softKeyboard&&document.body.classList.contains("drill-active")){
     requestAnimationFrame(lockIpadDrillScroll);
   }
-  if(document.body.classList.contains("drill-active")){
+  if(document.body.classList.contains("drill-active")&&document.querySelector("#drill canvas,#jp canvas")){
     requestAnimationFrame(function(){refreshSquareHandwritingCanvases()});
   }
 }
@@ -14933,6 +14933,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.45.0"></script>
+<script src="./japanese.js?v=2.45.1"></script>
 </body>
 </html>
