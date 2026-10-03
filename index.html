@@ -7191,7 +7191,7 @@ html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-pane{
 }
 
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.45.1">
+<link rel="stylesheet" href="./japanese.css?v=2.45.2">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -8177,7 +8177,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.45.1-20261003";
+const APP_BUILD="2.45.2-20261003";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -8703,7 +8703,7 @@ function init(){
     },{passive:true});
   }
   window.addEventListener("pageshow",syncDrillViewport,{passive:true});
-  window.addEventListener("resize",syncDrillViewport,{passive:true});
+  window.addEventListener("resize",queueDrillViewportSync,{passive:true});
   window.addEventListener("orientationchange",function(){
     syncDrillViewport();
     setTimeout(function(){syncDrillViewport();refreshSquareHandwritingCanvases()},120);
@@ -8719,8 +8719,11 @@ function init(){
     document.addEventListener("focusin",refitKeyboardViewport,true);
     document.addEventListener("focusout",refitKeyboardViewport,true);
     if(window.visualViewport){
-      window.visualViewport.addEventListener("resize",syncDrillViewport,{passive:true});
-      window.visualViewport.addEventListener("scroll",syncDrillViewport,{passive:true});
+      window.visualViewport.addEventListener("resize",queueDrillViewportSync,{passive:true});
+      window.visualViewport.addEventListener("scroll",function(){
+        if(document.getElementById("jpReadingQuizInput"))return;
+        queueDrillViewportSync();
+      },{passive:true});
     }
   }
   try{
@@ -12035,6 +12038,13 @@ function lockIpadDrillScroll(){
   window.scrollTo(0,0);
 }
 
+function queueDrillViewportSync(){
+  if(window.__dokiViewportSyncRaf)return;
+  window.__dokiViewportSyncRaf=requestAnimationFrame(function(){
+    window.__dokiViewportSyncRaf=0;
+    syncDrillViewport();
+  });
+}
 function syncDrillViewport(){
   const vv=window.visualViewport;
   const layoutH=Math.round(window.innerHeight||document.documentElement.clientHeight||0);
@@ -14933,6 +14943,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.45.1"></script>
+<script src="./japanese.js?v=2.45.2"></script>
 </body>
 </html>
