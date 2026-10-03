@@ -1,9 +1,22 @@
 {
-  "webBuild": "2.45.1-20261003",
+  "webBuild": "2.45.2-20261003",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.45.2",
+      "title": "읽기 연습 수동 다음 · 입력 렉 · 가로배치 수정",
+      "items": [
+        "정답 채점 뒤 자동으로 넘어가던 동작을 제거하고 예문·뜻·정답을 그대로 남겨 확인할 수 있게 변경",
+        "Enter는 첫 번째에는 채점, 채점 후 다시 누르면 다음 문제로 이동하도록 변경",
+        "다음 버튼으로도 직접 넘어가며 마지막 문제에서는 연습을 종료",
+        "읽기 화면의 이전/다음 바가 단어쓰기용 grid-area 규칙을 물려받아 iPad에서 오른쪽으로 밀리던 원인을 제거하고 카드/내비를 전체 폭 1열로 고정",
+        "키보드가 열린 상태에서도 예문과 번역을 숨기지 않고 내부 스크롤로 읽을 수 있게 변경",
+        "visualViewport scroll 이벤트가 일본어 입력 중 계속 레이아웃 계산을 유발하지 않도록 읽기 입력 중 해당 이벤트를 무시하고 resize 계산도 프레임당 1회로 합침",
+        "폰·Fold·iPad에서 일본어 IME 입력 시 불필요한 viewport 재계산을 줄여 타이핑 지연 완화"
+      ]
+    },
     {
       "version": "2.45.1",
       "title": "폰·iPad 읽기 화면 높이/키보드/입력 지연 수정",
