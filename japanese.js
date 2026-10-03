@@ -14,6 +14,11 @@ let jpHideTimer=null;
 let jpReadingAdvanceTimer=null;
 let jpItemMap=new Map();
 let jpJlptData={kanji:{},word:{},counts:{}};
+let jpRelatedWordsCache=new Map();
+let jpReadingTextCache=new Map();
+let jpReadingGroupsCache=new Map();
+let jpAtlasGroupsCache=new Map();
+let jpKoreanMeaningCache=new Map();
 
 let jpState={
   view:"home",
@@ -25,6 +30,7 @@ let jpState={
   savedOnly:false,
   limit:120,
   atlasLimit:160,
+  atlasGroupLimit:72,
   atlasGroup:"on",
   atlasInitial:"all",
   atlasFont:storageGet("jpAtlasFontV1","gothic"),
@@ -294,7 +300,12 @@ function jpAllReadings(ch,kind){
   return out;
 }
 function jpReadingText(item,kind){
-  return jpAllReadings(item.char,kind).map(function(r){return r.reading}).filter(Boolean);
+  if(!item||!item.char)return[];
+  const cacheKey=item.char+"|"+(kind||"all");
+  if(jpReadingTextCache.has(cacheKey))return jpReadingTextCache.get(cacheKey);
+  const out=jpAllReadings(item.char,kind).map(function(r){return r.reading}).filter(Boolean);
+  jpReadingTextCache.set(cacheKey,out);
+  return out;
 }
 function jpPrimaryReading(item,kind){
   const rows=jpReadingText(item,kind);
@@ -344,6 +355,8 @@ function jpReadingRowLabel(r,item){
   return "희귀·비실용";
 }
 function jpReadingIndexGroups(kind){
+  const cacheKey=[kind,jpState.readingScope,jpState.set,jpState.jlpt].join("|");
+  if(jpReadingGroupsCache.has(cacheKey))return jpReadingGroupsCache.get(cacheKey);
   const map=jpReadingIndex[kind]||new Map(),out=[];
   map.forEach(function(rows,key){
     const seen=new Set(),selected=[];
@@ -367,6 +380,7 @@ function jpReadingIndexGroups(kind){
     }
   });
   out.sort(function(a,b){return a.reading.localeCompare(b.reading,"ja")});
+  jpReadingGroupsCache.set(cacheKey,out);
   return out;
 }
 async function jpLookupRemoteReading(){
@@ -446,6 +460,7 @@ async function loadJapaneseData(){
       jpApplyJlptData(joyo,words,jlptData);
       if(joyo.length!==2136||hyogai.length<4000||words.length<2000||(mextData.entries||[]).length<2100||Object.keys(jlptData.kanji||{}).length<2100||Object.keys(jpKanjidicReadings).length<6000)throw Error("일본 한자 데이터 수가 비정상입니다.");
       jpJoyo=joyo;jpHyogai=hyogai;jpWords=words;jpHyogaiMeta=hyogaiMeta;
+      jpRelatedWordsCache.clear();jpReadingTextCache.clear();jpReadingGroupsCache.clear();jpAtlasGroupsCache.clear();jpKoreanMeaningCache.clear();
       jpBuildItemMap();jpBuildMextIndex(mextData);
       return true;
     }catch(e){
@@ -466,14 +481,14 @@ function jpCurrentPool(){
   if(jpState.savedOnly)rows=rows.filter(function(x){return !!jpUnknown[jpKey(x)]});
   const q=String(jpState.query||"").trim();
   if(q){
-    const fq=jpKanaFold(q);
+    const fq=jpKanaFold(q),nq=norm(q);
     rows=rows.filter(function(x){
       if(x.char.includes(q)||(x.old||"").includes(q)||(x.radical||"").includes(q))return true;
       if((x.variants||[]).some(function(v){return v.includes(q)}))return true;
       const readings=jpReadingText(x).join(" ");
       if(readings&&jpKanaFold(readings).includes(fq))return true;
       const ko=jpKoreanHanjaMeaning(x);
-      return ko&&norm(ko).includes(norm(q));
+      return ko&&norm(ko).includes(nq);
     });
   }
   return rows;
@@ -549,7 +564,7 @@ function jpMetaPillsHtml(x){
 }
 function setJapaneseSet(s){
   jpState.set=s==="hyogai"?"hyogai":s==="rare"?"rare":"joyo";
-  jpState.grade="all";jpState.jlpt="all";jpState.hyogaiTier="all";jpState.query="";jpState.savedOnly=false;jpState.limit=120;jpState.atlasLimit=160;
+  jpState.grade="all";jpState.jlpt="all";jpState.hyogaiTier="all";jpState.query="";jpState.savedOnly=false;jpState.limit=120;jpState.atlasLimit=160;jpState.atlasGroupLimit=72;
   jpState.atlasGroup="on";jpState.atlasInitial="all";
   jpState.wordTier="all";jpState.wordRound=0;
   jpState.readingQuizLevel="all";jpState.readingQuizIndex=0; jpState.readingQuizList=[];
@@ -561,12 +576,12 @@ function setJapaneseSet(s){
   jpState.view=["home","practice","atlas","word","wordreading","reading"].includes(v)?v:"home";
   if(jpState.set==="rare"&&jpState.view==="word")jpState.view="atlas";
   if(jpState.set==="rare"&&jpState.view==="wordreading")jpState.view="atlas";
-  jpState.query="";jpState.savedOnly=false;jpState.limit=120;jpState.atlasLimit=160;
+  jpState.query="";jpState.savedOnly=false;jpState.limit=120;jpState.atlasLimit=160;jpState.atlasGroupLimit=72;
   if(jpState.view!=="reading"){jpState.readingSelected="";jpState.readingRemote=[];jpState.readingRemoteError=""}
   renderJapanese();
 }
 function jpOpenSavedAtlas(){
-  jpState.view="atlas";jpState.savedOnly=true;jpState.query="";jpState.atlasLimit=160;renderJapanese();
+  jpState.view="atlas";jpState.savedOnly=true;jpState.query="";jpState.atlasLimit=160;jpState.atlasGroupLimit=72;renderJapanese();
 }
 function jpOpenGradePractice(g){
   jpState.set="joyo";jpState.grade="all";jpState.jlpt=g||"all";jpState.view="practice";jpState.savedOnly=false;jpState.query="";jpState.limit=120;renderJapanese();
@@ -587,13 +602,13 @@ function jpStartQuickChars(set){
   }
   if(total&&!foundNext)next=Math.max(0,total-1);
   return {rows:rows,total:total,done:done,tried:tried,size:size,next:next};
-}function setJapaneseGrade(g){jpState.jlpt=g;jpState.limit=120;jpState.atlasLimit=160;renderJapanese()}
+}function setJapaneseGrade(g){jpState.jlpt=g;jpState.limit=120;jpState.atlasLimit=160;jpState.atlasGroupLimit=72;renderJapanese()}
 function setJapaneseMode(m){jpState.mode=m==="copy"?"copy":"memory";renderJapanese()}
 function setJapaneseOrder(o){jpState.order=o==="random"?"random":"source";renderJapanese()}
-function toggleJapaneseSavedOnly(){jpState.savedOnly=!jpState.savedOnly;jpState.limit=120;jpState.atlasLimit=160;renderJapanese()}
+function toggleJapaneseSavedOnly(){jpState.savedOnly=!jpState.savedOnly;jpState.limit=120;jpState.atlasLimit=160;jpState.atlasGroupLimit=72;renderJapanese()}
 function applyJapaneseSearch(){
   jpState.query=($("#jpSearch")&&$("#jpSearch").value)||"";
-  jpState.limit=120;jpState.atlasLimit=160;renderJapanese();
+  jpState.limit=120;jpState.atlasLimit=160;jpState.atlasGroupLimit=72;renderJapanese();
 }
 function toggleJpUnknown(item){
   const k=jpKey(item);
@@ -605,6 +620,7 @@ function toggleJpUnknown(item){
     toast("「"+item.char+"」 모르는 한자에 저장");
   }
   saveJpProgress();
+  jpAtlasGroupsCache.clear();
   const b=$("#jpUnknownBtn");
   if(b){
     const yes=!!jpUnknown[k];
@@ -628,9 +644,11 @@ function jpCardsHtml(rows,atlas){
   return rows.map(function(x){
     const saved=!!jpUnknown[jpKey(x)];
     const on=jpReadingText(x,"on"),kun=jpReadingText(x,"kun");
-    const sampleWord=x.set==="hyogai"&&x.hyogaiPractical?jpRelatedWords(x.char)[0]:null;
-    const readingMeta=[on.length?("音 "+on.slice(0,2).join("・")):"",kun.length?("訓 "+kun.slice(0,2).join("・")):""].filter(Boolean).join(" · ")||
-      (sampleWord?("예 "+jpWordDisplayText(sampleWord)+" · "+sampleWord.reading):"");
+    let readingMeta=[on.length?("音 "+on.slice(0,2).join("・")):"",kun.length?("訓 "+kun.slice(0,2).join("・")):""].filter(Boolean).join(" · ");
+    if(!readingMeta&&x.set==="hyogai"&&x.hyogaiPractical){
+      const sampleWord=jpRelatedWords(x.char)[0];
+      if(sampleWord)readingMeta="예 "+jpWordDisplayText(sampleWord)+" · "+sampleWord.reading;
+    }
     if(atlas){
       return "<button type='button' class='jp-atlas-card "+(saved?"saved":"")+"' data-jp-atlas='"+esc(x.char)+"'><div class='char' lang='ja'>"+esc(x.char)+"</div><span class='meta'>"+(saved?"★ ":"")+esc(jpCardMeta(x))+"</span>"+(readingMeta?"<span class='jp-card-reading'>"+esc(readingMeta)+"</span>":"")+"</button>";
     }
@@ -640,6 +658,8 @@ function jpCardsHtml(rows,atlas){
   }).join("");
 }
 function jpAtlasReadingGroups(rows,kind){
+  const cacheKey=[kind,jpState.set,jpState.jlpt,jpState.savedOnly?"1":"0",jpState.query||"",rows.length].join("|");
+  if(jpAtlasGroupsCache.has(cacheKey))return jpAtlasGroupsCache.get(cacheKey);
   const m=new Map();
   rows.forEach(function(item){
     const readings=jpReadingText(item,kind);
@@ -656,10 +676,12 @@ function jpAtlasReadingGroups(rows,kind){
       m.set(key,g);
     });
   });
-  return [...m.values()].map(function(g){delete g.seen;return g}).sort(function(a,b){
+  const out=[...m.values()].map(function(g){delete g.seen;return g}).sort(function(a,b){
     if(a.key==="기타")return 1;if(b.key==="기타")return -1;
     return a.reading.localeCompare(b.reading,"ja");
   });
+  jpAtlasGroupsCache.set(cacheKey,out);
+  return out;
 }
 function jpAtlasGroupedHtml(all){
   const kind=jpState.atlasGroup==="kun"?"kun":"on";
@@ -668,11 +690,15 @@ function jpAtlasGroupedHtml(all){
   const initials=[["all","전체"],["あ","あ"],["か","か"],["さ","さ"],["た","た"],["な","な"],["は","は"],["ま","ま"],["や","や"],["ら","ら"],["わ","わ"],["기타","기타"]];
   let h="<div class='jp-filter-row jp-atlas-initials'>"+initials.map(function(x){return "<button type='button' class='jp-filter-chip "+(jpState.atlasInitial===x[0]?"active":"")+"' data-jp-atlas-initial='"+x[0]+"'>"+x[1]+"</button>"}).join("")+"</div>";
   if(!groups.length)return h+"<div class='jp-empty'>이 분류에 해당하는 한자가 없습니다.</div>";
+  const limit=Math.max(24,+jpState.atlasGroupLimit||72);
+  const visible=groups.slice(0,limit);
   h+="<div class='jp-atlas-reading-sections'>";
-  groups.forEach(function(g){
+  visible.forEach(function(g){
     h+="<section class='jp-atlas-reading-section'><div class='jp-atlas-reading-head'><b>"+esc(g.reading)+"</b><span>"+g.rows.length+"자</span></div><div class='jp-atlas-grid'>"+jpCardsHtml(g.rows,true)+"</div></section>";
   });
-  return h+"</div>";
+  h+="</div>";
+  if(groups.length>visible.length)h+="<button type='button' class='btn jp-more' id='jpAtlasGroupMore'>읽기 더 보기 · "+visible.length.toLocaleString()+"/"+groups.length.toLocaleString()+"</button>";
+  return h;
 }
 function jpHeroHtml(){
   const home=jpState.view==="home";
@@ -801,10 +827,11 @@ async function jpSelectReading(key){
   if(!jpState.readingSelected)return;
   requestAnimationFrame(function(){
     const el=document.querySelector(".jp-reading-inline-detail");
-    if(el&&el.scrollIntoView){
-      try{el.scrollIntoView({block:"nearest",inline:"nearest",behavior:"smooth"})}
-      catch{el.scrollIntoView(false)}
-    }
+    if(!el||!el.scrollIntoView)return;
+    const r=el.getBoundingClientRect();
+    if(r.top>=0&&r.bottom<=window.innerHeight)return;
+    try{el.scrollIntoView({block:"nearest",inline:"nearest",behavior:"auto"})}
+    catch{el.scrollIntoView(false)}
   });
 }
 function jpCloseReadingDetail(){
@@ -935,19 +962,44 @@ function bindJapaneseHome(){
       if(roundBtn&&root.contains(roundBtn)){e.preventDefault();jpSetWordRound(+roundBtn.dataset.round);return}
 
       const atlasGroupBtn=target.closest("[data-jp-atlas-group]");
-      if(atlasGroupBtn&&root.contains(atlasGroupBtn)){e.preventDefault();jpState.atlasGroup=atlasGroupBtn.dataset.jpAtlasGroup||"on";jpState.atlasInitial="all";renderJapanese();return}
+      if(atlasGroupBtn&&root.contains(atlasGroupBtn)){
+        e.preventDefault();
+        const next=atlasGroupBtn.dataset.jpAtlasGroup||"on";
+        if(next===jpState.atlasGroup)return;
+        jpState.atlasGroup=next;jpState.atlasInitial="all";jpState.atlasGroupLimit=72;renderJapanese();return;
+      }
 
       const atlasInitialBtn=target.closest("[data-jp-atlas-initial]");
-      if(atlasInitialBtn&&root.contains(atlasInitialBtn)){e.preventDefault();jpState.atlasInitial=atlasInitialBtn.dataset.jpAtlasInitial||"all";renderJapanese();return}
+      if(atlasInitialBtn&&root.contains(atlasInitialBtn)){
+        e.preventDefault();
+        const next=atlasInitialBtn.dataset.jpAtlasInitial||"all";
+        if(next===jpState.atlasInitial)return;
+        jpState.atlasInitial=next;jpState.atlasGroupLimit=72;renderJapanese();return;
+      }
 
       const readingKindBtn=target.closest("[data-reading-kind]");
-      if(readingKindBtn&&root.contains(readingKindBtn)){e.preventDefault();jpState.readingKind=readingKindBtn.dataset.readingKind;jpState.readingSelected="";jpState.readingLimit=240;jpState.readingRemote=[];renderJapanese();return}
+      if(readingKindBtn&&root.contains(readingKindBtn)){
+        e.preventDefault();
+        const next=readingKindBtn.dataset.readingKind;
+        if(next===jpState.readingKind)return;
+        jpState.readingKind=next;jpState.readingSelected="";jpState.readingLimit=240;jpState.readingRemote=[];renderJapanese();return;
+      }
 
       const readingScopeBtn=target.closest("[data-reading-scope]");
-      if(readingScopeBtn&&root.contains(readingScopeBtn)){e.preventDefault();jpState.readingScope=readingScopeBtn.dataset.readingScope==="current"?"current":"all";jpState.readingSelected="";jpState.readingLimit=240;renderJapanese();return}
+      if(readingScopeBtn&&root.contains(readingScopeBtn)){
+        e.preventDefault();
+        const next=readingScopeBtn.dataset.readingScope==="current"?"current":"all";
+        if(next===jpState.readingScope)return;
+        jpState.readingScope=next;jpState.readingSelected="";jpState.readingLimit=240;renderJapanese();return;
+      }
 
       const readingInitialBtn=target.closest("[data-reading-initial]");
-      if(readingInitialBtn&&root.contains(readingInitialBtn)){e.preventDefault();jpState.readingInitial=readingInitialBtn.dataset.readingInitial;jpState.readingSelected="";jpState.readingLimit=240;renderJapanese();return}
+      if(readingInitialBtn&&root.contains(readingInitialBtn)){
+        e.preventDefault();
+        const next=readingInitialBtn.dataset.readingInitial;
+        if(next===jpState.readingInitial)return;
+        jpState.readingInitial=next;jpState.readingSelected="";jpState.readingLimit=240;renderJapanese();return;
+      }
 
       const readingCloseBtn=target.closest("[data-reading-close]");
       if(readingCloseBtn&&root.contains(readingCloseBtn)){e.preventDefault();e.stopPropagation();jpCloseReadingDetail();return}
@@ -976,6 +1028,7 @@ function bindJapaneseHome(){
   if($("#jpStart"))$("#jpStart").onclick=function(){startJapanesePractice()};
   if($("#jpMore"))$("#jpMore").onclick=function(){jpState.limit+=120;renderJapanese()};
   if($("#jpAtlasMore"))$("#jpAtlasMore").onclick=function(){jpState.atlasLimit+=160;renderJapanese()};
+  if($("#jpAtlasGroupMore"))$("#jpAtlasGroupMore").onclick=function(){jpState.atlasGroupLimit=(+jpState.atlasGroupLimit||72)+72;renderJapanese()};
   $$("#jpWordTier [data-tier]").forEach(function(b){b.onclick=function(){jpState.wordTier=b.dataset.tier;jpState.wordRound=0;renderJapanese()}});
   if($("#jpWordCount"))$("#jpWordCount").onchange=function(e){jpState.wordCount=+e.target.value;jpState.wordRound=0;renderJapanese()};
   if($("#jpWordOrder"))$("#jpWordOrder").onchange=function(e){jpState.wordOrder=e.target.value};
@@ -1506,22 +1559,29 @@ function renderJapaneseWordCard(){
 /* atlas · 2.20.3 */
 function jpFindItem(ch){return jpItemMap.get(ch)||null}
 function jpRelatedWords(ch){
-  return jpWords.filter(function(w){return jpWordExampleForms(w).some(function(form){return form.includes(ch)})}).slice(0,24);
+  if(jpRelatedWordsCache.has(ch))return jpRelatedWordsCache.get(ch);
+  const out=jpWords.filter(function(w){return jpWordExampleForms(w).some(function(form){return form.includes(ch)})}).slice(0,24);
+  jpRelatedWordsCache.set(ch,out);
+  return out;
 }
 function jpKoreanHanjaMeaning(item){
   try{
+    if(!item||!item.char)return "";
+    if(jpKoreanMeaningCache.has(item.char))return jpKoreanMeaningCache.get(item.char);
     const candidates=[item.char,item.old].concat(item.variants||[]).filter(Boolean);
     const hit=(Array.isArray(chars)?chars:[]).find(function(c){return candidates.includes(c.hanja)});
     if(!hit)return "";
+    let value="";
     if(typeof officialMeaningSoundForms==="function"){
       const forms=officialMeaningSoundForms(hit);
-      if(forms&&forms.canonical)return forms.canonical;
+      if(forms&&forms.canonical)value=forms.canonical;
     }
-    if(typeof charPrimary==="function"){
+    if(!value&&typeof charPrimary==="function"){
       const p=charPrimary(hit);
-      if(p)return [p.meaning,p.sound].filter(Boolean).join(" ");
+      if(p)value=[p.meaning,p.sound].filter(Boolean).join(" ");
     }
-    return "";
+    if(value)jpKoreanMeaningCache.set(item.char,value);
+    return value;
   }catch{return ""}
 }
 function closeJapaneseAtlasDetail(){
