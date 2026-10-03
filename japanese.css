@@ -3767,3 +3767,178 @@ html body.drill-active #jp .jp-word-answer,
 html body.drill-active #jp .drill-answer-overlay{
   pointer-events:none!important;
 }
+
+
+/* ===== 2.45.1 · READING QUIZ PHONE/IPAD VIEWPORT FINAL AUTHORITY ===== */
+/* Keep Japanese drill pages on the same full-height contract as the Korean drill.
+   Previously #drill had an explicit height but #jp did not, so the reading quiz
+   collapsed around its content and left a large dead area on phones and iPad. */
+body.drill-active #jp{
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  overflow:hidden!important;
+  background:#09101f!important;
+}
+body.drill-active #jp .jp-reading-quiz-session{
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  overflow:hidden!important;
+  grid-template-rows:auto minmax(0,1fr)!important;
+}
+body.drill-active #jp .jp-reading-quiz-stage{
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  overflow:hidden!important;
+  grid-template-rows:minmax(0,1fr) auto!important;
+}
+body.drill-active #jp .jp-reading-quiz-card{
+  min-height:0!important;
+  max-height:100%!important;
+  overflow:auto!important;
+  overscroll-behavior:contain!important;
+  -webkit-overflow-scrolling:touch;
+}
+body.drill-active #jp .jp-reading-quiz-nav{
+  flex:0 0 auto!important;
+  min-height:0!important;
+}
+
+/* Phone portrait/landscape: keep the question centered and controls reachable
+   without turning the whole page into a scrollable document. */
+@media(max-width:699px){
+  body.drill-active #jp .jp-reading-quiz-session{gap:5px!important}
+  body.drill-active #jp .jp-reading-quiz-stage{gap:5px!important}
+  body.drill-active #jp .jp-reading-quiz-card{
+    padding:10px 9px!important;
+    border-radius:16px!important;
+  }
+  body.drill-active #jp .jp-reading-quiz-word{
+    margin:6px 0 3px!important;
+    font-size:clamp(44px,18vw,76px)!important;
+    line-height:.98!important;
+  }
+  body.drill-active #jp .jp-reading-quiz-level{margin-bottom:8px!important}
+  body.drill-active #jp .jp-reading-quiz-input{
+    width:min(520px,100%)!important;
+    height:48px!important;
+    min-height:48px!important;
+    font-size:20px!important;
+  }
+  body.drill-active #jp .jp-reading-quiz-check{
+    min-height:40px!important;
+    margin-top:5px!important;
+  }
+  body.drill-active #jp .jp-reading-quiz-nav .btn{
+    min-height:42px!important;
+    height:42px!important;
+  }
+}
+
+/* Software keyboard: use the actual visual viewport on every device, including
+   ordinary phones, Fold, and iPad. The reading screen now compresses itself rather
+   than relying on the Korean #drill-only keyboard rules. */
+html.keyboard-open body.drill-active #jp{
+  height:var(--drill-vh,100dvh)!important;
+  min-height:0!important;
+  max-height:var(--drill-vh,100dvh)!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-session{
+  height:100%!important;
+  min-height:0!important;
+  max-height:100%!important;
+  grid-template-rows:38px minmax(0,1fr)!important;
+  gap:4px!important;
+  overflow:hidden!important;
+}
+html.keyboard-open body.drill-active #jp .drill-session-top{
+  height:38px!important;
+  min-height:38px!important;
+  max-height:38px!important;
+  padding:3px 6px!important;
+  border-radius:11px!important;
+}
+html.keyboard-open body.drill-active #jp .drill-status-pill{
+  padding:4px 7px!important;
+  font-size:9px!important;
+}
+html.keyboard-open body.drill-active #jp .drill-settings-btn{
+  height:30px!important;
+  min-height:30px!important;
+  padding:0 8px!important;
+  font-size:10px!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-stage{
+  height:100%!important;
+  min-height:0!important;
+  grid-template-rows:minmax(0,1fr) 38px!important;
+  gap:4px!important;
+  overflow:hidden!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-card{
+  min-height:0!important;
+  padding:4px 8px!important;
+  border-radius:12px!important;
+  justify-content:center!important;
+  overflow:auto!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-card .prompt{
+  font-size:10px!important;
+  line-height:1.1!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-word{
+  margin:2px 0!important;
+  font-size:clamp(36px,11vh,66px)!important;
+  line-height:.92!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-level{
+  margin-bottom:4px!important;
+  font-size:9px!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-input{
+  width:min(500px,100%)!important;
+  height:40px!important;
+  min-height:40px!important;
+  font-size:18px!important;
+  border-radius:11px!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-check{
+  width:min(500px,100%)!important;
+  min-height:34px!important;
+  height:34px!important;
+  margin-top:4px!important;
+  padding:3px 8px!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-feedback{
+  width:min(540px,100%)!important;
+  max-height:42px!important;
+  overflow:auto!important;
+  margin-top:3px!important;
+  padding:4px 7px!important;
+  font-size:9px!important;
+  line-height:1.15!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-feedback:empty{display:none!important}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-feedback p,
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-feedback small{
+  display:none!important;
+}
+html.keyboard-open body.drill-active #jp .jp-reading-quiz-nav .btn{
+  height:38px!important;
+  min-height:38px!important;
+  padding:3px 8px!important;
+}
+
+/* iPad hardware-keyboard input assistant bar: reserve only a slim bottom strip.
+   This keeps the bottom navigation visible while preserving the full-size question. */
+html.keyboard-accessory body.drill-active #jp .jp-reading-quiz-stage{
+  padding-bottom:max(48px,calc(env(safe-area-inset-bottom) + 40px))!important;
+}
+html.keyboard-accessory body.drill-active #jp .jp-reading-quiz-card{
+  min-height:0!important;
+}
