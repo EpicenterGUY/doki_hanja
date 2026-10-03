@@ -50,6 +50,7 @@ let jpState={
   readingQuizIndex:0,
   readingQuizChecked:false,
   readingKind:"on",
+  readingScope:"all",
   readingInitial:"all",
   readingSelected:"",
   readingLimit:240,
@@ -276,16 +277,17 @@ function jpOfficialReadings(ch,kind){
 function jpAllReadings(ch,kind){
   const official=jpOfficialReadings(ch,kind),out=[],seen=new Set();
   official.forEach(function(r){
-    const key=jpKanaFold(r.reading);
-    if(!key||seen.has(key))return;
-    seen.add(key);out.push(Object.assign({source:"mext"},r));
+    const key=jpKanaFold(r.reading),k=r.kind||kind||"";
+    const token=k+"|"+key;
+    if(!key||seen.has(token))return;
+    seen.add(token);out.push(Object.assign({source:"mext"},r));
   });
   const kinds=kind?[kind]:["on","kun"];
   kinds.forEach(function(k){
     jpKanjidicReadingList(ch,k).forEach(function(reading){
-      const key=jpKanaFold(reading);
-      if(!key||seen.has(k+"|"+key)||(!kind&&seen.has(key)))return;
-      if(kind)seen.add(key);else seen.add(k+"|"+key);
+      const key=jpKanaFold(reading),token=k+"|"+key;
+      if(!key||seen.has(token))return;
+      seen.add(token);
       out.push({reading:reading,kind:k,stage:"",special:false,source:"kanjidic"});
     });
   });
@@ -324,6 +326,7 @@ function jpReadingInitialKey(reading){
 }
 function jpReadingItemMatchesSet(item){
   if(!item)return false;
+  if(jpState.readingScope!=="current")return true;
   if(jpState.set==="joyo"){
     if(item.set!=="joyo")return false;
     return jpState.jlpt==="all"||jpItemJlpt(item)===jpState.jlpt;
@@ -335,10 +338,10 @@ function jpReadingDisplay(reading){
   return String(reading||"").replace(/[.・･\-]/g,"");
 }
 function jpReadingRowLabel(r,item){
-  if(r&&r.source==="mext")return jpStageLabel(r.stage)+(r.special?" · 특별":"");
-  if(item&&item.set==="joyo")return "사전 추가 읽기";
-  if(item&&item.hyogaiPractical)return "표외 사전 읽기";
-  return "희귀·비실용 읽기";
+  if(r&&r.source==="mext")return "常用 · "+jpStageLabel(r.stage)+(r.special?" · 특별":"");
+  if(item&&item.set==="joyo")return "常用 · 사전 추가";
+  if(item&&item.hyogaiPractical)return "表外 · 실용";
+  return "희귀·비실용";
 }
 function jpReadingIndexGroups(kind){
   const map=jpReadingIndex[kind]||new Map(),out=[];
@@ -550,7 +553,7 @@ function setJapaneseSet(s){
   jpState.atlasGroup="on";jpState.atlasInitial="all";
   jpState.wordTier="all";jpState.wordRound=0;
   jpState.readingQuizLevel="all";jpState.readingQuizIndex=0; jpState.readingQuizList=[];
-  jpState.readingInitial="all";jpState.readingSelected="";jpState.readingQuery="";jpState.readingLimit=240;jpState.readingRemote=[];jpState.readingRemoteError="";
+  jpState.readingScope="all";jpState.readingInitial="all";jpState.readingSelected="";jpState.readingQuery="";jpState.readingLimit=240;jpState.readingRemote=[];jpState.readingRemoteError="";
   if(jpState.set==="rare"&&jpState.view==="word")jpState.view="atlas";
   if(jpState.set==="rare"&&jpState.view==="wordreading")jpState.view="atlas";
   renderJapanese();
@@ -811,15 +814,14 @@ function jpCloseReadingDetail(){
 function jpReadingHomeHtml(){
   const kind=jpState.readingKind==="kun"?"kun":"on";
   const title=kind==="on"?"음독":"훈독";
-  const sourceDesc=jpState.set==="joyo"
-    ?"문부과학성 상용 음훈표 + KANJIDIC2 추가 읽기를 합쳐, 같은 읽기를 가진 한자를 전부 묶습니다."
-    :jpState.set==="hyogai"
-      ?"표외 실용 한자의 KANJIDIC2 음독·훈독을 검색뿐 아니라 전체 색인으로 탐색합니다."
-      :"희귀·비실용 한자의 KANJIDIC2 음독·훈독도 전체 색인으로 탐색합니다.";
-  const sourceBadge=jpState.set==="joyo"?"공식 + 사전":jpState.set==="hyogai"?"표외 전체 색인":"희귀 전체 색인";
+  const sourceDesc=jpState.readingScope==="all"
+    ?"常用·表外·희귀/비실용을 합친 통합 읽기 색인입니다. 같은 읽기를 가진 글자는 분류와 무관하게 함께 표시됩니다."
+    :"현재 선택한 분류 안에서만 음독·훈독을 묶어 봅니다.";
+  const sourceBadge=jpState.readingScope==="all"?"통합 음훈 색인":"현재 분류";
   const initials=[["all","전체"],["あ","あ"],["か","か"],["さ","さ"],["た","た"],["な","な"],["は","は"],["ま","ま"],["や","や"],["ら","ら"],["わ","わ"],["기타","기타"]];
   let h="<section class='app-section jp-reading-browser'><div class='app-section-head'><div><div class='app-section-title'>"+title+"별 한자</div><div class='app-section-sub'>"+sourceDesc+"</div></div><span class='badge good'>"+sourceBadge+"</span></div>";
   h+="<div class='jp-mode-seg jp-reading-kind'><button data-reading-kind='on' class='"+(kind==="on"?"active":"")+"'>音読み 음독</button><button data-reading-kind='kun' class='"+(kind==="kun"?"active":"")+"'>訓読み 훈독</button></div>";
+  h+="<div class='jp-mode-seg jp-reading-scope'><button data-reading-scope='all' class='"+(jpState.readingScope==="all"?"active":"")+"'>전체 한자</button><button data-reading-scope='current' class='"+(jpState.readingScope==="current"?"active":"")+"'>현재 분류만</button></div>";
   h+="<div class='jp-filter-row jp-reading-initials'>"+initials.map(function(x){return "<button class='jp-filter-chip "+(jpState.readingInitial===x[0]?"active":"")+"' data-reading-initial='"+x[0]+"'>"+x[1]+"</button>"}).join("")+"</div>";
 
   let groups=jpReadingIndexGroups(kind);
@@ -940,6 +942,9 @@ function bindJapaneseHome(){
 
       const readingKindBtn=target.closest("[data-reading-kind]");
       if(readingKindBtn&&root.contains(readingKindBtn)){e.preventDefault();jpState.readingKind=readingKindBtn.dataset.readingKind;jpState.readingSelected="";jpState.readingLimit=240;jpState.readingRemote=[];renderJapanese();return}
+
+      const readingScopeBtn=target.closest("[data-reading-scope]");
+      if(readingScopeBtn&&root.contains(readingScopeBtn)){e.preventDefault();jpState.readingScope=readingScopeBtn.dataset.readingScope==="current"?"current":"all";jpState.readingSelected="";jpState.readingLimit=240;renderJapanese();return}
 
       const readingInitialBtn=target.closest("[data-reading-initial]");
       if(readingInitialBtn&&root.contains(readingInitialBtn)){e.preventDefault();jpState.readingInitial=readingInitialBtn.dataset.readingInitial;jpState.readingSelected="";jpState.readingLimit=240;renderJapanese();return}
