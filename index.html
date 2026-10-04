@@ -29,7 +29,7 @@ body{min-height:100vh;min-height:100svh}
 @supports(height:100dvh){body{min-height:100dvh}}
 @supports(-webkit-touch-callout:none){
   input,select,textarea{font-size:16px}
-  .table-wrap,#practiceSettingsPanel,.global-search-sheet{-webkit-overflow-scrolling:touch}
+  .table-wrap,#practiceSettingsPanel,.global-search-sheet,.app-settings-sheet{-webkit-overflow-scrolling:touch}
 }
 button,input,select,textarea{font:inherit}
 button{cursor:pointer}
@@ -7393,6 +7393,7 @@ body:not(.drill-active) textarea{
   opacity:1;
   pointer-events:auto;
 }
+body.app-settings-open{overflow:hidden}
 .app-settings-group{
   margin-top:12px;
   padding:13px;
