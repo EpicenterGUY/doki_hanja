@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
-<meta name="theme-color" content="#6677ff">
+<meta name="theme-color" content="#352a72">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Hanja Lab">
@@ -14,7 +14,7 @@
 <title>Hanja Lab — 한국어문회 한자 올인원</title>
 <style>
 :root{
-  --bg:#0f1115; --panel:#171a21; --panel2:#1f2430; --line:#303746;
+  --bg:#2b255f; --panel:#171a21; --panel2:#1f2430; --line:#303746;
   --text:#f3f5f7; --muted:#9aa4b2; --accent:#f0b94a; --good:#62d49b;
   --bad:#ff7474; --info:#76b7ff; --chip:#252b36; --shadow:0 12px 34px rgba(0,0,0,.28)
 }
@@ -7201,11 +7201,11 @@ html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-pane{
 }
 body:not(.drill-active){
   background:
-    radial-gradient(circle at 6% -4%,rgba(119,91,255,.40),transparent 32%),
-    radial-gradient(circle at 96% 8%,rgba(54,211,255,.27),transparent 31%),
-    radial-gradient(circle at 72% 52%,rgba(255,104,181,.13),transparent 34%),
-    radial-gradient(circle at 12% 88%,rgba(74,232,193,.14),transparent 30%),
-    linear-gradient(160deg,#151e49 0%,#152b55 42%,#1c2450 72%,#152142 100%);
+    radial-gradient(circle at 4% 2%,rgba(178,118,255,.34),transparent 30%),
+    radial-gradient(circle at 98% 10%,rgba(77,225,255,.28),transparent 31%),
+    radial-gradient(circle at 78% 58%,rgba(255,121,185,.15),transparent 34%),
+    radial-gradient(circle at 9% 92%,rgba(83,235,198,.15),transparent 30%),
+    linear-gradient(145deg,#33286f 0%,#285070 46%,#3b2a63 78%,#2b255f 100%);
   background-attachment:fixed;
 }
 body:not(.drill-active) .app{
@@ -7218,8 +7218,8 @@ body:not(.drill-active) .app::before{
   inset:var(--appbar-h) 0 var(--dock-h);
   pointer-events:none;
   background:
-    radial-gradient(circle at 18% 20%,rgba(137,112,255,.08),transparent 26%),
-    radial-gradient(circle at 82% 28%,rgba(71,207,255,.07),transparent 24%);
+    radial-gradient(circle at 17% 22%,rgba(211,151,255,.12),transparent 28%),
+    radial-gradient(circle at 84% 30%,rgba(94,228,255,.11),transparent 26%);
 }
 
 .app2-bar{
@@ -7364,7 +7364,7 @@ body:not(.drill-active) textarea{
 }
 
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.46.3">
+<link rel="stylesheet" href="./japanese.css?v=2.46.4">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -8350,7 +8350,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.46.3-20261004";
+const APP_BUILD="2.46.4-20261004";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -15116,6 +15116,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.46.3"></script>
+<script src="./japanese.js?v=2.46.4"></script>
 </body>
 </html>
