@@ -10,8 +10,8 @@
     "standalone",
     "minimal-ui"
   ],
-  "background_color": "#09101f",
-  "theme_color": "#6677ff",
+  "background_color": "#2b255f",
+  "theme_color": "#352a72",
   "orientation": "any",
   "lang": "ko-KR",
   "categories": [
