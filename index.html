@@ -7637,8 +7637,264 @@ body.app-settings-open #appSettingsSheet *{
   backdrop-filter:none!important;
 }
 
+
+
+/* FULL UI THEME TOKENS · 2.47.3
+   Background preset now recolors surfaces, buttons, cards and navigation too. */
+html[data-app-bg]{
+  --ui-surface-1:#34477f;
+  --ui-surface-2:#263966;
+  --ui-surface-alt:#3d4d88;
+  --ui-surface-soft:#304271;
+  --ui-stroke:rgba(171,194,255,.34);
+  --ui-stroke-soft:rgba(171,194,255,.20);
+  --ui-text:#f7f9ff;
+  --ui-muted:#bdcae8;
+  --ui-primary-1:#766eff;
+  --ui-primary-2:#5bcfe9;
+  --ui-primary-3:#a769e6;
+  --ui-icon-text:#ffffff;
+  --ui-nav:#223667;
+  --ui-top:#263b73;
+  --ui-settings:#263d74;
+  --ui-shadow:rgba(11,18,62,.22);
+}
+html[data-app-bg="aurora"]{
+  --ui-surface-1:#3c4d91;
+  --ui-surface-2:#293d73;
+  --ui-surface-alt:#4a4d99;
+  --ui-surface-soft:#344984;
+  --ui-stroke:rgba(184,195,255,.38);
+  --ui-stroke-soft:rgba(184,195,255,.22);
+  --ui-muted:#c4ceee;
+  --ui-primary-1:#806fff;
+  --ui-primary-2:#52cfe9;
+  --ui-primary-3:#b15ed7;
+  --ui-nav:#2a3c78;
+  --ui-top:#314986;
+  --ui-settings:#30477f;
+}
+html[data-app-bg="violet"]{
+  --ui-surface-1:#513879;
+  --ui-surface-2:#392a61;
+  --ui-surface-alt:#624087;
+  --ui-surface-soft:#46336f;
+  --ui-stroke:rgba(212,177,255,.34);
+  --ui-stroke-soft:rgba(212,177,255,.20);
+  --ui-muted:#d5c6ea;
+  --ui-primary-1:#a374ff;
+  --ui-primary-2:#d16fd7;
+  --ui-primary-3:#7f6dff;
+  --ui-nav:#3a2d67;
+  --ui-top:#493575;
+  --ui-settings:#49356f;
+}
+html[data-app-bg="ocean"]{
+  --ui-surface-1:#225f7d;
+  --ui-surface-2:#1b476a;
+  --ui-surface-alt:#296e89;
+  --ui-surface-soft:#225a78;
+  --ui-stroke:rgba(124,216,255,.34);
+  --ui-stroke-soft:rgba(124,216,255,.20);
+  --ui-muted:#b9d8e7;
+  --ui-primary-1:#43bde8;
+  --ui-primary-2:#43d7c5;
+  --ui-primary-3:#638be7;
+  --ui-nav:#194966;
+  --ui-top:#1c5877;
+  --ui-settings:#205b78;
+}
+html[data-app-bg="mint"]{
+  --ui-surface-1:#27685f;
+  --ui-surface-2:#214e57;
+  --ui-surface-alt:#32756b;
+  --ui-surface-soft:#2a615d;
+  --ui-stroke:rgba(128,232,202,.32);
+  --ui-stroke-soft:rgba(128,232,202,.18);
+  --ui-muted:#bfddd5;
+  --ui-primary-1:#4bd5ad;
+  --ui-primary-2:#5fbfe3;
+  --ui-primary-3:#65d68e;
+  --ui-nav:#204d55;
+  --ui-top:#285f63;
+  --ui-settings:#285f61;
+}
+html[data-app-bg="rose"]{
+  --ui-surface-1:#71405f;
+  --ui-surface-2:#513653;
+  --ui-surface-alt:#81496b;
+  --ui-surface-soft:#633d5d;
+  --ui-stroke:rgba(255,174,211,.30);
+  --ui-stroke-soft:rgba(255,174,211,.18);
+  --ui-muted:#e3c4d5;
+  --ui-primary-1:#f37daf;
+  --ui-primary-2:#aa7ce9;
+  --ui-primary-3:#d66fca;
+  --ui-nav:#503653;
+  --ui-top:#653e60;
+  --ui-settings:#623d5c;
+}
+html[data-app-bg="graphite"]{
+  --ui-surface-1:#343c4d;
+  --ui-surface-2:#272f3e;
+  --ui-surface-alt:#404959;
+  --ui-surface-soft:#333c4a;
+  --ui-stroke:rgba(158,174,204,.26);
+  --ui-stroke-soft:rgba(158,174,204,.16);
+  --ui-muted:#bac4d5;
+  --ui-primary-1:#8194bb;
+  --ui-primary-2:#5ca7b9;
+  --ui-primary-3:#6f7f9e;
+  --ui-nav:#29313f;
+  --ui-top:#313b4b;
+  --ui-settings:#333d4d;
+}
+
+/* Primary surfaces */
+html[data-app-bg] body:not(.drill-active) .card,
+html[data-app-bg] body:not(.drill-active) .panel:not(.sidebar),
+html[data-app-bg] body:not(.drill-active) .simple-card,
+html[data-app-bg] body:not(.drill-active) .hub-card,
+html[data-app-bg] body:not(.drill-active) .kpi,
+html[data-app-bg] .home-primary-card,
+html[data-app-bg] .home-shortcut,
+html[data-app-bg] .home-stats-row span,
+html[data-app-bg] .study-status-strip span,
+html[data-app-bg] .hub-title-card,
+html[data-app-bg] .study-tile,
+html[data-app-bg] .study-link,
+html[data-app-bg] .app-section,
+html[data-app-bg] .app-metric,
+html[data-app-bg] .app-action,
+html[data-app-bg] .app-list-row,
+html[data-app-bg] .mastery-row,
+html[data-app-bg] .reset-row{
+  border-color:var(--ui-stroke-soft)!important;
+  background:linear-gradient(145deg,var(--ui-surface-1),var(--ui-surface-2))!important;
+  color:var(--ui-text)!important;
+  box-shadow:0 10px 28px var(--ui-shadow),inset 0 1px 0 rgba(255,255,255,.035)!important;
+}
+html[data-app-bg] .home-primary-card:nth-child(2n),
+html[data-app-bg] .study-tile:nth-child(2n),
+html[data-app-bg] .app-action:nth-child(2n){
+  background:linear-gradient(145deg,var(--ui-surface-alt),var(--ui-surface-2))!important;
+}
+
+/* Frequency / highlighted surface */
+html[data-app-bg] .home-freq-card,
+html[data-app-bg] .freq-spotlight{
+  border-color:var(--ui-stroke)!important;
+  background:
+    radial-gradient(circle at 8% 0,rgba(255,196,96,.12),transparent 33%),
+    linear-gradient(145deg,var(--ui-surface-alt),var(--ui-surface-2))!important;
+  box-shadow:0 12px 30px var(--ui-shadow)!important;
+}
+
+/* Header / dock / square buttons */
+html[data-app-bg] .app2-bar{
+  border-bottom-color:var(--ui-stroke-soft)!important;
+  background:linear-gradient(180deg,var(--ui-top),var(--ui-nav))!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+html[data-app-bg] .app2-action{
+  border-color:var(--ui-stroke)!important;
+  background:linear-gradient(145deg,var(--ui-surface-alt),var(--ui-surface-soft))!important;
+  color:var(--ui-text)!important;
+}
+html[data-app-bg] .app2-dock{
+  border-color:var(--ui-stroke)!important;
+  background:linear-gradient(145deg,var(--ui-nav),var(--ui-surface-2))!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+}
+html[data-app-bg] .app2-nav{color:var(--ui-muted)!important}
+html[data-app-bg] .app2-nav.active{
+  color:#fff!important;
+  background:linear-gradient(145deg,var(--ui-primary-1),var(--ui-primary-3) 58%,var(--ui-primary-2))!important;
+  box-shadow:0 8px 22px var(--ui-shadow)!important;
+}
+
+/* Icon squares follow the selected theme rather than fixed purple/mint/gold/pink. */
+html[data-app-bg] .home-primary-icon,
+html[data-app-bg] .home-primary-card.mint .home-primary-icon,
+html[data-app-bg] .home-primary-card.gold .home-primary-icon,
+html[data-app-bg] .home-primary-card.pink .home-primary-icon,
+html[data-app-bg] .study-tile-icon,
+html[data-app-bg] .study-tile.mint .study-tile-icon,
+html[data-app-bg] .study-tile.gold .study-tile-icon,
+html[data-app-bg] .study-tile.pink .study-tile-icon,
+html[data-app-bg] .home-shortcut-icon,
+html[data-app-bg] .home-shortcut.diagnosis .home-shortcut-icon,
+html[data-app-bg] .home-shortcut.jpword .home-shortcut-icon,
+html[data-app-bg] .home-shortcut.study .home-shortcut-icon,
+html[data-app-bg] .app-list-icon,
+html[data-app-bg] .app-settings-links>button>span{
+  border-color:var(--ui-stroke)!important;
+  background:linear-gradient(135deg,var(--ui-primary-1),var(--ui-primary-2))!important;
+  color:var(--ui-icon-text)!important;
+}
+html[data-app-bg] .home-shortcut-icon i,
+html[data-app-bg] .home-shortcut.diagnosis .home-shortcut-icon i,
+html[data-app-bg] .home-shortcut.jpword .home-shortcut-icon i,
+html[data-app-bg] .home-shortcut.study .home-shortcut-icon i{
+  color:var(--ui-icon-text)!important;
+}
+
+/* Secondary controls and rectangular fields */
+html[data-app-bg] .home-freq-buttons button,
+html[data-app-bg] .hub-settings-btn,
+html[data-app-bg] body:not(.drill-active) .btn:not(.bad):not(.good):not(.primary),
+html[data-app-bg] body:not(.drill-active) select,
+html[data-app-bg] body:not(.drill-active) input[type="number"],
+html[data-app-bg] body:not(.drill-active) input[type="text"],
+html[data-app-bg] body:not(.drill-active) textarea,
+html[data-app-bg] .compact-settings,
+html[data-app-bg] .app-settings-group,
+html[data-app-bg] .app-bg-picker button,
+html[data-app-bg] .app-font-picker button,
+html[data-app-bg] .app-settings-links>button{
+  border-color:var(--ui-stroke-soft)!important;
+  background:linear-gradient(145deg,var(--ui-surface-soft),var(--ui-surface-2))!important;
+  color:var(--ui-text)!important;
+}
+html[data-app-bg] body:not(.drill-active) .btn.primary,
+html[data-app-bg] .home-freq-buttons button:first-child,
+html[data-app-bg] .app-bg-picker button.active,
+html[data-app-bg] .app-font-picker button.active{
+  border-color:var(--ui-stroke)!important;
+  background:linear-gradient(135deg,var(--ui-primary-1),var(--ui-primary-3) 58%,var(--ui-primary-2))!important;
+  color:#fff!important;
+  box-shadow:0 7px 18px var(--ui-shadow)!important;
+}
+
+/* Settings sheet itself follows the theme. */
+html[data-app-bg] body>#appSettingsSheet{
+  border-color:var(--ui-stroke)!important;
+  background:var(--ui-settings)!important;
+}
+html[data-app-bg] .sheet-close{
+  border-color:var(--ui-stroke)!important;
+  background:var(--ui-surface-soft)!important;
+  color:#fff!important;
+}
+
+/* Muted labels */
+html[data-app-bg] .home-primary-card small,
+html[data-app-bg] .home-shortcut-copy small,
+html[data-app-bg] .home-section-label span,
+html[data-app-bg] .home-stats-row small,
+html[data-app-bg] .study-status-strip small,
+html[data-app-bg] .study-link small,
+html[data-app-bg] .app-section-sub,
+html[data-app-bg] .app-metric span,
+html[data-app-bg] .app-settings-title small,
+html[data-app-bg] .app-settings-links>button small{
+  color:var(--ui-muted)!important;
+}
+
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.47.2">
+<link rel="stylesheet" href="./japanese.css?v=2.47.3">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -8662,7 +8918,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.47.2-20261004";
+const APP_BUILD="2.47.3-20261004";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -15518,6 +15774,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.47.2"></script>
+<script src="./japanese.js?v=2.47.3"></script>
 </body>
 </html>
