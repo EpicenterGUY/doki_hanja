@@ -7363,8 +7363,195 @@ body:not(.drill-active) textarea{
   }
 }
 
+
+
+/* CENTRAL APP SETTINGS + BACKGROUND PRESETS · 2.47.0 */
+.app-settings-sheet{
+  position:fixed;
+  z-index:132;
+  left:50%;
+  bottom:max(10px,env(safe-area-inset-bottom));
+  width:min(660px,calc(100% - 18px));
+  max-height:min(82dvh,820px);
+  overflow:auto;
+  overscroll-behavior:contain;
+  padding:10px 15px 18px;
+  border-radius:28px;
+  border:1px solid rgba(174,195,255,.40);
+  background:
+    radial-gradient(circle at 90% 0,rgba(91,215,255,.13),transparent 31%),
+    linear-gradient(160deg,rgba(43,58,109,.99),rgba(25,40,82,.995));
+  box-shadow:0 30px 90px rgba(12,17,62,.56);
+  backdrop-filter:blur(28px) saturate(155%);
+  transform:translate(-50%,115%) scale(.98);
+  opacity:0;
+  pointer-events:none;
+  transition:transform .26s cubic-bezier(.2,.8,.2,1),opacity .2s ease;
+}
+.app-settings-sheet.open{
+  transform:translate(-50%,0) scale(1);
+  opacity:1;
+  pointer-events:auto;
+}
+.app-settings-group{
+  margin-top:12px;
+  padding:13px;
+  border-radius:20px;
+  border:1px solid rgba(157,184,255,.22);
+  background:linear-gradient(145deg,rgba(38,54,103,.72),rgba(28,44,88,.78));
+}
+.app-settings-title{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+.app-settings-title b{display:block;font-size:14px}
+.app-settings-title small{display:block;margin-top:3px;color:#aebde0;font-size:9px;line-height:1.4}
+.app-settings-title>span{
+  flex:0 0 auto;
+  padding:5px 8px;
+  border-radius:999px;
+  background:rgba(119,105,255,.18);
+  color:#d8d2ff;
+  font-size:8px;
+  font-weight:900;
+}
+.app-bg-picker{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+}
+.app-bg-picker button,
+.app-font-picker button{
+  min-width:0;
+  border:1px solid rgba(154,181,240,.22);
+  border-radius:15px;
+  background:rgba(27,41,80,.76);
+  color:#f5f7ff;
+  font-weight:900;
+}
+.app-bg-picker button{
+  min-height:76px;
+  padding:8px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+.app-bg-picker button.active,
+.app-font-picker button.active{
+  border-color:rgba(195,173,255,.76);
+  background:linear-gradient(145deg,rgba(108,91,239,.34),rgba(65,150,205,.24));
+  box-shadow:0 0 0 2px rgba(133,112,255,.10);
+}
+.bg-swatch{
+  display:block;
+  width:100%;
+  max-width:74px;
+  height:28px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:inset 0 1px rgba(255,255,255,.13);
+}
+.bg-swatch.aurora{background:linear-gradient(135deg,#33286f,#285070 48%,#6c3773)}
+.bg-swatch.violet{background:linear-gradient(135deg,#2d205f,#6742a6,#3a286f)}
+.bg-swatch.ocean{background:linear-gradient(135deg,#113657,#146b85,#263a76)}
+.bg-swatch.mint{background:linear-gradient(135deg,#153f4d,#267868,#3a456e)}
+.bg-swatch.rose{background:linear-gradient(135deg,#532d61,#924366,#514072)}
+.bg-swatch.graphite{background:linear-gradient(135deg,#171c2d,#303849,#24283a)}
+.app-bg-picker button b{font-size:10px}
+
+.app-font-picker{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:7px;
+}
+.app-font-picker button{
+  min-height:74px;
+  padding:8px 6px;
+}
+.app-font-picker button span{display:block;font-size:27px;line-height:1}
+.app-font-picker button b{display:block;margin-top:5px;font-size:9px}
+.app-font-picker [data-app-font="soft"] span{font-family:"Noto Sans CJK KR","Malgun Gothic",sans-serif;font-weight:700}
+.app-font-picker [data-app-font="serif"] span{font-family:"Noto Serif CJK KR","Batang",serif}
+
+.app-settings-links{display:grid;gap:7px}
+.app-settings-links>button{
+  min-width:0;
+  min-height:62px;
+  padding:9px 10px;
+  border-radius:15px;
+  border:1px solid rgba(154,181,240,.20);
+  background:linear-gradient(145deg,rgba(46,63,116,.82),rgba(32,49,94,.86));
+  color:#f7f9ff;
+  display:grid;
+  grid-template-columns:36px minmax(0,1fr) auto;
+  align-items:center;
+  gap:9px;
+  text-align:left;
+}
+.app-settings-links>button>span{
+  width:36px;height:36px;border-radius:11px;
+  display:grid;place-items:center;
+  background:linear-gradient(135deg,#6a67f4,#5db9d5);
+  font-weight:950;
+}
+.app-settings-links>button div{min-width:0}
+.app-settings-links>button b{display:block;font-size:12px}
+.app-settings-links>button small{display:block;margin-top:3px;color:#aab9da;font-size:8px}
+.app-settings-links>button>i{font-style:normal;color:#9badd2;font-size:19px}
+
+html[data-app-bg="aurora"] body:not(.drill-active){
+  background:
+    radial-gradient(circle at 4% 2%,rgba(178,118,255,.34),transparent 30%),
+    radial-gradient(circle at 98% 10%,rgba(77,225,255,.28),transparent 31%),
+    radial-gradient(circle at 78% 58%,rgba(255,121,185,.15),transparent 34%),
+    radial-gradient(circle at 9% 92%,rgba(83,235,198,.15),transparent 30%),
+    linear-gradient(145deg,#33286f 0%,#285070 46%,#3b2a63 78%,#2b255f 100%);
+}
+html[data-app-bg="violet"] body:not(.drill-active){
+  background:
+    radial-gradient(circle at 10% 0,rgba(187,116,255,.33),transparent 32%),
+    radial-gradient(circle at 92% 14%,rgba(132,92,255,.24),transparent 30%),
+    linear-gradient(145deg,#241b54 0%,#4b2c82 48%,#31235f 100%);
+}
+html[data-app-bg="ocean"] body:not(.drill-active){
+  background:
+    radial-gradient(circle at 90% 8%,rgba(63,222,255,.32),transparent 31%),
+    radial-gradient(circle at 4% 76%,rgba(76,114,255,.20),transparent 34%),
+    linear-gradient(145deg,#102f51 0%,#165d75 48%,#273569 100%);
+}
+html[data-app-bg="mint"] body:not(.drill-active){
+  background:
+    radial-gradient(circle at 10% 0,rgba(85,238,199,.27),transparent 30%),
+    radial-gradient(circle at 93% 74%,rgba(81,198,255,.16),transparent 35%),
+    linear-gradient(145deg,#143644 0%,#236858 48%,#334064 100%);
+}
+html[data-app-bg="rose"] body:not(.drill-active){
+  background:
+    radial-gradient(circle at 8% 4%,rgba(255,121,190,.28),transparent 31%),
+    radial-gradient(circle at 94% 18%,rgba(180,108,255,.20),transparent 32%),
+    linear-gradient(145deg,#47284f 0%,#79384f 48%,#3f3763 100%);
+}
+html[data-app-bg="graphite"] body:not(.drill-active){
+  background:
+    radial-gradient(circle at 10% 0,rgba(99,120,166,.13),transparent 30%),
+    radial-gradient(circle at 90% 18%,rgba(83,185,210,.08),transparent 32%),
+    linear-gradient(145deg,#141927 0%,#262f3d 50%,#1d2030 100%);
+}
+@media(max-width:560px){
+  .app-settings-sheet{max-height:85dvh;padding:9px 11px 15px}
+  .app-settings-group{padding:10px}
+  .app-bg-picker{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+  .app-bg-picker button{min-height:68px;padding:6px 4px}
+  .bg-swatch{height:25px}
+}
+
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.46.4">
+<link rel="stylesheet" href="./japanese.css?v=2.47.0">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -7389,7 +7576,7 @@ body:not(.drill-active) textarea{
       <button class="app2-action install" id="installAppBtn" hidden>설치</button>
       <button class="app2-action icon-only" id="openGlobalSearch" aria-label="전체 검색">⌕</button>
       <button class="app2-action icon-only" id="openUpdateCenter" aria-label="업데이트">↻</button>
-      <button class="app2-action icon-only" id="openPracticeSettings" aria-label="연습 설정">⚙</button>
+      <button class="app2-action icon-only" id="openAppSettings" aria-label="앱 설정">⚙</button>
     </div>
   </header>
   <div class="top">
@@ -7479,6 +7666,44 @@ body:not(.drill-active) textarea{
   </div>
 </div>
 <div class="app2-backdrop" id="app2Backdrop"></div>
+<div class="app-settings-sheet" id="appSettingsSheet" aria-hidden="true">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head">
+    <div><strong>앱 설정</strong><div class="soft">화면 · 학습 · 데이터 · 앱 관리를 한곳에서 설정합니다.</div></div>
+    <button type="button" class="sheet-close" id="closeAppSettings" aria-label="닫기">×</button>
+  </div>
+
+  <section class="app-settings-group">
+    <div class="app-settings-title"><div><b>배경색</b><small>선택 즉시 앱 바탕에 적용되고 자동 저장됩니다.</small></div><span id="appBgThemeLabel">오로라</span></div>
+    <div class="app-bg-picker" id="appBgPicker">
+      <button type="button" data-app-bg="aurora"><i class="bg-swatch aurora"></i><b>오로라</b></button>
+      <button type="button" data-app-bg="violet"><i class="bg-swatch violet"></i><b>바이올렛</b></button>
+      <button type="button" data-app-bg="ocean"><i class="bg-swatch ocean"></i><b>오션</b></button>
+      <button type="button" data-app-bg="mint"><i class="bg-swatch mint"></i><b>민트</b></button>
+      <button type="button" data-app-bg="rose"><i class="bg-swatch rose"></i><b>로즈</b></button>
+      <button type="button" data-app-bg="graphite"><i class="bg-swatch graphite"></i><b>그래파이트</b></button>
+    </div>
+  </section>
+
+  <section class="app-settings-group">
+    <div class="app-settings-title"><div><b>한자 글씨체</b><small>도감과 학습 화면의 한자 표시 스타일입니다.</small></div></div>
+    <div class="app-font-picker" id="appFontPicker">
+      <button type="button" data-app-font="atlas"><span>漢</span><b>기본</b></button>
+      <button type="button" data-app-font="soft"><span>漢</span><b>부드럽게</b></button>
+      <button type="button" data-app-font="serif"><span>漢</span><b>명조</b></button>
+    </div>
+  </section>
+
+  <section class="app-settings-group">
+    <div class="app-settings-title"><div><b>설정 바로가기</b><small>흩어져 있던 설정과 관리 기능을 여기서 바로 엽니다.</small></div></div>
+    <div class="app-settings-links">
+      <button type="button" data-settings-action="practice"><span>練</span><div><b>연습 세부설정</b><small>급수 · 문제 수 · 유형 · 범위</small></div><i>›</i></button>
+      <button type="button" data-settings-action="data"><span>保</span><div><b>데이터 관리</b><small>백업 · 가져오기 · 학습 데이터</small></div><i>›</i></button>
+      <button type="button" data-settings-action="update"><span>↻</span><div><b>업데이트 센터</b><small>웹 · Android 버전 확인</small></div><i>›</i></button>
+      <button type="button" data-settings-action="report"><span>!</span><div><b>오류 신고</b><small>사진 · 파일 첨부 가능</small></div><i>›</i></button>
+    </div>
+  </section>
+</div>
 <div class="global-search-sheet" id="globalSearchSheet" aria-hidden="true">
   <div class="global-search-head">
     <div><strong>전체 찾기</strong><small>한자 · 기능 · 일본 단어를 한 번에 찾습니다.</small></div>
@@ -8350,7 +8575,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.46.4-20261004";
+const APP_BUILD="2.47.0-20261004";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -8382,12 +8607,59 @@ function ensurePracticeSettingsPortal(){
 }
 function syncAppBackdrop(){
   const open=!!(
+    $("#appSettingsSheet")?.classList.contains("open") ||
     $("#practiceSettingsPanel")?.classList.contains("sheet-open") ||
     $("#updateSheet")?.classList.contains("open") ||
     $("#globalSearchSheet")?.classList.contains("open")
   );
   $("#app2Backdrop")?.classList.toggle("open",open);
 }
+const APP_BG_KEY="hanjaLabBackgroundV1";
+const APP_BG_LABELS={aurora:"오로라",violet:"바이올렛",ocean:"오션",mint:"민트",rose:"로즈",graphite:"그래파이트"};
+const APP_BG_THEME_COLORS={aurora:"#352a72",violet:"#3d276f",ocean:"#164f6d",mint:"#205b50",rose:"#6e3653",graphite:"#242b38"};
+let appBackgroundTheme="aurora";
+try{appBackgroundTheme=localStorage.getItem(APP_BG_KEY)||"aurora"}catch{}
+if(!APP_BG_LABELS[appBackgroundTheme])appBackgroundTheme="aurora";
+
+function applyAppBackground(theme,save=true){
+  theme=APP_BG_LABELS[theme]?theme:"aurora";
+  appBackgroundTheme=theme;
+  document.documentElement.dataset.appBg=theme;
+  const meta=document.querySelector('meta[name="theme-color"]');
+  if(meta)meta.setAttribute("content",APP_BG_THEME_COLORS[theme]||APP_BG_THEME_COLORS.aurora);
+  if(save){try{localStorage.setItem(APP_BG_KEY,theme)}catch{}}
+  syncAppSettingsControls();
+}
+function syncAppSettingsControls(){
+  document.querySelectorAll("[data-app-bg]").forEach(function(b){
+    b.classList.toggle("active",b.dataset.appBg===appBackgroundTheme);
+  });
+  document.querySelectorAll("[data-app-font]").forEach(function(b){
+    b.classList.toggle("active",b.dataset.appFont===hanjaFontMode);
+  });
+  const label=$("#appBgThemeLabel");
+  if(label)label.textContent=APP_BG_LABELS[appBackgroundTheme]||"오로라";
+}
+function closeAppSettings(){
+  const sheet=$("#appSettingsSheet");
+  if(sheet){sheet.classList.remove("open");sheet.setAttribute("aria-hidden","true")}
+  document.body.classList.remove("app-settings-open");
+  syncAppBackdrop();
+}
+function openAppSettings(){
+  closePracticeSheet();
+  closeGlobalSearch();
+  closeUpdateCenter();
+  const sheet=$("#appSettingsSheet");
+  if(!sheet)return;
+  syncAppSettingsControls();
+  sheet.setAttribute("aria-hidden","false");
+  document.body.classList.add("app-settings-open");
+  void sheet.offsetHeight;
+  sheet.classList.add("open");
+  syncAppBackdrop();
+}
+
 function closePracticeSheet(){
   const sheet=ensurePracticeSettingsPortal();
   sheet?.classList.remove("sheet-open");
@@ -8396,6 +8668,7 @@ function closePracticeSheet(){
 }
 function openPracticeSheet(){
   if(mode!=="practice")return;
+  closeAppSettings();
   closeGlobalSearch();
   closeUpdateCenter();
   const sheet=ensurePracticeSettingsPortal();
@@ -8417,8 +8690,6 @@ function syncAppChrome(id=mode){
   const dockId=["exam","drill","write","freq","wrong","diagnosis","guide"].includes(id)?"study":
                ["data","report"].includes(id)?"more":id;
   $$("#app2Dock .app2-nav").forEach(b=>b.classList.toggle("active",b.dataset.appTab===dockId));
-  const settings=$("#openPracticeSettings");
-  if(settings)settings.hidden=id!=="practice";
   if(id!=="practice")closePracticeSheet();
 }
 
@@ -8750,15 +9021,17 @@ function bindAppShell(){
   ensurePracticeSettingsPortal();
 
   // Critical dismiss controls first.
+  const closeSettingsBtn=$("#closeAppSettings");if(closeSettingsBtn)closeSettingsBtn.onclick=closeAppSettings;
   const closePracticeBtn=$("#closePracticeSettings");if(closePracticeBtn)closePracticeBtn.onclick=closePracticeSheet;
   const searchClose=$("#closeGlobalSearch");if(searchClose)searchClose.onclick=closeGlobalSearch;
   const closeUpdateBtn=$("#closeUpdateCenter");if(closeUpdateBtn)closeUpdateBtn.onclick=closeUpdateCenter;
-  const backdrop=$("#app2Backdrop");if(backdrop)backdrop.onclick=function(){closePracticeSheet();closeUpdateCenter();closeGlobalSearch()};
+  const backdrop=$("#app2Backdrop");if(backdrop)backdrop.onclick=function(){closeAppSettings();closePracticeSheet();closeUpdateCenter();closeGlobalSearch()};
   if(!window.__hanjaLabEscapeBound){
     window.__hanjaLabEscapeBound=true;
     document.addEventListener("keydown",function(e){
       if(e.key!=="Escape")return;
       if($("#atlasDetailSheet")?.classList.contains("open")){closeAtlasDetail();return}
+      if($("#appSettingsSheet")?.classList.contains("open")){closeAppSettings();return}
       if($("#globalSearchSheet")?.classList.contains("open")){closeGlobalSearch();return}
       if($("#updateSheet")?.classList.contains("open")){closeUpdateCenter();return}
       if($("#practiceSettingsPanel")?.classList.contains("sheet-open")){closePracticeSheet()}
@@ -8779,7 +9052,30 @@ function bindAppShell(){
     });
   }
 
-  const practiceSettingsBtn=$("#openPracticeSettings");if(practiceSettingsBtn)practiceSettingsBtn.onclick=openPracticeSheet;
+  const appSettingsBtn=$("#openAppSettings");if(appSettingsBtn)appSettingsBtn.onclick=openAppSettings;
+  document.querySelectorAll("[data-app-bg]").forEach(function(b){
+    b.onclick=function(){applyAppBackground(b.dataset.appBg,true)};
+  });
+  document.querySelectorAll("[data-app-font]").forEach(function(b){
+    b.onclick=function(){
+      applyHanjaFontMode(b.dataset.appFont);
+      syncAppSettingsControls();
+    };
+  });
+  document.querySelectorAll("[data-settings-action]").forEach(function(b){
+    b.onclick=function(){
+      const action=b.dataset.settingsAction;
+      closeAppSettings();
+      if(action==="practice"){
+        switchTab("practice");
+        requestAnimationFrame(openPracticeSheet);
+        return;
+      }
+      if(action==="data"){switchTab("data");return}
+      if(action==="report"){switchTab("report");return}
+      if(action==="update"){openUpdateCenter();return}
+    };
+  });
   const searchBtn=$("#openGlobalSearch");if(searchBtn)searchBtn.onclick=function(){openGlobalSearch("")};
   const searchInput=$("#globalSearchInput");if(searchInput)searchInput.oninput=function(e){renderGlobalSearchResults(e.target.value)};
   document.querySelectorAll(".global-search-quick [data-global-action]").forEach(function(b){
@@ -8865,6 +9161,7 @@ function init(){
   document.documentElement.classList.toggle("is-ipad",!!isIPad);
   document.documentElement.classList.toggle("is-desktop",!isIPad&&matchMedia("(pointer:fine)").matches&&innerWidth>=900);
   applyHanjaFontMode(hanjaFontMode);
+  applyAppBackground(appBackgroundTheme,false);
   syncDrillViewport();
   if(!window.__dokiDrillProgressBound){
     window.__dokiDrillProgressBound=true;
@@ -15116,6 +15413,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.46.4"></script>
+<script src="./japanese.js?v=2.47.0"></script>
 </body>
 </html>
