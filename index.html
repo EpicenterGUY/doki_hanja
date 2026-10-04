@@ -7190,8 +7190,181 @@ html.is-ipad.keyboard-accessory body.drill-active #drill .drill-typing-pane{
   }
 }
 
+
+
+/* APP-WIDE AURORA COLOR OVERHAUL · 2.46.3
+   Global shell + home/study surfaces. Geometry intentionally unchanged. */
+:root{
+  --app-stroke:rgba(163,186,255,.32);
+  --app-surface:rgba(39,55,105,.90);
+  --app-surface-2:rgba(27,43,88,.94);
+}
+body:not(.drill-active){
+  background:
+    radial-gradient(circle at 6% -4%,rgba(119,91,255,.40),transparent 32%),
+    radial-gradient(circle at 96% 8%,rgba(54,211,255,.27),transparent 31%),
+    radial-gradient(circle at 72% 52%,rgba(255,104,181,.13),transparent 34%),
+    radial-gradient(circle at 12% 88%,rgba(74,232,193,.14),transparent 30%),
+    linear-gradient(160deg,#151e49 0%,#152b55 42%,#1c2450 72%,#152142 100%);
+  background-attachment:fixed;
+}
+body:not(.drill-active) .app{
+  position:relative;
+}
+body:not(.drill-active) .app::before{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  inset:var(--appbar-h) 0 var(--dock-h);
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 20%,rgba(137,112,255,.08),transparent 26%),
+    radial-gradient(circle at 82% 28%,rgba(71,207,255,.07),transparent 24%);
+}
+
+.app2-bar{
+  background:
+    linear-gradient(180deg,rgba(25,35,77,.94),rgba(21,33,70,.79));
+  border-bottom-color:rgba(156,185,255,.25);
+  box-shadow:0 8px 30px rgba(16,22,68,.18);
+}
+.app2-kicker{color:#b9c9ef}
+.app2-action{
+  border-color:rgba(163,190,255,.34);
+  background:linear-gradient(145deg,rgba(55,74,132,.80),rgba(39,57,107,.78));
+  color:#f7f9ff;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+}
+.app2-action:active{background:linear-gradient(145deg,rgba(72,91,157,.92),rgba(53,70,128,.92))}
+.app2-dock{
+  border-color:rgba(166,190,255,.34);
+  background:
+    linear-gradient(145deg,rgba(31,47,96,.92),rgba(24,39,81,.93));
+  box-shadow:0 18px 50px rgba(13,18,61,.38),inset 0 1px 0 rgba(255,255,255,.04);
+}
+.app2-nav{color:#aabbe0}
+.app2-nav.active{
+  background:linear-gradient(145deg,#6a70ff,#9560ff 58%,#bd62df);
+  box-shadow:0 8px 24px rgba(107,87,255,.34);
+}
+
+body:not(.drill-active) .card,
+body:not(.drill-active) .panel:not(.sidebar),
+body:not(.drill-active) .simple-card,
+body:not(.drill-active) .hub-card,
+body:not(.drill-active) .kpi{
+  border-color:rgba(157,185,255,.27);
+  background:
+    radial-gradient(circle at 100% 0,rgba(73,207,255,.08),transparent 34%),
+    linear-gradient(145deg,rgba(42,58,111,.90),rgba(28,44,88,.94));
+  box-shadow:0 16px 42px rgba(12,20,67,.20),inset 0 1px 0 rgba(255,255,255,.035);
+}
+body:not(.drill-active) .compact-settings{
+  background:linear-gradient(145deg,rgba(38,52,101,.72),rgba(27,43,84,.76));
+  border-color:rgba(157,184,255,.28);
+}
+body:not(.drill-active) select,
+body:not(.drill-active) input[type="number"],
+body:not(.drill-active) input[type="text"],
+body:not(.drill-active) textarea{
+  background:rgba(31,47,94,.82);
+  border-color:rgba(156,185,255,.34);
+}
+
+.home-welcome{
+  border-color:rgba(213,202,255,.45);
+  background:
+    radial-gradient(circle at 88% 8%,rgba(76,223,255,.31),transparent 30%),
+    radial-gradient(circle at 13% 110%,rgba(255,111,188,.27),transparent 39%),
+    linear-gradient(128deg,#5365ee 0%,#8259df 45%,#307fc7 100%);
+  box-shadow:0 20px 50px rgba(46,50,150,.30),inset 0 1px 0 rgba(255,255,255,.12);
+}
+.home-welcome p{color:#f0f3ff}
+.home-level-orb{
+  border-color:rgba(255,255,255,.30);
+  background:linear-gradient(145deg,rgba(44,48,116,.47),rgba(31,55,103,.44));
+  box-shadow:inset 0 1px rgba(255,255,255,.10),0 12px 28px rgba(31,37,107,.17);
+}
+
+.home-primary-card{
+  border-color:rgba(158,187,255,.30);
+  background:
+    radial-gradient(circle at 100% 0,rgba(72,208,255,.10),transparent 36%),
+    linear-gradient(145deg,rgba(50,67,125,.95),rgba(32,49,96,.97));
+  box-shadow:0 9px 26px rgba(10,18,61,.13),inset 0 1px rgba(255,255,255,.04);
+}
+.home-primary-card:nth-child(2n){
+  background:
+    radial-gradient(circle at 100% 0,rgba(255,112,184,.10),transparent 36%),
+    linear-gradient(145deg,rgba(54,63,128,.95),rgba(34,49,96,.97));
+}
+.home-primary-card::after{color:#a8bae5}
+.home-primary-card small{color:#bdc9e7}
+.home-primary-icon{
+  box-shadow:0 6px 18px rgba(83,68,220,.23);
+}
+
+.home-freq-card,.freq-spotlight{
+  border-color:rgba(255,198,92,.42);
+  background:
+    radial-gradient(circle at 7% 0,rgba(255,190,68,.20),transparent 34%),
+    radial-gradient(circle at 100% 100%,rgba(255,118,182,.08),transparent 34%),
+    linear-gradient(145deg,rgba(69,58,78,.90),rgba(37,49,96,.95));
+  box-shadow:0 12px 32px rgba(35,29,70,.14);
+}
+.home-freq-buttons button{
+  background:linear-gradient(145deg,rgba(56,76,137,.96),rgba(42,59,112,.96));
+  border-color:rgba(255,199,102,.30);
+}
+.home-freq-buttons button:first-child{
+  background:linear-gradient(135deg,#ffb83f,#ffd164);
+  box-shadow:0 7px 20px rgba(232,163,45,.20);
+}
+
+.home-shortcut,
+.home-stats-row span,
+.study-status-strip span,
+.study-link{
+  border-color:rgba(154,184,255,.26);
+  background:
+    linear-gradient(150deg,rgba(44,61,116,.91),rgba(30,47,92,.94));
+}
+.home-shortcut-copy small,
+.home-stats-row small,
+.study-status-strip small,
+.study-link small{color:#afbee0}
+.home-shortcut-icon{
+  border-color:rgba(165,158,255,.36);
+  background:linear-gradient(145deg,rgba(124,96,255,.28),rgba(67,117,190,.22));
+}
+.home-shortcut-icon i{color:#d0caff}
+
+.hub-title-card,
+.study-tile{
+  border-color:rgba(158,185,255,.28);
+  background:
+    radial-gradient(circle at 100% 0,rgba(65,211,255,.09),transparent 35%),
+    linear-gradient(145deg,rgba(48,65,122,.94),rgba(31,48,94,.96));
+}
+.hub-settings-btn{
+  border-color:rgba(158,186,255,.30);
+  background:linear-gradient(145deg,#4868ad,#3a5596);
+}
+
+@media (hover:hover) and (pointer:fine){
+  .home-primary-card:hover,
+  .home-shortcut:hover,
+  .study-tile:hover,
+  .study-link:hover,
+  body:not(.drill-active) .simple-card:hover,
+  body:not(.drill-active) .hub-card:hover{
+    border-color:rgba(100,219,255,.50);
+    box-shadow:0 12px 30px rgba(36,48,132,.18),inset 0 1px 0 rgba(255,255,255,.06);
+  }
+}
+
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.46.2">
+<link rel="stylesheet" href="./japanese.css?v=2.46.3">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -8177,7 +8350,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.46.2-20261004";
+const APP_BUILD="2.46.3-20261004";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -14943,6 +15116,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.46.2"></script>
+<script src="./japanese.js?v=2.46.3"></script>
 </body>
 </html>
