@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.47.0-20261004",
+  "webBuild": "2.47.1-20261004",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.47.1",
+      "title": "모바일 설정창 블러만 남는 오류 수정",
+      "items": [
+        "Android/Samsung WebView에서 설정 버튼을 눌렀을 때 뒤 배경 블러만 열리고 설정 시트가 화면 밖에 남던 문제 수정",
+        "폰 화면에서는 설정 시트를 상단 앱바와 하단 도크 사이에 고정해 항상 화면 안에 표시",
+        "모바일 설정창에서 translate 기반 등장 애니메이션 의존성을 제거하고 display/visibility를 강제 동기화",
+        "설정창 열기 직후 다음 프레임에 한 번 더 표시 상태를 보정해 WebView 레이아웃 지연에도 대응",
+        "검색·업데이트 센터를 열 때 기존 설정창을 먼저 닫아 모달 겹침 방지"
+      ]
+    },
     {
       "version": "2.47.0",
       "title": "통합 앱 설정 · 배경색 선택 추가",
