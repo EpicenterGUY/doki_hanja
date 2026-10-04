@@ -1,9 +1,21 @@
 {
-  "webBuild": "2.46.4-20261004",
+  "webBuild": "2.47.0-20261004",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.47.0",
+      "title": "통합 앱 설정 · 배경색 선택 추가",
+      "items": [
+        "상단 톱니바퀴를 홈 전용 연습 설정이 아니라 어느 화면에서든 열 수 있는 통합 앱 설정으로 변경",
+        "배경색 프리셋 6종(오로라·바이올렛·오션·민트·로즈·그래파이트) 추가",
+        "배경색 선택 즉시 적용 및 localStorage 자동 저장으로 재실행 후에도 유지",
+        "한자 글씨체 선택을 앱 설정 안에 통합하고 현재 선택 상태를 바로 표시",
+        "연습 세부설정·데이터 관리·업데이트 센터·오류 신고 바로가기를 앱 설정에 한곳으로 모음",
+        "日本 화면도 별도 고정 배경을 제거해 선택한 앱 배경색이 그대로 보이도록 연결"
+      ]
+    },
     {
       "version": "2.46.4",
       "title": "앱 바탕 배경색 자체 변경",
