@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.47.1-20261004",
+  "webBuild": "2.47.2-20261004",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.47.2",
+      "title": "설정창 z-index 충돌 · 블러 렉 수정",
+      "items": [
+        "기존 body 직속 backdrop의 z-index:1900!important가 새 설정창보다 앞에 떠서 설정창이 가려지던 원인 수정",
+        "앱 설정 시트를 z-index 10020으로 올려 항상 backdrop 위에 표시",
+        "설정창과 공용 backdrop의 backdrop-filter blur를 제거해 Samsung/Android WebView GPU 합성 렉 완화",
+        "모바일 설정창을 상단바와 하단 도크 사이 고정 영역에 배치하고 layout/paint 범위를 제한",
+        "설정창 배경을 불투명 패널로 바꿔 블러 없이도 가독성 유지"
+      ]
+    },
     {
       "version": "2.47.1",
       "title": "모바일 설정창 블러만 남는 오류 수정",
