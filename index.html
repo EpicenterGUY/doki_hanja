@@ -7544,7 +7544,29 @@ html[data-app-bg="graphite"] body:not(.drill-active){
     linear-gradient(145deg,#141927 0%,#262f3d 50%,#1d2030 100%);
 }
 @media(max-width:560px){
-  .app-settings-sheet{max-height:85dvh;padding:9px 11px 15px}
+  .app-settings-sheet{
+    z-index:220!important;
+    top:max(70px,calc(env(safe-area-inset-top) + 62px))!important;
+    bottom:max(82px,calc(env(safe-area-inset-bottom) + 76px))!important;
+    left:8px!important;
+    right:8px!important;
+    width:auto!important;
+    max-width:none!important;
+    max-height:none!important;
+    padding:9px 11px 15px;
+    transform:none!important;
+    display:none;
+    opacity:1!important;
+    visibility:visible!important;
+    transition:none!important;
+  }
+  .app-settings-sheet.open{
+    display:block!important;
+    transform:none!important;
+    opacity:1!important;
+    visibility:visible!important;
+    pointer-events:auto!important;
+  }
   .app-settings-group{padding:10px}
   .app-bg-picker{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
   .app-bg-picker button{min-height:68px;padding:6px 4px}
@@ -7552,7 +7574,7 @@ html[data-app-bg="graphite"] body:not(.drill-active){
 }
 
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.47.0">
+<link rel="stylesheet" href="./japanese.css?v=2.47.1">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -8576,7 +8598,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.47.0-20261004";
+const APP_BUILD="2.47.1-20261004";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -8643,7 +8665,12 @@ function syncAppSettingsControls(){
 }
 function closeAppSettings(){
   const sheet=$("#appSettingsSheet");
-  if(sheet){sheet.classList.remove("open");sheet.setAttribute("aria-hidden","true")}
+  if(sheet){
+    sheet.classList.remove("open");
+    sheet.setAttribute("aria-hidden","true");
+    sheet.style.removeProperty("visibility");
+    sheet.style.removeProperty("pointer-events");
+  }
   document.body.classList.remove("app-settings-open");
   syncAppBackdrop();
 }
@@ -8655,9 +8682,21 @@ function openAppSettings(){
   if(!sheet)return;
   syncAppSettingsControls();
   sheet.setAttribute("aria-hidden","false");
+  sheet.style.visibility="visible";
+  sheet.style.pointerEvents="auto";
   document.body.classList.add("app-settings-open");
-  void sheet.offsetHeight;
   sheet.classList.add("open");
+  void sheet.offsetHeight;
+  // Some Android/Samsung WebViews occasionally keep a translated fixed sheet off-screen.
+  // Force a second visibility pass without relying on the transition.
+  requestAnimationFrame(function(){
+    if(document.body.classList.contains("app-settings-open")){
+      sheet.classList.add("open");
+      sheet.style.visibility="visible";
+      sheet.style.pointerEvents="auto";
+      sheet.scrollTop=0;
+    }
+  });
   syncAppBackdrop();
 }
 
@@ -8820,7 +8859,7 @@ function runGlobalAction(action){
   if(action==="report"){openUtility("report");return}
 }
 function openGlobalSearch(prefill){
-  closePracticeSheet();closeUpdateCenter();
+  closeAppSettings();closePracticeSheet();closeUpdateCenter();
   const sheet=$("#globalSearchSheet"),input=$("#globalSearchInput");if(!sheet||!input)return;
   if(sheet.parentElement!==document.body)document.body.appendChild(sheet);
   document.body.classList.add("global-search-open");
@@ -8989,6 +9028,7 @@ function startApkUpdate(url){
 }
 
 async function openUpdateCenter(){
+  closeAppSettings();
   closePracticeSheet();
   closeGlobalSearch();
   const sheet=$("#updateSheet");
@@ -15414,6 +15454,6 @@ function downloadJSON(obj,name){
 }
 autoLoad();
 </script>
-<script src="./japanese.js?v=2.47.0"></script>
+<script src="./japanese.js?v=2.47.1"></script>
 </body>
 </html>
