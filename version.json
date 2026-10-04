@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.46.3-20261004",
+  "webBuild": "2.46.4-20261004",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.46.4",
+      "title": "앱 바탕 배경색 자체 변경",
+      "items": [
+        "카드와 패널이 아닌 앱 최하단 배경 레이어 자체를 검푸른 남색에서 더 밝은 딥 바이올렛·청록 계열로 변경",
+        "화면 빈 공간에서도 배경색 변화가 확실히 보이도록 기본색을 #2b255f 계열로 조정",
+        "PWA 시작 화면과 브라우저 테마 색도 새 배경 계열에 맞춰 변경",
+        "기존 카드·버튼 배치와 기능은 그대로 유지"
+      ]
+    },
     {
       "version": "2.46.3",
       "title": "앱 전체 오로라 배경색 개편",
