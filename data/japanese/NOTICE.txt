@@ -53,8 +53,9 @@ Vocabulary expansion
 
 Staged Hyogai vocabulary (Hanja Lab)
 ====================================
-- As of Hanja Lab 2.43.0, the bundled Hyogai vocabulary contains 742 unique words.
+- As of Hanja Lab 2.47.6, the bundled Hyogai vocabulary contains 759 practical-scope words and 66 rare/non-practical-scope words (825 total).
 - The word-writing UI groups them into four Hanja Lab study stages: 입문 (entry), 실용 (practical), 고급 (advanced), 심화 (deep).
+- Rare/non-practical words are available in their own collection for both word-writing and word-reading practice; they do not mix into the default practical Hyogai pool.
 - These four stages are learning buckets, not an official Japanese government, JIS, or JLPT usage ranking.
 - Explicitly curated 2.43.0 additions carry hyogaiStage metadata; older entries are mapped at runtime using available JLPT metadata and the character's Hanja Lab Hyogai group.
 
@@ -62,15 +63,13 @@ Staged Hyogai vocabulary (Hanja Lab)
 Practical Hyogai default (Hanja Lab 2.43.2)
 ===========================================
 - The full non-Joyo inventory remains 4,242 base characters for reference/search.
-- Default Hyogai character study is now limited to 661 characters that actually
-  occur in the 742 bundled Hyogai vocabulary/example entries.
+- Default Hyogai character study remains limited to the 661-character practical pool used by the practical-scope vocabulary/example entries.
 - Breakdown of the 661 practical characters:
   · core: 379
   · JIS Level 1 extra: 85
   · JIS Level 2 extra: 197
-- The remaining 3,581 characters are retained as reference data but are hidden
-  from the default writing/atlas/reading-search pool.
-- Users can expose them with the single "희귀 포함" filter.
+- The remaining 3,581 characters remain a separate rare/non-practical character collection rather than being mixed into the default 661-character practical pool.
+- Curated words containing those rare characters can be studied separately through the rare word-writing and word-reading collection.
 - This is a Hanja Lab study-priority rule, not an official Japanese government,
   JIS or JLPT classification.
 
