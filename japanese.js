@@ -837,11 +837,12 @@ function jpMetricsHtml(){
     "<div class='jp-metric'><b>"+p.attempted.toLocaleString()+"</b><span>글자 연습 · "+p.accuracy+"%</span></div>"+
     "<div class='jp-metric'><b>"+third.n.toLocaleString()+"</b><span>"+third.label+"</span></div></div>";
 }function jpCommonFilterHtml(all,atlas){
+  const hyCount=jpHyogaiTierCounts();
   const sourceSub=jpState.set==="joyo"?
     "JLPT N5~N1 학습 기준으로 상용한자를 나눠 봅니다. 학교급은 카드·도감의 부가정보로 유지합니다.":
     jpState.set==="hyogai"?
-      "실제 표외 단어·예문에 연결된 661자만 기본 표외 학습 범위로 표시합니다.":
-      "현대 일본어의 기본 학습 우선순위에서 제외한 희귀·비실용 3,581자를 별도 탐색합니다.";
+      "실제 표외 단어·예문에 연결된 "+hyCount.practical.toLocaleString()+"자만 기본 표외 학습 범위로 표시합니다.":
+      "현대 일본어의 기본 학습 우선순위에서 제외한 희귀·비실용 "+hyCount.rare.toLocaleString()+"자를 별도 탐색합니다.";
   return "<section class='app-section'><div class='app-section-head'><div><div class='app-section-title'>"+(atlas?"도감 범위":"연습 범위")+"</div><div class='app-section-sub'>"+sourceSub+"</div></div><span class='badge'>"+all.length.toLocaleString()+"자</span></div>"+
     (jpState.set==="joyo"?"<div class='jp-filter-row' id='jpGradeRow'>"+jpGradeChipsHtml()+"</div>":"")+
     "<div class='jp-search-row'><input id='jpSearch' type='text' value='"+esc(jpState.query)+"' placeholder='"+(jpState.set==="joyo"?"한자 · 구자체 · 부수 검색":jpState.set==="hyogai"?"한자 · 이체자 · 읽기 검색":"희귀 한자 · 이체자 · 읽기 검색")+"'><button class='btn jp-saved-toggle "+(jpState.savedOnly?"primary":"")+"' id='jpSavedOnly'>★ 저장만</button></div></section>";
@@ -990,7 +991,7 @@ async function renderJapanese(){
   const all=jpCurrentPool();
   let body=jpState.view==="home"?jpHomeHtml():(jpState.view==="atlas"?jpAtlasHomeHtml(all):(jpState.view==="word"?jpWordHomeHtml():(jpState.view==="wordreading"?jpReadingQuizHomeHtml():(jpState.view==="reading"?jpReadingHomeHtml():jpPracticeHomeHtml(all)))));
   el.innerHTML="<div class='jp-screen'>"+jpHeroHtml()+(jpState.view==="home"?"":jpMetricsHtml())+body+
-    "<section class='app-section'><details class='compact-settings'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字 2,136자는 학습 화면에서 OpenJLPT의 N5~N1 커뮤니티 학습 목록을 기준으로 분류하고, 문부과학성 「音訓の小・中・高等学校段階別割り振り表」의 학교급 정보는 도감 부가정보로 유지합니다. JLPT는 2010년 이후 공식 고정 한자·어휘 목록을 공개하지 않으므로 N5~N1 표시는 공식 배정표가 아닌 학습용 근사 분류입니다. Hanja Lab 기존 단어는 OpenJLPT 정확 일치를 우선하고, 미일치 항목은 구성 한자 중 가장 어려운 JLPT 레벨로 보완합니다. 表外漢字는 기존대로 실용 661자와 희귀·비실용 3,581자를 분리해 보존하며 JLPT 상용 분류에 섞지 않습니다. 표외 읽기는 KANJIDIC 기반 KanjiAPI와 교차 확인합니다.</div></details></section></div>";
+    "<section class='app-section'><details class='compact-settings'><summary>데이터 기준</summary><div class='jp-source-note'>常用漢字 2,136자는 학습 화면에서 OpenJLPT의 N5~N1 커뮤니티 학습 목록을 기준으로 분류하고, 문부과학성 「音訓の小・中・高等学校段階別割り振り表」의 학교급 정보는 도감 부가정보로 유지합니다. JLPT는 2010년 이후 공식 고정 한자·어휘 목록을 공개하지 않으므로 N5~N1 표시는 공식 배정표가 아닌 학습용 근사 분류입니다. Hanja Lab 기존 단어는 OpenJLPT 정확 일치를 우선하고, 미일치 항목은 구성 한자 중 가장 어려운 JLPT 레벨로 보완합니다. 表外漢字는 실용 "+jpHyogaiTierCounts().practical.toLocaleString()+"자와 희귀·비실용 "+jpHyogaiTierCounts().rare.toLocaleString()+"자를 분리해 보존하며 JLPT 상용 분류에 섞지 않습니다. 희귀 범위에는 JIS X 0213 제3수준 초희귀 추가자도 포함되며, 표외 읽기는 번들 KANJIDIC/추가 읽기와 KanjiAPI를 교차 확인합니다.</div></details></section></div>";
   bindJapaneseHome();
 }
 function bindJapaneseHome(){
@@ -1652,6 +1653,7 @@ function jpAtlasLocalCells(item){
   }
   if(item.strokes)cells.push(["총획",item.strokes+"획"]);
   if(item.radical)cells.push(["부수",item.radical]);
+  if(item.jisCode)cells.push(["JIS X 0213",(item.hyogaiGroup==="jis3"?"제3수준 · ":item.hyogaiGroup==="jis4"?"제4수준 · ":"")+item.jisCode]);
   if(item.old&&item.old!==item.char){
     cells.push(["旧字体",item.old]);
     cells.push(["新字体",item.char]);
