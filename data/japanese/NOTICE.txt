@@ -16,12 +16,19 @@ Bundled kanji files
 - Parenthesized characters in the original hyogai source are alternate/simplified glyph forms and remain metadata rather than separate base study characters.
 - Hanja Lab additionally exposes non-Jōyō characters in the JIS X 0208 Level 1 and Level 2 repertoires as separate expansion groups.
 - IMPORTANT: JIS Level 1 / Level 2 are character-encoding classifications. They are not official usage recommendations, school grades, or frequency rankings.
-- Current study-base counts:
+- Current legacy study-base counts in hyogai.txt:
   · core: 875
   · JIS Level 1 extra: 382
   · JIS Level 2 extra: 2,985
-  · total base study characters: 4,242
-  · total unique non-Jōyō glyphs including retained variants: 4,261
+  · legacy base study characters: 4,242
+  · legacy unique non-Jōyō glyphs including retained variants: 4,261
+- Hanja Lab 2.49.0 additionally loads data/japanese/hyogai-jis3-extra.json:
+  · JIS X 0213 Level 3 ultra-rare supplement: 96 characters
+  · runtime non-Jōyō study/reference total: 4,338 characters
+  · these 96 characters stay in the rare/non-practical pool and never enter the default practical pool.
+- The JIS3 supplement is curated from the JIS X 0213 Level 3 table published by みんなの漢字辞典:
+  https://minkan.co.jp/others/level3/
+  Hanja Lab stores the character, reading, stroke count and JIS plane-row-cell code needed for local study/search.
 
 The official Japanese government reference for the core concept is the Agency for Cultural Affairs (文化庁) 表外漢字字体表.
 
@@ -42,6 +49,7 @@ Hanja Lab preserves the source metadata and uses this file to distinguish readin
 Vocabulary expansion
 ====================
 - words.json contains Hanja Lab's Korean learning meanings/examples plus expanded Japanese vocabulary.
+- Hanja Lab 2.49.0 also loads rare-words-extra.json, a 293-entry rare/non-practical supplement. The supplement contains Hanja Lab-authored Korean glosses, contextual Japanese examples and Korean translations; every example preserves the exact target kanji spelling.
 - Part of the 2026-10-02 Hyōgai expansion cross-references the Jonathan Waller JLPT vocabulary lists as distributed with JMdict sequence IDs by:
   https://github.com/stephenmk/yomitan-jlpt-vocab
   and mirrored/consumed by:
@@ -54,22 +62,22 @@ Vocabulary expansion
 
 Staged Hyogai vocabulary (Hanja Lab)
 ====================================
-- As of Hanja Lab 2.48.0, the bundled Hyogai vocabulary contains 759 practical-scope words and 466 rare/non-practical-scope words (1,225 total).
+- As of Hanja Lab 2.49.0, the runtime Hyogai vocabulary contains 759 practical-scope words and 759 rare/non-practical-scope words (1,518 total).
 - The word-writing UI groups them into four Hanja Lab study stages: 입문 (entry), 실용 (practical), 고급 (advanced), 심화 (deep).
 - Rare/non-practical words are available in their own collection for both word-writing and word-reading practice; they do not mix into the default practical Hyogai pool.
 - These four stages are learning buckets, not an official Japanese government, JIS, or JLPT usage ranking.
 - Explicitly curated 2.43.0 additions carry hyogaiStage metadata; older entries are mapped at runtime using available JLPT metadata and the character's Hanja Lab Hyogai group.
 
 
-Practical Hyogai default (Hanja Lab 2.43.2)
+Practical Hyogai default (Hanja Lab 2.49.0)
 ===========================================
-- The full non-Joyo inventory remains 4,242 base characters for reference/search.
+- The runtime non-Joyo inventory is 4,338 characters for reference/search: the previous 4,242-character inventory plus 96 JIS X 0213 Level 3 ultra-rare characters.
 - Default Hyogai character study remains limited to the 661-character practical pool used by the practical-scope vocabulary/example entries.
 - Breakdown of the 661 practical characters:
   · core: 379
   · JIS Level 1 extra: 85
   · JIS Level 2 extra: 197
-- The remaining 3,581 characters remain a separate rare/non-practical character collection rather than being mixed into the default 661-character practical pool.
+- The remaining 3,677 characters remain a separate rare/non-practical character collection rather than being mixed into the default 661-character practical pool.
 - Curated words containing those rare characters can be studied separately through the rare word-writing and word-reading collection.
 - This is a Hanja Lab study-priority rule, not an official Japanese government,
   JIS or JLPT classification.
@@ -91,7 +99,7 @@ JLPT N5-N1 learning classification (Hanja Lab 2.44.0)
 - Joyo vocabulary: 1,542 bundled words are classified. 1,060 match OpenJLPT
   by exact word+reading, 8 use a unique word-form match, and 474 fall back to
   the hardest JLPT level among the word's mapped kanji.
-- Hyogai practical 661 characters and rare/non-practical 3,581 characters keep
+- Hyogai practical 661 characters and rare/non-practical 3,677 characters keep
   the existing Hanja Lab classification and are not folded into the Joyo JLPT
   buckets.
 
@@ -109,9 +117,11 @@ KANJIDIC2 full reading index (Hanja Lab 2.46.0)
 - Hanja Lab bundles only character -> on/kun reading arrays needed for the local
   reading index. Name-only nanori readings and dictionary-reference payloads are
   intentionally excluded from this derived file.
-- The bundled index covers 6,371 Hanja Lab primary characters with available
+- kanjidic-readings.json covers 6,371 Hanja Lab primary characters with available
   readings (9,062 on-reading entries and 9,650 kun-reading entries in the source
   snapshot used for this build).
+- Hanja Lab 2.49.0 merges the 96 locally curated JIS3 supplement readings at
+  runtime, bringing the local reading-key set to 6,467 characters for this build.
 - MEXT mext-onkun-2017.json remains the authority for identifying which Joyo
   readings are official Joyo-table readings. KANJIDIC2 supplements non-table
   readings and supplies Hyogai / rare readings.
