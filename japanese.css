@@ -4363,3 +4363,21 @@ html[data-app-bg] .jp-atlas-close{
   border-color:var(--ui-stroke)!important;
   background:linear-gradient(145deg,var(--ui-surface-alt),var(--ui-surface-soft))!important;
 }
+
+/* ===== 2.47.6 · iPad Japanese reading input fast path ===== */
+html.is-ipad.keyboard-focus body.drill-active #jp .jp-reading-quiz-card{
+  contain:layout paint;
+  box-shadow:none!important;
+}
+html.is-ipad.keyboard-focus body.drill-active #jp .jp-reading-quiz-input,
+html.is-ipad.keyboard-focus body.drill-active #jp .jp-reading-quiz-input:focus{
+  box-shadow:none!important;
+  transition:none!important;
+}
+html.is-ipad.keyboard-open body.drill-active #jp .jp-reading-quiz-card{
+  overflow:hidden!important;
+  -webkit-overflow-scrolling:auto!important;
+}
+html.is-ipad.keyboard-focus body.drill-active #jp .jp-reading-quiz-feedback{
+  contain:layout paint;
+}
