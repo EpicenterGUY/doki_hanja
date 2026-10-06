@@ -7,6 +7,7 @@ const file=path.join(__dirname,"..","data","japanese","words.json");
 const data=JSON.parse(fs.readFileSync(file,"utf8"));
 const items=Array.isArray(data.items)?data.items:[];
 const errors=[];
+const warnings=[];
 const seen=new Map();
 
 function norm(s){return String(s||"").trim().replace(/\s+/g," ")}
@@ -20,6 +21,10 @@ function badFallback(s){
     /用語集で.*(?:確認|調べ)/u.test(s)||
     /(?:辞書|辞典|資料)で.*(?:語|表記).*確認/u.test(s);
 }
+function genericExample(s){
+  return /(?:教材|資料|解剖図|人体図|動画教材)で.*(?:学んだ|確認した|調べた)/u.test(s)||
+    /について.*(?:教材|資料).*(?:学んだ|確認した)/u.test(s);
+}
 
 for(const w of items){
   const id=w.id??"?";
@@ -31,6 +36,8 @@ for(const w of items){
   if(!sentence)errors.push(`[${id}] sentence missing: ${w.word||""}`);
   if(!translation)errors.push(`[${id}] translation missing: ${w.word||""}`);
   if(sentence&&badFallback(sentence))errors.push(`[${id}] placeholder example: ${w.word||""}`);
+  if(sentence&&genericExample(sentence))warnings.push(`[${id}] generic example review: ${w.word||""} -> ${sentence}`);
+  if(w.hyogaiScope&&!["practical","rare"].includes(w.hyogaiScope))errors.push(`[${id}] invalid hyogaiScope: ${w.hyogaiScope}`);
   if(sentence&&!forms(w).some(f=>sentence.includes(f))){
     errors.push(`[${id}] target form not found in sentence: ${w.word||""} -> ${sentence}`);
   }
@@ -52,3 +59,4 @@ if(errors.length){
   process.exit(1);
 }
 console.log(`Japanese word validation passed: ${items.length} items, no placeholders, no duplicate examples.`);
+if(warnings.length)console.warn(`Japanese word quality warnings (${warnings.length})\n`+warnings.slice(0,80).join("\n"));
