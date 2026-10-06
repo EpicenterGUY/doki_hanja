@@ -48,12 +48,13 @@ Vocabulary expansion
   https://github.com/coolmule0/JLPT-N5-N1-Japanese-Vocabulary-Anki
 - The source documentation states CC BY-SA 4.0 for the JLPT list data.
 - Hanja Lab stores its own Korean glosses and learning sentences; it does not expose the English Waller definitions in the UI.
+- The 2026-10-06 rare/non-practical vocabulary expansion also curates Japanese difficult-kanji word/readings from https://kanjitisiki.com/nandoku/ and four-character idiom readings from https://kanjitisiki.com/yoji/ . Hanja Lab applies its own rare-character filter and supplies its own Korean glosses, example sentences, translations and study metadata.
 - JLPT labels are study-list metadata, not an official JLPT vocabulary specification published by the Japan Foundation/Japan Educational Exchanges and Services.
 
 
 Staged Hyogai vocabulary (Hanja Lab)
 ====================================
-- As of Hanja Lab 2.47.6, the bundled Hyogai vocabulary contains 759 practical-scope words and 66 rare/non-practical-scope words (825 total).
+- As of Hanja Lab 2.47.7, the bundled Hyogai vocabulary contains 759 practical-scope words and 366 rare/non-practical-scope words (1,125 total).
 - The word-writing UI groups them into four Hanja Lab study stages: 입문 (entry), 실용 (practical), 고급 (advanced), 심화 (deep).
 - Rare/non-practical words are available in their own collection for both word-writing and word-reading practice; they do not mix into the default practical Hyogai pool.
 - These four stages are learning buckets, not an official Japanese government, JIS, or JLPT usage ranking.
