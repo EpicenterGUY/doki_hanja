@@ -1,9 +1,20 @@
 {
-  "webBuild": "2.47.5-20261004",
+  "webBuild": "2.47.6-20261006",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.47.6",
+      "title": "희귀 단어 학습·예문 감사·iPad 읽기 입력 최적화",
+      "items": [
+        "표외 단어 83개를 추가하고 희귀·비실용 표외자가 포함된 단어를 실용 표외 단어와 별도 분리",
+        "희귀·비실용 탭에서도 단어 쓰기와 단어 읽기 연습을 직접 사용할 수 있도록 기존 차단 로직 제거",
+        "기존 반복형·교재형 예문 21개를 실제 용례에 가까운 문장과 한국어 번역으로 교체",
+        "예문 검증기에 반복적인 교재·자료 확인형 문장을 품질 경고로 잡는 감사 규칙 추가",
+        "iPad 일본어 읽기 입력 중 visualViewport 재계산과 큰 카드 재도장을 억제해 타이핑 지연·렉 감소"
+      ]
+    },
     {
       "version": "2.47.5",
       "title": "학습 집중 화면 다크 테마 연동",
