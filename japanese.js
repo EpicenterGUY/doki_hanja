@@ -1,7 +1,7 @@
 
 let jpJoyo=[];
 let jpHyogai=[];
-let jpHyogaiMeta={core:"",jis1Extra:"",jis2Extra:"",practicalChars:"",counts:{core:0,jis1Extra:0,jis2Extra:0,practical:0,rare:0,total:0}};
+let jpHyogaiMeta={core:"",jis1Extra:"",jis2Extra:"",practicalChars:"",counts:{core:0,jis1Extra:0,jis2Extra:0,jis3Extra:0,practical:0,rare:0,total:0}};
 let jpWords=[];
 let jpMextReadings=[];
 let jpMextMap=new Map();
@@ -116,16 +116,20 @@ function jpJlptCounts(rows,getter){
 }
 
 function jpHyogaiGroupLabel(group){
-  return group==="core"?"핵심":group==="jis1"?"JIS1 확장":"JIS2 확장";
+  if(group==="core")return "핵심";
+  if(group==="jis1")return "JIS1 확장";
+  if(group==="jis2")return "JIS2 확장";
+  if(group==="jis3")return "JIS3 초희귀";
+  if(group==="jis4")return "JIS4 극희귀";
+  return "확장";
 }
 function jpHyogaiTierCounts(){
-  const c=jpHyogaiMeta&&jpHyogaiMeta.counts||{};
   return {
-    core:+c.core||jpHyogai.filter(function(x){return x.hyogaiGroup==="core"}).length,
-    practical:+c.practical||jpHyogai.filter(function(x){return !!x.hyogaiPractical}).length,
-    rare:+c.rare||jpHyogai.filter(function(x){return !x.hyogaiPractical}).length,
-    extended:+c.jis2Extra||jpHyogai.filter(function(x){return x.hyogaiGroup==="jis2"}).length,
-    all:+c.total||jpHyogai.length
+    core:jpHyogai.filter(function(x){return x.hyogaiGroup==="core"}).length,
+    practical:jpHyogai.filter(function(x){return !!x.hyogaiPractical}).length,
+    rare:jpHyogai.filter(function(x){return !x.hyogaiPractical}).length,
+    extended:jpHyogai.filter(function(x){return x.hyogaiGroup==="jis2"||x.hyogaiGroup==="jis3"||x.hyogaiGroup==="jis4"}).length,
+    all:jpHyogai.length
   };
 }
 function jpApplyHyogaiGroups(rows,meta){
@@ -134,10 +138,39 @@ function jpApplyHyogaiGroups(rows,meta){
   const j2=new Set([...(meta&&meta.jis2Extra||"")]);
   const practical=new Set([...(meta&&meta.practicalChars||"")]);
   rows.forEach(function(x){
+    if(x.hyogaiGroup==="jis3"||x.hyogaiGroup==="jis4"){x.hyogaiPractical=false;return}
     x.hyogaiGroup=core.has(x.char)?"core":j1.has(x.char)?"jis1":j2.has(x.char)?"jis2":"jis2";
     x.hyogaiPractical=practical.has(x.char);
   });
   return rows;
+}
+function jpMergeHyogaiExtras(rows,data,joyoSet){
+  const out=(rows||[]).slice(),seen=new Set(out.map(function(x){return x.char}));
+  (data&&Array.isArray(data.items)?data.items:[]).forEach(function(e){
+    const ch=String(e&&e.char||"");
+    if(!ch||seen.has(ch)||(joyoSet&&joyoSet.has(ch)))return;
+    seen.add(ch);
+    out.push({char:ch,variants:[],set:"hyogai",grade:"表外",radical:"",strokes:+e.strokes||0,
+      hyogaiGroup:e.jisLevel==="jis4"?"jis4":"jis3",hyogaiPractical:false,jisCode:e.code||"",supplementSource:"jis-x-0213"});
+  });
+  return out;
+}
+function jpMergeWordSupplements(words,data){
+  const out=[],seen=new Set();
+  function push(w){const key=String(w&&w.word||"");if(!key||seen.has(key))return;seen.add(key);out.push(w)}
+  (words||[]).forEach(push);
+  (data&&Array.isArray(data.items)?data.items:[]).forEach(push);
+  return out;
+}
+function jpMergeSupplementReadings(target,data){
+  const out=target&&typeof target==="object"?target:{};
+  (data&&Array.isArray(data.items)?data.items:[]).forEach(function(e){
+    const ch=String(e&&e.char||"");if(!ch)return;
+    const prev=out[ch]&&typeof out[ch]==="object"?out[ch]:{on:[],kun:[]};
+    out[ch]={on:Array.from(new Set([].concat(prev.on||[],e.on||[]).filter(Boolean))),
+      kun:Array.from(new Set([].concat(prev.kun||[],e.kun||[]).filter(Boolean)))};
+  });
+  return out;
 }
 
 function jpWordSchoolStage(w){
@@ -158,7 +191,7 @@ function jpHyogaiWordStage(w){
   [...String(w.word||"")].forEach(function(ch){
     const item=jpItemMap.get(ch);
     if(!item||item.set!=="hyogai")return;
-    rank=Math.max(rank,item.hyogaiGroup==="jis2"?3:item.hyogaiGroup==="jis1"?2:1);
+    rank=Math.max(rank,item.hyogaiGroup==="jis3"||item.hyogaiGroup==="jis4"?4:item.hyogaiGroup==="jis2"?3:item.hyogaiGroup==="jis1"?2:1);
   });
   return rank>=3?"deep":rank===2?"advanced":"practical";
 }
@@ -443,22 +476,37 @@ async function loadJapaneseData(){
         fetch("./data/japanese/mext-onkun-2017.json",{cache:"no-store"}),
         fetch("./data/japanese/hyogai-meta.json",{cache:"no-store"}),
         fetch("./data/japanese/jlpt-levels.json",{cache:"no-store"}),
-        fetch("./data/japanese/kanjidic-readings.json",{cache:"no-store"})
+        fetch("./data/japanese/kanjidic-readings.json",{cache:"no-store"}),
+        fetch("./data/japanese/hyogai-jis3-extra.json",{cache:"no-store"}),
+        fetch("./data/japanese/rare-words-extra.json",{cache:"no-store"})
       ]);
       if(pair.some(function(r){return !r.ok}))throw Error("HTTP "+pair.map(function(r){return r.status}).join("/"));
       const joyo=parseJoyoData(await pair[0].text());
       const joyoSet=new Set(joyo.map(function(x){return x.char}));
-      const hyogai=parseHyogaiData(await pair[1].text(),joyoSet);
+      let hyogai=parseHyogaiData(await pair[1].text(),joyoSet);
       const wordData=await pair[2].json();
-      const words=Array.isArray(wordData)?wordData:(wordData.items||[]);
+      const baseWords=Array.isArray(wordData)?wordData:(wordData.items||[]);
       const mextData=await pair[3].json();
       const hyogaiMeta=await pair[4].json();
       const jlptData=await pair[5].json();
       const kanjidicData=await pair[6].json();
-      jpKanjidicReadings=kanjidicData&&kanjidicData.readings||{};
+      const extraHyogaiData=await pair[7].json();
+      const extraWordData=await pair[8].json();
+      hyogai=jpMergeHyogaiExtras(hyogai,extraHyogaiData,joyoSet);
+      const words=jpMergeWordSupplements(baseWords,extraWordData);
+      jpKanjidicReadings=jpMergeSupplementReadings(kanjidicData&&kanjidicData.readings||{},extraHyogaiData);
       jpApplyHyogaiGroups(hyogai,hyogaiMeta);
       jpApplyJlptData(joyo,words,jlptData);
-      if(joyo.length!==2136||hyogai.length<4000||words.length<2000||(mextData.entries||[]).length<2100||Object.keys(jlptData.kanji||{}).length<2100||Object.keys(jpKanjidicReadings).length<6000)throw Error("일본 한자 데이터 수가 비정상입니다.");
+      if(joyo.length!==2136||hyogai.length<4300||words.length<3000||
+        (extraHyogaiData.items||[]).length<80||(extraWordData.items||[]).length<250||
+        (mextData.entries||[]).length<2100||Object.keys(jlptData.kanji||{}).length<2100||
+        Object.keys(jpKanjidicReadings).length<6400)throw Error("일본 한자 데이터 수가 비정상입니다.");
+      hyogaiMeta.counts=Object.assign({},hyogaiMeta.counts||{},{
+        jis3Extra:(extraHyogaiData.items||[]).length,
+        practical:hyogai.filter(function(x){return !!x.hyogaiPractical}).length,
+        rare:hyogai.filter(function(x){return !x.hyogaiPractical}).length,
+        total:hyogai.length
+      });
       jpJoyo=joyo;jpHyogai=hyogai;jpWords=words;jpHyogaiMeta=hyogaiMeta;
       jpRelatedWordsCache.clear();jpReadingTextCache.clear();jpReadingGroupsCache.clear();jpAtlasGroupsCache.clear();jpKoreanMeaningCache.clear();
       jpBuildItemMap();jpBuildMextIndex(mextData);
