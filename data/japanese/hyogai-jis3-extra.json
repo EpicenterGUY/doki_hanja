@@ -1,0 +1,1198 @@
+{
+  "version": 1,
+  "generated": "2026-10-06",
+  "count": 96,
+  "source": {
+    "name": "みんなの漢字辞典 JIS第3水準漢字一覧",
+    "url": "https://minkan.co.jp/others/level3/",
+    "note": "JIS X 0213 第3水準の先頭100件から、既存Hanja Lab文字との重複と読み情報なしの文字を除いた追加セット"
+  },
+  "policy": "Ultra-rare atlas supplement. These are not promoted into the practical Hyogai pool. Readings are bundled so the reading atlas works without a live API.",
+  "items": [
+    {
+      "char": "𠀋",
+      "on": [
+        "ジョウ"
+      ],
+      "kun": [
+        "たけ"
+      ],
+      "strokes": 4,
+      "jisLevel": "jis3",
+      "code": "1-14-02"
+    },
+    {
+      "char": "𡈽",
+      "on": [
+        "ト",
+        "ド"
+      ],
+      "kun": [
+        "つち"
+      ],
+      "strokes": 4,
+      "jisLevel": "jis3",
+      "code": "1-15-34"
+    },
+    {
+      "char": "𡌛",
+      "on": [
+        "ショ",
+        "ヤ"
+      ],
+      "kun": [
+        "いなかや",
+        "いや-しい",
+        "の"
+      ],
+      "strokes": 10,
+      "jisLevel": "jis3",
+      "code": "1-15-44"
+    },
+    {
+      "char": "𡑮",
+      "on": [
+        "ソク"
+      ],
+      "kun": [],
+      "strokes": 16,
+      "jisLevel": "jis3",
+      "code": "1-15-64"
+    },
+    {
+      "char": "𡚴",
+      "on": [],
+      "kun": [
+        "あけん"
+      ],
+      "strokes": 6,
+      "jisLevel": "jis3",
+      "code": "1-47-67"
+    },
+    {
+      "char": "𡢽",
+      "on": [],
+      "kun": [
+        "おんななる"
+      ],
+      "strokes": 16,
+      "jisLevel": "jis3",
+      "code": "1-15-91"
+    },
+    {
+      "char": "𡸴",
+      "on": [
+        "ケン"
+      ],
+      "kun": [
+        "けわ-しい"
+      ],
+      "strokes": 11,
+      "jisLevel": "jis3",
+      "code": "1-47-78"
+    },
+    {
+      "char": "𣗄",
+      "on": [],
+      "kun": [
+        "くぬぎ",
+        "たらのき"
+      ],
+      "strokes": 13,
+      "jisLevel": "jis3",
+      "code": "1-85-82"
+    },
+    {
+      "char": "𣜿",
+      "on": [],
+      "kun": [
+        "ゆずりは"
+      ],
+      "strokes": 16,
+      "jisLevel": "jis3",
+      "code": "1-86-09"
+    },
+    {
+      "char": "𣝣",
+      "on": [
+        "サク",
+        "シャク"
+      ],
+      "kun": [
+        "さかずき"
+      ],
+      "strokes": 18,
+      "jisLevel": "jis3",
+      "code": "1-86-18"
+    },
+    {
+      "char": "𣳾",
+      "on": [],
+      "kun": [
+        "おご-る",
+        "やす-い",
+        "やす-らか"
+      ],
+      "strokes": 11,
+      "jisLevel": "jis3",
+      "code": "1-86-64"
+    },
+    {
+      "char": "𤟱",
+      "on": [],
+      "kun": [
+        "たじひ",
+        "わ"
+      ],
+      "strokes": 12,
+      "jisLevel": "jis3",
+      "code": "1-87-76"
+    },
+    {
+      "char": "𥒎",
+      "on": [
+        "サン",
+        "セン",
+        "ゼン"
+      ],
+      "kun": [],
+      "strokes": 11,
+      "jisLevel": "jis3",
+      "code": "1-88-94"
+    },
+    {
+      "char": "𥔎",
+      "on": [
+        "キ"
+      ],
+      "kun": [
+        "さい",
+        "さき"
+      ],
+      "strokes": 14,
+      "jisLevel": "jis3",
+      "code": "1-89-09"
+    },
+    {
+      "char": "𥝱",
+      "on": [],
+      "kun": [
+        "じょ"
+      ],
+      "strokes": 9,
+      "jisLevel": "jis3",
+      "code": "1-89-39"
+    },
+    {
+      "char": "𥧄",
+      "on": [
+        "ソウ"
+      ],
+      "kun": [
+        "かまど",
+        "へっつい"
+      ],
+      "strokes": 14,
+      "jisLevel": "jis3",
+      "code": "1-89-52"
+    },
+    {
+      "char": "𥶡",
+      "on": [],
+      "kun": [
+        "たが"
+      ],
+      "strokes": 21,
+      "jisLevel": "jis3",
+      "code": "1-89-78"
+    },
+    {
+      "char": "𦫿",
+      "on": [
+        "ガイ"
+      ],
+      "kun": [
+        "おさ-める",
+        "か-る",
+        "としよ-り",
+        "もぐさ",
+        "よもぎ"
+      ],
+      "strokes": 5,
+      "jisLevel": "jis3",
+      "code": "1-90-61"
+    },
+    {
+      "char": "𦹀",
+      "on": [],
+      "kun": [
+        "くご"
+      ],
+      "strokes": 14,
+      "jisLevel": "jis3",
+      "code": "1-91-19"
+    },
+    {
+      "char": "𧃴",
+      "on": [],
+      "kun": [
+        "つづら"
+      ],
+      "strokes": 20,
+      "jisLevel": "jis3",
+      "code": "1-91-41"
+    },
+    {
+      "char": "𧚄",
+      "on": [
+        "ガ"
+      ],
+      "kun": [],
+      "strokes": 12,
+      "jisLevel": "jis3",
+      "code": "1-91-76"
+    },
+    {
+      "char": "𨉷",
+      "on": [
+        "ヨウ"
+      ],
+      "kun": [],
+      "strokes": 17,
+      "jisLevel": "jis3",
+      "code": "1-92-41"
+    },
+    {
+      "char": "𨏍",
+      "on": [],
+      "kun": [
+        "いえづと"
+      ],
+      "strokes": 21,
+      "jisLevel": "jis3",
+      "code": "1-92-49"
+    },
+    {
+      "char": "𪆐",
+      "on": [],
+      "kun": [
+        "とり"
+      ],
+      "strokes": 23,
+      "jisLevel": "jis3",
+      "code": "1-94-70"
+    },
+    {
+      "char": "㐂",
+      "on": [
+        "キ"
+      ],
+      "kun": [
+        "よろこ-ぶ"
+      ],
+      "strokes": 6,
+      "jisLevel": "jis3",
+      "code": "1-14-03"
+    },
+    {
+      "char": "㒵",
+      "on": [
+        "バク",
+        "ボウ"
+      ],
+      "kun": [
+        "かお",
+        "かたち"
+      ],
+      "strokes": 7,
+      "jisLevel": "jis3",
+      "code": "1-14-51"
+    },
+    {
+      "char": "㓛",
+      "on": [
+        "ク",
+        "コウ"
+      ],
+      "kun": [
+        "いさお"
+      ],
+      "strokes": 5,
+      "jisLevel": "jis3",
+      "code": "1-14-59"
+    },
+    {
+      "char": "㞍",
+      "on": [
+        "コウ"
+      ],
+      "kun": [
+        "けつ",
+        "しり"
+      ],
+      "strokes": 6,
+      "jisLevel": "jis3",
+      "code": "1-47-63"
+    },
+    {
+      "char": "㟢",
+      "on": [
+        "キ"
+      ],
+      "kun": [
+        "さき"
+      ],
+      "strokes": 11,
+      "jisLevel": "jis3",
+      "code": "1-47-79"
+    },
+    {
+      "char": "㬢",
+      "on": [
+        "キ",
+        "ギ"
+      ],
+      "kun": [
+        "ひ",
+        "ひかり"
+      ],
+      "strokes": 17,
+      "jisLevel": "jis3",
+      "code": "1-85-41"
+    },
+    {
+      "char": "㮶",
+      "on": [
+        "サク"
+      ],
+      "kun": [],
+      "strokes": 14,
+      "jisLevel": "jis3",
+      "code": "1-85-94"
+    },
+    {
+      "char": "㯃",
+      "on": [
+        "シツ"
+      ],
+      "kun": [],
+      "strokes": 15,
+      "jisLevel": "jis3",
+      "code": "1-86-01"
+    },
+    {
+      "char": "㰏",
+      "on": [
+        "コウ"
+      ],
+      "kun": [],
+      "strokes": 20,
+      "jisLevel": "jis3",
+      "code": "1-86-26"
+    },
+    {
+      "char": "㸿",
+      "on": [
+        "トク"
+      ],
+      "kun": [
+        "こうし"
+      ],
+      "strokes": 11,
+      "jisLevel": "jis3",
+      "code": "1-87-70"
+    },
+    {
+      "char": "㽲",
+      "on": [
+        "キュウ",
+        "キョウ",
+        "ク",
+        "コウ"
+      ],
+      "kun": [],
+      "strokes": 7,
+      "jisLevel": "jis3",
+      "code": "1-88-45"
+    },
+    {
+      "char": "䉤",
+      "on": [
+        "シュ",
+        "ス",
+        "ソウ"
+      ],
+      "kun": [
+        "こめあげざる"
+      ],
+      "strokes": 19,
+      "jisLevel": "jis3",
+      "code": "1-89-77"
+    },
+    {
+      "char": "䑓",
+      "on": [
+        "タイ",
+        "ダイ"
+      ],
+      "kun": [
+        "うてな",
+        "しもべ"
+      ],
+      "strokes": 13,
+      "jisLevel": "jis3",
+      "code": "1-90-57"
+    },
+    {
+      "char": "䑛",
+      "on": [
+        "シ"
+      ],
+      "kun": [
+        "な-める",
+        "ねぶ-る"
+      ],
+      "strokes": 11,
+      "jisLevel": "jis3",
+      "code": "1-90-58"
+    },
+    {
+      "char": "䖝",
+      "on": [
+        "チュウ"
+      ],
+      "kun": [
+        "むし"
+      ],
+      "strokes": 7,
+      "jisLevel": "jis3",
+      "code": "1-91-49"
+    },
+    {
+      "char": "䗪",
+      "on": [
+        "シャ"
+      ],
+      "kun": [],
+      "strokes": 17,
+      "jisLevel": "jis3",
+      "code": "1-91-64"
+    },
+    {
+      "char": "䡄",
+      "on": [
+        "キ"
+      ],
+      "kun": [
+        "わだち"
+      ],
+      "strokes": 9,
+      "jisLevel": "jis3",
+      "code": "1-92-43"
+    },
+    {
+      "char": "䦰",
+      "on": [
+        "キュウ"
+      ],
+      "kun": [
+        "くじ",
+        "たたかいと-る"
+      ],
+      "strokes": 19,
+      "jisLevel": "jis3",
+      "code": "1-93-56"
+    },
+    {
+      "char": "䰗",
+      "on": [
+        "キュウ"
+      ],
+      "kun": [
+        "くじ",
+        "たたかいと-る"
+      ],
+      "strokes": 21,
+      "jisLevel": "jis3",
+      "code": "1-94-30"
+    },
+    {
+      "char": "丨",
+      "on": [
+        "コン"
+      ],
+      "kun": [
+        "しりぞ-く",
+        "すす-む"
+      ],
+      "strokes": 1,
+      "jisLevel": "jis3",
+      "code": "1-14-04"
+    },
+    {
+      "char": "丯",
+      "on": [
+        "カイ"
+      ],
+      "kun": [
+        "しるし"
+      ],
+      "strokes": 4,
+      "jisLevel": "jis3",
+      "code": "1-14-05"
+    },
+    {
+      "char": "丰",
+      "on": [
+        "フウ",
+        "ホウ",
+        "ボウ"
+      ],
+      "kun": [
+        "しげ-る",
+        "みめよ-い"
+      ],
+      "strokes": 4,
+      "jisLevel": "jis3",
+      "code": "1-14-06"
+    },
+    {
+      "char": "亍",
+      "on": [
+        "チョク"
+      ],
+      "kun": [
+        "たたず-む"
+      ],
+      "strokes": 3,
+      "jisLevel": "jis3",
+      "code": "1-14-07"
+    },
+    {
+      "char": "仡",
+      "on": [
+        "キツ",
+        "ギツ",
+        "ゴツ"
+      ],
+      "kun": [
+        "いさ-ましい"
+      ],
+      "strokes": 5,
+      "jisLevel": "jis3",
+      "code": "1-14-08"
+    },
+    {
+      "char": "份",
+      "on": [
+        "ヒン",
+        "フン"
+      ],
+      "kun": [
+        "あき-らか",
+        "うるわ-しい"
+      ],
+      "strokes": 6,
+      "jisLevel": "jis3",
+      "code": "1-14-09"
+    },
+    {
+      "char": "仿",
+      "on": [
+        "ホウ"
+      ],
+      "kun": [
+        "さまよ-う"
+      ],
+      "strokes": 6,
+      "jisLevel": "jis3",
+      "code": "1-14-10"
+    },
+    {
+      "char": "伃",
+      "on": [
+        "ヨ"
+      ],
+      "kun": [
+        "うつく-しい"
+      ],
+      "strokes": 6,
+      "jisLevel": "jis3",
+      "code": "1-14-11"
+    },
+    {
+      "char": "伋",
+      "on": [
+        "キュウ"
+      ],
+      "kun": [
+        "きび-しい"
+      ],
+      "strokes": 6,
+      "jisLevel": "jis3",
+      "code": "1-14-12"
+    },
+    {
+      "char": "佈",
+      "on": [
+        "フ",
+        "ホ"
+      ],
+      "kun": [
+        "あまね-し"
+      ],
+      "strokes": 7,
+      "jisLevel": "jis3",
+      "code": "1-14-14"
+    },
+    {
+      "char": "佉",
+      "on": [
+        "キャ",
+        "キョ"
+      ],
+      "kun": [],
+      "strokes": 7,
+      "jisLevel": "jis3",
+      "code": "1-14-15"
+    },
+    {
+      "char": "佖",
+      "on": [
+        "ヒツ"
+      ],
+      "kun": [
+        "ただ-しい"
+      ],
+      "strokes": 7,
+      "jisLevel": "jis3",
+      "code": "1-14-16"
+    },
+    {
+      "char": "佟",
+      "on": [
+        "トウ"
+      ],
+      "kun": [],
+      "strokes": 7,
+      "jisLevel": "jis3",
+      "code": "1-14-17"
+    },
+    {
+      "char": "你",
+      "on": [
+        "ジ",
+        "ニ"
+      ],
+      "kun": [
+        "なんじ"
+      ],
+      "strokes": 7,
+      "jisLevel": "jis3",
+      "code": "1-14-13"
+    },
+    {
+      "char": "佪",
+      "on": [
+        "カイ"
+      ],
+      "kun": [
+        "さまよ-う"
+      ],
+      "strokes": 8,
+      "jisLevel": "jis3",
+      "code": "1-14-18"
+    },
+    {
+      "char": "佬",
+      "on": [
+        "リョウ",
+        "ロウ"
+      ],
+      "kun": [
+        "おお-きい"
+      ],
+      "strokes": 8,
+      "jisLevel": "jis3",
+      "code": "1-14-19"
+    },
+    {
+      "char": "佾",
+      "on": [
+        "イツ"
+      ],
+      "kun": [
+        "やす-い"
+      ],
+      "strokes": 8,
+      "jisLevel": "jis3",
+      "code": "1-14-20"
+    },
+    {
+      "char": "侊",
+      "on": [
+        "コウ"
+      ],
+      "kun": [
+        "さかん"
+      ],
+      "strokes": 8,
+      "jisLevel": "jis3",
+      "code": "1-14-21"
+    },
+    {
+      "char": "侔",
+      "on": [
+        "ボウ",
+        "ム"
+      ],
+      "kun": [
+        "ひと-しい"
+      ],
+      "strokes": 8,
+      "jisLevel": "jis3",
+      "code": "1-14-22"
+    },
+    {
+      "char": "侗",
+      "on": [
+        "トウ"
+      ],
+      "kun": [
+        "おろ-か"
+      ],
+      "strokes": 8,
+      "jisLevel": "jis3",
+      "code": "1-14-23"
+    },
+    {
+      "char": "俉",
+      "on": [
+        "ゴ"
+      ],
+      "kun": [
+        "むか-える"
+      ],
+      "strokes": 9,
+      "jisLevel": "jis3",
+      "code": "1-14-25"
+    },
+    {
+      "char": "倁",
+      "on": [
+        "チ"
+      ],
+      "kun": [
+        "ゆ-く"
+      ],
+      "strokes": 10,
+      "jisLevel": "jis3",
+      "code": "1-14-27"
+    },
+    {
+      "char": "倂",
+      "on": [
+        "ヘイ"
+      ],
+      "kun": [
+        "あわ-せる",
+        "しか-し",
+        "なら-ぶ"
+      ],
+      "strokes": 10,
+      "jisLevel": "jis3",
+      "code": "1-14-28"
+    },
+    {
+      "char": "倎",
+      "on": [
+        "テン"
+      ],
+      "kun": [
+        "あつ-い"
+      ],
+      "strokes": 10,
+      "jisLevel": "jis3",
+      "code": "1-14-29"
+    },
+    {
+      "char": "倘",
+      "on": [
+        "ショウ",
+        "トウ"
+      ],
+      "kun": [
+        "も-し"
+      ],
+      "strokes": 10,
+      "jisLevel": "jis3",
+      "code": "1-14-30"
+    },
+    {
+      "char": "倧",
+      "on": [
+        "ソウ"
+      ],
+      "kun": [],
+      "strokes": 10,
+      "jisLevel": "jis3",
+      "code": "1-14-31"
+    },
+    {
+      "char": "倮",
+      "on": [
+        "ラ"
+      ],
+      "kun": [
+        "はだか"
+      ],
+      "strokes": 10,
+      "jisLevel": "jis3",
+      "code": "1-14-32"
+    },
+    {
+      "char": "倻",
+      "on": [
+        "ヤ"
+      ],
+      "kun": [],
+      "strokes": 11,
+      "jisLevel": "jis3",
+      "code": "1-14-34"
+    },
+    {
+      "char": "偀",
+      "on": [
+        "エイ"
+      ],
+      "kun": [
+        "はな",
+        "はなぶさ",
+        "ひい-でる"
+      ],
+      "strokes": 10,
+      "jisLevel": "jis3",
+      "code": "1-14-33"
+    },
+    {
+      "char": "偁",
+      "on": [
+        "ショウ"
+      ],
+      "kun": [
+        "あ-げる"
+      ],
+      "strokes": 11,
+      "jisLevel": "jis3",
+      "code": "1-14-35"
+    },
+    {
+      "char": "傔",
+      "on": [
+        "ケン"
+      ],
+      "kun": [
+        "したが-う"
+      ],
+      "strokes": 12,
+      "jisLevel": "jis3",
+      "code": "1-14-36"
+    },
+    {
+      "char": "僌",
+      "on": [
+        "ヨウ"
+      ],
+      "kun": [
+        "おさ-める"
+      ],
+      "strokes": 13,
+      "jisLevel": "jis3",
+      "code": "1-14-37"
+    },
+    {
+      "char": "僐",
+      "on": [
+        "セン",
+        "ゼン"
+      ],
+      "kun": [
+        "おつくり-する"
+      ],
+      "strokes": 14,
+      "jisLevel": "jis3",
+      "code": "1-14-39"
+    },
+    {
+      "char": "僦",
+      "on": [
+        "シュ",
+        "シュウ"
+      ],
+      "kun": [
+        "か-りる"
+      ],
+      "strokes": 14,
+      "jisLevel": "jis3",
+      "code": "1-14-40"
+    },
+    {
+      "char": "僲",
+      "on": [
+        "セン"
+      ],
+      "kun": [
+        "せんにん",
+        "やまびと"
+      ],
+      "strokes": 15,
+      "jisLevel": "jis3",
+      "code": "1-14-38"
+    },
+    {
+      "char": "儃",
+      "on": [
+        "セン",
+        "ゼン",
+        "タン",
+        "ダン"
+      ],
+      "kun": [
+        "たたず-む"
+      ],
+      "strokes": 15,
+      "jisLevel": "jis3",
+      "code": "1-14-43"
+    },
+    {
+      "char": "儆",
+      "on": [
+        "ケイ"
+      ],
+      "kun": [
+        "いまし-める"
+      ],
+      "strokes": 14,
+      "jisLevel": "jis3",
+      "code": "1-14-42"
+    },
+    {
+      "char": "儋",
+      "on": [
+        "タン"
+      ],
+      "kun": [
+        "にな-う"
+      ],
+      "strokes": 15,
+      "jisLevel": "jis3",
+      "code": "1-14-44"
+    },
+    {
+      "char": "儞",
+      "on": [
+        "ジ",
+        "ニ"
+      ],
+      "kun": [
+        "なんじ"
+      ],
+      "strokes": 16,
+      "jisLevel": "jis3",
+      "code": "1-14-45"
+    },
+    {
+      "char": "儵",
+      "on": [
+        "シュク"
+      ],
+      "kun": [
+        "はや-い"
+      ],
+      "strokes": 19,
+      "jisLevel": "jis3",
+      "code": "1-14-46"
+    },
+    {
+      "char": "兊",
+      "on": [
+        "エイ",
+        "エツ",
+        "タイ",
+        "ダ"
+      ],
+      "kun": [
+        "か-える",
+        "するど-い",
+        "よろこ-ぶ"
+      ],
+      "strokes": 6,
+      "jisLevel": "jis3",
+      "code": "1-14-47"
+    },
+    {
+      "char": "兕",
+      "on": [
+        "シ",
+        "ジ"
+      ],
+      "kun": [],
+      "strokes": 7,
+      "jisLevel": "jis3",
+      "code": "1-14-49"
+    },
+    {
+      "char": "兗",
+      "on": [
+        "エン"
+      ],
+      "kun": [
+        "くく-る"
+      ],
+      "strokes": 9,
+      "jisLevel": "jis3",
+      "code": "1-14-50"
+    },
+    {
+      "char": "冝",
+      "on": [
+        "ギ",
+        "セン",
+        "モウ"
+      ],
+      "kun": [
+        "むべ",
+        "よ-い",
+        "よろ-しい",
+        "よろしく"
+      ],
+      "strokes": 7,
+      "jisLevel": "jis3",
+      "code": "1-14-52"
+    },
+    {
+      "char": "凃",
+      "on": [
+        "ジョ",
+        "ズ",
+        "チョ",
+        "ト"
+      ],
+      "kun": [],
+      "strokes": 9,
+      "jisLevel": "jis3",
+      "code": "1-14-53"
+    },
+    {
+      "char": "凊",
+      "on": [
+        "セイ"
+      ],
+      "kun": [
+        "さむ-い",
+        "すず-しい"
+      ],
+      "strokes": 10,
+      "jisLevel": "jis3",
+      "code": "1-14-54"
+    },
+    {
+      "char": "凞",
+      "on": [
+        "キ"
+      ],
+      "kun": [
+        "ああ",
+        "たの-しむ",
+        "ひか-る",
+        "ひろ-い",
+        "やわ-らぐ",
+        "よろこ-ぶ"
+      ],
+      "strokes": 17,
+      "jisLevel": "jis3",
+      "code": "1-14-55"
+    },
+    {
+      "char": "凢",
+      "on": [
+        "ハン",
+        "ボン"
+      ],
+      "kun": [
+        "およ-そ",
+        "すべ-て",
+        "なみ"
+      ],
+      "strokes": 3,
+      "jisLevel": "jis3",
+      "code": "1-14-56"
+    },
+    {
+      "char": "凮",
+      "on": [
+        "フ",
+        "フウ"
+      ],
+      "kun": [
+        "かざ",
+        "かぜ",
+        "すがた",
+        "ならわし",
+        "ふり"
+      ],
+      "strokes": 8,
+      "jisLevel": "jis3",
+      "code": "1-14-57"
+    },
+    {
+      "char": "刁",
+      "on": [
+        "チョウ"
+      ],
+      "kun": [
+        "とら"
+      ],
+      "strokes": 2,
+      "jisLevel": "jis3",
+      "code": "1-14-58"
+    },
+    {
+      "char": "刓",
+      "on": [
+        "ガン"
+      ],
+      "kun": [
+        "けず-る"
+      ],
+      "strokes": 6,
+      "jisLevel": "jis3",
+      "code": "1-14-60"
+    },
+    {
+      "char": "刕",
+      "on": [
+        "リ"
+      ],
+      "kun": [
+        "さ-く"
+      ],
+      "strokes": 6,
+      "jisLevel": "jis3",
+      "code": "1-14-61"
+    },
+    {
+      "char": "剉",
+      "on": [
+        "サ",
+        "ザ"
+      ],
+      "kun": [
+        "くじく"
+      ],
+      "strokes": 9,
+      "jisLevel": "jis3",
+      "code": "1-14-62"
+    }
+  ]
+}
