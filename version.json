@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.49.0-20261006",
+  "webBuild": "2.49.1-20261007",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.49.1",
+      "title": "희귀 단어 해설 조사 오류 수정",
+      "items": [
+        "矮鶏 해설의 ‘자보닭가’를 ‘자보닭이’로 수정하고 뜻 표기를 ‘자보닭·왜소종의 닭’으로 다듬음",
+        "같은 원인으로 생긴 희귀·비실용 단어 해설의 이/가·을/를·은/는 결합 오류를 전수 점검",
+        "기존 희귀 단어 40건과 최근 추가 단어 71건, 총 111건의 한국어 조사 결합을 교정",
+        "단어 검증기에 한국어 뜻과 해설의 조사 결합 오류 검사를 추가해 같은 유형의 재발을 차단"
+      ]
+    },
     {
       "version": "2.49.0",
       "title": "표외·희귀 단어 293개 + JIS3 초희귀 한자 96자 대확장",
