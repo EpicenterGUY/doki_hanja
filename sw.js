@@ -1,4 +1,4 @@
-const CACHE="doki-hanja-app-v150-20261006";
+const CACHE="doki-hanja-app-v151-20261007";
 const CORE=["./","./index.html","./manifest.webmanifest","./version.json","./icon.svg","./icon-maskable.svg","./report-config.js","./japanese.css","./japanese.js","./data/japanese/joyo.tsv","./data/japanese/hyogai.txt","./data/japanese/hyogai-meta.json","./data/japanese/jlpt-levels.json","./data/japanese/kanjidic-readings.json","./data/japanese/hyogai-jis3-extra.json","./data/japanese/NOTICE.txt","./data/japanese/words.json","./data/japanese/rare-words-extra.json","./data/japanese/mext-onkun-2017.json","./data/hanja.csv","./data/korean-extra.json","./data/KOREAN_EXTRA_NOTICE.txt","./data/korean-word-frequency.json","./data/KOREAN_WORD_FREQUENCY_NOTICE.txt","./data/hanja-structure.json","./data/hanja-structure-NOTICE.txt"];
 
 self.addEventListener("install",event=>{
