@@ -122,5 +122,26 @@
     "logo": "linear-gradient(145deg,#36d7ff,#7a70ff 58%,#ff67c8)",
     "glow": "#54dcff",
     "button": "linear-gradient(135deg,#22c9ec,#766cff)"
+  },
+  {
+    "id": "osuskilllab",
+    "name": "osu! Skill Lab",
+    "mark": "◎",
+    "status": "개발 중 · Research",
+    "description": "osu!standard Ranked 전체 카탈로그를 기반으로 난이도·Chart DNA·유사 채보·맵퍼 성향·시대 변화를 탐색하는 분석 연구실.",
+    "tags": [
+      "osu!",
+      "Ranked",
+      "Chart DNA",
+      "분석"
+    ],
+    "live": "https://epicenterguy.github.io/osu-skill-lab/",
+    "repo": "https://github.com/EpicenterGUY/osu-skill-lab",
+    "version": "v2.1.0",
+    "versionUrl": "/osu-skill-lab/version.json",
+    "versionType": "osuskilllab",
+    "logo": "linear-gradient(145deg,#ff67aa,#7c78ff)",
+    "glow": "#ff72b3",
+    "button": "linear-gradient(135deg,#f05b9d,#756fff)"
   }
 ]
