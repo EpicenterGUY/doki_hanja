@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.50.2-20261016",
+  "webBuild": "2.50.3-20261016",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.50.3",
+      "title": "라이트 테마 청록 단색 팔레트",
+      "items": [
+        "라이트 테마의 남색·보라·금색·분홍 포인트를 청록 계열로 통일",
+        "하단 선택 메뉴와 주요 버튼은 진한 청록 단색, 보조 버튼은 옅은 민트로 변경",
+        "홈·학습·일본어 아이콘 및 일부 카드 배경을 민트/화이트로 정리",
+        "라이트 테마의 장식 그라데이션을 제거하고 평면 색상으로 통일"
+      ]
+    },
     {
       "version": "2.50.2",
       "title": "홈 상단 라이트 테마 글자 대비 긴급 교정",
