@@ -938,3 +938,56 @@ html[data-app-bg="light"] .atlas-pdf-empty{
 html[data-app-bg="light"] :is(.app2-backdrop,.drill-char-index-modal){
  background:rgba(27,42,68,.30)!important;
 }
+
+/* 2.50.2 HOME HERO CONTRAST HOTFIX
+   The hero's legacy white selectors are very specific; force light-theme ink
+   on every text node inside the home welcome and its level orb. */
+html[data-app-bg="light"] .home-welcome{
+ background:
+   radial-gradient(circle at 90% 12%,rgba(73,128,221,.10),transparent 31%),
+   linear-gradient(135deg,#f0f5ff 0%,#f8faff 52%,#eaf2fd 100%)!important;
+ border-color:#c5d4e8!important;
+}
+html[data-app-bg="light"] .home-welcome::after{
+ color:rgba(45,79,135,.055)!important;
+}
+html[data-app-bg="light"] .home-welcome .home-date-label{
+ color:#536b8b!important;
+ opacity:1!important;
+ text-shadow:none!important;
+}
+html[data-app-bg="light"] .home-welcome h2{
+ color:#182b45!important;
+ opacity:1!important;
+ text-shadow:none!important;
+}
+html[data-app-bg="light"] .home-welcome p{
+ color:#455d79!important;
+ opacity:1!important;
+ text-shadow:none!important;
+}
+html[data-app-bg="light"] .home-welcome .home-level-orb{
+ background:linear-gradient(145deg,#e5edf9,#f5f8fd)!important;
+ border-color:#bdcee5!important;
+ box-shadow:0 7px 18px rgba(39,65,104,.09)!important;
+}
+html[data-app-bg="light"] .home-welcome .home-level-orb span{
+ color:#526b8a!important;
+ opacity:1!important;
+ text-shadow:none!important;
+}
+html[data-app-bg="light"] .home-welcome .home-level-orb b{
+ color:#213b61!important;
+ opacity:1!important;
+ text-shadow:none!important;
+}
+html[data-app-bg="light"] .home-welcome .home-level-orb small{
+ color:#506985!important;
+ opacity:1!important;
+ text-shadow:none!important;
+}
+/* Defensive rule: direct legacy white text must never win inside a light hero. */
+html[data-app-bg="light"] .home-welcome-copy,
+html[data-app-bg="light"] .home-welcome-copy *{
+ text-shadow:none!important;
+}
