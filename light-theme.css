@@ -991,3 +991,152 @@ html[data-app-bg="light"] .home-welcome-copy,
 html[data-app-bg="light"] .home-welcome-copy *{
  text-shadow:none!important;
 }
+
+/* 2.50.3 LIGHT TEAL — one accent family, completely flat.
+   Light theme intentionally uses teal/mint only; legacy navy/purple/gold/pink
+   accents are neutralized here without changing the six dark themes. */
+html[data-app-bg="light"]{
+ --teal-900:#075b58;
+ --teal-800:#086b66;
+ --teal-700:#087d76;
+ --teal-600:#0b9187;
+ --teal-200:#bfe4df;
+ --teal-100:#dff2ef;
+ --teal-050:#eef9f7;
+ --light-blue:#087d76;
+ --light-green:#087d76;
+}
+/* No gradients in light theme UI. */
+html[data-app-bg="light"] :is(
+ .home-welcome,.home-primary-card,.home-primary-icon,.home-resume,
+ .home-freq-card,.freq-spotlight,.home-shortcut,.home-shortcut-icon,
+ .hub-title-card,.study-tile,.study-tile-icon,.study-link,
+ .app-action,.app-list-icon,.power-card,.app-stats-hero,.drill-resume-card,
+ .jp-hero,.jp-home-hero,.jp-action-glyph,.jp-home-ring,
+ .app2-nav.active,.app-bg-picker button.active,.app-font-picker button.active,
+ .home-freq-buttons button,.hub-settings-btn
+){
+ background-image:none!important;
+}
+/* pale mint surfaces */
+html[data-app-bg="light"] :is(
+ .home-welcome,.hub-title-card,.power-card,.app-stats-hero,.drill-resume-card,
+ .jp-hero,.jp-home-hero
+){
+ background:#eef9f7!important;
+ border-color:#c5e3df!important;
+}
+html[data-app-bg="light"] :is(
+ .home-primary-card,.study-tile,.home-shortcut,.study-link,.app-action
+){
+ background:#fff!important;
+ border-color:#cbdedb!important;
+}
+html[data-app-bg="light"] :is(
+ .home-primary-card:nth-child(even),.study-tile:nth-child(even),
+ .home-shortcut:nth-child(even),.study-link:nth-child(even)
+){
+ background:#f1faf8!important;
+}
+/* all home/study icon families are teal — no purple/gold/pink/navy variants */
+html[data-app-bg="light"] :is(
+ .home-primary-icon,.home-primary-card.mint .home-primary-icon,
+ .home-primary-card.gold .home-primary-icon,.home-primary-card.pink .home-primary-icon,
+ .study-tile-icon,.study-tile.mint .study-tile-icon,
+ .study-tile.gold .study-tile-icon,.study-tile.pink .study-tile-icon,
+ .home-shortcut-icon,.home-shortcut.diagnosis .home-shortcut-icon,
+ .home-shortcut.jpword .home-shortcut-icon,.home-shortcut.study .home-shortcut-icon,
+ .app-list-icon,.jp-action-glyph,
+ .jp-home-action.word .jp-action-glyph,.jp-home-action.reading-quiz .jp-action-glyph,
+ .jp-home-action.atlas .jp-action-glyph,.jp-home-action.saved .jp-action-glyph
+){
+ background:#dff2ef!important;
+ background-image:none!important;
+ color:#08736d!important;
+ border-color:#b9ded9!important;
+ box-shadow:none!important;
+}
+html[data-app-bg="light"] :is(
+ .home-primary-icon,.study-tile-icon,.home-shortcut-icon,.app-list-icon,.jp-action-glyph
+) :is(i,span,b,strong){
+ color:#08736d!important;
+}
+/* selected navigation and primary actions: flat teal */
+html[data-app-bg="light"] :is(
+ .app2-nav.active,
+ .app-bg-picker button.active,.app-font-picker button.active,
+ .atlas-type-chip.active,.atlas-period-chip.active,
+ .atlas-formation-filters button.active,.atlas-compare-kindrow button.active,
+ .atlas-quick-row button.active,
+ .jp-filter-chip.active,.jp-mode-seg button.active,.jp-word-round-chip.active,
+ .jp-set-seg button.active,.jp-view-seg button.active,.jp-reading-group.active,
+ .check.selected,.exam-dot.current,.exam-session .choice-btn.selected
+){
+ background:#087d76!important;
+ background-image:none!important;
+ color:#fff!important;
+ border-color:#087d76!important;
+ box-shadow:none!important;
+}
+html[data-app-bg="light"] :is(
+ .app2-nav.active,
+ .jp-filter-chip.active,.jp-mode-seg button.active,.jp-word-round-chip.active,
+ .jp-set-seg button.active,.jp-view-seg button.active,.jp-reading-group.active
+) :is(svg,span,b,strong,small,i){
+ color:#fff!important;
+ stroke:currentColor;
+}
+/* secondary actionable buttons use lighter teal rather than navy */
+html[data-app-bg="light"] :is(
+ .home-freq-buttons button,.hub-settings-btn,
+ .global-search-quick button,.jp-atlas-close,.jp-reading-close,
+ .drill-char-index-close,.atlas-detail-close,.atlas-memory-nav button
+){
+ background:#dff2ef!important;
+ background-image:none!important;
+ color:#075f5b!important;
+ border-color:#b7dcd7!important;
+ box-shadow:none!important;
+}
+html[data-app-bg="light"] .home-freq-buttons button:first-child{
+ background:#087d76!important;
+ background-image:none!important;
+ color:#fff!important;
+ border-color:#087d76!important;
+}
+/* teal emphasis text instead of blue */
+html[data-app-bg="light"] :is(
+ .app-section-action,.home-section-label span,.power-title,.mastery-pct,
+ .atlas-hanja,.atlas-table .hanja-cell,.atlas-compact-hanja,.atlas-detail-glyph,
+ .atlas-freq-word,.atlas-study-main>b,.atlas-relation-words b,
+ .atlas-relation-compound b,.atlas-formation-card .glyph,.atlas-compare-glyph,
+ .atlas-pdf-char strong,.atlas-pdf-base strong,.atlas-memory-term,
+ .atlas-memory-answer.hanja-answer,.atlas-memory-relation span,
+ .atlas-memory-relation-reading.compound
+){
+ color:#08736d!important;
+}
+/* progress/accent fills should not reintroduce rainbow gradients */
+html[data-app-bg="light"] :is(
+ .power-progress>i,.mastery-track>i,.drill-resume-progress>i,
+ #jp .jp-home-progress-bar i
+){
+ background:#0b9187!important;
+ background-image:none!important;
+}
+/* Level orb and hero are mint, never blue. */
+html[data-app-bg="light"] .home-welcome .home-level-orb{
+ background:#dff2ef!important;
+ background-image:none!important;
+ border-color:#b9dcd8!important;
+}
+html[data-app-bg="light"] .home-welcome .home-level-orb b{
+ color:#075f5b!important;
+}
+html[data-app-bg="light"] .home-welcome .home-level-orb :is(span,small){
+ color:#456b68!important;
+}
+/* Japanese atlas glyph emphasis follows the same teal family. */
+html[data-app-bg="light"] :is(.jp-atlas-big,.jp-atlas-card .char,#jp .jp-card-char){
+ color:#075f5b!important;
+}
