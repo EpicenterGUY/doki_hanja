@@ -863,3 +863,78 @@ html[data-app-bg="light"] :is(.exam-passage,.home-resume,.jp-word-feedback){
  background:#edf3fb!important;border-color:var(--light-border)!important;
  color:var(--light-ink)!important;
 }
+
+/* Secondary UI, answer overlays, badges and small labels audit. */
+html[data-app-bg="light"] :is(
+ .atlas-memory-relation-reading,.atlas-compact-mask,.atlas-source-priority span,
+ .atlas-pdf-example>span:not(.atlas-pdf-empty),
+ .atlas-card .atlas-use,.atlas-pdf-note-cell,
+ .global-result-title,.jp-word-round-head,.jp-word-round-head span,
+ .jp-reading-none,.jp-atlas-loading,
+ .jp-atlas-font-control>span,.jp-atlas-font-inline>span,
+ .jp-reading-quiz-preview small
+){
+ color:var(--light-muted)!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-memory-relation-reading,.atlas-compact-mask,.atlas-source-priority span,
+ .atlas-pdf-example>span:not(.atlas-pdf-empty)
+){
+ background:#eaf1fa!important;border-color:#ccdbea!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-memory-relation span,.atlas-memory-relation-reading.compound
+){
+ color:var(--light-blue)!important;
+}
+html[data-app-bg="light"] .atlas-memory-relation i{
+ color:#12684f!important;
+}
+html[data-app-bg="light"] :is(.global-result-icon,.global-result-icon.jp){
+ background:#dfe9fa!important;color:#284c93!important;
+}
+html[data-app-bg="light"] :is(.jp-atlas-font-control select,.jp-atlas-font-inline select){
+ background:#edf3fb!important;color:var(--light-ink)!important;
+ border-color:var(--light-border)!important;
+}
+html[data-app-bg="light"] #jp :is(.jp-home-back,.jp-home-ring,.jp-action-glyph){
+ background:#e4ecfb!important;color:#234b91!important;
+ border-color:#bfceeb!important;
+}
+html[data-app-bg="light"] #jp .jp-home-ring :is(b,span){
+ color:#1e3659!important;
+}
+html[data-app-bg="light"] #jp .jp-home-progress-bar{
+ background:#dbe6f4!important;
+}
+html[data-app-bg="light"] #jp .jp-card-reading{
+ color:#17674e!important;
+}
+html[data-app-bg="light"] #jp .jp-word-round-head,
+html[data-app-bg="light"] #jp .jp-word-round-head span{
+ color:var(--light-muted)!important;
+}
+html[data-app-bg="light"] #jp .jp-word-guide>span{
+ background:#e1eafb!important;color:#274678!important;
+ border-color:#b7c9e7!important;
+}
+html[data-app-bg="light"] #jp .jp-word-answer,
+html[data-app-bg="light"] #jp .jp-word-feedback-answer,
+html[data-app-bg="light"] #jp .jp-answer-overlay{
+ background:rgba(243,247,253,.94)!important;
+ color:#234574!important;
+ text-shadow:none!important;
+}
+html[data-app-bg="light"] :is(.atlas-compact-grid,.atlas-freq-board){
+ background:#dce6f3!important;border-color:#c8d6e8!important;
+}
+html[data-app-bg="light"] .atlas-study-main .atlas-hanmun-passage{
+ color:#223852!important;
+}
+html[data-app-bg="light"] .atlas-pdf-empty{
+ color:#4c607a!important;
+}
+/* Preserve modal scrim only outside the bright paper sheet. */
+html[data-app-bg="light"] :is(.app2-backdrop,.drill-char-index-modal){
+ background:rgba(27,42,68,.30)!important;
+}
