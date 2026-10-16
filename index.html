@@ -8304,6 +8304,7 @@ html[data-app-bg] body.drill-active .drill-answer-overlay{
   }
 }
 </style>
+<link rel="stylesheet" href="./light-theme.css?v=2.50.0">
 </head>
 <body>
 <div class="app">
@@ -8419,6 +8420,7 @@ html[data-app-bg] body.drill-active .drill-answer-overlay{
   <section class="app-settings-group">
     <div class="app-settings-title"><div><b>배경색</b><small>선택 즉시 앱 바탕에 적용되고 자동 저장됩니다.</small></div><span id="appBgThemeLabel">오로라</span></div>
     <div class="app-bg-picker" id="appBgPicker">
+      <button type="button" data-app-bg="light"><i class="bg-swatch light"></i><b>라이트</b></button>
       <button type="button" data-app-bg="aurora"><i class="bg-swatch aurora"></i><b>오로라</b></button>
       <button type="button" data-app-bg="violet"><i class="bg-swatch violet"></i><b>바이올렛</b></button>
       <button type="button" data-app-bg="ocean"><i class="bg-swatch ocean"></i><b>오션</b></button>
@@ -9318,7 +9320,7 @@ const APP_ITEMS=[
 ];
 
 
-const APP_BUILD="2.49.1-20261007";
+const APP_BUILD="2.50.0-20261016";
 const WEB_UPDATE_PROMPT_KEY="hanjaLabWebUpdatePromptV1";
 const WEB_UPDATE_TARGET_KEY="hanjaLabWebUpdateTargetV1";
 let pendingWebBuild="";
@@ -9358,8 +9360,8 @@ function syncAppBackdrop(){
   $("#app2Backdrop")?.classList.toggle("open",open);
 }
 const APP_BG_KEY="hanjaLabBackgroundV1";
-const APP_BG_LABELS={aurora:"오로라",violet:"바이올렛",ocean:"오션",mint:"민트",rose:"로즈",graphite:"그래파이트"};
-const APP_BG_THEME_COLORS={aurora:"#352a72",violet:"#3d276f",ocean:"#164f6d",mint:"#205b50",rose:"#6e3653",graphite:"#242b38"};
+const APP_BG_LABELS={light:"라이트",aurora:"오로라",violet:"바이올렛",ocean:"오션",mint:"민트",rose:"로즈",graphite:"그래파이트"};
+const APP_BG_THEME_COLORS={light:"#f4f7fc",aurora:"#352a72",violet:"#3d276f",ocean:"#164f6d",mint:"#205b50",rose:"#6e3653",graphite:"#242b38"};
 let appBackgroundTheme="aurora";
 try{appBackgroundTheme=localStorage.getItem(APP_BG_KEY)||"aurora"}catch{}
 if(!APP_BG_LABELS[appBackgroundTheme])appBackgroundTheme="aurora";
@@ -11136,6 +11138,7 @@ function renderPracticeWelcome(){
   h+="<button class='home-primary-card gold' onclick=\"switchTab('exam')\"><span class='home-primary-icon'>試</span><span><b>기출</b><small>회차를 골라 실전 문제 풀기</small></span></button>";
   h+="<button class='home-primary-card pink' onclick=\"openUtility('wrong')\"><span class='home-primary-icon'>復</span><span><b>복습</b><small>오답 "+wrongCount+" · 모름 "+unknownCount+"</small></span></button>";
   h+="</div></section>";
+  h+="<details class='home-extra'><summary>다른 학습 도구 <small>빈출 · 도감 · 진단 · 일본어</small></summary><div class='home-extra-body'>";
   h+="<section class='home-freq-card'><div class='home-freq-main'><span class='freq-label'>🔥 빈출</span><b>자주 나온 것부터 공부</b><small>기출 출현 "+freqRows.toLocaleString()+"건 기준 · 빈출 기능을 홈에서 바로 찾을 수 있게 고정했습니다.</small></div><div class='home-freq-buttons'><button onclick='startFrequentPractice()'>집중 연습</button><button onclick=\"atlasState.mode='freq';atlasState.sort='freq';atlasState.view='table';switchTab('atlas')\">빈출 도감</button></div></section>";
   h+="<section class='home-shortcuts'>";
   h+="<button class='home-shortcut atlas' onclick=\"switchTab('atlas')\"><span class='home-shortcut-icon' aria-hidden='true'><i>漢</i></span><span class='home-shortcut-copy'><b>도감</b><small>훈음 · 부수 · 빈출</small></span></button>";
@@ -11143,6 +11146,7 @@ function renderPracticeWelcome(){
   h+="<button class='home-shortcut jpword' onclick='openJapaneseWordHub()'><span class='home-shortcut-icon' aria-hidden='true'><i>日</i></span><span class='home-shortcut-copy'><b>일본 단어</b><small>읽기 · 예문 쓰기</small></span></button>";
   h+="<button class='home-shortcut study' onclick=\"switchTab('study')\"><span class='home-shortcut-icon symbol' aria-hidden='true'><i>＋</i></span><span class='home-shortcut-copy'><b>전체 학습</b><small>모든 기능 보기</small></span></button>";
   h+="</section>";
+  h+="</div></details>";
   h+="<div class='home-stats-row'><span><b>"+p.known.toLocaleString()+"</b><small>아는 한자</small></span><span><b>"+p.attempts.toLocaleString()+"</b><small>누적 풀이</small></span><span><b>"+p.accuracy+"%</b><small>정답률</small></span></div>";
   h+="</div>";
   $("#practice").innerHTML=h;
