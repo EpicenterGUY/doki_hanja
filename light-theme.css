@@ -1140,3 +1140,125 @@ html[data-app-bg="light"] .home-welcome .home-level-orb :is(span,small){
 html[data-app-bg="light"] :is(.jp-atlas-big,.jp-atlas-card .char,#jp .jp-card-char){
  color:#075f5b!important;
 }
+
+/* 2.50.4 visual audit from device screenshot.
+   Use explicit selectors (not :is()) for critical home elements to avoid
+   older Android/WebView selector-specificity quirks. */
+html[data-app-bg="light"] body .home-welcome .home-welcome-copy .home-date-label{
+ color:#456b68!important;
+ -webkit-text-fill-color:#456b68!important;
+}
+html[data-app-bg="light"] body .home-welcome .home-welcome-copy h2{
+ color:#173c3a!important;
+ -webkit-text-fill-color:#173c3a!important;
+}
+html[data-app-bg="light"] body .home-welcome .home-welcome-copy p{
+ color:#3f605e!important;
+ -webkit-text-fill-color:#3f605e!important;
+}
+html[data-app-bg="light"] body .home-welcome .home-level-orb span,
+html[data-app-bg="light"] body .home-welcome .home-level-orb small{
+ color:#456b68!important;
+ -webkit-text-fill-color:#456b68!important;
+}
+html[data-app-bg="light"] body .home-welcome .home-level-orb b{
+ color:#075f5b!important;
+ -webkit-text-fill-color:#075f5b!important;
+}
+/* Remove legacy per-card radial tint layers completely. */
+html[data-app-bg="light"] body .home-primary-card::before,
+html[data-app-bg="light"] body .home-primary-card.mint::before,
+html[data-app-bg="light"] body .home-primary-card.gold::before,
+html[data-app-bg="light"] body .home-primary-card.pink::before{
+ content:none!important;
+ display:none!important;
+ background:none!important;
+}
+/* Explicitly beat old themed icon selectors. */
+html[data-app-bg="light"] body .home-primary-card .home-primary-icon,
+html[data-app-bg="light"] body .home-primary-card:not(.mint):not(.gold):not(.pink) .home-primary-icon,
+html[data-app-bg="light"] body .home-primary-card.mint .home-primary-icon,
+html[data-app-bg="light"] body .home-primary-card.gold .home-primary-icon,
+html[data-app-bg="light"] body .home-primary-card.pink .home-primary-icon{
+ background:#dff2ef!important;
+ background-image:none!important;
+ color:#08736d!important;
+ -webkit-text-fill-color:#08736d!important;
+ border:1px solid #b9ded9!important;
+ box-shadow:none!important;
+}
+html[data-app-bg="light"] body .home-primary-card,
+html[data-app-bg="light"] body .home-primary-card:nth-child(2n),
+html[data-app-bg="light"] body .home-primary-card.mint,
+html[data-app-bg="light"] body .home-primary-card.gold,
+html[data-app-bg="light"] body .home-primary-card.pink{
+ background:#fff!important;
+ background-image:none!important;
+ border-color:#cbdedb!important;
+ box-shadow:0 5px 14px rgba(22,89,83,.045)!important;
+}
+html[data-app-bg="light"] body .home-primary-card:nth-child(2n){
+ background:#f1faf8!important;
+}
+html[data-app-bg="light"] body .home-primary-card b{
+ color:#183c3a!important;
+ -webkit-text-fill-color:#183c3a!important;
+}
+html[data-app-bg="light"] body .home-primary-card small{
+ color:#506d6a!important;
+ -webkit-text-fill-color:#506d6a!important;
+}
+html[data-app-bg="light"] body .home-primary-card::after{
+ color:#75aaa5!important;
+}
+/* Home labels/stats also stay inside the teal-neutral family. */
+html[data-app-bg="light"] body .home-section-label b,
+html[data-app-bg="light"] body .home-stats-row b{
+ color:#173c3a!important;
+ -webkit-text-fill-color:#173c3a!important;
+}
+html[data-app-bg="light"] body .home-section-label span,
+html[data-app-bg="light"] body .home-stats-row small{
+ color:#4c716e!important;
+ -webkit-text-fill-color:#4c716e!important;
+}
+html[data-app-bg="light"] body .home-stats-row>div{
+ background:#fff!important;
+ background-image:none!important;
+ border-color:#cbdedb!important;
+}
+/* Explicit flat-teal selected dock state. */
+html[data-app-bg="light"] body .app2-dock{
+ background:rgba(255,255,255,.96)!important;
+ border-color:#c7dcda!important;
+}
+html[data-app-bg="light"] body .app2-nav{
+ color:#526c77!important;
+}
+html[data-app-bg="light"] body .app2-nav.active{
+ background:#0b8b82!important;
+ background-image:none!important;
+ color:#fff!important;
+ box-shadow:none!important;
+}
+/* Sweep old theme variables in light mode so controls not individually listed
+   inherit teal instead of violet/navy/gold/pink. */
+html[data-app-bg="light"]{
+ --ui-primary-1:#0b8b82!important;
+ --ui-primary-2:#087d76!important;
+ --ui-primary-3:#075f5b!important;
+ --ui-accent-violet:#087d76!important;
+ --ui-accent-cyan:#0b9187!important;
+ --ui-accent-gold:#087d76!important;
+ --ui-accent-pink:#087d76!important;
+ --ui-surface-alt:#eef9f7!important;
+ --ui-stroke:#b9dcd8!important;
+ --ui-stroke-soft:#d6e9e6!important;
+}
+/* Any generic themed icon/swatch selectors that use the variables are flat too. */
+html[data-app-bg="light"] body .study-tile::before,
+html[data-app-bg="light"] body .app-action::before,
+html[data-app-bg="light"] body .study-link::before{
+ background:none!important;
+ content:none!important;
+}
