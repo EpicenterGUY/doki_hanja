@@ -1262,3 +1262,171 @@ html[data-app-bg="light"] body .study-link::before{
  background:none!important;
  content:none!important;
 }
+
+/* 2.50.5 full teal atmosphere + atlas glyph readability */
+html[data-app-bg="light"]{
+ background:#eaf7f4!important;
+ --light-canvas:#eaf7f4;
+ --light-paper:#fbfffe;
+ --light-soft:#e1f2ee;
+ --light-soft2:#d6ebe6;
+ --light-border:#b8d8d2;
+ --light-ink:#173b3a;
+ --light-muted:#496966;
+}
+html[data-app-bg="light"] body{
+ background:#eaf7f4!important;
+ background-image:none!important;
+ color:#173b3a!important;
+}
+html[data-app-bg="light"] body::before,
+html[data-app-bg="light"] body::after{
+ background:none!important;
+ background-image:none!important;
+}
+html[data-app-bg="light"] .app{
+ background:#eaf7f4!important;
+ background-image:none!important;
+}
+html[data-app-bg="light"] .content,
+html[data-app-bg="light"] main.content,
+html[data-app-bg="light"] .tabpage,
+html[data-app-bg="light"] .app-screen{
+ background:transparent!important;
+}
+/* Chrome of the app also belongs to the teal palette. */
+html[data-app-bg="light"] .app2-bar{
+ background:#f7fdfb!important;
+ background-image:none!important;
+ border-color:#c1ddd8!important;
+ box-shadow:0 5px 18px rgba(7,91,88,.075)!important;
+}
+html[data-app-bg="light"] .app2-title,
+html[data-app-bg="light"] .app2-actions button{
+ color:#173b3a!important;
+}
+html[data-app-bg="light"] .app2-actions button{
+ background:#e5f4f1!important;
+ background-image:none!important;
+ border-color:#bedbd6!important;
+ box-shadow:none!important;
+}
+html[data-app-bg="light"] .app2-actions button:active{
+ background:#d8ece8!important;
+}
+html[data-app-bg="light"] .app2-dock{
+ background:#f8fdfc!important;
+ background-image:none!important;
+ border-color:#bad8d3!important;
+ box-shadow:0 -7px 24px rgba(7,91,88,.09)!important;
+}
+html[data-app-bg="light"] .app2-nav:not(.active){
+ color:#496b68!important;
+}
+html[data-app-bg="light"] .app2-nav:not(.active) svg{
+ color:#496b68!important;
+ stroke:currentColor!important;
+}
+/* Cards/sheets get a subtle teal cast and teal shadows rather than blue-gray. */
+html[data-app-bg="light"] :is(
+ .home-welcome,.home-primary-card,.home-stats-row>div,.home-extra,
+ .app-section,.app-action,.app-list-row,.study-tile,.study-link,
+ .hub-title-card,.power-card,.app-stats-hero,.drill-resume-card,
+ .atlas-toolbar,.atlas-card,.atlas-compact-cell,.atlas-table-wrap,
+ .atlas-freq-sheet,.atlas-study-row,.atlas-memory-card,.atlas-detail-sheet,
+ .atlas-compare-card,.atlas-sound-card,.atlas-formation-card,
+ .global-search-sheet,.global-result-row,.global-hanja-result,
+ .jp-card,.jp-atlas-card,.jp-home-action,.jp-home-status,
+ .jp-home-progress-card,.jp-word-preview,.jp-word-question,
+ .jp-reading-quiz-card,.app-settings-sheet,.update-sheet
+){
+ border-color:#bfdcd7!important;
+ box-shadow:0 6px 18px rgba(7,91,88,.055)!important;
+}
+html[data-app-bg="light"] :is(
+ .home-primary-card:nth-child(2n),.study-tile:nth-child(2n),
+ .atlas-card:nth-child(2n),.atlas-compact-cell:nth-child(2n),
+ .jp-home-progress-card,.jp-home-status
+){
+ background:#f0faf8!important;
+}
+/* Inputs and inactive controls use mint instead of blue-gray. */
+html[data-app-bg="light"] :is(
+ input,select,textarea,
+ .atlas-control select,.atlas-search,.atlas-search-wrap input,
+ .atlas-compare-searchbox input,.atlas-filter-label,.atlas-global-find,
+ .atlas-quick-row button,.atlas-memory-nav button,.atlas-type-chip,
+ .atlas-period-chip,.global-search-box,.global-search-quick button,
+ .jp-filter-chip:not(.active),.jp-word-tier button:not(.active),
+ .jp-mode-seg button:not(.active),.jp-set-seg button:not(.active),
+ .jp-view-seg button:not(.active)
+){
+ border-color:#bad8d3!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-control select,.atlas-search,.atlas-search-wrap input,
+ .atlas-compare-searchbox input,.atlas-filter-label,.atlas-global-find,
+ .atlas-quick-row button,.atlas-memory-nav button,.atlas-type-chip,
+ .atlas-period-chip,.global-search-quick button,
+ .jp-filter-chip:not(.active),.jp-word-tier button:not(.active),
+ .jp-mode-seg button:not(.active),.jp-set-seg button:not(.active),
+ .jp-view-seg button:not(.active)
+){
+ background:#e7f5f2!important;
+ color:#214b48!important;
+}
+/* Generic pale blue surfaces from older light rules become mint. */
+html[data-app-bg="light"] :is(
+ .atlas-table th,.atlas-initial-head,.atlas-compare-head,
+ .atlas-pdf-jp-head,.atlas-pdf-rank-table th,
+ .atlas-mask-tip,.atlas-phonetic-guides,.atlas-phonetic-guides span,
+ .atlas-formation-defs div,.atlas-sound-chars button,
+ .atlas-compare-tip,.atlas-compare-examples span,.atlas-pdf-reading,
+ .atlas-pdf-chain span,.atlas-phono-equation>span,.atlas-phono-lineage,
+ .atlas-phono-root,.atlas-pdf-source,.atlas-pdf-parent,.atlas-pdf-kr,
+ .atlas-pdf-jp-kind,.global-result-icon,.global-result-icon.jp,
+ .jp-meta-pill,.jp-word-meaning,.jp-word-meaning-toggle,
+ .jp-reading-quiz-preview span,.jp-word-guide>span
+){
+ background:#e4f3f0!important;
+ border-color:#bedbd6!important;
+}
+/* Atlas glyphs need separation from the teal UI. Use high-contrast ink-indigo. */
+html[data-app-bg="light"] :is(
+ .atlas-hanja,.atlas-table .hanja-cell,.atlas-compact-hanja,
+ .atlas-detail-glyph,.atlas-freq-word,.atlas-study-main>b,
+ .atlas-study-main:not(.text-prompt)>b,.atlas-relation-words b,
+ .atlas-relation-compound b,.atlas-formation-card .glyph,
+ .atlas-compare-glyph,.atlas-sound-chars button,
+ .atlas-pdf-char strong,.atlas-pdf-base strong,
+ .atlas-phono-equation>span b,.atlas-memory-term,
+ .atlas-memory-answer.hanja-answer,.atlas-hanmun-full-passage
+){
+ color:#29365f!important;
+ -webkit-text-fill-color:#29365f!important;
+ text-shadow:none!important;
+}
+/* Keep semantic/status accents readable but within the teal atmosphere. */
+html[data-app-bg="light"] :is(
+ .atlas-freq,.atlas-freq-count,.atlas-study-frequency b,
+ .atlas-study-main small.hanja-answer,.atlas-study-extra em,
+ .atlas-detail-kpi .good,.atlas-progress.ok
+){
+ background:#dff3ec!important;
+ border-color:#acd8c9!important;
+ color:#12644f!important;
+}
+html[data-app-bg="light"] .home-welcome{
+ background:#e3f4f1!important;
+ border-color:#afd5cf!important;
+}
+html[data-app-bg="light"] .home-welcome::after{
+ color:rgba(7,91,88,.045)!important;
+}
+html[data-app-bg="light"] .home-stats-row>div{
+ background:#f8fdfc!important;
+}
+/* Sheet backdrop is neutral teal-black rather than blue. */
+html[data-app-bg="light"] :is(.app2-backdrop,.atlas-detail-backdrop,.jp-atlas-backdrop,.drill-char-index-modal){
+ background:rgba(11,61,58,.27)!important;
+}
