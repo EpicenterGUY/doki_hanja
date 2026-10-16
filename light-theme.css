@@ -359,3 +359,507 @@ html[data-app-bg="light"] :is(
   background:linear-gradient(135deg,#344ba9,#40328e)!important;
   color:#fff!important;
 }
+
+/* ======================================================================
+   2.50.1 - Complete light surfaces. Append-only to preserve dark presets.
+   A light theme uses ink on paper throughout the app, not just the home.
+   ====================================================================== */
+html[data-app-bg="light"]{
+ --light-paper:#fff;
+ --light-canvas:#f4f7fc;
+ --light-soft:#edf3fb;
+ --light-soft2:#e4edf9;
+ --light-border:#cbd8e9;
+ --light-ink:#1b2c45;
+ --light-muted:#485f7b;
+ --light-blue:#24519c;
+ --light-green:#116a52;
+ --light-gold:#805000;
+ --light-red:#973e48;
+ --jp-ink:#1b2c45;
+ --jp-muted:#485f7b;
+ --jp-surface:#fff;
+ --jp-surface-2:#f5f8fd;
+ --jp-line:#d5e0ed;
+}
+html[data-app-bg="light"] body:not(.drill-active) .app,
+html[data-app-bg="light"] body:not(.drill-active) main.content,
+html[data-app-bg="light"] body:not(.drill-active) .tabpage{
+ background:transparent!important;color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] :is(#atlas,#jp,#study,#more,#exam,#freq,#wrong,#data,#diagnosis,#guide,#report,#practice){
+ color:var(--light-ink);
+}
+html[data-app-bg="light"] :is(#atlas,#jp,#study,#more,#exam,#freq,#wrong,#data,#diagnosis,#guide,#report,#practice) :is(.soft,.sub,.label,.note){
+ color:var(--light-muted)!important;
+}
+/* The same paper-and-ink hero palette across Korean, Japanese, records. */
+html[data-app-bg="light"] :is(
+ .home-welcome,.app-hero,.jp-hero,.jp-home-hero,
+ .hub-title-card,.power-card,.app-stats-hero,.drill-resume-card
+){
+ background:linear-gradient(135deg,#edf3ff,#f9fbff)!important;
+ border:1px solid var(--light-border)!important;
+ color:var(--light-ink)!important;
+ box-shadow:0 8px 22px rgba(41,68,111,.07)!important;
+}
+html[data-app-bg="light"] :is(
+ .home-welcome,.app-hero,.jp-hero,.jp-home-hero,
+ .hub-title-card,.power-card,.app-stats-hero,.drill-resume-card
+) :is(h1,h2,h3,b,strong,span,.jp-kicker,.home-date-label,.hub-eyebrow,.power-eyebrow,.power-score){
+ color:var(--light-ink)!important;
+ text-shadow:none!important;
+}
+html[data-app-bg="light"] :is(
+ .home-welcome,.app-hero,.jp-hero,.jp-home-hero,.hub-title-card,
+ .power-card,.app-stats-hero,.drill-resume-card
+) :is(p,small,.sub,.soft,.power-title,.power-eyebrow,.power-foot,.power-score span,.power-mini span){
+ color:var(--light-muted)!important;
+}
+html[data-app-bg="light"] :is(.home-level-orb,.home-resume,.power-mini){
+ background:#e5edfc!important;
+ border-color:#c4d4ef!important;color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] :is(.home-level-orb,.home-resume,.power-mini) :is(span,b,strong,small){
+ color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] :is(.power-progress,.mastery-track,.drill-resume-progress){
+ background:#dce6f4!important;
+}
+html[data-app-bg="light"] :is(.app-section-action,.app-quick-link,.home-section-label span,.power-title,.mastery-pct){
+ color:var(--light-blue)!important;
+}
+/* Korean Atlas: search, filters, all grid sizes, frequency lists. */
+html[data-app-bg="light"] :is(
+ .atlas-toolbar,.atlas-summary>div,.atlas-card,.atlas-compact-cell,
+ .atlas-table-wrap,.atlas-freq-sheet,.atlas-freq-sheet-head,
+ .atlas-freq-entry,.atlas-freq-legend,.atlas-format-head,
+ .atlas-study-list,.atlas-study-row,.atlas-study-frequency,
+ .atlas-memory-card,.atlas-memory-nav button,
+ .atlas-source-split>div,.atlas-tone-legend span,
+ .atlas-search-wrap,.atlas-settings-v2,.atlas-initial-head,
+ .atlas-initial-nav,.atlas-initial-nav button,
+ .atlas-compare-card,.atlas-compare-intro,.atlas-compare-searchbox,
+ .atlas-compare-member,.atlas-compare-kind,.atlas-compare-tip,
+ .atlas-sound-intro,.atlas-sound-card,.atlas-formation-intro,
+ .atlas-formation-defs div,.atlas-formation-card,.atlas-pdf-intro,
+ .atlas-pdf-group,.atlas-pdf-base,.atlas-pdf-row,
+ .atlas-pdf-legend,.atlas-pdf-stats span,
+ .atlas-pdf-parent,.atlas-pdf-source,.atlas-pdf-chain,
+ .atlas-phono-origin,.atlas-phono-lineage,.atlas-phono-root,
+ .atlas-phono-equation>span,.atlas-pdf-shinjitai,
+ .atlas-hanmun-full-passage,.atlas-idiom-meaning,
+ .atlas-hanmun-detail-answer,.atlas-detail-sheet,.atlas-detail-kpi,
+ .atlas-usage,.atlas-related span,.atlas-detail-note,.atlas-detail-section,
+ .atlas-quick-row button,.atlas-type-chip,.atlas-period-chip,.atlas-global-find,
+ .atlas-progress,.atlas-memory-extra,.atlas-memory-head,.atlas-empty
+){
+ background:#fff!important;
+ border-color:var(--light-border)!important;
+ color:var(--light-ink)!important;
+ box-shadow:none!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-card:nth-child(2n),.atlas-compact-cell:nth-child(2n),
+ .atlas-freq-entry:nth-child(6n+4),.atlas-freq-entry:nth-child(6n+5),
+ .atlas-freq-entry:nth-child(6n+6),.atlas-study-row:nth-child(2n),
+ .atlas-summary>div:nth-child(2n),.atlas-memory-card,
+ .atlas-compare-card:nth-child(2n),.atlas-format-head,
+ .atlas-freq-sheet-head,.atlas-pdf-base,.atlas-detail-kpi
+){
+ background:#f1f5fc!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-toolbar,.atlas-card,.atlas-compact-cell,.atlas-compare-card,
+ .atlas-sound-card,.atlas-formation-card,.atlas-detail-sheet
+){
+ box-shadow:0 6px 18px rgba(34,59,97,.065)!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-table th,.atlas-initial-head,.atlas-compare-head,
+ .atlas-pdf-jp-head,.atlas-pdf-rank-table th
+){
+ background:#eaf0fa!important;color:#304867!important;
+ border-color:var(--light-border)!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-table td,.atlas-pdf-rank-table td,.atlas-pdf-rank-table th
+){
+ background:#fff!important;color:var(--light-ink)!important;
+ border-color:#d4deea!important;
+}
+html[data-app-bg="light"] .atlas-pdf-rank-table td.pdf-empty{
+ background:#f5f7fb!important;color:transparent!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-control select,.atlas-search,.atlas-compare-searchbox input,
+ .atlas-search-wrap input,.atlas-filter-label,.atlas-global-find,
+ .atlas-quick-row button,.atlas-memory-nav button,.atlas-type-chip,
+ .atlas-period-chip,.atlas-formation-filters button,
+ .atlas-compare-kindrow button,.atlas-initial-nav button
+){
+ background:#edf3fb!important;color:#233852!important;
+ border-color:var(--light-border)!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-control select,.atlas-search,.atlas-compare-searchbox input
+)::placeholder{
+ color:#516881!important;opacity:1;
+}
+html[data-app-bg="light"] :is(
+ .atlas-type-chip.active,.atlas-period-chip.active,
+ .atlas-formation-filters button.active,.atlas-compare-kindrow button.active,
+ .atlas-quick-row button.active
+){
+ background:#344caa!important;color:#fff!important;
+ border-color:#344caa!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-title,.atlas-card .atlas-hun,.atlas-compact-hun,.atlas-freq-answer,
+ .atlas-study-main.text-prompt b,.atlas-study-detail-extra span,
+ .atlas-detail-section>h4,.atlas-usage-top b,.atlas-usage p,
+ .atlas-detail-reading,.atlas-memory-answer,.atlas-memory-term.textual,
+ .atlas-memory-head b,.atlas-memory-top,.atlas-format-head b,
+ .atlas-freq-sheet-head b,.atlas-formation-card p,
+ .atlas-compare-head b,.atlas-compare-ms b,.atlas-compare-use,
+ .atlas-pdf-intro>div:first-child>b,.atlas-pdf-parent b,
+ .atlas-pdf-kr b,.atlas-pdf-jp-head b,.atlas-pdf-base b,
+ .atlas-pdf-row,.atlas-sound-head b,.atlas-initial-head b,
+ .atlas-hanmun-answer-list strong,.atlas-hanmun-detail-answer .answer,
+ .atlas-relation-readings,.atlas-relation-readings.compound-reading
+){
+ color:var(--light-ink)!important;text-shadow:none!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-hanja,.atlas-table .hanja-cell,.atlas-compact-hanja,.atlas-detail-glyph,
+ .atlas-freq-word,.atlas-study-main>b,.atlas-study-main:not(.text-prompt)>b,
+ .atlas-relation-words b,.atlas-relation-compound b,
+ .atlas-formation-card .glyph,.atlas-compare-glyph,.atlas-sound-chars button,
+ .atlas-pdf-char strong,.atlas-pdf-base strong,.atlas-phono-equation>span b,
+ .atlas-memory-term,.atlas-memory-answer.hanja-answer,
+ .atlas-formation-card .glyph,.atlas-hanmun-full-passage
+){
+ color:var(--light-blue)!important;text-shadow:none!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-sub,.atlas-control>span,.atlas-tone-legend,
+ .atlas-summary span,.atlas-meta,.atlas-meta span,.atlas-freq-sheet-head span,
+ .atlas-format-head span,.atlas-study-main small,.atlas-study-main small i,
+ .atlas-study-extra,.atlas-study-recent,.atlas-memory-head span,
+ .atlas-memory-mode,.atlas-memory-extra span,.atlas-memory-top,
+ .atlas-detail-sub,.atlas-detail-kpi span,.atlas-detail-note,
+ .atlas-usage-top span,.atlas-compare-head small,.atlas-compare-tip,
+ .atlas-compare-empty,.atlas-compare-examples span,.atlas-initial-head span,
+ .atlas-sound-head span,.atlas-formation-card small,
+ .atlas-formation-defs span,.atlas-pdf-intro>div:first-child>span,
+ .atlas-pdf-kr small,.atlas-pdf-char small,.atlas-pdf-jp-head span,
+ .atlas-pdf-stats span,.atlas-pdf-legend,.atlas-pdf-note,
+ .atlas-pdf-base small,.atlas-source-split span,.atlas-memory-hint,
+ .atlas-settings-v2 summary,.atlas-settings-v2 summary small,
+ .atlas-compare-level,.atlas-compare-ms em,.atlas-compare-use,
+ .atlas-tone-legend span,.atlas-study-frequency small,
+ .atlas-pdf-shinjitai>small
+){
+ color:var(--light-muted)!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-rank,.atlas-study-rank,.atlas-freq-no,.atlas-tone,.atlas-long-badge,
+ .atlas-memory-long
+){
+ background:#fff1d5!important;border-color:#ead3a7!important;
+ color:var(--light-gold)!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-freq,.atlas-freq-count,.atlas-study-frequency b,
+ .atlas-study-main small.hanja-answer,.atlas-study-extra em,
+ .atlas-detail-kpi .good,.atlas-progress.ok
+){
+ background:#e4f5ef!important;border-color:#b7ded0!important;
+ color:var(--light-green)!important;
+}
+html[data-app-bg="light"] :is(.atlas-progress.bad,.atlas-trend.old){
+ background:#fcebed!important;color:var(--light-red)!important;
+}
+html[data-app-bg="light"] .atlas-mask-tip{
+ background:#e2eafb!important;color:#27427a!important;
+ border:1px solid #bcc9e4!important;
+}
+html[data-app-bg="light"] .atlas-detail-backdrop{
+ background:rgba(33,48,75,.30)!important;
+}
+html[data-app-bg="light"] .atlas-detail-handle{
+ background:#bac8da!important;
+}
+html[data-app-bg="light"] :is(.atlas-detail-close,.atlas-memory-nav button){
+ background:#edf3fb!important;color:#263e61!important;
+ border-color:#c8d5e9!important;
+}
+/* Advanced atlas construction, compare, phonetic and data provenance panels */
+html[data-app-bg="light"] :is(
+ .atlas-formation-defs b,.atlas-phonetic-guides b,
+ .atlas-formation-card em,.atlas-compare-kind.meaning,
+ .atlas-sound-chars button span,.atlas-pdf-reading span,
+ .atlas-pdf-jp-kind .kind-label,.atlas-pdf-shinjitai>b,
+ .atlas-phono-equation>span.semantic b,.atlas-phono-equation>span.phonetic b
+){
+ color:#22558f!important;
+}
+html[data-app-bg="light"] :is(
+ .atlas-phonetic-guides,.atlas-phonetic-guides span,
+ .atlas-formation-defs div,.atlas-sound-chars button,
+ .atlas-formation-filters button,.atlas-compare-glyph,
+ .atlas-compare-level,.atlas-compare-tip,.atlas-compare-examples span,
+ .atlas-pdf-reading,.atlas-pdf-chain span,.atlas-phono-equation>span,
+ .atlas-phono-lineage,.atlas-phono-root,.atlas-pdf-source,
+ .atlas-pdf-parent,.atlas-pdf-kr,.atlas-pdf-jp-kind,
+ .atlas-hanmun-answer-list>span,.atlas-hanmun-detail-answer
+){
+ background:#eef3fb!important;border-color:#d1ddeb!important;
+ color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] .atlas-compare-member.current .atlas-compare-glyph{
+ background:#dce8ff!important;border-color:#9fb5e4!important;
+ color:#24519c!important;
+}
+html[data-app-bg="light"] :is(.atlas-pdf-reading.extra span,.atlas-pdf-reading.extra.on-extra span){
+ color:#9b4560!important;
+}
+/* Popups and finder are owned by the body, not necessarily by their tab. */
+html[data-app-bg="light"] :is(
+ .global-search-sheet,.global-search-box,.global-result-row,.global-hanja-result,
+ .global-jp-result,.global-search-quick button,.global-search-results,
+ .update-sheet,.app2-update,.remote-status,
+ .sheet-head,.app-settings-sheet,.app-settings-links>button,
+ .jp-atlas-sheet,.jp-atlas-cell,.jp-atlas-word,.jp-atlas-reading-section,
+ .drill-char-index-sheet,.drill-char-index-search,
+ .drill-char-index-close,.drill-char-index-item
+){
+ background:#fff!important;color:var(--light-ink)!important;
+ border-color:var(--light-border)!important;
+}
+html[data-app-bg="light"] :is(
+ .global-search-box,.global-result-row,.global-hanja-result,.global-jp-result,
+ .global-search-quick button,.jp-atlas-cell,.jp-atlas-word,
+ .drill-char-index-item
+){
+ background:#f2f6fc!important;
+}
+html[data-app-bg="light"] :is(
+ .global-search-sheet,.update-sheet,.jp-atlas-sheet
+){
+ box-shadow:0 12px 36px rgba(26,51,91,.15)!important;
+}
+html[data-app-bg="light"] :is(
+ .global-search-head strong,.global-result-row b,.global-hanja-result b,
+ .global-jp-result b,.global-hanja-result .char,.jp-atlas-title b,
+ .jp-atlas-big,.jp-atlas-cell b,.jp-atlas-word b,
+ .drill-char-index-title b
+){
+ color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] :is(
+ .global-search-head small,.global-result-row b em,.global-result-row small,
+ .global-hanja-result small,.global-jp-result small,.global-search-empty,
+ .global-search-empty small,.jp-atlas-title small,.jp-atlas-cell span,
+ .jp-atlas-word small,.drill-char-index-title small,.drill-char-index-item>small
+){
+ color:var(--light-muted)!important;
+}
+html[data-app-bg="light"] :is(
+ .global-search-quick button,.jp-atlas-close,.jp-reading-close,
+ .drill-char-index-close
+){
+ background:#edf3fb!important;color:#25436b!important;
+ border-color:var(--light-border)!important;
+}
+html[data-app-bg="light"] :is(
+ .global-search-box input,.global-search-sheet input,
+ .jp-atlas-sheet select,.drill-char-index-search input
+){
+ background:#fff!important;color:var(--light-ink)!important;
+ border-color:var(--light-border)!important;
+}
+/* Japanese atlas + learning + words should be the same light surface. */
+html[data-app-bg="light"] #jp :is(
+ .jp-screen,.jp-hero,.jp-home-hero,.jp-metric,.jp-card,.jp-atlas-card,
+ .jp-home-status,.jp-home-action,.jp-home-progress-card,.jp-home-next,
+ .jp-home-grade-grid button,.jp-hyogai-samples>div,
+ .jp-word-preview,.jp-word-question,.jp-word-canvas-pane,
+ .jp-word-round-chip,.jp-reading-selected-head,.jp-reading-group,
+ .jp-reading-pill,.jp-reading-quiz-card,.jp-reading-quiz-preview>div,
+ .jp-reading-inline-detail,.jp-reading-selected,
+ .jp-word-meaning-panel,.jp-word-form-note,.jp-word-variant-note,
+ .jp-rare-spot,.jp-reading-extra,.jp-mode-note,.jp-home-search,
+ .jp-set-seg,.jp-view-seg,.jp-mode-seg,.jp-word-feedback
+){
+ background:#fff!important;color:var(--light-ink)!important;
+ border-color:var(--light-border)!important;
+ box-shadow:none!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-metric,.jp-home-progress-card,.jp-home-status,
+ .jp-home-grade-grid button,.jp-word-preview,.jp-reading-group,
+ .jp-word-round-chip,.jp-reading-quiz-preview>div,
+ .jp-reading-pill,.jp-home-next,.jp-reading-selected-head
+){
+ background:#f4f7fc!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-hero,.jp-home-hero
+){
+ background:linear-gradient(135deg,#edf3ff,#f9fbff)!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-hero h2,.jp-hero p,.jp-hero .jp-kicker,
+ .jp-home-hero h2,.jp-home-hero p,
+ .jp-word-reading,.jp-word-preview b,.jp-reading-quiz-word,
+ .jp-atlas-card .char,.jp-card-char,.jp-word-question b,
+ .jp-home-action b,.jp-word-preview p,.jp-word-meaning,
+ .jp-reading-selected-head b,.jp-reading-selected-head strong,
+ .jp-home-next b,.jp-reading-group b,.jp-word-form-note b,
+ .jp-reading-quiz-card .prompt,.jp-word-tier b
+){
+ color:var(--light-ink)!important;text-shadow:none!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-card-meta,.jp-atlas-card .meta,.jp-source-note,
+ .jp-home-action small,.jp-word-preview small,.jp-word-translation,
+ .jp-metric span,.jp-home-progress-grid span,.jp-home-status small,
+ .jp-home-next small,.jp-home-next span,.jp-word-round-chip small,
+ .jp-home-grade-grid span,.jp-reading-group span,
+ .jp-reading-selected-head span,.jp-reading-selected-head small,
+ .jp-reading-quiz-level,.jp-reading-quiz-feedback small,
+ .jp-reading-quiz-answer-meta,.jp-word-example,.jp-mode-note,
+ .jp-word-variant-note,.jp-word-form-note span,.jp-word-target-reading,
+ .jp-word-no-example,.jp-reading-quiz-card .prompt
+){
+ color:var(--light-muted)!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-memory-target,.jp-word-question,.jp-reading-quiz-word,
+ .jp-card-char,.jp-atlas-card .char,.jp-reading-selected .char
+){
+ color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-filter-chip:not(.active),.jp-word-tier button:not(.active),
+ .jp-word-round-chip:not(.active),.jp-mode-seg button:not(.active),
+ .jp-set-seg button:not(.active),.jp-view-seg button:not(.active),
+ .jp-reading-group:not(.active),.jp-reading-pill,
+ .jp-home-progress-head button,.jp-home-search
+){
+ background:#edf3fb!important;color:var(--light-ink)!important;
+ border-color:var(--light-border)!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-word-round-chip.active,.jp-filter-chip.active,
+ .jp-set-seg button.active,.jp-view-seg button.active,
+ .jp-reading-group.active,.jp-mode-seg button.active
+){
+ background:#334ba5!important;color:#fff!important;
+ border-color:#334ba5!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-word-round-chip.active,.jp-set-seg button.active,
+ .jp-view-seg button.active,.jp-reading-group.active
+) :is(span,b,small){
+ color:#fff!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-meta-pill,.jp-word-meaning,.jp-word-meaning-toggle,
+ .jp-reading-quiz-preview span,.jp-word-feedback-answer,
+ .jp-char-score,.jp-hyogai-samples span,.jp-reading-group span
+){
+ background:#e5edf9!important;
+ color:#2a466f!important;
+ border-color:#c8d7eb!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-word-meaning-toggle.active,.jp-char-score.ok
+){
+ background:#def3e9!important;color:#12674d!important;
+ border-color:#a9d7c4!important;
+}
+html[data-app-bg="light"] #jp .jp-char-score.no{
+ background:#ffebed!important;color:#97424b!important;
+ border-color:#edbfc5!important;
+}
+html[data-app-bg="light"] #jp .jp-word-meaning-panel{
+ color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] #jp :is(
+ .jp-reading-quiz-input,.jp-word-board,.jp-word-box,
+ .jp-reading-quiz-card input,.jp-word-canvas-pane input
+){
+ background:#fff!important;color:var(--light-ink)!important;
+ border-color:#b9c9df!important;
+}
+/* Writing boards remain white with their original visible ink and guidelines. */
+html[data-app-bg="light"] body.drill-active #jp :is(
+ .jp-word-question,.jp-word-canvas-pane,.jp-reading-quiz-card,
+ .jp-reading-selected-head,.jp-word-feedback,.jp-word-meaning-panel
+){
+ background:#fff!important;color:var(--light-ink)!important;
+ border-color:var(--light-border)!important;
+}
+html[data-app-bg="light"] body.drill-active #jp :is(
+ .jp-word-reading,.jp-reading-quiz-word,.jp-reading-quiz-level,
+ .jp-reading-quiz-card .prompt,.jp-word-translation,
+ .jp-word-meaning,.jp-word-meaning-panel,.jp-word-feedback
+){
+ color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] body.drill-active #jp :is(
+ .jp-reading-quiz-input,.jp-word-question input
+){
+ background:#fff!important;color:var(--light-ink)!important;
+ border-color:#aec0d7!important;
+}
+html[data-app-bg="light"] :is(.jp-atlas-sheet,.jp-atlas-reading-section){
+ background:#fff!important;color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] :is(.jp-atlas-big,.jp-atlas-title b,.jp-atlas-reading-head b){
+ color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] :is(.jp-atlas-reading-head span,.jp-atlas-title small,.jp-atlas-font-control>span){
+ color:var(--light-muted)!important;
+}
+html[data-app-bg="light"] :is(.jp-atlas-word,.jp-atlas-cell){
+ background:#f3f7fc!important;color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] .jp-atlas-backdrop{
+ background:rgba(27,44,74,.26)!important;
+}
+/* Buttons used in quiz/session setup, log screens, archive lists */
+html[data-app-bg="light"] :is(
+ .check,.exam-dot,.exam-session .choice-btn,
+ .compact-settings,.compact-settings summary,.app-list-row,.reset-row,
+ .mastery-row,.study-link,.study-tile,.app-action,.app-section
+){
+ background:#fff!important;color:var(--light-ink)!important;
+ border-color:var(--light-border)!important;
+}
+html[data-app-bg="light"] :is(
+ .check.selected,.exam-dot.current,.exam-session .choice-btn.selected
+){
+ background:#e4ecff!important;color:#1c3d8e!important;
+ border-color:#9dafdc!important;
+}
+html[data-app-bg="light"] :is(
+ .reset-row b,.app-list-row b,.mastery-row b,
+ .study-link b,.study-tile b,.app-action b,
+ .compact-settings summary,.exam-passage,.exam-dot,
+ .exam-session .choice-btn
+){
+ color:var(--light-ink)!important;
+}
+html[data-app-bg="light"] :is(
+ .reset-row small,.app-list-row small,.study-link small,
+ .study-tile small,.app-action small,.mastery-row small
+){
+ color:var(--light-muted)!important;
+}
+html[data-app-bg="light"] :is(.exam-passage,.home-resume,.jp-word-feedback){
+ background:#edf3fb!important;border-color:var(--light-border)!important;
+ color:var(--light-ink)!important;
+}
