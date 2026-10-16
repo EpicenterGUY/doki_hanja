@@ -1,9 +1,19 @@
 {
-  "webBuild": "2.50.3-20261016",
+  "webBuild": "2.50.4-20261016",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.50.4",
+      "title": "안드로이드 라이트 테마 잔여색 교정",
+      "items": [
+        "홈 HANJA LAB·학습 이어가기·한자력 레벨의 흰색 잔여 글자를 명시적 진청록 글자로 교정",
+        "혼합 연습 아이콘에 남던 보라색 및 카드별 보라·파랑·노랑·분홍 장식 레이어 제거",
+        "라이트 테마의 기존 공용 포인트 변수 자체를 청록으로 치환해 누락된 버튼까지 청록 계열로 통일",
+        "주요 라이트 테마 선택자에 구형 Android/WebView에서도 우선 적용되도록 명시적 선택자 사용"
+      ]
+    },
     {
       "version": "2.50.3",
       "title": "라이트 테마 청록 단색 팔레트",
