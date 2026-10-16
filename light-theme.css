@@ -1430,3 +1430,91 @@ html[data-app-bg="light"] .home-stats-row>div{
 html[data-app-bg="light"] :is(.app2-backdrop,.atlas-detail-backdrop,.jp-atlas-backdrop,.drill-char-index-modal){
  background:rgba(11,61,58,.27)!important;
 }
+
+/* 2.50.5 — white-first light theme with teal environmental effects.
+   White remains the dominant surface; teal is reserved for tint, borders,
+   focus, active controls and depth effects. */
+html[data-app-bg="light"]{
+ background:#f3fbf9!important;
+ --light-bg:#f3fbf9;
+ --light-surface:#ffffff;
+ --light-surface-soft:#f7fcfb;
+ --light-border:#c8e3df;
+ --light-shadow:rgba(8,125,118,.10);
+ --light-ink:#183735;
+ --light-muted:#55716f;
+}
+html[data-app-bg="light"] body{
+ background:#f3fbf9!important;
+ background-image:none!important;
+ color:#183735!important;
+}
+html[data-app-bg="light"] :is(.app-shell,.app2-main,.app2-page,.app-page,.app-content){
+ background-color:transparent!important;
+}
+/* White surfaces with teal depth instead of blue/gray depth. */
+html[data-app-bg="light"] :is(
+ .home-shell,.home-primary-card,.home-shortcut,.home-stats-row>div,
+ .card,.panel,.app-card,.study-tile,.study-link,.app-action,
+ .atlas-card,.atlas-table-wrap,.atlas-detail-sheet,.atlas-memory-card,
+ .jp-card,.jp-panel,.jp-atlas-card,.jp-word-card,
+ .app-settings-sheet,.global-search-sheet,.update-sheet
+){
+ border-color:#c9e3df!important;
+ box-shadow:0 7px 20px rgba(8,125,118,.075)!important;
+}
+html[data-app-bg="light"] :is(.topbar,.app-topbar,.app2-top,.app2-dock){
+ background:rgba(255,255,255,.97)!important;
+ border-color:#c7e2de!important;
+ box-shadow:0 5px 18px rgba(8,125,118,.08)!important;
+}
+/* Teal ambient panels, still very close to white. */
+html[data-app-bg="light"] :is(
+ .home-welcome,.hub-title-card,.power-card,.app-stats-hero,.drill-resume-card,
+ .jp-hero,.jp-home-hero,.atlas-summary,.atlas-toolbar,.atlas-quick-panel
+){
+ background:#eff9f7!important;
+ background-image:none!important;
+ border-color:#bfe0db!important;
+ box-shadow:0 8px 22px rgba(8,125,118,.08)!important;
+}
+/* Inputs and focus effects. */
+html[data-app-bg="light"] :is(input,select,textarea):focus,
+html[data-app-bg="light"] :is(button,[role="button"]):focus-visible{
+ outline:2px solid rgba(11,145,135,.34)!important;
+ outline-offset:2px;
+ border-color:#49aaa3!important;
+ box-shadow:0 0 0 4px rgba(11,145,135,.09)!important;
+}
+/* Make atlas glyphs visually distinct from teal chrome.
+   Ink-indigo has excellent contrast on white/mint and avoids looking like a button. */
+html[data-app-bg="light"] :is(
+ .atlas-hanja,.atlas-table .hanja-cell,.atlas-compact-hanja,.atlas-detail-glyph,
+ .atlas-formation-card .glyph,.atlas-compare-glyph,.atlas-pdf-char strong,
+ .atlas-pdf-base strong,.atlas-memory-answer.hanja-answer
+){
+ color:#263a63!important;
+ -webkit-text-fill-color:#263a63!important;
+ text-shadow:none!important;
+}
+html[data-app-bg="light"] .atlas-card .atlas-hanja{
+ color:#263a63!important;
+ -webkit-text-fill-color:#263a63!important;
+}
+/* Japanese atlas glyphs use the same readable ink color for consistency. */
+html[data-app-bg="light"] :is(.jp-atlas-big,.jp-atlas-card .char,#jp .jp-card-char){
+ color:#263a63!important;
+ -webkit-text-fill-color:#263a63!important;
+}
+/* Teal separators and subtle interactive hover/press feedback. */
+html[data-app-bg="light"] :is(.home-primary-card,.home-shortcut,.study-tile,.study-link,.app-action):active{
+ background:#e9f7f4!important;
+ border-color:#8ccbc5!important;
+}
+html[data-app-bg="light"] hr{
+ border-color:#d2e8e5!important;
+}
+/* Samsung browser bottom safe area should inherit the light palette where possible. */
+html[data-app-bg="light"] body::after{
+ background:#f3fbf9!important;
+}
