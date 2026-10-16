@@ -1,9 +1,18 @@
 {
-  "webBuild": "2.50.1-20261016",
+  "webBuild": "2.50.2-20261016",
   "androidVersion": "0.4.0",
   "androidVersionCode": 4,
   "apkUrl": "https://github.com/EpicenterGUY/doki_hanja/releases/download/android-latest/DOKI-Hanja.apk",
   "changelog": [
+    {
+      "version": "2.50.2",
+      "title": "홈 상단 라이트 테마 글자 대비 긴급 교정",
+      "items": [
+        "홈의 ‘1급 학습을 이어가요.’ 제목을 진한 남색으로 고정",
+        "HANJA LAB 라벨·설명·한자력 Lv 카드의 흰색 계열 글자를 진한 색으로 변경",
+        "홈 히어로 배경도 더 균일한 연청색·화이트톤으로 조정"
+      ]
+    },
     {
       "version": "2.50.1",
       "title": "라이트 테마 전체 통일 · 도감 글자 대비 교정",
