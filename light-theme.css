@@ -335,3 +335,27 @@ html[data-app-bg="light"].is-ipad body.drill-active #drill,
 html[data-app-bg="light"].is-ipad.keyboard-accessory body.drill-active .app{
   background:#f4f7fc!important;color:#182a43!important;
 }
+
+/* Contrast correction across all six original dark presets too:
+   navigation and selected controls must not place white text on cyan/pastel ends. */
+html[data-app-bg]:not([data-app-bg="light"]) :is(
+  .app2-nav.active,.app-bg-picker button.active,.app-font-picker button.active
+),
+html[data-app-bg]:not([data-app-bg="light"]) body:not(.drill-active) .btn.primary{
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--ui-primary-1) 62%,#111a32),
+    color-mix(in srgb,var(--ui-primary-3) 57%,#111a32))!important;
+  color:#fff!important;
+}
+html[data-app-bg]:not([data-app-bg="light"]) :is(
+  .home-primary-icon,.study-tile-icon,.home-shortcut-icon,.app-list-icon
+),
+html[data-app-bg]:not([data-app-bg="light"]) .home-shortcut-icon i{
+  color:#080e20!important;
+}
+html[data-app-bg="light"] :is(
+  .app2-nav.active,.app-bg-picker button.active,.app-font-picker button.active
+){
+  background:linear-gradient(135deg,#344ba9,#40328e)!important;
+  color:#fff!important;
+}
