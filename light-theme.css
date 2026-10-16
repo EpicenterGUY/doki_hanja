@@ -1,0 +1,300 @@
+/* Hanja Lab 2.50.0: High-contrast light palette and calmer layout.
+   Loaded after japanese.css so Japanese pages inherit the same appearance. */
+html[data-app-bg="light"]{
+  color-scheme:light;
+  --bg:#f4f7fc; --panel:#ffffff; --panel2:#f1f5fc; --line:#d5dfee;
+  --text:#16263f; --muted:#536681; --chip:#eef2fb; --accent:#344fbc;
+  --shadow:0 8px 22px rgba(35,59,107,.07);
+  --ui-surface-1:#ffffff; --ui-surface-2:#f4f7fd;
+  --ui-surface-alt:#f2f5fc; --ui-surface-soft:#eef3fc;
+  --ui-stroke:#c8d5e9; --ui-stroke-soft:#dbe3f0;
+  --ui-text:#182a43; --ui-muted:#536784;
+  --ui-primary-1:#344caa; --ui-primary-2:#2359a2; --ui-primary-3:#4332a2;
+  --ui-icon-text:#ffffff; --ui-nav:#ffffff; --ui-top:#fbfdff;
+  --ui-settings:#ffffff; --ui-shadow:rgba(40,65,116,.09);
+  --ui-accent-violet:#5845ad; --ui-accent-cyan:#116a87;
+  --ui-accent-green:#08735b; --ui-accent-gold:#986000;
+  --ui-accent-pink:#a03369; --ui-accent-blue:#225ba4;
+  --drill-bg:#f4f7fc; --drill-panel:#ffffff;
+  --drill-panel-2:#f6f8fd; --drill-panel-3:#edf3fb;
+  --drill-line:#d2ddec; --drill-line-strong:#9baece;
+  --drill-muted:#536784; --drill-text:#172943;
+}
+html[data-app-bg="light"],
+html[data-app-bg="light"] body,
+html[data-app-bg="light"] body:not(.drill-active){
+  background:#f4f7fc!important;
+  color:#182a43!important;
+}
+html[data-app-bg="light"] body:not(.drill-active) .app2-bar,
+html[data-app-bg="light"] .app2-dock{
+  box-shadow:0 4px 22px rgba(25,45,83,.08)!important;
+}
+html[data-app-bg="light"] .app2-kicker{color:#485e85!important}
+html[data-app-bg="light"] .app2-title{color:#172943!important}
+html[data-app-bg="light"] .app2-nav:not(.active){color:#536784!important}
+html[data-app-bg="light"] .app2-nav.active,
+html[data-app-bg="light"] .app-bg-picker button.active,
+html[data-app-bg="light"] .app-font-picker button.active,
+html[data-app-bg="light"] body:not(.drill-active) .btn.primary{
+  color:#fff!important;
+}
+html[data-app-bg="light"] .app2-action.install{
+  background:#d9f4e8!important;color:#155640!important;
+}
+html[data-app-bg="light"] .sheet-close{
+  background:#edf2fa!important;color:#243850!important;border-color:#cbd8ea!important;
+}
+html[data-app-bg="light"] .app-settings-title>span{
+  background:#e5ebff!important;color:#2f499d!important;
+}
+html[data-app-bg="light"] .app-settings-title small,
+html[data-app-bg="light"] .app-settings-links>button small,
+html[data-app-bg="light"] .app-settings-links>button>i{
+  color:#536784!important;
+}
+html[data-app-bg="light"] .app-settings-links>button>span{
+  color:#fff!important;
+}
+/* Ordinary surfaces always carry dark text; accent buttons carry their own white text. */
+html[data-app-bg="light"] body:not(.drill-active) :is(
+  .panel,.card,.simple-card,.hub-card,.kpi,.app-section,.app-metric,
+  .home-primary-card,.home-shortcut,.home-stats-row>span,.study-status-strip>span,
+  .study-tile,.study-link,.app-action,.app-list-row,.mastery-row,.reset-row,
+  .home-freq-card,.freq-spotlight,.app-settings-group,.global-search-sheet,
+  .update-sheet,.global-search-results,.compact-settings,.check,
+  .jp-metric,.jp-card,.jp-home-action,.jp-reading-group
+){
+  border-color:#dbe3ef!important;
+  background:linear-gradient(145deg,#fff,#f4f7fc)!important;
+  color:#182a43!important;
+  box-shadow:0 7px 22px rgba(32,59,105,.055)!important;
+}
+html[data-app-bg="light"] body:not(.drill-active) :is(
+  .panel,.card,.simple-card,.hub-card,.kpi,.app-section,
+  .home-primary-card,.home-shortcut,.study-tile,.study-link,
+  .app-action,.jp-metric,.jp-card,.jp-home-action
+) :is(h2,h3,b,strong){
+  color:#182a43!important;
+}
+html[data-app-bg="light"] body:not(.drill-active) :is(
+  .home-primary-card,.home-shortcut,.study-tile,.study-link,.app-action,
+  .jp-card,.jp-metric,.jp-home-action,.home-freq-card,.freq-spotlight
+) :is(small,.sub,.soft,.jp-card-meta, .jp-metric span){
+  color:#4d6281!important;
+}
+html[data-app-bg="light"] body:not(.drill-active) :is(
+  .home-primary-card,.study-tile,.app-action
+):nth-child(2n){
+  background:linear-gradient(145deg,#f8faff,#edf3fb)!important;
+}
+html[data-app-bg="light"] :is(.home-section-label span,.app-section-sub,.study-status-strip small,.home-stats-row small,.freq-spotlight-copy small,.home-welcome-copy ~ small){
+  color:#536784!important;
+}
+html[data-app-bg="light"] body:not(.drill-active) :is(
+  .home-freq-buttons button:not(:first-child),.hub-settings-btn,
+  .btn:not(.primary):not(.bad):not(.good),select,input[type="text"],
+  input[type="number"],input[type="search"],textarea,
+  .app-bg-picker button:not(.active),.app-font-picker button:not(.active),
+  .app-settings-links>button,.jp-filter-chip:not(.active),
+  .jp-mode-seg button:not(.active),.jp-reading-group,.jp-meta-pill
+){
+  background:#eef3fb!important;
+  border-color:#cad7e9!important;
+  color:#213753!important;
+}
+html[data-app-bg="light"] body:not(.drill-active) :is(input,select,textarea)::placeholder{
+  color:#677b95!important;
+  opacity:1;
+}
+html[data-app-bg="light"] :is(.app2-action,.app-settings-group,.app-settings-sheet){
+  color:#182a43!important;
+}
+html[data-app-bg="light"] body>#appSettingsSheet,
+html[data-app-bg="light"] body>#practiceSettingsPanel{
+  background:#fff!important;
+  color:#182a43!important;
+  border-color:#cbd8e9!important;
+}
+html[data-app-bg="light"] .app-settings-sheet .sheet-head strong,
+html[data-app-bg="light"] .app-settings-sheet .app-settings-title b,
+html[data-app-bg="light"] #practiceSettingsPanel :is(.sheet-head strong,summary){
+  color:#182a43!important;
+}
+html[data-app-bg="light"] .badge:not(.hot):not(.good){
+  color:#344763!important;
+  background:#eef3fb!important;
+  border-color:#cdd8e9!important;
+}
+html[data-app-bg="light"] .badge.hot,
+html[data-app-bg="light"] .freq-label{
+  color:#815100!important;
+  background:#fff3d9!important;
+  border-color:#efd19c!important;
+}
+html[data-app-bg="light"] .badge.good{
+  color:#086448!important;background:#e0f6ec!important;border-color:#aedfca!important;
+}
+html[data-app-bg="light"] .home-freq-buttons button:first-child{
+  background:#ffe09b!important;color:#493000!important;border-color:#e6bc64!important;
+}
+html[data-app-bg="light"] :is(.feedback.ok,.btn.good){
+  background:#e0f6ec!important;color:#086348!important;border-color:#a8d9c4!important;
+}
+html[data-app-bg="light"] :is(.feedback.no,.btn.bad){
+  background:#ffe9e8!important;color:#8b2924!important;border-color:#efb7b2!important;
+}
+/* Keep feature hero panels saturated, with white labels for real contrast. */
+html[data-app-bg="light"] body:not(.drill-active) :is(
+  .home-welcome,.home-resume,.app-hero,.jp-hero,.jp-home-hero
+){
+  color:#fff!important;
+}
+html[data-app-bg="light"] body:not(.drill-active) :is(
+  .home-welcome,.home-resume,.app-hero,.jp-hero,.jp-home-hero
+) :is(h2,h3,b,strong,span,.home-date-label,.jp-kicker){
+  color:#fff!important;
+}
+html[data-app-bg="light"] :is(.home-welcome p,.jp-hero p,.jp-home-hero p,.app-hero p){
+  color:#eaf0ff!important;
+}
+/* Avoid nearly invisible white glyphs over pastel icon gradients. */
+html[data-app-bg="light"] .home-primary-card :is(.home-primary-icon),
+html[data-app-bg="light"] .study-tile :is(.study-tile-icon),
+html[data-app-bg="light"] .home-shortcut :is(.home-shortcut-icon),
+html[data-app-bg="light"] .app-list-icon{
+  background:#e5ebff!important;
+  color:#283f96!important;
+  border-color:#c5d0ef!important;
+}
+html[data-app-bg="light"] .home-primary-card :is(.home-primary-icon) *,
+html[data-app-bg="light"] .home-shortcut-icon i{
+  color:#283f96!important;
+}
+html[data-app-bg="light"] .jp-filter-chip.active,
+html[data-app-bg="light"] .jp-mode-seg button.active{
+  background:#334aaa!important;color:#fff!important;border-color:#334aaa!important;
+}
+html[data-app-bg="light"] .jp-field>span,
+html[data-app-bg="light"] :is(.jp-card-meta,.jp-source-note,.jp-empty,.jp-memory-sub,.jp-mode-note){
+  color:#506480!important;
+}
+html[data-app-bg="light"] .jp-mode-seg,.jp-mode-note{
+  background:#eef3fb!important;border-color:#d3dfee!important;color:#304763!important;
+}
+html[data-app-bg="light"] .jp-memory-target:not(.hidden){
+  background:#f2f5fb!important;color:#152943!important;
+}
+html[data-app-bg="light"] .jp-memory-target.hidden{
+  background:#eff4fb!important;color:#526784!important;border-color:#a5b6ce!important;
+}
+html[data-app-bg="light"] .jp-card.saved{
+  border-color:#6554b6!important;box-shadow:inset 0 0 0 2px rgba(89,69,176,.14)!important;
+}
+html[data-app-bg="light"] .jp-hero .jp-set-seg button:not(.active),
+html[data-app-bg="light"] .jp-hero .jp-view-seg button:not(.active){
+  color:#eaf0ff!important;
+}
+/* The writing board is intentionally white even in dark mode. Leave its canvas,
+   ink, answer overlays and stroke rendering untouched by page-wide filters. */
+html[data-app-bg="light"] body.drill-active{
+  background:var(--drill-bg)!important;color:var(--drill-text)!important;
+}
+html[data-app-bg="light"] body.drill-active :is(
+  .drill-question-pane,.drill-typing-pane,.drill-canvas-pane,
+  .drill-session-top,.drill-char-index-sheet,.pen-toolbar,
+  .study-index,.drill-char-index-item
+){
+  color:#182a43!important;
+  border-color:var(--drill-line)!important;
+  background:var(--drill-panel)!important;
+  box-shadow:0 7px 22px rgba(25,45,90,.07)!important;
+}
+html[data-app-bg="light"] body.drill-active :is(
+  .drill-status-pill:not(.accent),.drill-top-actions .btn,
+  .drill-icon-btn,.drill-bottom-nav .btn,.drill-write-controls .btn:not(.primary),
+  .pen-tool:not(.active),.study-index-item,.drill-unknown-btn,
+  #exitDrill,#saveUnknownDrill
+){
+  background:#edf3fb!important;border-color:#cbd7e8!important;color:#243c5b!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body.drill-active :is(
+  .drill-clue,.big-hanja,.drill-question-pane .prompt,.drill-session-top b,
+  .drill-typing-inner,.drill-status-pill:not(.accent),.drill-tip
+){
+  color:#162c48!important;
+  text-shadow:none!important;
+}
+html[data-app-bg="light"] body.drill-active :is(
+  #drillAnswer,.drill-typing-pane input[type="text"]
+){
+  background:#fff!important;color:#192d49!important;
+  border:1px solid #94a9c7!important;
+}
+html[data-app-bg="light"] body.drill-active #drillAnswer::placeholder{
+  color:#647b98!important;
+}
+html[data-app-bg="light"] body.drill-active .study-index-item{
+  color:#334969!important;
+}
+html[data-app-bg="light"] body.drill-active .study-index-item span{
+  background:#dce5f4!important;color:#304766!important;
+}
+html[data-app-bg="light"] body.drill-active .study-index-item.active{
+  background:#e2eaff!important;color:#233f92!important;
+  border-color:#9aabe4!important;
+}
+html[data-app-bg="light"] body.drill-active .study-index-item.active span{
+  background:#344ba9!important;color:#fff!important;
+}
+html[data-app-bg="light"] body.drill-active .drill-status-pill.accent,
+html[data-app-bg="light"] body.drill-active .pen-tool.active,
+html[data-app-bg="light"] body.drill-active #saveUnknownDrill.saved{
+  background:#344ba9!important;color:#fff!important;border-color:#344ba9!important;
+}
+html[data-app-bg="light"] body.drill-active .drill-answer-overlay{
+  background:rgba(21,34,58,.92)!important;color:#fff3d7!important;
+}
+html[data-app-bg="light"] body.drill-active #checkDrill,
+html[data-app-bg="light"] body.drill-active #autoCheckDrill{
+  background:#ffe09b!important;border-color:#e4b969!important;color:#493000!important;
+}
+/* Calm, progressive-disclosure home. No features removed; secondary tools are folded. */
+.home-v2{grid-template-columns:minmax(0,1fr)!important;gap:10px!important;max-width:1080px;margin-inline:auto}
+.home-v2>*{grid-column:1 / -1!important;grid-row:auto!important}
+.home-v2 .home-welcome{min-height:116px;padding:16px 18px}
+.home-v2 .home-welcome h2{font-size:clamp(21px,3.4vw,30px)}
+.home-v2 .home-start-section{gap:7px}
+.home-v2 .home-primary-grid{gap:8px}
+.home-v2 .home-primary-card{min-height:91px;padding:11px;gap:7px}
+.home-v2 .home-stats-row{margin-top:0}
+.home-v2 .home-extra{
+  min-width:0;border:1px solid var(--ui-stroke-soft,#405075);
+  border-radius:17px;background:var(--ui-surface-2,#1b2843);
+  overflow:hidden;
+}
+.home-v2 .home-extra summary{
+  cursor:pointer;list-style:none;display:flex;gap:9px;align-items:center;
+  padding:14px 16px;font-size:13px;font-weight:850;
+  color:var(--ui-text,#fff);
+}
+.home-v2 .home-extra summary::-webkit-details-marker{display:none}
+.home-v2 .home-extra summary::before{content:"＋";font-size:17px;font-weight:800}
+.home-v2 .home-extra[open] summary::before{content:"－"}
+.home-v2 .home-extra summary small{
+  margin-left:auto;font-size:10px;font-weight:700;color:var(--ui-muted,#aebdde)
+}
+.home-v2 .home-extra summary:focus-visible{outline:3px solid #7b91ef;outline-offset:-3px}
+.home-v2 .home-extra-body{display:grid;gap:9px;padding:0 10px 10px}
+.home-v2 .home-extra-body :is(.home-freq-card,.home-shortcuts){grid-column:auto!important;grid-row:auto!important}
+.home-v2 .home-extra-body .home-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
+html[data-app-bg="light"] .home-v2 .home-extra{background:#fff;border-color:#d4deed}
+html[data-app-bg="light"] .home-v2 .home-extra summary{color:#1f344e}
+html[data-app-bg="light"] .home-v2 .home-extra summary small{color:#536784}
+@media(max-width:650px){
+  .home-v2 .home-primary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .home-v2 .home-primary-card{min-height:88px}
+  .home-v2 .home-welcome{min-height:110px;padding:13px 14px}
+  .home-v2 .home-extra summary{padding:12px;font-size:12px}
+}
