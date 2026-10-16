@@ -324,3 +324,14 @@ html[data-app-bg="light"] .study-index-item.active{
 html[data-app-bg="light"] .study-index-item.active span{
   background:#344ba9!important;color:#fff!important;
 }
+
+/* iPad/Fold study keyboard regressions: override legacy forced dark viewport strips. */
+html[data-app-bg="light"].is-ipad.keyboard-open,
+html[data-app-bg="light"].is-ipad.keyboard-accessory,
+html[data-app-bg="light"].is-ipad body.drill-active,
+html[data-app-bg="light"].is-ipad body.drill-active .app,
+html[data-app-bg="light"].is-ipad body.drill-active .content,
+html[data-app-bg="light"].is-ipad body.drill-active #drill,
+html[data-app-bg="light"].is-ipad.keyboard-accessory body.drill-active .app{
+  background:#f4f7fc!important;color:#182a43!important;
+}
