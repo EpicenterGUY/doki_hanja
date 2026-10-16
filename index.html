@@ -4,6 +4,21 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
 <meta name="theme-color" content="#352a72">
+<script>
+/* Apply the saved visual theme before CSS paints to prevent a dark/unstyled flash. */
+(function(){
+  try{
+    var t=localStorage.getItem("hanjaLabBackgroundV1")||"aurora";
+    if(["light","aurora","violet","ocean","mint","rose","graphite"].indexOf(t)<0)t="aurora";
+    document.documentElement.setAttribute("data-app-bg",t);
+    if(t==="light"){
+      document.documentElement.style.background="#eaf7f4";
+      var m=document.querySelector('meta[name="theme-color"]');
+      if(m)m.setAttribute("content","#eaf7f4");
+    }
+  }catch(e){}
+})();
+</script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Hanja Lab">
@@ -9361,7 +9376,7 @@ function syncAppBackdrop(){
 }
 const APP_BG_KEY="hanjaLabBackgroundV1";
 const APP_BG_LABELS={light:"라이트",aurora:"오로라",violet:"바이올렛",ocean:"오션",mint:"민트",rose:"로즈",graphite:"그래파이트"};
-const APP_BG_THEME_COLORS={light:"#f4f7fc",aurora:"#352a72",violet:"#3d276f",ocean:"#164f6d",mint:"#205b50",rose:"#6e3653",graphite:"#242b38"};
+const APP_BG_THEME_COLORS={light:"#eaf7f4",aurora:"#352a72",violet:"#3d276f",ocean:"#164f6d",mint:"#205b50",rose:"#6e3653",graphite:"#242b38"};
 let appBackgroundTheme="aurora";
 try{appBackgroundTheme=localStorage.getItem(APP_BG_KEY)||"aurora"}catch{}
 if(!APP_BG_LABELS[appBackgroundTheme])appBackgroundTheme="aurora";
