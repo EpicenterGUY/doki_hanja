@@ -4,11 +4,15 @@ on:
   push:
     paths:
       - "data/japanese/words.json"
+      - "data/japanese/rare-words-extra.json"
+      - "data/japanese/common-words-extra.json"
       - "scripts/validate_japanese_words.js"
       - ".github/workflows/validate-japanese-words.yml"
   pull_request:
     paths:
       - "data/japanese/words.json"
+      - "data/japanese/rare-words-extra.json"
+      - "data/japanese/common-words-extra.json"
       - "scripts/validate_japanese_words.js"
       - ".github/workflows/validate-japanese-words.yml"
 
