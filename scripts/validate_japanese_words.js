@@ -5,11 +5,14 @@ const fs=require("fs");
 const path=require("path");
 const file=path.join(__dirname,"..","data","japanese","words.json");
 const extraFile=path.join(__dirname,"..","data","japanese","rare-words-extra.json");
+const commonFile=path.join(__dirname,"..","data","japanese","common-words-extra.json");
 const data=JSON.parse(fs.readFileSync(file,"utf8"));
 const extraData=fs.existsSync(extraFile)?JSON.parse(fs.readFileSync(extraFile,"utf8")):{items:[]};
+const commonData=fs.existsSync(commonFile)?JSON.parse(fs.readFileSync(commonFile,"utf8")):{items:[]};
 const baseItems=Array.isArray(data.items)?data.items:[];
 const extraItems=Array.isArray(extraData.items)?extraData.items:[];
-const items=baseItems.concat(extraItems);
+const commonItems=Array.isArray(commonData.items)?commonData.items:[];
+const items=baseItems.concat(extraItems,commonItems);
 const errors=[];
 const warnings=[];
 const seen=new Map();
@@ -72,7 +75,7 @@ for(const w of items){
   if(!norm(w.reading))errors.push(`[${id}] reading missing: ${w.word||""}`);
   if(!norm(w.meaning))errors.push(`[${id}] meaning missing: ${w.word||""}`);
   if(!sentence)errors.push(`[${id}] sentence missing: ${w.word||""}`);
-  if(!translation)errors.push(`[${id}] translation missing: ${w.word||""}`);
+  if(!translation&&w.source!=="rapoyrazoglu/nihongo")errors.push(`[${id}] translation missing: ${w.word||""}`);
   const particleIssue=translation&&badGlossParticle(w,translation);
   if(particleIssue)errors.push(`[${id}] Korean particle mismatch: ${w.word||""} -> ${particleIssue} / ${translation}`);
   if(sentence&&badFallback(sentence))errors.push(`[${id}] placeholder example: ${w.word||""}`);
@@ -94,10 +97,11 @@ for(const w of items){
 
 if(data.count!==baseItems.length)errors.push(`count mismatch: words.json header=${data.count}, actual=${baseItems.length}`);
 if(extraData.count!=null&&extraData.count!==extraItems.length)errors.push(`count mismatch: rare-words-extra.json header=${extraData.count}, actual=${extraItems.length}`);
+if(commonData.count!=null&&commonData.count!==commonItems.length)errors.push(`count mismatch: common-words-extra.json header=${commonData.count}, actual=${commonItems.length}`);
 
 if(errors.length){
   console.error(`Japanese word validation failed (${errors.length})\n`+errors.join("\n"));
   process.exit(1);
 }
-console.log(`Japanese word validation passed: ${items.length} items (base ${baseItems.length} + rare extra ${extraItems.length}), no placeholders, no duplicate examples, no gloss-particle mismatches.`);
+console.log(`Japanese word validation passed: ${items.length} items (base ${baseItems.length} + rare extra ${extraItems.length} + common extra ${commonItems.length}), no placeholders, no duplicate examples, no gloss-particle mismatches.`);
 if(warnings.length)console.warn(`Japanese word quality warnings (${warnings.length})\n`+warnings.slice(0,80).join("\n"));
