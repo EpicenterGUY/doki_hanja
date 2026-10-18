@@ -12,9 +12,9 @@
     if(["light","aurora","violet","ocean","mint","rose","graphite"].indexOf(t)<0)t="aurora";
     document.documentElement.setAttribute("data-app-bg",t);
     if(t==="light"){
-      document.documentElement.style.background="#f3fbf9";
+      document.documentElement.style.background="#f5faf9";
       var m=document.querySelector('meta[name="theme-color"]');
-      if(m)m.setAttribute("content","#f3fbf9");
+      if(m)m.setAttribute("content","#f5faf9");
     }
   }catch(e){}
 })();
@@ -8309,7 +8309,7 @@ html[data-app-bg] body.drill-active .drill-answer-overlay{
 }
 
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.50.7">
+<link rel="stylesheet" href="./japanese.css?v=2.51.0">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -8319,7 +8319,7 @@ html[data-app-bg] body.drill-active .drill-answer-overlay{
   }
 }
 </style>
-<link rel="stylesheet" href="./light-theme.css?v=2.50.7">
+<link rel="stylesheet" href="./light-theme.css?v=2.51.0">
 </head>
 <body>
 <div class="app">
@@ -9376,7 +9376,7 @@ function syncAppBackdrop(){
 }
 const APP_BG_KEY="hanjaLabBackgroundV1";
 const APP_BG_LABELS={light:"라이트",aurora:"오로라",violet:"바이올렛",ocean:"오션",mint:"민트",rose:"로즈",graphite:"그래파이트"};
-const APP_BG_THEME_COLORS={light:"#f3fbf9",aurora:"#352a72",violet:"#3d276f",ocean:"#164f6d",mint:"#205b50",rose:"#6e3653",graphite:"#242b38"};
+const APP_BG_THEME_COLORS={light:"#f5faf9",aurora:"#352a72",violet:"#3d276f",ocean:"#164f6d",mint:"#205b50",rose:"#6e3653",graphite:"#242b38"};
 let appBackgroundTheme="aurora";
 try{appBackgroundTheme=localStorage.getItem(APP_BG_KEY)||"aurora"}catch{}
 if(!APP_BG_LABELS[appBackgroundTheme])appBackgroundTheme="aurora";
@@ -13278,7 +13278,7 @@ function syncDrillThemeColor(active){
   const meta=document.querySelector('meta[name="theme-color"]');
   if(!meta)return;
   const darkByTheme={
-    light:"#f3fbf9",
+    light:"#f5faf9",
     aurora:"#10162a",
     violet:"#151022",
     ocean:"#081820",
