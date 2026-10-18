@@ -2159,3 +2159,24 @@ html[data-app-bg="light"] body::before,
 html[data-app-bg="light"] body::after{
   background-color:#f5faf9!important;
 }
+
+/* 2.51.1 TEAL-ONLY INTERACTION CLEANUP */
+html[data-app-bg="light"] :is(.badge.hot,.freq-label){
+  background:#e7f5f2!important;
+  background-image:none!important;
+  border-color:#bdded9!important;
+  color:#075f5b!important;
+}
+html[data-app-bg="light"] .home-freq-buttons button:first-child,
+html[data-app-bg="light"] body.drill-active :is(#checkDrill,#autoCheckDrill){
+  background:#0b8b82!important;
+  background-image:none!important;
+  border-color:#0b8b82!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] #jp .jp-home-action.reading .jp-action-glyph{
+  font-size:20px!important;
+  transform:none!important;
+}
