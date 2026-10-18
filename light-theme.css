@@ -1518,3 +1518,240 @@ html[data-app-bg="light"] hr{
 html[data-app-bg="light"] body::after{
  background:#f3fbf9!important;
 }
+
+/* 2.50.6 LIGHT TEAL DEVICE SWEEP
+   Final light-theme pass for Samsung/Fold screenshots:
+   remove remaining navy/indigo states from the learning index, Japanese hub,
+   progress UI and atlas glyph ink. */
+html[data-app-bg="light"]{
+  --bg:#f3fbf9!important;
+  --panel:#ffffff!important;
+  --panel2:#f7fcfb!important;
+  --line:#c8e3df!important;
+  --text:#183735!important;
+  --muted:#55716f!important;
+  --accent:#0b8b82!important;
+  --info:#0b9187!important;
+  --chip:#eef8f6!important;
+  --ui-accent-blue:#087d76!important;
+  --light-blue:#087d76!important;
+  --jp-ink:#183735!important;
+  --jp-muted:#55716f!important;
+  --jp-line:#c8e3df!important;
+}
+html[data-app-bg="light"] body :is(
+  .app2-title,.app2-kicker,.app-section-title,.home-section-title,
+  .home-primary-card b,.home-shortcut b,.study-tile b,.study-link b,
+  .jp-hero h2,.jp-home-status>div:first-child b,.jp-home-action b,
+  .jp-home-progress-head b,.jp-home-progress-grid b,.jp-home-grade-grid b
+){
+  color:#183735!important;
+  -webkit-text-fill-color:#183735!important;
+}
+html[data-app-bg="light"] body :is(
+  .app-section-sub,.home-primary-card small,.home-shortcut small,
+  .study-tile small,.study-link small,.jp-hero p,
+  .jp-home-status>div:first-child span,.jp-home-status>div:first-child small,
+  .jp-home-action small,.jp-home-progress-head span,
+  .jp-home-progress-grid span,.jp-home-progress-card>small
+){
+  color:#55716f!important;
+  -webkit-text-fill-color:#55716f!important;
+}
+
+/* Learning index: selected state and icon must be teal, never cobalt. */
+html[data-app-bg="light"] body .study-index{
+  background:#ffffff!important;
+  background-image:none!important;
+  border-color:#c8e3df!important;
+  box-shadow:0 5px 16px rgba(8,125,118,.055)!important;
+}
+html[data-app-bg="light"] body .study-index-item{
+  background:#f7fcfb!important;
+  background-image:none!important;
+  color:#355b57!important;
+  border-color:#cbdedb!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body .study-index-item span{
+  background:#e3f3f0!important;
+  background-image:none!important;
+  color:#08736d!important;
+  -webkit-text-fill-color:#08736d!important;
+  border-color:#c4e2dd!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body .study-index-item.active,
+html[data-app-bg="light"] body.drill-active .study-index-item.active{
+  background:#0b8b82!important;
+  background-image:none!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  border-color:#0b8b82!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body .study-index-item.active :is(b,small),
+html[data-app-bg="light"] body.drill-active .study-index-item.active :is(b,small){
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+}
+html[data-app-bg="light"] body .study-index-item.active span,
+html[data-app-bg="light"] body.drill-active .study-index-item.active span{
+  background:rgba(255,255,255,.16)!important;
+  background-image:none!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  border-color:rgba(255,255,255,.18)!important;
+}
+
+/* Japanese top collection selector. */
+html[data-app-bg="light"] body #jp .jp-set-seg,
+html[data-app-bg="light"] body #jp .jp-view-seg{
+  background:#f5fbfa!important;
+  background-image:none!important;
+  border-color:#c5e1dc!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body #jp .jp-set-seg button:not(.active),
+html[data-app-bg="light"] body #jp .jp-view-seg button:not(.active){
+  background:#eef8f6!important;
+  background-image:none!important;
+  color:#315b57!important;
+  -webkit-text-fill-color:#315b57!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body #jp .jp-set-seg button.active,
+html[data-app-bg="light"] body #jp .jp-view-seg button.active{
+  background:#0b8b82!important;
+  background-image:none!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  border-color:#0b8b82!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body #jp .jp-set-seg button.active small,
+html[data-app-bg="light"] body #jp .jp-view-seg button.active small{
+  color:rgba(255,255,255,.84)!important;
+  -webkit-text-fill-color:rgba(255,255,255,.84)!important;
+}
+
+/* Japanese hub surfaces and the accuracy ring. */
+html[data-app-bg="light"] body #jp .jp-home-status{
+  background:#f3faf8!important;
+  background-image:none!important;
+  border-color:#c5e1dc!important;
+  box-shadow:0 7px 20px rgba(8,125,118,.065)!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-ring{
+  background:
+    radial-gradient(circle at 50% 50%,#ffffff 54%,transparent 55%),
+    conic-gradient(#0b9187 var(--jp-ring,0%),#dbeeea 0)!important;
+  border-color:#b9ddd7!important;
+  box-shadow:0 9px 22px rgba(8,125,118,.09)!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-ring b{
+  color:#183735!important;
+  -webkit-text-fill-color:#183735!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-ring span{
+  color:#55716f!important;
+  -webkit-text-fill-color:#55716f!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-action{
+  background:#ffffff!important;
+  background-image:none!important;
+  color:#183735!important;
+  border-color:#c9e3df!important;
+  box-shadow:0 5px 15px rgba(8,125,118,.045)!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-action:nth-child(even){
+  background:#f4fbf9!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-action i{
+  color:#6c9d98!important;
+}
+html[data-app-bg="light"] body #jp .jp-action-glyph,
+html[data-app-bg="light"] body #jp .jp-home-action.word .jp-action-glyph,
+html[data-app-bg="light"] body #jp .jp-home-action.reading-quiz .jp-action-glyph,
+html[data-app-bg="light"] body #jp .jp-home-action.atlas .jp-action-glyph,
+html[data-app-bg="light"] body #jp .jp-home-action.saved .jp-action-glyph{
+  background:#dff2ef!important;
+  background-image:none!important;
+  color:#08736d!important;
+  -webkit-text-fill-color:#08736d!important;
+  border:1px solid #b9ded9!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-progress-card{
+  background:#f5fbfa!important;
+  background-image:none!important;
+  border-color:#c5e1dc!important;
+  box-shadow:0 6px 18px rgba(8,125,118,.055)!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-progress-head button{
+  background:#e4f3f0!important;
+  background-image:none!important;
+  color:#075f5b!important;
+  -webkit-text-fill-color:#075f5b!important;
+  border-color:#b9ddd7!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-progress-grid>div{
+  background:#ffffff!important;
+  background-image:none!important;
+  border-color:#d1e7e3!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-progress-bar{
+  background:#dcefeb!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-progress-bar i{
+  background:#0b9187!important;
+  background-image:none!important;
+}
+html[data-app-bg="light"] body #jp .jp-home-grade-grid button{
+  background:#ffffff!important;
+  background-image:none!important;
+  color:#274d49!important;
+  -webkit-text-fill-color:#274d49!important;
+  border-color:#c8e3df!important;
+  box-shadow:none!important;
+}
+
+/* Remove the deliberate indigo ink left in 2.50.5; use dark neutral teal ink. */
+html[data-app-bg="light"] body :is(
+  .atlas-hanja,.atlas-table .hanja-cell,.atlas-compact-hanja,.atlas-detail-glyph,
+  .atlas-freq-word,.atlas-study-main>b,.atlas-study-main:not(.text-prompt)>b,
+  .atlas-relation-words b,.atlas-relation-compound b,.atlas-formation-card .glyph,
+  .atlas-compare-glyph,.atlas-sound-chars button,.atlas-pdf-char strong,
+  .atlas-pdf-base strong,.atlas-phono-equation>span b,.atlas-memory-term,
+  .atlas-memory-answer.hanja-answer,.atlas-hanmun-full-passage,
+  .jp-atlas-big,.jp-atlas-card .char,#jp .jp-card-char
+){
+  color:#1b403d!important;
+  -webkit-text-fill-color:#1b403d!important;
+  text-shadow:none!important;
+}
+
+/* Bottom dock + safe-area environment stays white/mint. */
+html[data-app-bg="light"] body .app2-dock{
+  background:rgba(255,255,255,.98)!important;
+  background-image:none!important;
+  border-color:#c5e1dc!important;
+  box-shadow:0 -7px 24px rgba(8,125,118,.085)!important;
+}
+html[data-app-bg="light"] body .app2-nav:not(.active){
+  color:#496b68!important;
+  -webkit-text-fill-color:#496b68!important;
+}
+html[data-app-bg="light"] body .app2-nav.active{
+  background:#0b8b82!important;
+  background-image:none!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body::after{
+  background:#f3fbf9!important;
+  background-image:none!important;
+}
