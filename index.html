@@ -8309,7 +8309,7 @@ html[data-app-bg] body.drill-active .drill-answer-overlay{
 }
 
 </style>
-<link rel="stylesheet" href="./japanese.css?v=2.49.0">
+<link rel="stylesheet" href="./japanese.css?v=2.50.7">
 
 <style id="phone-portrait-decoration-fix">
 @media(max-width:600px) and (orientation:portrait){
@@ -8319,7 +8319,7 @@ html[data-app-bg] body.drill-active .drill-answer-overlay{
   }
 }
 </style>
-<link rel="stylesheet" href="./light-theme.css?v=2.50.6">
+<link rel="stylesheet" href="./light-theme.css?v=2.50.7">
 </head>
 <body>
 <div class="app">
@@ -9376,7 +9376,7 @@ function syncAppBackdrop(){
 }
 const APP_BG_KEY="hanjaLabBackgroundV1";
 const APP_BG_LABELS={light:"라이트",aurora:"오로라",violet:"바이올렛",ocean:"오션",mint:"민트",rose:"로즈",graphite:"그래파이트"};
-const APP_BG_THEME_COLORS={light:"#eaf7f4",aurora:"#352a72",violet:"#3d276f",ocean:"#164f6d",mint:"#205b50",rose:"#6e3653",graphite:"#242b38"};
+const APP_BG_THEME_COLORS={light:"#f3fbf9",aurora:"#352a72",violet:"#3d276f",ocean:"#164f6d",mint:"#205b50",rose:"#6e3653",graphite:"#242b38"};
 let appBackgroundTheme="aurora";
 try{appBackgroundTheme=localStorage.getItem(APP_BG_KEY)||"aurora"}catch{}
 if(!APP_BG_LABELS[appBackgroundTheme])appBackgroundTheme="aurora";
@@ -13278,7 +13278,7 @@ function syncDrillThemeColor(active){
   const meta=document.querySelector('meta[name="theme-color"]');
   if(!meta)return;
   const darkByTheme={
-    light:"#f4f7fc",
+    light:"#f3fbf9",
     aurora:"#10162a",
     violet:"#151022",
     ocean:"#081820",
