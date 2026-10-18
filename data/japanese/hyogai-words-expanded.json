@@ -1,0 +1,3317 @@
+{
+  "version": "2026-10-19",
+  "count": 163,
+  "purpose": "Hyogai / non-Joyo vocabulary expansion for Japanese word-writing. Includes nouns, verbs, adjectives, adverbs and other kanji-containing forms; every item contains at least one true non-Joyo CJK character.",
+  "source": {
+    "vocabulary": "JMdict entries redistributed through JIHUNJO123/jlpt-vocab-n1",
+    "license": "CC BY-SA 4.0",
+    "koreanGloss": "Hanja Lab normalized Korean gloss",
+    "examples": "Where available, examples are attached only from separately reviewed project data; entries without examples use a reading+meaning writing prompt."
+  },
+  "scopeCounts": {
+    "practical": 53,
+    "rare": 110
+  },
+  "partOfSpeechCounts": {
+    "명사": 68,
+    "동사": 75,
+    "い형용사": 11,
+    "부사": 3,
+    "な형용사": 5,
+    "연체수식": 1
+  },
+  "items": [
+    {
+      "id": "hx-0001",
+      "word": "終焉",
+      "reading": "しゅうえん",
+      "meaning": "종언·끝·최후",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "焉"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0002",
+      "word": "曙",
+      "reading": "あけぼの",
+      "meaning": "새벽·여명",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "曙"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0003",
+      "word": "渚",
+      "reading": "なぎさ",
+      "meaning": "물가·바닷가",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "渚"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true,
+      "sentence": "夕暮れの渚を、二人はゆっくりと歩いていった。",
+      "translation": "해 질 녘 바닷가를 두 사람은 천천히 걸어갔다.",
+      "exampleSource": "YuYeongHwan/JLPT"
+    },
+    {
+      "id": "hx-0004",
+      "word": "蝕む",
+      "reading": "むしばむ",
+      "meaning": "좀먹다·서서히 해치다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5m",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "蝕"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0005",
+      "word": "厨房",
+      "reading": "ちゅうぼう",
+      "meaning": "주방",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "厨"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0006",
+      "word": "推敲",
+      "reading": "すいこう",
+      "meaning": "퇴고·문장을 다듬음",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "敲"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0007",
+      "word": "瑞々しい",
+      "reading": "みずみずしい",
+      "meaning": "싱싱하다·생기 넘치다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "瑞"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0008",
+      "word": "脆い",
+      "reading": "もろい",
+      "meaning": "무르다·부서지기 쉽다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "脆"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true,
+      "sentence": "この建物は地震に対して脆い。",
+      "exampleSource": "rapoyrazoglu/nihongo"
+    },
+    {
+      "id": "hx-0009",
+      "word": "煽る",
+      "reading": "あおる",
+      "meaning": "부채질하다·부추기다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "煽"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0010",
+      "word": "銑鉄",
+      "reading": "せんてつ",
+      "meaning": "선철",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "銑"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0011",
+      "word": "閃く",
+      "reading": "ひらめく",
+      "meaning": "번뜩이다·번쩍이다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5k",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "閃"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0012",
+      "word": "前哨戦",
+      "reading": "ぜんしょうせん",
+      "meaning": "전초전",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "哨"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0013",
+      "word": "惣菜",
+      "reading": "そうざい",
+      "meaning": "반찬·조리식품",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "惣"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0014",
+      "word": "掻く",
+      "reading": "かく",
+      "meaning": "긁다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5k",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "掻"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0015",
+      "word": "槍",
+      "reading": "やり",
+      "meaning": "창",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "槍"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0016",
+      "word": "漕ぐ",
+      "reading": "こぐ",
+      "meaning": "노를 젓다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5g",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "漕"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0017",
+      "word": "相槌",
+      "reading": "あいづち",
+      "meaning": "맞장구",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "槌"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0018",
+      "word": "揃う",
+      "reading": "そろう",
+      "meaning": "갖추어지다·모두 모이다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5u",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "揃"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0019",
+      "word": "揃える",
+      "reading": "そろえる",
+      "meaning": "갖추다·가지런히 하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "揃"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0020",
+      "word": "対峙",
+      "reading": "たいじ",
+      "meaning": "대치·맞섬",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "峙"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0021",
+      "word": "大晦日",
+      "reading": "おおみそか",
+      "meaning": "섣달그믐·12월 31일",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "晦"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0022",
+      "word": "茸",
+      "reading": "きのこ",
+      "meaning": "버섯",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "茸"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0023",
+      "word": "叩く",
+      "reading": "たたく",
+      "meaning": "두드리다·치다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5k",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "叩"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0024",
+      "word": "耽る",
+      "reading": "ふける",
+      "meaning": "몰두하다·빠지다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "耽"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0025",
+      "word": "団栗",
+      "reading": "どんぐり",
+      "meaning": "도토리",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "栗"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0026",
+      "word": "弛む",
+      "reading": "たるむ",
+      "meaning": "느슨해지다·처지다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5m",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "弛"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0027",
+      "word": "辻",
+      "reading": "つじ",
+      "meaning": "사거리·길모퉁이",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "辻"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0028",
+      "word": "綴じる",
+      "reading": "とじる",
+      "meaning": "철하다·묶다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "綴"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0029",
+      "word": "綴る",
+      "reading": "つづる",
+      "meaning": "철자를 쓰다·글을 엮다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "綴"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0030",
+      "word": "壺",
+      "reading": "つぼ",
+      "meaning": "항아리·단지",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "壺"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0031",
+      "word": "爪楊枝",
+      "reading": "つまようじ",
+      "meaning": "이쑤시개",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "楊"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0032",
+      "word": "吊るす",
+      "reading": "つるす",
+      "meaning": "매달다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5s",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "吊"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0033",
+      "word": "纏める",
+      "reading": "まとめる",
+      "meaning": "정리하다·모으다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "纏"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0034",
+      "word": "投函",
+      "reading": "とうかん",
+      "meaning": "우편함에 넣음·투함",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "函"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0035",
+      "word": "同棲",
+      "reading": "どうせい",
+      "meaning": "동거",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "棲"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0036",
+      "word": "馴れ馴れしい",
+      "reading": "なれなれしい",
+      "meaning": "지나치게 친한 척하다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "馴"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0037",
+      "word": "馴染む",
+      "reading": "なじむ",
+      "meaning": "익숙해지다·친숙해지다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5m",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "馴"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0038",
+      "word": "賑わう",
+      "reading": "にぎわう",
+      "meaning": "붐비다·활기를 띠다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5u",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "賑"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0039",
+      "word": "濡らす",
+      "reading": "ぬらす",
+      "meaning": "적시다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5s",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "濡"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0040",
+      "word": "濡れる",
+      "reading": "ぬれる",
+      "meaning": "젖다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "濡"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0041",
+      "word": "廃墟",
+      "reading": "はいきょ",
+      "meaning": "폐허",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "墟"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0042",
+      "word": "這う",
+      "reading": "はう",
+      "meaning": "기다·기어가다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5u",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "這"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0043",
+      "word": "白樺",
+      "reading": "しらかば",
+      "meaning": "자작나무",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "樺"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0044",
+      "word": "庇う",
+      "reading": "かばう",
+      "meaning": "감싸다·두둔하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5u",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "庇"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0045",
+      "word": "秘訣",
+      "reading": "ひけつ",
+      "meaning": "비결",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "訣"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0046",
+      "word": "復讐",
+      "reading": "ふくしゅう",
+      "meaning": "복수",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "讐"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0047",
+      "word": "淵",
+      "reading": "ふち",
+      "meaning": "깊은 못·심연",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "淵"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0048",
+      "word": "僻む",
+      "reading": "ひがむ",
+      "meaning": "비뚤게 받아들이다·피해의식을 갖다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5m",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "僻"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0049",
+      "word": "箆",
+      "reading": "へら",
+      "meaning": "주걱·헤라",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "箆"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0050",
+      "word": "呆気",
+      "reading": "あっけ",
+      "meaning": "어이없음·망연함",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "呆"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0051",
+      "word": "捧げる",
+      "reading": "ささげる",
+      "meaning": "바치다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "捧"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0052",
+      "word": "殆ど",
+      "reading": "ほとんど",
+      "meaning": "거의",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "부사",
+      "posCode": "adverb",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "殆"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0053",
+      "word": "麻雀",
+      "reading": "マージャン",
+      "meaning": "마작",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "雀"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0054",
+      "word": "味噌汁",
+      "reading": "みそしる",
+      "meaning": "된장국·미소시루",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "噌"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0055",
+      "word": "儲かる",
+      "reading": "もうかる",
+      "meaning": "이익이 나다·돈벌이가 되다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "儲"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true,
+      "sentence": "この商売はよく儲かる。",
+      "translation": "이 장사는 벌이가 좋다.",
+      "exampleSource": "boring-km/jlpt-study-app"
+    },
+    {
+      "id": "hx-0056",
+      "word": "儲ける",
+      "reading": "もうける",
+      "meaning": "벌다·이익을 얻다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "儲"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0057",
+      "word": "黙祷",
+      "reading": "もくとう",
+      "meaning": "묵도·묵념",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "祷"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0058",
+      "word": "尤もらしい",
+      "reading": "もっともらしい",
+      "meaning": "그럴듯하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "尤"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0059",
+      "word": "貰う",
+      "reading": "もらう",
+      "meaning": "받다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5u",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "貰"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0060",
+      "word": "宥める",
+      "reading": "なだめる",
+      "meaning": "달래다·진정시키다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "宥"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0061",
+      "word": "遥か",
+      "reading": "はるか",
+      "meaning": "아득히 멀다·훨씬",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "な형용사",
+      "posCode": "adj-na",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "遥"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true,
+      "sentence": "飛行機の窓から、遥か下に小さな町並みが見えた。",
+      "translation": "비행기 창문으로 아득히 아래에 작은 거리가 보였다.",
+      "exampleSource": "YuYeongHwan/JLPT"
+    },
+    {
+      "id": "hx-0062",
+      "word": "流暢",
+      "reading": "りゅうちょう",
+      "meaning": "유창하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "な형용사",
+      "posCode": "adj-na",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "暢"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0063",
+      "word": "溜める",
+      "reading": "ためる",
+      "meaning": "모으다·쌓아두다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "溜"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0064",
+      "word": "溜まる",
+      "reading": "たまる",
+      "meaning": "쌓이다·모이다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "溜"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0065",
+      "word": "凌ぐ",
+      "reading": "しのぐ",
+      "meaning": "견디다·능가하다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5g",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "凌"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true,
+      "sentence": "この新人の実力は、すでにベテランを凌ぐほどだ。",
+      "translation": "이 신인의 실력은 이미 베테랑을 능가할 정도다.",
+      "exampleSource": "YuYeongHwan/JLPT"
+    },
+    {
+      "id": "hx-0066",
+      "word": "鱗",
+      "reading": "うろこ",
+      "meaning": "비늘",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "鱗"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0067",
+      "word": "漏洩",
+      "reading": "ろうえい",
+      "meaning": "누설·유출",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "洩"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0068",
+      "word": "狼",
+      "reading": "おおかみ",
+      "meaning": "늑대",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "狼"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0069",
+      "word": "詫び",
+      "reading": "わび",
+      "meaning": "사과·사죄",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "詫"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true,
+      "sentence": "迷惑をかけた近所の家に、お詫びの品を持って伺った。",
+      "translation": "폐를 끼친 이웃집에 사과의 선물을 들고 찾아갔다.",
+      "exampleSource": "YuYeongHwan/JLPT"
+    },
+    {
+      "id": "hx-0070",
+      "word": "仄めかす",
+      "reading": "ほのめかす",
+      "meaning": "넌지시 암시하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5s",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "仄"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0071",
+      "word": "佇む",
+      "reading": "たたずむ",
+      "meaning": "잠시 서 있다·멈춰 서다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5m",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "佇"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0072",
+      "word": "俯く",
+      "reading": "うつむく",
+      "meaning": "고개를 숙이다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5k",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "俯"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0073",
+      "word": "凭れる",
+      "reading": "もたれる",
+      "meaning": "기대다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "凭"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0074",
+      "word": "咎める",
+      "reading": "とがめる",
+      "meaning": "나무라다·책망하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "咎"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0075",
+      "word": "咄嗟に",
+      "reading": "とっさに",
+      "meaning": "순간적으로·즉시",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "부사",
+      "posCode": "adverb",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "咄",
+        "嗟"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0076",
+      "word": "夥しい",
+      "reading": "おびただしい",
+      "meaning": "엄청나게 많다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "夥"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0077",
+      "word": "奢る",
+      "reading": "おごる",
+      "meaning": "한턱내다·사주다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "奢"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0078",
+      "word": "嵌める",
+      "reading": "はめる",
+      "meaning": "끼우다·빠뜨리다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "嵌"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0079",
+      "word": "彗星",
+      "reading": "すいせい",
+      "meaning": "혜성",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "彗"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0080",
+      "word": "彷徨う",
+      "reading": "さまよう",
+      "meaning": "헤매다·방황하다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5u",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "彷",
+        "徨"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0081",
+      "word": "拵える",
+      "reading": "こしらえる",
+      "meaning": "만들다·마련하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "拵"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0082",
+      "word": "揉める",
+      "reading": "もめる",
+      "meaning": "다투다·분쟁이 생기다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "揉"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0083",
+      "word": "旁",
+      "reading": "つくり",
+      "meaning": "한자의 오른쪽 구성요소",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "旁"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0084",
+      "word": "暈す",
+      "reading": "ぼかす",
+      "meaning": "흐리게 하다·블러 처리하다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5s",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "暈"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0085",
+      "word": "洒落る",
+      "reading": "しゃれる",
+      "meaning": "멋을 부리다·세련되다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "洒"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0086",
+      "word": "滲む",
+      "reading": "にじむ",
+      "meaning": "번지다·배어 나오다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5m",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "滲"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0087",
+      "word": "炒める",
+      "reading": "いためる",
+      "meaning": "볶다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "炒"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0088",
+      "word": "炸裂",
+      "reading": "さくれつ",
+      "meaning": "작렬·폭발",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "炸"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0089",
+      "word": "爬虫類",
+      "reading": "はちゅうるい",
+      "meaning": "파충류",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "爬"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0090",
+      "word": "狡い",
+      "reading": "ずるい",
+      "meaning": "교활하다·약삭빠르다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "狡"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0091",
+      "word": "痒い",
+      "reading": "かゆい",
+      "meaning": "가렵다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "痒"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true,
+      "sentence": "蚊に刺されて痒い。",
+      "exampleSource": "rapoyrazoglu/nihongo"
+    },
+    {
+      "id": "hx-0092",
+      "word": "痺れる",
+      "reading": "しびれる",
+      "meaning": "저리다·마비되다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "痺"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0093",
+      "word": "眩しい",
+      "reading": "まぶしい",
+      "meaning": "눈부시다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "眩"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true,
+      "sentence": "太陽が眩しいです。",
+      "exampleSource": "rapoyrazoglu/nihongo"
+    },
+    {
+      "id": "hx-0094",
+      "word": "筐体",
+      "reading": "きょうたい",
+      "meaning": "기기 케이스·하우징",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "筐"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0095",
+      "word": "籤",
+      "reading": "くじ",
+      "meaning": "제비·추첨",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "籤"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0096",
+      "word": "絆",
+      "reading": "きずな",
+      "meaning": "유대·인연",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "絆"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0097",
+      "word": "罠",
+      "reading": "わな",
+      "meaning": "덫·함정",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "罠"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0098",
+      "word": "聳える",
+      "reading": "そびえる",
+      "meaning": "우뚝 솟다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "聳"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0099",
+      "word": "舐める",
+      "reading": "なめる",
+      "meaning": "핥다·얕보다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "舐"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0100",
+      "word": "茹でる",
+      "reading": "ゆでる",
+      "meaning": "삶다·데치다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "茹"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0101",
+      "word": "褪せる",
+      "reading": "あせる",
+      "meaning": "색이 바래다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "褪"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0102",
+      "word": "訛り",
+      "reading": "なまり",
+      "meaning": "사투리 억양·방언",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "訛"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0103",
+      "word": "貶す",
+      "reading": "けなす",
+      "meaning": "헐뜯다·깎아내리다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5s",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "貶"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0104",
+      "word": "贔屓",
+      "reading": "ひいき",
+      "meaning": "편애·특별히 봐줌",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "贔",
+        "屓"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0105",
+      "word": "躊躇う",
+      "reading": "ためらう",
+      "meaning": "주저하다·망설이다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5u",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "躊",
+        "躇"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0106",
+      "word": "逞しい",
+      "reading": "たくましい",
+      "meaning": "씩씩하다·건장하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "逞"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true,
+      "sentence": "逞しい体つきをしている。",
+      "exampleSource": "rapoyrazoglu/nihongo"
+    },
+    {
+      "id": "hx-0107",
+      "word": "鍼灸",
+      "reading": "しんきゅう",
+      "meaning": "침구·침과 뜸 치료",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "鍼",
+        "灸"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0108",
+      "word": "笑窪",
+      "reading": "えくぼ",
+      "meaning": "보조개",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "窪"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0109",
+      "word": "頷く",
+      "reading": "うなずく",
+      "meaning": "고개를 끄덕이다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5k",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "頷"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0110",
+      "word": "騙す",
+      "reading": "だます",
+      "meaning": "속이다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5s",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "騙"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0111",
+      "word": "靡く",
+      "reading": "なびく",
+      "meaning": "나부끼다·마음이 기울다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5k",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "靡"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0112",
+      "word": "凧",
+      "reading": "たこ",
+      "meaning": "연",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "凧"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0113",
+      "word": "柏",
+      "reading": "かしわ",
+      "meaning": "떡갈나무·가시와나무",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "柏"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0114",
+      "word": "螺子",
+      "reading": "ネジ",
+      "meaning": "나사",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "螺"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0115",
+      "word": "螺旋",
+      "reading": "らせん",
+      "meaning": "나선·나선형",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "螺"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0116",
+      "word": "歪む",
+      "reading": "ゆがむ",
+      "meaning": "일그러지다·뒤틀리다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5m",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "歪"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0117",
+      "word": "痣",
+      "reading": "あざ",
+      "meaning": "멍·반점",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "痣"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0118",
+      "word": "阿呆",
+      "reading": "アホ",
+      "meaning": "바보",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "阿",
+        "呆"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0119",
+      "word": "閏年",
+      "reading": "うるうどし",
+      "meaning": "윤년",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "閏"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0120",
+      "word": "お神輿",
+      "reading": "おみこし",
+      "meaning": "미코시·축제용 신여",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "輿"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0121",
+      "word": "祈祷",
+      "reading": "きとう",
+      "meaning": "기도·기원",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "祷"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0122",
+      "word": "綺麗",
+      "reading": "きれい",
+      "meaning": "아름답다·깨끗하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "な형용사",
+      "posCode": "adj-na",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "綺"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0123",
+      "word": "浚う",
+      "reading": "さらう",
+      "meaning": "준설하다·퍼내다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5u",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "浚"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0124",
+      "word": "晒す",
+      "reading": "さらす",
+      "meaning": "드러내다·노출하다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5s",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "晒"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0125",
+      "word": "蝶々",
+      "reading": "ちょうちょう",
+      "meaning": "나비",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "蝶"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0126",
+      "word": "綴り",
+      "reading": "つづり",
+      "meaning": "철자·표기",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "綴"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0127",
+      "word": "梳かす",
+      "reading": "とかす",
+      "meaning": "빗질하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5s",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "梳"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0128",
+      "word": "儚い",
+      "reading": "はかない",
+      "meaning": "덧없다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "儚"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true,
+      "sentence": "人生は儚い。",
+      "exampleSource": "rapoyrazoglu/nihongo"
+    },
+    {
+      "id": "hx-0129",
+      "word": "嵌まる",
+      "reading": "はまる",
+      "meaning": "꼭 맞다·빠지다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "嵌"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0130",
+      "word": "ばら撒く",
+      "reading": "ばらまく",
+      "meaning": "흩뿌리다·퍼뜨리다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5k",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "撒"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0131",
+      "word": "僻み",
+      "reading": "ひがみ",
+      "meaning": "비뚤어진 생각·피해의식",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "僻"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0132",
+      "word": "萌芽",
+      "reading": "ほうが",
+      "meaning": "맹아·싹틈",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "萌"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0133",
+      "word": "仄か",
+      "reading": "ほのか",
+      "meaning": "희미하다·어렴풋하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "な형용사",
+      "posCode": "adj-na",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "仄"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0134",
+      "word": "跨る",
+      "reading": "またがる",
+      "meaning": "걸터앉다·걸치다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "跨"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0135",
+      "word": "巫女",
+      "reading": "みこ",
+      "meaning": "신사 무녀",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "巫"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0136",
+      "word": "儲け",
+      "reading": "もうけ",
+      "meaning": "이익·벌이",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "儲"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0137",
+      "word": "勿体ない",
+      "reading": "もったいない",
+      "meaning": "아깝다·낭비다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "勿"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0138",
+      "word": "詫びる",
+      "reading": "わびる",
+      "meaning": "사과하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "詫"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0139",
+      "word": "閊える",
+      "reading": "つかえる",
+      "meaning": "막히다·걸리다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "閊"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0140",
+      "word": "謳う",
+      "reading": "うたう",
+      "meaning": "내세우다·찬양하다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5u",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "謳"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0141",
+      "word": "罹る",
+      "reading": "かかる",
+      "meaning": "병에 걸리다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "罹"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0142",
+      "word": "縋る",
+      "reading": "すがる",
+      "meaning": "매달리다·의지하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "縋"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0143",
+      "word": "蕎麦屋",
+      "reading": "そばや",
+      "meaning": "소바집",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "蕎"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0144",
+      "word": "橙色",
+      "reading": "だいだいいろ",
+      "meaning": "주황색",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "橙"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0145",
+      "word": "楕円形",
+      "reading": "だえんけい",
+      "meaning": "타원형",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "楕"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0146",
+      "word": "糺す",
+      "reading": "ただす",
+      "meaning": "따져 묻다·확인하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5s",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "糺"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0147",
+      "word": "些か",
+      "reading": "いささか",
+      "meaning": "다소·조금",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "부사",
+      "posCode": "adverb",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "些"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0148",
+      "word": "口喧嘩",
+      "reading": "くちげんか",
+      "meaning": "말다툼",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "喧",
+        "嘩"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0149",
+      "word": "楯突く",
+      "reading": "たてつく",
+      "meaning": "대들다·반항하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5k",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "楯"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0150",
+      "word": "惚ける",
+      "reading": "とぼける",
+      "meaning": "시치미 떼다·모르는 척하다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "惚"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0151",
+      "word": "撥ねる",
+      "reading": "はねる",
+      "meaning": "튕기다·치다·거절하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "撥"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0152",
+      "word": "孕む",
+      "reading": "はらむ",
+      "meaning": "임신하다·내포하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5m",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "孕"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0153",
+      "word": "吹き溜まり",
+      "reading": "ふきだまり",
+      "meaning": "눈·낙엽 등이 쌓인 곳",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "溜"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0154",
+      "word": "纏まる",
+      "reading": "まとまる",
+      "meaning": "정리되다·합의되다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5r",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "纏"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0155",
+      "word": "淀む",
+      "reading": "よどむ",
+      "meaning": "고이다·정체되다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5m",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "淀"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0156",
+      "word": "有耶無耶",
+      "reading": "うやむや",
+      "meaning": "흐지부지하다·애매하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "な형용사",
+      "posCode": "adj-na",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "耶"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0157",
+      "word": "轢く",
+      "reading": "ひく",
+      "meaning": "차로 치다·깔아뭉개다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5k",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "轢"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0158",
+      "word": "びしょ濡れ",
+      "reading": "びしょぬれ",
+      "meaning": "흠뻑 젖음",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "연체수식",
+      "posCode": "adj-no",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "濡"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0159",
+      "word": "錻力",
+      "reading": "ブリキ",
+      "meaning": "양철",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "錻"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0160",
+      "word": "金屏風",
+      "reading": "きんびょうぶ",
+      "meaning": "금병풍",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "屏"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0161",
+      "word": "擤む",
+      "reading": "かむ",
+      "meaning": "코를 풀다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v5m",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "擤"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0162",
+      "word": "梁",
+      "reading": "はり",
+      "meaning": "들보·보",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "명사",
+      "posCode": "noun",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "梁"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    },
+    {
+      "id": "hx-0163",
+      "word": "取り揃える",
+      "reading": "とりそろえる",
+      "meaning": "골고루 갖추다·모아 놓다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N1",
+      "pos": "동사",
+      "posCode": "v1",
+      "tier": "hyogai-expanded",
+      "nonJoyoChars": [
+        "揃"
+      ],
+      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
+      "sourceLicense": "CC BY-SA 4.0",
+      "meaningSource": "Hanja Lab Korean gloss",
+      "exampleOptional": true
+    }
+  ]
+}
