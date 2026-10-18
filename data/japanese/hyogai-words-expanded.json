@@ -6,7 +6,7 @@
     "vocabulary": "JMdict entries redistributed through JIHUNJO123/jlpt-vocab-n1",
     "license": "CC BY-SA 4.0",
     "koreanGloss": "Hanja Lab normalized Korean gloss",
-    "examples": "Where available, examples are attached only from separately reviewed project data; entries without examples use a reading+meaning writing prompt."
+    "examples": "This supplement intentionally bundles no sentence examples; the UI switches these entries to reading+meaning writing prompts. Existing curated datasets keep their own examples."
   },
   "scopeCounts": {
     "practical": 56,
@@ -179,9 +179,7 @@
       "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true,
-      "sentence": "この建物は地震に対して脆い。",
-      "exampleSource": "rapoyrazoglu/nihongo"
+      "exampleOptional": true
     },
     {
       "id": "hx-0009",
@@ -1121,10 +1119,7 @@
       "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true,
-      "sentence": "この商売はよく儲かる。",
-      "translation": "이 장사는 벌이가 좋다.",
-      "exampleSource": "boring-km/jlpt-study-app"
+      "exampleOptional": true
     },
     {
       "id": "hx-0056",
@@ -1846,9 +1841,7 @@
       "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true,
-      "sentence": "蚊に刺されて痒い。",
-      "exampleSource": "rapoyrazoglu/nihongo"
+      "exampleOptional": true
     },
     {
       "id": "hx-0092",
@@ -1888,9 +1881,7 @@
       "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true,
-      "sentence": "太陽が眩しいです。",
-      "exampleSource": "rapoyrazoglu/nihongo"
+      "exampleOptional": true
     },
     {
       "id": "hx-0094",
@@ -2152,9 +2143,7 @@
       "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true,
-      "sentence": "逞しい体つきをしている。",
-      "exampleSource": "rapoyrazoglu/nihongo"
+      "exampleOptional": true
     },
     {
       "id": "hx-0107",
@@ -2576,9 +2565,7 @@
       "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true,
-      "sentence": "人生は儚い。",
-      "exampleSource": "rapoyrazoglu/nihongo"
+      "exampleOptional": true
     },
     {
       "id": "hx-0128",
@@ -3298,8 +3285,6 @@
       "sourceLicense": "MIT",
       "meaningSource": "reviewed Korean gloss",
       "exampleOptional": true,
-      "sentence": "合格して嬉しいです。",
-      "exampleSource": "rapoyrazoglu/nihongo",
       "id": "hx-0163",
       "tier": "hyogai-expanded"
     },
@@ -3320,8 +3305,6 @@
       "sourceLicense": "MIT",
       "meaningSource": "reviewed Korean gloss",
       "exampleOptional": true,
-      "sentence": "この通りは夜になると賑やかです。",
-      "exampleSource": "rapoyrazoglu/nihongo",
       "id": "hx-0164",
       "tier": "hyogai-expanded"
     },
@@ -3442,9 +3425,6 @@
       "sourceLicense": "MIT",
       "meaningSource": "reviewed Korean gloss",
       "exampleOptional": true,
-      "sentence": "工事の音が喧しい。",
-      "translation": "공사 소리가 시끄럽다.",
-      "exampleSource": "boring-km/jlpt-study-app",
       "id": "hx-0170",
       "tier": "hyogai-expanded"
     },
