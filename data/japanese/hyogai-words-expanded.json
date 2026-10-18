@@ -1,6 +1,6 @@
 {
   "version": "2026-10-19",
-  "count": 163,
+  "count": 173,
   "purpose": "Hyogai / non-Joyo vocabulary expansion for Japanese word-writing. Includes nouns, verbs, adjectives, adverbs and other kanji-containing forms; every item contains at least one true non-Joyo CJK character.",
   "source": {
     "vocabulary": "JMdict entries redistributed through JIHUNJO123/jlpt-vocab-n1",
@@ -9,15 +9,15 @@
     "examples": "Where available, examples are attached only from separately reviewed project data; entries without examples use a reading+meaning writing prompt."
   },
   "scopeCounts": {
-    "practical": 53,
-    "rare": 110
+    "practical": 57,
+    "rare": 116
   },
   "partOfSpeechCounts": {
-    "명사": 68,
-    "동사": 75,
-    "い형용사": 11,
+    "명사": 74,
+    "동사": 76,
+    "い형용사": 13,
     "부사": 3,
-    "な형용사": 5,
+    "な형용사": 6,
     "연체수식": 1
   },
   "items": [
@@ -3312,6 +3312,213 @@
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
       "exampleOptional": true
+    },
+    {
+      "word": "嬉しい",
+      "reading": "うれしい",
+      "meaning": "기쁘다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N5",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "nonJoyoChars": [
+        "嬉"
+      ],
+      "source": "kordokrip/JLPT + rapoyrazoglu/nihongo",
+      "sourceLicense": "MIT",
+      "meaningSource": "reviewed Korean gloss",
+      "exampleOptional": true,
+      "sentence": "合格して嬉しいです。",
+      "exampleSource": "rapoyrazoglu/nihongo",
+      "id": "hx-0164",
+      "tier": "hyogai-expanded"
+    },
+    {
+      "word": "賑やか",
+      "reading": "にぎやか",
+      "meaning": "활기차다·번화하다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N5",
+      "pos": "な형용사",
+      "posCode": "adj-na",
+      "nonJoyoChars": [
+        "賑"
+      ],
+      "source": "kordokrip/JLPT + rapoyrazoglu/nihongo",
+      "sourceLicense": "MIT",
+      "meaningSource": "reviewed Korean gloss",
+      "exampleOptional": true,
+      "sentence": "この通りは夜になると賑やかです。",
+      "exampleSource": "rapoyrazoglu/nihongo",
+      "id": "hx-0166",
+      "tier": "hyogai-expanded"
+    },
+    {
+      "word": "姑",
+      "reading": "しゅうとめ",
+      "meaning": "시어머니·장모",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N3",
+      "pos": "명사",
+      "posCode": "noun",
+      "nonJoyoChars": [
+        "姑"
+      ],
+      "source": "kordokrip/JLPT",
+      "sourceLicense": "MIT",
+      "meaningSource": "reviewed Korean gloss",
+      "exampleOptional": true,
+      "id": "hx-0168",
+      "tier": "hyogai-expanded"
+    },
+    {
+      "word": "痒み",
+      "reading": "かゆみ",
+      "meaning": "가려움",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N3",
+      "pos": "명사",
+      "posCode": "noun",
+      "nonJoyoChars": [
+        "痒"
+      ],
+      "source": "kordokrip/JLPT",
+      "sourceLicense": "MIT",
+      "meaningSource": "reviewed Korean gloss",
+      "exampleOptional": true,
+      "id": "hx-0170",
+      "tier": "hyogai-expanded"
+    },
+    {
+      "word": "発疹",
+      "reading": "はっしん",
+      "meaning": "발진",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N3",
+      "pos": "명사",
+      "posCode": "noun",
+      "nonJoyoChars": [
+        "疹"
+      ],
+      "source": "kordokrip/JLPT",
+      "sourceLicense": "MIT",
+      "meaningSource": "reviewed Korean gloss",
+      "exampleOptional": true,
+      "id": "hx-0172",
+      "tier": "hyogai-expanded"
+    },
+    {
+      "word": "軟膏",
+      "reading": "なんこう",
+      "meaning": "연고",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N3",
+      "pos": "명사",
+      "posCode": "noun",
+      "nonJoyoChars": [
+        "膏"
+      ],
+      "source": "kordokrip/JLPT",
+      "sourceLicense": "MIT",
+      "meaningSource": "reviewed Korean gloss",
+      "exampleOptional": true,
+      "id": "hx-0174",
+      "tier": "hyogai-expanded"
+    },
+    {
+      "word": "霞",
+      "reading": "かすみ",
+      "meaning": "안개·아지랑이",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N3",
+      "pos": "명사",
+      "posCode": "noun",
+      "nonJoyoChars": [
+        "霞"
+      ],
+      "source": "kordokrip/JLPT",
+      "sourceLicense": "MIT",
+      "meaningSource": "reviewed Korean gloss",
+      "exampleOptional": true,
+      "id": "hx-0176",
+      "tier": "hyogai-expanded"
+    },
+    {
+      "word": "喧しい",
+      "reading": "やかましい",
+      "meaning": "시끄럽다·까다롭다",
+      "set": "hyogai",
+      "hyogaiScope": "practical",
+      "hyogaiStage": "practical",
+      "jlpt": "N3",
+      "pos": "い형용사",
+      "posCode": "adj-i",
+      "nonJoyoChars": [
+        "喧"
+      ],
+      "source": "kordokrip/JLPT + boring-km/jlpt-study-app",
+      "sourceLicense": "MIT",
+      "meaningSource": "reviewed Korean gloss",
+      "exampleOptional": true,
+      "sentence": "工事の音が喧しい。",
+      "translation": "공사 소리가 시끄럽다.",
+      "exampleSource": "boring-km/jlpt-study-app",
+      "id": "hx-0178",
+      "tier": "hyogai-expanded"
+    },
+    {
+      "word": "噛む",
+      "reading": "かむ",
+      "meaning": "씹다·물다",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N3",
+      "pos": "동사",
+      "posCode": "v5m",
+      "nonJoyoChars": [
+        "噛"
+      ],
+      "source": "kordokrip/JLPT",
+      "sourceLicense": "MIT",
+      "meaningSource": "reviewed Korean gloss",
+      "exampleOptional": true,
+      "id": "hx-0180",
+      "tier": "hyogai-expanded"
+    },
+    {
+      "word": "範疇",
+      "reading": "はんちゅう",
+      "meaning": "범주",
+      "set": "hyogai",
+      "hyogaiScope": "rare",
+      "hyogaiStage": "deep",
+      "jlpt": "N3",
+      "pos": "명사",
+      "posCode": "noun",
+      "nonJoyoChars": [
+        "疇"
+      ],
+      "source": "kordokrip/JLPT",
+      "sourceLicense": "MIT",
+      "meaningSource": "reviewed Korean gloss",
+      "exampleOptional": true,
+      "id": "hx-0182",
+      "tier": "hyogai-expanded"
     }
   ]
 }
