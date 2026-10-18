@@ -1,6 +1,6 @@
 {
   "version": 16,
-  "count": 2767,
+  "count": 2745,
   "items": [
     {
       "id": 1,
@@ -2566,19 +2566,6 @@
       "exampleSource": "hanjalab-curated-20261002"
     },
     {
-      "id": 210,
-      "word": "社会人",
-      "reading": "しゃかいじん",
-      "meaning": "사회인",
-      "sentence": "社会人になってから時間の使い方が変わった。",
-      "translation": "사회인이 된 뒤 시간 쓰는 방식이 달라졌다.",
-      "tier": "basic",
-      "set": "joyo",
-      "source": "doki-expanded",
-      "schoolStage": "elementary",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
       "id": 211,
       "word": "社員",
       "reading": "しゃいん",
@@ -3677,19 +3664,6 @@
       "meaning": "합격",
       "sentence": "努力の末、第一志望の大学に合格した。",
       "translation": "노력 끝에 제1지망 대학에 합격했다.",
-      "tier": "basic",
-      "set": "joyo",
-      "source": "doki-expanded",
-      "schoolStage": "elementary",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 296,
-      "word": "不合格",
-      "reading": "ふごうかく",
-      "meaning": "불합격",
-      "sentence": "残念ながら今回は不合格だった。",
-      "translation": "안타깝게도 이번에는 불합격이었다.",
       "tier": "basic",
       "set": "joyo",
       "source": "doki-expanded",
@@ -6518,38 +6492,12 @@
       "exampleSource": "hanjalab-curated-20261002"
     },
     {
-      "id": 514,
-      "word": "非公開",
-      "reading": "ひこうかい",
-      "meaning": "비공개",
-      "sentence": "個人情報を含むため、この資料は非公開です。",
-      "translation": "개인정보가 포함되어 있어 이 자료는 비공개입니다.",
-      "tier": "intermediate",
-      "set": "joyo",
-      "source": "doki-expanded",
-      "schoolStage": "junior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
       "id": 515,
       "word": "秘密",
       "reading": "ひみつ",
       "meaning": "비밀",
       "sentence": "友達から聞いた秘密を誰にも話さなかった。",
       "translation": "친구에게 들은 비밀을 아무에게도 말하지 않았다.",
-      "tier": "basic",
-      "set": "joyo",
-      "source": "doki-expanded",
-      "schoolStage": "elementary",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 516,
-      "word": "不可能",
-      "reading": "ふかのう",
-      "meaning": "불가능",
-      "sentence": "一人で今日中に終えるのは不可能だ。",
-      "translation": "혼자 오늘 안에 끝내는 것은 불가능하다.",
       "tier": "basic",
       "set": "joyo",
       "source": "doki-expanded",
@@ -7077,19 +7025,6 @@
       "exampleSource": "hanjalab-curated-20261002"
     },
     {
-      "id": 557,
-      "word": "関係者",
-      "reading": "かんけいしゃ",
-      "meaning": "관계자",
-      "sentence": "事故について関係者から詳しく話を聞いた。",
-      "translation": "사고에 관해 관계자들에게 자세히 이야기를 들었다.",
-      "tier": "intermediate",
-      "set": "joyo",
-      "source": "doki-expanded",
-      "schoolStage": "junior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
       "id": 558,
       "word": "代表",
       "reading": "だいひょう",
@@ -7103,38 +7038,12 @@
       "exampleSource": "hanjalab-curated-20261002"
     },
     {
-      "id": 559,
-      "word": "責任者",
-      "reading": "せきにんしゃ",
-      "meaning": "책임자",
-      "sentence": "問題が起きたので責任者を呼んでもらった。",
-      "translation": "문제가 생겨 책임자를 불러 달라고 했다.",
-      "tier": "intermediate",
-      "set": "joyo",
-      "source": "doki-expanded",
-      "schoolStage": "junior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
       "id": 560,
       "word": "担当",
       "reading": "たんとう",
       "meaning": "담당",
       "sentence": "私は会場設営を担当することになった。",
       "translation": "나는 행사장 설치를 담당하게 됐다.",
-      "tier": "basic",
-      "set": "joyo",
-      "source": "doki-expanded",
-      "schoolStage": "elementary",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 561,
-      "word": "担当者",
-      "reading": "たんとうしゃ",
-      "meaning": "담당자",
-      "sentence": "詳しい内容は担当者に問い合わせてください。",
-      "translation": "자세한 내용은 담당자에게 문의해 주세요.",
       "tier": "basic",
       "set": "joyo",
       "source": "doki-expanded",
@@ -10236,19 +10145,6 @@
       "exampleSource": "hanjalab-curated-20261002"
     },
     {
-      "id": 800,
-      "word": "生産性",
-      "reading": "せいさんせい",
-      "meaning": "생산성",
-      "sentence": "新しい設備の導入で生産性が向上した。",
-      "translation": "새 설비 도입으로 생산성이 향상됐다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
       "id": 801,
       "word": "資本",
       "reading": "しほん",
@@ -11347,19 +11243,6 @@
       "meaning": "의식",
       "sentence": "安全を意識して階段では手すりを使った。",
       "translation": "안전을 의식해 계단에서는 난간을 잡았다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 886,
-      "word": "無意識",
-      "reading": "むいしき",
-      "meaning": "무의식",
-      "sentence": "無意識のうちに同じ癖を繰り返していた。",
-      "translation": "무의식중에 같은 버릇을 반복하고 있었다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
@@ -13135,19 +13018,6 @@
       "exampleSource": "hanjalab-curated-20261002"
     },
     {
-      "id": 1023,
-      "word": "温暖化",
-      "reading": "おんだんか",
-      "meaning": "온난화",
-      "sentence": "地球温暖化の影響について授業で学んだ。",
-      "translation": "지구 온난화의 영향에 대해 수업에서 배웠다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
       "id": 1024,
       "word": "気象",
       "reading": "きしょう",
@@ -14357,38 +14227,12 @@
       "exampleSource": "hanjalab-curated-20261002"
     },
     {
-      "id": 1117,
-      "word": "普遍性",
-      "reading": "ふへんせい",
-      "meaning": "보편성",
-      "sentence": "物語には時代を超える普遍性がある。",
-      "translation": "이야기에는 시대를 넘어서는 보편성이 있다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
       "id": 1118,
       "word": "多様",
       "reading": "たよう",
       "meaning": "다양",
       "sentence": "参加者の意見は非常に多様だった。",
       "translation": "참가자들의 의견은 매우 다양했다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 1119,
-      "word": "多様性",
-      "reading": "たようせい",
-      "meaning": "다양성",
-      "sentence": "生物の多様性を守る取り組みが必要だ。",
-      "translation": "생물 다양성을 지키는 노력이 필요하다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
@@ -14448,32 +14292,6 @@
       "exampleSource": "hanjalab-curated-20261002"
     },
     {
-      "id": 1124,
-      "word": "主観性",
-      "reading": "しゅかんせい",
-      "meaning": "주관성",
-      "sentence": "作品評価にはある程度の主観性が避けられない。",
-      "translation": "작품 평가에는 어느 정도 주관성이 불가피하다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 1125,
-      "word": "客観性",
-      "reading": "きゃっかんせい",
-      "meaning": "객관성",
-      "sentence": "同じ基準を使うことで評価の客観性を高める。",
-      "translation": "같은 기준을 사용해 평가의 객관성을 높인다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
       "id": 1126,
       "word": "主体",
       "reading": "しゅたい",
@@ -14526,32 +14344,6 @@
       "exampleSource": "hanjalab-curated-20261002"
     },
     {
-      "id": 1130,
-      "word": "抽象化",
-      "reading": "ちゅうしょうか",
-      "meaning": "추상화",
-      "sentence": "複雑な事例を共通の構造へ抽象化する。",
-      "translation": "복잡한 사례를 공통 구조로 추상화한다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 1131,
-      "word": "具体化",
-      "reading": "ぐたいか",
-      "meaning": "구체화",
-      "sentence": "曖昧な案を具体化して計画書にまとめた。",
-      "translation": "모호한 안을 구체화해 계획서로 정리했다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
       "id": 1132,
       "word": "明文化",
       "reading": "めいぶんか",
@@ -14571,19 +14363,6 @@
       "meaning": "체계",
       "sentence": "知識を体系として整理すると理解しやすい。",
       "translation": "지식을 체계로 정리하면 이해하기 쉽다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 1134,
-      "word": "体系化",
-      "reading": "たいけいか",
-      "meaning": "체계화",
-      "sentence": "集めた情報を分野ごとに体系化した。",
-      "translation": "모은 정보를 분야별로 체계화했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
@@ -14773,19 +14552,6 @@
       "exampleSource": "hanjalab-curated-20261002"
     },
     {
-      "id": 1149,
-      "word": "組織化",
-      "reading": "そしきか",
-      "meaning": "조직화",
-      "sentence": "地域のボランティアを組織化して活動を始めた。",
-      "translation": "지역 자원봉사자를 조직화해 활동을 시작했다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
       "id": 1150,
       "word": "編成",
       "reading": "へんせい",
@@ -14870,45 +14636,6 @@
       "meaning": "재개",
       "sentence": "工事が終わり、図書館は来週から再開する。",
       "translation": "공사가 끝나 도서관은 다음 주부터 다시 문을 연다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 1157,
-      "word": "再検討",
-      "reading": "さいけんとう",
-      "meaning": "재검토",
-      "sentence": "条件が変わったため計画を再検討することになった。",
-      "translation": "조건이 바뀌어 계획을 재검토하게 됐다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 1158,
-      "word": "再評価",
-      "reading": "さいひょうか",
-      "meaning": "재평가",
-      "sentence": "古い作品が近年になって再評価されている。",
-      "translation": "오래된 작품이 최근 들어 재평가되고 있다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 1159,
-      "word": "再確認",
-      "reading": "さいかくにん",
-      "meaning": "재확인",
-      "sentence": "送信前に宛先と添付ファイルを再確認した。",
-      "translation": "보내기 전에 수신처와 첨부파일을 다시 확인했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
@@ -15078,19 +14805,6 @@
       "meaning": "경력",
       "sentence": "応募書類にこれまでの経歴を書いた。",
       "translation": "지원 서류에 지금까지의 경력을 적었다.",
-      "tier": "advanced",
-      "set": "joyo",
-      "source": "doki-advanced-expanded",
-      "schoolStage": "senior",
-      "exampleSource": "hanjalab-curated-20261002"
-    },
-    {
-      "id": 1173,
-      "word": "経営者",
-      "reading": "けいえいしゃ",
-      "meaning": "경영자",
-      "sentence": "経営者は従業員と今後の計画について話し合った。",
-      "translation": "경영자는 직원들과 향후 계획에 대해 논의했다.",
       "tier": "advanced",
       "set": "joyo",
       "source": "doki-advanced-expanded",
