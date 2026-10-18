@@ -128,3 +128,15 @@ KANJIDIC2 full reading index (Hanja Lab 2.46.0)
 - In the UI, the global reading index may show the same character under every
   applicable reading. This is intentional and fixes the old primary-reading-only
   grouping behavior.
+
+
+Common multi-kanji vocabulary supplement (Hanja Lab 2.52.0)
+===============================================================
+- data/japanese/common-words-extra.json adds 592 multi-kanji vocabulary entries for Japanese word-writing practice.
+- Source repository: https://github.com/rapoyrazoglu/nihongo
+- The source repository README identifies the project license as MIT.
+- Imported source fields are limited to Japanese spelling, reading, Korean gloss, Japanese example sentence and the source JLPT study tag.
+- Hanja Lab excludes entries already represented by an existing display form, mixed-kana spellings for this particular writing pool, and conservative prefix/suffix derivatives when the unsuffixed/base form is also present.
+- The runtime performs the same display-form and derivative guard after all vocabulary supplements are merged, so future additions do not silently reintroduce these repetitions.
+- This supplement does not fabricate Korean sentence translations. Where a source entry has only a Korean gloss and Japanese example, the UI shows the gloss and simply omits the absent sentence translation.
+- JLPT tags are learning metadata and are not an official fixed vocabulary list from the Japan Foundation or JEES.
