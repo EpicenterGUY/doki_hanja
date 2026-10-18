@@ -4381,3 +4381,39 @@ html.is-ipad.keyboard-open body.drill-active #jp .jp-reading-quiz-card{
 html.is-ipad.keyboard-focus body.drill-active #jp .jp-reading-quiz-feedback{
   contain:layout paint;
 }
+
+/* 2.50.7 IPAD LANDSCAPE WORD BOARD GEOMETRY
+   Previous landscape rules fixed board height and then clamped width. On a short
+   landscape viewport that could violate the canvas aspect ratio. Drive the board
+   from width instead so each writing cell stays exactly square. */
+@media(min-width:700px) and (pointer:coarse) and (orientation:landscape){
+  html body.drill-active #jp .jp-word-board{
+    height:auto!important;
+    min-height:0!important;
+    width:100%!important;
+    max-height:none!important;
+    aspect-ratio:var(--word-cols) / var(--word-rows)!important;
+    align-self:start!important;
+    justify-self:center!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-1 .jp-word-board{
+    width:min(100%,360px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-2.jp-word-rows-1 .jp-word-board{
+    width:min(100%,700px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-3.jp-word-rows-1 .jp-word-board{
+    width:min(100%,810px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-cols-4.jp-word-rows-1 .jp-word-board{
+    width:min(100%,880px)!important;
+  }
+  html body.drill-active #jp .jp-word-canvas-pane.jp-word-rows-2 .jp-word-board{
+    width:min(100%,610px)!important;
+  }
+  html.is-ipad body.drill-active #jp .jp-word-board canvas{
+    width:100%!important;
+    height:100%!important;
+    object-fit:fill!important;
+  }
+}
