@@ -2,37 +2,37 @@
    Loaded after japanese.css so Japanese pages inherit the same appearance. */
 html[data-app-bg="light"]{
   color-scheme:light;
-  --bg:#f4f7fc; --panel:#ffffff; --panel2:#f1f5fc; --line:#d5dfee;
-  --text:#16263f; --muted:#536681; --chip:#eef2fb; --accent:#344fbc;
-  --shadow:0 8px 22px rgba(35,59,107,.07);
-  --ui-surface-1:#ffffff; --ui-surface-2:#f4f7fd;
-  --ui-surface-alt:#f2f5fc; --ui-surface-soft:#eef3fc;
-  --ui-stroke:#c8d5e9; --ui-stroke-soft:#dbe3f0;
-  --ui-text:#182a43; --ui-muted:#536784;
-  --ui-primary-1:#344caa; --ui-primary-2:#2359a2; --ui-primary-3:#4332a2;
-  --ui-icon-text:#ffffff; --ui-nav:#ffffff; --ui-top:#fbfdff;
-  --ui-settings:#ffffff; --ui-shadow:rgba(40,65,116,.09);
-  --ui-accent-violet:#5845ad; --ui-accent-cyan:#116a87;
+  --bg:#f3faf8; --panel:#ffffff; --panel2:#f3faf8; --line:#dcece9;
+  --text:#183735; --muted:#496b68; --chip:#f3faf8; --accent:#0b8b82;
+  --shadow:0 8px 22px rgba(38,75,72,.07);
+  --ui-surface-1:#ffffff; --ui-surface-2:#f3faf8;
+  --ui-surface-alt:#f3faf8; --ui-surface-soft:#f3faf8;
+  --ui-stroke:#c8e3df; --ui-stroke-soft:#dcece9;
+  --ui-text:#183735; --ui-muted:#55716f;
+  --ui-primary-1:#0b8b82; --ui-primary-2:#087d76; --ui-primary-3:#087d76;
+  --ui-icon-text:#ffffff; --ui-nav:#ffffff; --ui-top:#fbfefd;
+  --ui-settings:#ffffff; --ui-shadow:rgba(38,75,72,.09);
+  --ui-accent-violet:#0b8b82; --ui-accent-cyan:#116a87;
   --ui-accent-green:#08735b; --ui-accent-gold:#986000;
-  --ui-accent-pink:#a03369; --ui-accent-blue:#225ba4;
-  --drill-bg:#f4f7fc; --drill-panel:#ffffff;
-  --drill-panel-2:#f6f8fd; --drill-panel-3:#edf3fb;
-  --drill-line:#d2ddec; --drill-line-strong:#9baece;
-  --drill-muted:#536784; --drill-text:#172943;
+  --ui-accent-pink:#a03369; --ui-accent-blue:#087d76;
+  --drill-bg:#f3faf8; --drill-panel:#ffffff;
+  --drill-panel-2:#fbfefd; --drill-panel-3:#f3faf8;
+  --drill-line:#dcece9; --drill-line-strong:#8fbcb5;
+  --drill-muted:#55716f; --drill-text:#183735;
 }
 html[data-app-bg="light"],
 html[data-app-bg="light"] body,
 html[data-app-bg="light"] body:not(.drill-active){
-  background:#f4f7fc!important;
-  color:#182a43!important;
+  background:#f3faf8!important;
+  color:#183735!important;
 }
 html[data-app-bg="light"] body:not(.drill-active) .app2-bar,
 html[data-app-bg="light"] .app2-dock{
-  box-shadow:0 4px 22px rgba(25,45,83,.08)!important;
+  box-shadow:0 4px 22px rgba(24,55,53,.08)!important;
 }
-html[data-app-bg="light"] .app2-kicker{color:#485e85!important}
-html[data-app-bg="light"] .app2-title{color:#172943!important}
-html[data-app-bg="light"] .app2-nav:not(.active){color:#536784!important}
+html[data-app-bg="light"] .app2-kicker{color:#496b68!important}
+html[data-app-bg="light"] .app2-title{color:#183735!important}
+html[data-app-bg="light"] .app2-nav:not(.active){color:#55716f!important}
 html[data-app-bg="light"] .app2-nav.active,
 html[data-app-bg="light"] .app-bg-picker button.active,
 html[data-app-bg="light"] .app-font-picker button.active,
@@ -43,15 +43,15 @@ html[data-app-bg="light"] .app2-action.install{
   background:#d9f4e8!important;color:#155640!important;
 }
 html[data-app-bg="light"] .sheet-close{
-  background:#edf2fa!important;color:#243850!important;border-color:#cbd8ea!important;
+  background:#f3faf8!important;color:#264b48!important;border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] .app-settings-title>span{
-  background:#e5ebff!important;color:#2f499d!important;
+  background:#f3faf8!important;color:#087d76!important;
 }
 html[data-app-bg="light"] .app-settings-title small,
 html[data-app-bg="light"] .app-settings-links>button small,
 html[data-app-bg="light"] .app-settings-links>button>i{
-  color:#536784!important;
+  color:#55716f!important;
 }
 html[data-app-bg="light"] .app-settings-links>button>span{
   color:#fff!important;
@@ -65,31 +65,31 @@ html[data-app-bg="light"] body:not(.drill-active) :is(
   .update-sheet,.global-search-results,.compact-settings,.check,
   .jp-metric,.jp-card,.jp-home-action,.jp-reading-group
 ){
-  border-color:#dbe3ef!important;
-  background:linear-gradient(145deg,#fff,#f4f7fc)!important;
-  color:#182a43!important;
-  box-shadow:0 7px 22px rgba(32,59,105,.055)!important;
+  border-color:#dcece9!important;
+  background:linear-gradient(145deg,#fff,#f3faf8)!important;
+  color:#183735!important;
+  box-shadow:0 7px 22px rgba(38,75,72,.055)!important;
 }
 html[data-app-bg="light"] body:not(.drill-active) :is(
   .panel,.card,.simple-card,.hub-card,.kpi,.app-section,
   .home-primary-card,.home-shortcut,.study-tile,.study-link,
   .app-action,.jp-metric,.jp-card,.jp-home-action
 ) :is(h2,h3,b,strong){
-  color:#182a43!important;
+  color:#183735!important;
 }
 html[data-app-bg="light"] body:not(.drill-active) :is(
   .home-primary-card,.home-shortcut,.study-tile,.study-link,.app-action,
   .jp-card,.jp-metric,.jp-home-action,.home-freq-card,.freq-spotlight
 ) :is(small,.sub,.soft,.jp-card-meta, .jp-metric span){
-  color:#4d6281!important;
+  color:#496b68!important;
 }
 html[data-app-bg="light"] body:not(.drill-active) :is(
   .home-primary-card,.study-tile,.app-action
 ):nth-child(2n){
-  background:linear-gradient(145deg,#f8faff,#edf3fb)!important;
+  background:linear-gradient(145deg,#fbfefd,#f3faf8)!important;
 }
 html[data-app-bg="light"] :is(.home-section-label span,.app-section-sub,.study-status-strip small,.home-stats-row small,.freq-spotlight-copy small,.home-welcome-copy ~ small){
-  color:#536784!important;
+  color:#55716f!important;
 }
 html[data-app-bg="light"] body:not(.drill-active) :is(
   .home-freq-buttons button:not(:first-child),.hub-settings-btn,
@@ -99,32 +99,32 @@ html[data-app-bg="light"] body:not(.drill-active) :is(
   .app-settings-links>button,.jp-filter-chip:not(.active),
   .jp-mode-seg button:not(.active),.jp-reading-group,.jp-meta-pill
 ){
-  background:#eef3fb!important;
-  border-color:#cad7e9!important;
-  color:#213753!important;
+  background:#f3faf8!important;
+  border-color:#c8e3df!important;
+  color:#264b48!important;
 }
 html[data-app-bg="light"] body:not(.drill-active) :is(input,select,textarea)::placeholder{
-  color:#677b95!important;
+  color:#55716f!important;
   opacity:1;
 }
 html[data-app-bg="light"] :is(.app2-action,.app-settings-group,.app-settings-sheet){
-  color:#182a43!important;
+  color:#183735!important;
 }
 html[data-app-bg="light"] body>#appSettingsSheet,
 html[data-app-bg="light"] body>#practiceSettingsPanel{
   background:#fff!important;
-  color:#182a43!important;
-  border-color:#cbd8e9!important;
+  color:#183735!important;
+  border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] .app-settings-sheet .sheet-head strong,
 html[data-app-bg="light"] .app-settings-sheet .app-settings-title b,
 html[data-app-bg="light"] #practiceSettingsPanel :is(.sheet-head strong,summary){
-  color:#182a43!important;
+  color:#183735!important;
 }
 html[data-app-bg="light"] .badge:not(.hot):not(.good){
-  color:#344763!important;
-  background:#eef3fb!important;
-  border-color:#cdd8e9!important;
+  color:#264b48!important;
+  background:#f3faf8!important;
+  border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] .badge.hot,
 html[data-app-bg="light"] .freq-label{
@@ -156,44 +156,44 @@ html[data-app-bg="light"] body:not(.drill-active) :is(
   color:#fff!important;
 }
 html[data-app-bg="light"] :is(.home-welcome p,.jp-hero p,.jp-home-hero p,.app-hero p){
-  color:#eaf0ff!important;
+  color:#f3faf8!important;
 }
 /* Avoid nearly invisible white glyphs over pastel icon gradients. */
 html[data-app-bg="light"] .home-primary-card :is(.home-primary-icon),
 html[data-app-bg="light"] .study-tile :is(.study-tile-icon),
 html[data-app-bg="light"] .home-shortcut :is(.home-shortcut-icon),
 html[data-app-bg="light"] .app-list-icon{
-  background:#e5ebff!important;
-  color:#283f96!important;
-  border-color:#c5d0ef!important;
+  background:#f3faf8!important;
+  color:#087d76!important;
+  border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] .home-primary-card :is(.home-primary-icon) *,
 html[data-app-bg="light"] .home-shortcut-icon i{
-  color:#283f96!important;
+  color:#087d76!important;
 }
 html[data-app-bg="light"] .jp-filter-chip.active,
 html[data-app-bg="light"] .jp-mode-seg button.active{
-  background:#334aaa!important;color:#fff!important;border-color:#334aaa!important;
+  background:#0b8b82!important;color:#fff!important;border-color:#0b8b82!important;
 }
 html[data-app-bg="light"] .jp-field>span,
 html[data-app-bg="light"] :is(.jp-card-meta,.jp-source-note,.jp-empty,.jp-memory-sub,.jp-mode-note){
-  color:#506480!important;
+  color:#496b68!important;
 }
 html[data-app-bg="light"] .jp-mode-seg,.jp-mode-note{
-  background:#eef3fb!important;border-color:#d3dfee!important;color:#304763!important;
+  background:#f3faf8!important;border-color:#dcece9!important;color:#264b48!important;
 }
 html[data-app-bg="light"] .jp-memory-target:not(.hidden){
-  background:#f2f5fb!important;color:#152943!important;
+  background:#f3faf8!important;color:#183735!important;
 }
 html[data-app-bg="light"] .jp-memory-target.hidden{
-  background:#eff4fb!important;color:#526784!important;border-color:#a5b6ce!important;
+  background:#f3faf8!important;color:#496b68!important;border-color:#8fbcb5!important;
 }
 html[data-app-bg="light"] .jp-card.saved{
-  border-color:#6554b6!important;box-shadow:inset 0 0 0 2px rgba(89,69,176,.14)!important;
+  border-color:#0b8b82!important;box-shadow:inset 0 0 0 2px rgba(11,139,130,.14)!important;
 }
 html[data-app-bg="light"] .jp-hero .jp-set-seg button:not(.active),
 html[data-app-bg="light"] .jp-hero .jp-view-seg button:not(.active){
-  color:#eaf0ff!important;
+  color:#f3faf8!important;
 }
 /* The writing board is intentionally white even in dark mode. Leave its canvas,
    ink, answer overlays and stroke rendering untouched by page-wide filters. */
@@ -205,10 +205,10 @@ html[data-app-bg="light"] body.drill-active :is(
   .drill-session-top,.drill-char-index-sheet,.pen-toolbar,
   .study-index,.drill-char-index-item
 ){
-  color:#182a43!important;
+  color:#183735!important;
   border-color:var(--drill-line)!important;
   background:var(--drill-panel)!important;
-  box-shadow:0 7px 22px rgba(25,45,90,.07)!important;
+  box-shadow:0 7px 22px rgba(38,75,72,.07)!important;
 }
 html[data-app-bg="light"] body.drill-active :is(
   .drill-status-pill:not(.accent),.drill-top-actions .btn,
@@ -216,45 +216,45 @@ html[data-app-bg="light"] body.drill-active :is(
   .pen-tool:not(.active),.study-index-item,.drill-unknown-btn,
   #exitDrill,#saveUnknownDrill
 ){
-  background:#edf3fb!important;border-color:#cbd7e8!important;color:#243c5b!important;
+  background:#f3faf8!important;border-color:#c8e3df!important;color:#264b48!important;
   box-shadow:none!important;
 }
 html[data-app-bg="light"] body.drill-active :is(
   .drill-clue,.big-hanja,.drill-question-pane .prompt,.drill-session-top b,
   .drill-typing-inner,.drill-status-pill:not(.accent),.drill-tip
 ){
-  color:#162c48!important;
+  color:#183735!important;
   text-shadow:none!important;
 }
 html[data-app-bg="light"] body.drill-active :is(
   #drillAnswer,.drill-typing-pane input[type="text"]
 ){
-  background:#fff!important;color:#192d49!important;
-  border:1px solid #94a9c7!important;
+  background:#fff!important;color:#183735!important;
+  border:1px solid #8fbcb5!important;
 }
 html[data-app-bg="light"] body.drill-active #drillAnswer::placeholder{
-  color:#647b98!important;
+  color:#55716f!important;
 }
 html[data-app-bg="light"] body.drill-active .study-index-item{
-  color:#334969!important;
+  color:#264b48!important;
 }
 html[data-app-bg="light"] body.drill-active .study-index-item span{
-  background:#dce5f4!important;color:#304766!important;
+  background:#dcece9!important;color:#264b48!important;
 }
 html[data-app-bg="light"] body.drill-active .study-index-item.active{
-  background:#e2eaff!important;color:#233f92!important;
-  border-color:#9aabe4!important;
+  background:#f3faf8!important;color:#087d76!important;
+  border-color:#8fbcb5!important;
 }
 html[data-app-bg="light"] body.drill-active .study-index-item.active span{
-  background:#344ba9!important;color:#fff!important;
+  background:#0b8b82!important;color:#fff!important;
 }
 html[data-app-bg="light"] body.drill-active .drill-status-pill.accent,
 html[data-app-bg="light"] body.drill-active .pen-tool.active,
 html[data-app-bg="light"] body.drill-active #saveUnknownDrill.saved{
-  background:#344ba9!important;color:#fff!important;border-color:#344ba9!important;
+  background:#0b8b82!important;color:#fff!important;border-color:#0b8b82!important;
 }
 html[data-app-bg="light"] body.drill-active .drill-answer-overlay{
-  background:rgba(21,34,58,.92)!important;color:#fff3d7!important;
+  background:rgba(24,55,53,.92)!important;color:#fff3d7!important;
 }
 html[data-app-bg="light"] body.drill-active #checkDrill,
 html[data-app-bg="light"] body.drill-active #autoCheckDrill{
@@ -270,8 +270,8 @@ html[data-app-bg="light"] body.drill-active #autoCheckDrill{
 .home-v2 .home-primary-card{min-height:91px;padding:11px;gap:7px}
 .home-v2 .home-stats-row{margin-top:0}
 .home-v2 .home-extra{
-  min-width:0;border:1px solid var(--ui-stroke-soft,#405075);
-  border-radius:17px;background:var(--ui-surface-2,#1b2843);
+  min-width:0;border:1px solid var(--ui-stroke-soft,#496b68);
+  border-radius:17px;background:var(--ui-surface-2,#183735);
   overflow:hidden;
 }
 .home-v2 .home-extra summary{
@@ -283,15 +283,15 @@ html[data-app-bg="light"] body.drill-active #autoCheckDrill{
 .home-v2 .home-extra summary::before{content:"＋";font-size:17px;font-weight:800}
 .home-v2 .home-extra[open] summary::before{content:"－"}
 .home-v2 .home-extra summary small{
-  margin-left:auto;font-size:10px;font-weight:700;color:var(--ui-muted,#aebdde)
+  margin-left:auto;font-size:10px;font-weight:700;color:var(--ui-muted,#c8e3df)
 }
-.home-v2 .home-extra summary:focus-visible{outline:3px solid #7b91ef;outline-offset:-3px}
+.home-v2 .home-extra summary:focus-visible{outline:3px solid #8fbcb5;outline-offset:-3px}
 .home-v2 .home-extra-body{display:grid;gap:9px;padding:0 10px 10px}
 .home-v2 .home-extra-body :is(.home-freq-card,.home-shortcuts){grid-column:auto!important;grid-row:auto!important}
 .home-v2 .home-extra-body .home-shortcuts{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}
-html[data-app-bg="light"] .home-v2 .home-extra{background:#fff;border-color:#d4deed}
-html[data-app-bg="light"] .home-v2 .home-extra summary{color:#1f344e}
-html[data-app-bg="light"] .home-v2 .home-extra summary small{color:#536784}
+html[data-app-bg="light"] .home-v2 .home-extra{background:#fff;border-color:#dcece9}
+html[data-app-bg="light"] .home-v2 .home-extra summary{color:#183735}
+html[data-app-bg="light"] .home-v2 .home-extra summary small{color:#55716f}
 @media(max-width:650px){
   .home-v2 .home-primary-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
   .home-v2 .home-primary-card{min-height:88px}
@@ -302,27 +302,27 @@ html[data-app-bg="light"] .home-v2 .home-extra summary small{color:#536784}
 /* App-bar update action remains available inside Settings → Update Center. */
 #openUpdateCenter{display:none!important}
 .bg-swatch.light{
-  background:linear-gradient(145deg,#fff 0%,#f4f7fc 60%,#e8eefb 100%)!important;
-  border:1px solid #bac9df!important;
+  background:linear-gradient(145deg,#fff 0%,#f3faf8 60%,#f3faf8 100%)!important;
+  border:1px solid #c8e3df!important;
   box-shadow:inset 0 0 0 1px #fff;
 }
 html[data-app-bg="light"] .study-index{
-  background:#fff!important;border:1px solid #d2deed!important;
-  color:#1c314c!important;
+  background:#fff!important;border:1px solid #dcece9!important;
+  color:#183735!important;
 }
 html[data-app-bg="light"] .study-index-item{
-  background:#f1f5fb!important;border:1px solid #d2deed!important;
-  color:#334a69!important;
+  background:#f3faf8!important;border:1px solid #dcece9!important;
+  color:#264b48!important;
 }
 html[data-app-bg="light"] .study-index-item span{
-  background:#e1e9f5!important;color:#344a68!important;
+  background:#dcece9!important;color:#264b48!important;
 }
 html[data-app-bg="light"] .study-index-item.active{
-  background:#e4ebfc!important;color:#29439a!important;
-  border-color:#9eafdf!important;
+  background:#f3faf8!important;color:#087d76!important;
+  border-color:#8fbcb5!important;
 }
 html[data-app-bg="light"] .study-index-item.active span{
-  background:#344ba9!important;color:#fff!important;
+  background:#0b8b82!important;color:#fff!important;
 }
 
 /* iPad/Fold study keyboard regressions: override legacy forced dark viewport strips. */
@@ -333,7 +333,7 @@ html[data-app-bg="light"].is-ipad body.drill-active .app,
 html[data-app-bg="light"].is-ipad body.drill-active .content,
 html[data-app-bg="light"].is-ipad body.drill-active #drill,
 html[data-app-bg="light"].is-ipad.keyboard-accessory body.drill-active .app{
-  background:#f4f7fc!important;color:#182a43!important;
+  background:#f3faf8!important;color:#183735!important;
 }
 
 /* Contrast correction across all six original dark presets too:
@@ -343,20 +343,20 @@ html[data-app-bg]:not([data-app-bg="light"]) :is(
 ),
 html[data-app-bg]:not([data-app-bg="light"]) body:not(.drill-active) .btn.primary{
   background:linear-gradient(135deg,
-    color-mix(in srgb,var(--ui-primary-1) 62%,#111a32),
-    color-mix(in srgb,var(--ui-primary-3) 57%,#111a32))!important;
+    color-mix(in srgb,var(--ui-primary-1) 62%,#183735),
+    color-mix(in srgb,var(--ui-primary-3) 57%,#183735))!important;
   color:#fff!important;
 }
 html[data-app-bg]:not([data-app-bg="light"]) :is(
   .home-primary-icon,.study-tile-icon,.home-shortcut-icon,.app-list-icon
 ),
 html[data-app-bg]:not([data-app-bg="light"]) .home-shortcut-icon i{
-  color:#080e20!important;
+  color:#183735!important;
 }
 html[data-app-bg="light"] :is(
   .app2-nav.active,.app-bg-picker button.active,.app-font-picker button.active
 ){
-  background:linear-gradient(135deg,#344ba9,#40328e)!important;
+  background:linear-gradient(135deg,#0b8b82,#087d76)!important;
   color:#fff!important;
 }
 
@@ -366,21 +366,21 @@ html[data-app-bg="light"] :is(
    ====================================================================== */
 html[data-app-bg="light"]{
  --light-paper:#fff;
- --light-canvas:#f4f7fc;
- --light-soft:#edf3fb;
- --light-soft2:#e4edf9;
- --light-border:#cbd8e9;
- --light-ink:#1b2c45;
- --light-muted:#485f7b;
- --light-blue:#24519c;
+ --light-canvas:#f3faf8;
+ --light-soft:#f3faf8;
+ --light-soft2:#f3faf8;
+ --light-border:#c8e3df;
+ --light-ink:#183735;
+ --light-muted:#496b68;
+ --light-blue:#087d76;
  --light-green:#116a52;
  --light-gold:#805000;
  --light-red:#973e48;
- --jp-ink:#1b2c45;
- --jp-muted:#485f7b;
+ --jp-ink:#183735;
+ --jp-muted:#496b68;
  --jp-surface:#fff;
- --jp-surface-2:#f5f8fd;
- --jp-line:#d5e0ed;
+ --jp-surface-2:#fbfefd;
+ --jp-line:#dcece9;
 }
 html[data-app-bg="light"] body:not(.drill-active) .app,
 html[data-app-bg="light"] body:not(.drill-active) main.content,
@@ -398,10 +398,10 @@ html[data-app-bg="light"] :is(
  .home-welcome,.app-hero,.jp-hero,.jp-home-hero,
  .hub-title-card,.power-card,.app-stats-hero,.drill-resume-card
 ){
- background:linear-gradient(135deg,#edf3ff,#f9fbff)!important;
+ background:linear-gradient(135deg,#f3faf8,#fbfefd)!important;
  border:1px solid var(--light-border)!important;
  color:var(--light-ink)!important;
- box-shadow:0 8px 22px rgba(41,68,111,.07)!important;
+ box-shadow:0 8px 22px rgba(38,75,72,.07)!important;
 }
 html[data-app-bg="light"] :is(
  .home-welcome,.app-hero,.jp-hero,.jp-home-hero,
@@ -417,14 +417,14 @@ html[data-app-bg="light"] :is(
  color:var(--light-muted)!important;
 }
 html[data-app-bg="light"] :is(.home-level-orb,.home-resume,.power-mini){
- background:#e5edfc!important;
- border-color:#c4d4ef!important;color:var(--light-ink)!important;
+ background:#f3faf8!important;
+ border-color:#c8e3df!important;color:var(--light-ink)!important;
 }
 html[data-app-bg="light"] :is(.home-level-orb,.home-resume,.power-mini) :is(span,b,strong,small){
  color:var(--light-ink)!important;
 }
 html[data-app-bg="light"] :is(.power-progress,.mastery-track,.drill-resume-progress){
- background:#dce6f4!important;
+ background:#dcece9!important;
 }
 html[data-app-bg="light"] :is(.app-section-action,.app-quick-link,.home-section-label span,.power-title,.mastery-pct){
  color:var(--light-blue)!important;
@@ -467,29 +467,29 @@ html[data-app-bg="light"] :is(
  .atlas-compare-card:nth-child(2n),.atlas-format-head,
  .atlas-freq-sheet-head,.atlas-pdf-base,.atlas-detail-kpi
 ){
- background:#f1f5fc!important;
+ background:#f3faf8!important;
 }
 html[data-app-bg="light"] :is(
  .atlas-toolbar,.atlas-card,.atlas-compact-cell,.atlas-compare-card,
  .atlas-sound-card,.atlas-formation-card,.atlas-detail-sheet
 ){
- box-shadow:0 6px 18px rgba(34,59,97,.065)!important;
+ box-shadow:0 6px 18px rgba(38,75,72,.065)!important;
 }
 html[data-app-bg="light"] :is(
  .atlas-table th,.atlas-initial-head,.atlas-compare-head,
  .atlas-pdf-jp-head,.atlas-pdf-rank-table th
 ){
- background:#eaf0fa!important;color:#304867!important;
+ background:#f3faf8!important;color:#264b48!important;
  border-color:var(--light-border)!important;
 }
 html[data-app-bg="light"] :is(
  .atlas-table td,.atlas-pdf-rank-table td,.atlas-pdf-rank-table th
 ){
  background:#fff!important;color:var(--light-ink)!important;
- border-color:#d4deea!important;
+ border-color:#dcece9!important;
 }
 html[data-app-bg="light"] .atlas-pdf-rank-table td.pdf-empty{
- background:#f5f7fb!important;color:transparent!important;
+ background:#f3faf8!important;color:transparent!important;
 }
 html[data-app-bg="light"] :is(
  .atlas-control select,.atlas-search,.atlas-compare-searchbox input,
@@ -498,21 +498,21 @@ html[data-app-bg="light"] :is(
  .atlas-period-chip,.atlas-formation-filters button,
  .atlas-compare-kindrow button,.atlas-initial-nav button
 ){
- background:#edf3fb!important;color:#233852!important;
+ background:#f3faf8!important;color:#264b48!important;
  border-color:var(--light-border)!important;
 }
 html[data-app-bg="light"] :is(
  .atlas-control select,.atlas-search,.atlas-compare-searchbox input
 )::placeholder{
- color:#516881!important;opacity:1;
+ color:#496b68!important;opacity:1;
 }
 html[data-app-bg="light"] :is(
  .atlas-type-chip.active,.atlas-period-chip.active,
  .atlas-formation-filters button.active,.atlas-compare-kindrow button.active,
  .atlas-quick-row button.active
 ){
- background:#344caa!important;color:#fff!important;
- border-color:#344caa!important;
+ background:#0b8b82!important;color:#fff!important;
+ border-color:#0b8b82!important;
 }
 html[data-app-bg="light"] :is(
  .atlas-title,.atlas-card .atlas-hun,.atlas-compact-hun,.atlas-freq-answer,
@@ -581,18 +581,18 @@ html[data-app-bg="light"] :is(.atlas-progress.bad,.atlas-trend.old){
  background:#fcebed!important;color:var(--light-red)!important;
 }
 html[data-app-bg="light"] .atlas-mask-tip{
- background:#e2eafb!important;color:#27427a!important;
- border:1px solid #bcc9e4!important;
+ background:#f3faf8!important;color:#264b48!important;
+ border:1px solid #c8e3df!important;
 }
 html[data-app-bg="light"] .atlas-detail-backdrop{
- background:rgba(33,48,75,.30)!important;
+ background:rgba(24,55,53,.30)!important;
 }
 html[data-app-bg="light"] .atlas-detail-handle{
- background:#bac8da!important;
+ background:#c8e3df!important;
 }
 html[data-app-bg="light"] :is(.atlas-detail-close,.atlas-memory-nav button){
- background:#edf3fb!important;color:#263e61!important;
- border-color:#c8d5e9!important;
+ background:#f3faf8!important;color:#264b48!important;
+ border-color:#c8e3df!important;
 }
 /* Advanced atlas construction, compare, phonetic and data provenance panels */
 html[data-app-bg="light"] :is(
@@ -602,7 +602,7 @@ html[data-app-bg="light"] :is(
  .atlas-pdf-jp-kind .kind-label,.atlas-pdf-shinjitai>b,
  .atlas-phono-equation>span.semantic b,.atlas-phono-equation>span.phonetic b
 ){
- color:#22558f!important;
+ color:#087d76!important;
 }
 html[data-app-bg="light"] :is(
  .atlas-phonetic-guides,.atlas-phonetic-guides span,
@@ -614,12 +614,12 @@ html[data-app-bg="light"] :is(
  .atlas-pdf-parent,.atlas-pdf-kr,.atlas-pdf-jp-kind,
  .atlas-hanmun-answer-list>span,.atlas-hanmun-detail-answer
 ){
- background:#eef3fb!important;border-color:#d1ddeb!important;
+ background:#f3faf8!important;border-color:#dcece9!important;
  color:var(--light-ink)!important;
 }
 html[data-app-bg="light"] .atlas-compare-member.current .atlas-compare-glyph{
- background:#dce8ff!important;border-color:#9fb5e4!important;
- color:#24519c!important;
+ background:#f3faf8!important;border-color:#8fbcb5!important;
+ color:#087d76!important;
 }
 html[data-app-bg="light"] :is(.atlas-pdf-reading.extra span,.atlas-pdf-reading.extra.on-extra span){
  color:#9b4560!important;
@@ -642,12 +642,12 @@ html[data-app-bg="light"] :is(
  .global-search-quick button,.jp-atlas-cell,.jp-atlas-word,
  .drill-char-index-item
 ){
- background:#f2f6fc!important;
+ background:#f3faf8!important;
 }
 html[data-app-bg="light"] :is(
  .global-search-sheet,.update-sheet,.jp-atlas-sheet
 ){
- box-shadow:0 12px 36px rgba(26,51,91,.15)!important;
+ box-shadow:0 12px 36px rgba(38,75,72,.15)!important;
 }
 html[data-app-bg="light"] :is(
  .global-search-head strong,.global-result-row b,.global-hanja-result b,
@@ -669,7 +669,7 @@ html[data-app-bg="light"] :is(
  .global-search-quick button,.jp-atlas-close,.jp-reading-close,
  .drill-char-index-close
 ){
- background:#edf3fb!important;color:#25436b!important;
+ background:#f3faf8!important;color:#264b48!important;
  border-color:var(--light-border)!important;
 }
 html[data-app-bg="light"] :is(
@@ -702,12 +702,12 @@ html[data-app-bg="light"] #jp :is(
  .jp-word-round-chip,.jp-reading-quiz-preview>div,
  .jp-reading-pill,.jp-home-next,.jp-reading-selected-head
 ){
- background:#f4f7fc!important;
+ background:#f3faf8!important;
 }
 html[data-app-bg="light"] #jp :is(
  .jp-hero,.jp-home-hero
 ){
- background:linear-gradient(135deg,#edf3ff,#f9fbff)!important;
+ background:linear-gradient(135deg,#f3faf8,#fbfefd)!important;
 }
 html[data-app-bg="light"] #jp :is(
  .jp-hero h2,.jp-hero p,.jp-hero .jp-kicker,
@@ -748,7 +748,7 @@ html[data-app-bg="light"] #jp :is(
  .jp-reading-group:not(.active),.jp-reading-pill,
  .jp-home-progress-head button,.jp-home-search
 ){
- background:#edf3fb!important;color:var(--light-ink)!important;
+ background:#f3faf8!important;color:var(--light-ink)!important;
  border-color:var(--light-border)!important;
 }
 html[data-app-bg="light"] #jp :is(
@@ -756,8 +756,8 @@ html[data-app-bg="light"] #jp :is(
  .jp-set-seg button.active,.jp-view-seg button.active,
  .jp-reading-group.active,.jp-mode-seg button.active
 ){
- background:#334ba5!important;color:#fff!important;
- border-color:#334ba5!important;
+ background:#0b8b82!important;color:#fff!important;
+ border-color:#0b8b82!important;
 }
 html[data-app-bg="light"] #jp :is(
  .jp-word-round-chip.active,.jp-set-seg button.active,
@@ -770,9 +770,9 @@ html[data-app-bg="light"] #jp :is(
  .jp-reading-quiz-preview span,.jp-word-feedback-answer,
  .jp-char-score,.jp-hyogai-samples span,.jp-reading-group span
 ){
- background:#e5edf9!important;
- color:#2a466f!important;
- border-color:#c8d7eb!important;
+ background:#f3faf8!important;
+ color:#264b48!important;
+ border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] #jp :is(
  .jp-word-meaning-toggle.active,.jp-char-score.ok
@@ -792,7 +792,7 @@ html[data-app-bg="light"] #jp :is(
  .jp-reading-quiz-card input,.jp-word-canvas-pane input
 ){
  background:#fff!important;color:var(--light-ink)!important;
- border-color:#b9c9df!important;
+ border-color:#c8e3df!important;
 }
 /* Writing boards remain white with their original visible ink and guidelines. */
 html[data-app-bg="light"] body.drill-active #jp :is(
@@ -813,7 +813,7 @@ html[data-app-bg="light"] body.drill-active #jp :is(
  .jp-reading-quiz-input,.jp-word-question input
 ){
  background:#fff!important;color:var(--light-ink)!important;
- border-color:#aec0d7!important;
+ border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] :is(.jp-atlas-sheet,.jp-atlas-reading-section){
  background:#fff!important;color:var(--light-ink)!important;
@@ -825,10 +825,10 @@ html[data-app-bg="light"] :is(.jp-atlas-reading-head span,.jp-atlas-title small,
  color:var(--light-muted)!important;
 }
 html[data-app-bg="light"] :is(.jp-atlas-word,.jp-atlas-cell){
- background:#f3f7fc!important;color:var(--light-ink)!important;
+ background:#f3faf8!important;color:var(--light-ink)!important;
 }
 html[data-app-bg="light"] .jp-atlas-backdrop{
- background:rgba(27,44,74,.26)!important;
+ background:rgba(24,55,53,.26)!important;
 }
 /* Buttons used in quiz/session setup, log screens, archive lists */
 html[data-app-bg="light"] :is(
@@ -842,8 +842,8 @@ html[data-app-bg="light"] :is(
 html[data-app-bg="light"] :is(
  .check.selected,.exam-dot.current,.exam-session .choice-btn.selected
 ){
- background:#e4ecff!important;color:#1c3d8e!important;
- border-color:#9dafdc!important;
+ background:#f3faf8!important;color:#087d76!important;
+ border-color:#8fbcb5!important;
 }
 html[data-app-bg="light"] :is(
  .reset-row b,.app-list-row b,.mastery-row b,
@@ -860,7 +860,7 @@ html[data-app-bg="light"] :is(
  color:var(--light-muted)!important;
 }
 html[data-app-bg="light"] :is(.exam-passage,.home-resume,.jp-word-feedback){
- background:#edf3fb!important;border-color:var(--light-border)!important;
+ background:#f3faf8!important;border-color:var(--light-border)!important;
  color:var(--light-ink)!important;
 }
 
@@ -880,7 +880,7 @@ html[data-app-bg="light"] :is(
  .atlas-memory-relation-reading,.atlas-compact-mask,.atlas-source-priority span,
  .atlas-pdf-example>span:not(.atlas-pdf-empty)
 ){
- background:#eaf1fa!important;border-color:#ccdbea!important;
+ background:#f3faf8!important;border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] :is(
  .atlas-memory-relation span,.atlas-memory-relation-reading.compound
@@ -891,21 +891,21 @@ html[data-app-bg="light"] .atlas-memory-relation i{
  color:#12684f!important;
 }
 html[data-app-bg="light"] :is(.global-result-icon,.global-result-icon.jp){
- background:#dfe9fa!important;color:#284c93!important;
+ background:#dcece9!important;color:#087d76!important;
 }
 html[data-app-bg="light"] :is(.jp-atlas-font-control select,.jp-atlas-font-inline select){
- background:#edf3fb!important;color:var(--light-ink)!important;
+ background:#f3faf8!important;color:var(--light-ink)!important;
  border-color:var(--light-border)!important;
 }
 html[data-app-bg="light"] #jp :is(.jp-home-back,.jp-home-ring,.jp-action-glyph){
- background:#e4ecfb!important;color:#234b91!important;
- border-color:#bfceeb!important;
+ background:#f3faf8!important;color:#087d76!important;
+ border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] #jp .jp-home-ring :is(b,span){
- color:#1e3659!important;
+ color:#264b48!important;
 }
 html[data-app-bg="light"] #jp .jp-home-progress-bar{
- background:#dbe6f4!important;
+ background:#dcece9!important;
 }
 html[data-app-bg="light"] #jp .jp-card-reading{
  color:#17674e!important;
@@ -915,28 +915,28 @@ html[data-app-bg="light"] #jp .jp-word-round-head span{
  color:var(--light-muted)!important;
 }
 html[data-app-bg="light"] #jp .jp-word-guide>span{
- background:#e1eafb!important;color:#274678!important;
- border-color:#b7c9e7!important;
+ background:#f3faf8!important;color:#264b48!important;
+ border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] #jp .jp-word-answer,
 html[data-app-bg="light"] #jp .jp-word-feedback-answer,
 html[data-app-bg="light"] #jp .jp-answer-overlay{
- background:rgba(243,247,253,.94)!important;
- color:#234574!important;
+ background:rgba(243,250,248,.94)!important;
+ color:#264b48!important;
  text-shadow:none!important;
 }
 html[data-app-bg="light"] :is(.atlas-compact-grid,.atlas-freq-board){
- background:#dce6f3!important;border-color:#c8d6e8!important;
+ background:#dcece9!important;border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] .atlas-study-main .atlas-hanmun-passage{
- color:#223852!important;
+ color:#264b48!important;
 }
 html[data-app-bg="light"] .atlas-pdf-empty{
- color:#4c607a!important;
+ color:#496b68!important;
 }
 /* Preserve modal scrim only outside the bright paper sheet. */
 html[data-app-bg="light"] :is(.app2-backdrop,.drill-char-index-modal){
- background:rgba(27,42,68,.30)!important;
+ background:rgba(24,55,53,.30)!important;
 }
 
 /* 2.50.2 HOME HERO CONTRAST HOTFIX
@@ -944,45 +944,45 @@ html[data-app-bg="light"] :is(.app2-backdrop,.drill-char-index-modal){
    on every text node inside the home welcome and its level orb. */
 html[data-app-bg="light"] .home-welcome{
  background:
-   radial-gradient(circle at 90% 12%,rgba(73,128,221,.10),transparent 31%),
-   linear-gradient(135deg,#f0f5ff 0%,#f8faff 52%,#eaf2fd 100%)!important;
- border-color:#c5d4e8!important;
+   radial-gradient(circle at 90% 12%,rgba(11,139,130,.10),transparent 31%),
+   linear-gradient(135deg,#f3faf8 0%,#fbfefd 52%,#f3faf8 100%)!important;
+ border-color:#c8e3df!important;
 }
 html[data-app-bg="light"] .home-welcome::after{
- color:rgba(45,79,135,.055)!important;
+ color:rgba(8,125,118,.055)!important;
 }
 html[data-app-bg="light"] .home-welcome .home-date-label{
- color:#536b8b!important;
+ color:#55716f!important;
  opacity:1!important;
  text-shadow:none!important;
 }
 html[data-app-bg="light"] .home-welcome h2{
- color:#182b45!important;
+ color:#183735!important;
  opacity:1!important;
  text-shadow:none!important;
 }
 html[data-app-bg="light"] .home-welcome p{
- color:#455d79!important;
+ color:#496b68!important;
  opacity:1!important;
  text-shadow:none!important;
 }
 html[data-app-bg="light"] .home-welcome .home-level-orb{
- background:linear-gradient(145deg,#e5edf9,#f5f8fd)!important;
- border-color:#bdcee5!important;
- box-shadow:0 7px 18px rgba(39,65,104,.09)!important;
+ background:linear-gradient(145deg,#f3faf8,#fbfefd)!important;
+ border-color:#c8e3df!important;
+ box-shadow:0 7px 18px rgba(38,75,72,.09)!important;
 }
 html[data-app-bg="light"] .home-welcome .home-level-orb span{
- color:#526b8a!important;
+ color:#55716f!important;
  opacity:1!important;
  text-shadow:none!important;
 }
 html[data-app-bg="light"] .home-welcome .home-level-orb b{
- color:#213b61!important;
+ color:#264b48!important;
  opacity:1!important;
  text-shadow:none!important;
 }
 html[data-app-bg="light"] .home-welcome .home-level-orb small{
- color:#506985!important;
+ color:#496b68!important;
  opacity:1!important;
  text-shadow:none!important;
 }
@@ -1233,7 +1233,7 @@ html[data-app-bg="light"] body .app2-dock{
  border-color:#c7dcda!important;
 }
 html[data-app-bg="light"] body .app2-nav{
- color:#526c77!important;
+ color:#496b68!important;
 }
 html[data-app-bg="light"] body .app2-nav.active{
  background:#0b8b82!important;
@@ -1402,8 +1402,8 @@ html[data-app-bg="light"] :is(
  .atlas-phono-equation>span b,.atlas-memory-term,
  .atlas-memory-answer.hanja-answer,.atlas-hanmun-full-passage
 ){
- color:#29365f!important;
- -webkit-text-fill-color:#29365f!important;
+ color:#264b48!important;
+ -webkit-text-fill-color:#264b48!important;
  text-shadow:none!important;
 }
 /* Keep semantic/status accents readable but within the teal atmosphere. */
@@ -1493,18 +1493,18 @@ html[data-app-bg="light"] :is(
  .atlas-formation-card .glyph,.atlas-compare-glyph,.atlas-pdf-char strong,
  .atlas-pdf-base strong,.atlas-memory-answer.hanja-answer
 ){
- color:#263a63!important;
- -webkit-text-fill-color:#263a63!important;
+ color:#264b48!important;
+ -webkit-text-fill-color:#264b48!important;
  text-shadow:none!important;
 }
 html[data-app-bg="light"] .atlas-card .atlas-hanja{
- color:#263a63!important;
- -webkit-text-fill-color:#263a63!important;
+ color:#264b48!important;
+ -webkit-text-fill-color:#264b48!important;
 }
 /* Japanese atlas glyphs use the same readable ink color for consistency. */
 html[data-app-bg="light"] :is(.jp-atlas-big,.jp-atlas-card .char,#jp .jp-card-char){
- color:#263a63!important;
- -webkit-text-fill-color:#263a63!important;
+ color:#264b48!important;
+ -webkit-text-fill-color:#264b48!important;
 }
 /* Teal separators and subtle interactive hover/press feedback. */
 html[data-app-bg="light"] :is(.home-primary-card,.home-shortcut,.study-tile,.study-link,.app-action):active{
@@ -1982,4 +1982,180 @@ html[data-app-bg="light"] body.drill-active::before,
 html[data-app-bg="light"] body.drill-active::after{
   background:#f3fbf9!important;
   background-image:none!important;
+}
+
+/* 2.51.0 LIGHT THEME VISUAL SYSTEM
+   White-first, flat teal accent, neutral dark text.
+   This is the final authority for the main app and study hubs. */
+html[data-app-bg="light"]{
+  color-scheme:light;
+  --bg:#f5faf9!important;
+  --panel:#ffffff!important;
+  --panel2:#f8fcfb!important;
+  --line:#c9e2de!important;
+  --text:#1b3734!important;
+  --muted:#5c7471!important;
+  --chip:#eef7f5!important;
+  --accent:#0b8b82!important;
+  --good:#087d76!important;
+  --info:#0b9187!important;
+  --ui-surface-1:#ffffff!important;
+  --ui-surface-2:#f8fcfb!important;
+  --ui-surface-alt:#f2f9f7!important;
+  --ui-surface-soft:#eef7f5!important;
+  --ui-stroke:#c5dfdb!important;
+  --ui-stroke-soft:#d8ebe8!important;
+  --ui-text:#1b3734!important;
+  --ui-muted:#5c7471!important;
+  --ui-primary-1:#0b8b82!important;
+  --ui-primary-2:#087d76!important;
+  --ui-primary-3:#075f5b!important;
+}
+html[data-app-bg="light"] body,
+html[data-app-bg="light"] .app{
+  background:#f5faf9!important;
+  background-image:none!important;
+  color:#1b3734!important;
+}
+html[data-app-bg="light"] .app2-bar{
+  background:rgba(255,255,255,.98)!important;
+  background-image:none!important;
+  border-color:#c9e2de!important;
+  box-shadow:0 4px 14px rgba(8,125,118,.055)!important;
+}
+html[data-app-bg="light"] .app2-title{color:#1b3734!important}
+html[data-app-bg="light"] .app2-kicker{color:#5c7471!important}
+html[data-app-bg="light"] .app2-actions button{
+  background:#eef7f5!important;
+  background-image:none!important;
+  border-color:#c7e1dd!important;
+  color:#214b47!important;
+  box-shadow:none!important;
+}
+
+/* General cards: white surfaces, subtle teal depth. */
+html[data-app-bg="light"] :is(
+  .app-section,.home-primary-card,.home-shortcut,.home-stats-row>div,
+  .study-tile,.study-link,.app-action,.power-card,.app-stats-hero,
+  .drill-resume-card,.jp-home-status,.jp-home-action,.jp-home-progress-card,
+  .jp-card,.jp-panel,.jp-atlas-card,.atlas-card,.atlas-table-wrap
+){
+  background:#ffffff!important;
+  background-image:none!important;
+  border-color:#c9e2de!important;
+  box-shadow:0 5px 16px rgba(8,125,118,.05)!important;
+}
+html[data-app-bg="light"] :is(
+  .home-welcome,.hub-title-card,.jp-hero,.jp-home-hero,.atlas-toolbar
+){
+  background:#f1f9f7!important;
+  background-image:none!important;
+  border-color:#bddbd6!important;
+  box-shadow:0 6px 18px rgba(8,125,118,.055)!important;
+}
+
+/* Headings/text stay neutral, teal is for interaction rather than body copy. */
+html[data-app-bg="light"] :is(
+  h1,h2,h3,.app-section-title,.home-section-title,
+  .home-primary-card b,.home-shortcut b,.study-tile b,.study-link b,
+  #jp .jp-home-action b,#jp .jp-home-progress-head b
+){
+  color:#1b3734!important;
+  -webkit-text-fill-color:#1b3734!important;
+}
+html[data-app-bg="light"] :is(
+  .app-section-sub,.soft,.muted,.home-primary-card small,.home-shortcut small,
+  .study-tile small,.study-link small,#jp .jp-home-action small
+){
+  color:#5c7471!important;
+  -webkit-text-fill-color:#5c7471!important;
+}
+
+/* Buttons and chips. */
+html[data-app-bg="light"] :is(.btn,.tab,.quick-pill):not(.primary):not(.good):not(.bad),
+html[data-app-bg="light"] :is(.jp-filter-chip,.atlas-type-chip,.atlas-period-chip):not(.active){
+  background:#f4faf8!important;
+  background-image:none!important;
+  border-color:#c8e1dd!important;
+  color:#315b57!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] :is(.btn.primary,.tab.active,.jp-filter-chip.active,.atlas-type-chip.active,.atlas-period-chip.active){
+  background:#0b8b82!important;
+  background-image:none!important;
+  border-color:#0b8b82!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  box-shadow:none!important;
+}
+
+/* Japanese hub balance. */
+html[data-app-bg="light"] #jp .jp-home-status{
+  background:#f4faf8!important;
+}
+html[data-app-bg="light"] #jp .jp-home-action:nth-child(even){
+  background:#fbfefd!important;
+}
+html[data-app-bg="light"] #jp .jp-action-glyph{
+  width:42px!important;
+  height:42px!important;
+  font-size:20px!important;
+  line-height:1!important;
+  border-radius:13px!important;
+  background:#e1f2ef!important;
+  background-image:none!important;
+  color:#08736d!important;
+  -webkit-text-fill-color:#08736d!important;
+  border:1px solid #bdded9!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] #jp .jp-home-action.reading .jp-action-glyph{
+  font-size:20px!important;
+}
+html[data-app-bg="light"] #jp .jp-home-progress-head button,
+html[data-app-bg="light"] #jp .jp-home-grade-grid button{
+  background:#ffffff!important;
+  background-image:none!important;
+  border-color:#c8e1dd!important;
+  color:#315b57!important;
+  -webkit-text-fill-color:#315b57!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] #jp .jp-home-progress-head button{
+  background:#eef7f5!important;
+  color:#075f5b!important;
+}
+html[data-app-bg="light"] #jp .jp-home-ring{
+  background:
+    radial-gradient(circle at 50% 50%,#ffffff 55%,transparent 56%),
+    conic-gradient(#0b9187 var(--jp-ring,0%),#dbeeea 0)!important;
+  border-color:#bdded9!important;
+}
+html[data-app-bg="light"] #jp .jp-home-ring b{color:#1b3734!important}
+html[data-app-bg="light"] #jp .jp-home-ring span{color:#5c7471!important}
+
+/* Bottom dock: no blue cast. */
+html[data-app-bg="light"] .app2-dock{
+  background:rgba(255,255,255,.985)!important;
+  background-image:none!important;
+  border-color:#c5dfdb!important;
+  box-shadow:0 -6px 20px rgba(8,125,118,.075)!important;
+}
+html[data-app-bg="light"] .app2-nav:not(.active){
+  color:#52706d!important;
+  -webkit-text-fill-color:#52706d!important;
+}
+html[data-app-bg="light"] .app2-nav.active{
+  background:#0b8b82!important;
+  background-image:none!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+  box-shadow:none!important;
+}
+
+/* Keep light-theme browser/PWA safe-area white-mint. */
+html[data-app-bg="light"],
+html[data-app-bg="light"] body::before,
+html[data-app-bg="light"] body::after{
+  background-color:#f5faf9!important;
 }
