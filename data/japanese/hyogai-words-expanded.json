@@ -79,10 +79,7 @@
       "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true,
-      "sentence": "夕暮れの渚を、二人はゆっくりと歩いていった。",
-      "translation": "해 질 녘 바닷가를 두 사람은 천천히 걸어갔다.",
-      "exampleSource": "YuYeongHwan/JLPT"
+      "exampleOptional": true
     },
     {
       "id": "hx-0004",
@@ -1247,10 +1244,7 @@
       "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true,
-      "sentence": "飛行機の窓から、遥か下に小さな町並みが見えた。",
-      "translation": "비행기 창문으로 아득히 아래에 작은 거리가 보였다.",
-      "exampleSource": "YuYeongHwan/JLPT"
+      "exampleOptional": true
     },
     {
       "id": "hx-0062",
@@ -1330,10 +1324,7 @@
       "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true,
-      "sentence": "この新人の実力は、すでにベテランを凌ぐほどだ。",
-      "translation": "이 신인의 실력은 이미 베테랑을 능가할 정도다.",
-      "exampleSource": "YuYeongHwan/JLPT"
+      "exampleOptional": true
     },
     {
       "id": "hx-0066",
@@ -1413,10 +1404,7 @@
       "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
       "sourceLicense": "CC BY-SA 4.0",
       "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true,
-      "sentence": "迷惑をかけた近所の家に、お詫びの品を持って伺った。",
-      "translation": "폐를 끼친 이웃집에 사과의 선물을 들고 찾아갔다.",
-      "exampleSource": "YuYeongHwan/JLPT"
+      "exampleOptional": true
     },
     {
       "id": "hx-0070",
