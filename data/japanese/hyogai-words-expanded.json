@@ -1,6 +1,6 @@
 {
   "version": "2026-10-19",
-  "count": 173,
+  "count": 172,
   "purpose": "Hyogai / non-Joyo vocabulary expansion for Japanese word-writing. Includes nouns, verbs, adjectives, adverbs and other kanji-containing forms; every item contains at least one true non-Joyo CJK character.",
   "source": {
     "vocabulary": "JMdict entries redistributed through JIHUNJO123/jlpt-vocab-n1",
@@ -9,11 +9,11 @@
     "examples": "Where available, examples are attached only from separately reviewed project data; entries without examples use a reading+meaning writing prompt."
   },
   "scopeCounts": {
-    "practical": 57,
+    "practical": 56,
     "rare": 116
   },
   "partOfSpeechCounts": {
-    "명사": 74,
+    "명사": 73,
     "동사": 76,
     "い형용사": 13,
     "부사": 3,
@@ -2432,26 +2432,6 @@
     },
     {
       "id": "hx-0120",
-      "word": "お神輿",
-      "reading": "おみこし",
-      "meaning": "미코시·축제용 신여",
-      "set": "hyogai",
-      "hyogaiScope": "practical",
-      "hyogaiStage": "practical",
-      "jlpt": "N1",
-      "pos": "명사",
-      "posCode": "noun",
-      "tier": "hyogai-expanded",
-      "nonJoyoChars": [
-        "輿"
-      ],
-      "source": "JMdict via JIHUNJO123/jlpt-vocab-n1",
-      "sourceLicense": "CC BY-SA 4.0",
-      "meaningSource": "Hanja Lab Korean gloss",
-      "exampleOptional": true
-    },
-    {
-      "id": "hx-0121",
       "word": "祈祷",
       "reading": "きとう",
       "meaning": "기도·기원",
@@ -2471,7 +2451,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0122",
+      "id": "hx-0121",
       "word": "綺麗",
       "reading": "きれい",
       "meaning": "아름답다·깨끗하다",
@@ -2491,7 +2471,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0123",
+      "id": "hx-0122",
       "word": "浚う",
       "reading": "さらう",
       "meaning": "준설하다·퍼내다",
@@ -2511,7 +2491,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0124",
+      "id": "hx-0123",
       "word": "晒す",
       "reading": "さらす",
       "meaning": "드러내다·노출하다",
@@ -2531,7 +2511,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0125",
+      "id": "hx-0124",
       "word": "蝶々",
       "reading": "ちょうちょう",
       "meaning": "나비",
@@ -2551,7 +2531,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0126",
+      "id": "hx-0125",
       "word": "綴り",
       "reading": "つづり",
       "meaning": "철자·표기",
@@ -2571,7 +2551,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0127",
+      "id": "hx-0126",
       "word": "梳かす",
       "reading": "とかす",
       "meaning": "빗질하다",
@@ -2591,7 +2571,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0128",
+      "id": "hx-0127",
       "word": "儚い",
       "reading": "はかない",
       "meaning": "덧없다",
@@ -2613,7 +2593,7 @@
       "exampleSource": "rapoyrazoglu/nihongo"
     },
     {
-      "id": "hx-0129",
+      "id": "hx-0128",
       "word": "嵌まる",
       "reading": "はまる",
       "meaning": "꼭 맞다·빠지다",
@@ -2633,7 +2613,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0130",
+      "id": "hx-0129",
       "word": "ばら撒く",
       "reading": "ばらまく",
       "meaning": "흩뿌리다·퍼뜨리다",
@@ -2653,7 +2633,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0131",
+      "id": "hx-0130",
       "word": "僻み",
       "reading": "ひがみ",
       "meaning": "비뚤어진 생각·피해의식",
@@ -2673,7 +2653,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0132",
+      "id": "hx-0131",
       "word": "萌芽",
       "reading": "ほうが",
       "meaning": "맹아·싹틈",
@@ -2693,7 +2673,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0133",
+      "id": "hx-0132",
       "word": "仄か",
       "reading": "ほのか",
       "meaning": "희미하다·어렴풋하다",
@@ -2713,7 +2693,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0134",
+      "id": "hx-0133",
       "word": "跨る",
       "reading": "またがる",
       "meaning": "걸터앉다·걸치다",
@@ -2733,7 +2713,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0135",
+      "id": "hx-0134",
       "word": "巫女",
       "reading": "みこ",
       "meaning": "신사 무녀",
@@ -2753,7 +2733,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0136",
+      "id": "hx-0135",
       "word": "儲け",
       "reading": "もうけ",
       "meaning": "이익·벌이",
@@ -2773,7 +2753,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0137",
+      "id": "hx-0136",
       "word": "勿体ない",
       "reading": "もったいない",
       "meaning": "아깝다·낭비다",
@@ -2793,7 +2773,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0138",
+      "id": "hx-0137",
       "word": "詫びる",
       "reading": "わびる",
       "meaning": "사과하다",
@@ -2813,7 +2793,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0139",
+      "id": "hx-0138",
       "word": "閊える",
       "reading": "つかえる",
       "meaning": "막히다·걸리다",
@@ -2833,7 +2813,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0140",
+      "id": "hx-0139",
       "word": "謳う",
       "reading": "うたう",
       "meaning": "내세우다·찬양하다",
@@ -2853,7 +2833,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0141",
+      "id": "hx-0140",
       "word": "罹る",
       "reading": "かかる",
       "meaning": "병에 걸리다",
@@ -2873,7 +2853,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0142",
+      "id": "hx-0141",
       "word": "縋る",
       "reading": "すがる",
       "meaning": "매달리다·의지하다",
@@ -2893,7 +2873,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0143",
+      "id": "hx-0142",
       "word": "蕎麦屋",
       "reading": "そばや",
       "meaning": "소바집",
@@ -2913,7 +2893,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0144",
+      "id": "hx-0143",
       "word": "橙色",
       "reading": "だいだいいろ",
       "meaning": "주황색",
@@ -2933,7 +2913,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0145",
+      "id": "hx-0144",
       "word": "楕円形",
       "reading": "だえんけい",
       "meaning": "타원형",
@@ -2953,7 +2933,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0146",
+      "id": "hx-0145",
       "word": "糺す",
       "reading": "ただす",
       "meaning": "따져 묻다·확인하다",
@@ -2973,7 +2953,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0147",
+      "id": "hx-0146",
       "word": "些か",
       "reading": "いささか",
       "meaning": "다소·조금",
@@ -2993,7 +2973,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0148",
+      "id": "hx-0147",
       "word": "口喧嘩",
       "reading": "くちげんか",
       "meaning": "말다툼",
@@ -3014,7 +2994,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0149",
+      "id": "hx-0148",
       "word": "楯突く",
       "reading": "たてつく",
       "meaning": "대들다·반항하다",
@@ -3034,7 +3014,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0150",
+      "id": "hx-0149",
       "word": "惚ける",
       "reading": "とぼける",
       "meaning": "시치미 떼다·모르는 척하다",
@@ -3054,7 +3034,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0151",
+      "id": "hx-0150",
       "word": "撥ねる",
       "reading": "はねる",
       "meaning": "튕기다·치다·거절하다",
@@ -3074,7 +3054,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0152",
+      "id": "hx-0151",
       "word": "孕む",
       "reading": "はらむ",
       "meaning": "임신하다·내포하다",
@@ -3094,7 +3074,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0153",
+      "id": "hx-0152",
       "word": "吹き溜まり",
       "reading": "ふきだまり",
       "meaning": "눈·낙엽 등이 쌓인 곳",
@@ -3114,7 +3094,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0154",
+      "id": "hx-0153",
       "word": "纏まる",
       "reading": "まとまる",
       "meaning": "정리되다·합의되다",
@@ -3134,7 +3114,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0155",
+      "id": "hx-0154",
       "word": "淀む",
       "reading": "よどむ",
       "meaning": "고이다·정체되다",
@@ -3154,7 +3134,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0156",
+      "id": "hx-0155",
       "word": "有耶無耶",
       "reading": "うやむや",
       "meaning": "흐지부지하다·애매하다",
@@ -3174,7 +3154,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0157",
+      "id": "hx-0156",
       "word": "轢く",
       "reading": "ひく",
       "meaning": "차로 치다·깔아뭉개다",
@@ -3194,7 +3174,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0158",
+      "id": "hx-0157",
       "word": "びしょ濡れ",
       "reading": "びしょぬれ",
       "meaning": "흠뻑 젖음",
@@ -3214,7 +3194,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0159",
+      "id": "hx-0158",
       "word": "錻力",
       "reading": "ブリキ",
       "meaning": "양철",
@@ -3234,7 +3214,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0160",
+      "id": "hx-0159",
       "word": "金屏風",
       "reading": "きんびょうぶ",
       "meaning": "금병풍",
@@ -3254,7 +3234,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0161",
+      "id": "hx-0160",
       "word": "擤む",
       "reading": "かむ",
       "meaning": "코를 풀다",
@@ -3274,7 +3254,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0162",
+      "id": "hx-0161",
       "word": "梁",
       "reading": "はり",
       "meaning": "들보·보",
@@ -3294,7 +3274,7 @@
       "exampleOptional": true
     },
     {
-      "id": "hx-0163",
+      "id": "hx-0162",
       "word": "取り揃える",
       "reading": "とりそろえる",
       "meaning": "골고루 갖추다·모아 놓다",
@@ -3332,7 +3312,7 @@
       "exampleOptional": true,
       "sentence": "合格して嬉しいです。",
       "exampleSource": "rapoyrazoglu/nihongo",
-      "id": "hx-0164",
+      "id": "hx-0163",
       "tier": "hyogai-expanded"
     },
     {
@@ -3354,7 +3334,7 @@
       "exampleOptional": true,
       "sentence": "この通りは夜になると賑やかです。",
       "exampleSource": "rapoyrazoglu/nihongo",
-      "id": "hx-0166",
+      "id": "hx-0164",
       "tier": "hyogai-expanded"
     },
     {
@@ -3374,7 +3354,7 @@
       "sourceLicense": "MIT",
       "meaningSource": "reviewed Korean gloss",
       "exampleOptional": true,
-      "id": "hx-0168",
+      "id": "hx-0165",
       "tier": "hyogai-expanded"
     },
     {
@@ -3394,7 +3374,7 @@
       "sourceLicense": "MIT",
       "meaningSource": "reviewed Korean gloss",
       "exampleOptional": true,
-      "id": "hx-0170",
+      "id": "hx-0166",
       "tier": "hyogai-expanded"
     },
     {
@@ -3414,7 +3394,7 @@
       "sourceLicense": "MIT",
       "meaningSource": "reviewed Korean gloss",
       "exampleOptional": true,
-      "id": "hx-0172",
+      "id": "hx-0167",
       "tier": "hyogai-expanded"
     },
     {
@@ -3434,7 +3414,7 @@
       "sourceLicense": "MIT",
       "meaningSource": "reviewed Korean gloss",
       "exampleOptional": true,
-      "id": "hx-0174",
+      "id": "hx-0168",
       "tier": "hyogai-expanded"
     },
     {
@@ -3454,7 +3434,7 @@
       "sourceLicense": "MIT",
       "meaningSource": "reviewed Korean gloss",
       "exampleOptional": true,
-      "id": "hx-0176",
+      "id": "hx-0169",
       "tier": "hyogai-expanded"
     },
     {
@@ -3477,7 +3457,7 @@
       "sentence": "工事の音が喧しい。",
       "translation": "공사 소리가 시끄럽다.",
       "exampleSource": "boring-km/jlpt-study-app",
-      "id": "hx-0178",
+      "id": "hx-0170",
       "tier": "hyogai-expanded"
     },
     {
@@ -3497,7 +3477,7 @@
       "sourceLicense": "MIT",
       "meaningSource": "reviewed Korean gloss",
       "exampleOptional": true,
-      "id": "hx-0180",
+      "id": "hx-0171",
       "tier": "hyogai-expanded"
     },
     {
@@ -3517,7 +3497,7 @@
       "sourceLicense": "MIT",
       "meaningSource": "reviewed Korean gloss",
       "exampleOptional": true,
-      "id": "hx-0182",
+      "id": "hx-0172",
       "tier": "hyogai-expanded"
     }
   ]
