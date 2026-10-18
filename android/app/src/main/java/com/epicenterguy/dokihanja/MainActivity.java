@@ -63,11 +63,16 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().setStatusBarColor(Color.rgb(9, 16, 31));
-        getWindow().setNavigationBarColor(Color.rgb(9, 16, 31));
+        getWindow().setStatusBarColor(Color.rgb(245, 250, 249));
+        getWindow().setNavigationBarColor(Color.rgb(245, 250, 249));
+        int systemUiFlags = android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            systemUiFlags |= android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
+        }
+        getWindow().getDecorView().setSystemUiVisibility(systemUiFlags);
 
         webView = new WebView(this);
-        webView.setBackgroundColor(Color.rgb(9, 16, 31));
+        webView.setBackgroundColor(Color.rgb(245, 250, 249));
         setContentView(webView);
 
         WebSettings settings = webView.getSettings();
