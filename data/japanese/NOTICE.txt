@@ -145,7 +145,7 @@ Hyogai mixed-POS vocabulary expansion (Hanja Lab 2.53.0)
 =============================================================
 - data/japanese/hyogai-words-expanded.json adds 172 writing headwords that each contain at least one true non-Joyo CJK character.
 - Scope split: 56 practical Hyogai entries and 116 rare/non-practical entries.
-- Part-of-speech split: 74 nouns, 76 verbs, 13 i-adjectives, 6 na-adjectives, 3 adverbs and 1 attributive form.
+- Part-of-speech split: 73 nouns, 76 verbs, 13 i-adjectives, 6 na-adjectives, 3 adverbs and 1 attributive form.
 - Unlike the earlier pure-compound supplement, this set deliberately includes okurigana and mixed kanji-kana spellings such as verbs and adjectives so the complete Japanese spelling can be practised.
 - The main dictionary-backed portion uses JMdict vocabulary/readings as redistributed by:
   https://github.com/JIHUNJO123/jlpt-vocab-n1
