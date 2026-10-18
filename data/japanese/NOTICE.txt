@@ -140,3 +140,22 @@ Common multi-kanji vocabulary supplement (Hanja Lab 2.52.0)
 - The runtime performs the same display-form and derivative guard after all vocabulary supplements are merged, so future additions do not silently reintroduce these repetitions.
 - This supplement does not fabricate Korean sentence translations. Where a source entry has only a Korean gloss and Japanese example, the UI shows the gloss and simply omits the absent sentence translation.
 - JLPT tags are learning metadata and are not an official fixed vocabulary list from the Japan Foundation or JEES.
+
+Hyogai mixed-POS vocabulary expansion (Hanja Lab 2.53.0)
+=============================================================
+- data/japanese/hyogai-words-expanded.json adds 172 writing headwords that each contain at least one true non-Joyo CJK character.
+- Scope split: 56 practical Hyogai entries and 116 rare/non-practical entries.
+- Part-of-speech split: 74 nouns, 76 verbs, 13 i-adjectives, 6 na-adjectives, 3 adverbs and 1 attributive form.
+- Unlike the earlier pure-compound supplement, this set deliberately includes okurigana and mixed kanji-kana spellings such as verbs and adjectives so the complete Japanese spelling can be practised.
+- The main dictionary-backed portion uses JMdict vocabulary/readings as redistributed by:
+  https://github.com/JIHUNJO123/jlpt-vocab-n1
+  JMdict is published by the Electronic Dictionary Research and Development Group (EDRDG) under CC BY-SA 4.0.
+- A small lower-level supplement cross-checks vocabulary/readings from:
+  https://github.com/kordokrip/JLPT
+  and https://github.com/rapoyrazoglu/nihongo
+  (both projects identify their material as MIT-licensed).
+- Korean glosses in this Hanja Lab supplement were normalized/authored for Hanja Lab rather than copying downstream machine-like Korean dictionary glosses.
+- This supplement intentionally stores no sentence examples. When no curated example exists, the word-writing screen presents the reading and meaning directly rather than displaying a dead “no example” state.
+- The runtime and validator deduplicate by display form and suppress simple prefix/suffix variants when the unsuffixed/base headword already exists. Honorific お/ご/御 prefixes are included in this duplicate guard.
+- JLPT tags attached to some vocabulary are study metadata only; JLPT does not publish an official fixed vocabulary list.
+
