@@ -16,10 +16,27 @@ const items=baseItems.concat(extraItems,commonItems);
 const errors=[];
 const warnings=[];
 const seen=new Map();
+const seenForms=new Map();
 
 function norm(s){return String(s||"").trim().replace(/\s+/g," ")}
 function forms(w){
   return [...new Set([norm(w.preferredForm),norm(w.word)].filter(Boolean))];
+}
+function derivativeBase(form,formSet){
+  form=norm(form);
+  const prefixes=["非","不","無","未","再","超","新","旧","元"];
+  const suffixes=["的","性","化","者","員","家","人","中","用","料","制","式","型","版","系"];
+  for(const a of prefixes){
+    if(form.startsWith(a)&&[...form].length>[...a].length+1){
+      const base=form.slice(a.length);if(formSet.has(base))return base;
+    }
+  }
+  for(const a of suffixes){
+    if(form.endsWith(a)&&[...form].length>[...a].length+1){
+      const base=form.slice(0,-a.length);if(formSet.has(base))return base;
+    }
+  }
+  return "";
 }
 function badFallback(s){
   return /文章の中で.*読み方と意味/u.test(s)||
@@ -71,6 +88,11 @@ for(const w of items){
   const id=w.id??"?";
   const sentence=norm(w.sentence);
   const translation=norm(w.translation);
+  const display=norm(w.preferredForm||w.word);
+  if(display){
+    if(seenForms.has(display))errors.push(`duplicate display form: [${seenForms.get(display)}] and [${id}] ${display}`);
+    else seenForms.set(display,id);
+  }
   if(!norm(w.word))errors.push(`[${id}] word missing`);
   if(!norm(w.reading))errors.push(`[${id}] reading missing: ${w.word||""}`);
   if(!norm(w.meaning))errors.push(`[${id}] meaning missing: ${w.word||""}`);
@@ -95,6 +117,13 @@ for(const w of items){
   }
 }
 
+const allForms=new Set(items.map(function(w){return norm(w.preferredForm||w.word)}).filter(Boolean));
+for(const w of items){
+  const display=norm(w.preferredForm||w.word);
+  const base=derivativeBase(display,allForms);
+  if(base)errors.push(`derivative duplicate: [${w.id??"?"}] ${display} -> base ${base}`);
+}
+
 if(data.count!==baseItems.length)errors.push(`count mismatch: words.json header=${data.count}, actual=${baseItems.length}`);
 if(extraData.count!=null&&extraData.count!==extraItems.length)errors.push(`count mismatch: rare-words-extra.json header=${extraData.count}, actual=${extraItems.length}`);
 if(commonData.count!=null&&commonData.count!==commonItems.length)errors.push(`count mismatch: common-words-extra.json header=${commonData.count}, actual=${commonItems.length}`);
@@ -103,5 +132,5 @@ if(errors.length){
   console.error(`Japanese word validation failed (${errors.length})\n`+errors.join("\n"));
   process.exit(1);
 }
-console.log(`Japanese word validation passed: ${items.length} items (base ${baseItems.length} + rare extra ${extraItems.length} + common extra ${commonItems.length}), no placeholders, no duplicate examples, no gloss-particle mismatches.`);
+console.log(`Japanese word validation passed: ${items.length} items (base ${baseItems.length} + rare extra ${extraItems.length} + common extra ${commonItems.length}), no placeholders, no duplicate display forms/examples, no affix-derivative duplicates, no gloss-particle mismatches.`);
 if(warnings.length)console.warn(`Japanese word quality warnings (${warnings.length})\n`+warnings.slice(0,80).join("\n"));
