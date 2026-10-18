@@ -1755,3 +1755,231 @@ html[data-app-bg="light"] body::after{
   background:#f3fbf9!important;
   background-image:none!important;
 }
+
+/* 2.50.7 LIGHT DRILL PALETTE
+   Device audit: Japanese word-writing must stay white/mint/teal from header to
+   safe area. No legacy cobalt/navy/orange controls are allowed in light mode. */
+html[data-app-bg="light"] body.drill-active,
+html[data-app-bg="light"] body.drill-active #jp,
+html[data-app-bg="light"] body.drill-active #jp .jp-screen,
+html[data-app-bg="light"] body.drill-active #jp .drill-session-shell,
+html[data-app-bg="light"] body.drill-active #jp .jp-word-session-shell,
+html[data-app-bg="light"] body.drill-active #jp .jp-word-stage{
+  background:#f3fbf9!important;
+  background-image:none!important;
+  color:#183735!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .drill-session-top{
+  background:#ffffff!important;
+  background-image:none!important;
+  border:1px solid #c8e3df!important;
+  box-shadow:0 4px 14px rgba(8,125,118,.055)!important;
+  color:#183735!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .drill-status-pill,
+html[data-app-bg="light"] body.drill-active #jp .drill-status-pill:not(.accent){
+  background:#eef8f6!important;
+  background-image:none!important;
+  border-color:#c8e3df!important;
+  color:#315b57!important;
+  -webkit-text-fill-color:#315b57!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .drill-status-pill.accent{
+  background:#0b8b82!important;
+  background-image:none!important;
+  border-color:#0b8b82!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .drill-settings-btn,
+html[data-app-bg="light"] body.drill-active #jp .drill-top-actions .btn{
+  background:#eef8f6!important;
+  background-image:none!important;
+  border-color:#bdddd8!important;
+  color:#214d49!important;
+  -webkit-text-fill-color:#214d49!important;
+  box-shadow:none!important;
+}
+
+/* Compact learning index inside drills. */
+html[data-app-bg="light"] body.drill-active #jp .study-index{
+  background:#ffffff!important;
+  background-image:none!important;
+  border-color:#c8e3df!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .study-index-item{
+  background:#f7fcfb!important;
+  background-image:none!important;
+  border-color:#cbdedb!important;
+  color:#355b57!important;
+  -webkit-text-fill-color:#355b57!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .study-index-item span{
+  background:#e3f3f0!important;
+  background-image:none!important;
+  border-color:#c4e2dd!important;
+  color:#08736d!important;
+  -webkit-text-fill-color:#08736d!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .study-index-item.active{
+  background:#0b8b82!important;
+  background-image:none!important;
+  border-color:#0b8b82!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .study-index-item.active :is(b,small),
+html[data-app-bg="light"] body.drill-active #jp .study-index-item.active span{
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .study-index-item.active span{
+  background:rgba(255,255,255,.16)!important;
+  border-color:rgba(255,255,255,.20)!important;
+}
+
+/* Prompt / meaning panel. */
+html[data-app-bg="light"] body.drill-active #jp .jp-word-question,
+html[data-app-bg="light"] body.drill-active #jp .jp-word-question.meaning-open{
+  background:#ffffff!important;
+  background-image:none!important;
+  border-color:#c5e1dc!important;
+  box-shadow:0 5px 16px rgba(8,125,118,.05)!important;
+  color:#183735!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-example,
+html[data-app-bg="light"] body.drill-active #jp .jp-word-form-note,
+html[data-app-bg="light"] body.drill-active #jp .jp-word-meaning,
+html[data-app-bg="light"] body.drill-active #jp .jp-word-translation{
+  color:#284f4b!important;
+  -webkit-text-fill-color:#284f4b!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-target-reading{
+  color:#087d76!important;
+  -webkit-text-fill-color:#087d76!important;
+  text-decoration-color:#0b9187!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-meaning-toggle{
+  background:#eef8f6!important;
+  background-image:none!important;
+  border-color:#bdddd8!important;
+  color:#315b57!important;
+  -webkit-text-fill-color:#315b57!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-meaning-toggle.active{
+  background:#dff2ef!important;
+  border-color:#9fd2cb!important;
+  color:#075f5b!important;
+  -webkit-text-fill-color:#075f5b!important;
+}
+
+/* Writing area + guides. */
+html[data-app-bg="light"] body.drill-active #jp .jp-word-canvas-pane{
+  background:#f7fcfb!important;
+  background-image:none!important;
+  border-color:#c5e1dc!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-board{
+  background:#ffffff!important;
+  border-color:#a9d4ce!important;
+  box-shadow:0 5px 16px rgba(8,125,118,.05)!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-guide:not(.last-col){
+  border-right-color:rgba(8,125,118,.20)!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-guide:not(.last-row){
+  border-bottom-color:rgba(8,125,118,.20)!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-guide::before,
+html[data-app-bg="light"] body.drill-active #jp .jp-word-guide::after{
+  border-color:rgba(8,125,118,.12)!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-guide>span{
+  background:#e2f3f0!important;
+  background-image:none!important;
+  border-color:#b9ded9!important;
+  color:#08736d!important;
+  -webkit-text-fill-color:#08736d!important;
+}
+
+/* Pen toolbar. */
+html[data-app-bg="light"] body.drill-active #jp .pen-toolbar{
+  background:#ffffff!important;
+  background-image:none!important;
+  border-color:#c8e3df!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body.drill-active #jp :is(.pen-tool,.pen-undo,.pen-toolbar-current){
+  background:#f2faf8!important;
+  background-image:none!important;
+  border-color:#c8e3df!important;
+  color:#315b57!important;
+  -webkit-text-fill-color:#315b57!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .pen-tool small{
+  color:#6a8582!important;
+  -webkit-text-fill-color:#6a8582!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .pen-tool.active{
+  background:#0b8b82!important;
+  background-image:none!important;
+  border-color:#0b8b82!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .pen-tool.active small{
+  color:rgba(255,255,255,.82)!important;
+  -webkit-text-fill-color:rgba(255,255,255,.82)!important;
+}
+
+/* Navigation: one clear teal forward action, neutral secondary actions. */
+html[data-app-bg="light"] body.drill-active #jp .jp-word-nav .btn,
+html[data-app-bg="light"] body.drill-active #jp .jp-word-controls .btn{
+  background:#ffffff!important;
+  background-image:none!important;
+  border-color:#bdddd8!important;
+  color:#214d49!important;
+  -webkit-text-fill-color:#214d49!important;
+  box-shadow:none!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-nav .btn:disabled{
+  background:#f5f9f8!important;
+  color:#9aadaa!important;
+  -webkit-text-fill-color:#9aadaa!important;
+  border-color:#dce9e7!important;
+  opacity:1!important;
+}
+html[data-app-bg="light"] body.drill-active #jp #jpWordNext,
+html[data-app-bg="light"] body.drill-active #jp #jpWordCheck{
+  background:#0b8b82!important;
+  background-image:none!important;
+  border-color:#0b8b82!important;
+  color:#ffffff!important;
+  -webkit-text-fill-color:#ffffff!important;
+}
+html[data-app-bg="light"] body.drill-active #jp #jpWordReveal.primary{
+  background:#dff2ef!important;
+  background-image:none!important;
+  border-color:#9fd2cb!important;
+  color:#075f5b!important;
+  -webkit-text-fill-color:#075f5b!important;
+}
+html[data-app-bg="light"] body.drill-active #jp .jp-word-feedback{
+  background:#eef8f6!important;
+  background-image:none!important;
+  border-color:#c5e1dc!important;
+  color:#284f4b!important;
+}
+
+/* Keep the entire viewport/safe-area light instead of exposing the old navy base. */
+html[data-app-bg="light"] body.drill-active::before,
+html[data-app-bg="light"] body.drill-active::after{
+  background:#f3fbf9!important;
+  background-image:none!important;
+}
