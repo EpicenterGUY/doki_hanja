@@ -148,8 +148,8 @@
     "id": "kotobabridge",
     "name": "ことばの橋",
     "mark": "橋",
-    "status": "Alpha · L0~L8 · 예문 수록 현황 표시",
-    "description": "일본인을 위한 한국어 학습. L1~L6 예문 249쌍 신규 후보 반영 및 누락 보강, 문법 252개, 학습 코스 56개. 단어 암기장에서 단계별 예문 수록 현황을 실시간으로 확인 가능.",
+    "status": "Alpha · L0~L8 · 급수 282건 교정 · 예문 82.17%",
+    "description": "일본인용 한국어 학습. L0~L8 5,463어휘, 한일 예문 4,489쌍(82.17%), 문법 252개, 코스 56개. 급수 재배정 282개, 동형이의어 해설 16개, 한일 예문 신규 149쌍. L4~L6 잔여 예문 검수 진행 중.",
     "tags": [
       "한국어",
       "일본어",
@@ -159,7 +159,7 @@
     ],
     "live": "https://epicenterguy.github.io/doki_hanja/kotoba-bridge/",
     "repo": "https://github.com/EpicenterGUY/doki_hanja/tree/main/kotoba-bridge",
-    "version": "v1.5.1",
+    "version": "v1.6.1",
     "logo": "#087e75",
     "glow": "#5dbfac",
     "button": "#087e75"
