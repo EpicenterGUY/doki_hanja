@@ -143,5 +143,25 @@
     "logo": "linear-gradient(145deg,#ff67aa,#7c78ff)",
     "glow": "#ff72b3",
     "button": "linear-gradient(135deg,#f05b9d,#756fff)"
+  },
+  {
+    "id": "kotobabridge",
+    "name": "ことばの橋",
+    "mark": "橋",
+    "status": "Alpha · 개발 시작",
+    "description": "일본인용 한국어 문법·어휘·독해·TOPIK 게임형 학습. 일본어 해설, 퀴즈·오답 복습·레벨과 기록을 제공하는 한자랩 계열 신규 웹 앱.",
+    "tags": [
+      "한국어",
+      "일본어",
+      "TOPIK",
+      "퀴즈",
+      "학습"
+    ],
+    "live": "https://epicenterguy.github.io/doki_hanja/kotoba-bridge/",
+    "repo": "https://github.com/EpicenterGUY/doki_hanja/tree/main/kotoba-bridge",
+    "version": "v0.1.0",
+    "logo": "#087e75",
+    "glow": "#5dbfac",
+    "button": "#087e75"
   }
 ]
