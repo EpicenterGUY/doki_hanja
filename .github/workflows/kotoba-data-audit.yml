@@ -13,23 +13,43 @@ permissions:
 jobs:
   audit:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Check data module syntax
+      - name: Validate all JavaScript syntax
+        run: find kotoba-bridge -maxdepth 1 -name '*.js' -print0 | xargs -0 -r -n1 node --check
+      - name: Audit actual content data and offline assets
         run: |
-          node --check kotoba-bridge/vocabulary-v13-pos-expansion.js
-          node --check kotoba-bridge/vocabulary-v13-context-backfill.js
-          node --check kotoba-bridge/audit-data.cjs
-      - name: Validate content data and cache paths
-        run: node kotoba-bridge/audit-data.cjs --json > kotoba-bridge-audit.json
-      - name: Save audit report
+          node kotoba-bridge/audit-data.cjs --json > kotoba-bridge-audit.json
+          node kotoba-bridge/audit-data.cjs --missing > kotoba-bridge-missing.json
+      - name: Publish summary in GitHub Actions
+        if: success()
+        run: |
+          node -e '
+            const s = require("./kotoba-bridge-audit.json");
+            const lines = [
+              "## Kotoba Bridge - actual loaded content",
+              "",
+              "Vocabulary: **" + s.vocab + "** | Grammar: **" + s.grammar + "** | Example coverage: **" + s.bilingualExamples + " / " + s.vocab + " (" + s.coveragePercent + "%)**",
+              "",
+              "| Stage | Words | Bilingual examples | Missing |",
+              "|---|---:|---:|---:|",
+              ...Object.entries(s.levels).map(([k,v]) => "| "+k+" | "+v.words+" | "+v.examples+" | "+v.missing+" |"),
+              "",
+              "V1.5 applied examples: core **"+(s.v15Core?.applied??"?")+"**, advanced **"+(s.v15Advanced?.applied??"?")+"**.",
+              "Structural errors: **"+s.issues.length+"**."
+            ];
+            require("fs").appendFileSync(process.env.GITHUB_STEP_SUMMARY,lines.join("\n")+"\n");
+          '
+      - name: Save audit reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: kotoba-bridge-audit
-          path: kotoba-bridge-audit.json
+          name: kotoba-bridge-content-audit
+          path: |
+            kotoba-bridge-audit.json
+            kotoba-bridge-missing.json
           if-no-files-found: ignore
