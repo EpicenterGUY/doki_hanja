@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.4.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.5.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -137,3 +137,10 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - Improved `audit-data.cjs`: fixed PWA-cache script detection (previously over-escaped regular expression) and added `--missing` for an exhaustive list of currently unillustrated words by level, along with precise v1.4 application statistics in normal and `--json` output.
 - Updated page script versions and the scoped service-worker cache to v1.4.0. Existing vocabulary and grammar item IDs, progress localStorage namespaces, and previous bilingual examples remain unchanged.
 - **Important:** the full end-to-end audit has to be run in the repository's Node environment and native-speaker proofreading is ongoing. These educational levels are not individually certified TOPIK word grades. L7 and L8 are independently designed post-TOPIK reading extension tiers.
+
+## v1.5.0 — L1–L6 headword example completion and coverage instrumentation
+- Added **249 original Korean/Japanese contextual example candidates**, in two modules: **162** in `vocabulary-v15-core-completion.js` (L1–L3) and **87** in `vocabulary-v15-advanced-completion.js` (L4–L6). These focus on headwords previously identified as lacking illustrated usage in major baseline vocabulary banks.
+- The new backfills only populate empty Korean+Japanese example pairs; they do **not** overwrite a pre-existing example, modify saved vocabulary IDs, or increase counts by inventing duplicate cards. Because other modules may have supplied an example earlier, the *actual applied counts may be lower* than the candidate totals.
+- The updated offline-scoped PWA includes both new modules and bumps all asset versions to **v1.5.0**. The Epicenter project registry was updated.
+- The local Node audit `node kotoba-bridge/audit-data.cjs --json` reports **actual** unique vocabulary card count, grammar card count, global bilingual example coverage (percent), per-level counts and parts-of-speech distribution, missing bilingual pairs, and the applied counts of all v1.2–v1.5 content packs. Use `node kotoba-bridge/audit-data.cjs --missing` for the exact remaining Korean words without examples by level.
+- **Editorial caution:** Grade mapping is a study difficulty estimate, and new Korean/Japanese pairs have not all been independently native-proofread. L7/L8 are custom, unofficial reading-enrichment levels beyond official TOPIK 6.
