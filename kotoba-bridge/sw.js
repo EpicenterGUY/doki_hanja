@@ -1,6 +1,6 @@
 /* Kotoba Bridge offline cache; scope stays within /kotoba-bridge/. */
-const CACHE="kotoba-bridge-v0.2.1";
-const ASSETS=["./","./index.html","./style.css?v=0.2.0","./data.js?v=0.2.0","./data-extra.js?v=0.2.1","./app.js?v=0.2.0","./vocabulary.js?v=0.2.0","./vocab-ui.js?v=0.2.1","./manifest.webmanifest","./icon.svg"];
+const CACHE="kotoba-bridge-v0.3.0";
+const ASSETS=["./","./index.html","./style.css?v=0.3.0","./data.js?v=0.3.0","./data-extra.js?v=0.3.0","./app.js?v=0.3.0","./vocabulary.js?v=0.3.0","./vocab-ui.js?v=0.3.0","./memory-data.js?v=0.3.0","./memory-ui.js?v=0.3.0","./manifest.webmanifest","./icon.svg"];
 self.addEventListener("install",function(event){
  event.waitUntil(caches.open(CACHE).then(function(cache){return cache.addAll(ASSETS);}).then(function(){return self.skipWaiting();}));
 });
