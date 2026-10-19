@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.0.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.1.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -107,3 +107,12 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - New files are loaded before the independent original and backfill example modules, preserving previous entries and long-lived localStorage keys. v1.0.0 scripts are included in the scoped service worker cache.
 - Prior original curriculum **234 grammar reference cards / 56 lessons / 428 practice questions** retained.
 - Editorially authored material: grade assignment is heuristic, Japanese glosses and usage sentences are not guaranteed to be native-proofread or official TOPIK exam appearances. Very rare forms in L7/L8 are meant for reading recognition rather than ordinary conversation.
+
+## v1.1.0 — Scaled difficulty ladder through L8
+- **5,440 distinct vocabulary cards**, +617 new entries. Breakdown new: L3 +60, L7 +253, L8 +304. Each added card has an authored Korean example and Japanese translation. Existing words are not duplicated.
+- Per stage, increasingly larger pools: **L0 40 · L1 387 · L2 507 · L3 532 · L4 742 · L5 765 · L6 790 · L7 827 · L8 850**. L7 and L8 finally exceed the L6 word count.
+- Usage sentences now included for **3,670 of 5,440 vocabulary cards** (+661: 617 added terms plus 44 genuine previously missing examples). **1,770 remaining entries are still missing complete bilingual examples**.
+- L7 additions: experimental methods, quantitative analysis, philosophy, linguistics, philology, literary criticism. L8 additions: Korean nature and traditional scenery, nuanced psychological verbs, introspective narrative expressions, literary nouns and idioms.
+- Filled L3 gaps with genuine campus/academic scheduling, communication and digital-life vocabulary to make stage sizes monotonically increasing.
+- All additions are original educational content, **not a claim that every card appeared in a past TOPIK examination**. L7–L8 are unofficial post-TOPIK tiers and contain rare academic and literary registers, intended chiefly for reading recognition. Japanese glosses, level assignments, and sentences are not all independently native-checked.
+- Existing **234 grammar references, 56 lessons, and 428 practice questions** remain unchanged. Local saved review data keys and progress identifiers remain stable. PWA precache has been versioned to v1.1.0 and includes all six new script files.
