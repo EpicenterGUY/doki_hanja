@@ -60,6 +60,19 @@ const indexSources = [...index.matchAll(/<script\s+src="\.\/([^"?]+\.js)(?:\?([^
 for (const src of indexSources) {
   if (!cacheSource.includes(JSON.stringify(src))) issues.push('Offline cache missing ' + src);
 }
+// Editorial diagnostics are informational; never reject a valid inflected phrase solely on shape.
+const lexicalWarnings = words.filter(w =>
+  ['動詞','形容詞'].includes(w.pos) && !w.ko.includes(' ') && !w.ko.endsWith('다')
+).map(w => ({id:w.id,ko:w.ko,pos:w.pos,level:w.level,reason:'Check dictionary form'}));
+const normalizedCollisions=[];
+const normalized=new Map();
+for(const w of words){
+  const norm=String(w.ko||'').normalize('NFC').replace(/\\s+/g,'');
+  if(normalized.has(norm) && normalized.get(norm).ko !== w.ko){
+    normalizedCollisions.push({a:normalized.get(norm).ko,b:w.ko});
+  }else if(!normalized.has(norm)) normalized.set(norm,w);
+}
+
 const summary = {
   vocab: words.length,
   bilingualExamples: words.filter(w => w.exKo && w.exJa).length,
@@ -69,6 +82,11 @@ const summary = {
   coveragePercent: words.length ? Number((words.filter(w => w.exKo && w.exJa).length / words.length * 100).toFixed(2)) : 0,
   checkedFiles: files.length,
   issues,
+  lexicalWarnings,
+  normalizedCollisions,
+  gradeReview: sandbox.window.KB_LEVEL_REVIEW || null,
+  gradePromotion: sandbox.window.KB_GRADE_PROMOTION || null,
+  polysemy: sandbox.window.KB_SENSE_REVIEW || null,
   v12: sandbox.window.KB_V12_CONTEXT_STATS || null,
   v13Examples: sandbox.window.KB_V13_CONTEXT_STATS || null,
   v13Vocabulary: sandbox.window.KB_V13_POS_STATS || null,
@@ -96,6 +114,10 @@ else {
   console.log('v1.4 missing-example remediation:', JSON.stringify(summary.v14Examples));
   console.log('v1.5 L1-L3 examples:', JSON.stringify(summary.v15Core));
   console.log('v1.5 L4-L6 examples:', JSON.stringify(summary.v15Advanced));
+  console.log('Grade recalibration:', JSON.stringify(summary.gradeReview && {proposals:summary.gradeReview.proposals,applied:summary.gradeReview.applied,notFound:summary.gradeReview.notFound.length}));
+  console.log('Upward calibration:', JSON.stringify(summary.gradePromotion && {proposals:summary.gradePromotion.proposals,applied:summary.gradePromotion.applied}));
+  console.log('Polysemy explanations:', JSON.stringify(summary.polysemy));
+  console.log('Lexical/POS review flags:',lexicalWarnings.length,'spacing collisions:',normalizedCollisions.length);
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
 }
