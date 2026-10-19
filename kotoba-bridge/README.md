@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v0.9.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.0.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -97,3 +97,13 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - Existing **234 grammar references**, **56 course lessons** and **428 practice questions** remain available.
 - All additional scripts are included in the v0.9.0 PWA offline precache; cached-site reload may be needed to see the new lexicon.
 - Editorial caution: Although code validation checks uniqueness and structural integrity, not every gloss, level estimate or usage example has undergone exhaustive independent native-speaker review. Never assume every entry has actually appeared in TOPIK; TOPIK has no official L7 or L8 grade.
+
+## v1.0.0 — Progressive upper-level vocabulary and example completion
+- **4,823 distinct Korean entries**, **396 newly added** (+43 L4, +54 L5, +63 L6, +100 L7, +136 L8). All new entries have full Korean usage sentence + Japanese translation. Growth *increment* rises with difficulty; absolute L7/L8 counts still need further expansion.
+- By level: **L0 40, L1 387, L2 507, L3 472, L4 742, L5 765, L6 790, L7 574, L8 546**. L7/L8 are **unofficial post-TOPIK enrichment levels**.
+- Examples now available for **3,009 of 4,823** words, up by **724** from v0.9.0 (396 new-word examples and 328 hand-curated examples on previously uncovered entries).
+- Still without a full Korean/Japanese example pair: **1,814 entries** (not presented as complete coverage).
+- New lexical themes: L4 public administration and practical procedures; L5 economics, public policy, demographics; L6 advanced legal/academic inference; L7 linguistics, epistemology, methodology; L8 literary prose, expressive verbs, mimetics and idioms.
+- New files are loaded before the independent original and backfill example modules, preserving previous entries and long-lived localStorage keys. v1.0.0 scripts are included in the scoped service worker cache.
+- Prior original curriculum **234 grammar reference cards / 56 lessons / 428 practice questions** retained.
+- Editorially authored material: grade assignment is heuristic, Japanese glosses and usage sentences are not guaranteed to be native-proofread or official TOPIK exam appearances. Very rare forms in L7/L8 are meant for reading recognition rather than ordinary conversation.
