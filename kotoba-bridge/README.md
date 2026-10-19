@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v0.8.0
+# ことばの橋 / Kotoba Bridge — Alpha v0.9.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -86,3 +86,14 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - L7 and L8 are **custom enrichment categories beyond TOPIK 6**, not official TOPIK grades. These archaic expressions are presented with register warnings and should not be used indiscriminately in normal conversation.
 - Module-based additions keep original file names, progress keys, and PWA scope unchanged. All newly introduced files are added to the versioned service worker precache.
 - Editorial QA: further review of individual high-level examples, lexical register, variants, and alternative quiz answers is recommended; example coverage is not complete for L1–L6.
+
+## v0.9.0 — Major balanced vocabulary and contextual examples
+- **4,427 unique Korean entries** (up from 3,714): **713 new nonduplicate entries** in L1–L8, each with a Korean contextual sample sentence and a Japanese translation.
+- Stage totals: **L0 40, L1 387, L2 507, L3 472, L4 699, L5 711, L6 727, L7 474, L8 410**. L7/L8 remain independently designed unofficial enrichment levels above TOPIK 6, not recognized exam levels.
+- L7 **474 words**: 180 nouns, 100 verbs, 78 adjectives, 64 adverbs, 52 expressions. L8 **410 words**: 91 nouns, 91 verbs, 83 adjectives, 79 adverbs, 66 expressions. L8 is now substantially more balanced among major parts of speech; L7 remains specialist noun-heavy.
+- L4–L6 gained new intermediate-advanced modifiers, academic collocations, policy and public-affairs reading phrases; POS balance is still work in progress due to the large legacy noun banks.
+- **Example-bearing entries: 2,285 / 4,427** (+898 since v0.8: 713 examples on new entries and 185 matched previously uncovered dictionary entries). **2,142 entries still need examples**. Examples are independently authored; they are not verified extracts from official past exams.
+- Vocabulary memorization now displays example coverage and a **「例文未収録のみ」** filter to locate the remaining gaps. Preserves saved cards and progress under existing localStorage IDs; no reset or migration.
+- Existing **234 grammar references**, **56 course lessons** and **428 practice questions** remain available.
+- All additional scripts are included in the v0.9.0 PWA offline precache; cached-site reload may be needed to see the new lexicon.
+- Editorial caution: Although code validation checks uniqueness and structural integrity, not every gloss, level estimate or usage example has undergone exhaustive independent native-speaker review. Never assume every entry has actually appeared in TOPIK; TOPIK has no official L7 or L8 grade.
