@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.3.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.4.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -130,3 +130,10 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - `audit-data.cjs` now tracks the two new modules' applied counts, full-level example coverage, POS counts, structural anomalies, and assets missing from the PWA offline precache. To see the actual numbers: `node kotoba-bridge/audit-data.cjs --json`.
 - Added v1.3 scripts to `index.html` and `sw.js`, and bumped script cache-busting versions + PWA cache to **v1.3.0**. Stable saved progress keys and existing vocabulary IDs remain unchanged.
 - **Editorial caution**: All proposed vocabulary gradings are estimates. Native-speaker proofreading, usage-sense checks, and true TOPIK exam matching are not completed. L7–L8 are unofficial extension tiers.
+
+## v1.4.0 — Example-gap backfill and accurate diagnostics
+- Added **349 independently authored Korean/Japanese contextual example pairs as candidates**, selected against previously missing vocabulary headwords from existing beginner, intermediate and advanced banks. As in prior content packs, **only cards without both existing examples are filled**; the resulting increase must be read from the runtime audit's `v14Examples.applied`, not equated automatically with 349.
+- Covered high-priority learner verbs and daily-life nouns at L1–L2, technology/communication and study vocabulary at L3, social/economics data at L4, formal reporting/argumentation at L5 and L6 reading phrases.
+- Improved `audit-data.cjs`: fixed PWA-cache script detection (previously over-escaped regular expression) and added `--missing` for an exhaustive list of currently unillustrated words by level, along with precise v1.4 application statistics in normal and `--json` output.
+- Updated page script versions and the scoped service-worker cache to v1.4.0. Existing vocabulary and grammar item IDs, progress localStorage namespaces, and previous bilingual examples remain unchanged.
+- **Important:** the full end-to-end audit has to be run in the repository's Node environment and native-speaker proofreading is ongoing. These educational levels are not individually certified TOPIK word grades. L7 and L8 are independently designed post-TOPIK reading extension tiers.
