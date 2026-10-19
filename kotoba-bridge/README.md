@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v0.2.0
+# ことばの橋 / Kotoba Bridge — Alpha v0.3.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
