@@ -30,3 +30,12 @@ Complete beginner curricula, add multiple item types and proofread Japanese expl
 ## v0.2.1 content
 - Six additional beginner lessons (48 multiple-choice/reading items), 17 total lessons and 132 questions.
 - Better wording in grammar disambiguation; unique vocabulary quiz distractors.
+
+## v0.3.0 UI architecture
+- Home: three separate entrances for course study, memorization atlas, independent quiz arena.
+- Course screen: level and course-subject filters for Hangul / grammar / vocabulary / reading.
+- Memorization atlas: 434 word bank entries by POS (nouns, verbs, adjectives, adverbs, etc.), level and theme; 72 grammar cards by grammar type; 31 Hangul, 34 expression, and 27 numeral/measure cards.
+- Each grammar/other category has searchable reference table with Japanese glosses, examples, favorites, and self-rated spaced flashcards.
+- Quiz screen: subject and level filters, variable question count, separate vocabulary DB 4-choice and unofficial TOPIK mini drills.
+- Grammar memorization state saved in a separate local namespace; JSON backup handles all progress (course, vocabulary, other memory).
+- Mobile: six compact tabs, compact course cards, horizontal category chips, no overflowing memorandum tables.
