@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.5.1
+# ことばの橋 / Kotoba Bridge — Alpha v1.6.1
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -150,3 +150,12 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - Released all cache-busted assets at **v1.5.1** (including `vocab-ui.js`) and bumped the service worker cache, so existing offline installs can pick up the new coverage display without resetting study progress.
 - CI audit now checks the syntax of every Kotoba Bridge root JS file and publishes both the exact per-level audit and missing-lemma JSON as artifacts, with a readable summary in the GitHub Actions run when successful.
 - The source-level code and cache declarations have been checked; actual browser interaction testing and the execution of CI results have not been independently verified in this development pass.
+
+## v1.6.1 — Whole-bank grade calibration and contextual-meaning review (2026-10-20)
+- Replayed **all 48 vocabulary data modules** in the same order as the deployed page, including de-duplication, grade patches and example backfills. The resulting bank is **5,463 unique vocab cards** with no duplicate Korean spelling or card ID and no missing basic Japanese gloss.
+- Applied **263 downward** and **19 upward** level corrections (**282** total) while preserving original card IDs, example content and local study progress. The rules distinguish early everyday words from academic/technical terms and avoid treating all words used in literary prose as L8 words. There is **no official word-to-TOPIK-level authority** for each entry. L7/L8 remain unofficial extension stages.
+- Applied **149 newly authored bilingual Korean/Japanese example pairs** to genuinely uncovered words. Current complete coverage: **4,489 / 5,463 cards (82.17%)**. Remaining **974**: L4 **232**, L5 **356**, L6 **386**; all other levels have complete example fields.
+- Added **16 targeted polysemy notes** and contrast examples in Japanese, visible in vocabulary list and flashcards (e.g. `차`, `말`, `눈`, `사과`).
+- Added more data-quality reporting in `audit-data.cjs`: actual level changes, upward review, polysemy coverage, full POS and grade distributions, suspicious dictionary-form fields, normalized spacing collisions, and actual v1.6 example additions. CI checks all JavaScript syntax and archives machine-readable reports.
+- Versioned page references + PWA precache as **v1.6.1**. All existing localStorage namespaces and progress IDs are unchanged.
+- Full reproducible summary: [Quality Audit 2026-10-20](./QUALITY-AUDIT-2026-10-20.md). Naturalness of every Japanese translation and textbook matching still requires further human editorial review.
