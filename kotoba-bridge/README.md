@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.5.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.5.1
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -144,3 +144,9 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - The updated offline-scoped PWA includes both new modules and bumps all asset versions to **v1.5.0**. The Epicenter project registry was updated.
 - The local Node audit `node kotoba-bridge/audit-data.cjs --json` reports **actual** unique vocabulary card count, grammar card count, global bilingual example coverage (percent), per-level counts and parts-of-speech distribution, missing bilingual pairs, and the applied counts of all v1.2–v1.5 content packs. Use `node kotoba-bridge/audit-data.cjs --missing` for the exact remaining Korean words without examples by level.
 - **Editorial caution:** Grade mapping is a study difficulty estimate, and new Korean/Japanese pairs have not all been independently native-proofread. L7/L8 are custom, unofficial reading-enrichment levels beyond official TOPIK 6.
+
+## v1.5.1 — Learner-facing per-level coverage dashboard
+- Added a compact, **collapsed-by-default** bilingual example coverage table to the vocabulary atlas (`vocab-ui.js`). It derives each stage's total vocabulary, complete Korean/Japanese example pairs and remaining uncovered cards directly from loaded runtime data. No hardcoded or outdated totals.
+- Released all cache-busted assets at **v1.5.1** (including `vocab-ui.js`) and bumped the service worker cache, so existing offline installs can pick up the new coverage display without resetting study progress.
+- CI audit now checks the syntax of every Kotoba Bridge root JS file and publishes both the exact per-level audit and missing-lemma JSON as artifacts, with a readable summary in the GitHub Actions run when successful.
+- The source-level code and cache declarations have been checked; actual browser interaction testing and the execution of CI results have not been independently verified in this development pass.
