@@ -148,8 +148,8 @@
     "id": "kotobabridge",
     "name": "ことばの橋",
     "mark": "橋",
-    "status": "Alpha · 핵심 어휘 보강·문법 192개·독해 확장",
-    "description": "일본인용 한국어 학습 앱: 전체 어휘 3,606개(시험 대비 독자 선정 502개 추가), 문법 192개, 코스 52개·문제 396개. 품사·레벨별 암기표, 문법 비교 설명, 문장배열·오류교정·독해 퀴즈 지원.",
+    "status": "Alpha · L7·L8 문법·예문 완성",
+    "description": "일본인용 한국어 학습: 어휘 3,714개, 한일 예문 1,387개(L7·L8 전 항목 수록), 문법 234개, 코스 56개, 문제 428개. 형용사·부사 확장, 학술·문학 심화 문형 포함.",
     "tags": [
       "한국어",
       "일본어",
@@ -159,7 +159,7 @@
     ],
     "live": "https://epicenterguy.github.io/doki_hanja/kotoba-bridge/",
     "repo": "https://github.com/EpicenterGUY/doki_hanja/tree/main/kotoba-bridge",
-    "version": "v0.7.0",
+    "version": "v0.8.0",
     "logo": "#087e75",
     "glow": "#5dbfac",
     "button": "#087e75"
