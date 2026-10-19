@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Kotoba Bridge">
 <link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="./style.css?v=0.1.0">
 <title>ことばの橋 | 韓国語クエスト</title>
 </head>
@@ -17,5 +18,6 @@
 </div>
 <script src="./data.js?v=0.1.0"></script>
 <script src="./app.js?v=0.1.0" defer></script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js").catch(function(){});});}</script>
 </body>
 </html>
