@@ -70,7 +70,8 @@ const summary = {
   issues,
   v12: sandbox.window.KB_V12_CONTEXT_STATS || null,
   v13Examples: sandbox.window.KB_V13_CONTEXT_STATS || null,
-  v13Vocabulary: sandbox.window.KB_V13_POS_STATS || null
+  v13Vocabulary: sandbox.window.KB_V13_POS_STATS || null,
+  v14Examples: sandbox.window.KB_V14_STATS || null
 };
 // Optional exhaustive missing-lemma report for precise editorial backfill planning.
 if (process.argv.includes('--missing')) {
@@ -89,6 +90,7 @@ else {
   console.log('v1.2 examples:', JSON.stringify(summary.v12));
   console.log('v1.3 contextual examples:', JSON.stringify(summary.v13Examples));
   console.log('v1.3 POS expansion:', JSON.stringify(summary.v13Vocabulary));
+  console.log('v1.4 missing-example remediation:', JSON.stringify(summary.v14Examples));
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
 }
