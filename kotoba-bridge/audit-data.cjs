@@ -92,7 +92,8 @@ const summary = {
   v13Vocabulary: sandbox.window.KB_V13_POS_STATS || null,
   v14Examples: sandbox.window.KB_V14_STATS || null,
   v15Core: sandbox.window.KB_V15_CORE_STATS || null,
-  v15Advanced: sandbox.window.KB_V15_ADVANCED_STATS || null
+  v15Advanced: sandbox.window.KB_V15_ADVANCED_STATS || null,
+  v16Backfill: sandbox.window.KB_V16_BACKFILL || null
 };
 // Optional exhaustive missing-lemma report for precise editorial backfill planning.
 if (process.argv.includes('--missing')) {
@@ -117,6 +118,7 @@ else {
   console.log('Grade recalibration:', JSON.stringify(summary.gradeReview && {proposals:summary.gradeReview.proposals,applied:summary.gradeReview.applied,notFound:summary.gradeReview.notFound.length}));
   console.log('Upward calibration:', JSON.stringify(summary.gradePromotion && {proposals:summary.gradePromotion.proposals,applied:summary.gradePromotion.applied}));
   console.log('Polysemy explanations:', JSON.stringify(summary.polysemy));
+  console.log('V1.6 new bilingual examples:', JSON.stringify(summary.v16Backfill));
   console.log('Lexical/POS review flags:',lexicalWarnings.length,'spacing collisions:',normalizedCollisions.length);
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
