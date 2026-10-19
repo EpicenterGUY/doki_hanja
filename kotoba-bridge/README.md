@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.1.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.2.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -116,3 +116,10 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - Filled L3 gaps with genuine campus/academic scheduling, communication and digital-life vocabulary to make stage sizes monotonically increasing.
 - All additions are original educational content, **not a claim that every card appeared in a past TOPIK examination**. L7–L8 are unofficial post-TOPIK tiers and contain rare academic and literary registers, intended chiefly for reading recognition. Japanese glosses, level assignments, and sentences are not all independently native-checked.
 - Existing **234 grammar references, 56 lessons, and 428 practice questions** remain unchanged. Local saved review data keys and progress identifiers remain stable. PWA precache has been versioned to v1.1.0 and includes all six new script files.
+
+## v1.2.0 — L1–L6 contextual examples, Japanese grammar comparisons, and local QA
+- Added **201 original Korean/Japanese example-pair candidates** targeting existing L1–L6 vocabulary cards. The supplemental script fills **only entries without both example fields**, so the number of newly covered cards may be lower than 201; it never overwrites an existing pair.
+- Added **18 independent grammar comparison cards** across L1–L6, covering giving/receiving, desire, permission, difficulty, indirect questions, contrast, concession, cause, argumentation, and academic prose. They include Korean contextual examples, Japanese translations, usage, form and comparisons. This raises the grammar reference bank from **234 to 252**, with unchanged lesson and quiz counts.
+- New `audit-data.cjs` computes **actual** example coverage, grade/POS distributions, duplicate Korean entries and IDs, and incomplete bilingual pairs from the exact script order in `index.html`. Run **`node kotoba-bridge/audit-data.cjs`** after cloning the repository (or append `--json` for machine-readable results).
+- App boot sequence includes the new modules; scoped service-worker cache and asset query versions updated to **v1.2.0** to pick up data updates. Existing localStorage keys, vocabulary IDs, and learning records are preserved.
+- Educational data is original/editorially curated, not guaranteed to appear in an actual TOPIK paper; L7/L8 are not official TOPIK levels. Further manual review, especially naturalness and vocabulary-grade placement, remains necessary.
