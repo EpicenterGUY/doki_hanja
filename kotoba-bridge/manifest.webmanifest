@@ -1,0 +1,11 @@
+{
+  "name": "ことばの橋 — 韓国語クエスト",
+  "short_name": "Kotoba Bridge",
+  "description": "日本人のための韓国語文法・単語・読解クイズ",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4faf8",
+  "theme_color": "#087e75",
+  "lang": "ja"
+}
