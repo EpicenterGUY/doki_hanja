@@ -26,3 +26,7 @@ Complete beginner curricula, add multiple item types and proofread Japanese expl
 - Spaced review stages, stored locally under `kotobaBridge.vocab.v1`.
 - Combined JSON backup/export and import supports vocabulary state alongside quiz progress.
 - Offline cache now includes the vocabulary database and study module.
+
+## v0.2.1 content
+- Six additional beginner lessons (48 multiple-choice/reading items), 17 total lessons and 132 questions.
+- Better wording in grammar disambiguation; unique vocabulary quiz distractors.
