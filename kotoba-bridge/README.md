@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v0.6.0
+# ことばの橋 / Kotoba Bridge — Alpha v0.7.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -65,3 +65,14 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - **L7 and L8 are unofficial enrichment levels, NOT official TOPIK grades. TOPIK has only levels 1–6.** L4–L6 placement is a curated estimate of appropriate reading difficulty, not an official item-by-item TOPIK grade/frequency database or guarantee of actual exam appearance.
 - Dynamic level filters with per-level vocabulary counts; L7/L8 introductory courses and 16 extra self-authored quizzes (44 units / 332 questions total); bidirectional flashcards, multiple-choice, typing recall and local progress remain supported.
 - Further review of glosses, spacing, usage examples, and estimated grade placement is warranted before treating the content as authoritative lexicography.
+
+## v0.7.0 — Core word gap remediation and grammar expansion
+- Added **502 deduplicated** editorially curated Korean-Japanese lexical entries, emphasizing common verbs, modifiers, daily-life words, essay transitions, logic, public notices and quantitative-reading vocabulary. **Total: 3,606** entries.
+- By level: L0 **40**, L1 **364**, L2 **465**, L3 **409**, L4 **604**, L5 **615**, L6 **635**, L7 **240**, L8 **234**. L7–L8 are nonofficial enrichment levels, not TOPIK grades.
+- Dedicated vocabulary checkbox: **「試験対策の補強語彙」（独自選定）**, to focus the spaced flashcard list on these 502 new terms. This is **not** a set of confirmed past-exam items.
+- Added **62 new grammar reference cards** across L1–L6, each with Japanese meaning, Korean example sentence, Japanese translation, conjugation/form, explanation and comparison. **192 total grammar cards**; 92 additional Hangul/expression/numeral cards remain.
+- Added **8 original grammar/reading lesson units with 64 original questions**, for **52 total units / 396 questions**.
+- Attached 124 additional Korean/Japanese example pairs to selected dictionary words, including a subset of the newly added entries.
+- Earlier progress data uses stable IDs, unchanged local storage keys and original JSON backup/restore logic.
+- **Source reference**: [National Institute of Korean Language 2003 learner vocabulary inventory](https://korean.go.kr/front/etcData/etcDataView.do?etc_seq=70&mn_id=46&pageIndex=19), **5,965 terms in A/B/C learner bands**; official [TOPIK past-paper practice](https://www.topik.go.kr/). This version uses independently authored glosses and **editorial selection**, not an exhaustive machine-verified difference against all 5,965 words or every TOPIK past paper. NIKL A/B/C bands are NOT mapped one-to-one to TOPIK level 1–6.
+- **Editorial QA still needed**: review commonness, morphology, sense divisions, alternate answers, natural examples and past-paper attestations before claiming full coverage.
