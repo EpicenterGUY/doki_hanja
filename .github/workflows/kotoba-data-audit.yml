@@ -1,0 +1,35 @@
+name: Kotoba Bridge content QA
+
+on:
+  push:
+    paths:
+      - 'kotoba-bridge/**'
+      - '.github/workflows/kotoba-data-audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check data module syntax
+        run: |
+          node --check kotoba-bridge/vocabulary-v13-pos-expansion.js
+          node --check kotoba-bridge/vocabulary-v13-context-backfill.js
+          node --check kotoba-bridge/audit-data.cjs
+      - name: Validate content data and cache paths
+        run: node kotoba-bridge/audit-data.cjs --json > kotoba-bridge-audit.json
+      - name: Save audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kotoba-bridge-audit
+          path: kotoba-bridge-audit.json
+          if-no-files-found: ignore
