@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v0.7.0
+# ことばの橋 / Kotoba Bridge — Alpha v0.8.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -76,3 +76,13 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - Earlier progress data uses stable IDs, unchanged local storage keys and original JSON backup/restore logic.
 - **Source reference**: [National Institute of Korean Language 2003 learner vocabulary inventory](https://korean.go.kr/front/etcData/etcDataView.do?etc_seq=70&mn_id=46&pageIndex=19), **5,965 terms in A/B/C learner bands**; official [TOPIK past-paper practice](https://www.topik.go.kr/). This version uses independently authored glosses and **editorial selection**, not an exhaustive machine-verified difference against all 5,965 words or every TOPIK past paper. NIKL A/B/C bands are NOT mapped one-to-one to TOPIK level 1–6.
 - **Editorial QA still needed**: review commonness, morphology, sense divisions, alternate answers, natural examples and past-paper attestations before claiming full coverage.
+
+## v0.8.0 — L7/L8 grammar courses, full super-level examples and modifier expansion
+- **3,714 distinct Korean lexical entries** (108 new words; 58 adjectives and 50 adverbs). All existing vocabulary IDs and saved progress keys remain intact.
+- Example sentences with Japanese translations: **1,387** entries (previously 668). **L7: 240/240; L8: 234/234; L0: 40/40.** L1–L6 are not fully covered. Their respective example counts: L1 191/364, L2 244/478, L3 149/436, L4 144/628, L5 76/638, L6 69/656.
+- Newly authored examples use the Korean term in context rather than merely mentioning its dictionary spelling. Existing authored examples are preserved.
+- **42 added detailed grammar cards**: L7 21 academic/administrative argumentation constructions (standards, premises, evidence, exceptions); L8 21 literary, archaic and rhetorical constructions (historical endings, prayer, counterfactual/strong concession). **234 grammar items total**, plus 92 other reference cards.
+- Four original L7/L8 grammar courses, 32 new multiple-choice/reading questions: **56 lesson units / 428 questions total**.
+- L7 and L8 are **custom enrichment categories beyond TOPIK 6**, not official TOPIK grades. These archaic expressions are presented with register warnings and should not be used indiscriminately in normal conversation.
+- Module-based additions keep original file names, progress keys, and PWA scope unchanged. All newly introduced files are added to the versioned service worker precache.
+- Editorial QA: further review of individual high-level examples, lexical register, variants, and alternative quiz answers is recommended; example coverage is not complete for L1–L6.
