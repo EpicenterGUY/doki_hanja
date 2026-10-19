@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v0.1.0
+# ことばの橋 / Kotoba Bridge — Alpha v0.2.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -18,3 +18,11 @@ Grade labels are learning goals, not official certificate predictions. Listening
 
 ## Future
 Complete beginner curricula, add multiple item types and proofread Japanese explanations, expand passages/word lists, add offline service worker and polished install icons. The local save key is different from Hanja Lab's, avoiding progress interference.
+
+## v0.2 updates
+- Compact six-tab mobile navigation uses SVG icons and short Japanese labels without forced line breaks.
+- Japanese gloss vocabulary bank: 434 unique Korean lemma/phrase entries across L0-L6 and 11 thematic groups.
+- Korean-to-Japanese and Japanese-to-Korean flashcard study, 4-choice recall, favorites, text search, topic/level filters.
+- Spaced review stages, stored locally under `kotobaBridge.vocab.v1`.
+- Combined JSON backup/export and import supports vocabulary state alongside quiz progress.
+- Offline cache now includes the vocabulary database and study module.
