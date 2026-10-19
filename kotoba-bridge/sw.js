@@ -1,6 +1,6 @@
 /* Kotoba Bridge offline cache; scope stays within /kotoba-bridge/. */
-const CACHE="kotoba-bridge-v0.5.0";
-const ASSETS=["./","./index.html","./style.css?v=0.5.0","./data.js?v=0.5.0","./data-extra.js?v=0.5.0","./data-advanced.js?v=0.5.0","./data-interactive.js?v=0.5.0","./app.js?v=0.5.0","./vocabulary.js?v=0.5.0","./vocabulary-extra.js?v=0.5.0","./vocabulary-examples.js?v=0.5.0","./vocabulary-examples-extra.js?v=0.5.0","./vocab-ui.js?v=0.5.0","./memory-data.js?v=0.5.0","./memory-extra.js?v=0.5.0","./grammar-guide-extra.js?v=0.5.0","./memory-ui.js?v=0.5.0","./manifest.webmanifest","./icon.svg"];
+const CACHE="kotoba-bridge-v0.6.0";
+const ASSETS=["./","./index.html","./style.css?v=0.6.0","./data.js?v=0.6.0","./data-extra.js?v=0.6.0","./data-advanced.js?v=0.6.0","./data-interactive.js?v=0.6.0","./levels-beyond-topik.js?v=0.6.0","./app.js?v=0.6.0","./vocabulary.js?v=0.6.0","./vocabulary-extra.js?v=0.6.0","./vocabulary-l4.js?v=0.6.0","./vocabulary-l5.js?v=0.6.0","./vocabulary-l6.js?v=0.6.0","./vocabulary-l7.js?v=0.6.0","./vocabulary-l8.js?v=0.6.0","./vocabulary-high-review.js?v=0.6.0","./vocabulary-examples.js?v=0.6.0","./vocabulary-examples-extra.js?v=0.6.0","./vocabulary-high-examples.js?v=0.6.0","./vocab-ui.js?v=0.6.0","./memory-data.js?v=0.6.0","./memory-extra.js?v=0.6.0","./grammar-guide-extra.js?v=0.6.0","./memory-ui.js?v=0.6.0","./manifest.webmanifest","./icon.svg"];
 self.addEventListener("install",function(event){
  event.waitUntil(caches.open(CACHE).then(function(cache){return cache.addAll(ASSETS);}).then(function(){return self.skipWaiting();}));
 });
