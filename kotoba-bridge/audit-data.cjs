@@ -53,6 +53,13 @@ for (const w of words) {
 for (const g of cards) {
   if (!g.example || !g.translation || !g.back || !g.level) issues.push('Incomplete grammar card ' + g.id);
 }
+// Catch regressions where a JS data module is loaded on the page but omitted from offline cache.
+const cacheSource = fs.readFileSync(path.join(base, 'sw.js'), 'utf8');
+const indexSources = [...index.matchAll(/<script\\s+src="\\.\\/([^"]+\\.js)(?:\\?([^"]*))?"/g)]
+  .map(m => './' + m[1] + (m[2] ? '?' + m[2] : ''));
+for (const src of indexSources) {
+  if (!cacheSource.includes(JSON.stringify(src))) issues.push('Offline cache missing ' + src);
+}
 const summary = {
   vocab: words.length,
   bilingualExamples: words.filter(w => w.exKo && w.exJa).length,
@@ -61,7 +68,9 @@ const summary = {
   levels: counts,
   checkedFiles: files.length,
   issues,
-  v12: sandbox.window.KB_V12_CONTEXT_STATS || null
+  v12: sandbox.window.KB_V12_CONTEXT_STATS || null,
+  v13Examples: sandbox.window.KB_V13_CONTEXT_STATS || null,
+  v13Vocabulary: sandbox.window.KB_V13_POS_STATS || null
 };
 if (process.argv.includes('--json')) console.log(JSON.stringify(summary, null, 2));
 else {
@@ -73,6 +82,8 @@ else {
       'POS:', JSON.stringify(c.pos));
   }
   console.log('v1.2 examples:', JSON.stringify(summary.v12));
+  console.log('v1.3 contextual examples:', JSON.stringify(summary.v13Examples));
+  console.log('v1.3 POS expansion:', JSON.stringify(summary.v13Vocabulary));
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
 }
