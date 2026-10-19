@@ -8,7 +8,7 @@ const KEY="kotobaBridge.vocab.v1";
 const fresh=()=>({version:1,cards:{},stars:{}});
 let store=fresh();
 try{let x=JSON.parse(localStorage.getItem(KEY)||"null");if(x&&x.version===1&&x.cards&&x.stars)store=x;}catch(e){}
-const state={level:"all",category:"all",pos:"all",search:"",starOnly:false,page:0,direction:"ko",count:10,view:"browse",session:null,result:null};
+const state={level:"all",category:"all",pos:"all",search:"",starOnly:false,page:0,direction:"ko",count:10,view:"browse",session:null,result:null,externalQuiz:false};
 const el=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const keep=()=>{try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){console.warn("vocabulary storage unavailable",e);}};
@@ -47,7 +47,7 @@ return '<div class="vocab-banner"><div><div class="eyebrow">VOCABULARY LAB · �
 '<label>テーマ<select id="vocab-category" aria-label="テーマ"><option value="all">すべて</option>'+cats.map(x=>'<option '+(state.category===x?"selected":"")+'>'+esc(x)+'</option>').join("")+'</select></label>'+
 '<label>品詞<select id="vocab-pos" aria-label="品詞で絞り込む"><option value="all">すべての品詞</option>'+parts.map(x=>'<option '+(state.pos===x?"selected":"")+'>'+esc(x)+'</option>').join("")+'</select></label>'+ '<label>暗記方向<select id="vocab-direction" aria-label="暗記方向"><option value="ko" '+(state.direction==="ko"?"selected":"")+'>韓国語 → 日本語</option><option value="ja" '+(state.direction==="ja"?"selected":"")+'>日本語 → 韓国語</option></select></label></div>'+
 '<div class="pos-pills"><button class="pos-pill'+(state.pos==="all"?" active":"")+'" data-action="vocab-pos" data-pos="all">すべて</button>'+parts.map(x=>'<button class="pos-pill'+(state.pos===x?" active":"")+'" data-action="vocab-pos" data-pos="'+esc(x)+'">'+esc(x)+' <small>'+words.filter(w=>w.pos===x&&(state.level==="all"||w.level===state.level)).length+'</small></button>').join("")+'</div>'+ '<div class="vocab-tools"><label class="vocab-checkbox"><input type="checkbox" id="vocab-only-stars" '+(state.starOnly?"checked":"")+'> ★ お気に入りだけ</label><label class="vocab-count">出題数<select id="vocab-count"><option value="10" '+(state.count===10?"selected":"")+'>10語</option><option value="20" '+(state.count===20?"selected":"")+'>20語</option><option value="30" '+(state.count===30?"selected":"")+'>30語</option></select></label></div>'+
-'<div class="vocab-actions"><button class="btn" data-action="vocab-start" data-mode="flash">▤ 暗記カード</button><button class="btn ghost" data-action="vocab-start" data-mode="quiz">✦ 4択クイズ</button></div>'+
+'<div class="vocab-actions"><button class="btn" data-action="vocab-start" data-mode="flash">▤ 暗記カード</button><button class="btn ghost" data-action="go-practice-vocab">✦ 単語クイズへ</button></div>'+
 '<p class="footnote">復習期限になった語を優先し、そのあと未学習の語を表示します。「覚えた」「もう一度」で記憶状態を更新します。</p></div>'+
 '<div class="section-heading"><h2>単語データベース</h2><small>お気に入り '+z.stars+' 語</small></div>'+
 '<div class="panel"><input class="search" id="vocab-search" value="'+esc(state.search)+'" type="search" placeholder="韓国語・日本語・分野を検索" aria-label="単語検索"><div id="vocab-list"></div></div>'+
@@ -58,7 +58,7 @@ if(a==="vocab-start"){run(button.dataset.mode==="quiz"?"quiz":"flash");return;}
 if(a==="vocab-pos"){if(a&&button.dataset.pos){state.pos=button.dataset.pos;state.page=0;}return;}
 if(a==="vocab-star"){const id=button.dataset.id;if(lookup[id]){store.stars[id]=!store.stars[id];keep();}return;}
 if(a==="vocab-page"){state.page=Math.max(0,state.page+Number(button.dataset.step||0));return;}
-if(a==="vocab-home"){state.view="browse";state.session=null;return;}
+if(a==="vocab-home"){state.view="browse";state.session=null;state.externalQuiz=false;return;}
 if(a==="vocab-flip"){if(state.session)state.session.flip=true;return;}
 if(a==="vocab-grade"){if(state.session&&state.session.flip)next(button.dataset.grade==="know");return;}
 if(a==="vocab-pick"){const s=state.session;if(s&&s.mode==="quiz"&&s.pick<0){const n=Number(button.dataset.pick);if(Number.isInteger(n)&&n>=0&&n<s.options.length)s.pick=n;}return;}
@@ -74,5 +74,5 @@ case "vocab-only-stars":state.starOnly=target.checked;state.page=0;return true;
 default:return false;}}
 function input(target){if(!target||target.id!=="vocab-search")return false;state.search=target.value;state.page=0;drawRows();return true;}
 function importData(obj){if(!obj||obj.version!==1||typeof obj.cards!=="object"||typeof obj.stars!=="object")return false;let v=fresh();for(let w of words){const f=obj.cards[w.id];if(f&&typeof f==="object"){let seen=Math.max(0,Math.min(100000,Math.round(Number(f.seen)||0)));let known=Math.max(0,Math.min(seen,Math.round(Number(f.known)||0)));v.cards[w.id]={seen,known,stage:Math.max(0,Math.min(5,Math.round(Number(f.stage)||0))),next:Math.max(0,Math.min(9999999999999,Number(f.next)||0))};}if(obj.stars[w.id]===true)v.stars[w.id]=true;}store=v;keep();return true;}
-window.KBV={render:()=>state.view==="browse"?browseView():state.view==="study"?studyView():resultView(),afterRender:drawRows,click,change,input,getData:()=>JSON.parse(JSON.stringify(store)),importData,reset:()=>{store=fresh();state.view="browse";state.session=null;keep();},stats,wordCount:words.length};
+window.KBV={startExternalQuiz:(count,level)=>{state.level=level==="all"?"all":level;state.pos="all";state.category="all";state.starOnly=false;state.search="";state.count=Math.max(5,Math.min(20,count||10));state.externalQuiz=true;run("quiz");},isExternalQuizActive:()=>state.externalQuiz,closeExternalQuiz:()=>{state.externalQuiz=false;state.session=null;state.view="browse";},render:()=>state.view==="browse"?browseView():state.view==="study"?studyView():resultView(),afterRender:drawRows,click,change,input,getData:()=>JSON.parse(JSON.stringify(store)),importData,reset:()=>{store=fresh();state.view="browse";state.externalQuiz=false;state.session=null;keep();},stats,wordCount:words.length};
 })();
