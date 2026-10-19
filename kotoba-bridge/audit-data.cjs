@@ -67,7 +67,7 @@ const lexicalWarnings = words.filter(w =>
 const normalizedCollisions=[];
 const normalized=new Map();
 for(const w of words){
-  const norm=String(w.ko||'').normalize('NFC').replace(/\\s+/g,'');
+  const norm=String(w.ko||'').normalize('NFC').replace(/\s+/g,'');
   if(normalized.has(norm) && normalized.get(norm).ko !== w.ko){
     normalizedCollisions.push({a:normalized.get(norm).ko,b:w.ko});
   }else if(!normalized.has(norm)) normalized.set(norm,w);
