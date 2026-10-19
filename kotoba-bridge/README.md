@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v0.5.0
+# ことばの橋 / Kotoba Bridge — Alpha v0.6.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -57,3 +57,11 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - **489 example-bearing word entries** (142 existing + 347 additional), each with Korean usage and Japanese translation. Total Korean vocabulary remains 1,446 items.
 - Updated quiz filters include sentence ordering and sentence repair; responsive mobile layout for token board and grammar panels.
 - Existing storage schemas and export/import remain backwards compatible. Vocabulary usage examples are not complete for all entries and are subject to continued review.
+
+## v0.6.0 high-level lexicon
+- Total Korean-to-Japanese lexical entries: **3,104** unique Korean forms. Levels: **L0 40 · L1 264 · L2 326 · L3 273 · L4 550 · L5 575 · L6 602 · L7 240 · L8 234**.
+- L4 +296 news, practical social issues, education, medicine, climate, and culture; L5 +429 economics, public administration, scholarship, and argumentation; L6 +459 policy, scholarly analysis, philosophy, legal and research terms.
+- New **L7**: 240 specialized theoretical and academic words; **L8**: 234 literary vocabulary, idioms, fine nuances, and mimetic expressions.
+- **L7 and L8 are unofficial enrichment levels, NOT official TOPIK grades. TOPIK has only levels 1–6.** L4–L6 placement is a curated estimate of appropriate reading difficulty, not an official item-by-item TOPIK grade/frequency database or guarantee of actual exam appearance.
+- Dynamic level filters with per-level vocabulary counts; L7/L8 introductory courses and 16 extra self-authored quizzes (44 units / 332 questions total); bidirectional flashcards, multiple-choice, typing recall and local progress remain supported.
+- Further review of glosses, spacing, usage examples, and estimated grade placement is warranted before treating the content as authoritative lexicography.
