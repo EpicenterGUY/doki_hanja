@@ -55,7 +55,7 @@ for (const g of cards) {
 }
 // Catch regressions where a JS data module is loaded on the page but omitted from offline cache.
 const cacheSource = fs.readFileSync(path.join(base, 'sw.js'), 'utf8');
-const indexSources = [...index.matchAll(/<script\\s+src="\\.\\/([^"]+\\.js)(?:\\?([^"]*))?"/g)]
+const indexSources = [...index.matchAll(/<script\s+src="\.\/([^"?]+\.js)(?:\?([^"]*))?"/g)]
   .map(m => './' + m[1] + (m[2] ? '?' + m[2] : ''));
 for (const src of indexSources) {
   if (!cacheSource.includes(JSON.stringify(src))) issues.push('Offline cache missing ' + src);
@@ -72,7 +72,12 @@ const summary = {
   v13Examples: sandbox.window.KB_V13_CONTEXT_STATS || null,
   v13Vocabulary: sandbox.window.KB_V13_POS_STATS || null
 };
-if (process.argv.includes('--json')) console.log(JSON.stringify(summary, null, 2));
+// Optional exhaustive missing-lemma report for precise editorial backfill planning.
+if (process.argv.includes('--missing')) {
+  const missing = Object.fromEntries(levels.map(level => [level,
+    words.filter(w => w.level === level && (!w.exKo || !w.exJa)).map(w => ({id:w.id,ko:w.ko,pos:w.pos}))]));
+  console.log(JSON.stringify({missing, totals: Object.fromEntries(levels.map(level => [level,missing[level].length]))},null,2));
+} else if (process.argv.includes('--json')) console.log(JSON.stringify(summary, null, 2));
 else {
   console.log('Kotoba Bridge vocab:', summary.vocab, '| bilingual examples:', summary.bilingualExamples,
     '| missing:', summary.missingExamples, '| grammar:', summary.grammar);
