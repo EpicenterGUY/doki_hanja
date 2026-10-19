@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.2.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.3.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -123,3 +123,10 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - New `audit-data.cjs` computes **actual** example coverage, grade/POS distributions, duplicate Korean entries and IDs, and incomplete bilingual pairs from the exact script order in `index.html`. Run **`node kotoba-bridge/audit-data.cjs`** after cloning the repository (or append `--json` for machine-readable results).
 - App boot sequence includes the new modules; scoped service-worker cache and asset query versions updated to **v1.2.0** to pick up data updates. Existing localStorage keys, vocabulary IDs, and learning records are preserved.
 - Educational data is original/editorially curated, not guaranteed to appear in an actual TOPIK paper; L7/L8 are not official TOPIK levels. Further manual review, especially naturalness and vocabulary-grade placement, remains necessary.
+
+## v1.3.0 — Targeted L1–L6 example remediation & L4–L6 POS balance
+- **177 additional, independently authored Korean/Japanese contextual example candidates**. The new module applies examples to already-existing entries **only if neither example field is populated**. Existing example pairs and progress IDs are not overwritten; some candidates overlap old content and therefore will not all result in an increase.
+- **63 proposed POS-balanced L4–L6 vocabulary entries**, 21 per stage with emphasis on verbs, adjectives, and adverbs, each with an example/translation. The expansion loader deduplicates by Korean spelling; the precise number of new unique cards should be read from the audit script's `v13Vocabulary.added` output rather than inferred from the candidate count.
+- `audit-data.cjs` now tracks the two new modules' applied counts, full-level example coverage, POS counts, structural anomalies, and assets missing from the PWA offline precache. To see the actual numbers: `node kotoba-bridge/audit-data.cjs --json`.
+- Added v1.3 scripts to `index.html` and `sw.js`, and bumped script cache-busting versions + PWA cache to **v1.3.0**. Stable saved progress keys and existing vocabulary IDs remain unchanged.
+- **Editorial caution**: All proposed vocabulary gradings are estimates. Native-speaker proofreading, usage-sense checks, and true TOPIK exam matching are not completed. L7–L8 are unofficial extension tiers.
