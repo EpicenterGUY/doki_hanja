@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.6.1
+# ことばの橋 / Kotoba Bridge — Alpha v1.7.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -159,3 +159,11 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - Added more data-quality reporting in `audit-data.cjs`: actual level changes, upward review, polysemy coverage, full POS and grade distributions, suspicious dictionary-form fields, normalized spacing collisions, and actual v1.6 example additions. CI checks all JavaScript syntax and archives machine-readable reports.
 - Versioned page references + PWA precache as **v1.6.1**. All existing localStorage namespaces and progress IDs are unchanged.
 - Full reproducible summary: [Quality Audit 2026-10-20](./QUALITY-AUDIT-2026-10-20.md). Naturalness of every Japanese translation and textbook matching still requires further human editorial review.
+
+## v1.7.0 — Verified L4–L6 bilingual example coverage expansion
+- Added **270 hand-authored Korean/Japanese contextual usage pairs** across L4 (**98**), L5 (**89**), and L6 (**83**). A complete reproduction of the app's vocabulary script order confirmed **all 270 applied**, without overwriting previous examples.
+- The live effective lexicon remains **5,463 unique Korean headwords** with no duplicate IDs, duplicate Korean headwords or half-translated example pairs.
+- Current fully illustrated vocabulary: **4,759 / 5,463 (87.11%)**, an increase from **4,489 (82.17%)** at v1.6.1. Missing pairs are now **704**: L4 **134**, L5 **267**, L6 **303**. All L0–L3 and L7–L8 vocab cards have complete example fields.
+- The new scripts are `vocabulary-v17-l4-context.js`, `vocabulary-v17-l5-context.js`, and `vocabulary-v17-l6-context.js`; `index.html` and the scoped PWA cache version have been updated to **v1.7.0**.
+- The local quality audit includes `v17L4`, `v17L5`, and `v17L6` applied counters. Run `node kotoba-bridge/audit-data.cjs --json` and `node kotoba-bridge/audit-data.cjs --missing` to reproduce the current statistics.
+- This material is editorially authored; grade placements are estimated for learning rather than official TOPIK word-by-word labels. Complete example fields do **not** imply independent native-speaker validation of every example or Japanese translation.
