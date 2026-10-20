@@ -84,6 +84,22 @@ for(const w of words){
   }else if(!normalized.has(norm)) normalized.set(norm,w);
 }
 
+const visibleCollisions=[];
+const visibleSeen=new Map();
+for(const w of words){
+  const form=w.displayKo||w.ko;
+  if(visibleSeen.has(form)) visibleCollisions.push({a:visibleSeen.get(form).id,b:w.id,form});
+  else visibleSeen.set(form,w);
+}
+if(visibleCollisions.length) issues.push('Duplicate displayed headwords: '+visibleCollisions.length);
+const legacyAliases=sandbox.window.KB_VOCAB_ID_ALIASES||{};
+for(const [obsolete,active] of Object.entries(legacyAliases)){
+  if(words.some(w=>w.id===obsolete))issues.push('Legacy duplicate was not retired: '+obsolete);
+  if(!words.some(w=>w.id===active))issues.push('Legacy ID target not found: '+active);
+}
+const editorialQueue=['기인되다','대두하다','종합적','주관적']
+ .map(ko=>words.find(w=>w.ko===ko)).filter(Boolean)
+ .map(w=>({id:w.id,ko:w.ko,pos:w.pos,level:w.level,reason:'Usage or dictionary citation review required'}));
 const summary = {
   vocab: words.length,
   bilingualExamples: words.filter(w => w.exKo && w.exJa).length,
@@ -95,6 +111,10 @@ const summary = {
   issues,
   lexicalWarnings,
   normalizedCollisions,
+  visibleCollisions,
+  legacyAliases,
+  orthography: sandbox.window.KB_ORTHOGRAPHY_REVIEW || null,
+  editorialQueue,
   gradeReview: sandbox.window.KB_LEVEL_REVIEW || null,
   gradePromotion: sandbox.window.KB_GRADE_PROMOTION || null,
   polysemy: sandbox.window.KB_SENSE_REVIEW || null,
@@ -145,6 +165,8 @@ else {
   console.log('V1.8 new L4/L5/L6 examples:', JSON.stringify([summary.v18L4,summary.v18L5,summary.v18L6]));
   console.log('V1.9 completed L5 and L6 examples:', JSON.stringify([summary.v19L5Argument,summary.v19L5Language,summary.v19L6Diplomacy,summary.v19L6Science,summary.v19L6Social]));
   console.log('Lexical/POS review flags:',lexicalWarnings.length,'spacing collisions:',normalizedCollisions.length);
+  console.log('User-visible spelling review:', JSON.stringify(summary.orthography&&{proposals:summary.orthography.candidates,applied:summary.orthography.applied,examplesCorrected:summary.orthography.examplesCorrected,merged:summary.orthography.merged.length}));
+  console.log('Display-name collisions:',visibleCollisions.length,'word-form review queue:',editorialQueue.length);
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
 }
