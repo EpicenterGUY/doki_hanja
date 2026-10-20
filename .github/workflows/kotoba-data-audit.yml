@@ -23,6 +23,8 @@ jobs:
         run: |
           find kotoba-bridge -maxdepth 1 -name '*.js' -print0 | xargs -0 -r -n1 node --check
           node --check kotoba-bridge/audit-data.cjs
+      - name: Test vocabulary spelling, quizzes and saved-progress migration
+        run: node kotoba-bridge/test-vocab-quality.cjs
       - name: Audit actual content data and offline assets
         run: |
           node kotoba-bridge/audit-data.cjs --json > kotoba-bridge-audit.json
@@ -46,6 +48,7 @@ jobs:
               "V1.7 applied examples: L4 **"+(s.v17L4?.applied??"?")+"**, L5 **"+(s.v17L5?.applied??"?")+"**, L6 **"+(s.v17L6?.applied??"?")+"**.",
               "V1.8 applied examples: L4 **"+(s.v18L4?.applied??"?")+"**, L5 **"+(s.v18L5?.applied??"?")+"**, L6 **"+(s.v18L6?.applied??"?")+"**.",
               "V1.9 completion: L5 analysis **"+(s.v19L5Argument?.applied??"?")+"**, L5 language **"+(s.v19L5Language?.applied??"?")+"**, L6 diplomacy **"+(s.v19L6Diplomacy?.applied??"?")+"**, L6 science **"+(s.v19L6Science?.applied??"?")+"**, L6 society **"+(s.v19L6Social?.applied??"?")+"**.",
+              "V1.10 visible spacing proposals applied: **"+(s.orthography?.applied??"?")+"**, merged duplicates: **"+(s.orthography?.merged?.length??"?")+"**.",
               "Grade corrections: **"+(s.gradeReview?.applied??"?")+"** downward and **"+(s.gradePromotion?.applied??"?")+"** upward.",
               "Polysemy notes: **"+(s.polysemy?.applied??"?")+"**.",
               "POS/base-form warnings: **"+s.lexicalWarnings.length+"**, spacing collisions: **"+s.normalizedCollisions.length+"**.",
