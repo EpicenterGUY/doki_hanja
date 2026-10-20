@@ -148,8 +148,8 @@
     "id": "kotobabridge",
     "name": "ことばの橋",
     "mark": "橋",
-    "status": "Alpha · L0~L8 · 예문 100% · 의미 대조 검수",
-    "description": "일본어 화자용 한국어 학습. 5,463개 어휘 한일 예문 100% 수록. 대표 품사 유의하다(留意하다) 정정, 자주 혼동하는 동형이의어·자동사/타동사 등 44개 어휘의 의미 구분과 한일 대조 예문 추가. 기존 학습 진도 및 카드 ID 유지.",
+    "status": "Alpha · L0~L8 난이도 전수 분포 점검 · 예문 100%",
+    "description": "일본어 화자용 한국어 학습. 5,463개 어휘의 전체 레벨·품사 분포 점검 후 난이도 656건 조정(하향 639·상향 17). TOPIK은 공식 1~6급, L7·L8은 독자적인 심화 확장. 한일 예문 5,463쌍 유지, 카드 ID·학습 기록 보존.",
     "tags": [
       "한국어",
       "일본어",
@@ -159,7 +159,7 @@
     ],
     "live": "https://epicenterguy.github.io/doki_hanja/kotoba-bridge/",
     "repo": "https://github.com/EpicenterGUY/doki_hanja/tree/main/kotoba-bridge",
-    "version": "v1.13.0",
+    "version": "v1.14.0",
     "logo": "#087e75",
     "glow": "#5dbfac",
     "button": "#087e75"
