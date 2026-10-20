@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.11.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.12.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -200,3 +200,12 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - Extended QA reporting, CI summaries and offline tests to flag incomplete contrast-example pairs and verify the distinction between primary and alternate meanings.
 - Updated `index.html`, `sw.js`, and all versioned assets to **v1.11.0**; existing learning history remains compatible.
 - Quality audit: [QUALITY-AUDIT-v1.11.0.md](./QUALITY-AUDIT-v1.11.0.md). These edits are targeted, not a full native-speaker proofread or official word-by-word TOPIK level certification.
+
+## v1.12.0 — Verified part-of-speech labels and high-impact beginner homonyms
+- Edited **23 existing vocabulary cards** for Japanese-first POS precision and contrasting Korean/Japanese usage examples. Key corrected categories: `이번` → noun, `-쯤` → suffix, and `불가분의` → phrase rather than an independent determiner.
+- Clarified the different verbs `맞추다` (to align/compare) and **new** `맞히다` (to answer correctly or hit a target). Added one L2 entry with both Korean and Japanese example sentences, without changing existing progress IDs.
+- Expanded paired, meaning-specific usage notes for early words such as `싸다`, `바람`, `못`, `안`, `타다`, `열다`, `표` and `한편`.
+- Replaying the actual JS data-module order after v1.12 yielded **5,463** unique cards and **5,463 complete bilingual example pairs (100%)**; no duplicate IDs, displayed Korean headwords, or missing basic Japanese glosses.
+- Added POS/semantic assertions to `audit-data.cjs` and `test-vocab-quality.cjs`; updated versioned scripts and the offline service-worker cache, retaining previous study progress.
+- Full results and government dictionary references: [QUALITY-AUDIT-v1.12.0.md](./QUALITY-AUDIT-v1.12.0.md).
+- **Caveat:** The 23-card review does not certify every one of the 5,463 cards. A complete native-speaker translation review and live site testing remain outstanding.
