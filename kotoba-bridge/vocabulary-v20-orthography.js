@@ -8,14 +8,13 @@ const words=window.KB_VOCAB||[];
 const byKo=new Map(words.map(w=>[w.ko,w]));
 const sorted=Object.keys(proposed).sort((a,b)=>b.length-a.length);
 const changes=[],notFound=[],collision=[];
-const escaped=s=>s.replace(/[.*+?^${()|[\]\\]/g,'\\$&'); 
 let examplesCorrected=0;
 for(const old of sorted){
   const target=proposed[old],w=byKo.get(old);
   if(!w){notFound.push(old);continue;}
   if(byKo.has(target)&&byKo.get(target)!==w){collision.push({old,target});continue;}
   w.displayKo=target;
-  w.spellingNote='表記・分かち書きを確認済み（旧データIDを保持）';
+  w.spellingNote='学習用の分かち書き案（辞書照合は継続中）';
   for(const field of ['exKo','altExampleKo']){
     const str=w[field];
     if(typeof str==='string'&&str.includes(old)){w[field]=str.split(old).join(target);examplesCorrected++;}
