@@ -60,6 +60,11 @@ for (const w of words) {
   if (typeof w.exKo !== 'string' || !w.exKo.trim() || typeof w.exJa !== 'string' || !w.exJa.trim()) {
     issues.push('Empty bilingual example field for ' + w.ko);
   }
+  if (w.altExampleKo || w.altExampleJa) {
+    if (typeof w.altExampleKo !== 'string' || !w.altExampleKo.trim() || typeof w.altExampleJa !== 'string' || !w.altExampleJa.trim()) {
+      issues.push('Incomplete contrast example for ' + w.ko);
+    }
+  }
 }
 for (const g of cards) {
   if (!g.example || !g.translation || !g.back || !g.level) issues.push('Incomplete grammar card ' + g.id);
@@ -114,6 +119,7 @@ const summary = {
   visibleCollisions,
   legacyAliases,
   orthography: sandbox.window.KB_ORTHOGRAPHY_REVIEW || null,
+  senseReview: sandbox.window.KB_V21_SENSE_AUDIT || null,
   editorialQueue,
   gradeReview: sandbox.window.KB_LEVEL_REVIEW || null,
   gradePromotion: sandbox.window.KB_GRADE_PROMOTION || null,
@@ -166,6 +172,7 @@ else {
   console.log('V1.9 completed L5 and L6 examples:', JSON.stringify([summary.v19L5Argument,summary.v19L5Language,summary.v19L6Diplomacy,summary.v19L6Science,summary.v19L6Social]));
   console.log('Lexical/POS review flags:',lexicalWarnings.length,'spacing collisions:',normalizedCollisions.length);
   console.log('User-visible spelling review:', JSON.stringify(summary.orthography&&{proposals:summary.orthography.candidates,applied:summary.orthography.applied,examplesCorrected:summary.orthography.examplesCorrected,merged:summary.orthography.merged.length}));
+  console.log('Meaning and homonym review:', JSON.stringify(summary.senseReview&&{candidates:summary.senseReview.candidates,applied:summary.senseReview.applied,missing:summary.senseReview.missing.length}));
   console.log('Display-name collisions:',visibleCollisions.length,'word-form review queue:',editorialQueue.length);
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
