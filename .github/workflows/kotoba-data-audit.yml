@@ -44,6 +44,7 @@ jobs:
               "V1.5 applied examples: core **"+(s.v15Core?.applied??"?")+"**, advanced **"+(s.v15Advanced?.applied??"?")+"**.",
               "V1.6 applied examples: **"+(s.v16Backfill?.applied??"?")+"**.",
               "V1.7 applied examples: L4 **"+(s.v17L4?.applied??"?")+"**, L5 **"+(s.v17L5?.applied??"?")+"**, L6 **"+(s.v17L6?.applied??"?")+"**.",
+              "V1.8 applied examples: L4 **"+(s.v18L4?.applied??"?")+"**, L5 **"+(s.v18L5?.applied??"?")+"**, L6 **"+(s.v18L6?.applied??"?")+"**.",
               "Grade corrections: **"+(s.gradeReview?.applied??"?")+"** downward and **"+(s.gradePromotion?.applied??"?")+"** upward.",
               "Polysemy notes: **"+(s.polysemy?.applied??"?")+"**.",
               "POS/base-form warnings: **"+s.lexicalWarnings.length+"**, spacing collisions: **"+s.normalizedCollisions.length+"**.",
