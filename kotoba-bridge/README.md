@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.12.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.13.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -209,3 +209,9 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - Added POS/semantic assertions to `audit-data.cjs` and `test-vocab-quality.cjs`; updated versioned scripts and the offline service-worker cache, retaining previous study progress.
 - Full results and government dictionary references: [QUALITY-AUDIT-v1.12.0.md](./QUALITY-AUDIT-v1.12.0.md).
 - **Caveat:** The 23-card review does not certify every one of the 5,463 cards. A complete native-speaker translation review and live site testing remain outstanding.
+
+## v1.13.0 — Distinct senses, argumentation verbs, and updated POS labels
+- Added `vocabulary-v22-contrast-review.js` to distinguish **44** Korean/Japanese meaning or grammar pairs. Key correction: the main `유의하다` entry now explicitly represents the **留意하다 (動詞 / to pay attention)** sense, with statistical **有意하다** explained and contrasted separately.
+- The previous v1.12 corrections remain: 23 reviewed early-learner cards, `이번` as noun, `-쯤` as bound suffix, `불가분의` as phrase, and newly added `맞히다` contrasted with `맞추다`.
+- Verified the full vocabulary JS chain **including both v1.12 and v1.13 modules**: **5,463 unique cards**, **5,463 bilingual example pairs**, no duplicate cards, displayed headwords, or missing base Japanese glosses. The versioned PWA and project directory are aligned to **v1.13.0**.
+- Updated quality audits and regression checks for common verb-pair and homonym mistakes. The work is *targeted editorial review*, not a full dictionary certification or native-speaker proofreading of all 5,463 entries.
