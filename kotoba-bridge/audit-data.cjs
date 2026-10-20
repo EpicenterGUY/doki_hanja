@@ -105,6 +105,18 @@ for(const [obsolete,active] of Object.entries(legacyAliases)){
 const editorialQueue=['기인되다','대두하다','종합적','주관적']
  .map(ko=>words.find(w=>w.ko===ko)).filter(Boolean)
  .map(w=>({id:w.id,ko:w.ko,pos:w.pos,level:w.level,reason:'Usage or dictionary citation review required'}));
+const v22Audit=sandbox.window.KB_V22_POS_SENSE_AUDIT;
+if(v22Audit){
+  if(v22Audit.missing.length)issues.push('POS review targeted terms absent: '+v22Audit.missing.join(', '));
+  if(v22Audit.applied!==v22Audit.candidates)issues.push('POS review not fully applied');
+}
+const requiredV22Pos={'이번':'名詞','쯤':'接尾辞','불가분의':'表現'};
+for(const [ko,expectedPos] of Object.entries(requiredV22Pos)){
+  const w=words.find(x=>x.ko===ko);
+  if(!w||w.pos!==expectedPos)issues.push('POS correction regressed for '+ko+' (expected '+expectedPos+')');
+}
+if(!words.some(w=>w.ko==='맞히다'&&w.ja&&w.exKo&&w.exJa))
+  issues.push('Missing separate 맞히다 card with bilingual context');
 const summary = {
   vocab: words.length,
   bilingualExamples: words.filter(w => w.exKo && w.exJa).length,
@@ -120,6 +132,7 @@ const summary = {
   legacyAliases,
   orthography: sandbox.window.KB_ORTHOGRAPHY_REVIEW || null,
   senseReview: sandbox.window.KB_V21_SENSE_AUDIT || null,
+  posSenseReview: sandbox.window.KB_V22_POS_SENSE_AUDIT || null,
   editorialQueue,
   gradeReview: sandbox.window.KB_LEVEL_REVIEW || null,
   gradePromotion: sandbox.window.KB_GRADE_PROMOTION || null,
@@ -173,6 +186,7 @@ else {
   console.log('Lexical/POS review flags:',lexicalWarnings.length,'spacing collisions:',normalizedCollisions.length);
   console.log('User-visible spelling review:', JSON.stringify(summary.orthography&&{proposals:summary.orthography.candidates,applied:summary.orthography.applied,examplesCorrected:summary.orthography.examplesCorrected,merged:summary.orthography.merged.length}));
   console.log('Meaning and homonym review:', JSON.stringify(summary.senseReview&&{candidates:summary.senseReview.candidates,applied:summary.senseReview.applied,missing:summary.senseReview.missing.length}));
+  console.log('POS and polysemy review:', JSON.stringify(summary.posSenseReview&&{candidates:summary.posSenseReview.candidates,applied:summary.posSenseReview.applied,missing:summary.posSenseReview.missing.length,added:summary.posSenseReview.addedWords.length}));
   console.log('Display-name collisions:',visibleCollisions.length,'word-form review queue:',editorialQueue.length);
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
