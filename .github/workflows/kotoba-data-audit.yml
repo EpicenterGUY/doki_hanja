@@ -55,6 +55,7 @@ jobs:
               "V1.12 POS/sense review: **"+(s.posSenseReview?.applied??"?")+"** reviewed and **"+(s.posSenseReview?.addedWords?.length??"?")+"** new base word.",
               "V1.13 contrast reviews: **"+(s.lexicalContrastReview?.applied??"?")+"** entries, primary meaning corrections **"+(s.lexicalContrastReview?.overrides??"?")+"**, missing **"+(s.lexicalContrastReview?.missing?.length??"?")+"**.",
               "POS/base-form warnings: **"+s.lexicalWarnings.length+"**, spacing collisions: **"+s.normalizedCollisions.length+"**.",
+              "V1.14 grade review: **"+(s.gradeAudit?.redistributedDown??"?")+"** downward, **"+(s.gradeAudit?.redistributedUp??"?")+"** upward, **"+(s.gradeAudit?.posMeaningChanges??"?")+"** POS/gloss corrections.",
               "Structural errors: **"+s.issues.length+"**."
             ];
             require("fs").appendFileSync(process.env.GITHUB_STEP_SUMMARY,lines.join("\n")+"\n");
