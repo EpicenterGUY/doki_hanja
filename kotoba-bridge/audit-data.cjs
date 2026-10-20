@@ -50,9 +50,16 @@ for (const w of words) {
     if (!!w.exKo !== !!w.exJa) issues.push('Partial translation for ' + w.ko);
   }
 }
-// Once a stage has completed bilingual coverage, prevent silent regression in CI.
-for (const level of ['L0','L1','L2','L3','L4','L7','L8']) {
-  if (counts[level].missing > 0) issues.push(level + ': previously complete level regressed by ' + counts[level].missing + ' example pairs');
+// Every vocabulary level now has complete bilingual examples (v1.9.0).
+// Fail CI on any new missing pair or malformed usage fields.
+for (const level of levels) {
+  if (counts[level].missing > 0) issues.push(level + ': bilingual example coverage regressed by ' + counts[level].missing + ' cards');
+}
+for (const w of words) {
+  if (typeof w.ja !== 'string' || !w.ja.trim()) issues.push('Missing Japanese gloss for ' + w.ko);
+  if (typeof w.exKo !== 'string' || !w.exKo.trim() || typeof w.exJa !== 'string' || !w.exJa.trim()) {
+    issues.push('Empty bilingual example field for ' + w.ko);
+  }
 }
 for (const g of cards) {
   if (!g.example || !g.translation || !g.back || !g.level) issues.push('Incomplete grammar card ' + g.id);
@@ -103,7 +110,12 @@ const summary = {
   v17L6: sandbox.window.KB_V17_L6 || null,
   v18L4: sandbox.window.KB_V18_L4 || null,
   v18L5: sandbox.window.KB_V18_L5 || null,
-  v18L6: sandbox.window.KB_V18_L6 || null
+  v18L6: sandbox.window.KB_V18_L6 || null,
+  v19L5Argument: sandbox.window.KB_V19_L5_ARGUMENT || null,
+  v19L5Language: sandbox.window.KB_V19_L5_LANGUAGE || null,
+  v19L6Diplomacy: sandbox.window.KB_V19_L6_DIPLOMACY || null,
+  v19L6Science: sandbox.window.KB_V19_L6_SCIENCE || null,
+  v19L6Social: sandbox.window.KB_V19_L6_SOCIAL || null
 };
 // Optional exhaustive missing-lemma report for precise editorial backfill planning.
 if (process.argv.includes('--missing')) {
@@ -131,6 +143,7 @@ else {
   console.log('V1.6 new bilingual examples:', JSON.stringify(summary.v16Backfill));
   console.log('V1.7 new L4/L5/L6 examples:', JSON.stringify([summary.v17L4,summary.v17L5,summary.v17L6]));
   console.log('V1.8 new L4/L5/L6 examples:', JSON.stringify([summary.v18L4,summary.v18L5,summary.v18L6]));
+  console.log('V1.9 completed L5 and L6 examples:', JSON.stringify([summary.v19L5Argument,summary.v19L5Language,summary.v19L6Diplomacy,summary.v19L6Science,summary.v19L6Social]));
   console.log('Lexical/POS review flags:',lexicalWarnings.length,'spacing collisions:',normalizedCollisions.length);
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
