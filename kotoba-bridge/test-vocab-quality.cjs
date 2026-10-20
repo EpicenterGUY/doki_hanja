@@ -58,6 +58,11 @@ assert.match(single.w.KBV.render(),/韓国語の見出し形/);
 single.elements['#vocab-type-answer'].value='정체성 형성';
 single.w.KBV.click({dataset:{action:'vocab-type-check'}});
 assert.match(single.w.KBV.render(),/✓ 正解！/);
+single.w.KBV.startExternalQuiz(5,'L5','typing');
+single.elements['#vocab-type-answer'].value='정체성형성';
+single.w.KBV.click({dataset:{action:'vocab-type-check'}});
+assert.match(single.w.KBV.render(),/✕ 正解/,'Incorrectly joined form should not be accepted');
+
 const imported=single.w.KBV.importData({
   version:1,cards:{ha60102:{seen:9,known:7,stage:3,next:1}},stars:{ha60102:true}
 });
