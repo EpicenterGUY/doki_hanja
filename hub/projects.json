@@ -149,7 +149,7 @@
     "name": "ことばの橋",
     "mark": "橋",
     "status": "Alpha · L0~L8 · 예문 100% · 품사·다의어 검수",
-    "description": "일본어 화자를 위한 한국어 학습. 5,463어휘 전부 한일 예문 수록(100%). v1.12에서 품사·의미 대조 23개 검수, 이번(명사)·-쯤(접미사) 교정, 맞히다 신규 수록 및 맞추다와 의미 구분. 기존 학습 데이터 유지.",
+    "description": "일본인을 위한 한국어 학습. 5,463개 어휘에 한일 예문 100% 수록. 품사·다의어 23개 검수, 맞히다 별도 추가, 용법·동형이의어 44개 추가 대비. 명사 이번·접미사 -쯤 및 동사 유의하다(留意)를 정확히 구분.",
     "tags": [
       "한국어",
       "일본어",
@@ -159,7 +159,7 @@
     ],
     "live": "https://epicenterguy.github.io/doki_hanja/kotoba-bridge/",
     "repo": "https://github.com/EpicenterGUY/doki_hanja/tree/main/kotoba-bridge",
-    "version": "v1.12.0",
+    "version": "v1.13.0",
     "logo": "#087e75",
     "glow": "#5dbfac",
     "button": "#087e75"
