@@ -221,7 +221,7 @@ Full source-level audit and dictionary references: [QUALITY-AUDIT-v1.13.0.md](./
 ## v1.14.0 — Full-bank editorial learning-grade review
 - Reviewed **all 5,463 loaded vocabulary cards' level/POS distributions**, and applied **656 curated learning-stage corrections**: **639 downward, 17 upward**; the existing card IDs, `ko` lookup values and local progress remain untouched.
 - The staged learning progression differentiates early everyday vocabulary from abstract/social reading, technical research, and rare literature. Common words formerly pushed into L7/L8 by their literary context now appear earlier; genuinely technical vocabulary remains in L6–L8 as appropriate.
-- Final L0–L8 distribution: **40 / 383 / 516 / 684 / 1,060 / 1,002 / 694 / 699 / 385**. The complete bilingual example rate remains **5,463 / 5,463 (100%)** with no duplicate IDs, duplicate displayed Korean labels, or missing Japanese glosses.
+- Final L0–L8 distribution: **40 / 383 / 516 / 684 / 1,060 / 1,001 / 695 / 699 / 385**. The complete bilingual example rate remains **5,463 / 5,463 (100%)** with no duplicate IDs, duplicate displayed Korean labels, or missing Japanese glosses.
 - Added targeted Japanese POS/gloss detail to seven words including `보통` and `어불성설이다`. Earlier v1.11–v1.13 corrections of `유의하다`, `유의미하다` and other polysemous words remain authoritative and were not overwritten.
 - Extended `audit-data.cjs` and `test-vocab-quality.cjs` with level QA and regression assertions; the source-linked PWA cache and hub version are both **v1.14.0**.
 - Each changed headword's original/new learning tier and rationale is in [LEVEL-CHANGES-v1.14.0.json](./LEVEL-CHANGES-v1.14.0.json); see [QUALITY-AUDIT-v1.14.0.md](./QUALITY-AUDIT-v1.14.0.md).
