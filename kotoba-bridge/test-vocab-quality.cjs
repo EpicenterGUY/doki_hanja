@@ -38,7 +38,9 @@ function environment(wordOnly){
 }
 const full=environment(false);
 const words=full.w.KB_VOCAB;
-assert.equal(words.length,5462,'One actual duplicate should be merged');
+assert.ok(words.length>=5462,'The quality audit should allow future vocabulary expansion');
+assert.ok(!words.some(w=>w.id==='ha60102'),'Superseded duplicate ID must no longer be a card');
+assert.equal(words.filter(w=>w.ko==='도덕적 해이').length,1,'Keep exactly one canonical card');
 assert.equal(new Set(words.map(w=>w.id)).size,words.length);
 assert.equal(new Set(words.map(w=>w.displayKo||w.ko)).size,words.length);
 assert.equal(words.filter(w=>!w.exKo||!w.exJa).length,0,'All words need both example fields');
