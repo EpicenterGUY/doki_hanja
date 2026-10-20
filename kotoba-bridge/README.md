@@ -215,3 +215,5 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - The previous v1.12 corrections remain: 23 reviewed early-learner cards, `이번` as noun, `-쯤` as bound suffix, `불가분의` as phrase, and newly added `맞히다` contrasted with `맞추다`.
 - Verified the full vocabulary JS chain **including both v1.12 and v1.13 modules**: **5,463 unique cards**, **5,463 bilingual example pairs**, no duplicate cards, displayed headwords, or missing base Japanese glosses. The versioned PWA and project directory are aligned to **v1.13.0**.
 - Updated quality audits and regression checks for common verb-pair and homonym mistakes. The work is *targeted editorial review*, not a full dictionary certification or native-speaker proofreading of all 5,463 entries.
+
+Full source-level audit and dictionary references: [QUALITY-AUDIT-v1.13.0.md](./QUALITY-AUDIT-v1.13.0.md).
