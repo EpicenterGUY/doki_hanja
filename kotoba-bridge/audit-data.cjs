@@ -50,6 +50,10 @@ for (const w of words) {
     if (!!w.exKo !== !!w.exJa) issues.push('Partial translation for ' + w.ko);
   }
 }
+// Once a stage has completed bilingual coverage, prevent silent regression in CI.
+for (const level of ['L0','L1','L2','L3','L4','L7','L8']) {
+  if (counts[level].missing > 0) issues.push(level + ': previously complete level regressed by ' + counts[level].missing + ' example pairs');
+}
 for (const g of cards) {
   if (!g.example || !g.translation || !g.back || !g.level) issues.push('Incomplete grammar card ' + g.id);
 }
@@ -96,7 +100,10 @@ const summary = {
   v16Backfill: sandbox.window.KB_V16_BACKFILL || null,
   v17L4: sandbox.window.KB_V17_L4 || null,
   v17L5: sandbox.window.KB_V17_L5 || null,
-  v17L6: sandbox.window.KB_V17_L6 || null
+  v17L6: sandbox.window.KB_V17_L6 || null,
+  v18L4: sandbox.window.KB_V18_L4 || null,
+  v18L5: sandbox.window.KB_V18_L5 || null,
+  v18L6: sandbox.window.KB_V18_L6 || null
 };
 // Optional exhaustive missing-lemma report for precise editorial backfill planning.
 if (process.argv.includes('--missing')) {
@@ -123,6 +130,7 @@ else {
   console.log('Polysemy explanations:', JSON.stringify(summary.polysemy));
   console.log('V1.6 new bilingual examples:', JSON.stringify(summary.v16Backfill));
   console.log('V1.7 new L4/L5/L6 examples:', JSON.stringify([summary.v17L4,summary.v17L5,summary.v17L6]));
+  console.log('V1.8 new L4/L5/L6 examples:', JSON.stringify([summary.v18L4,summary.v18L5,summary.v18L6]));
   console.log('Lexical/POS review flags:',lexicalWarnings.length,'spacing collisions:',normalizedCollisions.length);
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
