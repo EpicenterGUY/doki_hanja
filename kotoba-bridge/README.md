@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.10.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.11.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -191,3 +191,12 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - Improved flashcards, search, writing answers and migrated existing progress and favorites.
 - Added offline integration tests and a full data report in QUALITY-AUDIT-v1.10.0.md.
 - Further dictionary verification and native translation review remain necessary.
+
+## v1.11.0 — Korean homonym senses and Japanese interpretation QA
+- Manually reviewed 15 high-leverage learner headwords, clarifying core Japanese glosses, grammatical roles and contrasting examples. The most important repair differentiates `유의하다` (有意하다, adjective: statistically significant) from `유의하다` (留意하다, verb: take note), so an L6 learner does not memorize mixed POS/example senses.
+- Updated `유의미하다` and `공시` Japanese translations, `감사` homonym support, and academic/technical terms including `기인되다`, `대두하다`, `귀속하다`, `상관관계` and `인과추론` with explicit Japanese meaning or usage notes.
+- Added `vocabulary-v21-sense-quality.js`, integrated into the v1.11 loading order after the prior orthography review. Show Japanese sense notes and contrast examples in flashcards **and** four-choice/typing quiz feedback.
+- Replay of content scripts confirmed **15/15 review patches applied**, all **5,462 vocabulary cards still have both Korean and Japanese usage examples**, no duplicate IDs or display headwords, and no missing baseline Japanese glosses. Search rendering was also checked for the reviewed homonym.
+- Extended QA reporting, CI summaries and offline tests to flag incomplete contrast-example pairs and verify the distinction between primary and alternate meanings.
+- Updated `index.html`, `sw.js`, and all versioned assets to **v1.11.0**; existing learning history remains compatible.
+- Quality audit: [QUALITY-AUDIT-v1.11.0.md](./QUALITY-AUDIT-v1.11.0.md). These edits are targeted, not a full native-speaker proofread or official word-by-word TOPIK level certification.
