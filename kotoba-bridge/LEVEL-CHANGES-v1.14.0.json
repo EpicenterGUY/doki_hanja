@@ -3376,6 +3376,14 @@
       "direction": "down"
     },
     {
+      "id": "prog5-0019",
+      "ko": "외부효과",
+      "from": "L5",
+      "to": "L6",
+      "reason": "Specialized economics: externality concept and welfare analysis",
+      "direction": "up"
+    },
+    {
       "id": "ha60044",
       "ko": "외재적이다",
       "from": "L6",
@@ -4723,17 +4731,9 @@
       "id": "ha70049",
       "ko": "표준편차",
       "from": "L7",
-      "to": "L5",
+      "to": "L6",
       "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
       "direction": "down"
-    },
-    {
-      "id": "ha70049",
-      "ko": "표준편차",
-      "from": "L5",
-      "to": "L6",
-      "reason": "Statistical dispersion measure",
-      "direction": "up"
     },
     {
       "id": "ha80066",
