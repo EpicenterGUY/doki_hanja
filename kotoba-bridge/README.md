@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.8.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.9.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -175,3 +175,12 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - The repo audit and GitHub Actions summary track the actual applied counts of all v1.8 files. An explicit regression guard rejects future introduction of example-free cards in levels already completed (L0–L4 and L7–L8).
 - Confirmed no duplicate base Korean headwords, no duplicate card IDs, and no one-sided bilingual example pairs after loading the entire data pipeline. Some bilingual pairs and level labels remain pending native editorial proofreading; L7 and L8 are not official TOPIK grades.
 - Detailed reproducible report: [QUALITY-AUDIT-v1.8.0.md](./QUALITY-AUDIT-v1.8.0.md).
+
+## v1.9.0 — Bilingual example field completion across the entire bank
+- **All 5,463 vocabulary entries now have a Korean and Japanese usage example** (100% field coverage, 0 missing). L0 through L8 are all complete on the loaded runtime data.
+- Authored and actually applied **363 contextual bilingual pairs** for the outstanding L5 and L6 vocabulary, in five modules: `vocabulary-v19-l5-argument.js` (101), `vocabulary-v19-l5-language.js` (67), `vocabulary-v19-l6-diplomacy.js` (48), `vocabulary-v19-l6-research-health.js` (75), `vocabulary-v19-l6-social-change.js` (72).
+- Runtime application validated against the prior 363 missing headwords: no missing or duplicated candidates, all 363 applied to previously empty cards. Original IDs, previously authored translations, and study storage keys are preserved.
+- The content audit now treats *any* incomplete bilingual pair in *any* level as a CI regression and also checks blank Japanese glosses, with all five v1.9 applied counts in its JSON output and GitHub Actions summary.
+- Page script URLs, app registry, and PWA offline cache bumped to **v1.9.0**. The learner's example coverage breakdown is derived from live data.
+- **100% here means fields are populated, not that all examples have been independently native-proofread.** Further work includes reviewing Korean spacing and citation forms, matching Japanese translations against intended senses and corpus frequency, and confirming study-level suitability. Custom L7–L8 are unofficial extensions beyond TOPIK 6.
+- See [QUALITY-AUDIT-v1.9.0.md](./QUALITY-AUDIT-v1.9.0.md) for measured results and explicit quality follow-ups.
