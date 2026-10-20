@@ -1,0 +1,5356 @@
+{
+  "release": "v1.14.0",
+  "date": "2026-10-20",
+  "model": "Editorial learner-first stage estimates (not official per-word TOPIK grades)",
+  "wordCount": 5463,
+  "downward": 639,
+  "upward": 17,
+  "changed": 656,
+  "changes": [
+    {
+      "id": "e0992",
+      "ko": "가급적",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80021",
+      "ko": "가냘프다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0972",
+      "ko": "가늠하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80215",
+      "ko": "가슴에 사무치다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0167",
+      "ko": "가슴을 쓸어내리다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "v0412",
+      "ko": "가시화하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80026",
+      "ko": "가엽다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80035",
+      "ko": "가혹하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0017",
+      "ko": "각운",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70126",
+      "ko": "간결하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60444",
+      "ko": "간과되다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70158",
+      "ko": "간주되다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "v0408",
+      "ko": "간주하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0108",
+      "ko": "간청하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0928",
+      "ko": "간혹",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0100",
+      "ko": "갈채를 보내다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80090",
+      "ko": "갈팡질팡",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0143",
+      "ko": "감회",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0144",
+      "ko": "감흥",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11l3-0026",
+      "ko": "강의계획서",
+      "from": "L3",
+      "to": "L4",
+      "reason": "Academic course-document terminology",
+      "direction": "up"
+    },
+    {
+      "id": "ha80055",
+      "ko": "강직하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0046",
+      "ko": "개념적으로",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0024",
+      "ko": "개념적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha50285",
+      "ko": "개방하다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0118",
+      "ko": "개탄하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0924",
+      "ko": "거듭",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0970",
+      "ko": "거듭나다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80064",
+      "ko": "거무스름하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0070",
+      "ko": "거시적으로",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "v0294",
+      "ko": "거의",
+      "from": "L3",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0148",
+      "ko": "격분",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0147",
+      "ko": "격앙",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0962",
+      "ko": "견디다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha50229",
+      "ko": "견해",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0122",
+      "ko": "결론을 유보하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60035",
+      "ko": "경시하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0119",
+      "ko": "경탄하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0021",
+      "ko": "경험적이다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0072",
+      "ko": "곁눈질하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0073",
+      "ko": "계량화하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0001",
+      "ko": "고뇌",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0139",
+      "ko": "고독을 견디다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60404",
+      "ko": "고립되다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60145",
+      "ko": "고발하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0020",
+      "ko": "고색창연하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha60144",
+      "ko": "고소하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80105",
+      "ko": "고스란하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0996",
+      "ko": "고스란히",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80041",
+      "ko": "고약하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "e0997",
+      "ko": "고요하다",
+      "from": "L6",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "mod260106",
+      "ko": "고의로",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0995",
+      "ko": "고작",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0998",
+      "ko": "고즈넉하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70238",
+      "ko": "고증하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60413",
+      "ko": "고착되다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80120",
+      "ko": "고찰하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0021",
+      "ko": "고풍스럽다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0976",
+      "ko": "곱씹다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70161",
+      "ko": "공고해지다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "dm0054",
+      "ko": "공공연히",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70033",
+      "ko": "공리",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha40234",
+      "ko": "공연",
+      "from": "L4",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha60406",
+      "ko": "공존하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "bu0125",
+      "ko": "과감히",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60034",
+      "ko": "과대평가하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60033",
+      "ko": "과소평가하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60031",
+      "ko": "과장하다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha50006",
+      "ko": "관료제",
+      "from": "L5",
+      "to": "L6",
+      "reason": "Political-administrative theory terminology",
+      "direction": "up"
+    },
+    {
+      "id": "ha60272",
+      "ko": "관세",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "bu0144",
+      "ko": "관행을 답습하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0017",
+      "ko": "광활하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80038",
+      "ko": "괴팍하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70096",
+      "ko": "구상권",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha60153",
+      "ko": "구속되다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog6-0064",
+      "ko": "구속력이 있다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80005",
+      "ko": "구슬프다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0044",
+      "ko": "구조적으로",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50331",
+      "ko": "구체적이다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "v0411",
+      "ko": "구체화하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70162",
+      "ko": "구축하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70190",
+      "ko": "국권",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha50031",
+      "ko": "국정감사",
+      "from": "L5",
+      "to": "L6",
+      "reason": "Korean legislative oversight procedure",
+      "direction": "up"
+    },
+    {
+      "id": "ha80125",
+      "ko": "궁구하다",
+      "from": "L8",
+      "to": "L7",
+      "reason": "Specialist but not intrinsically rare (upper academic specialism)",
+      "direction": "down"
+    },
+    {
+      "id": "ha80124",
+      "ko": "궁리하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "bu0142",
+      "ko": "권리를 행사하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0082",
+      "ko": "권리의 범위를 정하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70009",
+      "ko": "귀납",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70012",
+      "ko": "귀납적이다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80187",
+      "ko": "귀띔하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha60434",
+      "ko": "귀속되다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60435",
+      "ko": "귀속하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0014",
+      "ko": "규범적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0947",
+      "ko": "그럴듯하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0106",
+      "ko": "그림자를 드리우다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0948",
+      "ko": "그윽하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "core260488",
+      "ko": "근본적인 문제",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60041",
+      "ko": "근원적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60419",
+      "ko": "급감하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "mod260099",
+      "ko": "급기야",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60418",
+      "ko": "급증하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50232",
+      "ko": "기대",
+      "from": "L5",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e1005",
+      "ko": "기묘하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "dm0055",
+      "ko": "기민하게",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60146",
+      "ko": "기소되다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0015",
+      "ko": "기술적이다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0171",
+      "ko": "기억을 더듬다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "bu0118",
+      "ko": "기왕이면",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e1006",
+      "ko": "기이하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80195",
+      "ko": "기피하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0132",
+      "ko": "길을 재촉하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e1011",
+      "ko": "까마득하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0987",
+      "ko": "꾸짖다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0072",
+      "ko": "끝끝내",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0985",
+      "ko": "나무라다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha80020",
+      "ko": "나직하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60294",
+      "ko": "난민",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70123",
+      "ko": "난삽하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80097",
+      "ko": "남몰래",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0926",
+      "ko": "내내",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha60043",
+      "ko": "내재적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0957",
+      "ko": "내키다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0026",
+      "ko": "너울",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0061",
+      "ko": "너울거리다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0174",
+      "ko": "넋을 잃다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "dm0048",
+      "ko": "노골적으로",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0096",
+      "ko": "노래를 흥얼거리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0070",
+      "ko": "노려보다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0108",
+      "ko": "논거를 제시하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0045",
+      "ko": "논리적으로",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50223",
+      "ko": "논의",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0123",
+      "ko": "논의를 심화하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50221",
+      "ko": "논쟁",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0117",
+      "ko": "논점을 분명히 하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0116",
+      "ko": "논점을 흐리다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0061",
+      "ko": "논증되다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0095",
+      "ko": "논증의 타당성을 확보하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70146",
+      "ko": "논파하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha60421",
+      "ko": "누적되다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0120",
+      "ko": "눈물을 훔치다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80214",
+      "ko": "눈에 밟히다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0920",
+      "ko": "느닷없이",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80170",
+      "ko": "다각도로",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0052",
+      "ko": "다각적으로",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0979",
+      "ko": "다독이다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0007",
+      "ko": "다의적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0023",
+      "ko": "단아하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0980",
+      "ko": "달래다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0111",
+      "ko": "달빛이 스미다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60214",
+      "ko": "담화",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60438",
+      "ko": "대두되다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60440",
+      "ko": "대두하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60441",
+      "ko": "대변하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60301",
+      "ko": "대외적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha50326",
+      "ko": "대응책",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80084",
+      "ko": "덜덜",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0076",
+      "ko": "덧없이",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80103",
+      "ko": "덩그러니",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha50243",
+      "ko": "도덕성",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60436",
+      "ko": "도래하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70153",
+      "ko": "도외시하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0994",
+      "ko": "도통",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80037",
+      "ko": "독하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0062",
+      "ko": "돌풍",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0175",
+      "ko": "동요",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0991",
+      "ko": "되도록",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0045",
+      "ko": "되돌아보다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0975",
+      "ko": "되새기다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0974",
+      "ko": "되짚다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80077",
+      "ko": "두근두근",
+      "from": "L8",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha80191",
+      "ko": "둘러대다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0043",
+      "ko": "뒤돌아보다",
+      "from": "L8",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "e0954",
+      "ko": "뒤집히다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0955",
+      "ko": "뒤틀리다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha50358",
+      "ko": "드러나다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50357",
+      "ko": "드러내다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80118",
+      "ko": "드문드문",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0098",
+      "ko": "들녘",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0118",
+      "ko": "등잔",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0056",
+      "ko": "떠돌다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0981",
+      "ko": "떠올리다",
+      "from": "L6",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "e0958",
+      "ko": "마주치다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "e0934",
+      "ko": "막연하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0163",
+      "ko": "말끝을 흐리다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0162",
+      "ko": "말을 아끼다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0134",
+      "ko": "망연자실하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0960",
+      "ko": "맞서다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0064",
+      "ko": "맞이하다",
+      "from": "L8",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha80131",
+      "ko": "매료되다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80030",
+      "ko": "매몰차다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80031",
+      "ko": "매정하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80132",
+      "ko": "매혹되다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0033",
+      "ko": "머뭇거리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0075",
+      "ko": "메아리치다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60055",
+      "ko": "면밀하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60049",
+      "ko": "명료하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "mod260096",
+      "ko": "명백히",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70128",
+      "ko": "명석하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70032",
+      "ko": "명제",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70127",
+      "ko": "명징하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha60051",
+      "ko": "명확하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80193",
+      "ko": "모면하다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80036",
+      "ko": "모질다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0068",
+      "ko": "모형화하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0935",
+      "ko": "모호하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0135",
+      "ko": "몸서리치다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0041",
+      "ko": "몸을 뒤척이다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0040",
+      "ko": "몸을 웅크리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e1007",
+      "ko": "묘하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0028",
+      "ko": "무너지다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha70077",
+      "ko": "무죄추정",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "mod260103",
+      "ko": "무턱대고",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80197",
+      "ko": "묵살하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70154",
+      "ko": "묵인하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80072",
+      "ko": "뭉게뭉게",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0942",
+      "ko": "뭉클하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0181",
+      "ko": "미련",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0022",
+      "ko": "미련을 버리다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0071",
+      "ko": "미시적으로",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80224",
+      "ko": "미어지다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0065",
+      "ko": "미풍",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0126",
+      "ko": "바람이 스치다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0069",
+      "ko": "바스락거리다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80060",
+      "ko": "반듯하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha50225",
+      "ko": "반박",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "v0404",
+      "ko": "반박하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha50239",
+      "ko": "반발",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0133",
+      "ko": "발걸음을 멈추다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0134",
+      "ko": "발걸음을 옮기다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha70232",
+      "ko": "발굴",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70239",
+      "ko": "발굴하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70155",
+      "ko": "방관하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0045",
+      "ko": "방법론상",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0081",
+      "ko": "방법론적 한계를 드러내다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0961",
+      "ko": "버티다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "e1004",
+      "ko": "번거롭다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0005",
+      "ko": "번민",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70124",
+      "ko": "번잡하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80082",
+      "ko": "벌벌",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0100",
+      "ko": "벌판",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0077",
+      "ko": "범주화하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70087",
+      "ko": "법률관계",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha60084",
+      "ko": "법리",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70084",
+      "ko": "법적효력",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0089",
+      "ko": "벼랑",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0076",
+      "ko": "변증하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha60302",
+      "ko": "보복하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60198",
+      "ko": "보수성",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60170",
+      "ko": "보수적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0085",
+      "ko": "보슬보슬",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha70236",
+      "ko": "복원",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0136",
+      "ko": "본심",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0066",
+      "ko": "본질적으로",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60042",
+      "ko": "본질적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60132",
+      "ko": "부당하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80083",
+      "ko": "부들부들",
+      "from": "L8",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha50337",
+      "ko": "부분적이다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50302",
+      "ko": "부인하다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0494",
+      "ko": "부적절하다",
+      "from": "L3",
+      "to": "L4",
+      "reason": "Formal negative evaluation common in advanced expository contexts",
+      "direction": "up"
+    },
+    {
+      "id": "ha50323",
+      "ko": "부족분",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0967",
+      "ko": "부추기다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0075",
+      "ko": "부호화하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0966",
+      "ko": "북돋우다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80226",
+      "ko": "북받치다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0149",
+      "ko": "분개",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0150",
+      "ko": "분노",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha70050",
+      "ko": "분산",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "dm0046",
+      "ko": "불가피하게",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "v0430",
+      "ko": "불거지다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "core260497",
+      "ko": "불과",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60050",
+      "ko": "불분명하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0126",
+      "ko": "불씨",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "bu0146",
+      "ko": "불평등을 심화하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0002",
+      "ko": "비가시적이다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80046",
+      "ko": "비겁하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0005",
+      "ko": "비대칭적이다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0912",
+      "ko": "비록",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60430",
+      "ko": "비롯되다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0008",
+      "ko": "비애",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0133",
+      "ko": "비애에 잠기다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80044",
+      "ko": "비열하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60209",
+      "ko": "비유",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0028",
+      "ko": "비장하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0011",
+      "ko": "비탄",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0104",
+      "ko": "비탄하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0031",
+      "ko": "비틀거리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha50236",
+      "ko": "비판",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0042",
+      "ko": "비판적으로",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0023",
+      "ko": "비판적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0940",
+      "ko": "뻔하다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80069",
+      "ko": "뽀얗다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0941",
+      "ko": "뿌듯하다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80070",
+      "ko": "뿌옇다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha70179",
+      "ko": "사료",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0088",
+      "ko": "사르르",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0122",
+      "ko": "사모하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0913",
+      "ko": "사뭇",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60159",
+      "ko": "사상",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0914",
+      "ko": "사실상",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80121",
+      "ko": "사유하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0080",
+      "ko": "살금살금",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0064",
+      "ko": "살랑거리다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "core260495",
+      "ko": "상관없이",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0101",
+      "ko": "상기되다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70138",
+      "ko": "상기하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "v0400",
+      "ko": "상쇄하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60206",
+      "ko": "상징",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60218",
+      "ko": "상징적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0027",
+      "ko": "상호의존적이다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0172",
+      "ko": "생각에 잠기다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha50202",
+      "ko": "생명공학",
+      "from": "L5",
+      "to": "L6",
+      "reason": "Specialized biotechnology discipline",
+      "direction": "up"
+    },
+    {
+      "id": "ha60245",
+      "ko": "생산가능인구",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0053",
+      "ko": "서성거리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0177",
+      "ko": "선망",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0950",
+      "ko": "선명하다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0065",
+      "ko": "선별적으로",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60169",
+      "ko": "선천적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60426",
+      "ko": "선행하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60167",
+      "ko": "선험적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0911",
+      "ko": "설령",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0020",
+      "ko": "설명적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0041",
+      "ko": "설움",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e1003",
+      "ko": "성가시다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80185",
+      "ko": "소곤거리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha60403",
+      "ko": "소외되다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0134",
+      "ko": "속내",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0168",
+      "ko": "속내를 드러내다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0137",
+      "ko": "속뜻",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0138",
+      "ko": "속셈",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80219",
+      "ko": "속앓이하다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0077",
+      "ko": "속절없이",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0159",
+      "ko": "손사래를 치다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60427",
+      "ko": "수반되다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80115",
+      "ko": "수북하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0022",
+      "ko": "수수하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0071",
+      "ko": "수치화하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "dm0059",
+      "ko": "순전히",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80233",
+      "ko": "숨을 고르다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80234",
+      "ko": "숨을 죽이다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0089",
+      "ko": "스르르",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80010",
+      "ko": "스산하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80096",
+      "ko": "슬그머니",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50228",
+      "ko": "시각",
+      "from": "L5",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "v0432",
+      "ko": "시나브로",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0004",
+      "ko": "시름",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0015",
+      "ko": "시상",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0153",
+      "ko": "시선을 떼지 못하다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0754",
+      "ko": "시장경제",
+      "from": "L4",
+      "to": "L5",
+      "reason": "Economic-system terminology",
+      "direction": "up"
+    },
+    {
+      "id": "ha60161",
+      "ko": "신념",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0082",
+      "ko": "신음",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0022",
+      "ko": "실용주의적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0038",
+      "ko": "실증적으로",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0013",
+      "ko": "실증적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0142",
+      "ko": "심경",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70131",
+      "ko": "심원하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0135",
+      "ko": "심중",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80029",
+      "ko": "쌀쌀맞다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e1000",
+      "ko": "쓸쓸하다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80108",
+      "ko": "아기자기",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80110",
+      "ko": "아담하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e1009",
+      "ko": "아득하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80002",
+      "ko": "아련하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0936",
+      "ko": "아리송하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e1010",
+      "ko": "아찔하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha60282",
+      "ko": "안보",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0944",
+      "ko": "안쓰럽다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80081",
+      "ko": "안절부절못하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0014",
+      "ko": "안타까워하다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0035",
+      "ko": "암담하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0146",
+      "ko": "애간장이 타다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80217",
+      "ko": "애끓다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e1008",
+      "ko": "애매하다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0009",
+      "ko": "애수",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0107",
+      "ko": "애원하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80003",
+      "ko": "애잔하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80004",
+      "ko": "애절하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0179",
+      "ko": "애착",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0012",
+      "ko": "애타다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0943",
+      "ko": "애틋하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80032",
+      "ko": "야박하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80033",
+      "ko": "야속하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha60018",
+      "ko": "양립",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60019",
+      "ko": "양립하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0107",
+      "ko": "어둠이 깃들다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80157",
+      "ko": "어불성설이다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0952",
+      "ko": "어수선하다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80061",
+      "ko": "어슴푸레",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80098",
+      "ko": "어영부영",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0937",
+      "ko": "어처구니없다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0956",
+      "ko": "얼버무리다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0049",
+      "ko": "엄밀하게",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60056",
+      "ko": "엄밀하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0049",
+      "ko": "업보",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80101",
+      "ko": "엉성하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0993",
+      "ko": "여간",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80022",
+      "ko": "여리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0027",
+      "ko": "여울",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "bu0137",
+      "ko": "여지를 남기다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e1012",
+      "ko": "여지없다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0137",
+      "ko": "역사적 맥락을 고려하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0038",
+      "ko": "역사적으로",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70142",
+      "ko": "역설적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0123",
+      "ko": "연모하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0183",
+      "ko": "연심",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70008",
+      "ko": "연역",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70013",
+      "ko": "연역적이다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0923",
+      "ko": "연이어",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0182",
+      "ko": "연정",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80133",
+      "ko": "열중하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha50233",
+      "ko": "예상",
+      "from": "L5",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80085",
+      "ko": "오들오들",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80104",
+      "ko": "오롯이",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70130",
+      "ko": "오묘하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80053",
+      "ko": "온순하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80052",
+      "ko": "온화하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80058",
+      "ko": "올곧다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80106",
+      "ko": "옹기종기",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80042",
+      "ko": "옹졸하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80056",
+      "ko": "완고하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60030",
+      "ko": "왜곡되다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "v0401",
+      "ko": "왜곡하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60263",
+      "ko": "외교",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60044",
+      "ko": "외재적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0983",
+      "ko": "우기다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha50235",
+      "ko": "우려",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80089",
+      "ko": "우왕좌왕",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80057",
+      "ko": "우직하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0074",
+      "ko": "울려 퍼지다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0006",
+      "ko": "울분",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0039",
+      "ko": "움츠리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80182",
+      "ko": "웅얼거리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0016",
+      "ko": "웅장하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0047",
+      "ko": "원리상",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0004",
+      "ko": "원리적이다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0067",
+      "ko": "원칙적으로",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60134",
+      "ko": "위법하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80054",
+      "ko": "유순하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha50201",
+      "ko": "유전자변형",
+      "from": "L5",
+      "to": "L6",
+      "reason": "Technical biotechnology modifier",
+      "direction": "up"
+    },
+    {
+      "id": "r11l3-0006",
+      "ko": "유효기간",
+      "from": "L3",
+      "to": "L4",
+      "reason": "Administrative validity-period term",
+      "direction": "up"
+    },
+    {
+      "id": "ha80145",
+      "ko": "은둔하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "dm0049",
+      "ko": "은밀히",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60208",
+      "ko": "은유",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0949",
+      "ko": "은은하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "v0402",
+      "ko": "은폐하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80183",
+      "ko": "읊조리다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0109",
+      "ko": "읍소하다",
+      "from": "L8",
+      "to": "L7",
+      "reason": "Specialist but not intrinsically rare (upper academic specialism)",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0068",
+      "ko": "응시하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "bu0150",
+      "ko": "의미를 함축하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0140",
+      "ko": "의중",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0032",
+      "ko": "이론적으로",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0023",
+      "ko": "이론적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11b7-0108",
+      "ko": "이본",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "mod260100",
+      "ko": "이윽고",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0126",
+      "ko": "인과관계를 추론하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0048",
+      "ko": "인연",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80051",
+      "ko": "인자하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha50301",
+      "ko": "인정하다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0776",
+      "ko": "인플레이션",
+      "from": "L4",
+      "to": "L5",
+      "reason": "Macroeconomic technical vocabulary",
+      "direction": "up"
+    },
+    {
+      "id": "ha70147",
+      "ko": "일갈하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0915",
+      "ko": "일견",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0977",
+      "ko": "일깨우다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0060",
+      "ko": "일렁이다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60058",
+      "ko": "일률적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80159",
+      "ko": "일맥상통하다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80158",
+      "ko": "일목요연하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50349",
+      "ko": "일시적이다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "mod260108",
+      "ko": "일찌감치",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "bu0120",
+      "ko": "일찍이",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha50205",
+      "ko": "임상시험",
+      "from": "L5",
+      "to": "L6",
+      "reason": "Specialized medical research procedure",
+      "direction": "up"
+    },
+    {
+      "id": "ha60345",
+      "ko": "임상적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80201",
+      "ko": "입을 다물다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80203",
+      "ko": "입을 열다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha50226",
+      "ko": "입장",
+      "from": "L5",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "v0409",
+      "ko": "입증하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0922",
+      "ko": "잇따라",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0047",
+      "ko": "잊히다",
+      "from": "L8",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0088",
+      "ko": "자료를 교차 검증하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0134",
+      "ko": "자료의 신뢰성을 검토하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "v0433",
+      "ko": "자못",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0173",
+      "ko": "자성",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0028",
+      "ko": "자율적이다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0061",
+      "ko": "자의적으로",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0050",
+      "ko": "자책",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80034",
+      "ko": "잔혹하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80143",
+      "ko": "잠복하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60045",
+      "ko": "잠재적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0015",
+      "ko": "장엄하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70125",
+      "ko": "장황하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70168",
+      "ko": "재검토하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70169",
+      "ko": "재구성하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70171",
+      "ko": "재맥락화하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70175",
+      "ko": "재분배하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70165",
+      "ko": "재조명하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70177",
+      "ko": "재편되다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70176",
+      "ko": "재편하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70166",
+      "ko": "재평가하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog7-0037",
+      "ko": "재현",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60326",
+      "ko": "재현하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50240",
+      "ko": "저항",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0124",
+      "ko": "적막이 감돌다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60133",
+      "ko": "적법하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0001",
+      "ko": "적요하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha50338",
+      "ko": "전반적이다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0136",
+      "ko": "전율하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r13pos-0060",
+      "ko": "전적으로",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0113",
+      "ko": "전제를 뒤집다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0085",
+      "ko": "전제를 명시하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0079",
+      "ko": "절규",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0017",
+      "ko": "절차적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60053",
+      "ko": "정교하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "v0410",
+      "ko": "정당화하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0072",
+      "ko": "정량화하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70132",
+      "ko": "정밀하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0125",
+      "ko": "정적을 깨다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0010",
+      "ko": "정한",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0026",
+      "ko": "정합적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0067",
+      "ko": "정합화하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha50304",
+      "ko": "제안하다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80079",
+      "ko": "조마조마",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha50317",
+      "ko": "존재하다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11l3-0019",
+      "ko": "졸업요건",
+      "from": "L3",
+      "to": "L4",
+      "reason": "University administrative requirement",
+      "direction": "up"
+    },
+    {
+      "id": "b7x0054",
+      "ko": "종합적으로",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70191",
+      "ko": "주권",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0083",
+      "ko": "주룩주룩",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha50224",
+      "ko": "주장",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0037",
+      "ko": "주저앉다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0090",
+      "ko": "주저주저",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0036",
+      "ko": "주저하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha60442",
+      "ko": "주지하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80086",
+      "ko": "주춤주춤",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "e0925",
+      "ko": "줄곧",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha60036",
+      "ko": "중시하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80181",
+      "ko": "중얼거리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0766",
+      "ko": "증권",
+      "from": "L4",
+      "to": "L5",
+      "reason": "Financial securities terminology",
+      "direction": "up"
+    },
+    {
+      "id": "bu0115",
+      "ko": "지극히",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50350",
+      "ko": "지속적이다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60425",
+      "ko": "지체되다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60437",
+      "ko": "직면하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60171",
+      "ko": "진보적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0180",
+      "ko": "집착",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0963",
+      "ko": "참다",
+      "from": "L6",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0033",
+      "ko": "참담하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0174",
+      "ko": "참회",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0765",
+      "ko": "채권",
+      "from": "L4",
+      "to": "L5",
+      "reason": "Financial or legal bond/credit sense",
+      "direction": "up"
+    },
+    {
+      "id": "bu0143",
+      "ko": "책임을 회피하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80009",
+      "ko": "처량하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0114",
+      "ko": "처마",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80008",
+      "ko": "처연하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0032",
+      "ko": "처참하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0070",
+      "ko": "척도화하다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80119",
+      "ko": "천착하다",
+      "from": "L8",
+      "to": "L7",
+      "reason": "Specialist but not intrinsically rare (upper academic specialism)",
+      "direction": "down"
+    },
+    {
+      "id": "ha60158",
+      "ko": "철학",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0030",
+      "ko": "철학적으로",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "v0403",
+      "ko": "철회하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0024",
+      "ko": "청아하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0025",
+      "ko": "초국가적이다",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0592",
+      "ko": "초기화하다",
+      "from": "L3",
+      "to": "L4",
+      "reason": "Technical reset operation rather than general daily verb",
+      "direction": "up"
+    },
+    {
+      "id": "ha80080",
+      "ko": "초조하다",
+      "from": "L8",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "r11a8-0121",
+      "ko": "촛대",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0072",
+      "ko": "추상적으로",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha50332",
+      "ko": "추상적이다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60032",
+      "ko": "축소하다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha70038",
+      "ko": "충분조건",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha60054",
+      "ko": "치밀하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80043",
+      "ko": "치졸하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0060",
+      "ko": "침묵",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "ha80142",
+      "ko": "침식되다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80141",
+      "ko": "침식하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80138",
+      "ko": "침윤하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80136",
+      "ko": "침잠하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80078",
+      "ko": "콩닥콩닥",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0120",
+      "ko": "탄복하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0080",
+      "ko": "탄식",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "e0938",
+      "ko": "터무니없다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0117",
+      "ko": "토로하다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70157",
+      "ko": "통감하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "bu0135",
+      "ko": "통념을 깨뜨리다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60267",
+      "ko": "통상",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0132",
+      "ko": "통탄하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0129",
+      "ko": "파도가 밀려오다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50314",
+      "ko": "파악되다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50313",
+      "ko": "파악하다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0125",
+      "ko": "판단을 보류하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60083",
+      "ko": "판례",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0121",
+      "ko": "판례를 검토하다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60028",
+      "ko": "편향되다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha50231",
+      "ko": "평가",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha50286",
+      "ko": "폐쇄하다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60166",
+      "ko": "포괄적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60405",
+      "ko": "포용하다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70049",
+      "ko": "표준편차",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha70049",
+      "ko": "표준편차",
+      "from": "L5",
+      "to": "L6",
+      "reason": "Statistical dispersion measure",
+      "direction": "up"
+    },
+    {
+      "id": "ha80066",
+      "ko": "푸르스름하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha60211",
+      "ko": "풍자",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60219",
+      "ko": "풍자적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60046",
+      "ko": "피상적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0916",
+      "ko": "필경",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha70037",
+      "ko": "필요조건",
+      "from": "L7",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0075",
+      "ko": "하릴없이",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0051",
+      "ko": "하염없이",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0031",
+      "ko": "학문적으로",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0025",
+      "ko": "학문적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha50395",
+      "ko": "학술",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7x0127",
+      "ko": "한계를 인정하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0173",
+      "ko": "한동안 넋을 놓다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "bu0121",
+      "ko": "한사코",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0143",
+      "ko": "한숨을 내쉬다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0165",
+      "ko": "한숨을 삼키다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0149",
+      "ko": "한을 풀다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0148",
+      "ko": "한이 맺히다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha50341",
+      "ko": "한정적이다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "dm0060",
+      "ko": "한층",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0105",
+      "ko": "한탄하다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80200",
+      "ko": "함구하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha60131",
+      "ko": "합당하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11l3-0052",
+      "ko": "합리적이다",
+      "from": "L3",
+      "to": "L4",
+      "reason": "Abstract evaluative adjective beyond basic social conversation",
+      "direction": "up"
+    },
+    {
+      "id": "ha50325",
+      "ko": "해결책",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "bu0147",
+      "ko": "해법을 모색하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha50230",
+      "ko": "해석",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0046",
+      "ko": "해석상",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b7y0021",
+      "ko": "해석적이다",
+      "from": "L7",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60212",
+      "ko": "해학",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0056",
+      "ko": "향수",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80091",
+      "ko": "허겁지겁",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha80088",
+      "ko": "허둥지둥",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha80102",
+      "ko": "허술하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e1001",
+      "ko": "허전하다",
+      "from": "L6",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "e1002",
+      "ko": "헛헛하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0973",
+      "ko": "헤아리다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "bu0138",
+      "ko": "현안을 타개하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "e0537",
+      "ko": "협의하다",
+      "from": "L3",
+      "to": "L4",
+      "reason": "Formal collaborative negotiation register",
+      "direction": "up"
+    },
+    {
+      "id": "ha80048",
+      "ko": "호방하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80015",
+      "ko": "호젓하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80049",
+      "ko": "호탕하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha50300",
+      "ko": "확인되다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha70136",
+      "ko": "환기하다",
+      "from": "L7",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0099",
+      "ko": "환성을 지르다",
+      "from": "L8",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha60432",
+      "ko": "환원되다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha60431",
+      "ko": "환원하다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0036",
+      "ko": "황폐하다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0131",
+      "ko": "회개하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0051",
+      "ko": "회포",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha80194",
+      "ko": "회피하다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0103",
+      "ko": "회한에 잠기다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "ha50333",
+      "ko": "효과적이다",
+      "from": "L5",
+      "to": "L4",
+      "reason": "Intermediate media, society, familiar abstractions, idioms or expressive prose",
+      "direction": "down"
+    },
+    {
+      "id": "ha80093",
+      "ko": "후다닥",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "ha60168",
+      "ko": "후천적이다",
+      "from": "L6",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0030",
+      "ko": "휘청거리다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0011",
+      "ko": "휘황찬란하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0989",
+      "ko": "흉보다",
+      "from": "L6",
+      "to": "L4",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "e0930",
+      "ko": "흔하다",
+      "from": "L6",
+      "to": "L2",
+      "reason": "Basic daily feeling/action or spoken mimetic expression",
+      "direction": "down"
+    },
+    {
+      "id": "r11b8-0071",
+      "ko": "흘겨보다",
+      "from": "L8",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0126",
+      "ko": "흠모하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "b8x0127",
+      "ko": "흠앙하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "prog8-0065",
+      "ko": "흩날리다",
+      "from": "L8",
+      "to": "L5",
+      "reason": "Upper-intermediate advanced academic media or literary reading, rather than specialist/rare",
+      "direction": "down"
+    },
+    {
+      "id": "ha80063",
+      "ko": "희끄무레하다",
+      "from": "L8",
+      "to": "L6",
+      "reason": "Advanced rhetorical/literary or general academic lexicon, below niche L7/L8",
+      "direction": "down"
+    },
+    {
+      "id": "e0951",
+      "ko": "희미하다",
+      "from": "L6",
+      "to": "L3",
+      "reason": "Frequent general Korean useful before advanced reading",
+      "direction": "down"
+    }
+  ],
+  "missingGradeReviewSuggestions": [
+    "긴장하다",
+    "비난하다",
+    "원리를 설명하다",
+    "논문을 쓰다",
+    "사회적합의",
+    "논의 환기",
+    "고뇌에 잠기다",
+    "가슴에 저미다",
+    "철학적이다"
+  ],
+  "semanticEdits": [
+    {
+      "id": "core260356",
+      "ko": "보통",
+      "from": {
+        "pos": "名詞",
+        "ja": "普通"
+      },
+      "to": {
+        "pos": "副詞",
+        "ja": "ふつう・普段（副詞）／普通（名詞）"
+      }
+    },
+    {
+      "id": "ha50251",
+      "ko": "주관적",
+      "from": {
+        "pos": "名詞",
+        "ja": "主観的"
+      },
+      "to": {
+        "pos": "名詞",
+        "ja": "主観的（な）"
+      }
+    },
+    {
+      "id": "ha50328",
+      "ko": "종합적",
+      "from": {
+        "pos": "名詞",
+        "ja": "総合的"
+      },
+      "to": {
+        "pos": "名詞",
+        "ja": "総合的（な）"
+      }
+    },
+    {
+      "id": "e0840",
+      "ko": "실증적",
+      "from": {
+        "pos": "名詞",
+        "ja": "実証的"
+      },
+      "to": {
+        "pos": "名詞",
+        "ja": "実証的（な）"
+      }
+    },
+    {
+      "id": "ha60047",
+      "ko": "피상적",
+      "from": {
+        "pos": "名詞",
+        "ja": "表面的なこと"
+      },
+      "to": {
+        "pos": "名詞",
+        "ja": "表面的（な）・浅薄（な）"
+      }
+    },
+    {
+      "id": "ha60023",
+      "ko": "이분법적",
+      "from": {
+        "pos": "名詞",
+        "ja": "二分法的"
+      },
+      "to": {
+        "pos": "名詞",
+        "ja": "二分法的（な）"
+      }
+    },
+    {
+      "id": "ha80157",
+      "ko": "어불성설이다",
+      "from": {
+        "pos": "形容詞",
+        "ja": "道理に合わない"
+      },
+      "to": {
+        "pos": "表現",
+        "ja": "話にならない・道理に合わない"
+      }
+    }
+  ]
+}
