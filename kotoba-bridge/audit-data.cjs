@@ -125,6 +125,26 @@ if(lateContrast){
 const attention=words.find(w=>w.ko==='유의하다');
 if(attention && (attention.pos!=='動詞'||!attention.ja.includes('留意')))
   issues.push('Primary 유의하다 meaning must be the verb 留意하다');
+// Grade QA: treat official TOPIK bands as skill descriptions, not a per-headword certification.
+const v14Level=sandbox.window.KB_V21_LEVEL_STATS||null;
+const v14Specialist=sandbox.window.KB_V21_SPECIALIST_STATS||null;
+const v14Lexical=sandbox.window.KB_V21_LEXICAL_STATS||null;
+if(!v14Level||!v14Specialist||!v14Lexical)issues.push('Missing v1.14 level or lexical review module');
+const anchors=[['참다','L2'],['두근두근','L2'],['철학','L4'],['임상시험','L6'],['표준편차','L6']];
+for(const [headword,expected] of anchors){
+ const w=words.find(x=>x.ko===headword);
+ if(w&&w.level!==expected)issues.push('Level review regression '+headword+': '+w.level+' expected '+expected);
+}
+const gradeAudit={
+  redistributedDown:v14Level?.applied??0,
+  redistributedUp:v14Specialist?.applied??0,
+  posMeaningChanges:v14Lexical?.applied??0,
+  total:words.length,
+  byLevel:Object.fromEntries(levels.map(l=>[l,counts[l].words])),
+  movingSamples:v14Level?.changed?.slice(0,25)||[],
+  unverifiedGradeCandidates:(v14Level?.notFound||[]).concat(v14Specialist?.notFound||[]),
+  dictionaryPending:(v14Lexical?.review||[])
+};
 const summary = {
   vocab: words.length,
   bilingualExamples: words.filter(w => w.exKo && w.exJa).length,
@@ -143,6 +163,10 @@ const summary = {
   posSenseReview: sandbox.window.KB_V22_POS_SENSE_AUDIT || null,
   lexicalContrastReview: lateContrast,
   editorialQueue,
+  gradeAudit,
+  v14LevelReview: v14Level,
+  v14SpecialistReview: v14Specialist,
+  v14SemanticReview: v14Lexical,
   gradeReview: sandbox.window.KB_LEVEL_REVIEW || null,
   gradePromotion: sandbox.window.KB_GRADE_PROMOTION || null,
   polysemy: sandbox.window.KB_SENSE_REVIEW || null,
@@ -198,6 +222,7 @@ else {
   console.log('POS and polysemy review:', JSON.stringify(summary.posSenseReview&&{candidates:summary.posSenseReview.candidates,applied:summary.posSenseReview.applied,missing:summary.posSenseReview.missing.length,added:summary.posSenseReview.addedWords.length}));
   console.log('Vocabulary contrast review:',JSON.stringify(summary.lexicalContrastReview&&{candidates:summary.lexicalContrastReview.candidates,applied:summary.lexicalContrastReview.applied,missing:summary.lexicalContrastReview.missing.length,primaryCorrections:summary.lexicalContrastReview.overrides}));
   console.log('Display-name collisions:',visibleCollisions.length,'word-form review queue:',editorialQueue.length);
+  console.log('Whole-database grade QA:',JSON.stringify({down:gradeAudit.redistributedDown,up:gradeAudit.redistributedUp,byLevel:gradeAudit.byLevel,glossPOS:gradeAudit.posMeaningChanges,unmatched:gradeAudit.unverifiedGradeCandidates.length}));
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
 }
