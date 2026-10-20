@@ -117,6 +117,14 @@ for(const [ko,expectedPos] of Object.entries(requiredV22Pos)){
 }
 if(!words.some(w=>w.ko==='맞히다'&&w.ja&&w.exKo&&w.exJa))
   issues.push('Missing separate 맞히다 card with bilingual context');
+const lateContrast=sandbox.window.KB_V22_LEXICAL_AUDIT||null;
+if(lateContrast){
+  if(lateContrast.missing.length) issues.push('Missing approved lexical contrasts: '+lateContrast.missing.join(', '));
+  if(lateContrast.applied!==lateContrast.candidates) issues.push('Incomplete contrast patch application');
+}
+const attention=words.find(w=>w.ko==='유의하다');
+if(attention && (attention.pos!=='動詞'||!attention.ja.includes('留意')))
+  issues.push('Primary 유의하다 meaning must be the verb 留意하다');
 const summary = {
   vocab: words.length,
   bilingualExamples: words.filter(w => w.exKo && w.exJa).length,
@@ -133,6 +141,7 @@ const summary = {
   orthography: sandbox.window.KB_ORTHOGRAPHY_REVIEW || null,
   senseReview: sandbox.window.KB_V21_SENSE_AUDIT || null,
   posSenseReview: sandbox.window.KB_V22_POS_SENSE_AUDIT || null,
+  lexicalContrastReview: lateContrast,
   editorialQueue,
   gradeReview: sandbox.window.KB_LEVEL_REVIEW || null,
   gradePromotion: sandbox.window.KB_GRADE_PROMOTION || null,
@@ -187,6 +196,7 @@ else {
   console.log('User-visible spelling review:', JSON.stringify(summary.orthography&&{proposals:summary.orthography.candidates,applied:summary.orthography.applied,examplesCorrected:summary.orthography.examplesCorrected,merged:summary.orthography.merged.length}));
   console.log('Meaning and homonym review:', JSON.stringify(summary.senseReview&&{candidates:summary.senseReview.candidates,applied:summary.senseReview.applied,missing:summary.senseReview.missing.length}));
   console.log('POS and polysemy review:', JSON.stringify(summary.posSenseReview&&{candidates:summary.posSenseReview.candidates,applied:summary.posSenseReview.applied,missing:summary.posSenseReview.missing.length,added:summary.posSenseReview.addedWords.length}));
+  console.log('Vocabulary contrast review:',JSON.stringify(summary.lexicalContrastReview&&{candidates:summary.lexicalContrastReview.candidates,applied:summary.lexicalContrastReview.applied,missing:summary.lexicalContrastReview.missing.length,primaryCorrections:summary.lexicalContrastReview.overrides}));
   console.log('Display-name collisions:',visibleCollisions.length,'word-form review queue:',editorialQueue.length);
   console.log('Loaded modules:', files.length, '| structural issues:', issues.length);
   for (const issue of issues.slice(0, 30)) console.error(' -', issue);
