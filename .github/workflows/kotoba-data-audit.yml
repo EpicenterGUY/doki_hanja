@@ -53,6 +53,7 @@ jobs:
               "Grade corrections: **"+(s.gradeReview?.applied??"?")+"** downward and **"+(s.gradePromotion?.applied??"?")+"** upward.",
               "Polysemy notes: **"+(s.polysemy?.applied??"?")+"**.",
               "V1.12 POS/sense review: **"+(s.posSenseReview?.applied??"?")+"** reviewed and **"+(s.posSenseReview?.addedWords?.length??"?")+"** new base word.",
+              "V1.13 contrast reviews: **"+(s.lexicalContrastReview?.applied??"?")+"** entries, primary meaning corrections **"+(s.lexicalContrastReview?.overrides??"?")+"**, missing **"+(s.lexicalContrastReview?.missing?.length??"?")+"**.",
               "POS/base-form warnings: **"+s.lexicalWarnings.length+"**, spacing collisions: **"+s.normalizedCollisions.length+"**.",
               "Structural errors: **"+s.issues.length+"**."
             ];
