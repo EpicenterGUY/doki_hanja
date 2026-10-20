@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.7.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.8.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -167,3 +167,11 @@ Editorial note: the vocabulary size is a database target rather than a declarati
 - The new scripts are `vocabulary-v17-l4-context.js`, `vocabulary-v17-l5-context.js`, and `vocabulary-v17-l6-context.js`; `index.html` and the scoped PWA cache version have been updated to **v1.7.0**.
 - The local quality audit includes `v17L4`, `v17L5`, and `v17L6` applied counters. Run `node kotoba-bridge/audit-data.cjs --json` and `node kotoba-bridge/audit-data.cjs --missing` to reproduce the current statistics.
 - This material is editorially authored; grade placements are estimated for learning rather than official TOPIK word-by-word labels. Complete example fields do **not** imply independent native-speaker validation of every example or Japanese translation.
+
+## v1.8.0 — All L4 example fields complete, further L5–L6 remediation
+- Audited exact missing Korean-Japanese pairs and added **341 fully authored bilingual example pairs**, all verified to be assigned to genuinely missing source cards: **L4 134**, **L5 99**, **L6 108**. Old examples and stable study IDs are untouched.
+- Complete example fields now cover **5,100 / 5,463 cards (93.36%)**, up from 4,759 (87.11%). **L4 is now 844/844 (100%)**, alongside L0–L3 and L7–L8. Remaining **363** unillustrated cards: **L5 168**, **L6 195**.
+- Modules: `vocabulary-v18-l4-completion.js`, `vocabulary-v18-l5-research.js`, `vocabulary-v18-l6-social-theory.js`. Page, script cache-busters and offline service-worker cache upgraded to **v1.8.0**.
+- The repo audit and GitHub Actions summary track the actual applied counts of all v1.8 files. An explicit regression guard rejects future introduction of example-free cards in levels already completed (L0–L4 and L7–L8).
+- Confirmed no duplicate base Korean headwords, no duplicate card IDs, and no one-sided bilingual example pairs after loading the entire data pipeline. Some bilingual pairs and level labels remain pending native editorial proofreading; L7 and L8 are not official TOPIK grades.
+- Detailed reproducible report: [QUALITY-AUDIT-v1.8.0.md](./QUALITY-AUDIT-v1.8.0.md).
