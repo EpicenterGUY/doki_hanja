@@ -52,6 +52,7 @@ jobs:
               "V1.11 homonym and sense reviews applied: **"+(s.senseReview?.applied??"?")+"**; unmatched: **"+(s.senseReview?.missing?.length??"?")+"**.",
               "Grade corrections: **"+(s.gradeReview?.applied??"?")+"** downward and **"+(s.gradePromotion?.applied??"?")+"** upward.",
               "Polysemy notes: **"+(s.polysemy?.applied??"?")+"**.",
+              "V1.12 POS/sense review: **"+(s.posSenseReview?.applied??"?")+"** reviewed and **"+(s.posSenseReview?.addedWords?.length??"?")+"** new base word.",
               "POS/base-form warnings: **"+s.lexicalWarnings.length+"**, spacing collisions: **"+s.normalizedCollisions.length+"**.",
               "Structural errors: **"+s.issues.length+"**."
             ];
