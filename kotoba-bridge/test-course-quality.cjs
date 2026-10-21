@@ -14,7 +14,7 @@ assert.ok(stop>0,'Course scripts must be loaded before the vocabulary modules');
 const courseSources=sources.slice(0,stop);
 const newFile='course-v15-practical.js';
 assert.equal(courseSources.filter(f=>f===newFile).length,1,'Load the new course pack exactly once');
-assert.ok(sw.includes(JSON.stringify('./'+newFile+'?v=1.16.0')),'The offline cache must include the course pack');
+assert.ok(sw.includes(JSON.stringify('./'+newFile+'?v=1.17.0')),'The offline cache must include the course pack');
 function load(excludeNew){
   const sandbox={window:{},console};
   vm.createContext(sandbox);
