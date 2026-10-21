@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.15.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.16.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -234,3 +234,11 @@ Full source-level audit and dictionary references: [QUALITY-AUDIT-v1.13.0.md](./
 - A dedicated `test-course-quality.cjs` regression test replays all course modules in production order, asserts that prior lessons and questions are bit-for-bit stable, checks duplicate IDs/choice collisions, verifies every new four-choice answer and associated reading passage, and ensures the lesson/question count changes only by +12/+96.
 - Added the new module to the page bootstrap and PWA offline precache, with script URLs and the service-worker cache bumped to **v1.15.0**. The GitHub Actions workflow also runs the course regression check.
 - **Limitations:** Japanese explanations and Korean paragraphs are authored practice content, not actual past TOPIK questions; they have not all received independent native-speaker proofreading. L7/L8 are nonofficial specialist/literary enrichment tiers. Automated validation covers structure and regression, not real-device browser interaction or every conceivable ambiguous interpretation.
+
+## v1.16.0 — Japanese-first concept study before practice (2026-10-21)
+- Added **42 editorially authored, structured theory topics** with plain-Japanese explanations, form/pattern notes, Korean examples, Japanese translations, cautions about frequent mistakes, and four-option comprehension checks.
+- Connected **all 68 course lessons** to a relevant theory topic, including the 12 newly added practical reading lessons. Each course detail now offers `概念を学ぶ` before the existing quiz; the separate concept page provides correct/incorrect feedback and a retry action.
+- Existing matching grammar-reference cards appear as collapsible supplemental explanations when available, with their own example/translation pairs.
+- Successfully answered checks are recorded in an additive `concepts` field inside existing `kotobaBridge.progress.v1` local progress, shown in study statistics and carried through JSON backup/import. All prior lesson IDs, 524 original course questions, 5,463 vocabulary cards and earlier user progress are preserved; quizzes remain accessible directly.
+- UI includes responsive single-column choices on phones and offline caching for `concept-data.js`. A new CI regression test validates all course-to-topic links and simulates the complete interactive concept → feedback → saved progress → quiz flow.
+- **Editorial scope:** These are an introductory theory pass: one core explanation per course plus existing grammar references where available, not yet a comprehensive multi-chapter textbook or a native-editor certified reference. L7/L8 remain unofficial extended difficulty tracks.
