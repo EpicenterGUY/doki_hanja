@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.14.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.15.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -226,3 +226,11 @@ Full source-level audit and dictionary references: [QUALITY-AUDIT-v1.13.0.md](./
 - Extended `audit-data.cjs` and `test-vocab-quality.cjs` with level QA and regression assertions; the source-linked PWA cache and hub version are both **v1.14.0**.
 - Each changed headword's original/new learning tier and rationale is in [LEVEL-CHANGES-v1.14.0.json](./LEVEL-CHANGES-v1.14.0.json); see [QUALITY-AUDIT-v1.14.0.md](./QUALITY-AUDIT-v1.14.0.md).
 - These are **pedagogical estimates**, not official TOPIK word-by-word grades. The official TOPIK scale is 1–6, and L7/L8 are custom extensions. Full corpus verification and native-speaker proofreading remain future quality work.
+
+## v1.15.0 — Practical courses and contextual reading (2026-10-21)
+- Added **12 independent lesson units / 96 original four-option questions** across L0–L8: Hangul reading; café/shopping; requests/permission; public notices; linking grammar; travel/delays; administrative applications; grammar contrasts; numerical claims; policy argument; academic study limitations; and literary inference.
+- Course bank is now **68 lessons / 524 authored questions** (previously 56 / 428). The existing 5,463 vocabulary cards, Japanese glosses and Korean/Japanese example pairs remain untouched.
+- New lesson IDs `c15h0`, `c15v1`, `c15g2`, `c15r2`, `c15g3`, `c15r3`, `c15g4`, `c15r4`, `c15r5`, `c15r6`, `c15r7` and `c15r8` do not collide with prior progress IDs; local storage namespaces and JSON backup schema are unchanged.
+- A dedicated `test-course-quality.cjs` regression test replays all course modules in production order, asserts that prior lessons and questions are bit-for-bit stable, checks duplicate IDs/choice collisions, verifies every new four-choice answer and associated reading passage, and ensures the lesson/question count changes only by +12/+96.
+- Added the new module to the page bootstrap and PWA offline precache, with script URLs and the service-worker cache bumped to **v1.15.0**. The GitHub Actions workflow also runs the course regression check.
+- **Limitations:** Japanese explanations and Korean paragraphs are authored practice content, not actual past TOPIK questions; they have not all received independent native-speaker proofreading. L7/L8 are nonofficial specialist/literary enrichment tiers. Automated validation covers structure and regression, not real-device browser interaction or every conceivable ambiguous interpretation.
