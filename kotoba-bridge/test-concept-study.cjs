@@ -61,7 +61,7 @@ assert.ok(element.innerHTML.includes('理解チェック'),'Concept check should
 click('concept-answer',{i:'0'});
 assert.ok(element.innerHTML.includes('もう一度確認しましょう'),'Wrong answer needs feedback');
 const key='kotobaBridge.progress.v1';
-assert.equal(JSON.parse(storage.get(key)).concepts.g11,undefined,'Do not mark incomplete guide as studied');
+const wrongSaved=storage.get(key);\nif(wrongSaved)assert.equal(JSON.parse(wrongSaved).concepts.g11,undefined,'Do not mark incorrect concept checks as studied');
 click('concept-retry');
 assert.ok(!element.innerHTML.includes('もう一度確認しましょう'));
 click('concept-answer',{i:'1'});
