@@ -364,3 +364,32 @@ button:focus-visible,input:focus-visible{outline:3px solid #62bfb3;outline-offse
 .concept-actions{flex-direction:column}
 .concept-related{padding:14px 16px}
 }
+
+
+/* v1.17: 3-chapter textbook-style study and per-chapter progress */
+.concept-progress{display:flex;align-items:center;gap:12px;margin-top:16px}
+.concept-progress .track{flex:1;background:#d7ece5;height:9px;border-radius:999px;overflow:hidden}
+.concept-progress small{font-size:12px;color:#42675c;white-space:nowrap}
+.concept-chapter-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.concept-chapter-tab{border-radius:13px;border:1px solid #d4e7e0;background:#fff;color:#3d6059;padding:13px 10px;display:grid;gap:4px;cursor:pointer;text-align:left;min-width:0}
+.concept-chapter-tab span{font-size:10px;font-weight:800;letter-spacing:.08em;color:#728980}
+.concept-chapter-tab strong{font-size:15px;color:#284c44}
+.concept-chapter-tab small{font-size:11px;color:#668078}
+.concept-chapter-tab.current{border:2px solid #188877;background:#effaf5;padding:12px 9px}
+.concept-chapter-tab.finished:not(.current){background:#f2faf5;border-color:#8ec9ae}
+.concept-chapter-tab.finished small{color:#127455}
+.concept-reading{white-space:pre-wrap;line-height:1.95;font-size:14px;padding:13px 15px;border-radius:10px;border:1px solid #d9e8e2;background:#f5faf8;color:#294d45;overflow-wrap:anywhere;margin:5px 0 12px}
+.concept-worked{border-radius:13px;border:1px solid #e7dec3;padding:16px;background:#fffdf6;display:grid;gap:10px}
+.concept-worked>strong{color:#876121;font-size:13px}
+.concept-worked>p{color:#3f534c;font-size:13px;line-height:1.8;margin:0;overflow-wrap:anywhere}
+.concept-worked-answer{border-radius:10px;padding:11px 14px;background:#f2f8f3;display:flex;flex-direction:column;gap:7px;border:1px solid #d7e9de}
+.concept-worked-answer span{font-size:11px;color:#45755f}
+.concept-worked-answer b{font-weight:800;font-size:15px;color:#1e6250;overflow-wrap:anywhere}
+@media(max-width:540px){
+ .concept-chapter-tabs{gap:5px}
+ .concept-chapter-tab{padding:10px 7px;border-radius:10px}
+ .concept-chapter-tab.current{padding:9px 6px}
+ .concept-chapter-tab strong{font-size:13px}
+ .concept-chapter-tab small,.concept-chapter-tab span{font-size:10px}
+ .concept-worked{padding:12px}
+}
