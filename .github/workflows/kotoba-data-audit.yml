@@ -27,6 +27,8 @@ jobs:
         run: node kotoba-bridge/test-vocab-quality.cjs
       - name: Test course bank, answer choices and legacy lesson preservation
         run: node kotoba-bridge/test-course-quality.cjs
+      - name: Test concept explanations, correct answers and learning progress
+        run: node kotoba-bridge/test-concept-study.cjs
       - name: Audit actual content data and offline assets
         run: |
           node kotoba-bridge/audit-data.cjs --json > kotoba-bridge-audit.json
