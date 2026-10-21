@@ -1,4 +1,4 @@
-# ことばの橋 / Kotoba Bridge — Alpha v1.16.0
+# ことばの橋 / Kotoba Bridge — Alpha v1.17.0
 
 Japanese-first Korean grammar, vocabulary, and reading learning game, with a white/mint/teal visual system inspired by Hanja Lab. It is a separate application and will not overwrite Hanja Lab files or storage.
 
@@ -242,3 +242,11 @@ Full source-level audit and dictionary references: [QUALITY-AUDIT-v1.13.0.md](./
 - Successfully answered checks are recorded in an additive `concepts` field inside existing `kotobaBridge.progress.v1` local progress, shown in study statistics and carried through JSON backup/import. All prior lesson IDs, 524 original course questions, 5,463 vocabulary cards and earlier user progress are preserved; quizzes remain accessible directly.
 - UI includes responsive single-column choices on phones and offline caching for `concept-data.js`. A new CI regression test validates all course-to-topic links and simulates the complete interactive concept → feedback → saved progress → quiz flow.
 - **Editorial scope:** These are an introductory theory pass: one core explanation per course plus existing grammar references where available, not yet a comprehensive multi-chapter textbook or a native-editor certified reference. L7/L8 remain unofficial extended difficulty tracks.
+
+## v1.17.0 — Structured three-chapter theory course (2026-10-21)
+- **All 68 lessons have three sequential concept chapters (204 lesson-specific chapter views):** (1) foundational rule/reading strategy, (2) usage contrasts and pitfalls, (3) a detailed worked example with an independent comprehension check.
+- Added **44 newly authored comparison explanations with Korean sample sentences and Japanese translations** in `concept-advanced-v17.js`. Chapter one reuses the 44 existing v1.16 foundations. Each lesson's chapter-three worked example and chapters two/three checks are sourced from its existing validated lesson bank; these are *guided reuse*, not 136 new unique graded questions.
+- A responsive three-tab chapter navigator shows individual completion and a 0/3–3/3 progress bar. The home action goes directly to theory; lesson cards show each course's current theory progress, and statistics count full three-chapter completion. Learners may navigate chapters freely or jump straight to the practice quiz.
+- Learning record remains in `kotobaBridge.progress.v1`: new `concepts[lessonId].steps = [bool,bool,bool]` are additive. Prior `done: true` concept records count as the foundational chapter complete (**1/3**) while their original legacy completion marker stays intact. All older lesson IDs, scores, vocab progress and JSON backups are preserved; import accepts both older concept records and the new three-step records.
+- Existing **68 lesson units, 524 original course questions, 5,463 headwords and complete Korean/Japanese sentence fields** remain unchanged. This is an educational alpha, not certified TOPIK coverage or professional Korean/Japanese copyediting.
+- GitHub Actions `test-concept-study.cjs` now checks all 68 mappings, the presence of three chapters, first/second/third chapter navigation and grading, chapter progress, preservation of legacy saved progress, and ability to launch existing quizzes. All new source assets are versioned `v1.17.0` and precached for offline study.
