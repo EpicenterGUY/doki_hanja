@@ -313,3 +313,54 @@ button:focus-visible,input:focus-visible{outline:3px solid #62bfb3;outline-offse
 .grammar-guide summary{flex-direction:column;align-items:flex-start;gap:3px}
 .grammar-guide summary span{font-size:11px}
 }
+
+
+/* v1.16.0: Japanese-first concept learning before problem practice. */
+.concept-screen{display:grid;gap:15px;max-width:980px;margin:0 auto}
+.concept-head{padding:22px 24px;border:1px solid #d9e9e4;border-radius:17px;background:linear-gradient(125deg,#f5fcf9,#edf7f6)}
+.concept-head h2{font-size:clamp(23px,4vw,30px);margin:13px 0 7px;color:#174f49}
+.concept-head p{font-size:13px;color:#4c6763;line-height:1.8;margin:0}
+.concept-finished{display:inline-block;margin-left:9px;color:#167a61;font-size:12px;font-weight:800}
+.concept-step{font-size:11px;font-weight:900;letter-spacing:.09em;color:#087e75;margin-bottom:12px}
+.concept-lesson{display:grid;gap:13px;padding:22px}
+.concept-lesson h3,.concept-check h3{font-size:17px;margin:0;color:#254641;line-height:1.55}
+.concept-lesson>p{margin:0;color:#334f4b;font-size:14px;line-height:1.9;white-space:pre-wrap;overflow-wrap:anywhere}
+.concept-form,.concept-tip{border-radius:11px;background:#eff8f5;padding:13px 15px;border:1px solid #d8eee7}
+.concept-form strong,.concept-tip strong{font-size:12px;color:#146e61}
+.concept-form p,.concept-tip p{margin:7px 0 0;line-height:1.9;font-size:13px;color:#375b54;overflow-wrap:anywhere}
+.concept-tip{background:#fffaf0;border-color:#f3e4bf}
+.concept-tip strong{color:#88632b}
+.concept-tip p{color:#6d5836}
+.concept-example{border-radius:13px;padding:17px 18px;background:#fff;border:1px solid #cde5dc;display:grid;gap:8px;line-height:1.8;font-size:13px;color:#48635d}
+.concept-korean{font-size:clamp(17px,3vw,20px);font-weight:850;color:#17695b;overflow-wrap:anywhere;white-space:pre-wrap}
+.concept-check{padding:22px;display:grid;gap:12px}
+.concept-check h3{margin-bottom:4px}
+.concept-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.concept-option{font:inherit;display:flex;align-items:center;gap:10px;text-align:left;padding:14px;border-radius:12px;border:1px solid #cfe3dc;background:#fff;color:#2b4b45;cursor:pointer;min-height:56px;overflow-wrap:anywhere}
+.concept-option:hover:not(:disabled){border-color:#168b78;background:#f2fbf7}
+.concept-option:disabled{cursor:default;opacity:.75}
+.concept-option.right{border-color:#62ad91;background:#e8f8ef;opacity:1}
+.concept-option.wrong{border-color:#d89189;background:#fff2f0;opacity:1}
+.concept-choice-marker{flex:0 0 25px;height:25px;border-radius:7px;display:grid;place-items:center;background:#e7f4ef;color:#176b5e;font-weight:900;font-size:12px}
+.concept-feedback{border:1px solid #bbe0cb;background:#f0faf2;color:#245a42;border-radius:12px;padding:12px 14px;font-size:13px;line-height:1.7}
+.concept-feedback.incorrect{border-color:#ecd5b1;background:#fffbf2;color:#7a5b2e}
+.concept-feedback p{margin:5px 0 0}
+.concept-related{padding:16px 22px}
+.concept-related h3{margin:0 0 5px}
+.concept-actions{display:flex;gap:10px;align-items:stretch;flex-wrap:wrap;justify-content:space-between}
+.concept-actions>.btn{flex:1;min-width:200px}
+.concept-intro{padding:17px;margin:16px 0;display:flex;align-items:center;justify-content:space-between;gap:15px;background:#f0faf6;border-color:#cce7dd}
+.concept-intro strong{font-size:15px;color:#136759}
+.concept-intro p{font-size:12px;margin:6px 0 0;line-height:1.7;color:#42645b}
+.concept-intro .btn{flex:0 0 auto}
+.concept-study-stat{padding:15px 18px;margin-bottom:14px}
+.concept-study-stat strong{color:#156e5f}
+.concept-study-stat p{margin:7px 0 0;color:#4d6b60;font-size:13px}
+@media(max-width:720px){
+.concept-head{padding:18px}.concept-lesson,.concept-check{padding:16px}
+.concept-options{grid-template-columns:1fr}
+.concept-intro{align-items:stretch;flex-direction:column}
+.concept-intro .btn,.concept-actions>.btn{width:100%}
+.concept-actions{flex-direction:column}
+.concept-related{padding:14px 16px}
+}
